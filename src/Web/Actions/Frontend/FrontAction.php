@@ -84,6 +84,10 @@ abstract class FrontAction extends Action
 
     /**
      * Renders the given template with the given data
+     * @param string $template
+     * @param array<mixed> $data
+     * @param int $statusCode
+     * @return Response
      * @throws Throwable
      */
     protected function render(string $template, array $data, int $statusCode = self::HTTP_OK): Response

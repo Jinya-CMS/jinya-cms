@@ -83,7 +83,6 @@ class Segment extends Utils\RearrangableEntity
      */
     public function getFile(): ?File
     {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return File::findById($this->fileId);
     }
 
@@ -112,7 +111,6 @@ class Segment extends Utils\RearrangableEntity
      */
     public function getGallery(): ?Gallery
     {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return Gallery::findById($this->galleryId);
     }
 
@@ -128,12 +126,11 @@ class Segment extends Utils\RearrangableEntity
      */
     public function getSegmentPage(): ?SegmentPage
     {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return SegmentPage::findById($this->pageId);
     }
 
     /**
-     * @return array
+     * @return array<string, array<string, int|string|null>|int|string|null>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException

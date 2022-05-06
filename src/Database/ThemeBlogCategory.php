@@ -9,9 +9,6 @@ use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
-/**
- *
- */
 class ThemeBlogCategory extends Utils\ThemeHelperEntity
 {
     public int $blogCategoryId = -1;
@@ -28,6 +25,9 @@ class ThemeBlogCategory extends Utils\ThemeHelperEntity
      */
     public static function findByThemeAndName(int $themeId, string $name): ThemeBlogCategory|null
     {
+        /**
+         * @phpstan-ignore-next-line
+         */
         return self::fetchByThemeAndName($themeId, $name, 'theme_blog_category', new self());
     }
 
@@ -40,6 +40,9 @@ class ThemeBlogCategory extends Utils\ThemeHelperEntity
      */
     public static function findByTheme(int $themeId): Iterator
     {
+        /**
+         * @phpstan-ignore-next-line
+         */
         return self::fetchByTheme($themeId, 'theme_blog_category', new self());
     }
 
@@ -68,7 +71,7 @@ class ThemeBlogCategory extends Utils\ThemeHelperEntity
     }
 
     /**
-     * @return array{blogCategory: array{description: null|string, id: int, name: string, parent: array|null}|null, name: string}
+     * @return array<string, array<string, mixed>|string|null>
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws NoResultException

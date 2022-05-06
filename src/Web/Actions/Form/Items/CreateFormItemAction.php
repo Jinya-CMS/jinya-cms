@@ -27,7 +27,6 @@ class CreateFormItemAction extends Action
      */
     protected function action(): Response
     {
-        $body = $this->request->getParsedBody();
         $id = $this->args['id'];
         $form = Form::findById($id);
 
@@ -36,17 +35,17 @@ class CreateFormItemAction extends Action
         }
 
         $formItem = new FormItem();
-        $formItem->formId = $form->id;
-        $formItem->label = $body['label'];
-        $formItem->placeholder = $body['placeholder'] ?? '';
-        $formItem->position = $body['position'];
-        $formItem->helpText = $body['helpText'] ?? '';
-        $formItem->type = $body['type'] ?? 'text';
-        $formItem->options = $body['options'] ?? [];
-        $formItem->spamFilter = array_filter($body['spamFilter'] ?? []);
-        $formItem->isFromAddress = $body['isFromAddress'] ?? false;
-        $formItem->isRequired = $body['isRequired'] ?? false;
-        $formItem->isSubject = $body['isSubject'] ?? false;
+        $formItem->formId = $form->getIdAsInt();
+        $formItem->label = $this->body['label'];
+        $formItem->placeholder = $this->body['placeholder'] ?? '';
+        $formItem->position = $this->body['position'];
+        $formItem->helpText = $this->body['helpText'] ?? '';
+        $formItem->type = $this->body['type'] ?? 'text';
+        $formItem->options = $this->body['options'] ?? [];
+        $formItem->spamFilter = array_filter($this->body['spamFilter'] ?? []);
+        $formItem->isFromAddress = $this->body['isFromAddress'] ?? false;
+        $formItem->isRequired = $this->body['isRequired'] ?? false;
+        $formItem->isSubject = $this->body['isSubject'] ?? false;
 
         $formItem->create();
 

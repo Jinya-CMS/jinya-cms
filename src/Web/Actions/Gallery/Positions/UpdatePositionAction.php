@@ -35,8 +35,8 @@ class UpdatePositionAction extends Action
             throw new NoResultException($this->request, 'Position not found');
         }
 
-        $body = $this->request->getParsedBody();
-        $fileId = $body['file'] ?? null;
+
+        $fileId = $this->body['file'] ?? null;
 
         if ($fileId) {
             $file = File::findById($fileId);
@@ -47,8 +47,8 @@ class UpdatePositionAction extends Action
             $galleryFilePosition->fileId = $fileId;
         }
 
-        if (isset($body['newPosition'])) {
-            $galleryFilePosition->move($body['newPosition']);
+        if (isset($this->body['newPosition'])) {
+            $galleryFilePosition->move($this->body['newPosition']);
         }
 
         return $this->noContent();

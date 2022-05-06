@@ -27,7 +27,7 @@ class FormTest extends TestCase
     public function testFindById(): void
     {
         $form = $this->createForm();
-        $foundForm = Form::findById($form->id);
+        $foundForm = Form::findById($form->getIdAsInt());
 
         $this->assertEquals($form->id, $foundForm->id);
         $this->assertEquals($form->title, $foundForm->title);
@@ -66,7 +66,7 @@ class FormTest extends TestCase
         $form = $this->createForm();
         $form->delete();
 
-        $foundForm = Form::findById($form->id);
+        $foundForm = Form::findById($form->getIdAsInt());
         $this->assertNull($foundForm);
     }
 
@@ -75,13 +75,13 @@ class FormTest extends TestCase
         $form = $this->createForm();
         $item = new FormItem();
         $item->type = 'text';
-        $item->formId = $form->id;
+        $item->formId = $form->getIdAsInt();
         $item->label = 'Label';
         $item->position = 0;
         $item->create();
         $form->delete();
 
-        $foundForm = Form::findById($form->id);
+        $foundForm = Form::findById($form->getIdAsInt());
         $this->assertNull($foundForm);
     }
 
@@ -90,7 +90,7 @@ class FormTest extends TestCase
         $form = $this->createForm(execute: false);
         $form->delete();
 
-        $foundForm = Form::findById($form->id);
+        $foundForm = Form::findById($form->getIdAsInt());
         $this->assertNull($foundForm);
     }
 
@@ -121,7 +121,7 @@ class FormTest extends TestCase
         $form->toAddress = 'test@example.com';
         $form->update();
 
-        $foundForm = Form::findById($form->id);
+        $foundForm = Form::findById($form->getIdAsInt());
         $this->assertEquals($form->title, $foundForm->title);
         $this->assertEquals($form->description, $foundForm->description);
         $this->assertEquals($form->toAddress, $foundForm->toAddress);
@@ -151,7 +151,7 @@ class FormTest extends TestCase
         $form->toAddress = 'test@example.com';
         $form->update();
 
-        Form::findById($form->id);
+        Form::findById($form->getIdAsInt());
     }
 
     public function testFindByKeyword(): void
@@ -168,7 +168,7 @@ class FormTest extends TestCase
         $form = $this->createForm();
         $item = new FormItem();
         $item->type = 'text';
-        $item->formId = $form->id;
+        $item->formId = $form->getIdAsInt();
         $item->label = 'Label';
         $item->position = 0;
         $item->create();
@@ -182,7 +182,7 @@ class FormTest extends TestCase
         $form = $this->createForm();
         $item = new FormItem();
         $item->type = 'text';
-        $item->formId = $form->id;
+        $item->formId = $form->getIdAsInt();
         $item->label = 'Label';
         $item->position = 0;
         $item->create();
@@ -190,7 +190,7 @@ class FormTest extends TestCase
         $form2 = $this->createForm(title: 'Form2');
         $item2 = new FormItem();
         $item2->type = 'text';
-        $item2->formId = $form2->id;
+        $item2->formId = $form2->getIdAsInt();
         $item2->label = 'Label';
         $item2->position = 0;
         $item2->create();
@@ -204,7 +204,7 @@ class FormTest extends TestCase
         $form = $this->createForm(execute: false);
         $form->create();
 
-        $foundForm = Form::findById($form->id);
+        $foundForm = Form::findById($form->getIdAsInt());
         $this->assertNotNull($foundForm);
     }
 

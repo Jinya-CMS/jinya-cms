@@ -33,7 +33,7 @@ class FormMessageHandler
      * Handles the form post and creates
      *
      * @param Form $form
-     * @param array $body
+     * @param array<string, string|bool> $body
      * @param ServerRequestInterface $request
      * @throws Exception
      * @throws ForeignKeyFailedException
@@ -56,32 +56,32 @@ class FormMessageHandler
             } else {
                 $value = $body[$item->id];
             }
-            if ($item->isRequired && !isset($value)) {
+            if ($item->isRequired) {
                 $missingFields[] = $item->label;
             }
 
             if ($item->isSubject) {
-                $subject = $value ?? 'New Message';
+                $subject = $value ?: 'New Message';
             }
 
             if ($item->isFromAddress) {
-                $fromAddress = $value ?? 'Some person';
+                $fromAddress = $value ?: 'Some person';
             }
 
-            $formValues[$item->label] = $value ?? null;
+            $formValues[$item->label] = $value ?: null;
             $spamFilter = $item->spamFilter;
-            $isSpam |= $this->isSpam($value, $spamFilter);
+            $isSpam |= $this->isSpam((string)$value, $spamFilter);
         }
 
         if (!$isSpam) {
             $mailer = MailerFactory::getMailer();
-            if ($fromAddress !== 'Some person') {
+            if ($fromAddress !== 'Some person' && !is_bool($fromAddress)) {
                 $mailer->addReplyTo($fromAddress);
             }
             $mailer->addAddress($form->toAddress);
-            $mailer->setFrom(getenv('MAILER_FROM'));
-            $mailer->Subject = $subject;
-            $mailer->Body = $this->renderTemplate($formValues, $subject);
+            $mailer->setFrom(getenv('MAILER_FROM') ?: '');
+            $mailer->Subject = (string)$subject;
+            $mailer->Body = $this->renderTemplate($formValues, $mailer->Subject);
             $mailer->isHTML();
             $mailer->send();
         }
@@ -91,6 +91,11 @@ class FormMessageHandler
         }
     }
 
+    /**
+     * @param string $value
+     * @param array<string> $spamValues
+     * @return bool
+     */
     private function isSpam(string $value, array $spamValues): bool
     {
         $values = array_filter($spamValues);
@@ -108,6 +113,9 @@ class FormMessageHandler
     }
 
     /**
+     * @param array<string, mixed> $data
+     * @param string $title
+     * @return string
      * @throws Throwable
      */
     public function renderTemplate(array $data, string $title): string

@@ -17,7 +17,7 @@ class ExecuteQueryAction extends Action
      */
     protected function action(): Response
     {
-        $query = $this->request->getParsedBody()['query'];
+        $query = $this->body['query'];
 
         $queryAnalyzer = new QueryAnalyzer();
 

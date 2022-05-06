@@ -21,6 +21,7 @@ class JsonStrategy implements StrategyInterface
 
     /**
      * {@inheritDoc}
+     * @param array<string>|null $data
      * @throws JsonException
      */
     public function hydrate($value, ?array $data)

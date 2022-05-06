@@ -50,7 +50,7 @@ class TwoFactorMail
 
         $mailer = MailerFactory::getMailer();
         $mailer->Subject = 'Your two factor code';
-        $mailer->setFrom(getenv('MAILER_FROM'));
+        $mailer->setFrom(getenv('MAILER_FROM') ?: '');
         $mailer->addAddress($artistEmail);
         $mailer->AltBody = $renderedTextMail;
         $mailer->Body = $renderedHtmlMail;

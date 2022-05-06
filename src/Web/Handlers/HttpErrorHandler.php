@@ -6,7 +6,6 @@ namespace App\Web\Handlers;
 
 use App\Web\Actions\Action;
 use App\Web\Exceptions\MissingFieldsException;
-use App\Web\Exceptions\MissingOneOfFieldsException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -40,7 +39,7 @@ class HttpErrorHandler extends SlimErrorHandler
         ];
 
         $code = Action::HTTP_INTERNAL_SERVER_ERROR;
-        if ($exception instanceof MissingFieldsException || $exception instanceof MissingOneOfFieldsException) {
+        if ($exception instanceof MissingFieldsException) {
             $data = $exception;
             $code = Action::HTTP_BAD_REQUEST;
         }

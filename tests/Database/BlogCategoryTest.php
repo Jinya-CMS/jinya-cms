@@ -13,7 +13,7 @@ class BlogCategoryTest extends TestCase
     public function testFindById(): void
     {
         $cat = $this->createBlogCategory();
-        $foundCat = BlogCategory::findById($cat->id);
+        $foundCat = BlogCategory::findById($cat->getIdAsInt());
 
         $this->assertEquals($cat, $foundCat);
     }
@@ -67,7 +67,7 @@ class BlogCategoryTest extends TestCase
         $cat->name = 'New category';
         $cat->update();
 
-        $foundCat = BlogCategory::findById($cat->id);
+        $foundCat = BlogCategory::findById($cat->getIdAsInt());
         $this->assertEquals($cat, $foundCat);
     }
 
@@ -77,7 +77,7 @@ class BlogCategoryTest extends TestCase
         $cat->name = 'New category';
         $cat->update();
 
-        $foundCat = BlogCategory::findById($cat->id);
+        $foundCat = BlogCategory::findById($cat->getIdAsInt());
         $this->assertNull($foundCat);
     }
 
@@ -85,7 +85,7 @@ class BlogCategoryTest extends TestCase
     {
         $cat = $this->createBlogCategory();
         $catWithParent = $this->createBlogCategory(false, name: 'Cat with parent');
-        $catWithParent->parentId = $cat->id;
+        $catWithParent->parentId = $cat->getIdAsInt();
         $catWithParent->create();
 
         self::assertEquals($catWithParent->format(), [
@@ -134,7 +134,7 @@ class BlogCategoryTest extends TestCase
     {
         $cat = $this->createBlogCategory();
         $catWithParent = $this->createBlogCategory(false, name: 'Cat with parent');
-        $catWithParent->parentId = $cat->id;
+        $catWithParent->parentId = $cat->getIdAsInt();
         $catWithParent->create();
 
         $this->assertEquals($cat, $catWithParent->getParent());
@@ -152,7 +152,7 @@ class BlogCategoryTest extends TestCase
         $cat = $this->createBlogCategory(false);
         $cat->create();
 
-        $foundCat = BlogCategory::findById($cat->id);
+        $foundCat = BlogCategory::findById($cat->getIdAsInt());
         $this->assertEquals($cat, $foundCat);
     }
 
@@ -161,7 +161,7 @@ class BlogCategoryTest extends TestCase
         $cat = $this->createBlogCategory();
         $cat->delete();
 
-        $this->assertNull(BlogCategory::findById($cat->id));
+        $this->assertNull(BlogCategory::findById($cat->getIdAsInt()));
     }
 
     public function testDeleteNotExistent(): void
@@ -169,7 +169,7 @@ class BlogCategoryTest extends TestCase
         $cat = $this->createBlogCategory(false);
         $cat->delete();
 
-        $this->assertNull(BlogCategory::findById($cat->id));
+        $this->assertNull(BlogCategory::findById($cat->getIdAsInt()));
     }
 
     public function testGetBlogPostsNoPostsIncludeChildren(): void
@@ -190,16 +190,16 @@ class BlogCategoryTest extends TestCase
     {
         $cat = $this->createBlogCategory();
         $catWithParent = $this->createBlogCategory(false, name: 'Cat with parent');
-        $catWithParent->parentId = $cat->id;
+        $catWithParent->parentId = $cat->getIdAsInt();
         $catWithParent->create();
 
         $catWithParent2 = $this->createBlogCategory(false, name: 'Cat with parent 2');
-        $catWithParent2->parentId = $catWithParent->id;
+        $catWithParent2->parentId = $catWithParent->getIdAsInt();
         $catWithParent2->create();
 
-        $this->createBlogPost('Test 1', 'test-1', $cat->id);
-        $this->createBlogPost('Test 2', 'test-2', $catWithParent->id);
-        $this->createBlogPost('Test 3', 'test-3', $catWithParent2->id);
+        $this->createBlogPost('Test 1', 'test-1', $cat->getIdAsInt());
+        $this->createBlogPost('Test 2', 'test-2', $catWithParent->getIdAsInt());
+        $this->createBlogPost('Test 3', 'test-3', $catWithParent2->getIdAsInt());
 
         $posts = $cat->getBlogPosts(true);
         self::assertCount(3, $posts);
@@ -222,16 +222,16 @@ class BlogCategoryTest extends TestCase
     {
         $cat = $this->createBlogCategory();
         $catWithParent = $this->createBlogCategory(false, name: 'Cat with parent');
-        $catWithParent->parentId = $cat->id;
+        $catWithParent->parentId = $cat->getIdAsInt();
         $catWithParent->create();
 
         $catWithParent2 = $this->createBlogCategory(false, name: 'Cat with parent 2');
-        $catWithParent2->parentId = $catWithParent->id;
+        $catWithParent2->parentId = $catWithParent->getIdAsInt();
         $catWithParent2->create();
 
-        $this->createBlogPost('Test 1', 'test-1', $cat->id);
-        $this->createBlogPost('Test 2', 'test-2', $catWithParent->id);
-        $this->createBlogPost('Test 3', 'test-3', $catWithParent2->id);
+        $this->createBlogPost('Test 1', 'test-1', $cat->getIdAsInt());
+        $this->createBlogPost('Test 2', 'test-2', $catWithParent->getIdAsInt());
+        $this->createBlogPost('Test 3', 'test-3', $catWithParent2->getIdAsInt());
 
         $posts = $cat->getBlogPosts(false);
         self::assertCount(1, $posts);

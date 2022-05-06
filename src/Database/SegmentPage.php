@@ -35,13 +35,13 @@ class SegmentPage extends Utils\LoadableEntity
     /**
      * @inheritDoc
      * @param int $id
-     * @return object|null
+     * @return SegmentPage|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
      * @throws NoResultException
      */
-    public static function findById(int $id): ?object
+    public static function findById(int $id): ?SegmentPage
     {
         return self::fetchSingleById(
             'segment_page',
@@ -56,6 +56,7 @@ class SegmentPage extends Utils\LoadableEntity
 
     /**
      * @inheritDoc
+     * @return Iterator<SegmentPage>
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -73,6 +74,7 @@ class SegmentPage extends Utils\LoadableEntity
 
     /**
      * @inheritDoc
+     * @return Iterator<SegmentPage>
      */
     public static function findAll(): Iterator
     {
@@ -135,7 +137,7 @@ class SegmentPage extends Utils\LoadableEntity
     /**
      * Formats the current segment_page
      *
-     * @return array
+     * @return array<string, array<string, array<string, string|null>|string>|int|string>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -158,17 +160,17 @@ class SegmentPage extends Utils\LoadableEntity
             'segmentCount' => iterator_count($this->getSegments()),
             'created' => [
                 'by' => [
-                    'artistName' => $creator->artistName,
-                    'email' => $creator->email,
-                    'profilePicture' => $creator->profilePicture,
+                    'artistName' => $creator?->artistName,
+                    'email' => $creator?->email,
+                    'profilePicture' => $creator?->profilePicture,
                 ],
                 'at' => $this->createdAt->format(DATE_ATOM),
             ],
             'updated' => [
                 'by' => [
-                    'artistName' => $updatedBy->artistName,
-                    'email' => $updatedBy->email,
-                    'profilePicture' => $updatedBy->profilePicture,
+                    'artistName' => $updatedBy?->artistName,
+                    'email' => $updatedBy?->email,
+                    'profilePicture' => $updatedBy?->profilePicture,
                 ],
                 'at' => $this->lastUpdatedAt->format(DATE_ATOM),
             ],

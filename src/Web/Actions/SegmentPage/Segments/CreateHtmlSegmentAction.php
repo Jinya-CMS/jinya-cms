@@ -28,7 +28,7 @@ class CreateHtmlSegmentAction extends Action
      */
     protected function action(): Response
     {
-        $body = $this->request->getParsedBody();
+
         $id = $this->args['id'];
         $segmentPage = SegmentPage::findById($id);
 
@@ -38,14 +38,14 @@ class CreateHtmlSegmentAction extends Action
 
         $segment = new Segment();
         $segment->pageId = $id;
-        $segment->html = $body['html'];
+        $segment->html = $this->body['html'];
         $segment->fileId = null;
         $segment->galleryId = null;
         $segment->formId = null;
         $segment->script = null;
         $segment->target = null;
         $segment->action = null;
-        $segment->position = $body['position'];
+        $segment->position = $this->body['position'];
 
         $segment->create();
 

@@ -24,7 +24,7 @@ class ThemeSyncer
     {
         $allThemes = iterator_to_array(Database\Theme::findAll());
         $themes = array_filter(
-            array_diff(scandir(self::THEME_BASE_PATH), ['..', '.']),
+            array_diff(scandir(self::THEME_BASE_PATH) ?: [], ['..', '.']),
             static fn($item) => is_dir(self::THEME_BASE_PATH . $item) && is_file(
                     self::THEME_BASE_PATH . "$item/theme.php"
                 )

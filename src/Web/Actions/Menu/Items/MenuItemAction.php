@@ -29,11 +29,6 @@ abstract class MenuItemAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      * @throws \Jinya\PDOx\Exceptions\NoResultException
-     * @throws \Jinya\PDOx\Exceptions\NoResultException
-     * @throws \Jinya\PDOx\Exceptions\NoResultException
-     * @throws \Jinya\PDOx\Exceptions\NoResultException
-     * @throws \Jinya\PDOx\Exceptions\NoResultException
-     * @throws \Jinya\PDOx\Exceptions\NoResultException
      */
     public function fillMenuItem(MenuItem $menuItem = null): MenuItem
     {
@@ -41,13 +36,12 @@ abstract class MenuItemAction extends Action
             $menuItem = new MenuItem();
         }
 
-        $body = $this->request->getParsedBody();
-        if (isset($body['route'])) {
-            $menuItem->route = $body['route'];
+        if (isset($this->body['route'])) {
+            $menuItem->route = $this->body['route'];
         }
 
-        if (isset($body['artist'])) {
-            $artist = Artist::findById($body['artist']);
+        if (isset($this->body['artist'])) {
+            $artist = Artist::findById($this->body['artist']);
             if (!$artist) {
                 throw new NoResultException($this->request, 'Artist not found');
             }
@@ -59,8 +53,8 @@ abstract class MenuItemAction extends Action
             $menuItem->galleryId = null;
             $menuItem->categoryId = null;
             $menuItem->blogHomePage = false;
-        } elseif (isset($body['form'])) {
-            $form = Form::findById($body['form']);
+        } elseif (isset($this->body['form'])) {
+            $form = Form::findById($this->body['form']);
             if (!$form) {
                 throw new NoResultException($this->request, 'Form not found');
             }
@@ -72,8 +66,8 @@ abstract class MenuItemAction extends Action
             $menuItem->galleryId = null;
             $menuItem->categoryId = null;
             $menuItem->blogHomePage = false;
-        } elseif (isset($body['page'])) {
-            $page = SimplePage::findById($body['page']);
+        } elseif (isset($this->body['page'])) {
+            $page = SimplePage::findById($this->body['page']);
             if (!$page) {
                 throw new NoResultException($this->request, 'Page not found');
             }
@@ -85,15 +79,15 @@ abstract class MenuItemAction extends Action
             $menuItem->galleryId = null;
             $menuItem->categoryId = null;
             $menuItem->blogHomePage = false;
-        } elseif (isset($body['segmentPage'])) {
-            $segmentPage = SegmentPage::findById($body['segmentPage']);
+        } elseif (isset($this->body['segmentPage'])) {
+            $segmentPage = SegmentPage::findById($this->body['segmentPage']);
             if (!$segmentPage) {
                 throw new NoResultException($this->request, 'Segment page not found');
             }
 
             $menuItem->segmentPageId = $segmentPage->getIdAsInt();
-        } elseif (isset($body['gallery'])) {
-            $gallery = Gallery::findById($body['gallery']);
+        } elseif (isset($this->body['gallery'])) {
+            $gallery = Gallery::findById($this->body['gallery']);
             if (!$gallery) {
                 throw new NoResultException($this->request, 'Gallery not found');
             }
@@ -105,8 +99,8 @@ abstract class MenuItemAction extends Action
             $menuItem->formId = null;
             $menuItem->categoryId = null;
             $menuItem->blogHomePage = false;
-        } elseif (isset($body['category'])) {
-            $category = BlogCategory::findById($body['category']);
+        } elseif (isset($this->body['category'])) {
+            $category = BlogCategory::findById($this->body['category']);
             if (!$category) {
                 throw new NoResultException($this->request, 'Category not found');
             }
@@ -120,20 +114,20 @@ abstract class MenuItemAction extends Action
             $menuItem->blogHomePage = false;
         }
 
-        if (isset($body['blogHomePage'])) {
-            $menuItem->blogHomePage = $body['blogHomePage'];
+        if (isset($this->body['blogHomePage'])) {
+            $menuItem->blogHomePage = $this->body['blogHomePage'];
         }
 
-        if (isset($body['position'])) {
-            $menuItem->position = $body['position'];
+        if (isset($this->body['position'])) {
+            $menuItem->position = $this->body['position'];
         }
 
-        if (isset($body['title'])) {
-            $menuItem->title = $body['title'];
+        if (isset($this->body['title'])) {
+            $menuItem->title = $this->body['title'];
         }
 
-        if (isset($body['highlighted'])) {
-            $menuItem->highlighted = $body['highlighted'];
+        if (isset($this->body['highlighted'])) {
+            $menuItem->highlighted = $this->body['highlighted'];
         }
 
         return $menuItem;
@@ -141,6 +135,8 @@ abstract class MenuItemAction extends Action
 
     /**
      * Formats an iterator recursively
+     *
+     * @return array<mixed>
      */
     protected function formatIteratorRecursive(Iterator $iterator): array
     {

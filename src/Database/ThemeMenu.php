@@ -9,9 +9,6 @@ use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
-/**
- *
- */
 class ThemeMenu extends ThemeHelperEntity
 {
 
@@ -31,6 +28,9 @@ class ThemeMenu extends ThemeHelperEntity
      */
     public static function findByThemeAndName(int $themeId, string $name): ?ThemeMenu
     {
+        /**
+         * @phpstan-ignore-next-line
+         */
         return self::fetchByThemeAndName($themeId, $name, 'theme_menu', new self());
     }
 
@@ -49,7 +49,7 @@ class ThemeMenu extends ThemeHelperEntity
     }
 
     /**
-     * @return array
+     * @return array<string, array<string, array<string, int|string>|int|string>|string|null>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -75,7 +75,6 @@ class ThemeMenu extends ThemeHelperEntity
      */
     public function getMenu(): ?Menu
     {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return Menu::findById($this->menuId);
     }
 

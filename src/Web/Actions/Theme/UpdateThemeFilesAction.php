@@ -14,9 +14,6 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 use ZipArchive;
 
-/**
- *
- */
 class UpdateThemeFilesAction extends Action
 {
 
@@ -31,7 +28,6 @@ class UpdateThemeFilesAction extends Action
      */
     protected function action(): Response
     {
-        /** @var Theme $theme */
         $theme = Theme::findById($this->args['id']);
         if ($theme) {
             $tmpFile = __JINYA_TEMP . UuidGenerator::generateV4();

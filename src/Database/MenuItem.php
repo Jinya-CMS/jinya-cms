@@ -10,9 +10,6 @@ use Laminas\Hydrator\Strategy\BooleanStrategy;
 use LogicException;
 use RuntimeException;
 
-/**
- *
- */
 class MenuItem extends Utils\RearrangableEntity
 {
     public ?int $menuId = null;
@@ -132,7 +129,6 @@ class MenuItem extends Utils\RearrangableEntity
     public function getParent(): ?MenuItem
     {
         if ($this->parentId !== null) {
-            /** @noinspection PhpIncompatibleReturnTypeInspection */
             return self::findById($this->parentId);
         }
 
@@ -142,13 +138,13 @@ class MenuItem extends Utils\RearrangableEntity
     /**
      * {@inheritDoc}
      * @param int $id
-     * @return object|null
+     * @return MenuItem|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
      * @throws NoResultException
      */
-    public static function findById(int $id): ?object
+    public static function findById(int $id): ?MenuItem
     {
         return self::fetchSingleById('menu_item', $id, new self(), ['highlighted' => new BooleanStrategy(1, 0)]);
     }
@@ -165,7 +161,6 @@ class MenuItem extends Utils\RearrangableEntity
     public function getMenu(): ?Menu
     {
         if ($this->menuId !== null) {
-            /** @noinspection PhpIncompatibleReturnTypeInspection */
             return Menu::findById($this->menuId);
         }
 
@@ -234,7 +229,7 @@ class MenuItem extends Utils\RearrangableEntity
     /**
      * Formats the menu items below this recursive
      *
-     * @return array
+     * @return array<string, array<string>|bool|int|string|null>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -251,12 +246,11 @@ class MenuItem extends Utils\RearrangableEntity
     /**
      * Formats the given menu item
      *
-     * @return array
+     * @return array<string, array<string, int|string|null>|bool|int|string|null>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
      * @throws NoResultException
-     * @noinspection NullPointerExceptionInspection
      */
     public function format(): array
     {
@@ -272,39 +266,39 @@ class MenuItem extends Utils\RearrangableEntity
         if (isset($this->formId)) {
             $form = $this->getForm();
             $data['form'] = [
-                'id' => $form->getIdAsInt(),
-                'title' => $form->title,
+                'id' => $form?->getIdAsInt(),
+                'title' => $form?->title,
             ];
         } elseif (isset($this->artistId)) {
             $artist = $this->getArtist();
             $data['artist'] = [
-                'id' => $artist->getIdAsInt(),
-                'artistName' => $artist->artistName,
-                'email' => $artist->email,
+                'id' => $artist?->getIdAsInt(),
+                'artistName' => $artist?->artistName,
+                'email' => $artist?->email,
             ];
         } elseif (isset($this->pageId)) {
             $page = $this->getPage();
             $data['page'] = [
-                'id' => $page->getIdAsInt(),
-                'title' => $page->title,
+                'id' => $page?->getIdAsInt(),
+                'title' => $page?->title,
             ];
         } elseif (isset($this->segmentPageId)) {
             $segmentPage = $this->getSegmentPage();
             $data['segmentPage'] = [
-                'id' => $segmentPage->getIdAsInt(),
-                'name' => $segmentPage->name,
+                'id' => $segmentPage?->getIdAsInt(),
+                'name' => $segmentPage?->name,
             ];
         } elseif (isset($this->galleryId)) {
             $gallery = $this->getGallery();
             $data['gallery'] = [
-                'id' => $gallery->getIdAsInt(),
-                'name' => $gallery->name,
+                'id' => $gallery?->getIdAsInt(),
+                'name' => $gallery?->name,
             ];
         } elseif (isset($this->categoryId)) {
             $category = $this->getBlogCategory();
             $data['category'] = [
-                'id' => $category->getIdAsInt(),
-                'name' => $category->name,
+                'id' => $category?->getIdAsInt(),
+                'name' => $category?->name,
             ];
         }
 
@@ -362,7 +356,6 @@ class MenuItem extends Utils\RearrangableEntity
             return null;
         }
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return SimplePage::findById($this->pageId);
     }
 
@@ -381,7 +374,6 @@ class MenuItem extends Utils\RearrangableEntity
             return null;
         }
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return SegmentPage::findById($this->segmentPageId);
     }
 
@@ -400,7 +392,6 @@ class MenuItem extends Utils\RearrangableEntity
             return null;
         }
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return Gallery::findById($this->galleryId);
     }
 
@@ -426,7 +417,7 @@ class MenuItem extends Utils\RearrangableEntity
      * Format the artist list
      *
      * @param Iterator $iterator
-     * @return array
+     * @return array<int, mixed>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException

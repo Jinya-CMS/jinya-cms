@@ -85,7 +85,7 @@ abstract class ThemeHelperEntity extends LoadableEntity
      * @param int $themeId
      * @param string $table
      * @param ThemeAsset|ThemeFile|ThemeForm|ThemeGallery|ThemeMenu|ThemePage|ThemeSegmentPage|ThemeBlogCategory $prototype
-     * @return Iterator
+     * @return Iterator<object>
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException

@@ -5,6 +5,7 @@ namespace App\Database\Analyzer;
 use App\Database\Utils\LoadableEntity;
 use Error;
 use JetBrains\PhpStorm\ArrayShape;
+use LogicException;
 
 /**
  *
@@ -15,10 +16,16 @@ class DatabaseAnalyzer
     public const LOCAL_VARIABLES = 'LOCAL';
     public const SESSION_VARIABLES = 'SESSION';
 
+    /**
+     * @return array<int|string, array<string, mixed|int|string>>
+     */
     public static function getTables(): array
     {
         $tables = LoadableEntity::executeSqlString('SHOW TABLES');
         $result = [];
+        if (!is_array($tables)) {
+            throw new LogicException('Query must return array');
+        }
         foreach ($tables as $table) {
             $tableName = $table[array_keys($table)[0]];
             $result[$tableName]['structure'] = LoadableEntity::executeSqlString("EXPLAIN $tableName");
@@ -37,6 +44,9 @@ class DatabaseAnalyzer
         return $result;
     }
 
+    /**
+     * @return array<string, string>
+     */
     #[ArrayShape(['version' => 'string', 'comment' => 'string', 'compileMachine' => 'string', 'compileOs' => 'string'])]
     public static function getServerInfo(): array
     {
@@ -50,9 +60,15 @@ class DatabaseAnalyzer
         ];
     }
 
+    /**
+     * @return array<int|string, mixed>
+     */
     public static function getVariables(string $type): array
     {
         $variables = LoadableEntity::executeSqlString("SHOW $type VARIABLES");
+        if (!is_array($variables)) {
+            throw new LogicException('Query must return array');
+        }
 
         $returnVal = [];
         foreach ($variables as $variable) {

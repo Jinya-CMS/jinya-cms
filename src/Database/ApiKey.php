@@ -72,7 +72,7 @@ class ApiKey extends Utils\LoadableEntity
      * Gets all api keys for the given artist
      *
      * @param int $artistId
-     * @return Iterator
+     * @return Iterator<ApiKey>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -151,6 +151,9 @@ class ApiKey extends Utils\LoadableEntity
         );
     }
 
+    /**
+     * @return array<string, string>
+     */
     #[ArrayShape([
         'remoteAddress' => 'string',
         'validSince' => DateTime::class,

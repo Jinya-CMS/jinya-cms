@@ -99,7 +99,6 @@ class BlogPost extends Utils\LoadableEntity
      * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      * @throws NoResultException
-     * @throws NoResultException
      */
     public static function findBySlug(string $slug): BlogPost|null
     {
@@ -116,7 +115,7 @@ class BlogPost extends Utils\LoadableEntity
     }
 
     /**
-     * @param array<array{html: string, file: int, gallery: int, link: string}> $newSegments
+     * @param array<int, array<string, int|string>> $newSegments
      * @throws TransactionFailedException
      */
     public function batchReplaceSegments(array $newSegments): void
@@ -133,11 +132,9 @@ class BlogPost extends Utils\LoadableEntity
             if (array_key_exists('file', $newSegment)) {
                 $query = 'INSERT INTO blog_post_segment (blog_post_id, file_id, position, link) VALUES (:blogPostId, :fileId, :position, :link)';
                 $params = ['fileId' => $newSegment['file'], 'link' => $newSegment['link'] ?? null];
-                /** @phpstan-ignore-next-line */
             } elseif (array_key_exists('gallery', $newSegment)) {
                 $query = 'INSERT INTO blog_post_segment (blog_post_id, gallery_id, position) VALUES (:blogPostId, :galleryId, :position)';
                 $params = ['galleryId' => $newSegment['gallery']];
-                /** @phpstan-ignore-next-line */
             } else {
                 $query = 'INSERT INTO blog_post_segment (blog_post_id, html, position) VALUES (:blogPostId, :html, :position)';
                 $params = ['html' => $newSegment['html'] ?? ''];
@@ -200,13 +197,22 @@ class BlogPost extends Utils\LoadableEntity
     /**
      * @inheritDoc
      * @psalm-suppress MoreSpecificReturnType
-     * @return array{id: int, title: string, slug: string, headerImage: array, public: bool, created: array, category: array}
+     * @return array<string, array<string, array<string, string|null>|int|string>|bool|int|string|null>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
      * @throws NoResultException
      */
-    #[ArrayShape(['id' => 'int|string', 'title' => 'string', 'slug' => 'string', 'headerImage' => 'array|null', 'category' => 'array|null', 'public' => 'bool', 'created' => 'array'])] public function format(): array
+    #[ArrayShape([
+        'id' => 'int|string',
+        'title' => 'string',
+        'slug' => 'string',
+        'headerImage' => 'array|null',
+        'category' => 'array|null',
+        'public' => 'bool',
+        'created' => 'array',
+    ])]
+    public function format(): array
     {
         $creator = $this->getCreator();
         $headerImage = $this->getHeaderImage();
@@ -229,10 +235,6 @@ class BlogPost extends Utils\LoadableEntity
             $categoryFormat = null;
         }
 
-        /**
-         * @psalm-suppress LessSpecificReturnStatement
-         * @phpstan-ignore-next-line
-         */
         return [
             'id' => $this->id,
             'title' => $this->title,
@@ -276,7 +278,6 @@ class BlogPost extends Utils\LoadableEntity
             return null;
         }
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return File::findById($this->headerImageId);
     }
 

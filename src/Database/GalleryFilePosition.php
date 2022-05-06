@@ -93,7 +93,7 @@ class GalleryFilePosition extends Utils\RearrangableEntity
     }
 
     /**
-     * @return array
+     * @return array<string, array<string, int|string|null>|int>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -137,7 +137,6 @@ class GalleryFilePosition extends Utils\RearrangableEntity
      */
     public function getGallery(): ?Gallery
     {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return Gallery::findById($this->galleryId);
     }
 
@@ -153,7 +152,6 @@ class GalleryFilePosition extends Utils\RearrangableEntity
      */
     public function getFile(): ?File
     {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return File::findById($this->fileId);
     }
 

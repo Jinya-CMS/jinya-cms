@@ -30,10 +30,10 @@ class CreatePositionAction extends Action
      */
     protected function action(): Response
     {
-        $body = $this->request->getParsedBody();
+
         $galleryId = $this->args['galleryId'];
-        $position = $body['position'];
-        $file = $body['file'];
+        $position = $this->body['position'];
+        $file = $this->body['file'];
 
         if (!File::findById($file)) {
             throw new NoResultException($this->request, 'File not found');

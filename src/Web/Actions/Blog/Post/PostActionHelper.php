@@ -25,7 +25,7 @@ trait PostActionHelper
     protected function executeHook(BlogPost $post, string $host): void
     {
         $logger = Logger::getLogger();
-        $body = [
+        $this->body = [
             'post' => $post->format(),
             'url' => "https://$host/" . $post->createdAt->format('Y/m/d') . "/$post->slug",
         ];
@@ -33,7 +33,7 @@ trait PostActionHelper
         try {
             $category = $post->getCategory();
             $url = HttpUri::createFromString($category?->webhookUrl);
-            $postBody = json_encode($body, JSON_THROW_ON_ERROR);
+            $postBody = json_encode($this->body, JSON_THROW_ON_ERROR);
 
             $scheme = $url->getScheme() === 'https' ? 'ssl://' : '';
             $host = $scheme . $url->getHost();

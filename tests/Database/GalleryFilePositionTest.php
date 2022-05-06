@@ -78,7 +78,7 @@ class GalleryFilePositionTest extends TestCase
         $galleryFilePosition->fileId = $this->file2->getIdAsInt();
         $galleryFilePosition->update();
 
-        $savedItem = GalleryFilePosition::findByPosition($this->gallery->id, $galleryFilePosition->position);
+        $savedItem = GalleryFilePosition::findByPosition($this->gallery->getIdAsInt(), $galleryFilePosition->position);
         $this->assertEquals($galleryFilePosition->fileId, $savedItem->fileId);
     }
 
@@ -88,7 +88,7 @@ class GalleryFilePositionTest extends TestCase
         $galleryFilePosition->delete();
         $galleryFilePosition->update();
 
-        $savedItem = GalleryFilePosition::findByPosition($this->gallery->id, $galleryFilePosition->position);
+        $savedItem = GalleryFilePosition::findByPosition($this->gallery->getIdAsInt(), $galleryFilePosition->position);
         $this->assertNull($savedItem);
     }
 
@@ -100,6 +100,7 @@ class GalleryFilePositionTest extends TestCase
         $galleryFilePosition = $this->createGalleryFilePosition(3);
 
         $galleryFilePosition->move(1);
+        /** @var array<GalleryFilePosition> $items */
         $items = iterator_to_array($this->gallery->getFiles());
         $this->assertEquals($this->file2->getIdAsInt(), $items[0]->fileId);
         $this->assertEquals($this->file->getIdAsInt(), $items[1]->fileId);
@@ -115,6 +116,7 @@ class GalleryFilePositionTest extends TestCase
         $galleryFilePosition = $this->createGalleryFilePosition(4, execute: false);
 
         $galleryFilePosition->move(2);
+        /** @var array<GalleryFilePosition> $items */
         $items = iterator_to_array($this->gallery->getFiles());
         $this->assertEquals($this->file2->getIdAsInt(), $items[0]->fileId);
         $this->assertEquals($this->file->getIdAsInt(), $items[1]->fileId);
@@ -198,7 +200,7 @@ class GalleryFilePositionTest extends TestCase
         $galleryFilePosition = $this->createGalleryFilePosition();
         $galleryFilePosition->delete();
 
-        $savedItem = GalleryFilePosition::findByPosition($this->gallery->id, $galleryFilePosition->position);
+        $savedItem = GalleryFilePosition::findByPosition($this->gallery->getIdAsInt(), $galleryFilePosition->position);
         $this->assertNull($savedItem);
     }
 
@@ -208,7 +210,7 @@ class GalleryFilePositionTest extends TestCase
         $galleryFilePosition->delete();
         $galleryFilePosition->delete();
 
-        $savedItem = GalleryFilePosition::findByPosition($this->gallery->id, $galleryFilePosition->position);
+        $savedItem = GalleryFilePosition::findByPosition($this->gallery->getIdAsInt(), $galleryFilePosition->position);
         $this->assertNull($savedItem);
     }
 }

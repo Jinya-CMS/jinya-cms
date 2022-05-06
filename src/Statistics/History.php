@@ -13,7 +13,7 @@ class History
 {
     /**
      * @param string $type
-     * @return Iterator
+     * @return Iterator<HistoryEntry>
      * @throws InvalidQueryException
      */
     public function getCreatedHistory(string $type): Iterator
@@ -23,7 +23,7 @@ class History
 
     /**
      * @param string $type
-     * @return Iterator
+     * @return Iterator<HistoryEntry>
      * @throws InvalidQueryException
      */
     public function getUpdatedHistory(string $type): Iterator

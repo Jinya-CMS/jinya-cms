@@ -35,12 +35,11 @@ class PostFrontAction extends FrontAction
         if ($menuItem !== null) {
             if ($menuItem->formId !== null) {
                 $form = $menuItem->getForm();
-                $parsedBody = $this->request->getParsedBody();
                 $formHandler = new FormMessageHandler();
                 try {
-                    /* @noinspection NullPointerExceptionInspection */
-                    $formHandler->handleFormPost($form, $parsedBody, $this->request);
-                    $form = $menuItem->getForm();
+                    if ($form !== null) {
+                        $formHandler->handleFormPost($form, $this->body, $this->request);
+                    }
 
                     return $this->render('theme::form', ['form' => $form, 'success' => true], self::HTTP_FOUND);
                 } catch (MissingFieldsException $exception) {

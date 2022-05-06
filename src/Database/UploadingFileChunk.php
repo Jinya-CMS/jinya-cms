@@ -83,6 +83,9 @@ class UploadingFileChunk extends Utils\LoadableEntity
         throw new RuntimeException('Not implemented');
     }
 
+    /**
+     * @return array<string>
+     */
     public function format(): array
     {
         return [];

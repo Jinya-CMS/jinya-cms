@@ -83,7 +83,6 @@ class UploadingFile extends Utils\LoadableEntity
      */
     public function getFile(): ?File
     {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return File::findById($this->fileId);
     }
 
@@ -115,8 +114,16 @@ class UploadingFile extends Utils\LoadableEntity
         throw new RuntimeException('Not implemented');
     }
 
+    /**
+     * @return array<string>
+     */
     public function format(): array
     {
         return [];
+    }
+
+    public function getIdAsString(): string
+    {
+        return (string)$this->id;
     }
 }

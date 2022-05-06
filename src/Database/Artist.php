@@ -34,6 +34,7 @@ class Artist extends LoadableEntity
     public bool $enabled = false;
     #[JinyaApiField(ignore: true)]
     public ?string $twoFactorToken = '';
+    /** @var array<string> $roles */
     #[JinyaApiField(required: true)]
     public array $roles = [];
     #[JinyaApiField(required: true)]
@@ -85,7 +86,7 @@ class Artist extends LoadableEntity
      * @throws NoResultException
      * @throws UniqueFailedException
      */
-    public static function findById(int $id): ?object
+    public static function findById(int $id): ?Artist
     {
         return self::fetchSingleById(
             'users',
@@ -101,6 +102,7 @@ class Artist extends LoadableEntity
 
     /**
      * @inheritDoc
+     * @return Iterator<Artist>
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -187,6 +189,7 @@ class Artist extends LoadableEntity
 
     /**
      * @inheritDoc
+     * @return Iterator<Artist>
      */
     public static function findAll(): Iterator
     {
@@ -204,9 +207,10 @@ class Artist extends LoadableEntity
     /**
      * Formats the artist
      *
-     * @return array
+     * @return array<string, array<string>|bool|int|string|null>
      */
-    #[Pure] #[ArrayShape([
+    #[Pure]
+    #[ArrayShape([
         'artistName' => 'string',
         'email' => 'string',
         'profilePicture' => 'null|string',

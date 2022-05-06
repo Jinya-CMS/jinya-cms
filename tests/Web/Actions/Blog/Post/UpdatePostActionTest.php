@@ -7,7 +7,6 @@ use App\Database\BlogPost;
 use App\Database\File;
 use App\Web\Actions\Action;
 use App\Web\Actions\Blog\Post\UpdatePostAction;
-use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\ConflictException;
 use App\Web\Exceptions\NoResultException;
 use Faker\Provider\Uuid;
@@ -41,7 +40,7 @@ class UpdatePostActionTest extends TestCase
             'headerImageId' => $file->getIdAsInt(),
             'public' => true,
         ];
-        $request = (new ServerRequest(JinyaAction::POST, '/api/blog/post/' . $post->id))->withParsedBody($actionBody);
+        $request = (new ServerRequest('POST', '/api/blog/post/' . $post->id))->withParsedBody($actionBody);
         $response = $action($request, new Response(), ['id' => $post->id]);
         $this->assertEquals(Action::HTTP_NO_CONTENT, $response->getStatusCode());
     }
@@ -56,7 +55,7 @@ class UpdatePostActionTest extends TestCase
         $action = new UpdatePostAction();
         $actionBody = [
         ];
-        $request = (new ServerRequest(JinyaAction::POST, '/api/blog/post/' . $post->id))->withParsedBody($actionBody);
+        $request = (new ServerRequest('POST', '/api/blog/post/' . $post->id))->withParsedBody($actionBody);
         $response = $action($request, new Response(), ['id' => $post->id]);
         $this->assertEquals(Action::HTTP_NO_CONTENT, $response->getStatusCode());
     }
@@ -79,7 +78,7 @@ class UpdatePostActionTest extends TestCase
             'slug' => $post->slug,
             'title' => Uuid::uuid(),
         ];
-        $request = (new ServerRequest(JinyaAction::POST, '/api/blog/post/' . $post2->id))->withParsedBody($actionBody);
+        $request = (new ServerRequest('POST', '/api/blog/post/' . $post2->id))->withParsedBody($actionBody);
         $action($request, new Response(), ['id' => $post2->id]);
     }
 
@@ -101,7 +100,7 @@ class UpdatePostActionTest extends TestCase
             'slug' => Uuid::uuid(),
             'title' => $post->title,
         ];
-        $request = (new ServerRequest(JinyaAction::POST, '/api/blog/post'))->withParsedBody($actionBody);
+        $request = (new ServerRequest('POST', '/api/blog/post'))->withParsedBody($actionBody);
         $action($request, new Response(), ['id' => $post2->id]);
     }
 
@@ -113,7 +112,7 @@ class UpdatePostActionTest extends TestCase
         $action = new UpdatePostAction();
         $actionBody = [
         ];
-        $request = (new ServerRequest(JinyaAction::POST, '/api/blog/post/-1'))->withParsedBody($actionBody);
+        $request = (new ServerRequest('POST', '/api/blog/post/-1'))->withParsedBody($actionBody);
         $action($request, new Response(), ['id' => -1]);
     }
 }

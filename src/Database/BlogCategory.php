@@ -83,13 +83,21 @@ class BlogCategory extends Utils\LoadableEntity
     }
 
     /**
-     * @return array{id: int, name: string, description: string|null, parent: array|null, webhookEnabled: bool, webhookUrl: string|null}
+     * @return array<string, int|string|null|mixed|bool>
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws NoResultException
      * @throws UniqueFailedException
      */
-    #[ArrayShape(['id' => 'int', 'name' => 'string', 'description' => 'null|string', 'parent' => 'array', 'webhookEnabled' => 'bool', 'webhookUrl' => 'null|string'])] public function format(): array
+    #[ArrayShape([
+        'id' => 'int',
+        'name' => 'string',
+        'description' => 'null|string',
+        'parent' => 'array',
+        'webhookEnabled' => 'bool',
+        'webhookUrl' => 'null|string',
+    ])]
+    public function format(): array
     {
         $parent = $this->getParent()?->format();
 

@@ -70,7 +70,7 @@ class NewSavedDeviceMail
 
         $mailer = MailerFactory::getMailer();
         $mailer->Subject = 'New saved device for your account';
-        $mailer->setFrom(getenv('MAILER_FROM'));
+        $mailer->setFrom(getenv('MAILER_FROM') ?: '');
         $mailer->addAddress($artistEmail);
         $mailer->AltBody = $renderedTextMail;
         $mailer->Body = $renderedHtmlMail;

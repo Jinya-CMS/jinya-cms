@@ -31,16 +31,16 @@ class UpdateSegmentAction extends Action
      */
     protected function action(): Response
     {
-        $body = $this->request->getParsedBody();
+
         $segment = Segment::findByPosition($this->args['id'], $this->args['position']);
         if (!$segment) {
             throw new HttpNotFoundException($this->request, 'Segment not found');
         }
 
-        $galleryId = $body['gallery'] ?? '';
-        $fileId = $body['file'] ?? '';
-        $formId = $body['form'] ?? '';
-        $html = $body['html'] ?? '';
+        $galleryId = $this->body['gallery'] ?? '';
+        $fileId = $this->body['file'] ?? '';
+        $formId = $this->body['form'] ?? '';
+        $html = $this->body['html'] ?? '';
 
         if ($segment->galleryId && $galleryId) {
             if (!Gallery::findById($galleryId)) {
@@ -71,14 +71,14 @@ class UpdateSegmentAction extends Action
         }
 
         if ($segment->fileId) {
-            $action = $body['action'] ?? '';
+            $action = $this->body['action'] ?? '';
             if ($action === 'link') {
-                $target = $body['target'] ?? '';
+                $target = $this->body['target'] ?? '';
                 $segment->target = $target;
                 $segment->action = $action;
                 $segment->script = null;
             } elseif ($action === 'script') {
-                $script = $body['script'] ?? '';
+                $script = $this->body['script'] ?? '';
                 $segment->script = $script;
                 $segment->action = $action;
                 $segment->target = null;
@@ -91,8 +91,8 @@ class UpdateSegmentAction extends Action
 
         $segment->update();
 
-        if (isset($body['newPosition'])) {
-            $segment->move($body['newPosition']);
+        if (isset($this->body['newPosition'])) {
+            $segment->move($this->body['newPosition']);
         }
 
         return $this->noContent();

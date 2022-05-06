@@ -29,7 +29,7 @@ abstract class InstallAction extends Action
      * Renders the given template with the given data
      *
      * @param string $template
-     * @param array $data
+     * @param array<mixed> $data
      * @param int $statusCode
      * @return Response
      * @throws Throwable

@@ -22,16 +22,16 @@ class MatomoClient
     public static function newClient(): MatomoClient
     {
         $client = new MatomoClient();
-        $client->matomoApiKey = getenv('MATOMO_API_KEY');
-        $client->matomoServer = getenv('MATOMO_SERVER');
-        $client->matomoSiteId = getenv('MATOMO_SITE_ID');
+        $client->matomoApiKey = getenv('MATOMO_API_KEY') ?: '';
+        $client->matomoServer = getenv('MATOMO_SERVER') ?: '';
+        $client->matomoSiteId = getenv('MATOMO_SITE_ID') ?: '';
 
         return $client;
     }
 
     /**
      * @param string $period
-     * @return array
+     * @return array<array<string, mixed>>
      * @throws JsonException
      */
     public function getVisitsByCountry(string $period = 'range'): array
@@ -51,7 +51,7 @@ class MatomoClient
     /**
      * @param string $action
      * @param string $period
-     * @return array
+     * @return array<array<string, mixed>>
      * @throws JsonException
      */
     private function requestMatomo(string $action, string $period = 'range'): array
@@ -61,14 +61,14 @@ class MatomoClient
         $from = $today->sub(new DateInterval('P1M'))->format('Y-m-d');
         $date = "$from,$to";
         $url = "$this->matomoServer?module=API&method=$action&idSite=$this->matomoSiteId&period=$period&date=$date&format=JSON&token_auth=$this->matomoApiKey&filter_sort_column=label&filter_sort_order=asc";
-        $fetched = file_get_contents($url);
+        $fetched = file_get_contents($url) ?: '';
 
         return json_decode($fetched, true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
      * @param string $period
-     * @return array
+     * @return array<array<string, mixed>>
      * @throws JsonException
      */
     public function getVisitsByBrowsers(string $period = 'range'): array
@@ -86,7 +86,7 @@ class MatomoClient
 
     /**
      * @param string $period
-     * @return array
+     * @return array<array<string, mixed>>
      * @throws JsonException
      */
     public function getVisitsByOsVersions(string $period = 'range'): array
@@ -104,7 +104,7 @@ class MatomoClient
 
     /**
      * @param string $period
-     * @return array
+     * @return array<array<string, mixed>>
      * @throws JsonException
      */
     public function getVisitsByDeviceBrand(string $period = 'range'): array
@@ -122,7 +122,7 @@ class MatomoClient
 
     /**
      * @param string $period
-     * @return array
+     * @return array<array<string, mixed>>
      * @throws JsonException
      */
     public function getVisitsByDeviceType(string $period = 'range'): array
@@ -140,7 +140,7 @@ class MatomoClient
 
     /**
      * @param string $period
-     * @return array
+     * @return array<array<string, mixed>>
      * @throws JsonException
      */
     public function getVisitsByLanguage(string $period = 'range'): array
@@ -158,7 +158,7 @@ class MatomoClient
 
     /**
      * @param string $period
-     * @return array
+     * @return array<array<string, mixed>>
      * @throws JsonException
      */
     public function getVisitsByReferrer(string $period = 'range'): array

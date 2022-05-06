@@ -7,7 +7,6 @@ use App\Database\BlogPost;
 use App\Database\File;
 use App\Web\Actions\Action;
 use App\Web\Actions\Blog\Post\CreatePostAction;
-use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\ConflictException;
 use Faker\Provider\Uuid;
 use Nyholm\Psr7\Response;
@@ -35,7 +34,7 @@ class CreatePostActionTest extends TestCase
             'headerImageId' => $file->getIdAsInt(),
             'public' => true,
         ];
-        $request = (new ServerRequest(JinyaAction::POST, '/api/blog/post'))->withParsedBody($actionBody);
+        $request = (new ServerRequest('POST', '/api/blog/post'))->withParsedBody($actionBody);
         $response = $action($request, new Response(), []);
         $this->assertEquals(Action::HTTP_CREATED, $response->getStatusCode());
 
@@ -58,7 +57,7 @@ class CreatePostActionTest extends TestCase
             'slug' => Uuid::uuid(),
             'title' => Uuid::uuid(),
         ];
-        $request = (new ServerRequest(JinyaAction::POST, '/api/blog/post'))->withParsedBody($actionBody);
+        $request = (new ServerRequest('POST', '/api/blog/post'))->withParsedBody($actionBody);
         $response = $action($request, new Response(), []);
         $this->assertEquals(Action::HTTP_CREATED, $response->getStatusCode());
 
@@ -88,7 +87,7 @@ class CreatePostActionTest extends TestCase
             'slug' => $post->slug,
             'title' => Uuid::uuid(),
         ];
-        $request = (new ServerRequest(JinyaAction::POST, '/api/blog/post'))->withParsedBody($actionBody);
+        $request = (new ServerRequest('POST', '/api/blog/post'))->withParsedBody($actionBody);
         $action($request, new Response(), []);
     }
 
@@ -106,7 +105,7 @@ class CreatePostActionTest extends TestCase
             'title' => $post->title,
             'slug' => Uuid::uuid(),
         ];
-        $request = (new ServerRequest(JinyaAction::POST, '/api/blog/post'))->withParsedBody($actionBody);
+        $request = (new ServerRequest('POST', '/api/blog/post'))->withParsedBody($actionBody);
         $action($request, new Response(), []);
     }
 }

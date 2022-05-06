@@ -14,16 +14,19 @@ class PhpExtension implements JsonSerializable
 {
     public string $extensionName;
 
+    /** @var array<IniValue> */
     public array $iniValues = [];
 
     public string $version;
 
+    /** @var array<string>|stdClass */
     public array|stdClass $additionalData = [];
 
     /**
      * {@inheritdoc}
      */
-    #[ReturnTypeWillChange] #[ArrayShape([
+    #[ReturnTypeWillChange]
+    #[ArrayShape([
         'iniValues' => '\App\Maintenance\PhpInfo\IniValue[]',
         'version' => 'string',
         'name' => 'string',

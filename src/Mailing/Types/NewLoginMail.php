@@ -69,7 +69,7 @@ class NewLoginMail
 
         $mailer = MailerFactory::getMailer();
         $mailer->Subject = 'New login for your account';
-        $mailer->setFrom(getenv('MAILER_FROM'));
+        $mailer->setFrom(getenv('MAILER_FROM') ?: '');
         $mailer->addAddress($artistEmail);
         $mailer->AltBody = $renderedTextMail;
         $mailer->Body = $renderedHtmlMail;

@@ -24,20 +24,19 @@ class UpdateAboutMeAction extends Action
      */
     protected function action(): Response
     {
-        $body = $this->request->getParsedBody();
         /** @var Artist $currentArtist */
         $currentArtist = $this->request->getAttribute(AuthenticationMiddleware::LOGGED_IN_ARTIST);
 
-        if (isset($body['email'])) {
-            $currentArtist->email = $body['email'];
+        if (isset($this->body['email'])) {
+            $currentArtist->email = $this->body['email'];
         }
 
-        if (isset($body['artistName'])) {
-            $currentArtist->artistName = $body['artistName'];
+        if (isset($this->body['artistName'])) {
+            $currentArtist->artistName = $this->body['artistName'];
         }
 
-        if (isset($body['aboutMe'])) {
-            $currentArtist->aboutMe = $body['aboutMe'];
+        if (isset($this->body['aboutMe'])) {
+            $currentArtist->aboutMe = $this->body['aboutMe'];
         }
 
         $currentArtist->update();

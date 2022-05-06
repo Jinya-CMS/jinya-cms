@@ -27,9 +27,8 @@ class ChangePasswordAction extends Action
      */
     protected function action(): Response
     {
-        $body = $this->request->getParsedBody();
-        $password = $body['password'];
-        $oldPassword = $body['oldPassword'];
+        $password = $this->body['password'];
+        $oldPassword = $this->body['oldPassword'];
         /** @var Artist $currentArtist */
         $currentArtist = $this->request->getAttribute(AuthenticationMiddleware::LOGGED_IN_ARTIST);
 

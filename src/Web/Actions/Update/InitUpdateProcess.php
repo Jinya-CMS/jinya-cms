@@ -15,7 +15,7 @@ class InitUpdateProcess extends Action
      */
     protected function action(): Response
     {
-        $updateCode = sha1(time());
+        $updateCode = hash('sha256', (string)time());
         $updateLock = __ROOT__ . '/update.lock';
         file_put_contents($updateLock, $updateCode);
 

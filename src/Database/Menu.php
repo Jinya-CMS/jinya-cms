@@ -23,19 +23,20 @@ class Menu extends Utils\LoadableEntity
     /**
      * {@inheritDoc}
      * @param int $id
-     * @return object|null
+     * @return Menu|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
      * @throws NoResultException
      */
-    public static function findById(int $id): ?object
+    public static function findById(int $id): ?Menu
     {
         return self::fetchSingleById('menu', $id, new self());
     }
 
     /**
      * {@inheritDoc}
+     * @return Iterator<Menu>
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -49,6 +50,7 @@ class Menu extends Utils\LoadableEntity
 
     /**
      * {@inheritDoc}
+     * @return Iterator<Menu>
      */
     public static function findAll(): Iterator
     {
@@ -56,7 +58,7 @@ class Menu extends Utils\LoadableEntity
     }
 
     /**
-     * @return array
+     * @return array<string, array<string, int|string>|int|string>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -98,7 +100,6 @@ class Menu extends Utils\LoadableEntity
             return null;
         }
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return File::findById($this->logo);
     }
 

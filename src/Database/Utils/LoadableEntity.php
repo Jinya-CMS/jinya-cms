@@ -9,7 +9,6 @@ use JetBrains\PhpStorm\Pure;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use Jinya\PDOx\PDOx;
-use Laminas\Hydrator\HydratorInterface;
 use Laminas\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 use Laminas\Hydrator\ReflectionHydrator;
 use Laminas\Hydrator\Strategy\StrategyInterface;
@@ -59,17 +58,17 @@ abstract class LoadableEntity implements FormattableEntityInterface
      * Executes the given sql statement
      *
      * @param string $sql
-     * @return array|int
+     * @return array<mixed>|int
      */
     public static function executeSqlString(string $sql): array|int
     {
         $pdo = self::getPdo();
         $stmt = $pdo->query($sql);
-        if ($stmt->columnCount() > 0) {
+        if ($stmt && $stmt->columnCount() > 0) {
             return $stmt->fetchAll();
         }
 
-        return $stmt->rowCount();
+        return $stmt ? $stmt->rowCount() : 0;
     }
 
     /**
@@ -82,8 +81,8 @@ abstract class LoadableEntity implements FormattableEntityInterface
         }
 
         $database = getenv('MYSQL_DATABASE');
-        $user = getenv('MYSQL_USER');
-        $password = getenv('MYSQL_PASSWORD');
+        $user = getenv('MYSQL_USER') ?: '';
+        $password = getenv('MYSQL_PASSWORD') ?: '';
         $host = getenv('MYSQL_HOST') ?: '127.0.0.1';
         $port = getenv('MYSQL_PORT') ?: 3306;
         $charset = getenv('MYSQL_CHARSET') ?: 'utf8mb4';
@@ -107,24 +106,24 @@ abstract class LoadableEntity implements FormattableEntityInterface
      * Executes the given sql statement and returns an int
      *
      * @param string $sql
-     * @return int|string
+     * @return int|string|false|null
      */
-    public static function fetchColumn(string $sql): int|string
+    public static function fetchColumn(string $sql): int|string|false|null
     {
         $pdo = self::getPdo();
         $stmt = $pdo->query($sql);
-        if ($stmt->columnCount() > 0) {
+        if ($stmt && $stmt->columnCount() > 0) {
             return $stmt->fetchColumn();
         }
 
-        return $stmt->rowCount();
+        return $stmt ? $stmt->rowCount() : 0;
     }
 
     /**
-     * @param array $additionalStrategies
-     * @return HydratorInterface
+     * @param array<StrategyInterface> $additionalStrategies
+     * @return ReflectionHydrator
      */
-    protected static function getHydrator(array $additionalStrategies): HydratorInterface
+    protected static function getHydrator(array $additionalStrategies): ReflectionHydrator
     {
         $hydrator = new ReflectionHydrator();
         $hydrator->setNamingStrategy(new UnderscoreNamingStrategy());
@@ -239,8 +238,8 @@ abstract class LoadableEntity implements FormattableEntityInterface
 
     /**
      * @param string $table
-     * @param array $strategies
-     * @param array $skippedFields
+     * @param array<StrategyInterface> $strategies
+     * @param array<string> $skippedFields
      * @return int
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -267,8 +266,8 @@ abstract class LoadableEntity implements FormattableEntityInterface
      * Executes the given statement and returns the result
      *
      * @param string $statement
-     * @param array $parameters
-     * @return array|int
+     * @param array<string, int|string|bool> $parameters
+     * @return array<mixed>|int
      * @throws ForeignKeyFailedException
      * @throws UniqueFailedException
      * @throws InvalidQueryException|InvalidQueryException
@@ -278,6 +277,10 @@ abstract class LoadableEntity implements FormattableEntityInterface
         $pdo = self::getPdo();
         $stmt = $pdo->prepare($statement);
         try {
+            if ($stmt === false) {
+                throw new PDOException();
+            }
+
             $stmt->execute($parameters);
             if ($stmt->errorCode() !== '00000') {
                 $ex = new InvalidQueryException(errorInfo: $stmt->errorInfo());
@@ -309,8 +312,8 @@ abstract class LoadableEntity implements FormattableEntityInterface
 
     /**
      * @param string $table
-     * @param array $strategies
-     * @param array $skippedFields
+     * @param array<StrategyInterface> $strategies
+     * @param array<string> $skippedFields
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException

@@ -98,13 +98,13 @@ abstract class Action
      */
     protected Response $response;
     /**
-     * @var array<string, mixed>
+     * @var array<string, int|string|float|mixed>
      */
     protected array $args;
     /**
-     * @var array<string, mixed>|null
+     * @var array<string, mixed>
      */
-    protected array|null $body;
+    protected array $body;
 
     /**
      */
@@ -125,7 +125,7 @@ abstract class Action
         $this->request = $request;
         $this->response = $response;
         $this->args = $args;
-        $this->body = $request->getParsedBody();
+        $this->body = is_array($request->getParsedBody()) ? $request->getParsedBody() : [];
         $this->queryParams = $request->getQueryParams();
 
         return $this->action();
@@ -138,7 +138,7 @@ abstract class Action
     abstract protected function action(): Response;
 
     /**
-     * @param array $data
+     * @param array<mixed> $data
      * @param int $offset
      * @param int $count
      * @return Response
@@ -156,7 +156,7 @@ abstract class Action
      */
     protected function respond(mixed $payload = null, int $statusCode = Action::HTTP_OK, int $jsonFlags = JSON_THROW_ON_ERROR): Response
     {
-        $json = json_encode($payload, $jsonFlags);
+        $json = json_encode($payload, $jsonFlags) ?: '';
         $this->response->getBody()->write($json);
 
         return $this->response
@@ -164,6 +164,12 @@ abstract class Action
             ->withStatus($statusCode);
     }
 
+    /**
+     * @param array<mixed> $data
+     * @param int $offset
+     * @param int $count
+     * @return array<string, mixed|int|void>
+     */
     #[ArrayShape([
         'offset' => 'int',
         'itemsCount' => 'int|void',
@@ -194,7 +200,7 @@ abstract class Action
     ): Response
     {
         return $this->response
-            ->withBody(Stream::create(fopen($basePath . $path, 'rb')))
+            ->withBody(Stream::create(fopen($basePath . $path, 'rb') ?: ''))
             ->withHeader('Content-Type', $contentType)
             ->withStatus(self::HTTP_OK);
     }
@@ -213,7 +219,7 @@ abstract class Action
      * Format the artist list
      *
      * @param Iterator $iterator
-     * @return array
+     * @return array<mixed>
      */
     protected function formatIterator(Iterator $iterator): array
     {

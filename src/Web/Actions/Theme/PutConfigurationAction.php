@@ -33,8 +33,8 @@ class PutConfigurationAction extends ThemeAction
             throw new NoResultException($this->request, 'Theme not found');
         }
 
-        $body = $this->request->getParsedBody();
-        $config = $body['configuration'];
+
+        $config = $this->body['configuration'];
 
         $theme->configuration = $config;
         $theme->update();

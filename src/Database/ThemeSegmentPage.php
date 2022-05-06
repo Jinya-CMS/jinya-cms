@@ -9,9 +9,6 @@ use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
-/**
- *
- */
 class ThemeSegmentPage extends ThemeHelperEntity
 {
 
@@ -31,6 +28,9 @@ class ThemeSegmentPage extends ThemeHelperEntity
      */
     public static function findByThemeAndName(int $themeId, string $name): ?ThemeSegmentPage
     {
+        /**
+         * @phpstan-ignore-next-line
+         */
         return self::fetchByThemeAndName($themeId, $name, 'theme_segment_page', new self());
     }
 
@@ -49,7 +49,7 @@ class ThemeSegmentPage extends ThemeHelperEntity
     }
 
     /**
-     * @return array
+     * @return array<string, array<string, array<string, array<string, string|null>|string>|int|string>|string|null>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException

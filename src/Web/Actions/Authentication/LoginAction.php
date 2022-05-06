@@ -36,10 +36,9 @@ class LoginAction extends Action
      */
     protected function action(): Response
     {
-        $body = $this->request->getParsedBody();
-        $username = $body['username'] ?? '';
-        $password = $body['password'] ?? '';
-        $twoFactorCode = $body['twoFactorCode'] ?? '';
+        $username = $this->body['username'] ?? '';
+        $password = $this->body['password'] ?? '';
+        $twoFactorCode = $this->body['twoFactorCode'] ?? '';
         $knownDeviceCode = $this->request->getHeaderLine('JinyaDeviceCode');
 
         $artist = Artist::findByEmail($username);

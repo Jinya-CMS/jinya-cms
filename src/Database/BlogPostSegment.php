@@ -71,8 +71,7 @@ class BlogPostSegment extends Utils\RearrangableEntity
 
     /**
      * @inheritDoc
-     * @psalm-suppress MoreSpecificReturnType
-     * @return array{position: int, id: int, gallery: array, link: string, html: string, file: array}
+     * @return array<string, array<string, int|string|null>|int|string|null>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -113,10 +112,6 @@ class BlogPostSegment extends Utils\RearrangableEntity
             $data['html'] = $this->html;
         }
 
-        /**
-         * @phpstan-ignore-next-line
-         * @psalm-suppress LessSpecificReturnStatement
-         */
         return $data;
     }
 
@@ -183,7 +178,6 @@ class BlogPostSegment extends Utils\RearrangableEntity
             return null;
         }
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return File::findById($this->fileId);
     }
 
@@ -200,7 +194,6 @@ class BlogPostSegment extends Utils\RearrangableEntity
             return null;
         }
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return Gallery::findById($this->galleryId);
     }
 }

@@ -27,18 +27,19 @@ use Slim\Exception\HttpForbiddenException;
 use Slim\Exception\HttpMethodNotAllowedException;
 use Slim\Exception\HttpNotFoundException;
 
-/**
- *
- */
 class JinyaModelToRouteResolver
 {
     /**
+     * @param Request $request
+     * @param Response $response
+     * @param array<string, string> $args
+     * @return Response
      * @throws ForeignKeyFailedException
-     * @throws UniqueFailedException
-     * @throws NoResultException
-     * @throws JsonException
      * @throws InvalidQueryException
+     * @throws JsonException
+     * @throws NoResultException
      * @throws ReflectionException
+     * @throws UniqueFailedException
      */
     public static function resolveActionWithClassAndId(Request $request, Response $response, array $args): Response
     {
@@ -95,12 +96,18 @@ class JinyaModelToRouteResolver
     }
 
     /**
+     * @param ReflectionClass<LoadableEntity> $reflectionClass
+     * @param string $role
+     * @param Request $request
+     * @param Response $response
+     * @param array<string, string> $args
+     * @return Response
      * @throws ForeignKeyFailedException
-     * @throws UniqueFailedException
-     * @throws NoResultException
-     * @throws JsonException
      * @throws InvalidQueryException
+     * @throws JsonException
+     * @throws NoResultException
      * @throws ReflectionException
+     * @throws UniqueFailedException
      */
     private static function executeGetRequest(ReflectionClass $reflectionClass, string $role, Request $request, Response $response, array $args): Response
     {
@@ -109,6 +116,7 @@ class JinyaModelToRouteResolver
             $id = $args['id'];
             if ($reflectionClass->hasMethod('findById')) {
                 $method = $reflectionClass->getMethod('findById');
+                /** @var FormattableEntityInterface $entity */
                 $entity = $method->invoke(null, $id);
                 if (method_exists($entity, 'format')) {
                     $json = json_encode($entity->format(), JSON_THROW_ON_ERROR);
@@ -154,11 +162,18 @@ class JinyaModelToRouteResolver
     }
 
     /**
+     * @param ReflectionClass<LoadableEntity> $reflectionClass
+     * @param string $role
+     * @param Request $request
+     * @param Response $response
+     * @param array<string, string> $args
+     * @return Response
      * @throws ForeignKeyFailedException
-     * @throws UniqueFailedException
      * @throws InvalidQueryException
-     * @throws ReflectionException
+     * @throws JsonException
      * @throws NoResultException
+     * @throws ReflectionException
+     * @throws UniqueFailedException
      */
     private static function executeDeleteRequest(ReflectionClass $reflectionClass, string $role, Request $request, Response $response, array $args): Response
     {
@@ -167,6 +182,7 @@ class JinyaModelToRouteResolver
             $id = $args['id'];
             if ($reflectionClass->hasMethod('findById')) {
                 $method = $reflectionClass->getMethod('findById');
+                /** @var LoadableEntity $entity */
                 $entity = $method->invoke(null, $id);
                 if (method_exists($entity, 'delete')) {
                     $entity->delete();
@@ -181,16 +197,22 @@ class JinyaModelToRouteResolver
     }
 
     /**
-     * @throws InvalidQueryException
+     * @param ReflectionClass<LoadableEntity> $reflectionClass
+     * @param string $role
+     * @param Request $request
+     * @param Response $response
+     * @return Response
      * @throws ForeignKeyFailedException
-     * @throws UniqueFailedException
-     * @throws ReflectionException
-     * @throws NoResultException
+     * @throws InvalidQueryException
      * @throws JsonException
+     * @throws NoResultException
+     * @throws ReflectionException
+     * @throws UniqueFailedException
      */
     private static function executePostRequest(ReflectionClass $reflectionClass, string $role, Request $request, Response $response): Response
     {
         self::checkRole(self::getCurrentUser($request), $request, $role);
+        /** @var LoadableEntity $entity */
         $entity = $reflectionClass->newInstance();
         $requestBody = $request->getBody()->getContents();
         /** @noinspection JsonEncodingApiUsageInspection */
@@ -237,11 +259,18 @@ class JinyaModelToRouteResolver
     }
 
     /**
-     * @throws UniqueFailedException
+     * @param ReflectionClass<LoadableEntity> $reflectionClass
+     * @param string $role
+     * @param Request $request
+     * @param Response $response
+     * @param array<string, string> $args
+     * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
-     * @throws ReflectionException
+     * @throws JsonException
      * @throws NoResultException
+     * @throws ReflectionException
+     * @throws UniqueFailedException
      */
     private static function executePutRequest(ReflectionClass $reflectionClass, string $role, Request $request, Response $response, array $args): Response
     {
@@ -250,6 +279,7 @@ class JinyaModelToRouteResolver
             $id = $args['id'];
             if ($reflectionClass->hasMethod('findById')) {
                 $method = $reflectionClass->getMethod('findById');
+                /** @var LoadableEntity $entity */
                 $entity = $method->invoke(null, $id);
                 $requestBody = $request->getBody()->getContents();
                 /** @noinspection JsonEncodingApiUsageInspection */

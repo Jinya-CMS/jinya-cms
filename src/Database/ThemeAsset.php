@@ -8,9 +8,6 @@ use Iterator;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
-/**
- *
- */
 class ThemeAsset extends ThemeHelperEntity
 {
     public int $themeId = -1;
@@ -27,18 +24,26 @@ class ThemeAsset extends ThemeHelperEntity
      */
     public static function findByThemeAndName(int $themeId, string $name): ?ThemeAsset
     {
+        /**
+         * @phpstan-ignore-next-line
+         */
         return self::fetchByThemeAndName($themeId, $name, 'theme_asset', new self());
     }
 
     /**
      * Finds the pages for the given theme
      *
+     * @param int $themeId
+     * @return Iterator<ThemeAsset>
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public static function findByTheme(int $themeId): Iterator
     {
+        /**
+         * @phpstan-ignore-next-line
+         */
         return self::fetchByTheme($themeId, 'theme_asset', new self());
     }
 

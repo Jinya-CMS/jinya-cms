@@ -37,13 +37,13 @@ class File extends LoadableEntity
     /**
      * @inheritDoc
      * @param int $id
-     * @return object|null
+     * @return File|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
      * @throws NoResultException
      */
-    public static function findById(int $id): ?object
+    public static function findById(int $id): ?File
     {
         return self::fetchSingleById(
             'file',
@@ -58,6 +58,7 @@ class File extends LoadableEntity
 
     /**
      * @inheritDoc
+     * @return Iterator<File>
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -75,6 +76,7 @@ class File extends LoadableEntity
 
     /**
      * @inheritDoc
+     * @return Iterator<File>
      */
     public static function findAll(): Iterator
     {
@@ -91,14 +93,14 @@ class File extends LoadableEntity
     /**
      * Gets the uploading chunks
      *
-     * @return Iterator
+     * @return Iterator<UploadingFileChunk>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
     public function getUploadChunks(): Iterator
     {
-        return UploadingFileChunk::findByFile($this->id);
+        return UploadingFileChunk::findByFile($this->getIdAsInt());
     }
 
     /**
@@ -146,7 +148,7 @@ class File extends LoadableEntity
     }
 
     /**
-     * @return array
+     * @return array<string, array<string, array<string, string|null>|string>|int|string>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException

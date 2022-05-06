@@ -12,22 +12,18 @@ class Storage
 {
     public function getTotalStorage(): float
     {
-        return disk_total_space(__ROOT__);
+        return disk_total_space(__ROOT__) ?: 0;
     }
 
     public function getFreeStorage(): float
     {
-        return disk_free_space(__ROOT__);
+        return disk_free_space(__ROOT__) ?: 0;
     }
 
     public function getUsedStorage(): float
     {
         $size = 0;
-        foreach (
-            new RecursiveIteratorIterator(
-                new RecursiveDirectoryIterator(__ROOT__)
-            ) as $file
-        ) {
+        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__ROOT__)) as $file) {
             $size += $file->getSize();
         }
         return $size;

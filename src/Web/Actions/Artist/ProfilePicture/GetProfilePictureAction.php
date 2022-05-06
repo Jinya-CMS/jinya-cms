@@ -34,6 +34,6 @@ class GetProfilePictureAction extends Action
 
         $path = $artist->profilePicture;
 
-        return $this->respondFile($path, mime_content_type(StorageBaseService::BASE_PATH . '/public/' . $path));
+        return $this->respondFile($path, mime_content_type(StorageBaseService::BASE_PATH . '/public/' . $path) ?: 'application/octet-stream');
     }
 }

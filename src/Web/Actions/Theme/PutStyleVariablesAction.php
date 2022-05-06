@@ -10,7 +10,6 @@ use App\Web\Exceptions\NoResultException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
-use ScssPhp\ScssPhp\Exception\SassException;
 
 /**
  *
@@ -24,7 +23,6 @@ class PutStyleVariablesAction extends ThemeAction
      * @throws UniqueFailedException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
-     * @throws SassException
      * @throws \Jinya\PDOx\Exceptions\NoResultException
      */
     protected function action(): Response
@@ -36,13 +34,11 @@ class PutStyleVariablesAction extends ThemeAction
             throw new NoResultException($this->request, 'Theme not found');
         }
 
-        $body = $this->request->getParsedBody();
-        $variables = $body['variables'];
+        $variables = $this->body['variables'];
 
         $dbTheme->scssVariables = $variables;
         $dbTheme->update();
 
-        /** @noinspection PhpParamsInspection */
         $theme = new Theming\Theme($dbTheme);
         $theme->compileStyleCache();
 

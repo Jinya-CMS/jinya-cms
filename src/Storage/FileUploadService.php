@@ -14,9 +14,6 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
-/**
- *
- */
 class FileUploadService extends StorageBaseService
 {
     /**
@@ -80,18 +77,23 @@ class FileUploadService extends StorageBaseService
         }
 
         $tmpFileHandle = tmpfile();
+        if (!is_resource($tmpFileHandle)) {
+            return null;
+        }
 
         try {
             foreach ($chunks as $chunk) {
                 $chunkFileHandle = fopen($chunk->chunkPath, 'rb');
 
-                try {
-                    if (filesize($chunk->chunkPath) > 0) {
-                        $chunkData = fread($chunkFileHandle, filesize($chunk->chunkPath));
-                        fwrite($tmpFileHandle, $chunkData);
-                    }
-                } finally {
-                    if (is_resource($chunkFileHandle)) {
+                if (is_resource($chunkFileHandle)) {
+                    try {
+                        if (filesize($chunk->chunkPath) > 0) {
+                            $chunkData = fread($chunkFileHandle, filesize($chunk->chunkPath));
+                            if (is_string($chunkData)) {
+                                fwrite($tmpFileHandle, $chunkData);
+                            }
+                        }
+                    } finally {
                         @fclose($chunkFileHandle);
                     }
                 }
@@ -103,14 +105,13 @@ class FileUploadService extends StorageBaseService
             rewind($tmpFileHandle);
             file_put_contents($path, $tmpFileHandle);
 
-            $file->type = mime_content_type($path);
+            $file->type = mime_content_type($path) ?: 'application/octet-stream';
             $file->path = self::WEB_PATH . $fileName;
             $file->update();
             $this->clearChunks($fileId);
 
             $uploadingFile = UploadingFile::findByFile($fileId);
-            /* @noinspection NullPointerExceptionInspection */
-            $uploadingFile->delete();
+            $uploadingFile?->delete();
         } finally {
             if (is_resource($tmpFileHandle)) {
                 @fclose($tmpFileHandle);

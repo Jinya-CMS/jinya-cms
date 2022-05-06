@@ -28,7 +28,7 @@ class CreateFileSegmentAction extends Action
      */
     protected function action(): Response
     {
-        $body = $this->request->getParsedBody();
+
         $id = $this->args['id'];
         $segmentPage = SegmentPage::findById($id);
 
@@ -36,21 +36,21 @@ class CreateFileSegmentAction extends Action
             throw new NoResultException($this->request, 'Segment page not found');
         }
 
-        $fileId = $body['file'];
+        $fileId = $this->body['file'];
         if (!File::findById($fileId)) {
             throw new NoResultException($this->request, 'File not found');
         }
 
         $segment = new Segment();
         $segment->pageId = $id;
-        $segment->fileId = $body['file'];
+        $segment->fileId = $this->body['file'];
         $segment->galleryId = null;
         $segment->formId = null;
         $segment->html = null;
-        $segment->script = $body['script'] ?? '';
-        $segment->target = $body['target'] ?? '';
-        $segment->action = $body['action'] ?? '';
-        $segment->position = $body['position'];
+        $segment->script = $this->body['script'] ?? '';
+        $segment->target = $this->body['target'] ?? '';
+        $segment->action = $this->body['action'] ?? '';
+        $segment->position = $this->body['position'];
 
         $segment->create();
 

@@ -16,7 +16,9 @@ use RuntimeException;
 class FormItem extends Utils\RearrangableEntity
 {
     public string $type = 'text';
+    /** @var array<string> */
     public array $options = [];
+    /** @var array<string> */
     public array $spamFilter = [];
     public string $label;
     public string $helpText = '';
@@ -90,7 +92,11 @@ class FormItem extends Utils\RearrangableEntity
         return Form::findById($this->formId);
     }
 
-    #[Pure] public function format(): array
+    /**
+     * @return array<string, array<string>|bool|int|string|null>
+     */
+    #[Pure]
+    public function format(): array
     {
         return [
             'type' => $this->type,

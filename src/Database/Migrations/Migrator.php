@@ -24,15 +24,15 @@ abstract class Migrator extends LoadableEntity
     {
         $sql = "SHOW TABLES LIKE 'migration_state'";
         $result = self::executeStatement($sql);
-        if (count($result) === 0) {
+        if (is_countable($result) && count($result) === 0) {
             $initialMigration = require __DIR__ . '/initial-migration.php';
             self::executeSingleMigration($initialMigration['sql']);
         }
 
         $migrationsPath = __ROOT__ . '/migrations';
         $files = array_map(
-            static fn(string $item) => "$migrationsPath/$item",
-            array_filter(scandir($migrationsPath), static fn(string $item) => $item !== '.' && $item !== '..'),
+            static fn(string|false $item) => "$migrationsPath/$item",
+            array_filter((array)scandir($migrationsPath), static fn(string|false $item) => $item !== '.' && $item !== '..'),
         );
 
         $executedMigrations = 0;
@@ -42,7 +42,7 @@ abstract class Migrator extends LoadableEntity
             $version = $migration['version'];
             $migrateCheckSql = 'SELECT version FROM migration_state WHERE version = :version';
             $result = self::executeStatement($migrateCheckSql, ['version' => $version]);
-            $wasMigrated = count($result) > 0;
+            $wasMigrated = is_countable($result) && count($result) > 0;
 
             if (!$wasMigrated) {
                 self::executeSingleMigration($script);

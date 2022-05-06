@@ -13,7 +13,7 @@ class GetEnvironmentAction extends Action
 {
     protected function action(): Response
     {
-        $env = Dotenv::parse(file_get_contents(__ROOT__ . '/.env'));
+        $env = Dotenv::parse(file_get_contents(__ROOT__ . '/.env') ?: '');
         $data = array_map(
             static fn($key, $value) => [
                 'key' => $key,

@@ -25,7 +25,7 @@ class GalleryTest extends TestCase
         return $gallery;
     }
 
-    private function createPosition(bool $position, int $gallery): void
+    private function createPosition(int $position, int $gallery): void
     {
         $file = new File();
         $file->path = 'this-does-not-exist';

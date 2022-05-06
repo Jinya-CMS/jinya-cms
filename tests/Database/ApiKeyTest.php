@@ -5,13 +5,12 @@ namespace Jinya\Tests\Database;
 use App\Database\ApiKey;
 use App\Database\Artist;
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Utils\LoadableEntity;
 use DateTime;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
-use Throwable;
 
 class ApiKeyTest extends TestCase
 {
@@ -25,9 +24,9 @@ class ApiKeyTest extends TestCase
         $this->testArtist->create();
 
         $this->testApiKey = new ApiKey();
-        $this->testApiKey->userId = $this->testArtist->id;
+        $this->testApiKey->userId = $this->testArtist->getIdAsInt();
         $this->testApiKey->setApiKey();
-        $this->testApiKey->validSince = DateTime::createFromFormat(LoadableEntity::MYSQL_DATE_FORMAT, (new DateTime())->format(LoadableEntity::MYSQL_DATE_FORMAT));
+        $this->testApiKey->validSince = DateTime::createFromFormat(LoadableEntity::MYSQL_DATE_FORMAT, (new DateTime())->format(LoadableEntity::MYSQL_DATE_FORMAT)) ?: new DateTime();
         $this->testApiKey->userAgent = 'Firefox';
         $this->testApiKey->remoteAddress = '127.0.0.1';
         $this->testApiKey->create();
@@ -50,7 +49,7 @@ class ApiKeyTest extends TestCase
     {
         $this->expectError();
         $apiKey = new ApiKey();
-        $apiKey->userId = $this->testArtist->id;
+        $apiKey->userId = $this->testArtist->getIdAsInt();
         $apiKey->setApiKey();
         $apiKey->format();
     }
@@ -71,7 +70,7 @@ class ApiKeyTest extends TestCase
     public function testCreate(): void
     {
         $apiKey = new ApiKey();
-        $apiKey->userId = $this->testArtist->id;
+        $apiKey->userId = $this->testArtist->getIdAsInt();
         $apiKey->setApiKey();
         $apiKey->validSince = new DateTime();
         $apiKey->userAgent = 'Firefox';
@@ -98,7 +97,7 @@ class ApiKeyTest extends TestCase
     {
         $this->expectError();
         $apiKey = new ApiKey();
-        $apiKey->userId = $this->testArtist->id;
+        $apiKey->userId = $this->testArtist->getIdAsInt();
         $apiKey->setApiKey();
         $apiKey->create();
     }
@@ -111,7 +110,7 @@ class ApiKeyTest extends TestCase
 
     public function testFindByArtist(): void
     {
-        $apiKeys = ApiKey::findByArtist($this->testArtist->id);
+        $apiKeys = ApiKey::findByArtist($this->testArtist->getIdAsInt());
         $this->assertGreaterThanOrEqual(1, iterator_count($apiKeys));
     }
 
@@ -126,7 +125,7 @@ class ApiKeyTest extends TestCase
         try {
             $this->testApiKey->delete();
             $this->assertTrue(true);
-        } catch (ForeignKeyFailedException | UniqueFailedException | InvalidQueryException) {
+        } catch (ForeignKeyFailedException|UniqueFailedException|InvalidQueryException) {
             $this->fail();
         }
     }
@@ -178,7 +177,7 @@ class ApiKeyTest extends TestCase
     public function testSetApiKey(): void
     {
         $apiKey = new ApiKey();
-        $apiKey->userId = $this->testArtist->id;
+        $apiKey->userId = $this->testArtist->getIdAsInt();
         $apiKey->setApiKey();
         $this->assertStringStartsWith("jinya-api-token-$apiKey->userId", $apiKey->apiKey);
     }

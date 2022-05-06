@@ -28,6 +28,6 @@ class ListAllKnownDevicesAction extends Action
         /** @var Artist $currentArtist */
         $currentArtist = $this->request->getAttribute(AuthenticationMiddleware::LOGGED_IN_ARTIST);
 
-        return $this->respondList($this->formatIterator(KnownDevice::findByArtist($currentArtist->id)));
+        return $this->respondList($this->formatIterator(KnownDevice::findByArtist($currentArtist->getIdAsInt())));
     }
 }

@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "b3a79d19e65f25efb8d9567ed58eb6fb",
+  "content-hash": "6c33f2529e137ea8bd2bbc62c7d393c1",
   "packages": [
     {
       "name": "fakerphp/faker",
@@ -226,16 +226,16 @@
           "email": "webmaster@tubo-world.de",
           "homepage": "https://github.com/Tobion"
         }
-            ],
-            "description": "Guzzle is a PHP HTTP client library",
-            "keywords": [
-                "client",
-                "curl",
-                "framework",
-                "http",
-                "http client",
-                "psr-18",
-                "psr-7",
+      ],
+      "description": "Guzzle is a PHP HTTP client library",
+      "keywords": [
+        "client",
+        "curl",
+        "framework",
+        "http",
+        "http client",
+        "psr-18",
+        "psr-7",
                 "rest",
                 "web service"
             ],
@@ -427,16 +427,16 @@
           "homepage": "https://sagikazarmark.hu"
         }
       ],
-            "description": "PSR-7 message implementation that also provides common utility methods",
-            "keywords": [
-                "http",
-                "message",
-                "psr-7",
-                "request",
-                "response",
-                "stream",
-                "uri",
-                "url"
+      "description": "PSR-7 message implementation that also provides common utility methods",
+      "keywords": [
+        "http",
+        "message",
+        "psr-7",
+        "request",
+        "response",
+        "stream",
+        "uri",
+        "url"
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
@@ -542,31 +542,31 @@
           "dev-master": "3.0-dev"
         },
         "laravel": {
-                    "providers": [
-                        "Jenssegers\\Agent\\AgentServiceProvider"
-                    ],
-                    "aliases": {
-                        "Agent": "Jenssegers\\Agent\\Facades\\Agent"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
+          "providers": [
+            "Jenssegers\\Agent\\AgentServiceProvider"
+          ],
+          "aliases": {
+            "Agent": "Jenssegers\\Agent\\Facades\\Agent"
+          }
+        }
+      },
+      "autoload": {
+        "psr-4": {
                     "Jenssegers\\Agent\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "MIT"
+              "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Jens Segers",
-                    "homepage": "https://jenssegers.com"
-                }
-            ],
-            "description": "Desktop/mobile user agent parser with support for Laravel, based on Mobiledetect",
-            "homepage": "https://github.com/jenssegers/agent",
+      "authors": [
+        {
+          "name": "Jens Segers",
+          "homepage": "https://jenssegers.com"
+        }
+      ],
+      "description": "Desktop/mobile user agent parser with support for Laravel, based on Mobiledetect",
+      "homepage": "https://github.com/jenssegers/agent",
       "keywords": [
         "Agent",
         "browser",
@@ -637,16 +637,16 @@
     },
     {
       "name": "jinya/pdox",
-      "version": "0.8.2",
+      "version": "0.8.6",
       "source": {
         "type": "git",
         "url": "https://github.com/Jinya-CMS/pdox.git",
-        "reference": "9354dee0f585c427ddacd92c4f774d6935560d45"
+        "reference": "8a1b0ae0f77b8f0719d8547359968133a0ff5217"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/Jinya-CMS/pdox/zipball/9354dee0f585c427ddacd92c4f774d6935560d45",
-        "reference": "9354dee0f585c427ddacd92c4f774d6935560d45",
+        "url": "https://api.github.com/repos/Jinya-CMS/pdox/zipball/8a1b0ae0f77b8f0719d8547359968133a0ff5217",
+        "reference": "8a1b0ae0f77b8f0719d8547359968133a0ff5217",
         "shasum": ""
       },
       "require": {
@@ -658,7 +658,7 @@
       "require-dev": {
         "ext-pdo_sqlite": "*",
         "ext-sqlite3": "*",
-        "phpstan/phpstan": "1.5.7",
+        "phpstan/phpstan": "1.6.3",
         "phpunit/phpunit": "9.5.20"
       },
       "type": "library",
@@ -680,9 +680,9 @@
       "description": "Jinya PDOx is a simple object mapper built around PHPs standard PDO",
       "support": {
         "issues": "https://github.com/Jinya-CMS/pdox/issues",
-        "source": "https://github.com/Jinya-CMS/pdox/tree/0.8.2"
+        "source": "https://github.com/Jinya-CMS/pdox/tree/0.8.6"
       },
-      "time": "2022-04-22T21:19:53+00:00"
+      "time": "2022-05-06T21:12:51+00:00"
     },
     {
       "name": "jinya/plates",
@@ -875,16 +875,16 @@
         "laminas",
         "stdlib"
       ],
-            "support": {
-                "chat": "https://laminas.dev/chat",
-                "docs": "https://docs.laminas.dev/laminas-stdlib/",
-                "forum": "https://discourse.laminas.dev",
-                "issues": "https://github.com/laminas/laminas-stdlib/issues",
-                "rss": "https://github.com/laminas/laminas-stdlib/releases.atom",
-                "source": "https://github.com/laminas/laminas-stdlib"
-            },
-            "funding": [
-                {
+      "support": {
+        "chat": "https://laminas.dev/chat",
+        "docs": "https://docs.laminas.dev/laminas-stdlib/",
+        "forum": "https://discourse.laminas.dev",
+        "issues": "https://github.com/laminas/laminas-stdlib/issues",
+        "rss": "https://github.com/laminas/laminas-stdlib/releases.atom",
+        "source": "https://github.com/laminas/laminas-stdlib"
+      },
+      "funding": [
+        {
                     "url": "https://funding.communitybridge.org/projects/laminas-project",
                     "type": "community_bridge"
                 }
@@ -1077,16 +1077,16 @@
                 "phpstan/phpstan-strict-rules": "^0.12.9",
                 "phpunit/phpunit": "^8.5.15 || ^9.5"
             },
-            "suggest": {
-                "ext-intl": "to use the IDNA feature",
-                "symfony/intl": "to use the IDNA feature via Symfony Polyfill"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.x-dev"
-                }
-            },
+          "suggest": {
+            "ext-intl": "to use the IDNA feature",
+            "symfony/intl": "to use the IDNA feature via Symfony Polyfill"
+          },
+          "type": "library",
+          "extra": {
+            "branch-alias": {
+              "dev-master": "2.x-dev"
+            }
+          },
           "autoload": {
             "psr-4": {
               "League\\Uri\\": "src/"
@@ -1330,16 +1330,16 @@
         }
       ],
       "time": "2022-04-08T15:43:54+00:00"
-        },
-        {
-            "name": "nikic/fast-route",
-            "version": "v1.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nikic/FastRoute.git",
-                "reference": "181d480e08d9476e61381e04a71b34dc0432e812"
-            },
-            "dist": {
+    },
+    {
+      "name": "nikic/fast-route",
+      "version": "v1.3.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/nikic/FastRoute.git",
+        "reference": "181d480e08d9476e61381e04a71b34dc0432e812"
+      },
+      "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/nikic/FastRoute/zipball/181d480e08d9476e61381e04a71b34dc0432e812",
                 "reference": "181d480e08d9476e61381e04a71b34dc0432e812",
@@ -1698,16 +1698,16 @@
         "bin/lint-query",
         "bin/tokenize-query"
       ],
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "PhpMyAdmin\\SqlParser\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
+      "type": "library",
+      "autoload": {
+        "psr-4": {
+          "PhpMyAdmin\\SqlParser\\": "src"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "GPL-2.0-or-later"
+      ],
             "authors": [
                 {
                     "name": "The phpMyAdmin Team",
@@ -2141,15 +2141,15 @@
                 "reference": "d49695b909c3b7628b6289db5479a1c204601f11",
                 "shasum": ""
             },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1.x-dev"
-                }
-            },
+          "require": {
+            "php": ">=5.3.0"
+          },
+          "type": "library",
+          "extra": {
+            "branch-alias": {
+              "dev-master": "1.1.x-dev"
+            }
+          },
           "autoload": {
             "psr-4": {
               "Psr\\Log\\": "Psr/Log/"
@@ -2773,16 +2773,16 @@
           "url": "https://github.com/fabpot",
           "type": "github"
         },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-      "time": "2022-03-04T08:16:47+00:00"
-        },
         {
-            "name": "tedivm/jshrink",
-            "version": "v1.4.0",
+          "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+          "type": "tidelift"
+        }
+      ],
+      "time": "2022-03-04T08:16:47+00:00"
+    },
+    {
+      "name": "tedivm/jshrink",
+      "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tedious/JShrink.git",
@@ -3114,16 +3114,16 @@
           "reference": "210577fe3cf7badcc5814d99455df46564f3c077"
         },
         "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/210577fe3cf7badcc5814d99455df46564f3c077",
-                "reference": "210577fe3cf7badcc5814d99455df46564f3c077",
-                "shasum": ""
-            },
-            "require": {
-                "ext-tokenizer": "*",
-                "php": ">=7.0"
-            },
-            "require-dev": {
+          "type": "zip",
+          "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/210577fe3cf7badcc5814d99455df46564f3c077",
+          "reference": "210577fe3cf7badcc5814d99455df46564f3c077",
+          "shasum": ""
+        },
+        "require": {
+          "ext-tokenizer": "*",
+          "php": ">=7.0"
+        },
+        "require-dev": {
                 "ircmaxell/php-yacc": "^0.0.7",
                 "phpunit/phpunit": "^6.5 || ^7.0 || ^8.0 || ^9.0"
             },
@@ -3452,16 +3452,16 @@
           "phpdocumentor/reflection-docblock": "^5.2",
           "sebastian/comparator": "^3.0 || ^4.0",
           "sebastian/recursion-context": "^3.0 || ^4.0"
-            },
-            "require-dev": {
-                "phpspec/phpspec": "^6.0 || ^7.0",
-                "phpunit/phpunit": "^8.0 || ^9.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
+        },
+        "require-dev": {
+          "phpspec/phpspec": "^6.0 || ^7.0",
+          "phpunit/phpunit": "^8.0 || ^9.0"
+        },
+        "type": "library",
+        "extra": {
+          "branch-alias": {
+            "dev-master": "1.x-dev"
+          }
             },
             "autoload": {
                 "psr-4": {
@@ -3501,16 +3501,16 @@
       },
       {
         "name": "phpstan/phpstan",
-        "version": "1.6.3",
+        "version": "1.6.7",
         "source": {
           "type": "git",
           "url": "https://github.com/phpstan/phpstan.git",
-          "reference": "6128620b98292e0b69ea6d799871d77163681c8e"
+          "reference": "d41c39cb2e487663bce9bbd97c660e244b73abad"
         },
         "dist": {
           "type": "zip",
-          "url": "https://api.github.com/repos/phpstan/phpstan/zipball/6128620b98292e0b69ea6d799871d77163681c8e",
-          "reference": "6128620b98292e0b69ea6d799871d77163681c8e",
+          "url": "https://api.github.com/repos/phpstan/phpstan/zipball/d41c39cb2e487663bce9bbd97c660e244b73abad",
+          "reference": "d41c39cb2e487663bce9bbd97c660e244b73abad",
           "shasum": ""
         },
         "require": {
@@ -3536,7 +3536,7 @@
         "description": "PHPStan - PHP Static Analysis Tool",
         "support": {
           "issues": "https://github.com/phpstan/phpstan/issues",
-          "source": "https://github.com/phpstan/phpstan/tree/1.6.3"
+          "source": "https://github.com/phpstan/phpstan/tree/1.6.7"
         },
         "funding": [
           {
@@ -3556,7 +3556,7 @@
             "type": "tidelift"
           }
         ],
-        "time": "2022-04-28T11:27:53+00:00"
+        "time": "2022-05-04T22:55:41+00:00"
       },
       {
         "name": "phpunit/php-code-coverage",
@@ -3672,16 +3672,16 @@
         ],
         "authors": [
           {
-                    "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
-                }
-            ],
-            "description": "FilterIterator implementation that filters files based on a list of suffixes.",
-            "homepage": "https://github.com/sebastianbergmann/php-file-iterator/",
-            "keywords": [
-                "filesystem",
-                "iterator"
+            "name": "Sebastian Bergmann",
+            "email": "sebastian@phpunit.de",
+            "role": "lead"
+          }
+        ],
+        "description": "FilterIterator implementation that filters files based on a list of suffixes.",
+        "homepage": "https://github.com/sebastianbergmann/php-file-iterator/",
+        "keywords": [
+          "filesystem",
+          "iterator"
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-file-iterator/issues",
@@ -3780,16 +3780,16 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0-dev"
-                }
+              "branch-alias": {
+                "dev-master": "2.0-dev"
+              }
             },
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
+          "autoload": {
+            "classmap": [
+              "src/"
+            ]
+          },
+          "notification-url": "https://packagist.org/downloads/",
           "license": [
             "BSD-3-Clause"
           ],
@@ -4434,16 +4434,16 @@
           "zfr/zfr-oauth2-server-module": "<0.1.2",
           "zoujingli/thinkadmin": "<6.0.22"
         },
-            "default-branch": true,
-            "type": "metapackage",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Marco Pivetta",
-                    "email": "ocramius@gmail.com",
+        "default-branch": true,
+        "type": "metapackage",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+          "MIT"
+        ],
+        "authors": [
+          {
+            "name": "Marco Pivetta",
+            "email": "ocramius@gmail.com",
                     "role": "maintainer"
                 },
                 {
@@ -4775,15 +4775,15 @@
                 "url": "https://github.com/sebastianbergmann/diff.git",
                 "reference": "3461e3fccc7cfdfc2720be910d3bd73c69be590d"
             },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/3461e3fccc7cfdfc2720be910d3bd73c69be590d",
-                "reference": "3461e3fccc7cfdfc2720be910d3bd73c69be590d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.3"
-            },
+          "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/3461e3fccc7cfdfc2720be910d3bd73c69be590d",
+            "reference": "3461e3fccc7cfdfc2720be910d3bd73c69be590d",
+            "shasum": ""
+          },
+          "require": {
+            "php": ">=7.3"
+          },
           "require-dev": {
             "phpunit/phpunit": "^9.3",
             "symfony/process": "^4.2 || ^5"
@@ -4907,16 +4907,16 @@
         "dist": {
           "type": "zip",
           "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/65e8b7db476c5dd267e65eea9cab77584d3cfff9",
-                "reference": "65e8b7db476c5dd267e65eea9cab77584d3cfff9",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.3",
-                "sebastian/recursion-context": "^4.0"
-            },
-            "require-dev": {
-                "ext-mbstring": "*",
-                "phpunit/phpunit": "^9.3"
+          "reference": "65e8b7db476c5dd267e65eea9cab77584d3cfff9",
+          "shasum": ""
+        },
+        "require": {
+          "php": ">=7.3",
+          "sebastian/recursion-context": "^4.0"
+        },
+        "require-dev": {
+          "ext-mbstring": "*",
+          "phpunit/phpunit": "^9.3"
             },
             "type": "library",
             "extra": {
@@ -5108,16 +5108,16 @@
           "reference": "5c9eeac41b290a3712d88851518825ad78f45c71",
           "shasum": ""
         },
-            "require": {
-                "php": ">=7.3",
-                "sebastian/object-reflector": "^2.0",
-                "sebastian/recursion-context": "^4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.3"
-            },
-            "type": "library",
-            "extra": {
+        "require": {
+          "php": ">=7.3",
+          "sebastian/object-reflector": "^2.0",
+          "sebastian/recursion-context": "^4.0"
+        },
+        "require-dev": {
+          "phpunit/phpunit": "^9.3"
+        },
+        "type": "library",
+        "extra": {
                 "branch-alias": {
                     "dev-master": "4.0-dev"
                 }
@@ -5259,15 +5259,15 @@
             "homepage": "http://www.github.com/sebastianbergmann/recursion-context",
             "support": {
                 "issues": "https://github.com/sebastianbergmann/recursion-context/issues",
-                "source": "https://github.com/sebastianbergmann/recursion-context/tree/4.0.4"
+              "source": "https://github.com/sebastianbergmann/recursion-context/tree/4.0.4"
             },
-            "funding": [
-                {
-                    "url": "https://github.com/sebastianbergmann",
-                    "type": "github"
-                }
-            ],
-            "time": "2020-10-26T13:17:30+00:00"
+          "funding": [
+            {
+              "url": "https://github.com/sebastianbergmann",
+              "type": "github"
+            }
+          ],
+          "time": "2020-10-26T13:17:30+00:00"
         },
       {
         "name": "sebastian/resource-operations",

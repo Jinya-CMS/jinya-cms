@@ -30,7 +30,7 @@ class CreateGallerySegmentAction extends Action
      */
     protected function action(): Response
     {
-        $body = $this->request->getParsedBody();
+
         $id = $this->args['id'];
         $segmentPage = SegmentPage::findById($id);
 
@@ -38,7 +38,7 @@ class CreateGallerySegmentAction extends Action
             throw new NoResultException($this->request, 'Segment page not found');
         }
 
-        $galleryId = $body['gallery'];
+        $galleryId = $this->body['gallery'];
         if (!Gallery::findById($galleryId)) {
             throw new NoResultException($this->request, 'Gallery not found');
         }
@@ -52,7 +52,7 @@ class CreateGallerySegmentAction extends Action
         $segment->script = null;
         $segment->target = null;
         $segment->action = null;
-        $segment->position = $body['position'];
+        $segment->position = $this->body['position'];
 
         $segment->create();
 

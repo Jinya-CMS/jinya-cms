@@ -4,7 +4,6 @@ namespace Jinya\Tests\Database;
 
 use App\Authentication\CurrentUser;
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Form;
 use App\Database\Gallery;
@@ -12,6 +11,7 @@ use App\Database\Menu;
 use App\Database\MenuItem;
 use App\Database\SegmentPage;
 use App\Database\SimplePage;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use LogicException;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
@@ -57,9 +57,11 @@ class MenuItemTest extends TestCase
         $format = $menuItem->format();
 
         $this->assertArrayHasKey('artist', $format);
-        $this->assertArrayHasKey('id', $format['artist']);
-        $this->assertArrayHasKey('artistName', $format['artist']);
-        $this->assertArrayHasKey('email', $format['artist']);
+        /** @var array<string, string> $artist */
+        $artist = $format['artist'];
+        $this->assertArrayHasKey('id', $artist);
+        $this->assertArrayHasKey('artistName', $artist);
+        $this->assertArrayHasKey('email', $artist);
         $this->checkFormatFields($menuItem);
     }
 
@@ -109,8 +111,10 @@ class MenuItemTest extends TestCase
         $format = $menuItem->format();
 
         $this->assertArrayHasKey('form', $format);
-        $this->assertArrayHasKey('id', $format['form']);
-        $this->assertArrayHasKey('title', $format['form']);
+        /** @var array<string, string> $formattedForm */
+        $formattedForm = $format['form'];
+        $this->assertArrayHasKey('id', $formattedForm);
+        $this->assertArrayHasKey('title', $formattedForm);
         $this->checkFormatFields($menuItem);
     }
 
@@ -156,8 +160,10 @@ class MenuItemTest extends TestCase
         $format = $menuItem->format();
 
         $this->assertArrayHasKey('page', $format);
-        $this->assertArrayHasKey('id', $format['page']);
-        $this->assertArrayHasKey('title', $format['page']);
+        /** @var array<string, string> $formattedPage */
+        $formattedPage = $format['page'];
+        $this->assertArrayHasKey('id', $formattedPage);
+        $this->assertArrayHasKey('title', $formattedPage);
         $this->checkFormatFields($menuItem);
     }
 
@@ -202,8 +208,10 @@ class MenuItemTest extends TestCase
         $format = $menuItem->format();
 
         $this->assertArrayHasKey('segmentPage', $format);
-        $this->assertArrayHasKey('id', $format['segmentPage']);
-        $this->assertArrayHasKey('name', $format['segmentPage']);
+        /** @var array<string, string> $formattedSegmentPage */
+        $formattedSegmentPage = $format['segmentPage'];
+        $this->assertArrayHasKey('id', $formattedSegmentPage);
+        $this->assertArrayHasKey('name', $formattedSegmentPage);
         $this->checkFormatFields($menuItem);
     }
 
@@ -248,8 +256,10 @@ class MenuItemTest extends TestCase
         $format = $menuItem->format();
 
         $this->assertArrayHasKey('gallery', $format);
-        $this->assertArrayHasKey('id', $format['gallery']);
-        $this->assertArrayHasKey('name', $format['gallery']);
+        /** @var array<string, string> $formattedGallery */
+        $formattedGallery = $format['gallery'];
+        $this->assertArrayHasKey('id', $formattedGallery);
+        $this->assertArrayHasKey('name', $formattedGallery);
         $this->checkFormatFields($menuItem);
     }
 
@@ -258,7 +268,7 @@ class MenuItemTest extends TestCase
         $menu = $this->createMenu();
 
         $menuItem = $this->createMenuItem();
-        $menuItem->menuId = $menu->id;
+        $menuItem->menuId = $menu->getIdAsInt();
         $menuItem->create();
 
         $this->checkFormatFields($menuItem);
@@ -276,7 +286,7 @@ class MenuItemTest extends TestCase
         $menu = $this->createMenu();
 
         $parent = $this->createMenuItem();
-        $parent->menuId = $menu->id;
+        $parent->menuId = $menu->getIdAsInt();
         $parent->create();
 
         $found = MenuItem::findByRoute($parent->route);
@@ -288,7 +298,7 @@ class MenuItemTest extends TestCase
         $menu = $this->createMenu();
 
         $parent = $this->createMenuItem();
-        $parent->menuId = $menu->id;
+        $parent->menuId = $menu->getIdAsInt();
         $parent->create();
 
         $found = MenuItem::findByRoute('notfound');
@@ -300,25 +310,25 @@ class MenuItemTest extends TestCase
         $menu = $this->createMenu();
 
         $parent = $this->createMenuItem();
-        $parent->menuId = $menu->id;
+        $parent->menuId = $menu->getIdAsInt();
         $parent->create();
 
         $menuItem = $this->createMenuItem();
-        $menuItem->parentId = $parent->id;
+        $menuItem->parentId = $parent->getIdAsInt();
         $menuItem->create();
 
         $menuItem = $this->createMenuItem();
-        $menuItem->parentId = $parent->id;
+        $menuItem->parentId = $parent->getIdAsInt();
         $menuItem->position = 1;
         $menuItem->create();
 
         $menuItem2 = $this->createMenuItem();
-        $menuItem2->parentId = $menuItem->id;
+        $menuItem2->parentId = $menuItem->getIdAsInt();
         $menuItem2->create();
 
         $menuItem->move(0);
 
-        $foundItems = iterator_to_array(MenuItem::findById($parent->id)->getItems());
+        $foundItems = iterator_to_array(MenuItem::findById($parent->getIdAsInt())->getItems());
         $this->assertCount(2, $foundItems);
         $this->assertCount(1, $foundItems[0]->getItems());
     }
@@ -334,19 +344,19 @@ class MenuItemTest extends TestCase
         $menu = $this->createMenu();
 
         $parent = $this->createMenuItem();
-        $parent->menuId = $menu->id;
+        $parent->menuId = $menu->getIdAsInt();
         $parent->create();
 
         $menuItem = $this->createMenuItem();
-        $menuItem->parentId = $parent->id;
+        $menuItem->parentId = $parent->getIdAsInt();
         $menuItem->create();
 
         $menuItem = $this->createMenuItem();
-        $menuItem->parentId = $parent->id;
+        $menuItem->parentId = $parent->getIdAsInt();
         $menuItem->create();
 
         $menuItem2 = $this->createMenuItem();
-        $menuItem2->parentId = $menuItem->id;
+        $menuItem2->parentId = $menuItem->getIdAsInt();
         $menuItem2->create();
 
         $this->assertCount(2, $parent->getItems());
@@ -357,13 +367,13 @@ class MenuItemTest extends TestCase
         $menu = $this->createMenu();
 
         $parent = $this->createMenuItem();
-        $parent->menuId = $menu->id;
+        $parent->menuId = $menu->getIdAsInt();
         $parent->create();
 
         $parent->route = 'Test';
         $parent->update();
 
-        $found = MenuItem::findById($parent->id);
+        $found = MenuItem::findById($parent->getIdAsInt());
         $this->assertEquals($parent, $found);
     }
 
@@ -374,15 +384,15 @@ class MenuItemTest extends TestCase
         $menu->create();
 
         $parent = $this->createMenuItem();
-        $parent->menuId = $menu->id;
+        $parent->menuId = $menu->getIdAsInt();
         $parent->create();
 
         $menuItem = $this->createMenuItem();
-        $menuItem->parentId = $parent->id;
+        $menuItem->parentId = $parent->getIdAsInt();
         $menuItem->position = 1;
         $menuItem->create();
 
-        $found = MenuItem::findByMenuItemAndPosition($parent->id, 1);
+        $found = MenuItem::findByMenuItemAndPosition($parent->getIdAsInt(), 1);
         $this->assertEquals($menuItem, $found);
     }
 
@@ -393,15 +403,15 @@ class MenuItemTest extends TestCase
         $menu->create();
 
         $parent = $this->createMenuItem();
-        $parent->menuId = $menu->id;
+        $parent->menuId = $menu->getIdAsInt();
         $parent->create();
 
         $menuItem = $this->createMenuItem();
-        $menuItem->parentId = $parent->id;
+        $menuItem->parentId = $parent->getIdAsInt();
         $menuItem->position = 1;
         $menuItem->create();
 
-        $found = MenuItem::findByMenuItemAndPosition($parent->id, -1);
+        $found = MenuItem::findByMenuItemAndPosition($parent->getIdAsInt(), -1);
         $this->assertNull($found);
     }
 
@@ -412,10 +422,10 @@ class MenuItemTest extends TestCase
         $menu->create();
 
         $parent = $this->createMenuItem();
-        $parent->menuId = $menu->id;
+        $parent->menuId = $menu->getIdAsInt();
         $parent->create();
 
-        $found = MenuItem::findById($parent->id);
+        $found = MenuItem::findById($parent->getIdAsInt());
         $this->assertEquals($parent, $found);
     }
 
@@ -426,14 +436,14 @@ class MenuItemTest extends TestCase
         $menu->create();
 
         $parent = $this->createMenuItem();
-        $parent->menuId = $menu->id;
+        $parent->menuId = $menu->getIdAsInt();
         $parent->create();
 
         $item = $this->createMenuItem();
-        $item->parentId = $parent->id;
+        $item->parentId = $parent->getIdAsInt();
         $item->create();
 
-        $found = MenuItem::findById($item->id);
+        $found = MenuItem::findById($item->getIdAsInt());
         $this->assertEquals($item, $found);
     }
 
@@ -450,10 +460,10 @@ class MenuItemTest extends TestCase
         $menu = $this->createMenu();
 
         $menuItem = $this->createMenuItem();
-        $menuItem->menuId = $menu->id;
+        $menuItem->menuId = $menu->getIdAsInt();
         $menuItem->create();
 
-        $found = MenuItem::findById($menuItem->id);
+        $found = MenuItem::findById($menuItem->getIdAsInt());
         $this->assertEquals($menuItem, $found);
     }
 
@@ -462,7 +472,7 @@ class MenuItemTest extends TestCase
         $menu = $this->createMenu();
 
         $menuItem = $this->createMenuItem();
-        $menuItem->menuId = $menu->id;
+        $menuItem->menuId = $menu->getIdAsInt();
         $menuItem->create();
 
         $this->assertEquals($menu, $menuItem->getMenu());
@@ -475,11 +485,11 @@ class MenuItemTest extends TestCase
         $menu->create();
 
         $parent = $this->createMenuItem();
-        $parent->menuId = $menu->id;
+        $parent->menuId = $menu->getIdAsInt();
         $parent->create();
 
         $menuItem = $this->createMenuItem();
-        $menuItem->parentId = $parent->id;
+        $menuItem->parentId = $parent->getIdAsInt();
         $menuItem->create();
 
         $this->assertNull($menuItem->getMenu());
@@ -492,11 +502,11 @@ class MenuItemTest extends TestCase
         $menu->create();
 
         $parent = $this->createMenuItem();
-        $parent->menuId = $menu->id;
+        $parent->menuId = $menu->getIdAsInt();
         $parent->create();
 
         $menuItem = $this->createMenuItem();
-        $menuItem->parentId = $parent->id;
+        $menuItem->parentId = $parent->getIdAsInt();
         $menuItem->create();
 
         $this->assertEquals($parent, $menuItem->getParent());
@@ -509,7 +519,7 @@ class MenuItemTest extends TestCase
         $menu->create();
 
         $menuItem = $this->createMenuItem();
-        $menuItem->menuId = $menu->id;
+        $menuItem->menuId = $menu->getIdAsInt();
         $menuItem->create();
 
         $this->assertNull($menuItem->getParent());
@@ -520,11 +530,11 @@ class MenuItemTest extends TestCase
         $menu = $this->createMenu();
 
         $menuItem = $this->createMenuItem();
-        $menuItem->menuId = $menu->id;
+        $menuItem->menuId = $menu->getIdAsInt();
         $menuItem->create();
 
         $menuItem->delete();
-        $found = MenuItem::findById($menuItem->id);
+        $found = MenuItem::findById($menuItem->getIdAsInt());
 
         $this->assertNull($found);
     }
@@ -534,12 +544,12 @@ class MenuItemTest extends TestCase
         $menu = $this->createMenu();
 
         $menuItem = $this->createMenuItem();
-        $menuItem->menuId = $menu->id;
+        $menuItem->menuId = $menu->getIdAsInt();
         $menuItem->create();
 
         $menuItem->delete();
         $menuItem->delete();
-        $found = MenuItem::findById($menuItem->id);
+        $found = MenuItem::findById($menuItem->getIdAsInt());
 
         $this->assertNull($found);
     }
@@ -549,25 +559,27 @@ class MenuItemTest extends TestCase
         $menu = $this->createMenu();
 
         $parent = $this->createMenuItem();
-        $parent->menuId = $menu->id;
+        $parent->menuId = $menu->getIdAsInt();
         $parent->create();
 
         $menuItem = $this->createMenuItem();
-        $menuItem->parentId = $parent->id;
+        $menuItem->parentId = $parent->getIdAsInt();
         $menuItem->create();
 
         $menuItem = $this->createMenuItem();
-        $menuItem->parentId = $parent->id;
+        $menuItem->parentId = $parent->getIdAsInt();
         $menuItem->position = 2;
         $menuItem->create();
 
         $menuItem2 = $this->createMenuItem();
-        $menuItem2->parentId = $menuItem->id;
+        $menuItem2->parentId = $menuItem->getIdAsInt();
         $menuItem2->create();
 
         $formatted = $parent->formatRecursive();
         $this->assertArrayHasKey('items', $formatted);
-        $this->assertContains($menuItem->formatRecursive(), $formatted['items']);
+        /** @var array<string, string> $items */
+        $items = $formatted['items'];
+        $this->assertContains($menuItem->formatRecursive(), $items);
     }
 
     public function testFindByMenuAndPosition(): void
@@ -577,10 +589,10 @@ class MenuItemTest extends TestCase
         $menu->create();
 
         $menuItem = $this->createMenuItem();
-        $menuItem->menuId = $menu->id;
+        $menuItem->menuId = $menu->getIdAsInt();
         $menuItem->create();
 
-        $found = MenuItem::findByMenuAndPosition($menu->id, $menuItem->position);
+        $found = MenuItem::findByMenuAndPosition($menu->getIdAsInt(), $menuItem->position);
         $this->assertEquals($menuItem, $found);
     }
 
@@ -591,14 +603,14 @@ class MenuItemTest extends TestCase
         $menu->create();
 
         $menuItem = $this->createMenuItem();
-        $menuItem->menuId = $menu->id;
+        $menuItem->menuId = $menu->getIdAsInt();
         $menuItem->create();
 
-        $found = MenuItem::findByMenuAndPosition($menu->id, -1);
+        $found = MenuItem::findByMenuAndPosition($menu->getIdAsInt(), -1);
         $this->assertNull($found);
     }
 
-    public function testEmptyChildItems():void
+    public function testEmptyChildItems(): void
     {
         $menuItem = $this->createMenuItem();
 
@@ -607,7 +619,7 @@ class MenuItemTest extends TestCase
         $this->assertNull($menuItem->getForm());
         $this->assertNull($menuItem->getGallery());
         $this->assertNull($menuItem->getArtist());
-}
+    }
 
     /**
      * @return Menu

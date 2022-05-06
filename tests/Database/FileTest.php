@@ -3,7 +3,6 @@
 namespace Jinya\Tests\Database;
 
 use App\Authentication\CurrentUser;
-use App\Database\Artist;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Database\UploadingFile;
@@ -39,18 +38,18 @@ class FileTest extends TestCase
     {
         $file = $this->createFile();
         $uploadingFile = new UploadingFile();
-        $uploadingFile->fileId = $file->id;
+        $uploadingFile->fileId = $file->getIdAsInt();
         $uploadingFile->create();
         $uploadFileChunk = new UploadingFileChunk();
         $uploadFileChunk->chunkPath = 'not-existent';
         $uploadFileChunk->chunkPosition = 0;
-        $uploadFileChunk->uploadingFileId = $uploadingFile->id;
+        $uploadFileChunk->uploadingFileId = $uploadingFile->getIdAsString();
         $uploadFileChunk->create();
 
         $uploadFileChunk2 = new UploadingFileChunk();
         $uploadFileChunk2->chunkPath = 'not-existent';
         $uploadFileChunk2->chunkPosition = 1;
-        $uploadFileChunk2->uploadingFileId = $uploadingFile->id;
+        $uploadFileChunk2->uploadingFileId = $uploadingFile->getIdAsString();
         $uploadFileChunk2->create();
 
         $chunks = $file->getUploadChunks();
@@ -61,18 +60,18 @@ class FileTest extends TestCase
     {
         $file = $this->createFile();
         $uploadingFile = new UploadingFile();
-        $uploadingFile->fileId = $file->id;
+        $uploadingFile->fileId = $file->getIdAsInt();
         $uploadingFile->create();
         $uploadFileChunk = new UploadingFileChunk();
         $uploadFileChunk->chunkPath = 'not-existent';
         $uploadFileChunk->chunkPosition = 0;
-        $uploadFileChunk->uploadingFileId = $uploadingFile->id;
+        $uploadFileChunk->uploadingFileId = $uploadingFile->getIdAsString();
         $uploadFileChunk->create();
 
         $uploadFileChunk2 = new UploadingFileChunk();
         $uploadFileChunk2->chunkPath = 'not-existent';
         $uploadFileChunk2->chunkPosition = 1;
-        $uploadFileChunk2->uploadingFileId = $uploadingFile->id;
+        $uploadFileChunk2->uploadingFileId = $uploadingFile->getIdAsString();
         $uploadFileChunk2->create();
 
         $file2 = $this->createFile(name: 'Test2');
@@ -99,7 +98,7 @@ class FileTest extends TestCase
         $file->name = 'Updated file';
         $file->update();
 
-        $updatedFile = File::findById($file->id);
+        $updatedFile = File::findById($file->getIdAsInt());
         $this->assertEquals($file->name, $updatedFile->name);
     }
 
@@ -116,7 +115,7 @@ class FileTest extends TestCase
     public function testFindById(): void
     {
         $file = $this->createFile();
-        $foundFile = File::findById($file->id);
+        $foundFile = File::findById($file->getIdAsInt());
 
         $this->assertEquals($file->id, $foundFile->id);
         $this->assertEquals($file->name, $foundFile->name);
@@ -158,7 +157,7 @@ class FileTest extends TestCase
         $file = $this->createFile();
         $file->delete();
 
-        $foundFile = File::findById($file->id);
+        $foundFile = File::findById($file->getIdAsInt());
         $this->assertNull($foundFile);
     }
 
@@ -167,7 +166,7 @@ class FileTest extends TestCase
         $file = $this->createFile(execute: false);
         $file->delete();
 
-        $foundFile = File::findById($file->id);
+        $foundFile = File::findById($file->getIdAsInt());
         $this->assertNull($foundFile);
     }
 
@@ -176,7 +175,7 @@ class FileTest extends TestCase
         $file = $this->createFile(execute: false);
         $file->create();
 
-        $foundFile = File::findById($file->id);
+        $foundFile = File::findById($file->getIdAsInt());
 
         $this->assertEquals($file->id, $foundFile->id);
         $this->assertEquals($file->name, $foundFile->name);

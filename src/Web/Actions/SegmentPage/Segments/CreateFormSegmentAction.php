@@ -30,7 +30,7 @@ class CreateFormSegmentAction extends Action
      */
     protected function action(): Response
     {
-        $body = $this->request->getParsedBody();
+
         $id = $this->args['id'];
         $segmentPage = SegmentPage::findById($id);
 
@@ -38,7 +38,7 @@ class CreateFormSegmentAction extends Action
             throw new NoResultException($this->request, 'Segment page not found');
         }
 
-        $formId = $body['form'];
+        $formId = $this->body['form'];
         if (!Form::findById($formId)) {
             throw new NoResultException($this->request, 'Form not found');
         }
@@ -52,7 +52,7 @@ class CreateFormSegmentAction extends Action
         $segment->script = null;
         $segment->target = null;
         $segment->action = null;
-        $segment->position = $body['position'];
+        $segment->position = $this->body['position'];
 
         $segment->create();
 

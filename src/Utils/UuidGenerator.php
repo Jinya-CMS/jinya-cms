@@ -10,10 +10,10 @@ use Exception;
 class UuidGenerator
 {
     /**
-     * @return false|string
+     * @return string
      * @throws Exception
      */
-    public static function generateV4(): string|bool
+    public static function generateV4(): string
     {
         $data = random_bytes(16);
         assert(strlen($data) === 16);

@@ -19,10 +19,12 @@ use stdClass;
 class Theme extends Utils\LoadableEntity
 {
 
+    /** @var array<mixed> */
     public array $configuration;
     public string $description;
     public string $name;
     public string $displayName;
+    /** @var array<string, string> */
     public array $scssVariables;
 
     /**
@@ -52,13 +54,13 @@ class Theme extends Utils\LoadableEntity
     /**
      * @inheritDoc
      * @param int $id
-     * @return object|null
+     * @return Theme|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
      * @throws NoResultException
      */
-    public static function findById(int $id): ?object
+    public static function findById(int $id): ?Theme
     {
         return self::fetchSingleById(
             'theme',
@@ -73,6 +75,7 @@ class Theme extends Utils\LoadableEntity
 
     /**
      * @inheritDoc
+     * @return Iterator<Theme>
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -90,6 +93,7 @@ class Theme extends Utils\LoadableEntity
 
     /**
      * @inheritDoc
+     * @return Iterator<Theme>
      */
     public static function findAll(): Iterator
     {
@@ -145,7 +149,7 @@ class Theme extends Utils\LoadableEntity
     /**
      * Gets all theme files
      *
-     * @return array (File|null)[]
+     * @return array<string, File>
      *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -155,7 +159,7 @@ class Theme extends Utils\LoadableEntity
     public function getFiles(): array
     {
         $result = [];
-        $files = ThemeFile::findByTheme($this->id);
+        $files = ThemeFile::findByTheme($this->getIdAsInt());
         /** @var ThemeFile $file */
         foreach ($files as $file) {
             $result[$file->name] = $file->getFile();
@@ -167,7 +171,7 @@ class Theme extends Utils\LoadableEntity
     /**
      * Gets all theme categories
      *
-     * @return array
+     * @return array<string, BlogCategory>
      *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -189,7 +193,7 @@ class Theme extends Utils\LoadableEntity
     /**
      * Gets all theme galleries
      *
-     * @return array (Gallery|null)[]
+     * @return array<string, Gallery>
      *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -199,7 +203,7 @@ class Theme extends Utils\LoadableEntity
     public function getGalleries(): array
     {
         $result = [];
-        $galleries = ThemeGallery::findByTheme($this->id);
+        $galleries = ThemeGallery::findByTheme($this->getIdAsInt());
         /** @var ThemeGallery $gallery */
         foreach ($galleries as $gallery) {
             $result[$gallery->name] = $gallery->getGallery();
@@ -211,7 +215,7 @@ class Theme extends Utils\LoadableEntity
     /**
      * Gets all theme forms
      *
-     * @return array (Form|null)[]
+     * @return array<string, Form>
      *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -221,7 +225,7 @@ class Theme extends Utils\LoadableEntity
     public function getForms(): array
     {
         $result = [];
-        $forms = ThemeForm::findByTheme($this->id);
+        $forms = ThemeForm::findByTheme($this->getIdAsInt());
         /** @var ThemeForm $form */
         foreach ($forms as $form) {
             $result[$form->name] = $form->getForm();
@@ -233,7 +237,7 @@ class Theme extends Utils\LoadableEntity
     /**
      * Gets all theme menus
      *
-     * @return array (Menu|null)[]
+     * @return array<string, Menu>
      *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -243,7 +247,7 @@ class Theme extends Utils\LoadableEntity
     public function getMenus(): array
     {
         $result = [];
-        $menus = ThemeMenu::findByTheme($this->id);
+        $menus = ThemeMenu::findByTheme($this->getIdAsInt());
         /** @var ThemeMenu $menu */
         foreach ($menus as $menu) {
             $result[$menu->name] = $menu->getMenu();
@@ -253,9 +257,9 @@ class Theme extends Utils\LoadableEntity
     }
 
     /**
-     * Gets all theme segmentPages
+     * Gets all theme segment pages
      *
-     * @return array (SegmentPage|null)[]
+     * @return array<string, SegmentPage>
      *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -264,7 +268,7 @@ class Theme extends Utils\LoadableEntity
      */
     public function getSegmentPages(): array
     {
-        $segmentPages = ThemeSegmentPage::findByTheme($this->id);
+        $segmentPages = ThemeSegmentPage::findByTheme($this->getIdAsInt());
         $result = [];
         /** @var ThemeSegmentPage $segmentPage */
         foreach ($segmentPages as $segmentPage) {
@@ -277,7 +281,7 @@ class Theme extends Utils\LoadableEntity
     /**
      * Gets all theme pages
      *
-     * @return array (SimplePage|null)[]
+     * @return array<string, SimplePage>
      *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -286,7 +290,7 @@ class Theme extends Utils\LoadableEntity
      */
     public function getPages(): array
     {
-        $pages = ThemePage::findByTheme($this->id);
+        $pages = ThemePage::findByTheme($this->getIdAsInt());
         $result = [];
         /** @var ThemePage $page */
         foreach ($pages as $page) {
@@ -299,14 +303,14 @@ class Theme extends Utils\LoadableEntity
     /**
      * Gets all theme assets
      *
-     * @return ThemeAsset[]
+     * @return array<string, ThemeAsset>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
      */
     public function getAssets(): array
     {
-        $assets = ThemeAsset::findByTheme($this->id);
+        $assets = ThemeAsset::findByTheme($this->getIdAsInt());
         $result = [];
         /** @var ThemeAsset $asset */
         foreach ($assets as $asset) {
@@ -353,7 +357,11 @@ class Theme extends Utils\LoadableEntity
         );
     }
 
-    #[Pure] #[ArrayShape([
+    /**
+     * @return array<string, array<string, mixed>|int|stdClass|string>
+     */
+    #[Pure]
+    #[ArrayShape([
         'configuration' => 'array|\stdClass',
         'description' => 'string',
         'name' => 'string',

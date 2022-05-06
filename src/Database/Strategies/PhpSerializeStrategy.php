@@ -19,6 +19,7 @@ class PhpSerializeStrategy implements StrategyInterface
 
     /**
      * {@inheritDoc}
+     * @param array<string>|null $data
      */
     public function hydrate($value, ?array $data)
     {

@@ -42,9 +42,8 @@ class TwoFactorAction extends Action
      */
     protected function action(): Response
     {
-        $body = $this->request->getParsedBody();
-        $artist = Artist::findByEmail($body['username']);
-        if ($artist !== null && $artist->validatePassword($body['password'])) {
+        $artist = Artist::findByEmail($this->body['username']);
+        if ($artist !== null && $artist->validatePassword($this->body['password'])) {
             $artist->setTwoFactorCode();
             $artist->update();
 

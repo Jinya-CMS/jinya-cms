@@ -47,13 +47,13 @@ class Gallery extends Utils\LoadableEntity
     /**
      * @inheritDoc
      * @param int $id
-     * @return object|null
+     * @return Gallery|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
      * @throws NoResultException
      */
-    public static function findById(int $id): ?object
+    public static function findById(int $id): ?Gallery
     {
         return self::fetchSingleById(
             'gallery',
@@ -68,6 +68,7 @@ class Gallery extends Utils\LoadableEntity
 
     /**
      * @inheritDoc
+     * @return Iterator<Gallery>
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -88,6 +89,7 @@ class Gallery extends Utils\LoadableEntity
 
     /**
      * @inheritDoc
+     * @return Iterator<Gallery>
      */
     public static function findAll(): Iterator
     {
@@ -102,7 +104,7 @@ class Gallery extends Utils\LoadableEntity
     }
 
     /**
-     * @return array
+     * @return array<string, array<string, array<string, string|null>|string>|int|string>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -129,17 +131,17 @@ class Gallery extends Utils\LoadableEntity
             'orientation' => $this->orientation,
             'created' => [
                 'by' => [
-                    'artistName' => $creator->artistName,
-                    'email' => $creator->email,
-                    'profilePicture' => $creator->profilePicture,
+                    'artistName' => $creator?->artistName,
+                    'email' => $creator?->email,
+                    'profilePicture' => $creator?->profilePicture,
                 ],
                 'at' => $this->createdAt->format(DATE_ATOM),
             ],
             'updated' => [
                 'by' => [
-                    'artistName' => $updatedBy->artistName,
-                    'email' => $updatedBy->email,
-                    'profilePicture' => $updatedBy->profilePicture,
+                    'artistName' => $updatedBy?->artistName,
+                    'email' => $updatedBy?->email,
+                    'profilePicture' => $updatedBy?->profilePicture,
                 ],
                 'at' => $this->lastUpdatedAt->format(DATE_ATOM),
             ],
@@ -223,7 +225,7 @@ class Gallery extends Utils\LoadableEntity
     /**
      * Get all files in gallery
      *
-     * @return Iterator
+     * @return Iterator<File>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException

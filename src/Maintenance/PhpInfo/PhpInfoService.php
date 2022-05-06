@@ -32,7 +32,7 @@ class PhpInfoService
     {
         $extensions = [];
         $loadedExtensions = get_loaded_extensions();
-        array_splice($loadedExtensions, array_search('Core', $loadedExtensions), 1);
+        array_splice($loadedExtensions, array_search('Core', $loadedExtensions) ?: 0, 1);
         natcasesort($loadedExtensions);
         array_unshift($loadedExtensions, 'Core');
 
@@ -68,6 +68,10 @@ class PhpInfoService
         return $extensions;
     }
 
+    /**
+     * @param string $extension
+     * @return array<string, mixed>|stdClass
+     */
     private function getAdditionalData(string $extension): array|stdClass
     {
         $lowerExt = strtolower($extension);
@@ -149,7 +153,7 @@ class PhpInfoService
     public function getApacheVersion(): string
     {
         if (function_exists('apache_get_version')) {
-            return apache_get_version();
+            return apache_get_version() ?: '';
         }
 
         return '';
@@ -158,12 +162,12 @@ class PhpInfoService
     /**
      * Gets all apache modules
      *
-     * @return array
+     * @return array<string>
      */
     public function getApacheModules(): array
     {
         if (function_exists('apache_get_modules')) {
-            return apache_get_modules();
+            return apache_get_modules() ?: [];
         }
 
         return [];

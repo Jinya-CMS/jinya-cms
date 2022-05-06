@@ -14,6 +14,9 @@ class HistoryEntry implements JsonSerializable, FormattableEntityInterface
     public int $count;
     public string $date;
 
+    /**
+     * @return array<string, int|string>
+     */
     #[ArrayShape(['count' => 'int', 'date' => 'string'])] public function jsonSerialize(): array
     {
         return [
@@ -22,6 +25,9 @@ class HistoryEntry implements JsonSerializable, FormattableEntityInterface
         ];
     }
 
+    /**
+     * @return array<string, int|string>
+     */
     #[ArrayShape(['count' => 'int', 'date' => 'string'])] public function format(): array
     {
         return [

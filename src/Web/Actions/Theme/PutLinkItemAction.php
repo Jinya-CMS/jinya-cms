@@ -11,9 +11,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 use ReflectionClass;
 use ReflectionException;
 
-/**
- *
- */
 class PutLinkItemAction extends ThemeAction
 {
 
@@ -43,22 +40,32 @@ class PutLinkItemAction extends ThemeAction
             throw new NoResultException($this->request, 'Theme not found');
         }
 
-        /** @var array $body */
-        $body = $this->request->getParsedBody();
-        $id = $body[$entityType];
+        $id = $this->body[$entityType];
 
+        /**
+         * @phpstan-ignore-next-line
+         */
         $reflectionClass = new ReflectionClass('App\Database\Theme' . ucfirst($entityType));
         $themeLink = $reflectionClass->getMethod('findByThemeAndName')->invoke(null, $themeId, $name);
         if ($themeLink !== null) {
             $themeLink->themeId = $themeId;
-            $themeLink->{$field} = $id;
+            $themeLink->$field = $id;
             $themeLink->name = $name;
             $themeLink->update();
         } else {
             $themeLink = $reflectionClass->newInstance();
+            /**
+             * @phpstan-ignore-next-line
+             */
             $themeLink->themeId = $themeId;
             $themeLink->$field = $id;
+            /**
+             * @phpstan-ignore-next-line
+             */
             $themeLink->name = $name;
+            /**
+             * @phpstan-ignore-next-line
+             */
             $themeLink->create();
         }
 

@@ -115,9 +115,13 @@ class KnownDevice extends Utils\LoadableEntity
     }
 
     /**
-     * {@inheritdoc}
+     * @return array<string, string>
      */
-    #[ArrayShape(['remoteAddress' => 'string', 'userAgent' => 'string', 'key' => 'string'])]
+    #[ArrayShape([
+        'remoteAddress' => 'string',
+        'userAgent' => 'string',
+        'key' => 'string',
+    ])]
     public function format(): array
     {
         return [

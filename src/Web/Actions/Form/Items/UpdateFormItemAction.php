@@ -26,52 +26,51 @@ class UpdateFormItemAction extends Action
      */
     protected function action(): Response
     {
-        $body = $this->request->getParsedBody();
         $formItem = FormItem::findByPosition($this->args['id'], $this->args['position']);
         if (!$formItem) {
             throw new NoResultException($this->request, 'Form item not found');
         }
 
-        if (isset($body['label'])) {
-            $formItem->label = $body['label'];
+        if (isset($this->body['label'])) {
+            $formItem->label = $this->body['label'];
         }
 
-        if (isset($body['placeholder'])) {
-            $formItem->placeholder = $body['placeholder'];
+        if (isset($this->body['placeholder'])) {
+            $formItem->placeholder = $this->body['placeholder'];
         }
 
-        if (isset($body['helpText'])) {
-            $formItem->helpText = $body['helpText'];
+        if (isset($this->body['helpText'])) {
+            $formItem->helpText = $this->body['helpText'];
         }
 
-        if (isset($body['type'])) {
-            $formItem->helpText = $body['type'];
+        if (isset($this->body['type'])) {
+            $formItem->helpText = $this->body['type'];
         }
 
-        if (isset($body['options'])) {
-            $formItem->options = $body['options'];
+        if (isset($this->body['options'])) {
+            $formItem->options = $this->body['options'];
         }
 
-        if (isset($body['spamFilter'])) {
-            $formItem->spamFilter = array_filter($body['spamFilter']);
+        if (isset($this->body['spamFilter'])) {
+            $formItem->spamFilter = array_filter($this->body['spamFilter']);
         }
 
-        if (isset($body['isFromAddress'])) {
-            $formItem->isFromAddress = $body['isFromAddress'];
+        if (isset($this->body['isFromAddress'])) {
+            $formItem->isFromAddress = $this->body['isFromAddress'];
         }
 
-        if (isset($body['isRequired'])) {
-            $formItem->isRequired = $body['isRequired'];
+        if (isset($this->body['isRequired'])) {
+            $formItem->isRequired = $this->body['isRequired'];
         }
 
-        if (isset($body['isSubject'])) {
-            $formItem->isSubject = $body['isSubject'];
+        if (isset($this->body['isSubject'])) {
+            $formItem->isSubject = $this->body['isSubject'];
         }
 
         $formItem->update();
 
-        if (isset($body['newPosition'])) {
-            $formItem->move($body['newPosition']);
+        if (isset($this->body['newPosition'])) {
+            $formItem->move($this->body['newPosition']);
         }
 
         return $this->noContent();

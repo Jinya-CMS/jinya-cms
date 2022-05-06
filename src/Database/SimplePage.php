@@ -37,13 +37,13 @@ class SimplePage extends Utils\LoadableEntity
     /**
      * @inheritDoc
      * @param int $id
-     * @return object|null
+     * @return SimplePage|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
      * @throws NoResultException
      */
-    public static function findById(int $id): ?object
+    public static function findById(int $id): ?SimplePage
     {
         return self::fetchSingleById(
             'page',
@@ -58,6 +58,7 @@ class SimplePage extends Utils\LoadableEntity
 
     /**
      * @inheritDoc
+     * @return Iterator<SimplePage>
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -75,6 +76,7 @@ class SimplePage extends Utils\LoadableEntity
 
     /**
      * @inheritDoc
+     * @return Iterator<SimplePage>
      */
     public static function findAll(): Iterator
     {
@@ -137,7 +139,7 @@ class SimplePage extends Utils\LoadableEntity
     /**
      * Formats the current page
      *
-     * @return array
+     * @return array<string, array<string, array<string, string|null>|string>|int|string>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException

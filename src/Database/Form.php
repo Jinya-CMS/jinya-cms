@@ -45,7 +45,7 @@ class Form extends Utils\LoadableEntity
      * @throws InvalidQueryException
      * @throws NoResultException
      */
-    public static function findById(int $id): ?object
+    public static function findById(int $id): ?Form
     {
         return self::fetchSingleById(
             'form',
@@ -60,6 +60,7 @@ class Form extends Utils\LoadableEntity
 
     /**
      * @inheritDoc
+     * @return Iterator<Form>
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -78,6 +79,7 @@ class Form extends Utils\LoadableEntity
 
     /**
      * @inheritDoc
+     * @return Iterator<Form>
      */
     public static function findAll(): Iterator
     {
@@ -94,7 +96,7 @@ class Form extends Utils\LoadableEntity
     /**
      * Gets all form items in the form
      *
-     * @return Iterator
+     * @return Iterator<FormItem>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
@@ -160,7 +162,7 @@ class Form extends Utils\LoadableEntity
     }
 
     /**
-     * @return array
+     * @return array<string, array<string, array<string, string|null>|string>|int|string>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException

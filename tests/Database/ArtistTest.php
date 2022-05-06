@@ -73,7 +73,7 @@ class ArtistTest extends TestCase
         $artist = $this->createArtist(execute: false);
         $artist->create();
 
-        $savedArtist = Artist::findById($artist->id);
+        $savedArtist = Artist::findById($artist->getIdAsInt());
         $this->assertEquals($artist, $savedArtist);
     }
 
@@ -237,7 +237,7 @@ class ArtistTest extends TestCase
         $artist->setPassword('test');
         $artist->update();
 
-        $savedArtist = Artist::findById($artist->id);
+        $savedArtist = Artist::findById($artist->getIdAsInt());
         $this->assertEquals($artist, $savedArtist);
     }
 

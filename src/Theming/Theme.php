@@ -11,7 +11,6 @@ use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
 use RuntimeException;
 use ScssPhp\ScssPhp\Compiler;
-use ScssPhp\ScssPhp\Exception\SassException;
 use ScssPhp\ScssPhp\OutputStyle;
 
 /**
@@ -26,6 +25,7 @@ class Theme implements ExtensionInterface
     private const BASE_CACHE_PATH = __DIR__ . '/../../public' . self::BASE_PUBLIC_PATH;
     private Database\Theme $dbTheme;
     private Compiler $scssCompiler;
+    /** @var array<string, mixed> */
     private array $configuration;
 
     /**
@@ -154,8 +154,7 @@ class Theme implements ExtensionInterface
             function () {
                 $styleFiles = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/styles/');
                 $styleFiles = array_map(
-                    fn($item) => self::BASE_PUBLIC_PATH . $this->dbTheme->name . "/styles/$item",
-                    $styleFiles,
+                    fn($item) => self::BASE_PUBLIC_PATH . $this->dbTheme->name . "/styles/$item", $styleFiles ?: [],
                 );
                 $styleFiles = array_filter($styleFiles, static fn($item) => str_ends_with($item, '.css'));
                 $tags = '';
@@ -173,8 +172,7 @@ class Theme implements ExtensionInterface
             function () {
                 $scriptFiles = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts/');
                 $scriptFiles = array_map(
-                    fn($item) => self::BASE_PUBLIC_PATH . $this->dbTheme->name . "/scripts/$item",
-                    $scriptFiles,
+                    fn($item) => self::BASE_PUBLIC_PATH . $this->dbTheme->name . "/scripts/$item", $scriptFiles ?: [],
                 );
                 $scriptFiles = array_filter($scriptFiles, static fn($item) => str_ends_with($item, '.js'));
                 $tags = '';
@@ -189,6 +187,8 @@ class Theme implements ExtensionInterface
 
     /**
      * Gets the configuration values
+     *
+     * @return array<string, mixed>
      */
     public function getConfigurationValues(): array
     {
@@ -197,7 +197,8 @@ class Theme implements ExtensionInterface
 
     /**
      * Compiles the style cache of the given theme
-     * @throws SassException
+     *
+     * @return void
      */
     public function compileStyleCache(): void
     {
@@ -215,7 +216,7 @@ class Theme implements ExtensionInterface
             }
 
             $this->scssCompiler->setImportPaths(dirname($stylesheet));
-            $result = $this->scssCompiler->compileString(file_get_contents($stylesheet));
+            $result = $this->scssCompiler->compileString(file_get_contents($stylesheet) ?: '');
             file_put_contents($styleCachePath . uniqid('style', true) . '.css', $result->getCss());
         }
     }
@@ -229,12 +230,15 @@ class Theme implements ExtensionInterface
         }
     }
 
+    /**
+     * @return array<string>
+     */
     private function getStyleCache(): array
     {
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/styles');
-        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/styles/$item", $files);
+        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/styles/$item", $files ?: []);
 
-        return array_filter($files, static fn($item) => is_file($item)) ?? [];
+        return array_filter($files, static fn($item) => is_file($item)) ?: [];
     }
 
     /**
@@ -256,7 +260,7 @@ class Theme implements ExtensionInterface
                 continue;
             }
 
-            $result = Minifier::minify(file_get_contents($script));
+            $result = Minifier::minify(file_get_contents($script) ?: '');
             file_put_contents($scriptCachePath . uniqid('script', true) . '.js', $result);
         }
     }
@@ -270,12 +274,15 @@ class Theme implements ExtensionInterface
         }
     }
 
+    /**
+     * @return array<string>
+     */
     private function getScriptCache(): array
     {
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts');
-        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/scripts/$item", $files);
+        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/scripts/$item", $files ?: []);
 
-        return array_filter($files, static fn($item) => is_file($item)) ?? [];
+        return array_filter($files, static fn($item) => is_file($item)) ?: [];
     }
 
     /**
@@ -293,7 +300,7 @@ class Theme implements ExtensionInterface
         $assets = $this->configuration['assets'] ?? [];
 
         foreach ($assets as $key => $asset) {
-            $assetFromDb = Database\ThemeAsset::findByThemeAndName($this->dbTheme->id, $key);
+            $assetFromDb = Database\ThemeAsset::findByThemeAndName($this->dbTheme->getIdAsInt(), $key);
 
             if (!file_exists($asset)) {
                 $assetFromDb?->delete();
@@ -308,11 +315,11 @@ class Theme implements ExtensionInterface
                 $assetFromDb = new Database\ThemeAsset();
                 $assetFromDb->name = $key;
                 $assetFromDb->publicPath = self::BASE_PUBLIC_PATH . $this->dbTheme->name . '/assets/' . $publicPath;
-                $assetFromDb->themeId = $this->dbTheme->id;
+                $assetFromDb->themeId = $this->dbTheme->getIdAsInt();
                 $assetFromDb->create();
             } else {
                 $assetFromDb->publicPath = self::BASE_PUBLIC_PATH . $this->dbTheme->name . '/assets/' . $publicPath;
-                $assetFromDb->themeId = $this->dbTheme->id;
+                $assetFromDb->themeId = $this->dbTheme->getIdAsInt();
                 $assetFromDb->update();
             }
         }
@@ -327,14 +334,20 @@ class Theme implements ExtensionInterface
         }
     }
 
+    /**
+     * @return array<string>
+     */
     private function getAssetCache(): array
     {
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/assets');
-        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/assets/$item", $files);
+        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/assets/$item", $files ?: []);
 
-        return array_filter($files, static fn($item) => is_file($item)) ?? [];
+        return array_filter($files, static fn($item) => is_file($item)) ?: [];
     }
 
+    /**
+     * @return array<string>
+     */
     public function getStyleVariables(): array
     {
         $variablesPath = $this->configuration['styles']['variables'];
@@ -346,7 +359,7 @@ class Theme implements ExtensionInterface
         $variables = [];
 
         try {
-            if ($handle) {
+            if (is_resource($handle)) {
                 while (($line = fgets($handle)) !== false) {
                     if (preg_match('/^\$.*!default;\s$/', $line)) {
                         $replaced = preg_replace('/ !default;$/', '', $line);
@@ -356,12 +369,17 @@ class Theme implements ExtensionInterface
                 }
             }
         } finally {
-            fclose($handle);
+            if (is_resource($handle)) {
+                fclose($handle);
+            }
         }
 
         return $variables;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getConfigurationStructure(): array
     {
         return $this->configuration['configurationStructure'] ?? [];

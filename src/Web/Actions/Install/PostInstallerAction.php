@@ -23,12 +23,11 @@ class PostInstallerAction extends InstallAction
      */
     protected function action(): Response
     {
-        $postData = $this->request->getParsedBody();
-        if (isset($postData['action'])) {
+        if (isset($this->body['action'])) {
             $artist = new Artist();
-            $artist->email = $postData['email'];
-            $artist->setPassword($postData['password']);
-            $artist->artistName = $postData['artistname'];
+            $artist->email = $this->body['email'];
+            $artist->setPassword($this->body['password']);
+            $artist->artistName = $this->body['artistname'];
             $artist->roles = [
                 RoleMiddleware::ROLE_READER,
                 RoleMiddleware::ROLE_WRITER,
@@ -49,7 +48,7 @@ class PostInstallerAction extends InstallAction
                 return $this->render(
                     'install::first-admin',
                     [
-                        'data' => $postData,
+                        'data' => $this->body,
                         'error' => $exception->getMessage(),
                     ]
                 );
@@ -64,7 +63,7 @@ JINYA_UPDATE_SERVER=https://releases.jinya.de/cms
 
 DOTENV;
 
-        $data = array_map(static fn(string $key, string $value) => "$key=$value", array_keys($postData), $postData);
+        $data = array_map(static fn(string $key, string $value) => "$key=$value", array_keys($this->body), $this->body);
 
         $dotenv .= PHP_EOL . implode(PHP_EOL, $data);
 
@@ -79,7 +78,7 @@ DOTENV;
             $this->logger->error($exception->getMessage());
             $this->logger->error($exception->getTraceAsString());
 
-            return $this->render('install::set-config', ['data' => $postData, 'error' => $exception->getMessage()]);
+            return $this->render('install::set-config', ['data' => $this->body, 'error' => $exception->getMessage()]);
         }
 
         return $this->render('install::first-admin', []);

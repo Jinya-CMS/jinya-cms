@@ -5,13 +5,12 @@ namespace Jinya\Tests\Web\Actions\Blog\Post;
 use App\Database\BlogCategory;
 use App\Database\BlogPost;
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Web\Actions\Blog\Post\ListPostsByCategoryAction;
-use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
 use Faker\Factory;
 use Faker\Provider\Uuid;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use JsonException;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
@@ -20,12 +19,9 @@ use Slim\Exception\HttpBadRequestException;
 
 class ListPostsByCategoryActionTest extends TestCase
 {
-    /**
-     * @var array<BlogPost>
-     */
-    private array $posts = [];
     private BlogCategory $category;
     private int $withCategory = 0;
+    /** @var array<BlogPost> */
     private array $postsWithCat = [];
 
     public function setUp(): void
@@ -35,7 +31,6 @@ class ListPostsByCategoryActionTest extends TestCase
         $this->category->create();
 
         $faker = Factory::create();
-        $this->posts = [];
         for ($i = 0; $i < random_int(5, 20); $i++) {
             $post = new BlogPost();
             $post->slug = Uuid::uuid();
@@ -45,7 +40,6 @@ class ListPostsByCategoryActionTest extends TestCase
                 $this->withCategory++;
             }
             $post->create();
-            $this->posts[] = $post;
             if ($post->categoryId) {
                 $this->postsWithCat[] = $post;
             }
@@ -62,7 +56,7 @@ class ListPostsByCategoryActionTest extends TestCase
     public function testListPostsByCategoryExists(): void
     {
         $action = new ListPostsByCategoryAction();
-        $request = new ServerRequest(JinyaAction::GET, '/api/blog/category/' . $this->category->getIdAsInt() . '/post');
+        $request = new ServerRequest('GET', '/api/blog/category/' . $this->category->getIdAsInt() . '/post');
         $response = $action($request, new Response(), ['id' => $this->category->getIdAsInt()]);
 
         $response->getBody()->rewind();
@@ -87,7 +81,7 @@ class ListPostsByCategoryActionTest extends TestCase
         $this->expectExceptionMessage('Category not found');
 
         $action = new ListPostsByCategoryAction();
-        $request = new ServerRequest(JinyaAction::GET, '/api/blog/category/-1/post');
+        $request = new ServerRequest('GET', '/api/blog/category/-1/post');
         $action($request, new Response(), ['id' => -1]);
     }
 }

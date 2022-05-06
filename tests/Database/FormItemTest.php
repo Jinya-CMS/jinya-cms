@@ -61,7 +61,7 @@ class FormItemTest extends TestCase
         $formItem->label = 'Testlabel';
         $formItem->update();
 
-        $savedItem = FormItem::findByPosition($this->form->id, $formItem->position);
+        $savedItem = FormItem::findByPosition($this->form->getIdAsInt(), $formItem->position);
         $this->assertEquals($formItem->label, $savedItem->label);
     }
 
@@ -72,7 +72,7 @@ class FormItemTest extends TestCase
         $formItem->delete();
         $formItem->update();
 
-        $savedItem = FormItem::findByPosition($this->form->id, $formItem->position);
+        $savedItem = FormItem::findByPosition($this->form->getIdAsInt(), $formItem->position);
         $this->assertNull($savedItem);
     }
 
@@ -172,7 +172,7 @@ class FormItemTest extends TestCase
         $formItem = $this->createFormItem();
         $formItem->delete();
 
-        $savedItem = FormItem::findByPosition($this->form->id, $formItem->position);
+        $savedItem = FormItem::findByPosition($this->form->getIdAsInt(), $formItem->position);
         $this->assertNull($savedItem);
     }
 
@@ -182,7 +182,7 @@ class FormItemTest extends TestCase
         $formItem->delete();
         $formItem->delete();
 
-        $savedItem = FormItem::findByPosition($this->form->id, $formItem->position);
+        $savedItem = FormItem::findByPosition($this->form->getIdAsInt(), $formItem->position);
         $this->assertNull($savedItem);
     }
 }

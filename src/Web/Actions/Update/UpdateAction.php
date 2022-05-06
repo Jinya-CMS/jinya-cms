@@ -30,7 +30,7 @@ abstract class UpdateAction extends Action
      * Renders the given template with the given data
      *
      * @param string $template
-     * @param array $data
+     * @param array<mixed> $data
      * @param int $statusCode
      * @return Response
      * @throws Throwable
@@ -60,11 +60,11 @@ abstract class UpdateAction extends Action
     }
 
     /**
-     * @return array
+     * @return array<string, string>
      * @throws JsonException
      */
     protected function getReleases(): array
     {
-        return json_decode(file_get_contents(getenv('JINYA_UPDATE_SERVER')), true, 512, JSON_THROW_ON_ERROR);
+        return json_decode(file_get_contents(getenv('JINYA_UPDATE_SERVER') ?: '') ?: '', true, 512, JSON_THROW_ON_ERROR);
     }
 }

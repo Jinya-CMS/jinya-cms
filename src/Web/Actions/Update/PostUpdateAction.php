@@ -23,15 +23,15 @@ class PostUpdateAction extends UpdateAction
      */
     protected function action(): ResponseInterface
     {
-        $body = $this->request->getParsedBody();
-        if (isset($body['cancel'])) {
+
+        if (isset($this->body['cancel'])) {
             unlink(__ROOT__ . '/update.lock');
         }
 
-        if (isset($body['update'])) {
+        if (isset($this->body['update'])) {
             try {
                 $updatePath = __ROOT__ . '/var/update.zip';
-                $newVersion = $body['newVersion'];
+                $newVersion = $this->body['newVersion'];
                 $releasePath = $this->getReleasePath($newVersion);
                 copy($releasePath, __ROOT__ . '/var/update.zip');
                 $zipStream = new ZipArchive();
