@@ -14,6 +14,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpNotFoundException;
 
+/**
+ *
+ */
 class UpdateSegmentAction extends Action
 {
     /**
@@ -69,17 +72,17 @@ class UpdateSegmentAction extends Action
 
         if ($segment->fileId) {
             $action = $body['action'] ?? '';
-            if ('link' === $action) {
+            if ($action === 'link') {
                 $target = $body['target'] ?? '';
                 $segment->target = $target;
                 $segment->action = $action;
                 $segment->script = null;
-            } elseif ('script' === $action) {
+            } elseif ($action === 'script') {
                 $script = $body['script'] ?? '';
                 $segment->script = $script;
                 $segment->action = $action;
                 $segment->target = null;
-            } elseif ('none' === $action) {
+            } elseif ($action === 'none') {
                 $segment->action = $action;
                 $segment->script = null;
                 $segment->target = null;

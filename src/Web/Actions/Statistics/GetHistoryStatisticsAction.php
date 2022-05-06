@@ -8,6 +8,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Nyholm\Psr7\Response as NyholmResponse;
 use Psr\Http\Message\ResponseInterface as Response;
 
+/**
+ *
+ */
 class GetHistoryStatisticsAction extends Action
 {
 

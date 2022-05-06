@@ -9,6 +9,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Nyholm\Psr7\Stream;
 use Psr\Http\Message\ResponseInterface as Response;
 
+/**
+ *
+ */
 class GetPreviewImageAction extends ThemeAction
 {
     /**

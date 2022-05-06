@@ -2,6 +2,9 @@
 
 namespace App\Theming;
 
+/**
+ *
+ */
 class Engine
 {
     public static function getPlatesEngine(): \League\Plates\Engine

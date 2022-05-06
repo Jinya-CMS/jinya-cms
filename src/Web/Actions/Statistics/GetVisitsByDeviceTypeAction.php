@@ -7,6 +7,9 @@ use App\Web\Actions\Action;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
+/**
+ *
+ */
 class GetVisitsByDeviceTypeAction extends Action
 {
 

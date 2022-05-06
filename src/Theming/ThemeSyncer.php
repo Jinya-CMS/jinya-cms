@@ -6,6 +6,9 @@ use App\Database;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
+/**
+ *
+ */
 class ThemeSyncer
 {
     public const THEME_BASE_PATH = __DIR__ . '/../../themes/';
@@ -31,7 +34,7 @@ class ThemeSyncer
             $dir = self::THEME_BASE_PATH . $dir;
             /** @noinspection PhpIncludeInspection */
             $config = require "$dir/theme.php";
-            if (0 === count(array_filter($allThemes, static fn(Database\Theme $theme) => $theme->name === $name))) {
+            if (count(array_filter($allThemes, static fn(Database\Theme $theme) => $theme->name === $name)) === 0) {
                 $dbTheme = new Database\Theme();
                 $dbTheme->configuration = [];
                 $dbTheme->scssVariables = [];
@@ -50,15 +53,15 @@ class ThemeSyncer
         $activeTheme = Database\Theme::getActiveTheme();
         $defaultTheme = Database\Theme::findByName('jinya-default-theme');
         foreach ($nonExistingThemes as $nonExistingTheme) {
-            if (null === $activeTheme || $nonExistingTheme->name === $activeTheme->name) {
+            if ($activeTheme === null || $nonExistingTheme->name === $activeTheme->name) {
                 /* @noinspection NullPointerExceptionInspection */
                 $defaultTheme->makeActiveTheme();
             }
             $nonExistingTheme->delete();
         }
 
-        if (null === $activeTheme) {
-            $defaultTheme->makeActiveTheme();
+        if ($activeTheme === null) {
+            $defaultTheme?->makeActiveTheme();
         }
     }
 }

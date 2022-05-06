@@ -7,6 +7,9 @@ use App\Database\Utils\LoadableEntity;
 use App\Web\Actions\Action;
 use Psr\Http\Message\ResponseInterface as Response;
 
+/**
+ *
+ */
 class ExecuteQueryAction extends Action
 {
     /**

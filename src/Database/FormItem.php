@@ -10,6 +10,9 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\BooleanStrategy;
 use RuntimeException;
 
+/**
+ *
+ */
 class FormItem extends Utils\RearrangableEntity
 {
     public string $type = 'text';

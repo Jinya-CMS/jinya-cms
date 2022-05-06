@@ -9,6 +9,9 @@ use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
+/**
+ *
+ */
 class ThemeGallery extends ThemeHelperEntity
 {
 
@@ -52,11 +55,11 @@ class ThemeGallery extends ThemeHelperEntity
      * @throws InvalidQueryException
      * @throws NoResultException
      */
-    #[ArrayShape(['name' => "string", 'gallery' => "array"])] public function format(): array
+    #[ArrayShape(['name' => 'string', 'gallery' => 'array'])] public function format(): array
     {
         return [
             'name' => $this->name,
-            'gallery' => $this->getGallery()->format(),
+            'gallery' => $this->getGallery()?->format(),
         ];
     }
 

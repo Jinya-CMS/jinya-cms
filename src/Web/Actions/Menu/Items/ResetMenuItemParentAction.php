@@ -11,6 +11,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
+/**
+ *
+ */
 class ResetMenuItemParentAction extends Action
 {
     /**

@@ -8,6 +8,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
+/**
+ *
+ */
 class BlogPostSegment extends Utils\RearrangableEntity
 {
     public ?int $galleryId = null;

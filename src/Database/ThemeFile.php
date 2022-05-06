@@ -9,6 +9,9 @@ use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
+/**
+ *
+ */
 class ThemeFile extends ThemeHelperEntity
 {
 
@@ -52,11 +55,11 @@ class ThemeFile extends ThemeHelperEntity
      * @throws InvalidQueryException
      * @throws NoResultException
      */
-    #[ArrayShape(['name' => "string", 'file' => "array"])] public function format(): array
+    #[ArrayShape(['name' => 'string', 'file' => 'array'])] public function format(): array
     {
         return [
             'name' => $this->name,
-            'file' => $this->getFile()->format(),
+            'file' => $this->getFile()?->format(),
         ];
     }
 

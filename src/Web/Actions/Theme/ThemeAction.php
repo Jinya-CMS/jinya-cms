@@ -9,6 +9,9 @@ use App\Web\Actions\Action;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
+/**
+ *
+ */
 abstract class ThemeAction extends Action
 {
     /**

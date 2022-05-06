@@ -6,14 +6,13 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Storage\FileUploadService;
 use App\Web\Actions\Action;
-use App\Web\Attributes\Authenticated;
-use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-#[JinyaAction('/api/media/file/{id}/content/finish', JinyaAction::PUT)]
-#[Authenticated(role: Authenticated::WRITER)]
+/**
+ *
+ */
 class FinishUploadAction extends Action
 {
     private FileUploadService $fileUploadService;

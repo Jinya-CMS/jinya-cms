@@ -9,6 +9,9 @@ use Iterator;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
+/**
+ *
+ */
 #[JinyaApi]
 class Menu extends Utils\LoadableEntity
 {
@@ -91,7 +94,7 @@ class Menu extends Utils\LoadableEntity
      */
     public function getLogo(): ?File
     {
-        if (null === $this->logo) {
+        if ($this->logo === null) {
             return null;
         }
 

@@ -6,7 +6,6 @@ use App\Authentication\CurrentUser;
 use App\Database\Utils\LoadableEntity;
 use App\Routing\Attributes\JinyaApi;
 use App\Routing\Attributes\JinyaApiField;
-use App\Web\Attributes\Authenticated;
 use DateTime;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
@@ -14,7 +13,10 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
-#[JinyaApi(createRole: Authenticated::WRITER, readRole: Authenticated::READER, updateRole: Authenticated::WRITER, deleteRole: Authenticated::WRITER)]
+/**
+ *
+ */
+#[JinyaApi]
 class File extends LoadableEntity
 {
     #[JinyaApiField(ignore: true)]
@@ -151,12 +153,12 @@ class File extends LoadableEntity
      * @throws NoResultException
      */
     #[ArrayShape([
-        'id' => "int",
-        'name' => "string",
-        'type' => "string",
-        'path' => "string",
-        'created' => "array",
-        'updated' => "array"
+        'id' => 'int',
+        'name' => 'string',
+        'type' => 'string',
+        'path' => 'string',
+        'created' => 'array',
+        'updated' => 'array'
     ])] public function format(): array
     {
         $creator = $this->getCreator();
@@ -169,17 +171,17 @@ class File extends LoadableEntity
             'path' => $this->path,
             'created' => [
                 'by' => [
-                    'artistName' => $creator->artistName,
-                    'email' => $creator->email,
-                    'profilePicture' => $creator->profilePicture,
+                    'artistName' => $creator?->artistName,
+                    'email' => $creator?->email,
+                    'profilePicture' => $creator?->profilePicture,
                 ],
                 'at' => $this->createdAt->format(DATE_ATOM),
             ],
             'updated' => [
                 'by' => [
-                    'artistName' => $updatedBy->artistName,
-                    'email' => $updatedBy->email,
-                    'profilePicture' => $updatedBy->profilePicture,
+                    'artistName' => $updatedBy?->artistName,
+                    'email' => $updatedBy?->email,
+                    'profilePicture' => $updatedBy?->profilePicture,
                 ],
                 'at' => $this->lastUpdatedAt->format(DATE_ATOM),
             ],

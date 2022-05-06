@@ -11,6 +11,9 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 use RuntimeException;
 
+/**
+ *
+ */
 class ApiKey extends Utils\LoadableEntity
 {
     public string $apiKey;
@@ -40,7 +43,7 @@ class ApiKey extends Utils\LoadableEntity
      */
     public static function findByApiKey(string $apiKey): ?ApiKey
     {
-        $sql = "SELECT api_key, user_id, valid_since, user_agent, remote_address FROM api_key WHERE api_key = :apiKey";
+        $sql = 'SELECT api_key, user_id, valid_since, user_agent, remote_address FROM api_key WHERE api_key = :apiKey';
 
         try {
             return self::getPdo()->fetchObject($sql, new self(), ['apiKey' => $apiKey], ['validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT)]);
@@ -149,10 +152,10 @@ class ApiKey extends Utils\LoadableEntity
     }
 
     #[ArrayShape([
-        'remoteAddress' => "string",
+        'remoteAddress' => 'string',
         'validSince' => DateTime::class,
-        'userAgent' => "string",
-        'key' => "string"
+        'userAgent' => 'string',
+        'key' => 'string'
     ])] public function format(): array
     {
         return [

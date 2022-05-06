@@ -6,6 +6,9 @@ use App\Database\Utils\LoadableEntity;
 use Error;
 use JetBrains\PhpStorm\ArrayShape;
 
+/**
+ *
+ */
 class DatabaseAnalyzer
 {
     public const GLOBAL_VARIABLES = 'GLOBAL';

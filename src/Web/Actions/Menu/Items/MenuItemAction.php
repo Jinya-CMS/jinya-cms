@@ -16,6 +16,9 @@ use App\Web\Exceptions\NoResultException;
 use Iterator;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 
+/**
+ *
+ */
 abstract class MenuItemAction extends Action
 {
     /**

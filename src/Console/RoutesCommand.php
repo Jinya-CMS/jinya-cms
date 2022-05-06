@@ -6,7 +6,10 @@ use App\Web\Attributes\JinyaAction;
 use App\Web\Routes\RouteResolver;
 use ReflectionException;
 
-#[JinyaCommand("routes")]
+/**
+ *
+ */
+#[JinyaCommand('routes')]
 class RoutesCommand extends AbstractCommand
 {
 

@@ -12,6 +12,9 @@ use League\Plates\Engine;
 use PHPMailer\PHPMailer\Exception;
 use Throwable;
 
+/**
+ *
+ */
 class NewLoginMail
 {
     private Engine $templateEngine;

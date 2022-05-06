@@ -4,6 +4,9 @@ namespace App\Mailing\Factory;
 
 use PHPMailer\PHPMailer\PHPMailer;
 
+/**
+ *
+ */
 class MailerFactory
 {
     public static function getMailer(): PHPMailer

@@ -8,6 +8,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
+/**
+ *
+ */
 class Segment extends Utils\RearrangableEntity
 {
     public int $pageId;
@@ -137,15 +140,15 @@ class Segment extends Utils\RearrangableEntity
      * @throws NoResultException
      */
     #[ArrayShape([
-        'position' => "int",
-        'id' => "int",
-        'form' => "array",
-        'gallery' => "array",
-        'target' => "null|string",
-        'html' => "null|string",
-        'script' => "null|string",
-        'action' => "null|string",
-        'file' => "array"
+        'position' => 'int',
+        'id' => 'int',
+        'form' => 'array',
+        'gallery' => 'array',
+        'target' => 'null|string',
+        'html' => 'null|string',
+        'script' => 'null|string',
+        'action' => 'null|string',
+        'file' => 'array'
     ])] public function format(): array
     {
         $data = [
@@ -156,26 +159,26 @@ class Segment extends Utils\RearrangableEntity
             $form = Form::findById($this->formId);
             $data['form'] = [
                 'id' => $this->formId,
-                'title' => $form->title,
-                'description' => $form->description,
-                'toAddress' => $form->toAddress,
+                'title' => $form?->title,
+                'description' => $form?->description,
+                'toAddress' => $form?->toAddress,
             ];
         } elseif (isset($this->galleryId)) {
             $gallery = Gallery::findById($this->galleryId);
             $data['gallery'] = [
                 'id' => $this->galleryId,
-                'name' => $gallery->name,
-                'description' => $gallery->description,
-                'type' => $gallery->type,
-                'orientation' => $gallery->orientation,
+                'name' => $gallery?->name,
+                'description' => $gallery?->description,
+                'type' => $gallery?->type,
+                'orientation' => $gallery?->orientation,
             ];
         } elseif (isset($this->fileId)) {
             $file = File::findById($this->fileId);
             $data['file'] = [
                 'id' => $this->fileId,
-                'name' => $file->name,
-                'type' => $file->type,
-                'path' => $file->path,
+                'name' => $file?->name,
+                'type' => $file?->type,
+                'path' => $file?->path,
             ];
             $data['action'] = $this->action;
             $data['script'] = $this->script;

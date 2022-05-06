@@ -11,6 +11,9 @@ use App\Web\Exceptions\NoResultException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
+/**
+ *
+ */
 class GetProfilePictureAction extends Action
 {
     /**
@@ -25,7 +28,7 @@ class GetProfilePictureAction extends Action
     {
         $id = $this->args['id'];
         $artist = Artist::findById($id);
-        if (null === $artist) {
+        if ($artist === null) {
             throw new NoResultException($this->request, 'Artist not found');
         }
 

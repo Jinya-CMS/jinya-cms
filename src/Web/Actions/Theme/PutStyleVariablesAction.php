@@ -12,6 +12,9 @@ use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 use ScssPhp\ScssPhp\Exception\SassException;
 
+/**
+ *
+ */
 class PutStyleVariablesAction extends ThemeAction
 {
     /**

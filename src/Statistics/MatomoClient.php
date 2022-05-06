@@ -6,6 +6,9 @@ use DateInterval;
 use DateTime;
 use JsonException;
 
+/**
+ *
+ */
 class MatomoClient
 {
     private string $matomoServer;

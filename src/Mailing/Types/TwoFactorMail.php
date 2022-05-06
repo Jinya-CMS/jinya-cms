@@ -7,6 +7,9 @@ use League\Plates\Engine;
 use PHPMailer\PHPMailer\Exception;
 use Throwable;
 
+/**
+ *
+ */
 class TwoFactorMail
 {
     private Engine $templateEngine;

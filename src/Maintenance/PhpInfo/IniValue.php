@@ -6,6 +6,9 @@ use JetBrains\PhpStorm\ArrayShape;
 use JsonSerializable;
 use ReturnTypeWillChange;
 
+/**
+ *
+ */
 class IniValue implements JsonSerializable
 {
     public ?string $value;
@@ -15,7 +18,7 @@ class IniValue implements JsonSerializable
     /**
      * {@inheritdoc}
      */
-    #[ReturnTypeWillChange] #[ArrayShape(['value' => "null|string", 'name' => "null|string"])] public function jsonSerialize()
+    #[ReturnTypeWillChange] #[ArrayShape(['value' => 'null|string', 'name' => 'null|string'])] public function jsonSerialize()
     {
         return [
             'value' => $this->value,

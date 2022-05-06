@@ -5,6 +5,9 @@ namespace App\Database\Utils;
 use JetBrains\PhpStorm\Pure;
 use Laminas\Hydrator\Filter\FilterInterface;
 
+/**
+ *
+ */
 class SkipFieldFilter implements FilterInterface
 {
 

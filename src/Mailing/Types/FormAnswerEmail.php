@@ -5,6 +5,9 @@ namespace App\Mailing\Types;
 use App\Mailing\Factory\MailerFactory;
 use PHPMailer\PHPMailer\Exception;
 
+/**
+ *
+ */
 class FormAnswerEmail
 {
     /**

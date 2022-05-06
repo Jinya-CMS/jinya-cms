@@ -5,6 +5,9 @@ namespace App\Database\Strategies;
 use Laminas\Hydrator\Exception\InvalidArgumentException;
 use Laminas\Hydrator\Strategy\StrategyInterface;
 
+/**
+ *
+ */
 class NullableBooleanStrategy implements StrategyInterface
 {
     /**
@@ -30,7 +33,7 @@ class NullableBooleanStrategy implements StrategyInterface
      * Converts the given value so that it can be hydrated by the hydrator.
      *
      * @param bool|int|string $value The original value.
-     * @param array<array-key, mixed>|null $data
+     * @param array|null $data
      * @return bool|null Returns the value that should be hydrated.
      */
     public function hydrate($value, ?array $data = null): ?bool

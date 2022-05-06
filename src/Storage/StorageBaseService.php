@@ -2,6 +2,9 @@
 
 namespace App\Storage;
 
+/**
+ *
+ */
 abstract class StorageBaseService
 {
     public const WEB_PATH = '/jinya-content/';

@@ -7,6 +7,9 @@ use App\Web\Actions\Action;
 use Psr\Http\Message\ResponseInterface as Response;
 use ReflectionException;
 
+/**
+ *
+ */
 class GetPhpInfoAction extends Action
 {
     /**

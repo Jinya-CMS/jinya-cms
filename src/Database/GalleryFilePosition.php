@@ -9,6 +9,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
+/**
+ *
+ */
 class GalleryFilePosition extends Utils\RearrangableEntity
 {
     public int $galleryId;
@@ -97,10 +100,10 @@ class GalleryFilePosition extends Utils\RearrangableEntity
      * @throws NoResultException
      */
     #[ArrayShape([
-        'gallery' => "array",
-        'file' => "array",
-        'id' => "int",
-        'position' => "int"
+        'gallery' => 'array',
+        'file' => 'array',
+        'id' => 'int',
+        'position' => 'int'
     ])] public function format(): array
     {
         $gallery = $this->getGallery();
@@ -108,14 +111,14 @@ class GalleryFilePosition extends Utils\RearrangableEntity
         return [
             'gallery' => [
                 'id' => $this->galleryId,
-                'name' => $gallery->name,
-                'description' => $gallery->description,
+                'name' => $gallery?->name,
+                'description' => $gallery?->description,
             ],
             'file' => [
-                'path' => $file->path,
-                'id' => $file->getIdAsInt(),
-                'name' => $file->name,
-                'type' => $file->type,
+                'path' => $file?->path,
+                'id' => $file?->getIdAsInt(),
+                'name' => $file?->name,
+                'type' => $file?->type,
             ],
             'id' => $this->getIdAsInt(),
             'position' => $this->position,

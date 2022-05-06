@@ -9,6 +9,9 @@ use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
+/**
+ *
+ */
 class ThemeMenu extends ThemeHelperEntity
 {
 
@@ -52,11 +55,11 @@ class ThemeMenu extends ThemeHelperEntity
      * @throws InvalidQueryException
      * @throws NoResultException
      */
-    #[ArrayShape(['name' => "string", 'menu' => "array"])] public function format(): array
+    #[ArrayShape(['name' => 'string', 'menu' => 'array'])] public function format(): array
     {
         return [
             'name' => $this->name,
-            'menu' => $this->getMenu()->format(),
+            'menu' => $this->getMenu()?->format(),
         ];
     }
 

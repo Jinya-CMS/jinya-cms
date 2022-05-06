@@ -11,8 +11,8 @@ use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\LoadableEntity;
 use App\Routing\Attributes\JinyaApi;
 use App\Routing\Attributes\JinyaApiField;
-use App\Web\Attributes\Authenticated;
 use App\Web\Exceptions\MissingFieldsException;
+use App\Web\Middleware\RoleMiddleware;
 use DateInterval;
 use DateTime;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
@@ -27,6 +27,9 @@ use Slim\Exception\HttpForbiddenException;
 use Slim\Exception\HttpMethodNotAllowedException;
 use Slim\Exception\HttpNotFoundException;
 
+/**
+ *
+ */
 class JinyaModelToRouteResolver
 {
     /**
@@ -62,13 +65,13 @@ class JinyaModelToRouteResolver
 
         $defaultAttributeValues = [
             'createEnabled' => true,
-            'createRole' => Authenticated::WRITER,
+            'createRole' => RoleMiddleware::ROLE_WRITER,
             'readEnabled' => true,
-            'readRole' => Authenticated::READER,
+            'readRole' => RoleMiddleware::ROLE_READER,
             'updateEnabled' => true,
-            'updateRole' => Authenticated::WRITER,
+            'updateRole' => RoleMiddleware::ROLE_WRITER,
             'deleteEnabled' => true,
-            'deleteRole' => Authenticated::WRITER,
+            'deleteRole' => RoleMiddleware::ROLE_WRITER,
         ];
         $jinyaApiAttributeArguments = $jinyaApiAttributes[0]->getArguments();
         /** @var array<string, mixed> $jinyaApiArguments */
@@ -285,7 +288,7 @@ class JinyaModelToRouteResolver
     private static function checkRole(?Artist $artist, Request $request, string $role): void
     {
         $cascadedRole = match ($role) {
-            Authenticated::READER => Authenticated::WRITER,
+            RoleMiddleware::ROLE_READER => RoleMiddleware::ROLE_WRITER,
             default => '',
         };
         if (!(in_array($role, $artist?->roles ?? [], true) || in_array($cascadedRole, $artist?->roles ?? [], true))) {

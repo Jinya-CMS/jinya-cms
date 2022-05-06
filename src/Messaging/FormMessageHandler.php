@@ -14,6 +14,9 @@ use PHPMailer\PHPMailer\Exception;
 use Psr\Http\Message\ServerRequestInterface;
 use Throwable;
 
+/**
+ *
+ */
 class FormMessageHandler
 {
     private Engine $engine;

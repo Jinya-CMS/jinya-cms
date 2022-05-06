@@ -14,6 +14,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
+/**
+ *
+ */
 class FileUploadService extends StorageBaseService
 {
     /**
@@ -32,7 +35,7 @@ class FileUploadService extends StorageBaseService
      */
     public function saveChunk(int $fileId, int $position, mixed $data): UploadingFileChunk
     {
-        if (null === $data) {
+        if ($data === null) {
             throw new RuntimeException();
         }
 
@@ -40,7 +43,7 @@ class FileUploadService extends StorageBaseService
         file_put_contents($path, $data);
 
         $uploadingFile = UploadingFile::findByFile($fileId);
-        if (null === $uploadingFile) {
+        if ($uploadingFile === null) {
             throw new EmptyResultException('File not found');
         }
 
@@ -66,6 +69,10 @@ class FileUploadService extends StorageBaseService
     public function finishUpload(int $fileId): object|null
     {
         $file = File::findById($fileId);
+        if ($file === null) {
+            throw new NoResultException('File not found');
+        }
+
         $chunks = UploadingFileChunk::findByFile($fileId);
 
         if (!@mkdir(self::SAVE_PATH, 0775, true) && !@is_dir(self::SAVE_PATH)) {
@@ -110,7 +117,6 @@ class FileUploadService extends StorageBaseService
             }
         }
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $file;
     }
 

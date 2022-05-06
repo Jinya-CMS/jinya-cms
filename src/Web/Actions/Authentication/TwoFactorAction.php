@@ -13,6 +13,9 @@ use PHPMailer\PHPMailer\Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 use Throwable;
 
+/**
+ *
+ */
 class TwoFactorAction extends Action
 {
 

@@ -6,6 +6,9 @@ use PhpMyAdmin\SqlParser\Parser;
 use PhpMyAdmin\SqlParser\Statement;
 use PhpMyAdmin\SqlParser\Utils\Query;
 
+/**
+ *
+ */
 class QueryAnalyzer
 {
     /**

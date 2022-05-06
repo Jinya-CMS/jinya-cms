@@ -6,6 +6,9 @@ use PHPUnit\Runner\BeforeFirstTestHook;
 
 require_once __DIR__ . '/../../../defines.php';
 
+/**
+ *
+ */
 class DefinesHook implements BeforeFirstTestHook
 {
 

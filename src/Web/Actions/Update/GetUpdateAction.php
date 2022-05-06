@@ -6,6 +6,9 @@ use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Throwable;
 
+/**
+ *
+ */
 class GetUpdateAction extends UpdateAction
 {
     /**

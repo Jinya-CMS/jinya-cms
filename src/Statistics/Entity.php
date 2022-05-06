@@ -5,19 +5,22 @@ namespace App\Statistics;
 use App\Database\Utils\LoadableEntity;
 use JetBrains\PhpStorm\ArrayShape;
 
+/**
+ *
+ */
 class Entity
 {
     /**
      * @return array{files: int, galleries: int, simplePages: int, segmentPages: int, forms: int, blogPosts: int, blogCategories: int}
      */
     #[ArrayShape([
-        'files' => "int",
-        'galleries' => "int",
-        'simplePages' => "int",
-        'segmentPages' => "int",
-        'forms' => "int",
-        'blogPosts' => "int",
-        'blogCategories' => "int",
+        'files' => 'int',
+        'galleries' => 'int',
+        'simplePages' => 'int',
+        'segmentPages' => 'int',
+        'forms' => 'int',
+        'blogPosts' => 'int',
+        'blogCategories' => 'int',
     ])] public function getEntityShare(): array
     {
         $fileCount = 'SELECT COUNT(*) FROM file';

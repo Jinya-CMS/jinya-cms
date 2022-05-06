@@ -13,6 +13,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
 
+/**
+ *
+ */
 class DeactivateArtistAction extends Action
 {
     /**
@@ -27,7 +30,10 @@ class DeactivateArtistAction extends Action
     protected function action(): Response
     {
         $artist = Artist::findById($this->args['id']);
-        if (in_array(RoleMiddleware::ROLE_ADMIN, $artist->roles, true) && 1 === Artist::countAdmins(CurrentUser::$currentUser->getIdAsInt())) {
+        if ($artist === null) {
+            throw new \App\Web\Exceptions\NoResultException($this->request, "Artist doesn't exist");
+        }
+        if (in_array(RoleMiddleware::ROLE_ADMIN, $artist->roles, true) && Artist::countAdmins(CurrentUser::$currentUser->getIdAsInt()) === 1) {
             throw new ConflictException($this->request, 'Cannot disable last admin');
         }
 

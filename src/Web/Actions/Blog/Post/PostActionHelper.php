@@ -11,6 +11,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use League\Uri\Http as HttpUri;
 
+/**
+ *
+ */
 trait PostActionHelper
 {
     /**
@@ -39,7 +42,7 @@ trait PostActionHelper
             $request = 'POST ' . $category?->webhookUrl . " HTTP/1.1\r\n";
             $request .= 'Host: ' . $url->getHost() . "\r\n";
             $request .= "Content-Type: application/json\r\n";
-            $request .= "Content-Length: " . strlen($postBody) . "\r\n";
+            $request .= 'Content-Length: ' . strlen($postBody) . "\r\n";
             $request .= "Connection: Close\r\n";
             $request .= "\r\n";
             $request .= $postBody;

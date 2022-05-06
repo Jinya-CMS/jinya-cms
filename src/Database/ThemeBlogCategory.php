@@ -9,6 +9,9 @@ use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
+/**
+ *
+ */
 class ThemeBlogCategory extends Utils\ThemeHelperEntity
 {
     public int $blogCategoryId = -1;
@@ -71,7 +74,7 @@ class ThemeBlogCategory extends Utils\ThemeHelperEntity
      * @throws NoResultException
      * @throws UniqueFailedException
      */
-    #[ArrayShape(['name' => "string", 'blogCategory' => "array"])]
+    #[ArrayShape(['name' => 'string', 'blogCategory' => 'array'])]
     public function format(): array
     {
         return [

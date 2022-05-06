@@ -14,6 +14,9 @@ use Slim\Exception\HttpSpecializedException;
 use Slim\Handlers\ErrorHandler as SlimErrorHandler;
 use Throwable;
 
+/**
+ *
+ */
 class HttpErrorHandler extends SlimErrorHandler
 {
     /**

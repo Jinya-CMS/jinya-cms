@@ -7,6 +7,9 @@ use JsonSerializable;
 use ReturnTypeWillChange;
 use stdClass;
 
+/**
+ *
+ */
 class PhpExtension implements JsonSerializable
 {
     public string $extensionName;

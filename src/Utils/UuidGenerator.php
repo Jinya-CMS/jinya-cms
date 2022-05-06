@@ -4,6 +4,9 @@ namespace App\Utils;
 
 use Exception;
 
+/**
+ *
+ */
 class UuidGenerator
 {
     /**

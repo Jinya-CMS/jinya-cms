@@ -5,6 +5,9 @@ namespace App\Tests\Extensions;
 use App\Database\Utils\LoadableEntity;
 use PHPUnit\Runner\AfterLastTestHook;
 
+/**
+ *
+ */
 class DropAllTablesHook implements AfterLastTestHook
 {
 

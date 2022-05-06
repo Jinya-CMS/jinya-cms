@@ -11,6 +11,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
+/**
+ *
+ */
 class MoveMenuItemParentToItemAction extends Action
 {
     /**
@@ -36,6 +39,9 @@ class MoveMenuItemParentToItemAction extends Action
             $menuItem->parentId = $newMenuItemParent;
         } elseif ($menuItem->parentId) {
             $parent = MenuItem::findById($menuItem->parentId);
+            if (!$parent) {
+                throw new NoResultException($this->request, 'Parent menu item not found');
+            }
             if ($parent->parentId) {
                 $menuItem->parentId = $parent->parentId;
                 $menuItem->menuId = null;

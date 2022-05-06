@@ -10,6 +10,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 use stdClass;
 
+/**
+ *
+ */
 class GetLinkItemAction extends ThemeAction
 {
 

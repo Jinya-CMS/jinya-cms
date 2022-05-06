@@ -5,6 +5,9 @@ namespace App\Web\Actions\Update;
 use App\Web\Actions\Action;
 use Psr\Http\Message\ResponseInterface as Response;
 
+/**
+ *
+ */
 class InitUpdateProcess extends Action
 {
     /**

@@ -14,6 +14,9 @@ use ScssPhp\ScssPhp\Compiler;
 use ScssPhp\ScssPhp\Exception\SassException;
 use ScssPhp\ScssPhp\OutputStyle;
 
+/**
+ *
+ */
 class Theme implements ExtensionInterface
 {
     public const ERROR_BEHAVIOR_HOMEPAGE = 'homepage';
@@ -301,7 +304,7 @@ class Theme implements ExtensionInterface
             $publicPath = uniqid('asset', true) . '.' . pathinfo($asset, PATHINFO_EXTENSION);
             copy($asset, $assetCachePath . $publicPath);
 
-            if (null === $assetFromDb) {
+            if ($assetFromDb === null) {
                 $assetFromDb = new Database\ThemeAsset();
                 $assetFromDb->name = $key;
                 $assetFromDb->publicPath = self::BASE_PUBLIC_PATH . $this->dbTheme->name . '/assets/' . $publicPath;
@@ -344,7 +347,7 @@ class Theme implements ExtensionInterface
 
         try {
             if ($handle) {
-                while (false !== ($line = fgets($handle))) {
+                while (($line = fgets($handle)) !== false) {
                     if (preg_match('/^\$.*!default;\s$/', $line)) {
                         $replaced = preg_replace('/ !default;$/', '', $line);
                         $exploded = explode(':', $replaced);

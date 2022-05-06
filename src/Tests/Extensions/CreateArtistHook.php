@@ -9,6 +9,9 @@ use App\Database\Exceptions\UniqueFailedException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use PHPUnit\Runner\BeforeTestHook;
 
+/**
+ *
+ */
 class CreateArtistHook implements BeforeTestHook
 {
 

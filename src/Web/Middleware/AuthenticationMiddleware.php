@@ -13,6 +13,9 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Slim\Exception\HttpForbiddenException;
 
+/**
+ *
+ */
 class AuthenticationMiddleware implements MiddlewareInterface
 {
     public const LOGGED_IN_ARTIST = 'logged_in_artist';
@@ -41,7 +44,7 @@ class AuthenticationMiddleware implements MiddlewareInterface
 
         $apiKey->validSince = new DateTime();
         $artist = $apiKey->getArtist();
-        if (!$artist->enabled) {
+        if (!$artist?->enabled) {
             $apiKey->delete();
             throw new HttpForbiddenException($request, 'Api key invalid');
         }

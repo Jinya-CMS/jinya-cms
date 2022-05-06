@@ -6,6 +6,9 @@ use App\Database\Utils\LoadableEntity;
 use Iterator;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 
+/**
+ *
+ */
 class History
 {
     /**

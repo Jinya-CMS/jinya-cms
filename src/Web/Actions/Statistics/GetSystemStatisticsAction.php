@@ -6,6 +6,9 @@ use App\Statistics\Storage;
 use App\Web\Actions\Action;
 use Psr\Http\Message\ResponseInterface as Response;
 
+/**
+ *
+ */
 class GetSystemStatisticsAction extends Action
 {
 

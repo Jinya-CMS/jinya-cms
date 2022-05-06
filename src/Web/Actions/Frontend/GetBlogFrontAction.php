@@ -10,6 +10,9 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Throwable;
 
+/**
+ *
+ */
 class GetBlogFrontAction extends FrontAction
 {
 
@@ -26,7 +29,7 @@ class GetBlogFrontAction extends FrontAction
     {
         $slug = $this->args['slug'];
         $blogPost = BlogPost::findBySlug($slug);
-        if (null !== $blogPost && $blogPost->public) {
+        if ($blogPost !== null && $blogPost->public) {
             return $this->render('theme::blog-post', ['post' => $blogPost]);
         }
 

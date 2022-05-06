@@ -6,6 +6,9 @@ require_once __DIR__ . '/../../defines.php';
 
 use Dotenv\Dotenv;
 
+/**
+ *
+ */
 class AppSettingsInitializer
 {
     public static function loadDotEnv(): void

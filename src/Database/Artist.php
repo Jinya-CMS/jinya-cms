@@ -10,7 +10,6 @@ use App\Database\Strategies\PhpSerializeStrategy;
 use App\Database\Utils\LoadableEntity;
 use App\Routing\Attributes\JinyaApi;
 use App\Routing\Attributes\JinyaApiField;
-use App\Web\Attributes\Authenticated;
 use App\Web\Middleware\RoleMiddleware;
 use DateInterval;
 use DateTime;
@@ -24,7 +23,10 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\BooleanStrategy;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
-#[JinyaApi(createRole: Authenticated::ADMIN, readRole: Authenticated::READER, updateRole: Authenticated::ADMIN, deleteRole: Authenticated::ADMIN)]
+/**
+ *
+ */
+#[JinyaApi(createRole: RoleMiddleware::ROLE_ADMIN, readRole: RoleMiddleware::ROLE_READER, updateRole: RoleMiddleware::ROLE_ADMIN, deleteRole: RoleMiddleware::ROLE_ADMIN)]
 class Artist extends LoadableEntity
 {
     #[JinyaApiField(required: true)]
@@ -205,13 +207,13 @@ class Artist extends LoadableEntity
      * @return array
      */
     #[Pure] #[ArrayShape([
-        'artistName' => "string",
-        'email' => "string",
-        'profilePicture' => "null|string",
-        'roles' => "array",
-        'enabled' => "bool",
-        'id' => "int",
-        'aboutMe' => "null|string"
+        'artistName' => 'string',
+        'email' => 'string',
+        'profilePicture' => 'null|string',
+        'roles' => 'array',
+        'enabled' => 'bool',
+        'id' => 'int',
+        'aboutMe' => 'null|string'
     ])]
     public function format(): array
     {
@@ -227,7 +229,7 @@ class Artist extends LoadableEntity
 
         if ($this->prefersColorScheme === true) {
             $result['colorScheme'] = 'dark';
-        } else if ($this->prefersColorScheme === false) {
+        } elseif ($this->prefersColorScheme === false) {
             $result['colorScheme'] = 'light';
         } else {
             $result['colorScheme'] = 'auto';

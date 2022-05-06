@@ -6,6 +6,9 @@ use App\Web\Actions\Action;
 use Dotenv\Dotenv;
 use Psr\Http\Message\ResponseInterface as Response;
 
+/**
+ *
+ */
 class GetEnvironmentAction extends Action
 {
     protected function action(): Response
@@ -14,7 +17,7 @@ class GetEnvironmentAction extends Action
         $data = array_map(
             static fn($key, $value) => [
                 'key' => $key,
-                'value' => false === stripos($key, 'password') ? $value : '••••••',
+                'value' => stripos($key, 'password') === false ? $value : '••••••',
             ],
             array_keys($env),
             array_values($env)

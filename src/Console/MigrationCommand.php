@@ -8,7 +8,10 @@ use App\Database\Migrations\Migrator;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use JsonException;
 
-#[JinyaCommand("migrate")]
+/**
+ *
+ */
+#[JinyaCommand('migrate')]
 class MigrationCommand extends AbstractCommand
 {
     /**
@@ -28,15 +31,15 @@ class MigrationCommand extends AbstractCommand
             $this->climate->to('error')->error('Failed to run migration, a foreign key exception was thrown');
             $this->climate->to('error')->error($e->getMessage());
             $this->climate->to('error')->error($e->getTraceAsString());
+        } catch (UniqueFailedException $e) {
+            $this->climate->to('error')->error('Failed to run migration, a unique failed exception was thrown');
+            $this->climate->to('error')->error($e->getMessage());
+            $this->climate->to('error')->error($e->getTraceAsString());
         } catch (InvalidQueryException $e) {
             $this->climate->error('Failed to run migration, a invalid query exception was thrown');
             $errorData = json_encode($e->errorInfo, flags: JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
             $this->climate->to('error')->error('The error data are:');
             $this->climate->to('error')->error($errorData);
-            $this->climate->to('error')->error($e->getMessage());
-            $this->climate->to('error')->error($e->getTraceAsString());
-        } catch (UniqueFailedException $e) {
-            $this->climate->to('error')->error('Failed to run migration, a unique failed exception was thrown');
             $this->climate->to('error')->error($e->getMessage());
             $this->climate->to('error')->error($e->getTraceAsString());
         }

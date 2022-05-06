@@ -13,6 +13,9 @@ use PHPMailer\PHPMailer\Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 use Throwable;
 
+/**
+ *
+ */
 class PostFrontAction extends FrontAction
 {
     /**
@@ -29,8 +32,8 @@ class PostFrontAction extends FrontAction
     {
         $route = $this->args['route'];
         $menuItem = MenuItem::findByRoute($route);
-        if (null !== $menuItem) {
-            if (null !== $menuItem->formId) {
+        if ($menuItem !== null) {
+            if ($menuItem->formId !== null) {
                 $form = $menuItem->getForm();
                 $parsedBody = $this->request->getParsedBody();
                 $formHandler = new FormMessageHandler();

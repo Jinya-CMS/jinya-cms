@@ -9,6 +9,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
+/**
+ *
+ */
 class KnownDevice extends Utils\LoadableEntity
 {
     public int $userId;
@@ -114,7 +117,7 @@ class KnownDevice extends Utils\LoadableEntity
     /**
      * {@inheritdoc}
      */
-    #[ArrayShape(['remoteAddress' => "string", 'userAgent' => "string", 'key' => "string"])]
+    #[ArrayShape(['remoteAddress' => 'string', 'userAgent' => 'string', 'key' => 'string'])]
     public function format(): array
     {
         return [

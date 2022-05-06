@@ -10,6 +10,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
+/**
+ *
+ */
 class ProfilePictureService extends StorageBaseService
 {
     /**
@@ -25,12 +28,12 @@ class ProfilePictureService extends StorageBaseService
      */
     public function saveProfilePicture(int $artistId, mixed $data): void
     {
-        if (null === $data) {
+        if ($data === null) {
             throw new RuntimeException();
         }
 
         $artist = Artist::findById($artistId);
-        if (null === $artist) {
+        if ($artist === null) {
             throw new EmptyResultException('The artist was not found');
         }
 
@@ -58,7 +61,7 @@ class ProfilePictureService extends StorageBaseService
     public function deleteProfilePicture(int $artistId): void
     {
         $artist = Artist::findById($artistId);
-        if (null === $artist) {
+        if ($artist === null) {
             throw new EmptyResultException('Artist not found');
         }
         unlink(self::BASE_PATH . $artist->profilePicture);

@@ -14,6 +14,9 @@ use Laminas\Hydrator\Strategy\BooleanStrategy;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 use PDOException;
 
+/**
+ *
+ */
 #[JinyaApi(createEnabled: false, readEnabled: true, updateEnabled: false, deleteEnabled: true)]
 class BlogPost extends Utils\LoadableEntity
 {
@@ -113,7 +116,7 @@ class BlogPost extends Utils\LoadableEntity
     }
 
     /**
-     * @param array<array{html: string, file: integer, gallery: integer, link: string}> $newSegments
+     * @param array<array{html: string, file: int, gallery: int, link: string}> $newSegments
      * @throws TransactionFailedException
      */
     public function batchReplaceSegments(array $newSegments): void
@@ -131,7 +134,7 @@ class BlogPost extends Utils\LoadableEntity
                 $query = 'INSERT INTO blog_post_segment (blog_post_id, file_id, position, link) VALUES (:blogPostId, :fileId, :position, :link)';
                 $params = ['fileId' => $newSegment['file'], 'link' => $newSegment['link'] ?? null];
                 /** @phpstan-ignore-next-line */
-            } else if (array_key_exists('gallery', $newSegment)) {
+            } elseif (array_key_exists('gallery', $newSegment)) {
                 $query = 'INSERT INTO blog_post_segment (blog_post_id, gallery_id, position) VALUES (:blogPostId, :galleryId, :position)';
                 $params = ['galleryId' => $newSegment['gallery']];
                 /** @phpstan-ignore-next-line */
@@ -203,7 +206,7 @@ class BlogPost extends Utils\LoadableEntity
      * @throws InvalidQueryException
      * @throws NoResultException
      */
-    #[ArrayShape(['id' => "int|string", 'title' => "string", 'slug' => "string", 'headerImage' => "array|null", 'category' => "array|null", 'public' => "bool", 'created' => "array"])] public function format(): array
+    #[ArrayShape(['id' => 'int|string', 'title' => 'string', 'slug' => 'string', 'headerImage' => 'array|null', 'category' => 'array|null', 'public' => 'bool', 'created' => 'array'])] public function format(): array
     {
         $creator = $this->getCreator();
         $headerImage = $this->getHeaderImage();

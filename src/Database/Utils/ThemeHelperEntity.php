@@ -19,6 +19,9 @@ use Laminas\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 use Laminas\Hydrator\ReflectionHydrator;
 use RuntimeException;
 
+/**
+ *
+ */
 abstract class ThemeHelperEntity extends LoadableEntity
 {
     public string $name = '';

@@ -5,6 +5,9 @@ namespace App\Statistics;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
+/**
+ *
+ */
 class Storage
 {
     public function getTotalStorage(): float

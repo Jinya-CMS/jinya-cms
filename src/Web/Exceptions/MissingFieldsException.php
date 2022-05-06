@@ -8,6 +8,9 @@ use JsonSerializable;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpException;
 
+/**
+ *
+ */
 class MissingFieldsException extends HttpException implements JsonSerializable
 {
     public array $fields;
@@ -18,7 +21,7 @@ class MissingFieldsException extends HttpException implements JsonSerializable
         $this->fields = $fields;
     }
 
-    #[ArrayShape(['success' => "false", 'fields' => "array"])] public function jsonSerialize(): array
+    #[ArrayShape(['success' => 'false', 'fields' => 'array'])] public function jsonSerialize(): array
     {
         return [
             'success' => false,

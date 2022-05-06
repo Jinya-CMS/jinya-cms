@@ -11,6 +11,9 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpNotFoundException;
 
+/**
+ *
+ */
 class DeleteSegmentAction extends Action
 {
     /**

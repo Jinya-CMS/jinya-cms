@@ -4,6 +4,9 @@ namespace App\Database\Exceptions;
 
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 
+/**
+ *
+ */
 class UniqueFailedException extends InvalidQueryException
 {
 }

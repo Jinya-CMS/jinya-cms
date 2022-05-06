@@ -9,6 +9,9 @@ use App\Web\Exceptions\NoResultException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
+/**
+ *
+ */
 class GetMenuItemsByMenuAction extends MenuItemAction
 {
     /**

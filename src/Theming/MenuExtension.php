@@ -11,6 +11,9 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
 
+/**
+ *
+ */
 class MenuExtension implements ExtensionInterface
 {
 

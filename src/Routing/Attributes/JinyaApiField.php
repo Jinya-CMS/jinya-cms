@@ -4,6 +4,9 @@ namespace App\Routing\Attributes;
 
 use Attribute;
 
+/**
+ *
+ */
 #[Attribute(flags: Attribute::TARGET_PROPERTY)]
 class JinyaApiField
 {

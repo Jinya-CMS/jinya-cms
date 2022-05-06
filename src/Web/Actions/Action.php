@@ -13,6 +13,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Log\LoggerInterface;
 use Slim\Exception\HttpBadRequestException;
 
+/**
+ *
+ */
 abstract class Action
 {
     public const HTTP_CONTINUE = 100;
@@ -162,10 +165,10 @@ abstract class Action
     }
 
     #[ArrayShape([
-        'offset' => "int",
-        'itemsCount' => "int|void",
-        'totalCount' => "int|void",
-        'items' => "array"
+        'offset' => 'int',
+        'itemsCount' => 'int|void',
+        'totalCount' => 'int|void',
+        'items' => 'array'
     ])] protected function formatList(array $data, int $offset = 0, int $count = -1): array
     {
         return [

@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection StaticClosureCanBeUsedInspection */
 
 use App\Routing\JinyaModelToRouteResolver;
 use App\Web\Actions\Action;

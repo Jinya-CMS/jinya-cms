@@ -5,6 +5,9 @@ namespace App\Tests\Extensions;
 use App\Database\Utils\LoadableEntity;
 use PHPUnit\Runner\AfterTestHook;
 
+/**
+ *
+ */
 class CleanDatabaseAfterTestHook implements AfterTestHook
 {
 

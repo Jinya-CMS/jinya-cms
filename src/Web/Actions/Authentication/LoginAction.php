@@ -15,6 +15,9 @@ use Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 use Throwable;
 
+/**
+ *
+ */
 class LoginAction extends Action
 {
     public NewLoginMail $newLoginMail;
@@ -40,7 +43,7 @@ class LoginAction extends Action
         $knownDeviceCode = $this->request->getHeaderLine('JinyaDeviceCode');
 
         $artist = Artist::findByEmail($username);
-        if (null !== $artist && $artist->validatePassword($password)) {
+        if ($artist !== null && $artist->validatePassword($password)) {
             $userAgentHeader = $this->request->getHeaderLine('User-Agent');
             if (!empty($knownDeviceCode) && $artist->validateDevice($knownDeviceCode)) {
                 $knownDevice = KnownDevice::findByCode($knownDeviceCode);

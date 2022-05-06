@@ -6,6 +6,9 @@ use App\Web\Actions\Update\UpdateAction;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
+/**
+ *
+ */
 class GetVersionInfo extends UpdateAction
 {
     /**

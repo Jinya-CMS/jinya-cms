@@ -6,6 +6,9 @@ use App\Database\Analyzer\DatabaseAnalyzer;
 use App\Web\Actions\Action;
 use Psr\Http\Message\ResponseInterface as Response;
 
+/**
+ *
+ */
 class DatabaseAnalyzerAction extends Action
 {
     /**

@@ -9,6 +9,9 @@ use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
+/**
+ *
+ */
 class ThemeForm extends ThemeHelperEntity
 {
 
@@ -52,11 +55,11 @@ class ThemeForm extends ThemeHelperEntity
      * @throws InvalidQueryException
      * @throws NoResultException
      */
-    #[ArrayShape(['name' => "string", 'form' => "array"])] public function format(): array
+    #[ArrayShape(['name' => 'string', 'form' => 'array'])] public function format(): array
     {
         return [
             'name' => $this->name,
-            'form' => $this->getForm()->format(),
+            'form' => $this->getForm()?->format(),
         ];
     }
 

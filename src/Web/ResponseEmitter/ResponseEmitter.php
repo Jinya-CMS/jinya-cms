@@ -7,6 +7,9 @@ namespace App\Web\ResponseEmitter;
 use Psr\Http\Message\ResponseInterface;
 use Slim\ResponseEmitter as SlimResponseEmitter;
 
+/**
+ *
+ */
 class ResponseEmitter extends SlimResponseEmitter
 {
     /**

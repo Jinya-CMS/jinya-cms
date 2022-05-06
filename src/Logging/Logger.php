@@ -7,6 +7,9 @@ use Monolog\Processor\UidProcessor;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
+/**
+ *
+ */
 class Logger
 {
     public static function getLogger(): LoggerInterface

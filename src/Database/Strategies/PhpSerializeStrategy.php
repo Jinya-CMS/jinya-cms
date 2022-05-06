@@ -4,6 +4,9 @@ namespace App\Database\Strategies;
 
 use Laminas\Hydrator\Strategy\StrategyInterface;
 
+/**
+ *
+ */
 class PhpSerializeStrategy implements StrategyInterface
 {
     /**

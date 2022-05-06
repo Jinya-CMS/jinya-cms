@@ -5,6 +5,9 @@ namespace App\Database\Strategies;
 use JsonException;
 use Laminas\Hydrator\Strategy\StrategyInterface;
 
+/**
+ *
+ */
 class JsonStrategy implements StrategyInterface
 {
     /**

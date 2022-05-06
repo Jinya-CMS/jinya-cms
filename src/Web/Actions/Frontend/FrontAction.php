@@ -13,6 +13,9 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpException;
 use Throwable;
 
+/**
+ *
+ */
 abstract class FrontAction extends Action
 {
     protected Engine $engine;
@@ -93,7 +96,7 @@ abstract class FrontAction extends Action
         $this->engine->loadExtension(new URI($this->request->getUri()->getPath()));
 
         $renderResult = $this->engine
-            ->render(0 === stripos($template, 'theme::') ? $template : "theme::$template", $data);
+            ->render(strncasecmp($template, 'theme::', 7) === 0 ? $template : "theme::$template", $data);
         $this->response->getBody()->write($renderResult);
 
         return $this->response
@@ -112,37 +115,37 @@ abstract class FrontAction extends Action
      */
     protected function renderMenuItem(Database\MenuItem $menuItem): Response
     {
-        if (null !== $menuItem->segmentPageId) {
+        if ($menuItem->segmentPageId !== null) {
             $segmentPage = $menuItem->getSegmentPage();
 
             return $this->render('theme::segment-page', ['page' => $segmentPage]);
         }
 
-        if (null !== $menuItem->formId) {
+        if ($menuItem->formId !== null) {
             $form = $menuItem->getForm();
 
             return $this->render('theme::form', ['form' => $form]);
         }
 
-        if (null !== $menuItem->artistId) {
+        if ($menuItem->artistId !== null) {
             $artist = $menuItem->getArtist();
 
             return $this->render('theme::profile', ['artist' => $artist]);
         }
 
-        if (null !== $menuItem->galleryId) {
+        if ($menuItem->galleryId !== null) {
             $gallery = $menuItem->getGallery();
 
             return $this->render('theme::gallery', ['gallery' => $gallery]);
         }
 
-        if (null !== $menuItem->pageId) {
+        if ($menuItem->pageId !== null) {
             $page = $menuItem->getPage();
 
             return $this->render('theme::simple-page', ['page' => $page]);
         }
 
-        if (null !== $menuItem->categoryId) {
+        if ($menuItem->categoryId !== null) {
             $category = $menuItem->getBlogCategory();
 
             return $this->render('theme::blog-category', ['category' => $category, 'posts' => $category?->getBlogPosts(true, true)]);

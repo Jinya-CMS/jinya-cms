@@ -10,6 +10,9 @@ use App\Web\Middleware\AuthenticationMiddleware;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
+/**
+ *
+ */
 class UpdateAboutMeAction extends Action
 {
     /**

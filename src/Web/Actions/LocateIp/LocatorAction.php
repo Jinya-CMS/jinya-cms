@@ -8,6 +8,9 @@ use GuzzleHttp\Exception\GuzzleException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
+/**
+ *
+ */
 class LocatorAction extends Action
 {
     /**

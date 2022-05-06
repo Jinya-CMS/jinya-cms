@@ -8,6 +8,9 @@ use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Utils\LoadableEntity;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 
+/**
+ *
+ */
 abstract class Migrator extends LoadableEntity
 {
     /**
@@ -21,7 +24,7 @@ abstract class Migrator extends LoadableEntity
     {
         $sql = "SHOW TABLES LIKE 'migration_state'";
         $result = self::executeStatement($sql);
-        if (0 === count($result)) {
+        if (count($result) === 0) {
             $initialMigration = require __DIR__ . '/initial-migration.php';
             self::executeSingleMigration($initialMigration['sql']);
         }
@@ -29,7 +32,7 @@ abstract class Migrator extends LoadableEntity
         $migrationsPath = __ROOT__ . '/migrations';
         $files = array_map(
             static fn(string $item) => "$migrationsPath/$item",
-            array_filter(scandir($migrationsPath), static fn(string $item) => '.' !== $item && '..' !== $item),
+            array_filter(scandir($migrationsPath), static fn(string $item) => $item !== '.' && $item !== '..'),
         );
 
         $executedMigrations = 0;

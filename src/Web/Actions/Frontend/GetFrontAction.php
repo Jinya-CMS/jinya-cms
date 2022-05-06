@@ -11,6 +11,9 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Throwable;
 
+/**
+ *
+ */
 class GetFrontAction extends FrontAction
 {
     /**
@@ -24,17 +27,17 @@ class GetFrontAction extends FrontAction
     protected function protectedAction(): Response
     {
         $route = $this->args['route'] ?? '';
-        if ('' === $route || '/' === $route) {
+        if ($route === '' || $route === '/') {
             return $this->render('theme::home', []);
         }
 
         $menuItem = MenuItem::findByRoute($route);
-        if (null !== $menuItem) {
+        if ($menuItem !== null) {
             return $this->renderMenuItem($menuItem);
         }
 
         $blogPost = BlogPost::findBySlug($route);
-        if (null !== $blogPost && $blogPost->public) {
+        if ($blogPost !== null && $blogPost->public) {
             return $this->render('theme::blog-post', ['post' => $blogPost]);
         }
 

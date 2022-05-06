@@ -12,6 +12,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpForbiddenException;
 
+/**
+ *
+ */
 class ChangePasswordAction extends Action
 {
     /**

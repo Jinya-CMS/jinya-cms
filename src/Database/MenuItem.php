@@ -10,6 +10,9 @@ use Laminas\Hydrator\Strategy\BooleanStrategy;
 use LogicException;
 use RuntimeException;
 
+/**
+ *
+ */
 class MenuItem extends Utils\RearrangableEntity
 {
     public ?int $menuId = null;
@@ -186,11 +189,11 @@ class MenuItem extends Utils\RearrangableEntity
      */
     private function rearrange(int $position): void
     {
-        if (null !== $this->menuId) {
+        if ($this->menuId !== null) {
             $this->internalRearrange('menu_item', 'menu_id', $this->menuId, $position);
             $this->update(false);
             $this->resetOrder('menu_item', 'menu_id', $this->menuId);
-        } elseif (null !== $this->parentId) {
+        } elseif ($this->parentId !== null) {
             $this->internalRearrange('menu_item', 'parent_id', $this->parentId, $position);
             $this->update(false);
             $this->resetOrder('menu_item', 'parent_id', $this->parentId);
@@ -319,7 +322,7 @@ class MenuItem extends Utils\RearrangableEntity
      */
     public function getForm(): ?Form
     {
-        if (null === $this->formId) {
+        if ($this->formId === null) {
             return null;
         }
 
@@ -337,7 +340,7 @@ class MenuItem extends Utils\RearrangableEntity
      */
     public function getArtist(): ?Artist
     {
-        if (null === $this->artistId) {
+        if ($this->artistId === null) {
             return null;
         }
 
@@ -355,7 +358,7 @@ class MenuItem extends Utils\RearrangableEntity
      */
     public function getPage(): ?SimplePage
     {
-        if (null === $this->pageId) {
+        if ($this->pageId === null) {
             return null;
         }
 
@@ -374,7 +377,7 @@ class MenuItem extends Utils\RearrangableEntity
      */
     public function getSegmentPage(): ?SegmentPage
     {
-        if (null === $this->segmentPageId) {
+        if ($this->segmentPageId === null) {
             return null;
         }
 
@@ -393,7 +396,7 @@ class MenuItem extends Utils\RearrangableEntity
      */
     public function getGallery(): ?Gallery
     {
-        if (null === $this->galleryId) {
+        if ($this->galleryId === null) {
             return null;
         }
 
@@ -412,7 +415,7 @@ class MenuItem extends Utils\RearrangableEntity
      */
     public function getBlogCategory(): ?BlogCategory
     {
-        if (null === $this->categoryId) {
+        if ($this->categoryId === null) {
             return null;
         }
 

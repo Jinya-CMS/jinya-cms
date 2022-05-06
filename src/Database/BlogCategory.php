@@ -13,6 +13,9 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\BooleanStrategy;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
+/**
+ *
+ */
 #[JinyaApi]
 class BlogCategory extends Utils\LoadableEntity
 {
@@ -86,7 +89,7 @@ class BlogCategory extends Utils\LoadableEntity
      * @throws NoResultException
      * @throws UniqueFailedException
      */
-    #[ArrayShape(['id' => "int", 'name' => "string", 'description' => "null|string", 'parent' => "array", 'webhookEnabled' => "bool", 'webhookUrl' => "null|string"])] public function format(): array
+    #[ArrayShape(['id' => 'int', 'name' => 'string', 'description' => 'null|string', 'parent' => 'array', 'webhookEnabled' => 'bool', 'webhookUrl' => 'null|string'])] public function format(): array
     {
         $parent = $this->getParent()?->format();
 

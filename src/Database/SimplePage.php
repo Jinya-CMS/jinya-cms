@@ -13,6 +13,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
+/**
+ *
+ */
 #[JinyaApi]
 class SimplePage extends Utils\LoadableEntity
 {
@@ -141,11 +144,11 @@ class SimplePage extends Utils\LoadableEntity
      * @throws NoResultException
      */
     #[ArrayShape([
-        'id' => "int",
-        'title' => "string",
-        'content' => "string",
-        'created' => "array",
-        'updated' => "array"
+        'id' => 'int',
+        'title' => 'string',
+        'content' => 'string',
+        'created' => 'array',
+        'updated' => 'array'
     ])] public function format(): array
     {
         $creator = $this->getCreator();
@@ -157,17 +160,17 @@ class SimplePage extends Utils\LoadableEntity
             'content' => $this->content,
             'created' => [
                 'by' => [
-                    'artistName' => $creator->artistName,
-                    'email' => $creator->email,
-                    'profilePicture' => $creator->profilePicture,
+                    'artistName' => $creator?->artistName,
+                    'email' => $creator?->email,
+                    'profilePicture' => $creator?->profilePicture,
                 ],
                 'at' => $this->createdAt->format(DATE_ATOM),
             ],
             'updated' => [
                 'by' => [
-                    'artistName' => $updatedBy->artistName,
-                    'email' => $updatedBy->email,
-                    'profilePicture' => $updatedBy->profilePicture,
+                    'artistName' => $updatedBy?->artistName,
+                    'email' => $updatedBy?->email,
+                    'profilePicture' => $updatedBy?->profilePicture,
                 ],
                 'at' => $this->lastUpdatedAt->format(DATE_ATOM),
             ],

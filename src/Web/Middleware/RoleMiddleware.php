@@ -3,13 +3,15 @@
 namespace App\Web\Middleware;
 
 use App\Database\Artist;
-use App\Web\Attributes\Authenticated;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Slim\Exception\HttpForbiddenException;
 
+/**
+ *
+ */
 class RoleMiddleware implements MiddlewareInterface
 {
 
@@ -37,7 +39,7 @@ class RoleMiddleware implements MiddlewareInterface
         /** @var Artist $artist */
         $artist = $request->getAttribute(AuthenticationMiddleware::LOGGED_IN_ARTIST);
         $cascadedRole = match ($this->role) {
-            Authenticated::READER => Authenticated::WRITER,
+            self::ROLE_READER => self::ROLE_WRITER,
             default => '',
         };
         if (!(in_array($this->role, $artist->roles, true) || in_array($cascadedRole, $artist->roles, true))) {

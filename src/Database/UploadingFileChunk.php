@@ -7,6 +7,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
+/**
+ *
+ */
 class UploadingFileChunk extends Utils\LoadableEntity
 {
     public string $uploadingFileId;

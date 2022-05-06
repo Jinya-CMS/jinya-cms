@@ -4,6 +4,9 @@ namespace App\Console;
 
 use League\CLImate\CLImate;
 
+/**
+ *
+ */
 abstract class AbstractCommand
 {
     protected CLImate $climate;

@@ -12,6 +12,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
+/**
+ *
+ */
 #[JinyaApi]
 class Gallery extends Utils\LoadableEntity
 {
@@ -106,13 +109,13 @@ class Gallery extends Utils\LoadableEntity
      * @throws NoResultException
      */
     #[ArrayShape([
-        'id' => "int",
-        'name' => "string",
-        'description' => "string",
-        'type' => "string",
-        'orientation' => "string",
-        'created' => "array",
-        'updated' => "array"
+        'id' => 'int',
+        'name' => 'string',
+        'description' => 'string',
+        'type' => 'string',
+        'orientation' => 'string',
+        'created' => 'array',
+        'updated' => 'array'
     ])] public function format(): array
     {
         $creator = $this->getCreator();

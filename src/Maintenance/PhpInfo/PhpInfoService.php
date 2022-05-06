@@ -7,6 +7,9 @@ use ReflectionException;
 use ReflectionExtension;
 use stdClass;
 
+/**
+ *
+ */
 class PhpInfoService
 {
     /**

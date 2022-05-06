@@ -2,6 +2,9 @@
 
 namespace App\Database\Utils;
 
+/**
+ *
+ */
 interface FormattableEntityInterface
 {
     /**

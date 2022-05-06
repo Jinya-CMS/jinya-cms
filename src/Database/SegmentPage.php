@@ -13,6 +13,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
+/**
+ *
+ */
 #[JinyaApi]
 class SegmentPage extends Utils\LoadableEntity
 {
@@ -139,11 +142,11 @@ class SegmentPage extends Utils\LoadableEntity
      * @throws NoResultException
      */
     #[ArrayShape([
-        'id' => "int",
-        'name' => "string",
-        'segmentCount' => "int",
-        'created' => "array",
-        'updated' => "array"
+        'id' => 'int',
+        'name' => 'string',
+        'segmentCount' => 'int',
+        'created' => 'array',
+        'updated' => 'array'
     ])] public function format(): array
     {
         $creator = $this->getCreator();

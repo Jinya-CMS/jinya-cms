@@ -15,8 +15,12 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use RuntimeException;
 use Throwable;
 
+/**
+ *
+ */
 class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
 {
     private Engine $engine;
@@ -42,40 +46,44 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $uri = $request->getUri();
-        $activeTheme = Database\Theme::getActiveTheme();
-        $menus = $activeTheme->getMenus();
-        $path = substr($uri->getPath(), 1);
-        foreach ($menus as $menu) {
-            foreach ($menu->getItems() as $item) {
-                if ($this->checkMenuItem($item, $path)) {
-                    return $handler->handle($request);
-                }
-            }
-        }
-
-        $blogPost = Database\BlogPost::findBySlug($path);
-        if ($blogPost !== null) {
-            return $handler->handle($request);
-        }
-
-        $activeThemingTheme = new Theming\Theme($activeTheme);
         $response = new Response();
 
-        if (Theming\Theme::ERROR_BEHAVIOR_HOMEPAGE === $activeThemingTheme->getErrorBehavior()) {
-            $redirectUri = $uri->getScheme() . '://' . $uri->getHost();
-            if (('https' === $uri->getScheme() && 443 !== $uri->getPort()) || ('http' === $uri->getScheme() && 80 !== $uri->getPort())) {
-                $redirectUri .= ':' . $uri->getPort();
+        try {
+            $uri = $request->getUri();
+            $activeTheme = Database\Theme::getActiveTheme();
+            if ($activeTheme === null) {
+                throw new RuntimeException('No active theme found');
             }
 
-            return $response
-                ->withHeader('Location', $redirectUri)
-                ->withStatus(302);
-        }
+            $menus = $activeTheme->getMenus();
+            $path = substr($uri->getPath(), 1);
+            foreach ($menus as $menu) {
+                foreach ($menu->getItems() as $item) {
+                    if ($this->checkMenuItem($item, $path)) {
+                        return $handler->handle($request);
+                    }
+                }
+            }
 
-        $parsedBody = $request->getParsedBody();
-        $queryParams = $request->getQueryParams();
-        try {
+            $blogPost = Database\BlogPost::findBySlug($path);
+            if ($blogPost !== null) {
+                return $handler->handle($request);
+            }
+
+            $activeThemingTheme = new Theming\Theme($activeTheme);
+            if (Theming\Theme::ERROR_BEHAVIOR_HOMEPAGE === $activeThemingTheme->getErrorBehavior()) {
+                $redirectUri = $uri->getScheme() . '://' . $uri->getHost();
+                if (($uri->getScheme() === 'https' && $uri->getPort() !== 443) || ($uri->getScheme() === 'http' && $uri->getPort() !== 80)) {
+                    $redirectUri .= ':' . $uri->getPort();
+                }
+
+                return $response
+                    ->withHeader('Location', $redirectUri)
+                    ->withStatus(302);
+            }
+
+            $parsedBody = $request->getParsedBody();
+            $queryParams = $request->getQueryParams();
             $this->engine->addData(['body' => $parsedBody, 'queryParams' => $queryParams]);
             $this->engine->loadExtension($activeThemingTheme);
             $this->engine->loadExtension(new Theming\MenuExtension());

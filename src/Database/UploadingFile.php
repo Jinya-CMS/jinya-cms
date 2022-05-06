@@ -10,6 +10,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
+/**
+ *
+ */
 class UploadingFile extends Utils\LoadableEntity
 {
     public int $fileId;

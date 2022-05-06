@@ -12,6 +12,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use stdClass;
 
+/**
+ *
+ */
 #[JinyaApi(createEnabled: false, readEnabled: true, updateEnabled: false, deleteEnabled: false)]
 class Theme extends Utils\LoadableEntity
 {
@@ -351,12 +354,12 @@ class Theme extends Utils\LoadableEntity
     }
 
     #[Pure] #[ArrayShape([
-        'configuration' => "array|\stdClass",
-        'description' => "string",
-        'name' => "string",
-        'displayName' => "string",
-        'scssVariables' => "array|\stdClass",
-        'id' => "int"
+        'configuration' => 'array|\stdClass',
+        'description' => 'string',
+        'name' => 'string',
+        'displayName' => 'string',
+        'scssVariables' => 'array|\stdClass',
+        'id' => 'int'
     ])] public function format(): array
     {
         $scssVariables = $this->scssVariables;

@@ -11,6 +11,9 @@ use Psr\Http\Message\ResponseInterface as Response;
 use ReflectionClass;
 use ReflectionException;
 
+/**
+ *
+ */
 class PutLinkItemAction extends ThemeAction
 {
 
@@ -46,7 +49,7 @@ class PutLinkItemAction extends ThemeAction
 
         $reflectionClass = new ReflectionClass('App\Database\Theme' . ucfirst($entityType));
         $themeLink = $reflectionClass->getMethod('findByThemeAndName')->invoke(null, $themeId, $name);
-        if (null !== $themeLink) {
+        if ($themeLink !== null) {
             $themeLink->themeId = $themeId;
             $themeLink->{$field} = $id;
             $themeLink->name = $name;

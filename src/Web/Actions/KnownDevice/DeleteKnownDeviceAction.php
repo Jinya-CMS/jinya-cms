@@ -10,6 +10,9 @@ use App\Web\Exceptions\NoResultException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
+/**
+ *
+ */
 class DeleteKnownDeviceAction extends Action
 {
     /**
@@ -24,7 +27,7 @@ class DeleteKnownDeviceAction extends Action
     protected function action(): Response
     {
         $device = KnownDevice::findByCode($this->args['key']);
-        if (null === $device) {
+        if ($device === null) {
             throw new NoResultException($this->request, 'Known device not found');
         }
 

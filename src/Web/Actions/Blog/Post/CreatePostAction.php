@@ -11,6 +11,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
 
+/**
+ *
+ */
 class CreatePostAction extends Action
 {
 

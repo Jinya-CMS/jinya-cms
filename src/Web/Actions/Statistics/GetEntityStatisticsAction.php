@@ -6,6 +6,9 @@ use App\Statistics\Entity;
 use App\Web\Actions\Action;
 use Psr\Http\Message\ResponseInterface as Response;
 
+/**
+ *
+ */
 class GetEntityStatisticsAction extends Action
 {
 

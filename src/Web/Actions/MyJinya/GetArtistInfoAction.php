@@ -6,6 +6,9 @@ use App\Web\Actions\Action;
 use App\Web\Middleware\AuthenticationMiddleware;
 use Psr\Http\Message\ResponseInterface as Response;
 
+/**
+ *
+ */
 class GetArtistInfoAction extends Action
 {
     /**
