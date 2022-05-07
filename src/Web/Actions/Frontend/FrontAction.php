@@ -128,7 +128,11 @@ abstract class FrontAction extends Action
         if ($menuItem->formId !== null) {
             $form = $menuItem->getForm();
 
-            return $this->render('theme::form', ['form' => $form]);
+            return $this->render('theme::form', [
+                'form' => $form,
+                'success' => false,
+                'missingFields' => [],
+            ]);
         }
 
         if ($menuItem->artistId !== null) {
@@ -156,7 +160,7 @@ abstract class FrontAction extends Action
         }
 
         if ($menuItem->blogHomePage) {
-            return $this->render('theme::blog-home-page', ['posts' => Database\BlogPost::findPublicPosts(), 'categories' => Database\BlogCategory::findAll()]);
+            return $this->render('theme::blog-home-page', ['posts' => Database\BlogPost::findPublicPosts()]);
         }
 
         if (Theming\Theme::ERROR_BEHAVIOR_HOMEPAGE === $this->activeTheme->getErrorBehavior()) {
