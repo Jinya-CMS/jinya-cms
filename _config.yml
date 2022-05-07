@@ -1,7 +1,6 @@
 title: Jinya CMS
 description: A content managment system, made by artists for artists
 remote_theme: Jinya-CMS/just-the-docs
-logo: /public/static/favicon-512x512.png
 aux_links:
   "Jinya CMS on Github":
     - "https://github.com/Jinya-CMS/jinya-cms"
