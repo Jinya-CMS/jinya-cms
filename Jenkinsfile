@@ -15,7 +15,7 @@ spec:
         path: /var/run/docker.sock
   containers:
     - name: php
-      image: quay.imanuel.dev/dockerhub/library---php:8-apache
+      image: quay.imanuel.dev/dockerhub/library---php:8.1-apache
       command:
         - sleep
       args:
