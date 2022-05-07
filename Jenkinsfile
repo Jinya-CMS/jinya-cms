@@ -180,10 +180,10 @@ spec:
             steps {
                 container('docker') {
                     sh 'sed -i "s/%VERSION%/22.1.$BUILD_NUMBER-unstable/g" ./defines.php'
-                    sh "docker build -t quay.imanuel.dev/jinya/jinya-cms:23.0.$BUILD_NUMBER-unstable -f ./Dockerfile ."
+                    sh "docker build -t quay.imanuel.dev/jinya/jinya-cms:23.1.$BUILD_NUMBER-unstable -f ./Dockerfile ."
 
                     withDockerRegistry(credentialsId: 'quay.imanuel.dev', url: 'https://quay.imanuel.dev') {
-                        sh "docker push quay.imanuel.dev/jinya/jinya-cms:23.0.$BUILD_NUMBER-unstable"
+                        sh "docker push quay.imanuel.dev/jinya/jinya-cms:23.1.$BUILD_NUMBER-unstable"
                     }
                 }
             }
