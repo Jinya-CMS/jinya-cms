@@ -7,7 +7,7 @@ use App\Database\Artist;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Web\Actions\Action;
-use App\Web\Middleware\AuthenticationMiddleware;
+use App\Web\Middleware\AuthorizationMiddleware;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
@@ -26,7 +26,7 @@ class ListAllApiKeysAction extends Action
     protected function action(): Response
     {
         /** @var Artist $currentArtist */
-        $currentArtist = $this->request->getAttribute(AuthenticationMiddleware::LOGGED_IN_ARTIST);
+        $currentArtist = $this->request->getAttribute(AuthorizationMiddleware::LOGGED_IN_ARTIST);
 
         return $this->respondList($this->formatIterator(ApiKey::findByArtist($currentArtist->getIdAsInt())));
     }

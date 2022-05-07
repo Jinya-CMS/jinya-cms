@@ -34,6 +34,4 @@ $errorMiddleware->setDefaultErrorHandler($errorHandler);
 // Run App & Emit Response
 $response = $app->handle($request);
 $responseEmitter = new ResponseEmitter();
-$end = microtime(true);
-$timeTaken = $end - $_SERVER["REQUEST_TIME_FLOAT"];
-$responseEmitter->emit($response->withAddedHeader('TimeTaken', "${timeTaken}s"));
+$responseEmitter->emit($response);

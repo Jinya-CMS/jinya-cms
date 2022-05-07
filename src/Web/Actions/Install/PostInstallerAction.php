@@ -2,6 +2,7 @@
 
 namespace App\Web\Actions\Install;
 
+use App\Authentication\AuthenticationChecker;
 use App\Database\Artist;
 use App\Database\Migrations\Migrator;
 use App\Theming\ThemeSyncer;
@@ -29,9 +30,9 @@ class PostInstallerAction extends InstallAction
             $artist->setPassword($this->body['password']);
             $artist->artistName = $this->body['artistname'];
             $artist->roles = [
-                RoleMiddleware::ROLE_READER,
-                RoleMiddleware::ROLE_WRITER,
-                RoleMiddleware::ROLE_ADMIN,
+                AuthenticationChecker::ROLE_READER,
+                AuthenticationChecker::ROLE_WRITER,
+                AuthenticationChecker::ROLE_ADMIN,
             ];
             $artist->enabled = true;
             try {

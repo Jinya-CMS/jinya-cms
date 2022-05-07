@@ -3,7 +3,7 @@
 namespace App\Web\Actions\MyJinya;
 
 use App\Web\Actions\Action;
-use App\Web\Middleware\AuthenticationMiddleware;
+use App\Web\Middleware\AuthorizationMiddleware;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
@@ -17,7 +17,7 @@ class GetArtistInfoAction extends Action
      */
     protected function action(): Response
     {
-        $currentArtist = $this->request->getAttribute(AuthenticationMiddleware::LOGGED_IN_ARTIST);
+        $currentArtist = $this->request->getAttribute(AuthorizationMiddleware::LOGGED_IN_ARTIST);
 
         return $this->respond($currentArtist->format());
     }

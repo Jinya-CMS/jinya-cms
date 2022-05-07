@@ -2,7 +2,7 @@
 
 namespace App\Routing\Attributes;
 
-use App\Web\Middleware\RoleMiddleware;
+use App\Authentication\AuthenticationChecker;
 use Attribute;
 
 /**
@@ -13,13 +13,13 @@ class JinyaApi
 {
     public function __construct(
         public readonly bool $createEnabled = true,
-        public readonly string $createRole = RoleMiddleware::ROLE_WRITER,
+        public readonly string $createRole = AuthenticationChecker::ROLE_WRITER,
         public readonly bool $readEnabled = true,
-        public readonly string $readRole = RoleMiddleware::ROLE_READER,
+        public readonly string $readRole = AuthenticationChecker::ROLE_READER,
         public readonly bool $updateEnabled = true,
-        public readonly string $updateRole = RoleMiddleware::ROLE_WRITER,
+        public readonly string $updateRole = AuthenticationChecker::ROLE_WRITER,
         public readonly bool $deleteEnabled = true,
-        public readonly string $deleteRole = RoleMiddleware::ROLE_WRITER,
+        public readonly string $deleteRole = AuthenticationChecker::ROLE_WRITER,
     )
     {
     }

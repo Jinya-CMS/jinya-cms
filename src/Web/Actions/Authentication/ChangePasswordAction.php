@@ -7,7 +7,7 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Web\Actions\Action;
 use App\Web\Exceptions\MissingFieldsException;
-use App\Web\Middleware\AuthenticationMiddleware;
+use App\Web\Middleware\AuthorizationMiddleware;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpForbiddenException;
@@ -30,7 +30,7 @@ class ChangePasswordAction extends Action
         $password = $this->body['password'];
         $oldPassword = $this->body['oldPassword'];
         /** @var Artist $currentArtist */
-        $currentArtist = $this->request->getAttribute(AuthenticationMiddleware::LOGGED_IN_ARTIST);
+        $currentArtist = $this->request->getAttribute(AuthorizationMiddleware::LOGGED_IN_ARTIST);
 
         if ($password) {
             if (!$currentArtist->changePassword($oldPassword, $password)) {

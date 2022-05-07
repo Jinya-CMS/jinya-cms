@@ -1,5 +1,6 @@
 <?php /** @noinspection StaticClosureCanBeUsedInspection */
 
+use App\Authentication\AuthenticationChecker;
 use App\Routing\JinyaModelToRouteResolver;
 use App\Web\Actions\Action;
 use App\Web\Actions\ApiKey\DeleteApiKeyAction;
@@ -84,10 +85,9 @@ use App\Web\Actions\Update\GetUpdateAction;
 use App\Web\Actions\Update\InitUpdateProcess;
 use App\Web\Actions\Update\PostUpdateAction;
 use App\Web\Actions\Version\GetVersionInfo;
-use App\Web\Middleware\AuthenticationMiddleware;
+use App\Web\Middleware\AuthorizationMiddleware;
 use App\Web\Middleware\CheckRequiredFieldsMiddleware;
 use App\Web\Middleware\CheckRouteInCurrentThemeMiddleware;
-use App\Web\Middleware\RoleMiddleware;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -135,76 +135,65 @@ return function (App $app) {
             }
 
             return $response->withStatus(Action::HTTP_NOT_FOUND);
-        })->add(AuthenticationMiddleware::class);
+        })->add(AuthorizationMiddleware::class);
 
         // API Keys
         $proxy->group('/api_key', function (RouteCollectorProxy $proxy) {
             $proxy->get('', ListAllApiKeysAction::class);
             $proxy->delete('/{key}', DeleteApiKeyAction::class);
-        })->add(AuthenticationMiddleware::class);
+        })->add(AuthorizationMiddleware::class);
 
         // Artists
         $proxy->group('/artist/{id}/profilepicture', function (RouteCollectorProxy $proxy) {
             $proxy->get('', GetProfilePictureAction::class)
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_READER))
-                ->add(AuthenticationMiddleware::class);
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_READER));
             $proxy->put('', UploadProfilePictureAction::class)
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN))
-                ->add(AuthenticationMiddleware::class);
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_ADMIN));
             $proxy->delete('', DeleteProfilePictureAction::class)
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN))
-                ->add(AuthenticationMiddleware::class);
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_ADMIN));
         });
         $proxy->group('/artist/{id}/activation', function (RouteCollectorProxy $proxy) {
             $proxy->put('', ActivateArtistAction::class);
             $proxy->delete('', DeactivateArtistAction::class);
         });
-        $proxy->put('/me/profilepicture', fn(ServerRequestInterface $request, ResponseInterface $response, array $args) => (new UploadProfilePictureAction())($request, $response, ['id' => $request->getAttribute(AuthenticationMiddleware::LOGGED_IN_ARTIST)->id]))
-            ->add(AuthenticationMiddleware::class);
+        $proxy->put('/me/profilepicture', fn(ServerRequestInterface $request, ResponseInterface $response, array $args) => (new UploadProfilePictureAction())($request, $response, ['id' => $request->getAttribute(AuthorizationMiddleware::LOGGED_IN_ARTIST)->id]))
+            ->add(AuthorizationMiddleware::class);
 
         // Authentication
         $proxy->post('/account/password', ChangePasswordAction::class)
             ->add(new CheckRequiredFieldsMiddleware(['oldPassword', 'password']))
-            ->add(AuthenticationMiddleware::class);
+            ->add(AuthorizationMiddleware::class);
         $proxy->post('/login', LoginAction::class)
             ->add(new CheckRequiredFieldsMiddleware(['username', 'password']));
         $proxy->map(['HEAD'], '/login', fn(ServerRequestInterface $request, ResponseInterface $response) => $response->withStatus(Action::HTTP_NO_CONTENT))
-            ->add(AuthenticationMiddleware::class);
+            ->add(AuthorizationMiddleware::class);
         $proxy->post('/2fa', TwoFactorAction::class)
             ->add(new CheckRequiredFieldsMiddleware(['username', 'password']));
 
         // Blog
         $proxy->put('/blog/post/{id}/segment', BatchSegmentsAction::class)
             ->add(new CheckRequiredFieldsMiddleware(['segments']))
-            ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))
-            ->add(AuthenticationMiddleware::class);
+            ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
         $proxy->get('/blog/category/{id}/post', ListPostsByCategoryAction::class)
-            ->add(new RoleMiddleware(RoleMiddleware::ROLE_READER))
-            ->add(AuthenticationMiddleware::class);
+            ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_READER));
         $proxy->post('/blog/post', CreatePostAction::class)
             ->add(new CheckRequiredFieldsMiddleware(['title', 'slug']))
-            ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))
-            ->add(AuthenticationMiddleware::class);
+            ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
         $proxy->put('/blog/post/{id}', UpdatePostAction::class)
-            ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))
-            ->add(AuthenticationMiddleware::class);
+            ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
         $proxy->get('/blog/post/{id}/segment', \App\Web\Actions\Blog\Post\GetSegmentsAction::class)
-            ->add(new RoleMiddleware(RoleMiddleware::ROLE_READER))
-            ->add(AuthenticationMiddleware::class);
+            ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_READER));
 
         // Database
         $proxy->get('/maintenance/database/analyze', DatabaseAnalyzerAction::class)
-            ->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN))
-            ->add(AuthenticationMiddleware::class);
+            ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_ADMIN));
         $proxy->post('/maintenance/database/query', ExecuteQueryAction::class)
             ->add(new CheckRequiredFieldsMiddleware(['query']))
-            ->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN))
-            ->add(AuthenticationMiddleware::class);
+            ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_ADMIN));
 
         // Environment
         $proxy->get('/environment', GetEnvironmentAction::class)
-            ->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN))
-            ->add(AuthenticationMiddleware::class);
+            ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_ADMIN));
 
         // File
         $proxy->group('/media/file/{id}/content', function (RouteCollectorProxy $proxy) {
@@ -212,111 +201,101 @@ return function (App $app) {
             $proxy->put('/{position}', UploadChunkAction::class);
             $proxy->put('', StartUploadAction::class);
             $proxy->get('', GetFileContentAction::class);
-        })->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))->add(AuthenticationMiddleware::class);
+        })->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
 
         // Form Items
         $proxy->group('/form/{id}/item', function (RouteCollectorProxy $proxy) {
             $proxy->get('', GetFormItemsAction::class)
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_READER))
-                ->add(AuthenticationMiddleware::class);
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_READER));
             $proxy->delete('/{position}', DeleteFormItemAction::class)
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))
-                ->add(AuthenticationMiddleware::class);
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
             $proxy->post('', CreateFormItemAction::class)
                 ->add(new CheckRequiredFieldsMiddleware(['label', 'position']))
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))
-                ->add(AuthenticationMiddleware::class);
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
             $proxy->put('/{position}', UpdateFormItemAction::class)
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))
-                ->add(AuthenticationMiddleware::class);
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
         });
 
         // Gallery Positions
         $proxy->group('/media/gallery/{galleryId}/file', function (RouteCollectorProxy $proxy) {
             $proxy->get('', GetPositionsAction::class)
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_READER))
-                ->add(AuthenticationMiddleware::class);
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_READER));
             $proxy->delete('/{position}', DeletePositionAction::class)
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))
-                ->add(AuthenticationMiddleware::class);
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
             $proxy->post('', CreatePositionAction::class)
                 ->add(new CheckRequiredFieldsMiddleware(['file', 'position']))
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))
-                ->add(AuthenticationMiddleware::class);
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
             $proxy->put('/{position}', UpdatePositionAction::class)
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))
-                ->add(AuthenticationMiddleware::class);
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
         });
 
         // Known Devices
         $proxy->group('/known_device', function (RouteCollectorProxy $proxy) {
-            $proxy->get('', ListAllKnownDevicesAction::class)->add(AuthenticationMiddleware::class);
-            $proxy->delete('/{key}', DeleteKnownDeviceAction::class)->add(AuthenticationMiddleware::class);
+            $proxy->get('', ListAllKnownDevicesAction::class)->add(AuthorizationMiddleware::class);
+            $proxy->delete('/{key}', DeleteKnownDeviceAction::class)->add(AuthorizationMiddleware::class);
             $proxy->map(['HEAD'], '/{key}', ValidateKnownDeviceAction::class);
         });
 
         // Locate IP
-        $proxy->get('/ip-location/{ip}', LocatorAction::class)->add(AuthenticationMiddleware::class);
+        $proxy->get('/ip-location/{ip}', LocatorAction::class)->add(AuthorizationMiddleware::class);
 
         // Menu Items
         $proxy->group('/menu/{id}/item', function (RouteCollectorProxy $proxy) {
             $proxy->post('', CreateMenuItemByMenuAction::class)
                 ->add(new CheckRequiredFieldsMiddleware(['position', 'title']))
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
             $proxy->get('', GetMenuItemsByMenuAction::class)
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_READER));
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_READER));
             $proxy->put('/{menuItemId}/move/parent/one/level/up', MoveMenuItemParentToItemAction::class)
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
-        })->add(AuthenticationMiddleware::class);
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
+        })->add(AuthorizationMiddleware::class);
         $proxy->group('/menu-item/{menuItemId}', function (RouteCollectorProxy $proxy) {
             $proxy->post('/item', CreateMenuItemByMenuItemAction::class)
                 ->add(new CheckRequiredFieldsMiddleware(['position', 'title']))
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
             $proxy->put('/move/parent/to/item/{newParent}', MoveMenuItemParentToItemAction::class)
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
             $proxy->put('', UpdateMenuItemAction::class)
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
             $proxy->delete('', DeleteMenuItemAction::class)
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
-        })->add(AuthenticationMiddleware::class);
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
+        });
         $proxy->put('/menu/{menuItemId}/move/parent/to/menu/{menuId}', ResetMenuItemParentAction::class)
-            ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))
-            ->add(AuthenticationMiddleware::class);
+            ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
 
         // My Jinya
-        $proxy->get('/me', GetArtistInfoAction::class)->add(AuthenticationMiddleware::class);
-        $proxy->get('/account', GetArtistInfoAction::class)->add(AuthenticationMiddleware::class);
-        $proxy->put('/me', UpdateAboutMeAction::class)->add(AuthenticationMiddleware::class);
+        $proxy->get('/me', GetArtistInfoAction::class)->add(AuthorizationMiddleware::class);
+        $proxy->get('/account', GetArtistInfoAction::class)->add(AuthorizationMiddleware::class);
+        $proxy->put('/me', UpdateAboutMeAction::class)->add(AuthorizationMiddleware::class);
         $proxy->put('/me/colorscheme', UpdateColorScheme::class)
             ->add(new CheckRequiredFieldsMiddleware(['colorScheme']))
-            ->add(AuthenticationMiddleware::class);
+            ->add(AuthorizationMiddleware::class);
 
         // PHP Info
         $proxy->get('/phpinfo', GetPhpInfoAction::class)
-            ->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN))
-            ->add(AuthenticationMiddleware::class);
+            ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_ADMIN));
 
         // Segment page
         $proxy->group('/segment-page/{id}/segment', function (RouteCollectorProxy $proxy) {
             $proxy->post('/file', CreateFileSegmentAction::class)
                 ->add(new CheckRequiredFieldsMiddleware(['file', 'action', 'position']))
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
             $proxy->post('/form', CreateFormSegmentAction::class)
                 ->add(new CheckRequiredFieldsMiddleware(['form', 'position']))
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
             $proxy->post('/gallery', CreateGallerySegmentAction::class)
                 ->add(new CheckRequiredFieldsMiddleware(['gallery', 'position']))
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
             $proxy->post('/html', CreateHtmlSegmentAction::class)
                 ->add(new CheckRequiredFieldsMiddleware(['html', 'position']))
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
             $proxy->delete('/{position}', DeleteSegmentAction::class)
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
             $proxy->put('/{position}', UpdateSegmentAction::class)
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
             $proxy->get('', GetSegmentsAction::class)
-                ->add(new RoleMiddleware(RoleMiddleware::ROLE_READER));
-        })->add(AuthenticationMiddleware::class);
+                ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_READER));
+        });
 
         // Statistics
         $proxy->group('/statistics', function (RouteCollectorProxy $proxy) {
@@ -332,7 +311,7 @@ return function (App $app) {
                 $proxy->get('/os', GetVisitsByOsAction::class);
                 $proxy->get('/referrer', GetVisitsByReferrerAction::class);
             });
-        })->add(new RoleMiddleware(RoleMiddleware::ROLE_READER))->add(AuthenticationMiddleware::class);
+        })->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_READER));
 
         // Theme
         $proxy->get('/theme/{id}/preview', GetPreviewImageAction::class);
@@ -353,17 +332,15 @@ return function (App $app) {
 
                 $proxy->put('', PutConfigurationAction::class);
             });
-        })->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))->add(AuthenticationMiddleware::class);
+        })->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
 
         // Update
         $proxy->put('/update', InitUpdateProcess::class)
-            ->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN))
-            ->add(AuthenticationMiddleware::class);
+            ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_ADMIN));
 
         // Version
         $proxy->get('/version', GetVersionInfo::class)
-            ->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN))
-            ->add(AuthenticationMiddleware::class);
+            ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_ADMIN));
     })->add(new BodyParsingMiddleware());
 
     // Reflection based

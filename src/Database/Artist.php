@@ -2,6 +2,7 @@
 
 namespace App\Database;
 
+use App\Authentication\AuthenticationChecker;
 use App\Database\Exceptions\DeleteLastAdminException;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
@@ -10,7 +11,6 @@ use App\Database\Strategies\PhpSerializeStrategy;
 use App\Database\Utils\LoadableEntity;
 use App\Routing\Attributes\JinyaApi;
 use App\Routing\Attributes\JinyaApiField;
-use App\Web\Middleware\RoleMiddleware;
 use DateInterval;
 use DateTime;
 use Exception;
@@ -26,7 +26,7 @@ use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 /**
  *
  */
-#[JinyaApi(createRole: RoleMiddleware::ROLE_ADMIN, readRole: RoleMiddleware::ROLE_READER, updateRole: RoleMiddleware::ROLE_ADMIN, deleteRole: RoleMiddleware::ROLE_ADMIN)]
+#[JinyaApi(createRole: AuthenticationChecker::ROLE_ADMIN, readRole: AuthenticationChecker::ROLE_READER, updateRole: AuthenticationChecker::ROLE_ADMIN, deleteRole: AuthenticationChecker::ROLE_ADMIN)]
 class Artist extends LoadableEntity
 {
     #[JinyaApiField(required: true)]
@@ -179,7 +179,7 @@ class Artist extends LoadableEntity
         $users = self::findAll();
         $admins = 0;
         foreach ($users as $user) {
-            if ($user->enabled && $id !== $user->getIdAsInt() && in_array(RoleMiddleware::ROLE_ADMIN, $user->roles, true)) {
+            if ($user->enabled && $id !== $user->getIdAsInt() && in_array(AuthenticationChecker::ROLE_ADMIN, $user->roles, true)) {
                 $admins++;
             }
         }
