@@ -164,7 +164,7 @@ spec:
             }
             steps {
                 container('package') {
-                    sh 'sed -i "s/%VERSION%/22.1.$BUILD_NUMBER-unstable/g" ./defines.php'
+                    sh 'sed -i "s/%VERSION%/23.1.$BUILD_NUMBER-unstable/g" ./defines.php'
                     sh 'apt-get update'
                     sh 'apt-get install zip unzip -y'
                     sh 'zip -r ./jinya-cms.zip ./*'
