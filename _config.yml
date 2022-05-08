@@ -1,8 +1,9 @@
 title: Jinya CMS
 description: A content managment system, made by artists for artists
-remote_theme: Jinya-CMS/just-the-docs
+remote_theme: https://github.com/Jinya-CMS/just-the-docs
 aux_links:
   "Jinya CMS on Github":
     - "https://github.com/Jinya-CMS/jinya-cms"
 aux_links_new_tab: true
 gh_edit_repository: "https://github.com/Jinya-CMS/jinya-cms"
+exclude: [ 'CHANGELOG.md', 'CONTRIBUTING.md', 'UPGRADE_15_TO_16.md', 'vendor', 'designer' ]
