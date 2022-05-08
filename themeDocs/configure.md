@@ -1,3 +1,8 @@
+---
+title: Configure with theme.php
+parent: Theming
+---
+
 # Configuration with theme.php
 
 The file theme.php contains a simple PHP array for its configuration structure. In this array you configure which links
