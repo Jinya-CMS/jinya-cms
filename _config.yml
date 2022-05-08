@@ -7,4 +7,4 @@ aux_links:
 aux_links_new_tab: true
 gh_edit_repository: "https://github.com/Jinya-CMS/jinya-cms"
 exclude: [ 'CHANGELOG.md', 'CONTRIBUTING.md', 'UPGRADE_15_TO_16.md', 'vendor', 'designer' ]
-search: false
+search_enabled: false
