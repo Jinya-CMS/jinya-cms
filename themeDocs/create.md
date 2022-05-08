@@ -1,6 +1,7 @@
 ---
 title: Create a theme
 parent: Theming
+nav_order: 0
 ---
 
 # Creating a theme

@@ -1,6 +1,7 @@
 ---
 title: Configure with theme.php
 parent: Theming
+nav_order: 1
 ---
 
 # Configuration with theme.php
