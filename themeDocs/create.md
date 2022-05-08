@@ -24,16 +24,48 @@ your-theme-name
 ├── gallery.phtml
 ├── home.phtml
 ├── layout.phtml
-├── LICENSE
-├── Preview.jpg
 ├── profile.phtml
-├── README.md
 ├── segment-page.phtml
 ├── simple-page.phtml
-├── styles
-│   ├── frontend.scss
-│   └── _variables.scss
-└── theme.php
+├── LICENSE
+├── Preview.jpg
+├── theme.php
+└── styles
+    ├── frontend.scss
+    └── _variables.scss
 ```
 
-The purpose of the files is described below.
+## Purpose of the files
+
+The different files are used for different types of content.
+
+The file `404.phtml` is used to display error messages.
+
+The file `blog-category.phtml` is used to display blog categories.
+
+The file `blog-home-page.phtml` is used to display the blog homepage.
+
+The file `blog-post.phtml` is used to display blog posts.
+
+The file `form.phtml` is used to display forms.
+
+The file `gallery.phtml` is used to display galleries.
+
+The file `home.phtml` is used to display the home page.
+
+The file `layout.phtml` is used to display as a the base layout for all other pages.
+
+The file `profile.phtml` is used to display artist profiles.
+
+The file `segment-page.phtml` is used to display segment pages.
+
+The file `simple-page.phtml` is used to display simple pages.
+
+The file `LICENSE` is used to specify the license of your code, it is completely optional.
+
+The file `Preview.jpg` is used to show a preview image in the designer.
+
+The file `theme.php` is used to [configure the theme](configure.md).
+
+The folder styles contains all your styling files. It is required to have a file `_variables.scss`. You also need at
+least one SCSS file to contain your style rules. It is recommended to name this file frontend.scss.
