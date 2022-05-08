@@ -1,6 +1,7 @@
 ---
 title: Jinya CMS Docs
 nav_order: 0
+permalink: /index.html
 ---
 
 # [Jinya CMS](https://jinya.de)
