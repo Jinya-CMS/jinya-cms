@@ -1,6 +1,3 @@
----
-nav_order: 1
----
 # [Jinya CMS](https://jinya.de)
 The Jinya CMS is a content management system specifically designed and developed for the needs of artists and designers. It is developed by [Imanuel Ulbricht](https://imanuel.dev) and [Jenny Jinya](https://jenny-jinya.com), creator of the popular Loving Reaper comics.
 
