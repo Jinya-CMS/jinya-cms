@@ -1,15 +1,28 @@
+---
+title: Jinya CMS Docs
+nav_order: 0
+---
+
 # [Jinya CMS](https://jinya.de)
-The Jinya CMS is a content management system specifically designed and developed for the needs of artists and designers. It is developed by [Imanuel Ulbricht](https://imanuel.dev) and [Jenny Jinya](https://jenny-jinya.com), creator of the popular Loving Reaper comics.
+
+The Jinya CMS is a content management system specifically designed and developed for the needs of artists and designers.
+It is developed by [Imanuel Ulbricht](https://imanuel.dev) and [Jenny Jinya](https://jenny-jinya.com), creator of the
+popular Loving Reaper comics.
 
 ## Sites using the Jinya CMS
-Currently, there are three websites based on the Jinya CMS. These three are listed here:
+
+Currently, there are four websites based on the Jinya CMS. These four are listed here:
 
 * [Loving Reaper](https://lovingreaper.com)
 * [Jenny Jinya](https://jenny-jinya.com)
-* [Imanuel Ulbricht Design](https://imanuel.ulbricht.design)
+* [Imanuel Ulbricht Design](https://design.imanuel.dev)
+* [Creastina](https://creatina.art)
 
 ## Technologies used
-The Jinya CMS is based on the [Slim Framework 4](https://www.slimframework.com/). The frontend uses [a fork](https://plates.jinya.de/) of the [Plates](https://platesphp.com/) template engine. The backend, in Jinya called designer, is written using [Svelte](https://svelte.dev/).
+
+The Jinya CMS is based on the [Slim Framework 4](https://www.slimframework.com/). The frontend
+uses [a fork](https://plates.jinya.dev/) of the [Plates](https://platesphp.com/) template engine. The backend, in Jinya
+called designer, is written using [Svelte](https://svelte.dev/).
 
 ## Design
 The Jinya default theme uses a very simple design, which focuses on your content and not on itself. You can preview the Jinya default theme [here](https://imanuel.ulbricht.design). Here are screenshots of the default theme.
