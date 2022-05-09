@@ -1,5 +1,5 @@
 ---
-title: Access theme configuration
+title: Access theme links
 parent: Theming
 nav_order: 2
 ---
