@@ -176,11 +176,6 @@ return function (App $app) {
             ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
         $proxy->get('/blog/category/{id}/post', ListPostsByCategoryAction::class)
             ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_READER));
-        $proxy->post('/blog/post', CreatePostAction::class)
-            ->add(new CheckRequiredFieldsMiddleware(['title', 'slug']))
-            ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
-        $proxy->put('/blog/post/{id}', UpdatePostAction::class)
-            ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
         $proxy->get('/blog/post/{id}/segment', \App\Web\Actions\Blog\Post\GetSegmentsAction::class)
             ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_READER));
 

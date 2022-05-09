@@ -60,7 +60,7 @@
       title = post.title;
       slug = post.slug;
       postPublic = post.public;
-      headerImageId = post.headerImage.id;
+      headerImageId = post.headerImage?.id;
       categoryId = post.category.id;
       slugModifiedByHand = true;
     }
@@ -247,7 +247,7 @@
       title = post.title;
       slug = post.slug;
       postPublic = post.public;
-      headerImageId = post.headerImage.id;
+      headerImageId = post.headerImage?.id;
       categoryId = post.category.id;
       slugModifiedByHand = true;
       const loadedSegments = (await get(`/api/blog/post/${selectedPostId}/segment`));

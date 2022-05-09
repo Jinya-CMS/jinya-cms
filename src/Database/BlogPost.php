@@ -3,29 +3,39 @@
 namespace App\Database;
 
 use App\Authentication\CurrentUser;
+use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\TransactionFailedException;
+use App\Database\Exceptions\UniqueFailedException;
+use App\Logging\Logger;
 use App\Routing\Attributes\JinyaApi;
+use App\Routing\Attributes\JinyaApiField;
 use DateTime;
+use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\BooleanStrategy;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
+use League\Uri\Http as HttpUri;
 use PDOException;
 
-/**
- *
- */
-#[JinyaApi(createEnabled: false, readEnabled: true, updateEnabled: false, deleteEnabled: true)]
+#[JinyaApi]
 class BlogPost extends Utils\LoadableEntity
 {
+    #[JinyaApiField(required: true)]
     public string $title;
+    #[JinyaApiField(required: true)]
     public string $slug;
+    #[JinyaApiField]
     public ?int $headerImageId = null;
+    #[JinyaApiField]
     public bool $public = false;
+    #[JinyaApiField(ignore: true)]
     public DateTime $createdAt;
+    #[JinyaApiField(ignore: true)]
     public int $creatorId;
+    #[JinyaApiField]
     public ?int $categoryId = null;
 
     /**
@@ -162,6 +172,70 @@ class BlogPost extends Utils\LoadableEntity
     }
 
     /**
+     * @param string $scheme
+     * @return int
+     */
+    private function getDefaultPort(string $scheme): int
+    {
+        if ($scheme === 'https') {
+            return 443;
+        }
+
+        return 80;
+    }
+
+    /**
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
+     * @throws UniqueFailedException
+     */
+    private function executeHook(): void
+    {
+        $category = $this->getCategory();
+        if ($this->public && $category !== null && $category->webhookEnabled && $category->webhookUrl !== null) {
+            $logger = Logger::getLogger();
+            $url = HttpUri::createFromServer($_SERVER);
+            $body = [
+                'post' => $this->format(),
+                'url' => $url->getScheme() . '://' . $url->getHost() . '/' . $this->createdAt->format('Y/m/d') . "/$this->slug",
+            ];
+
+            try {
+                $category = $this->getCategory();
+                $url = HttpUri::createFromString($category?->webhookUrl);
+                $postBody = json_encode($body, JSON_THROW_ON_ERROR);
+
+                $scheme = $url->getScheme() === 'https' ? 'ssl://' : '';
+                $host = $scheme . $url->getHost();
+                $port = $url->getPort() ?: $this->getDefaultPort($url->getScheme());
+
+                $request = 'POST ' . $category?->webhookUrl . " HTTP/1.1\r\n";
+                $request .= 'Host: ' . $url->getHost() . "\r\n";
+                $request .= "Content-Type: application/json\r\n";
+                $request .= 'Content-Length: ' . strlen($postBody) . "\r\n";
+                $request .= "Connection: Close\r\n";
+                $request .= "\r\n";
+                $request .= $postBody;
+
+                $errno = null;
+                $errstr = null;
+                $socket = @fsockopen($host, $port, $errno, $errstr, 5);
+
+                if (!$socket) {
+                    $logger->warning("Failed to open socket: $errno, $errstr");
+                    return;
+                }
+
+                fwrite($socket, $request);
+                fclose($socket);
+            } catch (Exception $exception) {
+                $logger->warning('Failed to send webhook: ' . $exception->getMessage());
+            }
+        }
+    }
+
+    /**
      * @inheritDoc
      */
     public function create(): void
@@ -173,6 +247,8 @@ class BlogPost extends Utils\LoadableEntity
             'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
             'public' => new BooleanStrategy(1, 0),
         ]);
+
+        $this->executeHook();
     }
 
     /**
@@ -185,13 +261,20 @@ class BlogPost extends Utils\LoadableEntity
 
     /**
      * @inheritDoc
+     * @throws NoResultException
      */
     public function update(): void
     {
+        /** @var BlogPost $oldState */
+        $oldState = self::findById($this->getIdAsInt());
+        $wasPublic = $oldState->public;
         $this->internalUpdate('blog_post', [
             'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
             'public' => new BooleanStrategy(1, 0),
         ]);
+        if ($wasPublic === false && ($this->public ?? false)) {
+            $this->executeHook();
+        }
     }
 
     /**

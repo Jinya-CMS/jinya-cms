@@ -3,6 +3,7 @@
 namespace App\Web\Middleware;
 
 use App\Authentication\AuthenticationChecker;
+use App\Authentication\CurrentUser;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -29,6 +30,7 @@ class AuthorizationMiddleware implements MiddlewareInterface
     public function process(Request $request, RequestHandler $handler): ResponseInterface
     {
         $artist = AuthenticationChecker::checkRequestForUser($request, $this->role);
+        CurrentUser::$currentUser = $artist;
 
         return $handler->handle($request->withAttribute(self::LOGGED_IN_ARTIST, $artist));
     }
