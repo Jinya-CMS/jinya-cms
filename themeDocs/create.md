@@ -69,3 +69,7 @@ The file `theme.php` is used to [configure the theme](configure.md).
 
 The folder styles contains all your styling files. It is required to have a file `_variables.scss`. You also need at
 least one SCSS file to contain your style rules. It is recommended to name this file frontend.scss.
+
+If you want to know more about the files needed for a theme, checkout
+the [Jinya Testing Theme](https://github.com/Jinya-CMS/jinya-testing-theme), as it contains all files
+with a description.

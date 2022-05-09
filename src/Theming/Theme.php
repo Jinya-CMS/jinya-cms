@@ -95,16 +95,19 @@ class Theme implements ExtensionInterface
         $engine->registerFunction('segmentPage', fn(string $name) => $this->dbTheme->getSegmentPages()[$name]);
 
         // $this->hasSegmentPage(name)
-        $engine->registerFunction(
-            'hasSegmentPage',
-            fn(string $name) => isset($this->dbTheme->getSegmentPages()[$name])
-        );
+        $engine->registerFunction('hasSegmentPage', fn(string $name) => isset($this->dbTheme->getSegmentPages()[$name]));
 
         // $this->page(name)
         $engine->registerFunction('page', fn(string $name) => $this->dbTheme->getPages()[$name]);
 
         // $this->hasPage(name)
         $engine->registerFunction('hasPage', fn(string $name) => isset($this->dbTheme->getPages()[$name]));
+
+        // $this->simplePage(name)
+        $engine->registerFunction('simplePage', fn(string $name) => $this->dbTheme->getPages()[$name]);
+
+        // $this->hasSimplePage(name)
+        $engine->registerFunction('hasSimplePage', fn(string $name) => isset($this->dbTheme->getPages()[$name]));
 
         // $this->file(name)
         $engine->registerFunction('file', fn(string $name) => $this->dbTheme->getFiles()[$name]);
