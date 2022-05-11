@@ -1,5 +1,22 @@
 # Changelog
 
+## Release notes - Jinya Gallery CMS - Version 23.1.0
+
+### Breaking changes
+
+* Since version 23.1.0 the RouteCommand is no longer available.
+* PHP 8.1 is now required
+
+### User Stories
+
+* [TG-93](https://taiga.imanuel.dev/project/jinya-cms/us/93) Clean PHPStorm and phpstan issues
+* [TG-119](https://taiga.imanuel.dev/project/jinya-cms/us/119) Theming documentation
+* [TG-127](https://taiga.imanuel.dev/project/jinya-cms/us/127) Generate CRUD routes based on models
+* [TG-128](https://taiga.imanuel.dev/project/jinya-cms/us/128) Unify RoleMiddleware and AuthenticationMiddleware
+* [TG-129](https://taiga.imanuel.dev/project/jinya-cms/us/129) Fix or remove RouteCommand
+* [TG-131](https://taiga.imanuel.dev/project/jinya-cms/us/131) Update Jinya Testing Theme with empty views
+* [TG-132](https://taiga.imanuel.dev/project/jinya-cms/us/132) Update blog webhook to fire in DB methods
+
 ## Release notes - Jinya Gallery CMS - Version 23.0.1
 
 Dependency bump
