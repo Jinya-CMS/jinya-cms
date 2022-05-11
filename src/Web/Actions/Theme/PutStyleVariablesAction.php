@@ -22,7 +22,6 @@ class PutStyleVariablesAction extends ThemeAction
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      * @throws \Jinya\PDOx\Exceptions\NoResultException
-     * @throws \ScssPhp\ScssPhp\Exception\SassException
      */
     protected function action(): Response
     {

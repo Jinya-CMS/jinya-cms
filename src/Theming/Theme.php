@@ -202,7 +202,6 @@ class Theme implements ExtensionInterface
      * Compiles the style cache of the given theme
      *
      * @return void
-     * @throws \ScssPhp\ScssPhp\Exception\SassException
      */
     public function compileStyleCache(): void
     {
