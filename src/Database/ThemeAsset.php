@@ -8,6 +8,9 @@ use Iterator;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
+/**
+ *
+ */
 class ThemeAsset extends ThemeHelperEntity
 {
     public int $themeId = -1;

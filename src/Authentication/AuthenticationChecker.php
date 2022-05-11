@@ -24,7 +24,7 @@ class AuthenticationChecker
 
     /**
      * @param Request $request
-     * @param string $role
+     * @param string|null $role
      * @return Artist
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

@@ -11,7 +11,6 @@ use App\Database\Utils\LoadableEntity;
 use App\Routing\Attributes\JinyaApi;
 use App\Routing\Attributes\JinyaApiField;
 use App\Web\Exceptions\MissingFieldsException;
-use App\Web\Middleware\RoleMiddleware;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use JsonException;
@@ -23,6 +22,9 @@ use ReflectionProperty;
 use Slim\Exception\HttpMethodNotAllowedException;
 use Slim\Exception\HttpNotFoundException;
 
+/**
+ *
+ */
 class JinyaModelToRouteResolver
 {
     /**
@@ -166,7 +168,6 @@ class JinyaModelToRouteResolver
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
-     * @throws JsonException
      * @throws NoResultException
      * @throws ReflectionException
      * @throws UniqueFailedException
@@ -263,7 +264,6 @@ class JinyaModelToRouteResolver
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
-     * @throws JsonException
      * @throws NoResultException
      * @throws ReflectionException
      * @throws UniqueFailedException

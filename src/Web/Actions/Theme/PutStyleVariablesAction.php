@@ -8,7 +8,6 @@ use App\Database\Theme;
 use App\Theming;
 use App\Web\Exceptions\NoResultException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
-use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
@@ -18,12 +17,12 @@ class PutStyleVariablesAction extends ThemeAction
 {
     /**
      * {@inheritDoc}
-     * @throws JsonException
-     * @throws NoResultException
-     * @throws UniqueFailedException
+     * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
+     * @throws UniqueFailedException
      * @throws \Jinya\PDOx\Exceptions\NoResultException
+     * @throws \ScssPhp\ScssPhp\Exception\SassException
      */
     protected function action(): Response
     {

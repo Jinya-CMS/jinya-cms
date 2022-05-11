@@ -8,7 +8,6 @@ use App\Database\MenuItem;
 use App\Web\Actions\Action;
 use App\Web\Exceptions\NoResultException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
-use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
@@ -17,12 +16,10 @@ use Psr\Http\Message\ResponseInterface as Response;
 class MoveMenuItemParentToItemAction extends Action
 {
     /**
-     * @throws UniqueFailedException
+     * @return Response
      * @throws ForeignKeyFailedException
-     * @throws JsonException
-     * @throws NoResultException
      * @throws InvalidQueryException
-     * @throws \Jinya\PDOx\Exceptions\NoResultException
+     * @throws UniqueFailedException
      * @throws \Jinya\PDOx\Exceptions\NoResultException
      */
     protected function action(): Response

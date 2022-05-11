@@ -20,6 +20,9 @@ use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 use League\Uri\Http as HttpUri;
 use PDOException;
 
+/**
+ *
+ */
 #[JinyaApi]
 class BlogPost extends Utils\LoadableEntity
 {

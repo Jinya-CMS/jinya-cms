@@ -9,6 +9,9 @@ use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
+/**
+ *
+ */
 class ThemeBlogCategory extends Utils\ThemeHelperEntity
 {
     public int $blogCategoryId = -1;

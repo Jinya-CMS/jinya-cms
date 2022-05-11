@@ -9,6 +9,9 @@ use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
+/**
+ *
+ */
 class ThemePage extends ThemeHelperEntity
 {
 

@@ -8,7 +8,6 @@ use App\Database\MenuItem;
 use App\Web\Actions\Action;
 use App\Web\Exceptions\NoResultException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
-use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
@@ -17,11 +16,10 @@ use Psr\Http\Message\ResponseInterface as Response;
 class ResetMenuItemParentAction extends Action
 {
     /**
-     * @throws NoResultException
+     * @return Response
      * @throws ForeignKeyFailedException
-     * @throws UniqueFailedException
      * @throws InvalidQueryException
-     * @throws JsonException
+     * @throws UniqueFailedException
      * @throws \Jinya\PDOx\Exceptions\NoResultException
      */
     protected function action(): Response

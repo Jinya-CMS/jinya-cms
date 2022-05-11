@@ -7,7 +7,6 @@ use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Theme;
 use App\Web\Exceptions\NoResultException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
-use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
@@ -17,11 +16,10 @@ class PutConfigurationAction extends ThemeAction
 {
     /**
      * {@inheritDoc}
-     * @throws JsonException
-     * @throws NoResultException
-     * @throws UniqueFailedException
+     * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
+     * @throws UniqueFailedException
      * @throws \Jinya\PDOx\Exceptions\NoResultException
      */
     protected function action(): Response

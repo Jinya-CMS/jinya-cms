@@ -14,6 +14,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 use ZipArchive;
 
+/**
+ *
+ */
 class UpdateThemeFilesAction extends Action
 {
 

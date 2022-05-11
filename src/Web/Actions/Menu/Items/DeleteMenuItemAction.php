@@ -7,7 +7,6 @@ use App\Database\Exceptions\UniqueFailedException;
 use App\Database\MenuItem;
 use App\Web\Exceptions\NoResultException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
-use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
@@ -17,8 +16,7 @@ class DeleteMenuItemAction extends MenuItemAction
 {
     /**
      * {@inheritDoc}
-     * @throws JsonException
-     * @throws NoResultException
+     * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException

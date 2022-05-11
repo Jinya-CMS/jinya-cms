@@ -6,7 +6,6 @@ use App\Authentication\AuthenticationChecker;
 use App\Database\Artist;
 use App\Database\Migrations\Migrator;
 use App\Theming\ThemeSyncer;
-use App\Web\Middleware\RoleMiddleware;
 use Dotenv\Dotenv;
 use Psr\Http\Message\ResponseInterface as Response;
 use Throwable;

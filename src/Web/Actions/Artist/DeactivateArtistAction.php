@@ -9,7 +9,6 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Web\Actions\Action;
 use App\Web\Exceptions\ConflictException;
-use App\Web\Middleware\RoleMiddleware;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
