@@ -264,7 +264,7 @@
     uploadDone = false;
     for (const file of files) {
       try {
-        const postResult = await post('/api/media/file', {name: file.name});
+        const postResult = await post('/api/media/file', {name: file.name.split('.').reverse().slice(1).reverse().join('.')});
         await put(`/api/media/file/${postResult.id}/content`);
         await upload(`/api/media/file/${postResult.id}/content/0`, file);
         await put(`/api/media/file/${postResult.id}/content/finish`);

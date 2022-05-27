@@ -29,14 +29,14 @@
 
   $: if (uploadSingleFileFile) {
     const file = uploadSingleFileFile[0];
-    uploadSingleFileFileName = file.name;
+    uploadSingleFileFileName = file.name.split('.').reverse().slice(1).reverse().join('.');
     if (!uploadSingleFileName) {
       uploadSingleFileName = uploadSingleFileFileName;
     }
   }
   $: if (editFileFile) {
     const file = editFileFile[0];
-    editFileFileName = file.name;
+    editFileFileName = file.name.split('.').reverse().slice(1).reverse().join('.');
   }
   $: if (uploadMultipleFilesFiles) {
     const promises = [];
