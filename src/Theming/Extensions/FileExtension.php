@@ -8,17 +8,19 @@ use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
 use RuntimeException;
 
+/**
+ *
+ */
 class FileExtension implements ExtensionInterface
 {
-    public const RESOLUTIONS_FOR_SOURCE = [480, 720, 768, 800, 864, 900, 1024, 1080, 2160, 4320];
-    private string $sizesAsString = '';
+    public const RESOLUTIONS_FOR_SOURCE = [480, 720, 1080, 2160, 4320];
+    private string $sizesAsString = '100vw';
 
     /**
      * @inheritDoc
      */
     public function register(Engine $engine): void
     {
-        $this->sizesAsString = implode(",\n", array_map(static fn(int $item) => "${item}px", self::RESOLUTIONS_FOR_SOURCE));
         $engine->registerFunction('pictureSources', [$this, 'pictureSources']);
         $engine->registerFunction('sizes', [$this, 'sizes']);
         $engine->registerFunction('srcset', [$this, 'srcset']);
@@ -49,7 +51,7 @@ class FileExtension implements ExtensionInterface
             }
         }
 
-        return implode(",\n", $sources);
+        return implode(",\n", array_reverse($sources));
     }
 
     /**
