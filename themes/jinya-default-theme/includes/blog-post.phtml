@@ -1,5 +1,9 @@
 <?php
 /** @var \App\Database\BlogPost $post */
+
+use App\Database\Gallery;
+use App\Utils\ImageType;
+
 ?>
 <div class="jinya-post__post">
     <?php /** @var \App\Database\BlogPostSegment $segment */ ?>
@@ -9,7 +13,7 @@
                 <?php $gallery = $segment->getGallery(); ?>
                 <?= $this->insert('theme::includes/gallery', [
                     'gallery' => $gallery,
-                    'noCaption' => $gallery->orientation === \App\Database\Gallery::ORIENTATION_HORIZONTAL && $gallery->type === \App\Database\Gallery::TYPE_SEQUENCE,
+                    'noCaption' => $gallery->orientation === Gallery::ORIENTATION_HORIZONTAL && $gallery->type === Gallery::TYPE_SEQUENCE,
                     'extraClass' => 'jinya-gallery--post',
                 ]) ?>
             <?php elseif ($segment->html): ?>
@@ -21,11 +25,13 @@
                 <figure class="jinya-post__img-container">
                     <?php if ($segment->link === null): ?>
                         <img class="jinya-post__artwork" src="<?= $this->e($file->path) ?>"
-                             alt="<?= $this->e($file->name) ?>">
+                             alt="<?= $this->e($file->name) ?>" sizes="<?= $this->sizes() ?>"
+                             srcset="<?= $this->srcset($file, ImageType::Webp) ?>">
                     <?php else: ?>
                         <a href="<?= $segment->link ?>">
                             <img class="jinya-post__artwork" src="<?= $this->e($file->path) ?>"
-                                 alt="<?= $this->e($file->name) ?>">
+                                 alt="<?= $this->e($file->name) ?>" sizes="<?= $this->sizes() ?>"
+                                 srcset="<?= $this->srcset($file, ImageType::Webp) ?>">
                         </a>
                     <?php endif ?>
                     <figcaption class="jinya-post__img-caption"><?= $file->name ?></figcaption>
