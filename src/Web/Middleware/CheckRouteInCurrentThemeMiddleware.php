@@ -86,7 +86,7 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
             $queryParams = $request->getQueryParams();
             $this->engine->addData(['body' => $parsedBody, 'queryParams' => $queryParams]);
             $this->engine->loadExtension($activeThemingTheme);
-            $this->engine->loadExtension(new Theming\MenuExtension());
+            $this->engine->loadExtension(new Theming\Extensions\MenuExtension());
             $this->engine->loadExtension(new URI($request->getUri()->getPath()));
 
             $renderResult = $this->engine->render('theme::404');
