@@ -1,5 +1,9 @@
 # Changelog
 
+## Release notes - Jinya Gallery CMS - Version 23.1.2
+
+Docker image used wrong PHP version
+
 ## Release notes - Jinya Gallery CMS - Version 23.1.1
 
 Dependency bump
