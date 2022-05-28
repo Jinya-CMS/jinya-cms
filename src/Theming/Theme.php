@@ -3,6 +3,7 @@
 namespace App\Theming;
 
 use App\Database;
+use App\Utils\ImageType;
 use Exception;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
@@ -20,6 +21,7 @@ class Theme implements ExtensionInterface
 {
     public const ERROR_BEHAVIOR_HOMEPAGE = 'homepage';
     public const ERROR_BEHAVIOR_ERROR_PAGE = 'errorpage';
+    public const RESOLUTIONS_FOR_SOURCE = [480, 720, 768, 800, 864, 900, 1024, 1080, 2160, 4320];
 
     private const BASE_PUBLIC_PATH = '/themes/';
     private const BASE_CACHE_PATH = __DIR__ . '/../../public' . self::BASE_PUBLIC_PATH;
@@ -186,6 +188,62 @@ class Theme implements ExtensionInterface
                 return $tags;
             },
         );
+
+        // $this->srcset($file)
+        $engine->registerFunction('srcset', function (Database\File $file, ImageType|false $imageType = false) {
+            $sources = [];
+            foreach (self::RESOLUTIONS_FOR_SOURCE as $width) {
+                if ($imageType === false) {
+                    $sources[] = "/api/media/file/$file->id/content?width=$width ${width}w";
+                } else {
+                    $type = match ($imageType) {
+                        ImageType::Webp => 'webp',
+                        ImageType::Png => 'png',
+                        ImageType::Jpg => 'jpg',
+                        ImageType::Gif => 'gif',
+                        ImageType::Bmp => 'bmp',
+                        default => throw new \Exception('Unexpected match value'),
+                    };
+                    $sources[] = "/api/media/file/$file->id/content?width=$width&type=$type ${width}w";
+                }
+            }
+
+            return implode(",\n", $sources);
+        });
+
+        // $this->sizes()
+        $engine->registerFunction('sizes', fn() => implode(",\n", array_map(static fn(int $item) => "${item}px", self::RESOLUTIONS_FOR_SOURCE)));
+
+        // $this->pictureSources($file, $types)
+        $engine->registerFunction('pictureSources', function (Database\File $file, ImageType ...$imageType) {
+            $sources = [];
+            if (empty($imageType)) {
+                $imageType[] = ImageType::Webp;
+            }
+            foreach ($imageType as $item) {
+                $type = match ($item) {
+                    ImageType::Webp => 'image/webp',
+                    ImageType::Png => 'image/png',
+                    ImageType::Jpg => 'image/jpg',
+                    ImageType::Gif => 'image/gif',
+                    ImageType::Bmp => 'image/bmp',
+                };
+                $typeAsString = match ($item) {
+                    ImageType::Webp => 'webp',
+                    ImageType::Png => 'png',
+                    ImageType::Jpg => 'jpg',
+                    ImageType::Gif => 'gif',
+                    ImageType::Bmp => 'bmp',
+                };
+                foreach (self::RESOLUTIONS_FOR_SOURCE as $width) {
+                    $sources[] = "<source srcset='/api/media/file/$file->id/content?width=$width&type=$typeAsString' media='(min-width: ${width}px)' type='$type'>";
+                }
+            }
+
+            $result = implode(PHP_EOL, $sources);
+
+            return $result;
+        });
     }
 
     /**
