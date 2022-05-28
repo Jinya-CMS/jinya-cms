@@ -192,11 +192,11 @@ return function (App $app) {
 
         // File
         $proxy->group('/media/file/{id}/content', function (RouteCollectorProxy $proxy) {
-            $proxy->put('/finish', FinishUploadAction::class);
-            $proxy->put('/{position}', UploadChunkAction::class);
-            $proxy->put('', StartUploadAction::class);
+            $proxy->put('/finish', FinishUploadAction::class)->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
+            $proxy->put('/{position}', UploadChunkAction::class)->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
+            $proxy->put('', StartUploadAction::class)->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
             $proxy->get('', GetFileContentAction::class);
-        })->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
+        });
 
         // Form Items
         $proxy->group('/form/{id}/item', function (RouteCollectorProxy $proxy) {

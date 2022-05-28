@@ -75,7 +75,9 @@ spec:
                 sh "apt-get install -y apt-utils"
                 sh 'curl -sL https://deb.nodesource.com/setup_current.x -o nodesource_setup.sh'
                 sh 'bash nodesource_setup.sh'
-                sh "apt-get install -y libzip-dev git wget unzip zip nodejs libicu-dev"
+                sh "apt-get install -y libzip-dev git wget unzip zip nodejs libicu-dev libmagickwand-dev"
+                sh 'pecl install imagick'
+                sh 'docker-php-ext-enable imagick'
                 sh 'npm install -g yarn'
                 sh "docker-php-ext-install pdo pdo_mysql zip intl"
                 sh "php --version"
