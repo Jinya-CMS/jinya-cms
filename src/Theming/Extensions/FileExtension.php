@@ -37,7 +37,7 @@ class FileExtension implements ExtensionInterface
         $sources = [];
         foreach (self::RESOLUTIONS_FOR_SOURCE as $width) {
             if ($imageType === false) {
-                $sources[] = "/api/media/file/$file->id/content?width=$width ${width}w";
+                $sources[] = "/image.php?id=$file->id&width=$width ${width}w";
             } else {
                 $type = match ($imageType) {
                     ImageType::Webp => 'webp',
@@ -47,7 +47,7 @@ class FileExtension implements ExtensionInterface
                     ImageType::Bmp => 'bmp',
                     default => throw new RuntimeException('Unexpected match value'),
                 };
-                $sources[] = "/api/media/file/$file->id/content?width=$width&type=$type ${width}w";
+                $sources[] = "/image.php?id=$file->id&width=$width&type=$type ${width}w";
             }
         }
 
@@ -89,7 +89,7 @@ class FileExtension implements ExtensionInterface
                 ImageType::Bmp => 'bmp',
             };
             foreach (self::RESOLUTIONS_FOR_SOURCE as $width) {
-                $sources[] = "<source srcset='/api/media/file/$file->id/content?width=$width&type=$typeAsString' media='(min-width: ${width}px)' type='$type'>";
+                $sources[] = "<source srcset='image.php?id=$file->id&width=$width&type=$typeAsString' media='(min-width: ${width}px)' type='$type'>";
             }
         }
 

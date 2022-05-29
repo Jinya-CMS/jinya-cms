@@ -1,20 +1,20 @@
 {
-    "_readme": [
-        "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
-        "This file is @generated automatically"
-    ],
-    "content-hash": "b6937889714d85bc80ec258017f7e044",
-    "packages": [
-        {
-            "name": "fakerphp/faker",
-            "version": "v1.19.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/FakerPHP/Faker.git",
-                "reference": "d7f08a622b3346766325488aa32ddc93ccdecc75"
-            },
-            "dist": {
+  "_readme": [
+    "This file locks the dependencies of your project to a known state",
+    "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+    "This file is @generated automatically"
+  ],
+  "content-hash": "3c251882c4e4dec57708497db28272f6",
+  "packages": [
+    {
+      "name": "fakerphp/faker",
+      "version": "v1.19.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/FakerPHP/Faker.git",
+        "reference": "d7f08a622b3346766325488aa32ddc93ccdecc75"
+      },
+      "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/d7f08a622b3346766325488aa32ddc93ccdecc75",
                 "reference": "d7f08a622b3346766325488aa32ddc93ccdecc75",
@@ -449,26 +449,110 @@
                 },
                 {
                     "url": "https://github.com/Nyholm",
-                    "type": "github"
+                  "type": "github"
                 },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/guzzlehttp/psr7",
-                    "type": "tidelift"
-                }
+              {
+                "url": "https://tidelift.com/funding/github/packagist/guzzlehttp/psr7",
+                "type": "tidelift"
+              }
             ],
-            "time": "2022-03-20T21:55:58+00:00"
+          "time": "2022-03-20T21:55:58+00:00"
+        },
+    {
+      "name": "intervention/image",
+      "version": "2.7.2",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/Intervention/image.git",
+        "reference": "04be355f8d6734c826045d02a1079ad658322dad"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/Intervention/image/zipball/04be355f8d6734c826045d02a1079ad658322dad",
+        "reference": "04be355f8d6734c826045d02a1079ad658322dad",
+        "shasum": ""
+      },
+      "require": {
+        "ext-fileinfo": "*",
+        "guzzlehttp/psr7": "~1.1 || ^2.0",
+        "php": ">=5.4.0"
+      },
+      "require-dev": {
+        "mockery/mockery": "~0.9.2",
+        "phpunit/phpunit": "^4.8 || ^5.7 || ^7.5.15"
+      },
+      "suggest": {
+        "ext-gd": "to use GD library based image processing.",
+        "ext-imagick": "to use Imagick based image processing.",
+        "intervention/imagecache": "Caching extension for the Intervention Image library"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "2.4-dev"
+        },
+        "laravel": {
+          "providers": [
+            "Intervention\\Image\\ImageServiceProvider"
+          ],
+          "aliases": {
+            "Image": "Intervention\\Image\\Facades\\Image"
+          }
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Intervention\\Image\\": "src/Intervention/Image"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "Oliver Vogel",
+          "email": "oliver@intervention.io",
+          "homepage": "https://intervention.io/"
+        }
+      ],
+      "description": "Image handling and manipulation library with support for Laravel integration",
+      "homepage": "http://image.intervention.io/",
+      "keywords": [
+        "gd",
+        "image",
+        "imagick",
+        "laravel",
+        "thumbnail",
+        "watermark"
+      ],
+      "support": {
+        "issues": "https://github.com/Intervention/image/issues",
+        "source": "https://github.com/Intervention/image/tree/2.7.2"
+      },
+      "funding": [
+        {
+          "url": "https://paypal.me/interventionio",
+          "type": "custom"
         },
         {
-            "name": "jaybizzle/crawler-detect",
-            "version": "v1.2.111",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "d572ed4a65a70a2d2871dc5137c9c5b7e69745ab"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/d572ed4a65a70a2d2871dc5137c9c5b7e69745ab",
+          "url": "https://github.com/Intervention",
+          "type": "github"
+        }
+      ],
+      "time": "2022-05-21T17:30:32+00:00"
+    },
+    {
+      "name": "jaybizzle/crawler-detect",
+      "version": "v1.2.111",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/JayBizzle/Crawler-Detect.git",
+        "reference": "d572ed4a65a70a2d2871dc5137c9c5b7e69745ab"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/d572ed4a65a70a2d2871dc5137c9c5b7e69745ab",
                 "reference": "d572ed4a65a70a2d2871dc5137c9c5b7e69745ab",
                 "shasum": ""
             },
@@ -2470,27 +2554,27 @@
             ],
             "time": "2022-03-14T14:18:23+00:00"
         },
-        {
-            "name": "symfony/deprecation-contracts",
-            "version": "v3.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "26954b3d62a6c5fd0ea8a2a00c0353a14978d05c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/26954b3d62a6c5fd0ea8a2a00c0353a14978d05c",
-                "reference": "26954b3d62a6c5fd0ea8a2a00c0353a14978d05c",
-                "shasum": ""
-            },
+    {
+      "name": "symfony/deprecation-contracts",
+      "version": "v3.1.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/symfony/deprecation-contracts.git",
+        "reference": "07f1b9cc2ffee6aaafcf4b710fbc38ff736bd918"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/07f1b9cc2ffee6aaafcf4b710fbc38ff736bd918",
+        "reference": "07f1b9cc2ffee6aaafcf4b710fbc38ff736bd918",
+        "shasum": ""
+      },
             "require": {
-                "php": ">=8.0.2"
+              "php": ">=8.1"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "3.0-dev"
+                  "dev-main": "3.1-dev"
                 },
                 "thanks": {
                     "name": "symfony/contracts",
@@ -2519,7 +2603,7 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.0.1"
+              "source": "https://github.com/symfony/deprecation-contracts/tree/v3.1.0"
             },
             "funding": [
                 {
@@ -2535,7 +2619,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-02T09:55:41+00:00"
+      "time": "2022-02-25T11:15:52+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -5503,14 +5587,15 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.1",
-        "ext-fileinfo": "*",
-        "ext-json": "*",
-        "ext-intl": "*",
-        "ext-pdo": "*",
-        "ext-pdo_mysql": "*",
-        "ext-zip": "*"
+      "php": ">=8.1",
+      "ext-fileinfo": "*",
+      "ext-imagick": "*",
+      "ext-intl": "*",
+      "ext-json": "*",
+      "ext-pdo": "*",
+      "ext-pdo_mysql": "*",
+      "ext-zip": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+  "plugin-api-version": "2.1.0"
 }

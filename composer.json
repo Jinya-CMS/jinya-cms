@@ -29,7 +29,8 @@
     "melbahja/semver": "1.0.1",
     "league/uri": "6.5.0",
     "jinya/pdox": "0.8.6",
-    "laminas/laminas-hydrator": "4.3.1"
+    "laminas/laminas-hydrator": "4.3.1",
+    "intervention/image": "2.7.2"
   },
   "suggest": {
     "ext-zend-opcache": "*",
