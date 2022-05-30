@@ -26,7 +26,7 @@
     "jenssegers/agent": "v2.6.4",
     "fakerphp/faker": "v1.19.0",
     "melbahja/semver": "1.0.1",
-    "league/uri": "6.5.0",
+    "league/uri": "6.6.0",
     "jinya/pdox": "0.8.6",
     "laminas/laminas-hydrator": "4.3.1"
   },
