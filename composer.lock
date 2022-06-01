@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "3c251882c4e4dec57708497db28272f6",
+  "content-hash": "d484f37f705abdb626d12618b959e2be",
   "packages": [
     {
       "name": "fakerphp/faker",
@@ -15,16 +15,16 @@
         "reference": "d7f08a622b3346766325488aa32ddc93ccdecc75"
       },
       "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/d7f08a622b3346766325488aa32ddc93ccdecc75",
-                "reference": "d7f08a622b3346766325488aa32ddc93ccdecc75",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1 || ^8.0",
-                "psr/container": "^1.0 || ^2.0",
-                "symfony/deprecation-contracts": "^2.2 || ^3.0"
-            },
+        "type": "zip",
+        "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/d7f08a622b3346766325488aa32ddc93ccdecc75",
+        "reference": "d7f08a622b3346766325488aa32ddc93ccdecc75",
+        "shasum": ""
+      },
+      "require": {
+        "php": "^7.1 || ^8.0",
+        "psr/container": "^1.0 || ^2.0",
+        "symfony/deprecation-contracts": "^2.2 || ^3.0"
+      },
             "conflict": {
                 "fzaninotto/faker": "*"
             },
@@ -443,14 +443,14 @@
                 "source": "https://github.com/guzzle/psr7/tree/2.2.1"
             },
             "funding": [
-                {
-                    "url": "https://github.com/GrahamCampbell",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/Nyholm",
-                  "type": "github"
-                },
+              {
+                "url": "https://github.com/GrahamCampbell",
+                "type": "github"
+              },
+              {
+                "url": "https://github.com/Nyholm",
+                "type": "github"
+              },
               {
                 "url": "https://tidelift.com/funding/github/packagist/guzzlehttp/psr7",
                 "type": "tidelift"
@@ -553,16 +553,16 @@
       "dist": {
         "type": "zip",
         "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/d572ed4a65a70a2d2871dc5137c9c5b7e69745ab",
-                "reference": "d572ed4a65a70a2d2871dc5137c9c5b7e69745ab",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8|^5.5|^6.5|^9.4"
-            },
-            "type": "library",
+        "reference": "d572ed4a65a70a2d2871dc5137c9c5b7e69745ab",
+        "shasum": ""
+      },
+      "require": {
+        "php": ">=5.3.0"
+      },
+      "require-dev": {
+        "phpunit/phpunit": "^4.8|^5.5|^6.5|^9.4"
+      },
+      "type": "library",
             "autoload": {
                 "psr-4": {
                     "Jaybizzle\\CrawlerDetect\\": "src/"
@@ -1040,36 +1040,38 @@
             },
             "time": "2022-01-23T14:38:49+00:00"
         },
-        {
-            "name": "league/uri",
-            "version": "6.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thephpleague/uri.git",
-                "reference": "c68ca445abb04817d740ddd6d0b3551826ef0c5a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/uri/zipball/c68ca445abb04817d740ddd6d0b3551826ef0c5a",
-                "reference": "c68ca445abb04817d740ddd6d0b3551826ef0c5a",
-                "shasum": ""
-            },
+    {
+      "name": "league/uri",
+      "version": "6.6.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/thephpleague/uri.git",
+        "reference": "4147f19b9de3b5af6a258f35d7a0efbbf9963298"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/thephpleague/uri/zipball/4147f19b9de3b5af6a258f35d7a0efbbf9963298",
+        "reference": "4147f19b9de3b5af6a258f35d7a0efbbf9963298",
+        "shasum": ""
+      },
             "require": {
-                "ext-json": "*",
-                "league/uri-interfaces": "^2.3",
-                "php": "^7.3 || ^8.0",
-                "psr/http-message": "^1.0"
+              "ext-json": "*",
+              "league/uri-interfaces": "^2.3",
+              "php": "^7.4 || ^8.0",
+              "psr/http-message": "^1.0"
             },
             "conflict": {
                 "league/uri-schemes": "^1.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.19 || ^3.0",
-                "phpstan/phpstan": "^0.12.90",
-                "phpstan/phpstan-phpunit": "^0.12.22",
-                "phpstan/phpstan-strict-rules": "^0.12.11",
-                "phpunit/phpunit": "^8.0 || ^9.0",
-                "psr/http-factory": "^1.0"
+              "friendsofphp/php-cs-fixer": "^v3.3.2",
+              "php-http/psr7-integration-tests": "^1.1",
+              "phpstan/phpstan": "^1.2.0",
+              "phpstan/phpstan-deprecation-rules": "^1.0",
+              "phpstan/phpstan-phpunit": "^1.0.0",
+              "phpstan/phpstan-strict-rules": "^1.1.0",
+              "phpunit/phpunit": "^9.5.10",
+              "psr/http-factory": "^1.0"
             },
             "suggest": {
                 "ext-fileinfo": "Needed to create Data URI from a filepath",
@@ -1090,27 +1092,27 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "MIT"
+              "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Ignace Nyamagana Butera",
-                    "email": "nyamsprod@gmail.com",
-                    "homepage": "https://nyamsprod.com"
-                }
-            ],
-            "description": "URI manipulation library",
-            "homepage": "http://uri.thephpleague.com",
-            "keywords": [
-                "data-uri",
-                "file-uri",
-                "ftp",
-                "hostname",
-                "http",
-                "https",
-                "middleware",
-                "parse_str",
-                "parse_url",
+      "authors": [
+        {
+          "name": "Ignace Nyamagana Butera",
+          "email": "nyamsprod@gmail.com",
+          "homepage": "https://nyamsprod.com"
+        }
+      ],
+      "description": "URI manipulation library",
+      "homepage": "https://uri.thephpleague.com",
+      "keywords": [
+        "data-uri",
+        "file-uri",
+        "ftp",
+        "hostname",
+        "http",
+        "https",
+        "middleware",
+        "parse_str",
+        "parse_url",
                 "psr-7",
                 "query-string",
                 "querystring",
@@ -1126,7 +1128,7 @@
                 "docs": "https://uri.thephpleague.com",
                 "forum": "https://thephpleague.slack.com",
                 "issues": "https://github.com/thephpleague/uri/issues",
-                "source": "https://github.com/thephpleague/uri/tree/6.5.0"
+              "source": "https://github.com/thephpleague/uri/tree/6.6.0"
             },
             "funding": [
                 {
@@ -1134,7 +1136,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-08-27T09:54:07+00:00"
+      "time": "2022-05-28T05:44:35+00:00"
         },
         {
             "name": "league/uri-interfaces",
@@ -2544,15 +2546,15 @@
             },
             "funding": [
                 {
-                    "url": "https://opencollective.com/slimphp",
-                    "type": "open_collective"
+                  "url": "https://opencollective.com/slimphp",
+                  "type": "open_collective"
                 },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/slim/slim",
-                    "type": "tidelift"
-                }
+              {
+                "url": "https://tidelift.com/funding/github/packagist/slim/slim",
+                "type": "tidelift"
+              }
             ],
-            "time": "2022-03-14T14:18:23+00:00"
+          "time": "2022-03-14T14:18:23+00:00"
         },
     {
       "name": "symfony/deprecation-contracts",
@@ -2568,16 +2570,16 @@
         "reference": "07f1b9cc2ffee6aaafcf4b710fbc38ff736bd918",
         "shasum": ""
       },
-            "require": {
-              "php": ">=8.1"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                  "dev-main": "3.1-dev"
-                },
-                "thanks": {
-                    "name": "symfony/contracts",
+      "require": {
+        "php": ">=8.1"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-main": "3.1-dev"
+        },
+        "thanks": {
+          "name": "symfony/contracts",
                     "url": "https://github.com/symfony/contracts"
                 }
             },
@@ -3194,20 +3196,20 @@
             ],
             "time": "2022-03-03T13:19:32+00:00"
         },
-        {
-            "name": "nikic/php-parser",
-            "version": "v4.13.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "210577fe3cf7badcc5814d99455df46564f3c077"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/210577fe3cf7badcc5814d99455df46564f3c077",
-                "reference": "210577fe3cf7badcc5814d99455df46564f3c077",
-                "shasum": ""
-            },
+      {
+        "name": "nikic/php-parser",
+        "version": "v4.14.0",
+        "source": {
+          "type": "git",
+          "url": "https://github.com/nikic/PHP-Parser.git",
+          "reference": "34bea19b6e03d8153165d8f30bba4c3be86184c1"
+        },
+        "dist": {
+          "type": "zip",
+          "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/34bea19b6e03d8153165d8f30bba4c3be86184c1",
+          "reference": "34bea19b6e03d8153165d8f30bba4c3be86184c1",
+          "shasum": ""
+        },
             "require": {
                 "ext-tokenizer": "*",
                 "php": ">=7.0"
@@ -3246,9 +3248,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v4.13.2"
+              "source": "https://github.com/nikic/PHP-Parser/tree/v4.14.0"
             },
-            "time": "2021-11-30T19:35:32+00:00"
+        "time": "2022-05-31T20:59:12+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -3588,20 +3590,20 @@
             },
             "time": "2021-12-08T12:19:24+00:00"
         },
-        {
-            "name": "phpstan/phpstan",
-            "version": "1.7.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "c602f80d66ba425943b0f4aaa27010c822dd8f87"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/c602f80d66ba425943b0f4aaa27010c822dd8f87",
-                "reference": "c602f80d66ba425943b0f4aaa27010c822dd8f87",
-                "shasum": ""
-            },
+      {
+        "name": "phpstan/phpstan",
+        "version": "1.7.7",
+        "source": {
+          "type": "git",
+          "url": "https://github.com/phpstan/phpstan.git",
+          "reference": "cadad14ac63d8a432e01ae89ac5d0ff6fc3b16ab"
+        },
+        "dist": {
+          "type": "zip",
+          "url": "https://api.github.com/repos/phpstan/phpstan/zipball/cadad14ac63d8a432e01ae89ac5d0ff6fc3b16ab",
+          "reference": "cadad14ac63d8a432e01ae89ac5d0ff6fc3b16ab",
+          "shasum": ""
+        },
             "require": {
                 "php": "^7.2|^8.0"
             },
@@ -3625,7 +3627,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.7.2"
+              "source": "https://github.com/phpstan/phpstan/tree/1.7.7"
             },
             "funding": [
                 {
@@ -3645,7 +3647,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-26T12:59:20+00:00"
+        "time": "2022-05-31T13:58:21+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
