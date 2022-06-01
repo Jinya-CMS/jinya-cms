@@ -33,7 +33,7 @@ if (file_exists($fullpath)) {
     exit(302);
 }
 
-$manager = new ImageManager(['driver' => 'gd']);
+$manager = new ImageManager(['driver' => 'imagick']);
 $image = $manager->make(StorageBaseService::BASE_PATH . '/public/' . $file->path);
 if ($width !== false) {
     $image->widen($width, fn($image) => $image->upsize());
@@ -54,7 +54,9 @@ if ($type !== false) {
         'bmp' => 'bmp',
         default => 'webp',
     };
+    $image->save($fullpath, format: $targetType);
     echo $image->response($targetType);
 } else {
+    $image->save($fullpath);
     echo $image->response();
 }
