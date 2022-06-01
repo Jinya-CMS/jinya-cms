@@ -20,9 +20,9 @@ class Theme implements ExtensionInterface
 {
     public const ERROR_BEHAVIOR_HOMEPAGE = 'homepage';
     public const ERROR_BEHAVIOR_ERROR_PAGE = 'errorpage';
+    public const BASE_PUBLIC_PATH = '/themes/';
+    public const BASE_CACHE_PATH = __DIR__ . '/../../public' . self::BASE_PUBLIC_PATH;
 
-    private const BASE_PUBLIC_PATH = '/themes/';
-    private const BASE_CACHE_PATH = __DIR__ . '/../../public' . self::BASE_PUBLIC_PATH;
     private Database\Theme $dbTheme;
     private Compiler $scssCompiler;
     /** @var array<string, mixed> */
@@ -90,54 +90,6 @@ class Theme implements ExtensionInterface
     public function register(Engine $engine): void
     {
         $engine->addFolder('theme', ThemeSyncer::THEME_BASE_PATH . $this->dbTheme->name);
-
-        // $this->asset(name)
-        $engine->registerFunction('asset', fn(string $name) => $this->dbTheme->getAssets()[$name]);
-
-        // $this->config(group, field)
-        $engine->registerFunction(
-            'config',
-            fn(
-                string $group,
-                string $field
-            ) => $this->dbTheme->configuration[$group][$field] ?? $this->configuration['configuration'][$group][$field]
-        );
-
-        // $this->styles()
-        $engine->registerFunction(
-            'styles',
-            function () {
-                $styleFiles = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/styles/');
-                $styleFiles = array_map(
-                    fn($item) => self::BASE_PUBLIC_PATH . $this->dbTheme->name . "/styles/$item", $styleFiles ?: [],
-                );
-                $styleFiles = array_filter($styleFiles, static fn($item) => str_ends_with($item, '.css'));
-                $tags = '';
-                foreach ($styleFiles as $file) {
-                    $tags .= "<link type='text/css' rel='stylesheet' href='$file'>";
-                }
-
-                return $tags;
-            },
-        );
-
-        // $this->scripts()
-        $engine->registerFunction(
-            'scripts',
-            function () {
-                $scriptFiles = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts/');
-                $scriptFiles = array_map(
-                    fn($item) => self::BASE_PUBLIC_PATH . $this->dbTheme->name . "/scripts/$item", $scriptFiles ?: [],
-                );
-                $scriptFiles = array_filter($scriptFiles, static fn($item) => str_ends_with($item, '.js'));
-                $tags = '';
-                foreach ($scriptFiles as $file) {
-                    $tags .= "<script src='$file'></script>";
-                }
-
-                return $tags;
-            },
-        );
     }
 
     /**
