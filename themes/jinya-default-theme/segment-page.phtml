@@ -1,5 +1,8 @@
 <?php
 /** @var \App\Database\SegmentPage $page */
+
+use App\Utils\ImageType;
+
 ?>
 <?php $this->layout('theme::layout', ['title' => $page->title]) ?>
 <?php $this->start('maincontent') ?>
@@ -25,12 +28,14 @@
                 <?php elseif ($segment->action === 'link'): ?>
                     <a href="<?= $segment->target ?>">
                         <img class="jinya-segment-page__artwork" src="<?= $this->e($file->path) ?>"
-                             alt="<?= $this->e($file->name) ?>">
+                             sizes="<?= $this->sizes() ?>" alt="<?= $this->e($file->name) ?>"
+                             srcset="<?= $this->srcset($file, ImageType::Webp) ?>">
                     </a>
                 <?php elseif ($segment->action === 'script'): ?>
                 <?php $segmentId = uniqid('segment', true) ?>
                 <img class="jinya-segment-page__artwork" id="<?= $segmentId ?>" src="<?= $this->e($file->path) ?>"
-                     alt="<?= $this->e($file->name) ?>">
+                     alt="<?= $this->e($file->name) ?>" sizes="<?= $this->sizes() ?>"
+                     srcset="<?= $this->srcset($file, ImageType::Webp) ?>">
                     <script>
                       var segmentId = '<?= $segmentId ?>';
                       <?= $segment->script ?>

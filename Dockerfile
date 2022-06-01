@@ -8,8 +8,10 @@ COPY --chown=www-data ./ /var/www/jinya/
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
 RUN apt-get update
-RUN apt-get install libzip-dev libicu-dev -y
+RUN apt-get install libzip-dev libicu-dev libmagickwand-dev -y
 RUN docker-php-ext-install pdo pdo_mysql zip opcache intl
+RUN pecl install imagick
+RUN docker-php-ext-enable imagick
 RUN a2enmod rewrite
 RUN a2enmod headers
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf

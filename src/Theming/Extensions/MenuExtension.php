@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Theming;
+namespace App\Theming\Extensions;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;

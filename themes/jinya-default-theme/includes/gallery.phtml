@@ -6,6 +6,7 @@
 /** @var \App\Database\GalleryFilePosition $filePosition */
 
 use App\Database\Gallery;
+use App\Utils\ImageType;
 
 ?>
 <?php $bemClassBlock = 'jinya-' . $gallery->orientation . '-gallery' ?>
@@ -16,14 +17,15 @@ use App\Database\Gallery;
             <?php $file = $filePosition->getFile() ?>
             <figure class="<?= $bemClassBlock ?>__artwork jinya-gallery__artwork--mobile">
                 <img class="<?= $bemClassBlock ?>-artwork__image jinya-gallery__image--mobile"
-                     src="<?= $this->e($file->path) ?>" alt="<?= $this->e($file->name) ?>"
+                     src="<?= $this->e($file->path) ?>" alt="<?= $this->e($file->name) ?>" sizes="<?= $this->sizes() ?>"
+                     srcset="<?= $this->srcset($file, ImageType::Webp) ?>"
                     <?php if ($gallery->type === Gallery::TYPE_MASONRY): ?>
                         data-action="masonry-click" role="button"
                     <?php endif ?>>
                 <?php if (!isset($noCaption) || $noCaption === false): ?>
                     <figcaption class="<?= $bemClassBlock ?>__caption jinya-gallery__caption--mobile">
                         <span
-                            class="<?= $bemClassBlock ?>-caption__title jinya-gallery-caption__title--mobile is--description-empty">
+                                class="<?= $bemClassBlock ?>-caption__title jinya-gallery-caption__title--mobile is--description-empty">
                             <?= $this->e($file->name) ?>
                         </span>
                     </figcaption>

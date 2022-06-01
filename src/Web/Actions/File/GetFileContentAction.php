@@ -5,6 +5,7 @@ namespace App\Web\Actions\File;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
+use App\Utils\ImageManipulator;
 use App\Web\Actions\Action;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
