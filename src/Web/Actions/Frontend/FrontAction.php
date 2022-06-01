@@ -96,8 +96,10 @@ abstract class FrontAction extends Action
         $queryParams = $this->request->getQueryParams();
         $this->engine->addData(['body' => $parsedBody, 'queryParams' => $queryParams]);
         $this->engine->loadExtension($this->activeTheme);
+        $currentDbTheme = Database\Theme::getActiveTheme();
         $this->engine->loadExtension(new Theming\Extensions\MenuExtension());
         $this->engine->loadExtension(new Theming\Extensions\FileExtension());
+        $this->engine->loadExtension(new Theming\Extensions\LinksExtension($currentDbTheme));
         $this->engine->loadExtension(new URI($this->request->getUri()->getPath()));
 
         $renderResult = $this->engine

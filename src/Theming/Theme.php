@@ -91,56 +91,8 @@ class Theme implements ExtensionInterface
     {
         $engine->addFolder('theme', ThemeSyncer::THEME_BASE_PATH . $this->dbTheme->name);
 
-        // $this->segmentPage(name)
-        $engine->registerFunction('segmentPage', fn(string $name) => $this->dbTheme->getSegmentPages()[$name]);
-
-        // $this->hasSegmentPage(name)
-        $engine->registerFunction('hasSegmentPage', fn(string $name) => isset($this->dbTheme->getSegmentPages()[$name]));
-
-        // $this->page(name)
-        $engine->registerFunction('page', fn(string $name) => $this->dbTheme->getPages()[$name]);
-
-        // $this->hasPage(name)
-        $engine->registerFunction('hasPage', fn(string $name) => isset($this->dbTheme->getPages()[$name]));
-
-        // $this->simplePage(name)
-        $engine->registerFunction('simplePage', fn(string $name) => $this->dbTheme->getPages()[$name]);
-
-        // $this->hasSimplePage(name)
-        $engine->registerFunction('hasSimplePage', fn(string $name) => isset($this->dbTheme->getPages()[$name]));
-
-        // $this->file(name)
-        $engine->registerFunction('file', fn(string $name) => $this->dbTheme->getFiles()[$name]);
-
-        // $this->hasFile(name)
-        $engine->registerFunction('hasFile', fn(string $name) => isset($this->dbTheme->getFiles()[$name]));
-
-        // $this->gallery(name)
-        $engine->registerFunction('gallery', fn(string $name) => $this->dbTheme->getGalleries()[$name]);
-
-        // $this->hasGallery(name)
-        $engine->registerFunction('hasGallery', fn(string $name) => isset($this->dbTheme->getGalleries()[$name]));
-
-        // $this->menu(name)
-        $engine->registerFunction('menu', fn(string $name) => $this->dbTheme->getMenus()[$name]);
-
-        // $this->hasMenu(name)
-        $engine->registerFunction('hasMenu', fn(string $name) => isset($this->dbTheme->getMenus()[$name]));
-
         // $this->asset(name)
         $engine->registerFunction('asset', fn(string $name) => $this->dbTheme->getAssets()[$name]);
-
-        // $this->form(name)
-        $engine->registerFunction('form', fn(string $name) => $this->dbTheme->getForms()[$name]);
-
-        // $this->hasForm(name)
-        $engine->registerFunction('hasForm', fn(string $name) => isset($this->dbTheme->getForms()[$name]));
-
-        // $this->blogCategory(name)
-        $engine->registerFunction('blogCategory', fn(string $name) => $this->dbTheme->getCategories()[$name]);
-
-        // $this->hasBlogCategory(name)
-        $engine->registerFunction('hasBlogCategory', fn(string $name) => isset($this->dbTheme->getCategories()[$name]));
 
         // $this->config(group, field)
         $engine->registerFunction(
