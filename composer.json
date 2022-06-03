@@ -39,7 +39,7 @@
   "require-dev": {
     "roave/security-advisories": "dev-latest",
     "phpunit/phpunit": "9.5.20",
-    "phpstan/phpstan": "1.7.8"
+    "phpstan/phpstan": "1.7.9"
   },
   "config": {
     "process-timeout": 0,
