@@ -12,7 +12,7 @@
     "ext-pdo_mysql": "*",
     "ext-zip": "*",
     "jetbrains/phpstorm-attributes": "1.0",
-    "guzzlehttp/guzzle": "7.4.3",
+    "guzzlehttp/guzzle": "7.4.4",
     "jinya/plates": "4.0.0",
     "monolog/monolog": "2.6.0",
     "phpmailer/phpmailer": "v6.6.0",
