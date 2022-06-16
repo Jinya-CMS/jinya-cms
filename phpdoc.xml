@@ -5,8 +5,9 @@
         xmlns="https://www.phpdoc.org"
         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/phpDocumentor/phpDocumentor/v3.3.1/data/xsd/phpdoc.xsd"
 >
+    <title>Jinya CMS</title>
     <paths>
-        <output>classDocs</output>
+        <output>build/docs</output>
     </paths>
     <version number="24.0.0">
         <api>
@@ -14,5 +15,13 @@
                 <path>src</path>
             </source>
         </api>
+        <guide format="rst">
+            <source dsn=".">
+                <path>docs</path>
+            </source>
+            <output>guide</output>
+        </guide>
     </version>
+    <setting name="guides.enabled" value="true"/>
+    <template location="./docs/jinya-theme"/>
 </phpdocumentor>

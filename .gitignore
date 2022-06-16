@@ -151,3 +151,4 @@ $RECYCLE.BIN/
 .idea
 /composer_2.phar
 /.phpdoc/
+!/build/docs/
