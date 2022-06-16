@@ -142,14 +142,16 @@
             <div class="phpdocumentor-column -eight phpdocumentor-content">
                     <ul class="phpdocumentor-breadcrumbs">
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/app.html">App</a></li>
-            <li class="phpdocumentor-breadcrumb"><a href="namespaces/app-database.html">Database</a></li>
-            <li class="phpdocumentor-breadcrumb"><a href="namespaces/app-database-analyzer.html">Analyzer</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/app-console.html">Console</a></li>
     </ul>
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    DatabaseAnalyzer
+    FileCacheCommand
 
+        <span class="phpdocumentor-element__extends">
+        extends <a href="classes/App-Console-AbstractCommand.html"><abbr title="\App\Console\AbstractCommand">AbstractCommand</abbr></a>
+    </span>
     
             <div class="phpdocumentor-element__package">
             in package
@@ -162,13 +164,13 @@
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Analyzer/DatabaseAnalyzer.php"><a href="files/src-database-analyzer-databaseanalyzer.html"><abbr title="src/Database/Analyzer/DatabaseAnalyzer.php">DatabaseAnalyzer.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Console/FileCacheCommand.php"><a href="files/src-console-filecachecommand.html"><abbr title="src/Console/FileCacheCommand.php">FileCacheCommand.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">13</span>
+    <span class="phpdocumentor-element-found-in__line">14</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">This class analyzes the database and allows to retrieve several database information</p>
+            <p class="phpdocumentor-summary">This is the base class for all commands, the cli executor expects all commands to extend this class and have a JinyaCommand attribute</p>
 
 
 
@@ -184,26 +186,26 @@
 </h3>
 
 <dl class="phpdocumentor-table-of-contents">
-                        <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/App-Database-Analyzer-DatabaseAnalyzer.html#method_getServerInfo">getServerInfo()</a>
+                    <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/App-Console-AbstractCommand.html#property_climate">$climate</a>
     <span>
-                                &nbsp;: array&lt;string, string&gt;    </span>
+                        &nbsp;: <abbr title="\League\CLImate\CLImate">CLImate</abbr>            </span>
 </dt>
-<dd>Gets the information for the current database server. This information includes the version and the OS and architecture the server was compiled on</dd>
+<dd></dd>
+
+                <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Console-AbstractCommand.html#method___construct">__construct()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>Creates a new instance of AbstractCommand. Derived classes need to call the constructor to initialize CLImate</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/App-Database-Analyzer-DatabaseAnalyzer.html#method_getTables">getTables()</a>
+    <a href="classes/App-Console-FileCacheCommand.html#method_run">run()</a>
     <span>
-                                &nbsp;: array&lt;int|string, array&lt;string, mixed|int|string&gt;&gt;    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd>Gets all tables currently present in the active database</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/App-Database-Analyzer-DatabaseAnalyzer.html#method_getVariables">getVariables()</a>
-    <span>
-                                &nbsp;: array&lt;int|string, mixed&gt;    </span>
-</dt>
-<dd>Gets the variables of the database server for one of the variable types</dd>
+<dd>Gets executed by the cli executor</dd>
 
         </dl>
 
@@ -212,121 +214,114 @@
         
 
         
+    <section class="phpdocumentor-properties">
+        <h3 class="phpdocumentor-elements__header" id="properties">
+            Properties
+            <a class="headerlink" href="classes/App-Console-FileCacheCommand.html#properties"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_climate">
+        $climate
+        <a class="headerlink" href="classes/App-Console-AbstractCommand.html#property_climate"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Console/AbstractCommand.php"><a href="files/src-console-abstractcommand.html"><abbr title="src/Console/AbstractCommand.php">AbstractCommand.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">15</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type"><abbr title="\League\CLImate\CLImate">CLImate</abbr></span>
+    <span class="phpdocumentor-signature__name">$climate</span>
+    </code>
+
+    
+        <section class="phpdocumentor-description"><p>The <abbr title="\League\CLImate\CLImate">CLImate</abbr> instance of the command</p>
+</section>
+
+    
+
+</article>
+            </section>
 
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a class="headerlink" href="classes/App-Database-Analyzer-DatabaseAnalyzer.html#methods"><i class="fas fa-link"></i></a>
+            <a class="headerlink" href="classes/App-Console-FileCacheCommand.html#methods"><i class="fas fa-link"></i></a>
         </h3>
                     <article
         class="phpdocumentor-element
             -method
             -public
-                                    -static                    "
+                                                        "
 >
-    <h4 class="phpdocumentor-element__name" id="method_getServerInfo">
-        getServerInfo()
-        <a class="headerlink" href="classes/App-Database-Analyzer-DatabaseAnalyzer.html#method_getServerInfo"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method___construct">
+        __construct()
+        <a class="headerlink" href="classes/App-Console-AbstractCommand.html#method___construct"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Analyzer/DatabaseAnalyzer.php"><a href="files/src-database-analyzer-databaseanalyzer.html"><abbr title="src/Database/Analyzer/DatabaseAnalyzer.php">DatabaseAnalyzer.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Console/AbstractCommand.php"><a href="files/src-console-abstractcommand.html"><abbr title="src/Console/AbstractCommand.php">AbstractCommand.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">51</span>
+    <span class="phpdocumentor-element-found-in__line">20</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Gets the information for the current database server. This information includes the version and the OS and architecture the server was compiled on</p>
+        <p class="phpdocumentor-summary">Creates a new instance of AbstractCommand. Derived classes need to call the constructor to initialize CLImate</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getServerInfo</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, string&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string, string&gt;</span>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
             &mdash;
-            <section class="phpdocumentor-description"><p>An array containing the version, the comment, the compile machine and the compile OS</p>
-</section>
-
+        
     
 </article>
                     <article
         class="phpdocumentor-element
             -method
             -public
-                                    -static                    "
+                                                        "
 >
-    <h4 class="phpdocumentor-element__name" id="method_getTables">
-        getTables()
-        <a class="headerlink" href="classes/App-Database-Analyzer-DatabaseAnalyzer.html#method_getTables"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_run">
+        run()
+        <a class="headerlink" href="classes/App-Console-FileCacheCommand.html#method_run"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Analyzer/DatabaseAnalyzer.php"><a href="files/src-database-analyzer-databaseanalyzer.html"><abbr title="src/Database/Analyzer/DatabaseAnalyzer.php">DatabaseAnalyzer.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Console/FileCacheCommand.php"><a href="files/src-console-filecachecommand.html"><abbr title="src/Console/FileCacheCommand.php">FileCacheCommand.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">21</span>
+    <span class="phpdocumentor-element-found-in__line">18</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Gets all tables currently present in the active database</p>
+        <p class="phpdocumentor-summary">Gets executed by the cli executor</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getTables</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;int|string, array&lt;string, mixed|int|string&gt;&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">run</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;int|string, array&lt;string, mixed|int|string&gt;&gt;</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>An array of the tables and their fields</p>
-</section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_getVariables">
-        getVariables()
-        <a class="headerlink" href="classes/App-Database-Analyzer-DatabaseAnalyzer.html#method_getVariables"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Analyzer/DatabaseAnalyzer.php"><a href="files/src-database-analyzer-databaseanalyzer.html"><abbr title="src/Database/Analyzer/DatabaseAnalyzer.php">DatabaseAnalyzer.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">70</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Gets the variables of the database server for one of the variable types</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getVariables</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Database-Analyzer-VariablesType.html"><abbr title="\App\Database\Analyzer\VariablesType">VariablesType</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;int|string, mixed&gt;</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$type</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Database-Analyzer-VariablesType.html"><abbr title="\App\Database\Analyzer\VariablesType">VariablesType</abbr></a></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;int|string, mixed&gt;</span>
+    <span class="phpdocumentor-signature__response_type">void</span>
             &mdash;
         
     
@@ -409,7 +404,7 @@
 </section>
             </div>
         </div>
-        <a class="phpdocumentor-back-to-top" href="classes/App-Database-Analyzer-DatabaseAnalyzer.html#top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a class="phpdocumentor-back-to-top" href="classes/App-Console-FileCacheCommand.html#top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 

@@ -141,10 +141,31 @@
 
             <div class="phpdocumentor-column -eight phpdocumentor-content">
                     <ul class="phpdocumentor-breadcrumbs">
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/app.html">App</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/app-database.html">Database</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/app-database-analyzer.html">Analyzer</a></li>
     </ul>
 
-    <article class="phpdocumentor-element -file">
-        <h2 class="phpdocumentor-content__title">DatabaseAnalyzer.php</h2>
+    <article class="phpdocumentor-element -class">
+        <h2 class="phpdocumentor-content__title">
+    VariablesType
+
+    
+            <div class="phpdocumentor-element__package">
+            in package
+            <ul class="phpdocumentor-breadcrumbs">
+                            </ul>
+        </div>
+    
+    
+    </h2>
+
+        <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Analyzer/VariablesType.php"><a href="files/src-database-analyzer-variablestype.html"><abbr title="src/Database/Analyzer/VariablesType.php">VariablesType.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">5</span>
+
+    </aside>
 
         
     <section class="phpdocumentor-description"></section>
@@ -154,26 +175,153 @@
 
 
 
-<h3 id="interfaces_class_traits">
-    Interfaces, Classes, Traits and Enums
-    <a class="headerlink" href="#interfaces_class_traits"><i class="fas fa-link"></i></a>
-</h3>
 
-<dl class="phpdocumentor-table-of-contents">
+
+
+
+
+            <section class="phpdocumentor-cases">
+        <h3 class="phpdocumentor-elements__header" id="cases">
+            Cases
+            <a class="headerlink" href="classes/App-Database-Analyzer-VariablesType.html#cases"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
+        class="
+            phpdocumentor-element
+            -enum-case
+        "
+>
+    <h4 class="phpdocumentor-element__name" id="enumcase_Global">
+        Global
+        <a class="headerlink" href=""><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Analyzer/VariablesType.php"><a href="files/src-database-analyzer-variablestype.html"><abbr title="src/Database/Analyzer/VariablesType.php">VariablesType.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">6</span>
+
+    </aside>
+
     
-            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/App-Database-Analyzer-DatabaseAnalyzer.html"><abbr title="\App\Database\Analyzer\DatabaseAnalyzer">DatabaseAnalyzer</abbr></a></dt>
-        <dd>This class analyzes the database and allows to retrieve several database information</dd>
+    
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -enum-case
+        "
+>
+    <h4 class="phpdocumentor-element__name" id="enumcase_Local">
+        Local
+        <a class="headerlink" href=""><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Analyzer/VariablesType.php"><a href="files/src-database-analyzer-variablestype.html"><abbr title="src/Database/Analyzer/VariablesType.php">VariablesType.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">7</span>
+
+    </aside>
+
     
     
-    </dl>
+        <section class="phpdocumentor-description"></section>
 
+    
 
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -enum-case
+        "
+>
+    <h4 class="phpdocumentor-element__name" id="enumcase_Session">
+        Session
+        <a class="headerlink" href=""><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Analyzer/VariablesType.php"><a href="files/src-database-analyzer-variablestype.html"><abbr title="src/Database/Analyzer/VariablesType.php">VariablesType.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">8</span>
 
+    </aside>
 
+    
+    
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+            </section>
 
         
-
         
+    <script type="text/javascript">
+        function loadExternalCodeSnippets(line) {
+            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach((pre) => {
+                var src = pre.getAttribute('data-src').replace( /\\/g, '/');
+                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+                var language = 'php';
+
+                var code = document.createElement('code');
+                code.className = 'language-' + language;
+
+                pre.textContent = '';
+
+                pre.setAttribute('data-line', line)
+                code.textContent = 'Loading…';
+
+                pre.appendChild(code);
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', src, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+
+                            Prism.highlightElement(code);
+                        }
+                        else if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                        }
+                        else {
+                            code.textContent = '✖ Error: File does not exist, is empty or trying to view from localhost';
+                        }
+                    }
+                };
+
+                xhr.send(null);
+            });
+        }
+
+        var modals = document.querySelectorAll("[data-modal]");
+
+        modals.forEach(function (trigger) {
+            trigger.addEventListener("click", function (event) {
+                //event.preventDefault();
+                const modal = document.getElementById(trigger.dataset.modal);
+                modal.classList.add("phpdocumentor-modal__open");
+                loadExternalCodeSnippets(trigger.dataset.line)
+                const exits = modal.querySelectorAll("[data-exit-button]");
+                exits.forEach(function (exit) {
+                    exit.addEventListener("click", function (event) {
+                        event.preventDefault();
+                        modal.classList.remove("phpdocumentor-modal__open");
+                    });
+                });
+            });
+        });
+    </script>
+
     </article>
                 <section class="phpdocumentor-search-results phpdocumentor-search-results--hidden" data-search-results>
     <section class="phpdocumentor-search-results__dialog">
@@ -188,7 +336,7 @@
 </section>
             </div>
         </div>
-        <a class="phpdocumentor-back-to-top" href="files/src-database-analyzer-databaseanalyzer.html#top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a class="phpdocumentor-back-to-top" href="classes/App-Database-Analyzer-VariablesType.html#top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 

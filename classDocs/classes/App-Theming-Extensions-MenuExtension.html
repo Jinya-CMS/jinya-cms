@@ -142,13 +142,13 @@
             <div class="phpdocumentor-column -eight phpdocumentor-content">
                     <ul class="phpdocumentor-breadcrumbs">
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/app.html">App</a></li>
-            <li class="phpdocumentor-breadcrumb"><a href="namespaces/app-tests.html">Tests</a></li>
-            <li class="phpdocumentor-breadcrumb"><a href="namespaces/app-tests-extensions.html">Extensions</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/app-theming.html">Theming</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/app-theming-extensions.html">Extensions</a></li>
     </ul>
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    MigrationHook
+    MenuExtension
 
     
             <div class="phpdocumentor-element__package">
@@ -160,14 +160,14 @@
     
             <span class="phpdocumentor-element__implements">
             implements
-                            <abbr title="\PHPUnit\Runner\BeforeFirstTestHook">BeforeFirstTestHook</abbr>                    </span>
+                            <abbr title="\League\Plates\Extension\ExtensionInterface">ExtensionInterface</abbr>                    </span>
     
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Tests/Extensions/MigrationHook.php"><a href="files/src-tests-extensions-migrationhook.html"><abbr title="src/Tests/Extensions/MigrationHook.php">MigrationHook.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/Extensions/MenuExtension.php"><a href="files/src-theming-extensions-menuextension.html"><abbr title="src/Theming/Extensions/MenuExtension.php">MenuExtension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">16</span>
+    <span class="phpdocumentor-element-found-in__line">17</span>
 
     </aside>
 
@@ -184,7 +184,7 @@
 </h3>
 
 <dl class="phpdocumentor-table-of-contents">
-            <dt class="phpdocumentor-table-of-contents__entry -interface"><abbr title="\PHPUnit\Runner\BeforeFirstTestHook">BeforeFirstTestHook</abbr></dt>
+            <dt class="phpdocumentor-table-of-contents__entry -interface"><abbr title="\League\Plates\Extension\ExtensionInterface">ExtensionInterface</abbr></dt>
         <dd></dd>
     
     
@@ -199,7 +199,28 @@
 
 <dl class="phpdocumentor-table-of-contents">
                         <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/App-Tests-Extensions-MigrationHook.html#method_executeBeforeFirstTest">executeBeforeFirstTest()</a>
+    <a href="classes/App-Theming-Extensions-MenuExtension.html#method_getActiveMenuItem">getActiveMenuItem()</a>
+    <span>
+                                &nbsp;: <a href="classes/App-Database-MenuItem.html"><abbr title="\App\Database\MenuItem">MenuItem</abbr></a>|null    </span>
+</dt>
+<dd>Gets the active menu item</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Theming-Extensions-MenuExtension.html#method_isActiveMenuItem">isActiveMenuItem()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Checks if the given menu item is active</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Theming-Extensions-MenuExtension.html#method_isChildActiveMenuItem">isChildActiveMenuItem()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Checks if the given menu item is active or a child is active</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Theming-Extensions-MenuExtension.html#method_register">register()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
@@ -216,7 +237,7 @@
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a class="headerlink" href="classes/App-Tests-Extensions-MigrationHook.html#methods"><i class="fas fa-link"></i></a>
+            <a class="headerlink" href="classes/App-Theming-Extensions-MenuExtension.html#methods"><i class="fas fa-link"></i></a>
         </h3>
                     <article
         class="phpdocumentor-element
@@ -224,21 +245,22 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_executeBeforeFirstTest">
-        executeBeforeFirstTest()
-        <a class="headerlink" href="classes/App-Tests-Extensions-MigrationHook.html#method_executeBeforeFirstTest"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_getActiveMenuItem">
+        getActiveMenuItem()
+        <a class="headerlink" href="classes/App-Theming-Extensions-MenuExtension.html#method_getActiveMenuItem"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Tests/Extensions/MigrationHook.php"><a href="files/src-tests-extensions-migrationhook.html"><abbr title="src/Tests/Extensions/MigrationHook.php">MigrationHook.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/Extensions/MenuExtension.php"><a href="files/src-theming-extensions-menuextension.html"><abbr title="src/Theming/Extensions/MenuExtension.php">MenuExtension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">24</span>
+    <span class="phpdocumentor-element-found-in__line">71</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Gets the active menu item</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">executeBeforeFirstTest</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">getActiveMenuItem</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/App-Database-MenuItem.html"><abbr title="\App\Database\MenuItem">MenuItem</abbr></a>|null</span></code>
 
     
     
@@ -249,14 +271,6 @@
     </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
-                                                            
-                                             
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
@@ -272,7 +286,181 @@
                                                             
                                              
                                     </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Jinya\PDOx\Exceptions\NoResultException">NoResultException</abbr></span>
+                                                            
+                                             
+                                    </dd>
                         </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/App-Database-MenuItem.html"><abbr title="\App\Database\MenuItem">MenuItem</abbr></a>|null</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_isActiveMenuItem">
+        isActiveMenuItem()
+        <a class="headerlink" href="classes/App-Theming-Extensions-MenuExtension.html#method_isActiveMenuItem"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/Extensions/MenuExtension.php"><a href="files/src-theming-extensions-menuextension.html"><abbr title="src/Theming/Extensions/MenuExtension.php">MenuExtension.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">57</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Checks if the given menu item is active</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">isActiveMenuItem</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Database-MenuItem.html"><abbr title="\App\Database\MenuItem">MenuItem</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$menuItem</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$menuItem</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Database-MenuItem.html"><abbr title="\App\Database\MenuItem">MenuItem</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_isChildActiveMenuItem">
+        isChildActiveMenuItem()
+        <a class="headerlink" href="classes/App-Theming-Extensions-MenuExtension.html#method_isChildActiveMenuItem"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/Extensions/MenuExtension.php"><a href="files/src-theming-extensions-menuextension.html"><abbr title="src/Theming/Extensions/MenuExtension.php">MenuExtension.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">40</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Checks if the given menu item is active or a child is active</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">isChildActiveMenuItem</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Database-MenuItem.html"><abbr title="\App\Database\MenuItem">MenuItem</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$menuItem</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$menuItem</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Database-MenuItem.html"><abbr title="\App\Database\MenuItem">MenuItem</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a class="headerlink" href="#tags"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+                                                            
+                                             
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_register">
+        register()
+        <a class="headerlink" href="classes/App-Theming-Extensions-MenuExtension.html#method_register"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/Extensions/MenuExtension.php"><a href="files/src-theming-extensions-menuextension.html"><abbr title="src/Theming/Extensions/MenuExtension.php">MenuExtension.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">24</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">register</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\League\Plates\Engine">Engine</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$engine</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$engine</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\League\Plates\Engine">Engine</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">void</span>
@@ -358,7 +546,7 @@
 </section>
             </div>
         </div>
-        <a class="phpdocumentor-back-to-top" href="classes/App-Tests-Extensions-MigrationHook.html#top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a class="phpdocumentor-back-to-top" href="classes/App-Theming-Extensions-MenuExtension.html#top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 

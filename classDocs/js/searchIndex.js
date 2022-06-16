@@ -83,38 +83,23 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Analyzer\\DatabaseAnalyzer",
             "name": "DatabaseAnalyzer",
-            "summary": "",
+            "summary": "This\u0020class\u0020analyzes\u0020the\u0020database\u0020and\u0020allows\u0020to\u0020retrieve\u0020several\u0020database\u0020information",
             "url": "classes/App-Database-Analyzer-DatabaseAnalyzer.html"
         },                {
             "fqsen": "\\App\\Database\\Analyzer\\DatabaseAnalyzer\u003A\u003AgetTables\u0028\u0029",
             "name": "getTables",
-            "summary": "",
+            "summary": "Gets\u0020all\u0020tables\u0020currently\u0020present\u0020in\u0020the\u0020active\u0020database",
             "url": "classes/App-Database-Analyzer-DatabaseAnalyzer.html#method_getTables"
         },                {
             "fqsen": "\\App\\Database\\Analyzer\\DatabaseAnalyzer\u003A\u003AgetServerInfo\u0028\u0029",
             "name": "getServerInfo",
-            "summary": "",
+            "summary": "Gets\u0020the\u0020information\u0020for\u0020the\u0020current\u0020database\u0020server.\u0020This\u0020information\u0020includes\u0020the\u0020version\u0020and\u0020the\u0020OS\u0020and\u0020architecture\u0020the\u0020server\u0020was\u0020compiled\u0020on",
             "url": "classes/App-Database-Analyzer-DatabaseAnalyzer.html#method_getServerInfo"
         },                {
             "fqsen": "\\App\\Database\\Analyzer\\DatabaseAnalyzer\u003A\u003AgetVariables\u0028\u0029",
             "name": "getVariables",
-            "summary": "",
+            "summary": "Gets\u0020the\u0020variables\u0020of\u0020the\u0020database\u0020server\u0020for\u0020one\u0020of\u0020the\u0020variable\u0020types",
             "url": "classes/App-Database-Analyzer-DatabaseAnalyzer.html#method_getVariables"
-        },                {
-            "fqsen": "\\App\\Database\\Analyzer\\DatabaseAnalyzer\u003A\u003AGLOBAL_VARIABLES",
-            "name": "GLOBAL_VARIABLES",
-            "summary": "",
-            "url": "classes/App-Database-Analyzer-DatabaseAnalyzer.html#constant_GLOBAL_VARIABLES"
-        },                {
-            "fqsen": "\\App\\Database\\Analyzer\\DatabaseAnalyzer\u003A\u003ALOCAL_VARIABLES",
-            "name": "LOCAL_VARIABLES",
-            "summary": "",
-            "url": "classes/App-Database-Analyzer-DatabaseAnalyzer.html#constant_LOCAL_VARIABLES"
-        },                {
-            "fqsen": "\\App\\Database\\Analyzer\\DatabaseAnalyzer\u003A\u003ASESSION_VARIABLES",
-            "name": "SESSION_VARIABLES",
-            "summary": "",
-            "url": "classes/App-Database-Analyzer-DatabaseAnalyzer.html#constant_SESSION_VARIABLES"
         },                {
             "fqsen": "\\App\\Database\\Analyzer\\QueryAnalyzer",
             "name": "QueryAnalyzer",
@@ -5133,6 +5118,26 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Utils\\ImageType\u003A\u003ABmp",
             "name": "Bmp",
+            "summary": "",
+            "url": ""
+        },                {
+            "fqsen": "\\App\\Database\\Analyzer\\VariablesType",
+            "name": "VariablesType",
+            "summary": "",
+            "url": "classes/App-Database-Analyzer-VariablesType.html"
+        },                {
+            "fqsen": "\\App\\Database\\Analyzer\\VariablesType\u003A\u003AGlobal",
+            "name": "Global",
+            "summary": "",
+            "url": ""
+        },                {
+            "fqsen": "\\App\\Database\\Analyzer\\VariablesType\u003A\u003ALocal",
+            "name": "Local",
+            "summary": "",
+            "url": ""
+        },                {
+            "fqsen": "\\App\\Database\\Analyzer\\VariablesType\u003A\u003ASession",
+            "name": "Session",
             "summary": "",
             "url": ""
         },                {

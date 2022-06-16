@@ -143,11 +143,12 @@
                     <ul class="phpdocumentor-breadcrumbs">
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/app.html">App</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/app-theming.html">Theming</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/app-theming-extensions.html">Extensions</a></li>
     </ul>
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    MenuExtension
+    FileExtension
 
     
             <div class="phpdocumentor-element__package">
@@ -164,9 +165,9 @@
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/MenuExtension.php"><a href="files/src-theming-menuextension.html"><abbr title="src/Theming/MenuExtension.php">MenuExtension.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/Extensions/FileExtension.php"><a href="files/src-theming-extensions-fileextension.html"><abbr title="src/Theming/Extensions/FileExtension.php">FileExtension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">17</span>
+    <span class="phpdocumentor-element-found-in__line">16</span>
 
     </aside>
 
@@ -197,31 +198,45 @@
 </h3>
 
 <dl class="phpdocumentor-table-of-contents">
-                        <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/App-Theming-MenuExtension.html#method_getActiveMenuItem">getActiveMenuItem()</a>
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/App-Theming-Extensions-FileExtension.html#constant_RESOLUTIONS_FOR_SOURCE">RESOLUTIONS_FOR_SOURCE</a>
     <span>
-                                &nbsp;: <a href="classes/App-Database-MenuItem.html"><abbr title="\App\Database\MenuItem">MenuItem</abbr></a>|null    </span>
+        &nbsp;= [480, 720, 1080, 2160, 4320]                            </span>
 </dt>
-<dd>Gets the active menu item</dd>
+<dd></dd>
+
+                    <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/App-Theming-Extensions-FileExtension.html#property_sizesAsString">$sizesAsString</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd></dd>
+
+                <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Theming-Extensions-FileExtension.html#method_pictureSources">pictureSources()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/App-Theming-MenuExtension.html#method_isActiveMenuItem">isActiveMenuItem()</a>
-    <span>
-                                &nbsp;: bool    </span>
-</dt>
-<dd>Checks if the given menu item is active</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/App-Theming-MenuExtension.html#method_isChildActiveMenuItem">isChildActiveMenuItem()</a>
-    <span>
-                                &nbsp;: bool    </span>
-</dt>
-<dd>Checks if the given menu item is active or a child is active</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/App-Theming-MenuExtension.html#method_register">register()</a>
+    <a href="classes/App-Theming-Extensions-FileExtension.html#method_register">register()</a>
     <span>
                                 &nbsp;: void    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Theming-Extensions-FileExtension.html#method_sizes">sizes()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Theming-Extensions-FileExtension.html#method_srcset">srcset()</a>
+    <span>
+                                &nbsp;: string    </span>
 </dt>
 <dd></dd>
 
@@ -230,13 +245,88 @@
 
 
         
+    <section class="phpdocumentor-constants">
+        <h3 class="phpdocumentor-elements__header" id="constants">
+            Constants
+            <a class="headerlink" href="classes/App-Theming-Extensions-FileExtension.html#constants"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_RESOLUTIONS_FOR_SOURCE">
+        RESOLUTIONS_FOR_SOURCE
+        <a class="headerlink" href="classes/App-Theming-Extensions-FileExtension.html#constant_RESOLUTIONS_FOR_SOURCE"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/Extensions/FileExtension.php"><a href="files/src-theming-extensions-fileextension.html"><abbr title="src/Theming/Extensions/FileExtension.php">FileExtension.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">18</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">RESOLUTIONS_FOR_SOURCE</span>
+    = <span class="phpdocumentor-signature__default-value">[480, 720, 1080, 2160, 4320]</span>
+</code>
+
+
+        <section class="phpdocumentor-description"></section>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+            </section>
 
         
+    <section class="phpdocumentor-properties">
+        <h3 class="phpdocumentor-elements__header" id="properties">
+            Properties
+            <a class="headerlink" href="classes/App-Theming-Extensions-FileExtension.html#properties"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_sizesAsString">
+        $sizesAsString
+        <a class="headerlink" href="classes/App-Theming-Extensions-FileExtension.html#property_sizesAsString"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/Extensions/FileExtension.php"><a href="files/src-theming-extensions-fileextension.html"><abbr title="src/Theming/Extensions/FileExtension.php">FileExtension.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">19</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$sizesAsString</span>
+     = <span class="phpdocumentor-signature__default-value">&#039;100vw&#039;</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+            </section>
 
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a class="headerlink" href="classes/App-Theming-MenuExtension.html#methods"><i class="fas fa-link"></i></a>
+            <a class="headerlink" href="classes/App-Theming-Extensions-FileExtension.html#methods"><i class="fas fa-link"></i></a>
         </h3>
                     <article
         class="phpdocumentor-element
@@ -244,100 +334,35 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_getActiveMenuItem">
-        getActiveMenuItem()
-        <a class="headerlink" href="classes/App-Theming-MenuExtension.html#method_getActiveMenuItem"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_pictureSources">
+        pictureSources()
+        <a class="headerlink" href="classes/App-Theming-Extensions-FileExtension.html#method_pictureSources"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/MenuExtension.php"><a href="files/src-theming-menuextension.html"><abbr title="src/Theming/MenuExtension.php">MenuExtension.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/Extensions/FileExtension.php"><a href="files/src-theming-extensions-fileextension.html"><abbr title="src/Theming/Extensions/FileExtension.php">FileExtension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">71</span>
+    <span class="phpdocumentor-element-found-in__line">86</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Gets the active menu item</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getActiveMenuItem</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/App-Database-MenuItem.html"><abbr title="\App\Database\MenuItem">MenuItem</abbr></a>|null</span></code>
-
-    
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a class="headerlink" href="#tags"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
-                                                            
-                                             
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
-                                                            
-                                             
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
-                                                            
-                                             
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Jinya\PDOx\Exceptions\NoResultException">NoResultException</abbr></span>
-                                                            
-                                             
-                                    </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/App-Database-MenuItem.html"><abbr title="\App\Database\MenuItem">MenuItem</abbr></a>|null</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_isActiveMenuItem">
-        isActiveMenuItem()
-        <a class="headerlink" href="classes/App-Theming-MenuExtension.html#method_isActiveMenuItem"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/MenuExtension.php"><a href="files/src-theming-menuextension.html"><abbr title="src/Theming/MenuExtension.php">MenuExtension.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">57</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Checks if the given menu item is active</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">isActiveMenuItem</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Database-MenuItem.html"><abbr title="\App\Database\MenuItem">MenuItem</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$menuItem</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                    <span class="phpdocumentor-signature__name">pictureSources</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Database-File.html"><abbr title="\App\Database\File">File</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$file</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Utils-ImageType.html"><abbr title="\App\Utils\ImageType">ImageType</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__variadic-operator">...</span><span class="phpdocumentor-signature__argument__name">$imageType</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$menuItem</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Database-MenuItem.html"><abbr title="\App\Database\MenuItem">MenuItem</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__name">$file</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Database-File.html"><abbr title="\App\Database\File">File</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$imageType</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Utils-ImageType.html"><abbr title="\App\Utils\ImageType">ImageType</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -347,80 +372,7 @@
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">bool</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_isChildActiveMenuItem">
-        isChildActiveMenuItem()
-        <a class="headerlink" href="classes/App-Theming-MenuExtension.html#method_isChildActiveMenuItem"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/MenuExtension.php"><a href="files/src-theming-menuextension.html"><abbr title="src/Theming/MenuExtension.php">MenuExtension.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">40</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Checks if the given menu item is active or a child is active</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">isChildActiveMenuItem</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Database-MenuItem.html"><abbr title="\App\Database\MenuItem">MenuItem</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$menuItem</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$menuItem</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Database-MenuItem.html"><abbr title="\App\Database\MenuItem">MenuItem</abbr></a></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a class="headerlink" href="#tags"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
-                                                            
-                                             
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
-                                                            
-                                             
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
-                                                            
-                                             
-                                    </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">bool</span>
+    <span class="phpdocumentor-signature__response_type">string</span>
             &mdash;
         
     
@@ -433,10 +385,10 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_register">
         register()
-        <a class="headerlink" href="classes/App-Theming-MenuExtension.html#method_register"><i class="fas fa-link"></i></a>
+        <a class="headerlink" href="classes/App-Theming-Extensions-FileExtension.html#method_register"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/MenuExtension.php"><a href="files/src-theming-menuextension.html"><abbr title="src/Theming/MenuExtension.php">MenuExtension.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/Extensions/FileExtension.php"><a href="files/src-theming-extensions-fileextension.html"><abbr title="src/Theming/Extensions/FileExtension.php">FileExtension.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">24</span>
 
@@ -455,14 +407,123 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\League\Plates\Engine">Engine</abbr></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a class="headerlink" href="#tags"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">inheritDoc</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_sizes">
+        sizes()
+        <a class="headerlink" href="classes/App-Theming-Extensions-FileExtension.html#method_sizes"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/Extensions/FileExtension.php"><a href="files/src-theming-extensions-fileextension.html"><abbr title="src/Theming/Extensions/FileExtension.php">FileExtension.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">76</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">sizes</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_srcset">
+        srcset()
+        <a class="headerlink" href="classes/App-Theming-Extensions-FileExtension.html#method_srcset"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/Extensions/FileExtension.php"><a href="files/src-theming-extensions-fileextension.html"><abbr title="src/Theming/Extensions/FileExtension.php">FileExtension.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">37</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">srcset</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Database-File.html"><abbr title="\App\Database\File">File</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$file</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Utils-ImageType.html"><abbr title="\App\Utils\ImageType">ImageType</abbr></a>|false&nbsp;</span><span class="phpdocumentor-signature__argument__name">$imageType</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$file</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Database-File.html"><abbr title="\App\Database\File">File</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$imageType</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Utils-ImageType.html"><abbr title="\App\Utils\ImageType">ImageType</abbr></a>|false</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
                 
             </dd>
             </dl>
 
     
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a class="headerlink" href="#tags"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\RuntimeException">RuntimeException</abbr></span>
+                                                            
+                                             
+                                    </dd>
+                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
+    <span class="phpdocumentor-signature__response_type">string</span>
             &mdash;
         
     
@@ -545,7 +606,7 @@
 </section>
             </div>
         </div>
-        <a class="phpdocumentor-back-to-top" href="classes/App-Theming-MenuExtension.html#top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a class="phpdocumentor-back-to-top" href="classes/App-Theming-Extensions-FileExtension.html#top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 

@@ -14,7 +14,9 @@ class DatabaseAnalyzer
 {
 
     /**
-     * @return array<int|string, array<string, mixed|int|string>>
+     * Gets all tables currently present in the active database
+     *
+     * @return array<int|string, array<string, mixed|int|string>> An array of the tables and their fields
      */
     public static function getTables(): array
     {
@@ -42,7 +44,9 @@ class DatabaseAnalyzer
     }
 
     /**
-     * @return array<string, string>
+     * Gets the information for the current database server. This information includes the version and the OS and architecture the server was compiled on
+     *
+     * @return array<string, string> An array containing the version, the comment, the compile machine and the compile OS
      */
     #[ArrayShape(['version' => 'string', 'comment' => 'string', 'compileMachine' => 'string', 'compileOs' => 'string'])]
     public static function getServerInfo(): array
@@ -58,6 +62,9 @@ class DatabaseAnalyzer
     }
 
     /**
+     * Gets the variables of the database server for one of the variable types
+     *
+     * @param VariablesType $type
      * @return array<int|string, mixed>
      */
     public static function getVariables(VariablesType $type): array
