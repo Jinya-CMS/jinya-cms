@@ -3,6 +3,7 @@
 namespace App\Web\Actions\Database;
 
 use App\Database\Analyzer\DatabaseAnalyzer;
+use App\Database\Analyzer\VariablesType;
 use App\Web\Actions\Action;
 use Psr\Http\Message\ResponseInterface as Response;
 
@@ -18,9 +19,9 @@ class DatabaseAnalyzerAction extends Action
     {
         $tables = DatabaseAnalyzer::getTables();
         $server = DatabaseAnalyzer::getServerInfo();
-        $localVariables = DatabaseAnalyzer::getVariables(DatabaseAnalyzer::LOCAL_VARIABLES);
-        $globalVariables = DatabaseAnalyzer::getVariables(DatabaseAnalyzer::GLOBAL_VARIABLES);
-        $sessionVariables = DatabaseAnalyzer::getVariables(DatabaseAnalyzer::SESSION_VARIABLES);
+        $localVariables = DatabaseAnalyzer::getVariables(VariablesType::Local);
+        $globalVariables = DatabaseAnalyzer::getVariables(VariablesType::Global);
+        $sessionVariables = DatabaseAnalyzer::getVariables(VariablesType::Session);
 
         return $this->respond(
             [

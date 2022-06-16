@@ -3,12 +3,12 @@ Search.appendIndex(
                 {
             "fqsen": "\\App\\Authentication\\AuthenticationChecker",
             "name": "AuthenticationChecker",
-            "summary": "",
+            "summary": "Helper\u0020class\u0020to\u0020check\u0020whether\u0020users\u0020are\u0020allowed\u0020to\u0020execute\u0020the\u0020request",
             "url": "classes/App-Authentication-AuthenticationChecker.html"
         },                {
             "fqsen": "\\App\\Authentication\\AuthenticationChecker\u003A\u003AcheckRequestForUser\u0028\u0029",
             "name": "checkRequestForUser",
-            "summary": "",
+            "summary": "This\u0020method\u0020checks\u0020if\u0020the\u0020requested\u0020role\u0020is\u0020valid\u0020for\u0020the\u0020user\u0020currently\u0020logged\u0020in.\u0020If\u0020the\u0020artist\u0020is\u0020logged\u0020in\u0020and\u0020has\u0020the\u0020given\u0020role\u0020it\u0020is\u0020returned,\u0020otherwise\u0020an\u0020exception\u0020is\u0020thrown.",
             "url": "classes/App-Authentication-AuthenticationChecker.html#method_checkRequestForUser"
         },                {
             "fqsen": "\\App\\Authentication\\AuthenticationChecker\u003A\u003AROLE_READER",
@@ -28,7 +28,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Authentication\\CurrentUser",
             "name": "CurrentUser",
-            "summary": "",
+            "summary": "Small\u0020helper\u0020class\u0020for\u0020the\u0020currently\u0020logged\u002Din\u0020user",
             "url": "classes/App-Authentication-CurrentUser.html"
         },                {
             "fqsen": "\\App\\Authentication\\CurrentUser\u003A\u003A\u0024currentUser",
@@ -38,17 +38,17 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Console\\AbstractCommand",
             "name": "AbstractCommand",
-            "summary": "",
+            "summary": "This\u0020is\u0020the\u0020base\u0020class\u0020for\u0020all\u0020commands,\u0020the\u0020cli\u0020executor\u0020expects\u0020all\u0020commands\u0020to\u0020extend\u0020this\u0020class\u0020and\u0020have\u0020a\u0020JinyaCommand\u0020attribute",
             "url": "classes/App-Console-AbstractCommand.html"
         },                {
             "fqsen": "\\App\\Console\\AbstractCommand\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "Creates\u0020a\u0020new\u0020instance\u0020of\u0020AbstractCommand.\u0020Derived\u0020classes\u0020need\u0020to\u0020call\u0020the\u0020constructor\u0020to\u0020initialize\u0020CLImate",
             "url": "classes/App-Console-AbstractCommand.html#method___construct"
         },                {
             "fqsen": "\\App\\Console\\AbstractCommand\u003A\u003Arun\u0028\u0029",
             "name": "run",
-            "summary": "",
+            "summary": "Gets\u0020executed\u0020by\u0020the\u0020cli\u0020executor",
             "url": "classes/App-Console-AbstractCommand.html#method_run"
         },                {
             "fqsen": "\\App\\Console\\AbstractCommand\u003A\u003A\u0024climate",
@@ -73,12 +73,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Console\\MigrationCommand",
             "name": "MigrationCommand",
-            "summary": "",
+            "summary": "This\u0020is\u0020the\u0020base\u0020class\u0020for\u0020all\u0020commands,\u0020the\u0020cli\u0020executor\u0020expects\u0020all\u0020commands\u0020to\u0020extend\u0020this\u0020class\u0020and\u0020have\u0020a\u0020JinyaCommand\u0020attribute",
             "url": "classes/App-Console-MigrationCommand.html"
         },                {
             "fqsen": "\\App\\Console\\MigrationCommand\u003A\u003Arun\u0028\u0029",
             "name": "run",
-            "summary": "",
+            "summary": "Gets\u0020executed\u0020by\u0020the\u0020cli\u0020executor",
             "url": "classes/App-Console-MigrationCommand.html#method_run"
         },                {
             "fqsen": "\\App\\Database\\Analyzer\\DatabaseAnalyzer",
@@ -4901,30 +4901,240 @@ Search.appendIndex(
             "summary": "\u007B\u0040inheritdoc\u007D",
             "url": "classes/App-Web-ResponseEmitter-ResponseEmitter.html#method_emit"
         },                {
-            "fqsen": "\\App\\Theming\\MenuExtension",
-            "name": "MenuExtension",
-            "summary": "",
-            "url": "classes/App-Theming-MenuExtension.html"
+            "fqsen": "\\App\\Console\\FileCacheCommand",
+            "name": "FileCacheCommand",
+            "summary": "This\u0020is\u0020the\u0020base\u0020class\u0020for\u0020all\u0020commands,\u0020the\u0020cli\u0020executor\u0020expects\u0020all\u0020commands\u0020to\u0020extend\u0020this\u0020class\u0020and\u0020have\u0020a\u0020JinyaCommand\u0020attribute",
+            "url": "classes/App-Console-FileCacheCommand.html"
         },                {
-            "fqsen": "\\App\\Theming\\MenuExtension\u003A\u003Aregister\u0028\u0029",
+            "fqsen": "\\App\\Console\\FileCacheCommand\u003A\u003Arun\u0028\u0029",
+            "name": "run",
+            "summary": "Gets\u0020executed\u0020by\u0020the\u0020cli\u0020executor",
+            "url": "classes/App-Console-FileCacheCommand.html#method_run"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\FileExtension",
+            "name": "FileExtension",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-FileExtension.html"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\FileExtension\u003A\u003Aregister\u0028\u0029",
             "name": "register",
             "summary": "",
-            "url": "classes/App-Theming-MenuExtension.html#method_register"
+            "url": "classes/App-Theming-Extensions-FileExtension.html#method_register"
         },                {
-            "fqsen": "\\App\\Theming\\MenuExtension\u003A\u003AisChildActiveMenuItem\u0028\u0029",
+            "fqsen": "\\App\\Theming\\Extensions\\FileExtension\u003A\u003Asrcset\u0028\u0029",
+            "name": "srcset",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-FileExtension.html#method_srcset"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\FileExtension\u003A\u003Asizes\u0028\u0029",
+            "name": "sizes",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-FileExtension.html#method_sizes"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\FileExtension\u003A\u003ApictureSources\u0028\u0029",
+            "name": "pictureSources",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-FileExtension.html#method_pictureSources"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\FileExtension\u003A\u003ARESOLUTIONS_FOR_SOURCE",
+            "name": "RESOLUTIONS_FOR_SOURCE",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-FileExtension.html#constant_RESOLUTIONS_FOR_SOURCE"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\FileExtension\u003A\u003A\u0024sizesAsString",
+            "name": "sizesAsString",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-FileExtension.html#property_sizesAsString"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\LinksExtension",
+            "name": "LinksExtension",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-LinksExtension.html"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-LinksExtension.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003Aregister\u0028\u0029",
+            "name": "register",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-LinksExtension.html#method_register"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003AhasSegmentPage\u0028\u0029",
+            "name": "hasSegmentPage",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-LinksExtension.html#method_hasSegmentPage"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003AhasSimplePage\u0028\u0029",
+            "name": "hasSimplePage",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-LinksExtension.html#method_hasSimplePage"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003AhasFile\u0028\u0029",
+            "name": "hasFile",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-LinksExtension.html#method_hasFile"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003AhasGallery\u0028\u0029",
+            "name": "hasGallery",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-LinksExtension.html#method_hasGallery"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003AhasMenu\u0028\u0029",
+            "name": "hasMenu",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-LinksExtension.html#method_hasMenu"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003AhasForm\u0028\u0029",
+            "name": "hasForm",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-LinksExtension.html#method_hasForm"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003AhasBlogCategory\u0028\u0029",
+            "name": "hasBlogCategory",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-LinksExtension.html#method_hasBlogCategory"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003AsegmentPage\u0028\u0029",
+            "name": "segmentPage",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-LinksExtension.html#method_segmentPage"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003AsimplePage\u0028\u0029",
+            "name": "simplePage",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-LinksExtension.html#method_simplePage"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003Afile\u0028\u0029",
+            "name": "file",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-LinksExtension.html#method_file"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003Aform\u0028\u0029",
+            "name": "form",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-LinksExtension.html#method_form"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003Amenu\u0028\u0029",
+            "name": "menu",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-LinksExtension.html#method_menu"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003AblogCategory\u0028\u0029",
+            "name": "blogCategory",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-LinksExtension.html#method_blogCategory"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003Agallery\u0028\u0029",
+            "name": "gallery",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-LinksExtension.html#method_gallery"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003A\u0024dbTheme",
+            "name": "dbTheme",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-LinksExtension.html#property_dbTheme"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\MenuExtension",
+            "name": "MenuExtension",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-MenuExtension.html"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\MenuExtension\u003A\u003Aregister\u0028\u0029",
+            "name": "register",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-MenuExtension.html#method_register"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\MenuExtension\u003A\u003AisChildActiveMenuItem\u0028\u0029",
             "name": "isChildActiveMenuItem",
             "summary": "Checks\u0020if\u0020the\u0020given\u0020menu\u0020item\u0020is\u0020active\u0020or\u0020a\u0020child\u0020is\u0020active",
-            "url": "classes/App-Theming-MenuExtension.html#method_isChildActiveMenuItem"
+            "url": "classes/App-Theming-Extensions-MenuExtension.html#method_isChildActiveMenuItem"
         },                {
-            "fqsen": "\\App\\Theming\\MenuExtension\u003A\u003AisActiveMenuItem\u0028\u0029",
+            "fqsen": "\\App\\Theming\\Extensions\\MenuExtension\u003A\u003AisActiveMenuItem\u0028\u0029",
             "name": "isActiveMenuItem",
             "summary": "Checks\u0020if\u0020the\u0020given\u0020menu\u0020item\u0020is\u0020active",
-            "url": "classes/App-Theming-MenuExtension.html#method_isActiveMenuItem"
+            "url": "classes/App-Theming-Extensions-MenuExtension.html#method_isActiveMenuItem"
         },                {
-            "fqsen": "\\App\\Theming\\MenuExtension\u003A\u003AgetActiveMenuItem\u0028\u0029",
+            "fqsen": "\\App\\Theming\\Extensions\\MenuExtension\u003A\u003AgetActiveMenuItem\u0028\u0029",
             "name": "getActiveMenuItem",
             "summary": "Gets\u0020the\u0020active\u0020menu\u0020item",
-            "url": "classes/App-Theming-MenuExtension.html#method_getActiveMenuItem"
+            "url": "classes/App-Theming-Extensions-MenuExtension.html#method_getActiveMenuItem"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\ThemeExtension",
+            "name": "ThemeExtension",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-ThemeExtension.html"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\ThemeExtension\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-ThemeExtension.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\ThemeExtension\u003A\u003Aregister\u0028\u0029",
+            "name": "register",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-ThemeExtension.html#method_register"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\ThemeExtension\u003A\u003Aasset\u0028\u0029",
+            "name": "asset",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-ThemeExtension.html#method_asset"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\ThemeExtension\u003A\u003Aconfig\u0028\u0029",
+            "name": "config",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-ThemeExtension.html#method_config"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\ThemeExtension\u003A\u003Astyles\u0028\u0029",
+            "name": "styles",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-ThemeExtension.html#method_styles"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\ThemeExtension\u003A\u003Ascripts\u0028\u0029",
+            "name": "scripts",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-ThemeExtension.html#method_scripts"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\ThemeExtension\u003A\u003A\u0024theme",
+            "name": "theme",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-ThemeExtension.html#property_theme"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions\\ThemeExtension\u003A\u003A\u0024dbTheme",
+            "name": "dbTheme",
+            "summary": "",
+            "url": "classes/App-Theming-Extensions-ThemeExtension.html#property_dbTheme"
+        },                {
+            "fqsen": "\\App\\Utils\\ImageType",
+            "name": "ImageType",
+            "summary": "",
+            "url": "classes/App-Utils-ImageType.html"
+        },                {
+            "fqsen": "\\App\\Utils\\ImageType\u003A\u003AWebp",
+            "name": "Webp",
+            "summary": "",
+            "url": ""
+        },                {
+            "fqsen": "\\App\\Utils\\ImageType\u003A\u003APng",
+            "name": "Png",
+            "summary": "",
+            "url": ""
+        },                {
+            "fqsen": "\\App\\Utils\\ImageType\u003A\u003AJpg",
+            "name": "Jpg",
+            "summary": "",
+            "url": ""
+        },                {
+            "fqsen": "\\App\\Utils\\ImageType\u003A\u003AGif",
+            "name": "Gif",
+            "summary": "",
+            "url": ""
+        },                {
+            "fqsen": "\\App\\Utils\\ImageType\u003A\u003ABmp",
+            "name": "Bmp",
+            "summary": "",
+            "url": ""
         },                {
             "fqsen": "\\",
             "name": "\\",
@@ -5045,6 +5255,11 @@ Search.appendIndex(
             "name": "Theming",
             "summary": "",
             "url": "namespaces/app-theming.html"
+        },                {
+            "fqsen": "\\App\\Theming\\Extensions",
+            "name": "Extensions",
+            "summary": "",
+            "url": "namespaces/app-theming-extensions.html"
         },                {
             "fqsen": "\\App\\Utils",
             "name": "Utils",

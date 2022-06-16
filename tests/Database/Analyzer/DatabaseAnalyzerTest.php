@@ -3,6 +3,7 @@
 namespace Jinya\Tests\Database\Analyzer;
 
 use App\Database\Analyzer\DatabaseAnalyzer;
+use App\Database\Analyzer\VariablesType;
 use App\Utils\AppSettingsInitializer;
 use PHPUnit\Framework\TestCase;
 
@@ -15,19 +16,19 @@ class DatabaseAnalyzerTest extends TestCase
 
     public function testGetVariablesGlobal(): void
     {
-        $variables = DatabaseAnalyzer::getVariables('GLOBAL');
+        $variables = DatabaseAnalyzer::getVariables(VariablesType::Global);
         $this->assertIsArray($variables);
     }
 
     public function testGetVariablesSession(): void
     {
-        $variables = DatabaseAnalyzer::getVariables('SESSION');
+        $variables = DatabaseAnalyzer::getVariables(VariablesType::Session);
         $this->assertIsArray($variables);
     }
 
     public function testGetVariablesLocal(): void
     {
-        $variables = DatabaseAnalyzer::getVariables('LOCAL');
+        $variables = DatabaseAnalyzer::getVariables(VariablesType::Local);
         $this->assertIsArray($variables);
     }
 

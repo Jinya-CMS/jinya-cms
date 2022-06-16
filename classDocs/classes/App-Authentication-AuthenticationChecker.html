@@ -163,11 +163,12 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Authentication/AuthenticationChecker.php"><a href="files/src-authentication-authenticationchecker.html"><abbr title="src/Authentication/AuthenticationChecker.php">AuthenticationChecker.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">19</span>
+    <span class="phpdocumentor-element-found-in__line">20</span>
 
     </aside>
 
-        
+            <p class="phpdocumentor-summary">Helper class to check whether users are allowed to execute the request</p>
+
 
 
 
@@ -208,7 +209,7 @@
     <span>
                                 &nbsp;: <a href="classes/App-Database-Artist.html"><abbr title="\App\Database\Artist">Artist</abbr></a>    </span>
 </dt>
-<dd></dd>
+<dd>This method checks if the requested role is valid for the user currently logged in. If the artist is logged in and has the given role it is returned, otherwise an exception is thrown.</dd>
 
         </dl>
 
@@ -229,22 +230,22 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Authentication/AuthenticationChecker.php"><a href="files/src-authentication-authenticationchecker.html"><abbr title="src/Authentication/AuthenticationChecker.php">AuthenticationChecker.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">23</span>
+    <span class="phpdocumentor-element-found-in__line">27</span>
 
     </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">ROLE_ADMIN</span>
     = <span class="phpdocumentor-signature__default-value">&#039;ROLE_ADMIN&#039;</span>
 </code>
 
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>Users in this role are allowed to see and edit content and to administer Jinya CMS</p>
+</section>
 
     
 
@@ -258,22 +259,22 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Authentication/AuthenticationChecker.php"><a href="files/src-authentication-authenticationchecker.html"><abbr title="src/Authentication/AuthenticationChecker.php">AuthenticationChecker.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">21</span>
+    <span class="phpdocumentor-element-found-in__line">23</span>
 
     </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">ROLE_READER</span>
     = <span class="phpdocumentor-signature__default-value">&#039;ROLE_READER&#039;</span>
 </code>
 
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>Users in this role are allowed to see content but not edit it</p>
+</section>
 
     
 
@@ -287,22 +288,22 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Authentication/AuthenticationChecker.php"><a href="files/src-authentication-authenticationchecker.html"><abbr title="src/Authentication/AuthenticationChecker.php">AuthenticationChecker.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">22</span>
+    <span class="phpdocumentor-element-found-in__line">25</span>
 
     </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">ROLE_WRITER</span>
     = <span class="phpdocumentor-signature__default-value">&#039;ROLE_WRITER&#039;</span>
 </code>
 
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>Users in this role are allowed to see and edit content but not administer Jinya CMS</p>
+</section>
 
     
 
@@ -329,11 +330,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Authentication/AuthenticationChecker.php"><a href="files/src-authentication-authenticationchecker.html"><abbr title="src/Authentication/AuthenticationChecker.php">AuthenticationChecker.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">34</span>
+    <span class="phpdocumentor-element-found-in__line">40</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">This method checks if the requested role is valid for the user currently logged in. If the artist is logged in and has the given role it is returned, otherwise an exception is thrown.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">checkRequestForUser</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Message\ServerRequestInterface">ServerRequestInterface</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$request</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$role</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/App-Database-Artist.html"><abbr title="\App\Database\Artist">Artist</abbr></a></span></code>
@@ -346,14 +348,18 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Message\ServerRequestInterface">ServerRequestInterface</abbr></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The current request</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$role</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The role to check for</p>
+</section>
+
             </dd>
             </dl>
 
@@ -400,7 +406,9 @@
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type"><a href="classes/App-Database-Artist.html"><abbr title="\App\Database\Artist">Artist</abbr></a></span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>The artist containing the given role</p>
+</section>
+
     
 </article>
             </section>

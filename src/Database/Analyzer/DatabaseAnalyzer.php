@@ -8,13 +8,10 @@ use JetBrains\PhpStorm\ArrayShape;
 use LogicException;
 
 /**
- *
+ * This class analyzes the database and allows to retrieve several database information
  */
 class DatabaseAnalyzer
 {
-    public const GLOBAL_VARIABLES = 'GLOBAL';
-    public const LOCAL_VARIABLES = 'LOCAL';
-    public const SESSION_VARIABLES = 'SESSION';
 
     /**
      * @return array<int|string, array<string, mixed|int|string>>
@@ -50,7 +47,7 @@ class DatabaseAnalyzer
     #[ArrayShape(['version' => 'string', 'comment' => 'string', 'compileMachine' => 'string', 'compileOs' => 'string'])]
     public static function getServerInfo(): array
     {
-        $variables = self::getVariables(self::GLOBAL_VARIABLES);
+        $variables = self::getVariables(VariablesType::Global);
 
         return [
             'version' => $variables['version'],
@@ -63,9 +60,15 @@ class DatabaseAnalyzer
     /**
      * @return array<int|string, mixed>
      */
-    public static function getVariables(string $type): array
+    public static function getVariables(VariablesType $type): array
     {
-        $variables = LoadableEntity::executeSqlString("SHOW $type VARIABLES");
+        $stringType = match ($type) {
+            VariablesType::Global => 'GLOBAL',
+            VariablesType::Local => 'LOCAL',
+            VariablesType::Session => 'SESSION',
+
+        };
+        $variables = LoadableEntity::executeSqlString("SHOW $stringType VARIABLES");
         if (!is_array($variables)) {
             throw new LogicException('Query must return array');
         }

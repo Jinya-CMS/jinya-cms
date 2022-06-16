@@ -22,15 +22,11 @@
         <include>
             <directory suffix=".php">src</directory>
         </include>
-        <report>
-            <clover outputFile="build/clover.xml"/>
-            <html outputDirectory="build/coverage"/>
-        </report>
     </coverage>
 
     <extensions>
-        <extension class="App\Tests\Extensions\MigrationHook"/>
         <extension class="App\Tests\Extensions\DefinesHook"/>
+        <extension class="App\Tests\Extensions\MigrationHook"/>
         <extension class="App\Tests\Extensions\CleanDatabaseAfterTestHook"/>
         <extension class="App\Tests\Extensions\CreateArtistHook"/>
         <extension class="App\Tests\Extensions\DropAllTablesHook"/>

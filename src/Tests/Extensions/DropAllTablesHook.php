@@ -21,7 +21,6 @@ class DropAllTablesHook implements AfterLastTestHook
         LoadableEntity::executeSqlString('drop table gallery_file_position');
         LoadableEntity::executeSqlString('drop table known_device');
         LoadableEntity::executeSqlString('drop table menu_item');
-        LoadableEntity::executeSqlString('drop table message');
         LoadableEntity::executeSqlString('drop table migration_state');
         LoadableEntity::executeSqlString('drop table segment');
         LoadableEntity::executeSqlString('drop table theme_asset');

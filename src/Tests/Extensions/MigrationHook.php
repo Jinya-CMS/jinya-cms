@@ -8,6 +8,8 @@ use App\Database\Migrations\Migrator;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use PHPUnit\Runner\BeforeFirstTestHook;
 
+require_once __DIR__ . '/../../../defines.php';
+
 /**
  *
  */
