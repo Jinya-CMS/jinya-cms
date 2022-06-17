@@ -9,19 +9,26 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
 /**
- *
+ * This class contains a part of a blog post. A blog post consists of several segments.
+ * A segment must either contain a gallery, a file or html content
  */
 class BlogPostSegment extends Utils\RearrangableEntity
 {
+    /** @var int|null The gallery in the segment */
     public ?int $galleryId = null;
+    /** @var int|null The file in the segment */
     public ?int $fileId = null;
+    /** @var string|null The html content in the segment */
     public ?string $html = null;
+    /** @var string|null The link opened when the file is clicked, implementation is theme specific */
     public ?string $link = null;
+    /** @var int The blog post the segment belongs to */
     public int $blogPostId;
+    /** @var int The position of the segment */
     public int $position;
 
     /**
-     * @inheritDoc
+     * Not implemented
      */
     public static function findById(int $id): BlogPostSegment|null
     {
@@ -29,8 +36,7 @@ class BlogPostSegment extends Utils\RearrangableEntity
     }
 
     /**
-     * @inheritDoc
-     * @return Iterator<BlogPostSegment>
+     * Not implemented
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -38,8 +44,7 @@ class BlogPostSegment extends Utils\RearrangableEntity
     }
 
     /**
-     * @inheritDoc
-     * @return Iterator<BlogPostSegment>
+     * Not implemented
      */
     public static function findAll(): Iterator
     {
@@ -47,8 +52,10 @@ class BlogPostSegment extends Utils\RearrangableEntity
     }
 
     /**
-     * @param int $id
-     * @param int $position
+     * Finds the segment by a post and the position
+     *
+     * @param int $id The ID of the blog post
+     * @param int $position The position of the blog post
      * @return BlogPostSegment|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -136,6 +143,8 @@ class BlogPostSegment extends Utils\RearrangableEntity
     }
 
     /**
+     * Gets the post this segment belongs to
+     *
      * @return BlogPost|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -166,6 +175,8 @@ class BlogPostSegment extends Utils\RearrangableEntity
     }
 
     /**
+     * The file this segment contains
+     *
      * @return File|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -182,6 +193,8 @@ class BlogPostSegment extends Utils\RearrangableEntity
     }
 
     /**
+     * The gallery this segment contains
+     *
      * @return Gallery|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException

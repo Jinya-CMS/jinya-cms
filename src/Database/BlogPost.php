@@ -21,23 +21,30 @@ use League\Uri\Http as HttpUri;
 use PDOException;
 
 /**
- *
+ * This class contains the information of a blog post
  */
 #[JinyaApi]
 class BlogPost extends Utils\LoadableEntity
 {
+    /** @var string The title of the blog post */
     #[JinyaApiField(required: true)]
     public string $title;
+    /** @var string The slug of the blog post */
     #[JinyaApiField(required: true)]
     public string $slug;
+    /** @var int|null The ID of the file used as header image */
     #[JinyaApiField]
     public ?int $headerImageId = null;
+    /** @var bool Whether the post is publicly available */
     #[JinyaApiField]
     public bool $public = false;
+    /** @var DateTime The time the post was created */
     #[JinyaApiField(ignore: true)]
     public DateTime $createdAt;
+    /** @var int The ID of the artist who created the post */
     #[JinyaApiField(ignore: true)]
     public int $creatorId;
+    /** @var int|null The ID of the category this post belongs to */
     #[JinyaApiField]
     public ?int $categoryId = null;
 
@@ -73,6 +80,7 @@ class BlogPost extends Utils\LoadableEntity
     }
 
     /**
+     * Finds all public blog posts
      *
      * @return Iterator<BlogPost>
      * @throws Exceptions\ForeignKeyFailedException
@@ -106,7 +114,9 @@ class BlogPost extends Utils\LoadableEntity
     }
 
     /**
-     * @param string $slug
+     * Finds the blog post by the given slug
+     *
+     * @param string $slug The slug to search for
      * @return BlogPost|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -128,7 +138,9 @@ class BlogPost extends Utils\LoadableEntity
     }
 
     /**
-     * @param array<int, array<string, int|string>> $newSegments
+     * Replaces all blog post segments with the new segments
+     *
+     * @param array<int, array<string, int|string>> $newSegments The new segments
      * @throws TransactionFailedException
      */
     public function batchReplaceSegments(array $newSegments): void
@@ -175,7 +187,9 @@ class BlogPost extends Utils\LoadableEntity
     }
 
     /**
-     * @param string $scheme
+     * Returns the default port for the given scheme
+     *
+     * @param string $scheme The scheme to check for, if the scheme is https the return value is 443 otherwise 80
      * @return int
      */
     private function getDefaultPort(string $scheme): int
@@ -188,6 +202,8 @@ class BlogPost extends Utils\LoadableEntity
     }
 
     /**
+     * Executes the webhook defined in the category
+     *
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws NoResultException
@@ -282,7 +298,6 @@ class BlogPost extends Utils\LoadableEntity
 
     /**
      * @inheritDoc
-     * @psalm-suppress MoreSpecificReturnType
      * @return array<string, array<string, array<string, string|null>|int|string>|bool|int|string|null>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -340,6 +355,8 @@ class BlogPost extends Utils\LoadableEntity
     }
 
     /**
+     * Gets the creator of the blog post
+     *
      * @return Artist|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -352,6 +369,8 @@ class BlogPost extends Utils\LoadableEntity
     }
 
     /**
+     * Gets the header image file of the blog post
+     *
      * @return File|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -368,6 +387,8 @@ class BlogPost extends Utils\LoadableEntity
     }
 
     /**
+     * The category of the post, if the post has no category, null is returned
+     *
      * @return BlogCategory|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -384,6 +405,8 @@ class BlogPost extends Utils\LoadableEntity
     }
 
     /**
+     * Gets all segments of the current post
+     *
      * @return Iterator<BlogPostSegment>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws InvalidQueryException

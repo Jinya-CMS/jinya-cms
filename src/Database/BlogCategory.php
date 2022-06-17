@@ -14,19 +14,25 @@ use Laminas\Hydrator\Strategy\BooleanStrategy;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 /**
- *
+ * This class contains a blog category, blog categories can have child categories and have blog posts.
+ * Categories can contain a webhook URL, this URL is triggered with a POST request whenever a post is created or updated.
  */
 #[JinyaApi]
 class BlogCategory extends Utils\LoadableEntity
 {
+    /** @var string The name of the category */
     #[JinyaApiField(required: true)]
     public string $name = '';
+    /** @var string|null The description of the category */
     #[JinyaApiField]
     public ?string $description = null;
+    /** @var int|null The ID of the parent category */
     #[JinyaApiField]
     public ?int $parentId = null;
+    /** @var bool Indicates whether the blog post trigger a webhook on create and update */
     #[JinyaApiField]
     public bool $webhookEnabled = false;
+    /** @var string|null The URL for the webhook to trigger */
     #[JinyaApiField]
     public ?string $webhookUrl = '';
 
@@ -83,6 +89,8 @@ class BlogCategory extends Utils\LoadableEntity
     }
 
     /**
+     * Formats the blog category
+     *
      * @return array<string, int|string|null|mixed|bool>
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -112,6 +120,8 @@ class BlogCategory extends Utils\LoadableEntity
     }
 
     /**
+     * Gets the categories parent category, if it has no parent the result is null
+     *
      * @return BlogCategory|null
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -137,8 +147,10 @@ class BlogCategory extends Utils\LoadableEntity
     }
 
     /**
-     * @param bool $includeChildCategories
-     * @param bool $onlyPublic
+     * Gets all blog posts in the current category
+     *
+     * @param bool $includeChildCategories If true, also posts from child categories are selected
+     * @param bool $onlyPublic If true, only public posts are selected
      * @return Iterator<BlogPost>
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
