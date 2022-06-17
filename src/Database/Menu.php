@@ -10,13 +10,15 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
 /**
- *
+ * This class contains a menu, menus contain menu items, which are used to create the navigation in themes
  */
 #[JinyaApi]
 class Menu extends Utils\LoadableEntity
 {
+    /** @var string The name of the menu, might be displayed in the frontend */
     #[JinyaApiField(required: true)]
     public string $name;
+    /** @var int|null The ID of the file containing the logo */
     #[JinyaApiField]
     public ?int $logo = null;
 
@@ -58,6 +60,8 @@ class Menu extends Utils\LoadableEntity
     }
 
     /**
+     * Formats the current menu into an array
+     *
      * @return array<string, array<string, int|string>|int|string>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException

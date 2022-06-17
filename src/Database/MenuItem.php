@@ -11,21 +11,38 @@ use LogicException;
 use RuntimeException;
 
 /**
- *
+ * This class contains a menu item. A menu item is a class containing information about an entry in a menu.
  */
 class MenuItem extends Utils\RearrangableEntity
 {
+    /** @var int|null The ID of the menu this menu item belongs to. If the menu item has a menu item as parent this value is null */
     public ?int $menuId = null;
+    /** @var int|null The ID of the menu item, this menu item has as parent. If the menu item has a menu as parent this value is null */
     public ?int $parentId = null;
+    /** @var string The title of the menu item. This title is supposed to be displayed in the frontend */
     public string $title;
+    /**
+     * @var string|null
+     * The link of the menu item. This link can be either an absolute URL, a relative URL or null.
+     * Absolute URLs open the link directly, while relative URLs are handled by the frontend controller and will render different entities.
+     * Usually a null value indicates that the menu item is used as a parent item, which has no link but rather opens and shows the sub items
+     */
     public ?string $route = null;
+    /** @var bool When true the menu item should get a special highlighting in the frontend. Themes must respect the decision of the artist */
     public bool $highlighted = false;
+    /** @var int|null The ID of the form this menu item should render */
     public ?int $formId = null;
+    /** @var int|null The ID of the artist this menu item should render */
     public ?int $artistId = null;
+    /** @var int|null The ID of the gallery this menu item should render */
     public ?int $galleryId = null;
+    /** @var int|null The ID of the segment page this menu item should render */
     public ?int $segmentPageId = null;
+    /** @var int|null The ID of the page this menu item should render */
     public ?int $pageId = null;
+    /** @var int|null The ID of the blog category this menu item should render */
     public ?int $categoryId = null;
+    /** @var bool|null If it is set to true, this menu item renders the blog home page */
     public ?bool $blogHomePage = false;
 
     /**
@@ -73,10 +90,12 @@ class MenuItem extends Utils\RearrangableEntity
     /**
      * Finds a menu item by its parent menu item and the position
      *
+     * @param int $menuItemId
+     * @param int $position
+     * @return MenuItem|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
-     * @throws NoResultException
+     * @throws InvalidQueryException
      * @throws NoResultException
      */
     public static function findByMenuItemAndPosition(int $menuItemId, int $position): ?MenuItem
@@ -97,9 +116,7 @@ class MenuItem extends Utils\RearrangableEntity
      * Finds the menu item with the given route
      *
      * @param null|string $route
-     *
      * @return MenuItem|null
-     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException

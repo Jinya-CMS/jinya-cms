@@ -126,206 +126,206 @@ Search.appendIndex(
             "summary": "Gets\u0020the\u0020permitted\u0020statements\u0020from\u0020the\u0020query",
             "url": "classes/App-Database-Analyzer-QueryAnalyzer.html#method_getStatements"
         },                {
-      "fqsen": "\\App\\Database\\Analyzer\\VariablesType",
-      "name": "VariablesType",
-      "summary": "Declares\u0020the\u0020different\u0020variable\u0020types\u0020available\u0020in\u0020MySQL,\u0020MariaDB,\u0020Percona\u0020etc.",
-      "url": "classes/App-Database-Analyzer-VariablesType.html"
-    }, {
-      "fqsen": "\\App\\Database\\Analyzer\\VariablesType\u003A\u003AGlobal",
-      "name": "Global",
-      "summary": "",
-      "url": ""
-    }, {
-      "fqsen": "\\App\\Database\\Analyzer\\VariablesType\u003A\u003ALocal",
-      "name": "Local",
-      "summary": "",
-      "url": ""
-    }, {
-      "fqsen": "\\App\\Database\\Analyzer\\VariablesType\u003A\u003ASession",
-      "name": "Session",
-      "summary": "",
-      "url": ""
-    }, {
-      "fqsen": "\\App\\Database\\ApiKey",
-      "name": "ApiKey",
-      "summary": "This\u0020class\u0020contains\u0020an\u0020api\u0020key,\u0020used\u0020to\u0020log\u0020in\u0020to\u0020Jinya\u0020CMS\u0020api",
-      "url": "classes/App-Database-ApiKey.html"
-    }, {
-      "fqsen": "\\App\\Database\\ApiKey\u003A\u003AfindById\u0028\u0029",
-      "name": "findById",
-      "summary": "Not\u0020implemented",
-      "url": "classes/App-Database-ApiKey.html#method_findById"
-    }, {
-      "fqsen": "\\App\\Database\\ApiKey\u003A\u003AfindByApiKey\u0028\u0029",
-      "name": "findByApiKey",
-      "summary": "Gets\u0020the\u0020api\u0020key\u0020object\u0020that\u0020belongs\u0020to\u0020the\u0020key",
-      "url": "classes/App-Database-ApiKey.html#method_findByApiKey"
-    }, {
-      "fqsen": "\\App\\Database\\ApiKey\u003A\u003AfindByKeyword\u0028\u0029",
-      "name": "findByKeyword",
-      "summary": "Not\u0020implemented",
-      "url": "classes/App-Database-ApiKey.html#method_findByKeyword"
-    }, {
-      "fqsen": "\\App\\Database\\ApiKey\u003A\u003AfindAll\u0028\u0029",
-      "name": "findAll",
-      "summary": "Not\u0020implemented",
-      "url": "classes/App-Database-ApiKey.html#method_findAll"
-    }, {
-      "fqsen": "\\App\\Database\\ApiKey\u003A\u003AfindByArtist\u0028\u0029",
-      "name": "findByArtist",
-      "summary": "Gets\u0020all\u0020api\u0020keys\u0020for\u0020the\u0020given\u0020artist",
-      "url": "classes/App-Database-ApiKey.html#method_findByArtist"
-    }, {
-      "fqsen": "\\App\\Database\\ApiKey\u003A\u003AsetApiKey\u0028\u0029",
-      "name": "setApiKey",
-      "summary": "Sets\u0020the\u0020api\u0020key\u0020securely",
-      "url": "classes/App-Database-ApiKey.html#method_setApiKey"
-    }, {
-      "fqsen": "\\App\\Database\\ApiKey\u003A\u003AgetArtist\u0028\u0029",
-      "name": "getArtist",
-      "summary": "Gets\u0020the\u0020artist\u0020belonging\u0020to\u0020the\u0020api\u0020key",
-      "url": "classes/App-Database-ApiKey.html#method_getArtist"
-    }, {
-      "fqsen": "\\App\\Database\\ApiKey\u003A\u003Acreate\u0028\u0029",
-      "name": "create",
-      "summary": "Creates\u0020the\u0020current\u0020api\u0020key",
-      "url": "classes/App-Database-ApiKey.html#method_create"
-    }, {
-      "fqsen": "\\App\\Database\\ApiKey\u003A\u003Adelete\u0028\u0029",
-      "name": "delete",
-      "summary": "Deletes\u0020the\u0020current\u0020api\u0020key",
-      "url": "classes/App-Database-ApiKey.html#method_delete"
-    }, {
-      "fqsen": "\\App\\Database\\ApiKey\u003A\u003Aupdate\u0028\u0029",
-      "name": "update",
-      "summary": "Updates\u0020the\u0020current\u0020api\u0020key",
-      "url": "classes/App-Database-ApiKey.html#method_update"
-    }, {
-      "fqsen": "\\App\\Database\\ApiKey\u003A\u003Aformat\u0028\u0029",
-      "name": "format",
-      "summary": "Formats\u0020the\u0020api\u0020key\u0020into\u0020an\u0020array",
-      "url": "classes/App-Database-ApiKey.html#method_format"
-    }, {
-      "fqsen": "\\App\\Database\\ApiKey\u003A\u003A\u0024apiKey",
-      "name": "apiKey",
-      "summary": "",
-      "url": "classes/App-Database-ApiKey.html#property_apiKey"
-    }, {
-      "fqsen": "\\App\\Database\\ApiKey\u003A\u003A\u0024userId",
-      "name": "userId",
-      "summary": "",
-      "url": "classes/App-Database-ApiKey.html#property_userId"
-    }, {
-      "fqsen": "\\App\\Database\\ApiKey\u003A\u003A\u0024validSince",
-      "name": "validSince",
-      "summary": "",
-      "url": "classes/App-Database-ApiKey.html#property_validSince"
-    }, {
-      "fqsen": "\\App\\Database\\ApiKey\u003A\u003A\u0024userAgent",
-      "name": "userAgent",
-      "summary": "",
-      "url": "classes/App-Database-ApiKey.html#property_userAgent"
-    }, {
-      "fqsen": "\\App\\Database\\ApiKey\u003A\u003A\u0024remoteAddress",
-      "name": "remoteAddress",
-      "summary": "",
-      "url": "classes/App-Database-ApiKey.html#property_remoteAddress"
-    }, {
-      "fqsen": "\\App\\Database\\Artist",
-      "name": "Artist",
-      "summary": "This\u0020class\u0020contains\u0020all\u0020information\u0020relevant\u0020for\u0020an\u0020artist.\u0020Artists\u0020are\u0020the\u0020users\u0020of\u0020Jinya\u0020CMS",
-      "url": "classes/App-Database-Artist.html"
-    }, {
-      "fqsen": "\\App\\Database\\Artist\u003A\u003AfindByEmail\u0028\u0029",
-      "name": "findByEmail",
-      "summary": "Finds\u0020the\u0020artist\u0020with\u0020the\u0020given\u0020email",
-      "url": "classes/App-Database-Artist.html#method_findByEmail"
-    }, {
-      "fqsen": "\\App\\Database\\Artist\u003A\u003AfindById\u0028\u0029",
-      "name": "findById",
-      "summary": "Finds\u0020the\u0020artist\u0020that\u0020belongs\u0020to\u0020the\u0020given\u0020ID",
-      "url": "classes/App-Database-Artist.html#method_findById"
-    }, {
-      "fqsen": "\\App\\Database\\Artist\u003A\u003AfindByKeyword\u0028\u0029",
-      "name": "findByKeyword",
-      "summary": "Gets\u0020all\u0020entities\u0020that\u0020match\u0020the\u0020given\u0020keyword",
-      "url": "classes/App-Database-Artist.html#method_findByKeyword"
-    }, {
-      "fqsen": "\\App\\Database\\Artist\u003A\u003AsetTwoFactorCode\u0028\u0029",
-      "name": "setTwoFactorCode",
-      "summary": "Securely\u0020sets\u0020the\u0020two\u002Dfactor\u0020code",
-      "url": "classes/App-Database-Artist.html#method_setTwoFactorCode"
-    }, {
-      "fqsen": "\\App\\Database\\Artist\u003A\u003Acreate\u0028\u0029",
-      "name": "create",
-      "summary": "Creates\u0020the\u0020given\u0020entity",
-      "url": "classes/App-Database-Artist.html#method_create"
-    }, {
-      "fqsen": "\\App\\Database\\Artist\u003A\u003Adelete\u0028\u0029",
-      "name": "delete",
-      "summary": "Deletes\u0020the\u0020given\u0020entity",
-      "url": "classes/App-Database-Artist.html#method_delete"
-    }, {
-      "fqsen": "\\App\\Database\\Artist\u003A\u003AcountAdmins\u0028\u0029",
-      "name": "countAdmins",
-      "summary": "Counts\u0020all\u0020available\u0020admins,\u0020excluding\u0020the\u0020given\u0020artist",
-      "url": "classes/App-Database-Artist.html#method_countAdmins"
-    }, {
-      "fqsen": "\\App\\Database\\Artist\u003A\u003AfindAll\u0028\u0029",
-      "name": "findAll",
-      "summary": "Gets\u0020all\u0020entities\u0020of\u0020the\u0020given\u0020type",
-      "url": "classes/App-Database-Artist.html#method_findAll"
-    }, {
-      "fqsen": "\\App\\Database\\Artist\u003A\u003Aformat\u0028\u0029",
-      "name": "format",
-      "summary": "Formats\u0020the\u0020artist",
-      "url": "classes/App-Database-Artist.html#method_format"
-    }, {
-      "fqsen": "\\App\\Database\\Artist\u003A\u003AvalidateDevice\u0028\u0029",
-      "name": "validateDevice",
-      "summary": "Validates\u0020the\u0020given\u0020device\u0020code\u0020for\u0020the\u0020given\u0020artist",
-      "url": "classes/App-Database-Artist.html#method_validateDevice"
-    }, {
-      "fqsen": "\\App\\Database\\Artist\u003A\u003AchangePassword\u0028\u0029",
-      "name": "changePassword",
-      "summary": "Changes\u0020the\u0020password\u0020of\u0020the\u0020artist",
-      "url": "classes/App-Database-Artist.html#method_changePassword"
-    }, {
-      "fqsen": "\\App\\Database\\Artist\u003A\u003AvalidatePassword\u0028\u0029",
-      "name": "validatePassword",
-      "summary": "Validates\u0020the\u0020given\u0020password\u0020against\u0020the\u0020hash\u0020in\u0020the\u0020database",
-      "url": "classes/App-Database-Artist.html#method_validatePassword"
-    }, {
-      "fqsen": "\\App\\Database\\Artist\u003A\u003AsetPassword\u0028\u0029",
-      "name": "setPassword",
-      "summary": "Sets\u0020the\u0020artists\u0020password\u0020and\u0020hashes\u0020it",
-      "url": "classes/App-Database-Artist.html#method_setPassword"
-    }, {
-      "fqsen": "\\App\\Database\\Artist\u003A\u003Aupdate\u0028\u0029",
-      "name": "update",
-      "summary": "Updates\u0020the\u0020artist",
-      "url": "classes/App-Database-Artist.html#method_update"
-    }, {
-      "fqsen": "\\App\\Database\\Artist\u003A\u003AregisterFailedLogin\u0028\u0029",
-      "name": "registerFailedLogin",
-      "summary": "Registers\u0020a\u0020failed\u0020login,\u0020after\u0020the\u0020fifth\u0020login\u0020failed\u0020the\u0020login\u0020will\u0020be\u0020blocked\u0020for\u002010\u0020minutes",
-      "url": "classes/App-Database-Artist.html#method_registerFailedLogin"
-    }, {
-      "fqsen": "\\App\\Database\\Artist\u003A\u003AunlockAccount\u0028\u0029",
-      "name": "unlockAccount",
-      "summary": "Resets\u0020the\u0020failed\u0020login\u0020attempts\u0020and\u0020the\u0020time\u0020until\u0020the\u0020login\u0020is\u0020blocked",
-      "url": "classes/App-Database-Artist.html#method_unlockAccount"
-    }, {
-      "fqsen": "\\App\\Database\\Artist\u003A\u003A\u0024email",
-      "name": "email",
-      "summary": "",
-      "url": "classes/App-Database-Artist.html#property_email"
-    }, {
-      "fqsen": "\\App\\Database\\Artist\u003A\u003A\u0024enabled",
-      "name": "enabled",
-      "summary": "",
-      "url": "classes/App-Database-Artist.html#property_enabled"
-    }, {
+            "fqsen": "\\App\\Database\\Analyzer\\VariablesType",
+            "name": "VariablesType",
+            "summary": "Declares\u0020the\u0020different\u0020variable\u0020types\u0020available\u0020in\u0020MySQL,\u0020MariaDB,\u0020Percona\u0020etc.",
+            "url": "classes/App-Database-Analyzer-VariablesType.html"
+        },                {
+            "fqsen": "\\App\\Database\\Analyzer\\VariablesType\u003A\u003AGlobal",
+            "name": "Global",
+            "summary": "",
+            "url": ""
+        },                {
+            "fqsen": "\\App\\Database\\Analyzer\\VariablesType\u003A\u003ALocal",
+            "name": "Local",
+            "summary": "",
+            "url": ""
+        },                {
+            "fqsen": "\\App\\Database\\Analyzer\\VariablesType\u003A\u003ASession",
+            "name": "Session",
+            "summary": "",
+            "url": ""
+        },                {
+            "fqsen": "\\App\\Database\\ApiKey",
+            "name": "ApiKey",
+            "summary": "This\u0020class\u0020contains\u0020an\u0020api\u0020key,\u0020used\u0020to\u0020log\u0020in\u0020to\u0020Jinya\u0020CMS\u0020api",
+            "url": "classes/App-Database-ApiKey.html"
+        },                {
+            "fqsen": "\\App\\Database\\ApiKey\u003A\u003AfindById\u0028\u0029",
+            "name": "findById",
+            "summary": "Not\u0020implemented",
+            "url": "classes/App-Database-ApiKey.html#method_findById"
+        },                {
+            "fqsen": "\\App\\Database\\ApiKey\u003A\u003AfindByApiKey\u0028\u0029",
+            "name": "findByApiKey",
+            "summary": "Gets\u0020the\u0020api\u0020key\u0020object\u0020that\u0020belongs\u0020to\u0020the\u0020key",
+            "url": "classes/App-Database-ApiKey.html#method_findByApiKey"
+        },                {
+            "fqsen": "\\App\\Database\\ApiKey\u003A\u003AfindByKeyword\u0028\u0029",
+            "name": "findByKeyword",
+            "summary": "Not\u0020implemented",
+            "url": "classes/App-Database-ApiKey.html#method_findByKeyword"
+        },                {
+            "fqsen": "\\App\\Database\\ApiKey\u003A\u003AfindAll\u0028\u0029",
+            "name": "findAll",
+            "summary": "Not\u0020implemented",
+            "url": "classes/App-Database-ApiKey.html#method_findAll"
+        },                {
+            "fqsen": "\\App\\Database\\ApiKey\u003A\u003AfindByArtist\u0028\u0029",
+            "name": "findByArtist",
+            "summary": "Gets\u0020all\u0020api\u0020keys\u0020for\u0020the\u0020given\u0020artist",
+            "url": "classes/App-Database-ApiKey.html#method_findByArtist"
+        },                {
+            "fqsen": "\\App\\Database\\ApiKey\u003A\u003AsetApiKey\u0028\u0029",
+            "name": "setApiKey",
+            "summary": "Sets\u0020the\u0020api\u0020key\u0020securely",
+            "url": "classes/App-Database-ApiKey.html#method_setApiKey"
+        },                {
+            "fqsen": "\\App\\Database\\ApiKey\u003A\u003AgetArtist\u0028\u0029",
+            "name": "getArtist",
+            "summary": "Gets\u0020the\u0020artist\u0020belonging\u0020to\u0020the\u0020api\u0020key",
+            "url": "classes/App-Database-ApiKey.html#method_getArtist"
+        },                {
+            "fqsen": "\\App\\Database\\ApiKey\u003A\u003Acreate\u0028\u0029",
+            "name": "create",
+            "summary": "Creates\u0020the\u0020current\u0020api\u0020key",
+            "url": "classes/App-Database-ApiKey.html#method_create"
+        },                {
+            "fqsen": "\\App\\Database\\ApiKey\u003A\u003Adelete\u0028\u0029",
+            "name": "delete",
+            "summary": "Deletes\u0020the\u0020current\u0020api\u0020key",
+            "url": "classes/App-Database-ApiKey.html#method_delete"
+        },                {
+            "fqsen": "\\App\\Database\\ApiKey\u003A\u003Aupdate\u0028\u0029",
+            "name": "update",
+            "summary": "Updates\u0020the\u0020current\u0020api\u0020key",
+            "url": "classes/App-Database-ApiKey.html#method_update"
+        },                {
+            "fqsen": "\\App\\Database\\ApiKey\u003A\u003Aformat\u0028\u0029",
+            "name": "format",
+            "summary": "Formats\u0020the\u0020api\u0020key\u0020into\u0020an\u0020array",
+            "url": "classes/App-Database-ApiKey.html#method_format"
+        },                {
+            "fqsen": "\\App\\Database\\ApiKey\u003A\u003A\u0024apiKey",
+            "name": "apiKey",
+            "summary": "",
+            "url": "classes/App-Database-ApiKey.html#property_apiKey"
+        },                {
+            "fqsen": "\\App\\Database\\ApiKey\u003A\u003A\u0024userId",
+            "name": "userId",
+            "summary": "",
+            "url": "classes/App-Database-ApiKey.html#property_userId"
+        },                {
+            "fqsen": "\\App\\Database\\ApiKey\u003A\u003A\u0024validSince",
+            "name": "validSince",
+            "summary": "",
+            "url": "classes/App-Database-ApiKey.html#property_validSince"
+        },                {
+            "fqsen": "\\App\\Database\\ApiKey\u003A\u003A\u0024userAgent",
+            "name": "userAgent",
+            "summary": "",
+            "url": "classes/App-Database-ApiKey.html#property_userAgent"
+        },                {
+            "fqsen": "\\App\\Database\\ApiKey\u003A\u003A\u0024remoteAddress",
+            "name": "remoteAddress",
+            "summary": "",
+            "url": "classes/App-Database-ApiKey.html#property_remoteAddress"
+        },                {
+            "fqsen": "\\App\\Database\\Artist",
+            "name": "Artist",
+            "summary": "This\u0020class\u0020contains\u0020all\u0020information\u0020relevant\u0020for\u0020an\u0020artist.\u0020Artists\u0020are\u0020the\u0020users\u0020of\u0020Jinya\u0020CMS",
+            "url": "classes/App-Database-Artist.html"
+        },                {
+            "fqsen": "\\App\\Database\\Artist\u003A\u003AfindByEmail\u0028\u0029",
+            "name": "findByEmail",
+            "summary": "Finds\u0020the\u0020artist\u0020with\u0020the\u0020given\u0020email",
+            "url": "classes/App-Database-Artist.html#method_findByEmail"
+        },                {
+            "fqsen": "\\App\\Database\\Artist\u003A\u003AfindById\u0028\u0029",
+            "name": "findById",
+            "summary": "Finds\u0020the\u0020artist\u0020that\u0020belongs\u0020to\u0020the\u0020given\u0020ID",
+            "url": "classes/App-Database-Artist.html#method_findById"
+        },                {
+            "fqsen": "\\App\\Database\\Artist\u003A\u003AfindByKeyword\u0028\u0029",
+            "name": "findByKeyword",
+            "summary": "Gets\u0020all\u0020entities\u0020that\u0020match\u0020the\u0020given\u0020keyword",
+            "url": "classes/App-Database-Artist.html#method_findByKeyword"
+        },                {
+            "fqsen": "\\App\\Database\\Artist\u003A\u003AsetTwoFactorCode\u0028\u0029",
+            "name": "setTwoFactorCode",
+            "summary": "Securely\u0020sets\u0020the\u0020two\u002Dfactor\u0020code",
+            "url": "classes/App-Database-Artist.html#method_setTwoFactorCode"
+        },                {
+            "fqsen": "\\App\\Database\\Artist\u003A\u003Acreate\u0028\u0029",
+            "name": "create",
+            "summary": "Creates\u0020the\u0020given\u0020entity",
+            "url": "classes/App-Database-Artist.html#method_create"
+        },                {
+            "fqsen": "\\App\\Database\\Artist\u003A\u003Adelete\u0028\u0029",
+            "name": "delete",
+            "summary": "Deletes\u0020the\u0020given\u0020entity",
+            "url": "classes/App-Database-Artist.html#method_delete"
+        },                {
+            "fqsen": "\\App\\Database\\Artist\u003A\u003AcountAdmins\u0028\u0029",
+            "name": "countAdmins",
+            "summary": "Counts\u0020all\u0020available\u0020admins,\u0020excluding\u0020the\u0020given\u0020artist",
+            "url": "classes/App-Database-Artist.html#method_countAdmins"
+        },                {
+            "fqsen": "\\App\\Database\\Artist\u003A\u003AfindAll\u0028\u0029",
+            "name": "findAll",
+            "summary": "Gets\u0020all\u0020entities\u0020of\u0020the\u0020given\u0020type",
+            "url": "classes/App-Database-Artist.html#method_findAll"
+        },                {
+            "fqsen": "\\App\\Database\\Artist\u003A\u003Aformat\u0028\u0029",
+            "name": "format",
+            "summary": "Formats\u0020the\u0020artist",
+            "url": "classes/App-Database-Artist.html#method_format"
+        },                {
+            "fqsen": "\\App\\Database\\Artist\u003A\u003AvalidateDevice\u0028\u0029",
+            "name": "validateDevice",
+            "summary": "Validates\u0020the\u0020given\u0020device\u0020code\u0020for\u0020the\u0020given\u0020artist",
+            "url": "classes/App-Database-Artist.html#method_validateDevice"
+        },                {
+            "fqsen": "\\App\\Database\\Artist\u003A\u003AchangePassword\u0028\u0029",
+            "name": "changePassword",
+            "summary": "Changes\u0020the\u0020password\u0020of\u0020the\u0020artist",
+            "url": "classes/App-Database-Artist.html#method_changePassword"
+        },                {
+            "fqsen": "\\App\\Database\\Artist\u003A\u003AvalidatePassword\u0028\u0029",
+            "name": "validatePassword",
+            "summary": "Validates\u0020the\u0020given\u0020password\u0020against\u0020the\u0020hash\u0020in\u0020the\u0020database",
+            "url": "classes/App-Database-Artist.html#method_validatePassword"
+        },                {
+            "fqsen": "\\App\\Database\\Artist\u003A\u003AsetPassword\u0028\u0029",
+            "name": "setPassword",
+            "summary": "Sets\u0020the\u0020artists\u0020password\u0020and\u0020hashes\u0020it",
+            "url": "classes/App-Database-Artist.html#method_setPassword"
+        },                {
+            "fqsen": "\\App\\Database\\Artist\u003A\u003Aupdate\u0028\u0029",
+            "name": "update",
+            "summary": "Updates\u0020the\u0020artist",
+            "url": "classes/App-Database-Artist.html#method_update"
+        },                {
+            "fqsen": "\\App\\Database\\Artist\u003A\u003AregisterFailedLogin\u0028\u0029",
+            "name": "registerFailedLogin",
+            "summary": "Registers\u0020a\u0020failed\u0020login,\u0020after\u0020the\u0020fifth\u0020login\u0020failed\u0020the\u0020login\u0020will\u0020be\u0020blocked\u0020for\u002010\u0020minutes",
+            "url": "classes/App-Database-Artist.html#method_registerFailedLogin"
+        },                {
+            "fqsen": "\\App\\Database\\Artist\u003A\u003AunlockAccount\u0028\u0029",
+            "name": "unlockAccount",
+            "summary": "Resets\u0020the\u0020failed\u0020login\u0020attempts\u0020and\u0020the\u0020time\u0020until\u0020the\u0020login\u0020is\u0020blocked",
+            "url": "classes/App-Database-Artist.html#method_unlockAccount"
+        },                {
+            "fqsen": "\\App\\Database\\Artist\u003A\u003A\u0024email",
+            "name": "email",
+            "summary": "",
+            "url": "classes/App-Database-Artist.html#property_email"
+        },                {
+            "fqsen": "\\App\\Database\\Artist\u003A\u003A\u0024enabled",
+            "name": "enabled",
+            "summary": "",
+            "url": "classes/App-Database-Artist.html#property_enabled"
+        },                {
             "fqsen": "\\App\\Database\\Artist\u003A\u003A\u0024twoFactorToken",
             "name": "twoFactorToken",
             "summary": "",
@@ -370,12 +370,12 @@ Search.appendIndex(
             "name": "password",
             "summary": "",
             "url": "classes/App-Database-Artist.html#property_password"
-        }, {
-      "fqsen": "\\App\\Database\\BlogCategory",
-      "name": "BlogCategory",
-      "summary": "This\u0020class\u0020contains\u0020a\u0020blog\u0020category,\u0020blog\u0020categories\u0020can\u0020have\u0020child\u0020categories\u0020and\u0020have\u0020blog\u0020posts.",
-      "url": "classes/App-Database-BlogCategory.html"
-    },                {
+        },                {
+            "fqsen": "\\App\\Database\\BlogCategory",
+            "name": "BlogCategory",
+            "summary": "This\u0020class\u0020contains\u0020a\u0020blog\u0020category,\u0020blog\u0020categories\u0020can\u0020have\u0020child\u0020categories\u0020and\u0020have\u0020blog\u0020posts.",
+            "url": "classes/App-Database-BlogCategory.html"
+        },                {
             "fqsen": "\\App\\Database\\BlogCategory\u003A\u003AfindByKeyword\u0028\u0029",
             "name": "findByKeyword",
             "summary": "Gets\u0020all\u0020entities\u0020that\u0020match\u0020the\u0020given\u0020keyword",
@@ -400,27 +400,27 @@ Search.appendIndex(
             "name": "update",
             "summary": "Updates\u0020the\u0020given\u0020entity",
             "url": "classes/App-Database-BlogCategory.html#method_update"
-        }, {
-      "fqsen": "\\App\\Database\\BlogCategory\u003A\u003Aformat\u0028\u0029",
-      "name": "format",
-      "summary": "Formats\u0020the\u0020blog\u0020category",
-      "url": "classes/App-Database-BlogCategory.html#method_format"
-    }, {
-      "fqsen": "\\App\\Database\\BlogCategory\u003A\u003AgetParent\u0028\u0029",
-      "name": "getParent",
-      "summary": "Gets\u0020the\u0020categories\u0020parent\u0020category,\u0020if\u0020it\u0020has\u0020no\u0020parent\u0020the\u0020result\u0020is\u0020null",
-      "url": "classes/App-Database-BlogCategory.html#method_getParent"
-    },                {
+        },                {
+            "fqsen": "\\App\\Database\\BlogCategory\u003A\u003Aformat\u0028\u0029",
+            "name": "format",
+            "summary": "Formats\u0020the\u0020blog\u0020category",
+            "url": "classes/App-Database-BlogCategory.html#method_format"
+        },                {
+            "fqsen": "\\App\\Database\\BlogCategory\u003A\u003AgetParent\u0028\u0029",
+            "name": "getParent",
+            "summary": "Gets\u0020the\u0020categories\u0020parent\u0020category,\u0020if\u0020it\u0020has\u0020no\u0020parent\u0020the\u0020result\u0020is\u0020null",
+            "url": "classes/App-Database-BlogCategory.html#method_getParent"
+        },                {
             "fqsen": "\\App\\Database\\BlogCategory\u003A\u003AfindById\u0028\u0029",
             "name": "findById",
             "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
             "url": "classes/App-Database-BlogCategory.html#method_findById"
-        }, {
-      "fqsen": "\\App\\Database\\BlogCategory\u003A\u003AgetBlogPosts\u0028\u0029",
-      "name": "getBlogPosts",
-      "summary": "Gets\u0020all\u0020blog\u0020posts\u0020in\u0020the\u0020current\u0020category",
-      "url": "classes/App-Database-BlogCategory.html#method_getBlogPosts"
-    },                {
+        },                {
+            "fqsen": "\\App\\Database\\BlogCategory\u003A\u003AgetBlogPosts\u0028\u0029",
+            "name": "getBlogPosts",
+            "summary": "Gets\u0020all\u0020blog\u0020posts\u0020in\u0020the\u0020current\u0020category",
+            "url": "classes/App-Database-BlogCategory.html#method_getBlogPosts"
+        },                {
             "fqsen": "\\App\\Database\\BlogCategory\u003A\u003A\u0024name",
             "name": "name",
             "summary": "",
@@ -445,12 +445,12 @@ Search.appendIndex(
             "name": "webhookUrl",
             "summary": "",
             "url": "classes/App-Database-BlogCategory.html#property_webhookUrl"
-        }, {
-      "fqsen": "\\App\\Database\\BlogPost",
-      "name": "BlogPost",
-      "summary": "This\u0020class\u0020contains\u0020the\u0020information\u0020of\u0020a\u0020blog\u0020post",
-      "url": "classes/App-Database-BlogPost.html"
-    },                {
+        },                {
+            "fqsen": "\\App\\Database\\BlogPost",
+            "name": "BlogPost",
+            "summary": "This\u0020class\u0020contains\u0020the\u0020information\u0020of\u0020a\u0020blog\u0020post",
+            "url": "classes/App-Database-BlogPost.html"
+        },                {
             "fqsen": "\\App\\Database\\BlogPost\u003A\u003AfindById\u0028\u0029",
             "name": "findById",
             "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
@@ -460,37 +460,37 @@ Search.appendIndex(
             "name": "findByKeyword",
             "summary": "Gets\u0020all\u0020entities\u0020that\u0020match\u0020the\u0020given\u0020keyword",
             "url": "classes/App-Database-BlogPost.html#method_findByKeyword"
-        }, {
-      "fqsen": "\\App\\Database\\BlogPost\u003A\u003AfindPublicPosts\u0028\u0029",
-      "name": "findPublicPosts",
-      "summary": "Finds\u0020all\u0020public\u0020blog\u0020posts",
-      "url": "classes/App-Database-BlogPost.html#method_findPublicPosts"
-    },                {
+        },                {
+            "fqsen": "\\App\\Database\\BlogPost\u003A\u003AfindPublicPosts\u0028\u0029",
+            "name": "findPublicPosts",
+            "summary": "Finds\u0020all\u0020public\u0020blog\u0020posts",
+            "url": "classes/App-Database-BlogPost.html#method_findPublicPosts"
+        },                {
             "fqsen": "\\App\\Database\\BlogPost\u003A\u003AfindAll\u0028\u0029",
             "name": "findAll",
             "summary": "Gets\u0020all\u0020entities\u0020of\u0020the\u0020given\u0020type",
             "url": "classes/App-Database-BlogPost.html#method_findAll"
-        }, {
-      "fqsen": "\\App\\Database\\BlogPost\u003A\u003AfindBySlug\u0028\u0029",
-      "name": "findBySlug",
-      "summary": "Finds\u0020the\u0020blog\u0020post\u0020by\u0020the\u0020given\u0020slug",
-      "url": "classes/App-Database-BlogPost.html#method_findBySlug"
-    }, {
-      "fqsen": "\\App\\Database\\BlogPost\u003A\u003AbatchReplaceSegments\u0028\u0029",
-      "name": "batchReplaceSegments",
-      "summary": "Replaces\u0020all\u0020blog\u0020post\u0020segments\u0020with\u0020the\u0020new\u0020segments",
-      "url": "classes/App-Database-BlogPost.html#method_batchReplaceSegments"
-    }, {
-      "fqsen": "\\App\\Database\\BlogPost\u003A\u003AgetDefaultPort\u0028\u0029",
-      "name": "getDefaultPort",
-      "summary": "Returns\u0020the\u0020default\u0020port\u0020for\u0020the\u0020given\u0020scheme",
-      "url": "classes/App-Database-BlogPost.html#method_getDefaultPort"
-    }, {
-      "fqsen": "\\App\\Database\\BlogPost\u003A\u003AexecuteHook\u0028\u0029",
-      "name": "executeHook",
-      "summary": "Executes\u0020the\u0020webhook\u0020defined\u0020in\u0020the\u0020category",
-      "url": "classes/App-Database-BlogPost.html#method_executeHook"
-    },                {
+        },                {
+            "fqsen": "\\App\\Database\\BlogPost\u003A\u003AfindBySlug\u0028\u0029",
+            "name": "findBySlug",
+            "summary": "Finds\u0020the\u0020blog\u0020post\u0020by\u0020the\u0020given\u0020slug",
+            "url": "classes/App-Database-BlogPost.html#method_findBySlug"
+        },                {
+            "fqsen": "\\App\\Database\\BlogPost\u003A\u003AbatchReplaceSegments\u0028\u0029",
+            "name": "batchReplaceSegments",
+            "summary": "Replaces\u0020all\u0020blog\u0020post\u0020segments\u0020with\u0020the\u0020new\u0020segments",
+            "url": "classes/App-Database-BlogPost.html#method_batchReplaceSegments"
+        },                {
+            "fqsen": "\\App\\Database\\BlogPost\u003A\u003AgetDefaultPort\u0028\u0029",
+            "name": "getDefaultPort",
+            "summary": "Returns\u0020the\u0020default\u0020port\u0020for\u0020the\u0020given\u0020scheme",
+            "url": "classes/App-Database-BlogPost.html#method_getDefaultPort"
+        },                {
+            "fqsen": "\\App\\Database\\BlogPost\u003A\u003AexecuteHook\u0028\u0029",
+            "name": "executeHook",
+            "summary": "Executes\u0020the\u0020webhook\u0020defined\u0020in\u0020the\u0020category",
+            "url": "classes/App-Database-BlogPost.html#method_executeHook"
+        },                {
             "fqsen": "\\App\\Database\\BlogPost\u003A\u003Acreate\u0028\u0029",
             "name": "create",
             "summary": "Creates\u0020the\u0020given\u0020entity",
@@ -510,27 +510,27 @@ Search.appendIndex(
             "name": "format",
             "summary": "",
             "url": "classes/App-Database-BlogPost.html#method_format"
-        }, {
-      "fqsen": "\\App\\Database\\BlogPost\u003A\u003AgetCreator\u0028\u0029",
-      "name": "getCreator",
-      "summary": "Gets\u0020the\u0020creator\u0020of\u0020the\u0020blog\u0020post",
-      "url": "classes/App-Database-BlogPost.html#method_getCreator"
-    }, {
-      "fqsen": "\\App\\Database\\BlogPost\u003A\u003AgetHeaderImage\u0028\u0029",
-      "name": "getHeaderImage",
-      "summary": "Gets\u0020the\u0020header\u0020image\u0020file\u0020of\u0020the\u0020blog\u0020post",
-      "url": "classes/App-Database-BlogPost.html#method_getHeaderImage"
-    }, {
-      "fqsen": "\\App\\Database\\BlogPost\u003A\u003AgetCategory\u0028\u0029",
-      "name": "getCategory",
-      "summary": "The\u0020category\u0020of\u0020the\u0020post,\u0020if\u0020the\u0020post\u0020has\u0020no\u0020category,\u0020null\u0020is\u0020returned",
-      "url": "classes/App-Database-BlogPost.html#method_getCategory"
-    }, {
-      "fqsen": "\\App\\Database\\BlogPost\u003A\u003AgetSegments\u0028\u0029",
-      "name": "getSegments",
-      "summary": "Gets\u0020all\u0020segments\u0020of\u0020the\u0020current\u0020post",
-      "url": "classes/App-Database-BlogPost.html#method_getSegments"
-    },                {
+        },                {
+            "fqsen": "\\App\\Database\\BlogPost\u003A\u003AgetCreator\u0028\u0029",
+            "name": "getCreator",
+            "summary": "Gets\u0020the\u0020creator\u0020of\u0020the\u0020blog\u0020post",
+            "url": "classes/App-Database-BlogPost.html#method_getCreator"
+        },                {
+            "fqsen": "\\App\\Database\\BlogPost\u003A\u003AgetHeaderImage\u0028\u0029",
+            "name": "getHeaderImage",
+            "summary": "Gets\u0020the\u0020header\u0020image\u0020file\u0020of\u0020the\u0020blog\u0020post",
+            "url": "classes/App-Database-BlogPost.html#method_getHeaderImage"
+        },                {
+            "fqsen": "\\App\\Database\\BlogPost\u003A\u003AgetCategory\u0028\u0029",
+            "name": "getCategory",
+            "summary": "The\u0020category\u0020of\u0020the\u0020post,\u0020if\u0020the\u0020post\u0020has\u0020no\u0020category,\u0020null\u0020is\u0020returned",
+            "url": "classes/App-Database-BlogPost.html#method_getCategory"
+        },                {
+            "fqsen": "\\App\\Database\\BlogPost\u003A\u003AgetSegments\u0028\u0029",
+            "name": "getSegments",
+            "summary": "Gets\u0020all\u0020segments\u0020of\u0020the\u0020current\u0020post",
+            "url": "classes/App-Database-BlogPost.html#method_getSegments"
+        },                {
             "fqsen": "\\App\\Database\\BlogPost\u003A\u003A\u0024title",
             "name": "title",
             "summary": "",
@@ -565,32 +565,32 @@ Search.appendIndex(
             "name": "categoryId",
             "summary": "",
             "url": "classes/App-Database-BlogPost.html#property_categoryId"
-        }, {
-      "fqsen": "\\App\\Database\\BlogPostSegment",
-      "name": "BlogPostSegment",
-      "summary": "This\u0020class\u0020contains\u0020a\u0020part\u0020of\u0020a\u0020blog\u0020post.\u0020A\u0020blog\u0020post\u0020consists\u0020of\u0020several\u0020segments.",
-      "url": "classes/App-Database-BlogPostSegment.html"
-    }, {
-      "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003AfindById\u0028\u0029",
-      "name": "findById",
-      "summary": "Not\u0020implemented",
-      "url": "classes/App-Database-BlogPostSegment.html#method_findById"
-    }, {
-      "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003AfindByKeyword\u0028\u0029",
-      "name": "findByKeyword",
-      "summary": "Not\u0020implemented",
-      "url": "classes/App-Database-BlogPostSegment.html#method_findByKeyword"
-    }, {
-      "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003AfindAll\u0028\u0029",
-      "name": "findAll",
-      "summary": "Not\u0020implemented",
-      "url": "classes/App-Database-BlogPostSegment.html#method_findAll"
-    }, {
-      "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003AfindByPosition\u0028\u0029",
-      "name": "findByPosition",
-      "summary": "Finds\u0020the\u0020segment\u0020by\u0020a\u0020post\u0020and\u0020the\u0020position",
-      "url": "classes/App-Database-BlogPostSegment.html#method_findByPosition"
-    },                {
+        },                {
+            "fqsen": "\\App\\Database\\BlogPostSegment",
+            "name": "BlogPostSegment",
+            "summary": "This\u0020class\u0020contains\u0020a\u0020part\u0020of\u0020a\u0020blog\u0020post.\u0020A\u0020blog\u0020post\u0020consists\u0020of\u0020several\u0020segments.",
+            "url": "classes/App-Database-BlogPostSegment.html"
+        },                {
+            "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003AfindById\u0028\u0029",
+            "name": "findById",
+            "summary": "Not\u0020implemented",
+            "url": "classes/App-Database-BlogPostSegment.html#method_findById"
+        },                {
+            "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003AfindByKeyword\u0028\u0029",
+            "name": "findByKeyword",
+            "summary": "Not\u0020implemented",
+            "url": "classes/App-Database-BlogPostSegment.html#method_findByKeyword"
+        },                {
+            "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003AfindAll\u0028\u0029",
+            "name": "findAll",
+            "summary": "Not\u0020implemented",
+            "url": "classes/App-Database-BlogPostSegment.html#method_findAll"
+        },                {
+            "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003AfindByPosition\u0028\u0029",
+            "name": "findByPosition",
+            "summary": "Finds\u0020the\u0020segment\u0020by\u0020a\u0020post\u0020and\u0020the\u0020position",
+            "url": "classes/App-Database-BlogPostSegment.html#method_findByPosition"
+        },                {
             "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003Aformat\u0028\u0029",
             "name": "format",
             "summary": "",
@@ -605,12 +605,12 @@ Search.appendIndex(
             "name": "delete",
             "summary": "",
             "url": "classes/App-Database-BlogPostSegment.html#method_delete"
-        }, {
-      "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003AgetBlogPost\u0028\u0029",
-      "name": "getBlogPost",
-      "summary": "Gets\u0020the\u0020post\u0020this\u0020segment\u0020belongs\u0020to",
-      "url": "classes/App-Database-BlogPostSegment.html#method_getBlogPost"
-    },                {
+        },                {
+            "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003AgetBlogPost\u0028\u0029",
+            "name": "getBlogPost",
+            "summary": "Gets\u0020the\u0020post\u0020this\u0020segment\u0020belongs\u0020to",
+            "url": "classes/App-Database-BlogPostSegment.html#method_getBlogPost"
+        },                {
             "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003Amove\u0028\u0029",
             "name": "move",
             "summary": "Moves\u0020the\u0020entity",
@@ -620,17 +620,17 @@ Search.appendIndex(
             "name": "update",
             "summary": "",
             "url": "classes/App-Database-BlogPostSegment.html#method_update"
-        }, {
-      "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003AgetFile\u0028\u0029",
-      "name": "getFile",
-      "summary": "The\u0020file\u0020this\u0020segment\u0020contains",
-      "url": "classes/App-Database-BlogPostSegment.html#method_getFile"
-    }, {
-      "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003AgetGallery\u0028\u0029",
-      "name": "getGallery",
-      "summary": "The\u0020gallery\u0020this\u0020segment\u0020contains",
-      "url": "classes/App-Database-BlogPostSegment.html#method_getGallery"
-    },                {
+        },                {
+            "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003AgetFile\u0028\u0029",
+            "name": "getFile",
+            "summary": "The\u0020file\u0020this\u0020segment\u0020contains",
+            "url": "classes/App-Database-BlogPostSegment.html#method_getFile"
+        },                {
+            "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003AgetGallery\u0028\u0029",
+            "name": "getGallery",
+            "summary": "The\u0020gallery\u0020this\u0020segment\u0020contains",
+            "url": "classes/App-Database-BlogPostSegment.html#method_getGallery"
+        },                {
             "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003A\u0024galleryId",
             "name": "galleryId",
             "summary": "",
@@ -688,7 +688,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\File",
             "name": "File",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
+            "summary": "This\u0020class\u0020contains\u0020information\u0020about\u0020files\u0020stored\u0020with\u0020the\u0020media\u0020manager\u0020in\u0020Jinya\u0020CMS",
             "url": "classes/App-Database-File.html"
         },                {
             "fqsen": "\\App\\Database\\File\u003A\u003AfindById\u0028\u0029",
@@ -728,7 +728,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\File\u003A\u003Aformat\u0028\u0029",
             "name": "format",
-            "summary": "",
+            "summary": "Formats\u0020the\u0020file\u0020into\u0020an\u0020array",
             "url": "classes/App-Database-File.html#method_format"
         },                {
             "fqsen": "\\App\\Database\\File\u003A\u003AgetCreator\u0028\u0029",
@@ -778,7 +778,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Form",
             "name": "Form",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
+            "summary": "This\u0020class\u0020contains\u0020a\u0020form,\u0020forms\u0020allow\u0020artists\u0020to\u0020receive\u0020feedback\u0020from\u0020their\u0020site\u0020visitors",
             "url": "classes/App-Database-Form.html"
         },                {
             "fqsen": "\\App\\Database\\Form\u003A\u003AfindById\u0028\u0029",
@@ -818,17 +818,17 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Form\u003A\u003Aformat\u0028\u0029",
             "name": "format",
-            "summary": "",
+            "summary": "Formats\u0020the\u0020form\u0020into\u0020an\u0020array",
             "url": "classes/App-Database-Form.html#method_format"
         },                {
             "fqsen": "\\App\\Database\\Form\u003A\u003AgetCreator\u0028\u0029",
             "name": "getCreator",
-            "summary": "Gets\u0020the\u0020creator\u0020of\u0020this\u0020file",
+            "summary": "Gets\u0020the\u0020creator\u0020of\u0020this\u0020form",
             "url": "classes/App-Database-Form.html#method_getCreator"
         },                {
             "fqsen": "\\App\\Database\\Form\u003A\u003AgetUpdatedBy\u0028\u0029",
             "name": "getUpdatedBy",
-            "summary": "Gets\u0020the\u0020artist\u0020that\u0020last\u0020updated\u0020this\u0020file",
+            "summary": "Gets\u0020the\u0020artist\u0020that\u0020last\u0020updated\u0020this\u0020form",
             "url": "classes/App-Database-Form.html#method_getUpdatedBy"
         },                {
             "fqsen": "\\App\\Database\\Form\u003A\u003A\u0024creatorId",
@@ -868,7 +868,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\FormItem",
             "name": "FormItem",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020entities\u0020that\u0020need\u0020the\u0020ability\u0020to\u0020rearrange\u0020themselves\u0020in\u0020their\u0020parent",
+            "summary": "This\u0020class\u0020contains\u0020a\u0020form\u0020item,\u0020a\u0020form\u0020has\u0020several\u0020items",
             "url": "classes/App-Database-FormItem.html"
         },                {
             "fqsen": "\\App\\Database\\FormItem\u003A\u003AfindById\u0028\u0029",
@@ -893,12 +893,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\FormItem\u003A\u003AgetForm\u0028\u0029",
             "name": "getForm",
-            "summary": "",
+            "summary": "Gets\u0020the\u0020form\u0020of\u0020the\u0020current\u0020form\u0020item",
             "url": "classes/App-Database-FormItem.html#method_getForm"
         },                {
             "fqsen": "\\App\\Database\\FormItem\u003A\u003Aformat\u0028\u0029",
             "name": "format",
-            "summary": "",
+            "summary": "Formats\u0020the\u0020form\u0020item\u0020into\u0020an\u0020array",
             "url": "classes/App-Database-FormItem.html#method_format"
         },                {
             "fqsen": "\\App\\Database\\FormItem\u003A\u003Acreate\u0028\u0029",
@@ -973,7 +973,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Gallery",
             "name": "Gallery",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
+            "summary": "This\u0020class\u0020contains\u0020a\u0020gallery,\u0020galleries\u0020are\u0020used\u0020to\u0020arrange\u0020files\u0020in\u0020a\u0020list\u0020or\u0020masonry\u0020layout\u0020and\u0020horizontal\u0020or\u0020vertical\u0020orientation.\u0020They\u0020can\u0020be\u0020embedded\u0020into\u0020segment\u0020pages\u0020and\u0020blog\u0020posts",
             "url": "classes/App-Database-Gallery.html"
         },                {
             "fqsen": "\\App\\Database\\Gallery\u003A\u003AfindById\u0028\u0029",
@@ -993,17 +993,17 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Gallery\u003A\u003Aformat\u0028\u0029",
             "name": "format",
-            "summary": "",
+            "summary": "Formats\u0020the\u0020gallery\u0020into\u0020an\u0020array",
             "url": "classes/App-Database-Gallery.html#method_format"
         },                {
             "fqsen": "\\App\\Database\\Gallery\u003A\u003AgetCreator\u0028\u0029",
             "name": "getCreator",
-            "summary": "Gets\u0020the\u0020creator\u0020of\u0020this\u0020file",
+            "summary": "Gets\u0020the\u0020creator\u0020of\u0020this\u0020gallery",
             "url": "classes/App-Database-Gallery.html#method_getCreator"
         },                {
             "fqsen": "\\App\\Database\\Gallery\u003A\u003AgetUpdatedBy\u0028\u0029",
             "name": "getUpdatedBy",
-            "summary": "Gets\u0020the\u0020artist\u0020that\u0020last\u0020updated\u0020this\u0020file",
+            "summary": "Gets\u0020the\u0020artist\u0020that\u0020last\u0020updated\u0020this\u0020gallery",
             "url": "classes/App-Database-Gallery.html#method_getUpdatedBy"
         },                {
             "fqsen": "\\App\\Database\\Gallery\u003A\u003Acreate\u0028\u0029",
@@ -1088,27 +1088,27 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\GalleryFilePosition",
             "name": "GalleryFilePosition",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020entities\u0020that\u0020need\u0020the\u0020ability\u0020to\u0020rearrange\u0020themselves\u0020in\u0020their\u0020parent",
+            "summary": "This\u0020class\u0020is\u0020a\u0020mapper\u0020class\u0020to\u0020combine\u0020galleries\u0020and\u0020files,\u0020while\u0020maintaining\u0020a\u0020position\u0020the\u0020file\u0020is\u0020placed\u0020at\u0020in\u0020the\u0020gallery",
             "url": "classes/App-Database-GalleryFilePosition.html"
         },                {
             "fqsen": "\\App\\Database\\GalleryFilePosition\u003A\u003AfindById\u0028\u0029",
             "name": "findById",
-            "summary": "",
+            "summary": "Not\u0020implemented",
             "url": "classes/App-Database-GalleryFilePosition.html#method_findById"
         },                {
             "fqsen": "\\App\\Database\\GalleryFilePosition\u003A\u003AfindByKeyword\u0028\u0029",
             "name": "findByKeyword",
-            "summary": "",
+            "summary": "Not\u0020implemented",
             "url": "classes/App-Database-GalleryFilePosition.html#method_findByKeyword"
         },                {
             "fqsen": "\\App\\Database\\GalleryFilePosition\u003A\u003AfindAll\u0028\u0029",
             "name": "findAll",
-            "summary": "",
+            "summary": "Not\u0020implemented",
             "url": "classes/App-Database-GalleryFilePosition.html#method_findAll"
         },                {
             "fqsen": "\\App\\Database\\GalleryFilePosition\u003A\u003AfindByPosition\u0028\u0029",
             "name": "findByPosition",
-            "summary": "Gets\u0020the\u0020gallery\u0020file\u0020position\u0020at\u0020the\u0020given\u0020position",
+            "summary": "Gets\u0020the\u0020gallery\u0020file\u0020position\u0020at\u0020the\u0020given\u0020position\u0020in\u0020the\u0020given\u0020gallery",
             "url": "classes/App-Database-GalleryFilePosition.html#method_findByPosition"
         },                {
             "fqsen": "\\App\\Database\\GalleryFilePosition\u003A\u003Acreate\u0028\u0029",
@@ -1123,7 +1123,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\GalleryFilePosition\u003A\u003Aformat\u0028\u0029",
             "name": "format",
-            "summary": "",
+            "summary": "Formats\u0020the\u0020gallery\u0020file\u0020position\u0020into\u0020an\u0020array",
             "url": "classes/App-Database-GalleryFilePosition.html#method_format"
         },                {
             "fqsen": "\\App\\Database\\GalleryFilePosition\u003A\u003AgetGallery\u0028\u0029",
@@ -1156,14 +1156,9 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Database-GalleryFilePosition.html#property_fileId"
         },                {
-            "fqsen": "\\App\\Database\\GalleryFilePosition\u003A\u003A\u0024position",
-            "name": "position",
-            "summary": "",
-            "url": "classes/App-Database-GalleryFilePosition.html#property_position"
-        },                {
             "fqsen": "\\App\\Database\\KnownDevice",
             "name": "KnownDevice",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
+            "summary": "This\u0020class\u0020contains\u0020a\u0020known\u0020device,\u0020known\u0020devices\u0020are\u0020used\u0020to\u0020remove\u0020the\u0020need\u0020for\u0020a\u0020two\u002Dfactor\u0020code.\u0020It\u0020is\u0020up\u0020to\u0020the\u0020API\u0020consumer\u0020whether\u0020they\u0020want\u0020to\u0020use\u0020them\u0020or\u0020not.",
             "url": "classes/App-Database-KnownDevice.html"
         },                {
             "fqsen": "\\App\\Database\\KnownDevice\u003A\u003AfindById\u0028\u0029",
@@ -1213,7 +1208,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\KnownDevice\u003A\u003Aformat\u0028\u0029",
             "name": "format",
-            "summary": "",
+            "summary": "Formats\u0020the\u0020known\u0020device\u0020into\u0020an\u0020array",
             "url": "classes/App-Database-KnownDevice.html#method_format"
         },                {
             "fqsen": "\\App\\Database\\KnownDevice\u003A\u003A\u0024userId",
@@ -1238,7 +1233,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Menu",
             "name": "Menu",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
+            "summary": "This\u0020class\u0020contains\u0020a\u0020menu,\u0020menus\u0020contain\u0020menu\u0020items,\u0020which\u0020are\u0020used\u0020to\u0020create\u0020the\u0020navigation\u0020in\u0020themes",
             "url": "classes/App-Database-Menu.html"
         },                {
             "fqsen": "\\App\\Database\\Menu\u003A\u003AfindById\u0028\u0029",
@@ -1258,7 +1253,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Menu\u003A\u003Aformat\u0028\u0029",
             "name": "format",
-            "summary": "",
+            "summary": "Formats\u0020the\u0020current\u0020menu\u0020into\u0020an\u0020array",
             "url": "classes/App-Database-Menu.html#method_format"
         },                {
             "fqsen": "\\App\\Database\\Menu\u003A\u003AgetLogo\u0028\u0029",
@@ -1298,7 +1293,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\MenuItem",
             "name": "MenuItem",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020entities\u0020that\u0020need\u0020the\u0020ability\u0020to\u0020rearrange\u0020themselves\u0020in\u0020their\u0020parent",
+            "summary": "This\u0020class\u0020contains\u0020a\u0020menu\u0020item.\u0020A\u0020menu\u0020item\u0020is\u0020a\u0020class\u0020containing\u0020information\u0020about\u0020an\u0020entry\u0020in\u0020a\u0020menu.",
             "url": "classes/App-Database-MenuItem.html"
         },                {
             "fqsen": "\\App\\Database\\MenuItem\u003A\u003AfindByKeyword\u0028\u0029",

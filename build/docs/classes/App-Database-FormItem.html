@@ -203,7 +203,7 @@
 
     </aside>
 
-            <p class="phpdocumentor-summary">Base class for all entities that need the ability to rearrange themselves in their parent</p>
+            <p class="phpdocumentor-summary">This class contains a form item, a form has several items</p>
 
 
 
@@ -378,14 +378,14 @@
     <span>
                                 &nbsp;: array&lt;string, string[]|bool|int|string|null&gt;    </span>
 </dt>
-<dd></dd>
+<dd>Formats the form item into an array</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-FormItem.html#method_getForm">getForm()</a>
     <span>
                                 &nbsp;: <a href="classes/App-Database-Form.html"><abbr title="\App\Database\Form">Form</abbr></a>|null    </span>
 </dt>
-<dd></dd>
+<dd>Gets the form of the current form item</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Utils-LoadableEntity.html#method_getIdAsInt">getIdAsInt()</a>
@@ -548,7 +548,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/FormItem.php"><a href="files/src-database-formitem.html"><abbr title="src/Database/FormItem.php">FormItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">25</span>
+    <span class="phpdocumentor-element-found-in__line">29</span>
 
     </aside>
 
@@ -559,9 +559,9 @@
     <span class="phpdocumentor-signature__name">$formId</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>The ID of the form this form item belongs to</p>
+</section>
 
     
 
@@ -582,7 +582,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/FormItem.php"><a href="files/src-database-formitem.html"><abbr title="src/Database/FormItem.php">FormItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">24</span>
+    <span class="phpdocumentor-element-found-in__line">27</span>
 
     </aside>
 
@@ -593,9 +593,9 @@
     <span class="phpdocumentor-signature__name">$helpText</span>
      = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>The help text of the form item, it is theme dependent if and if yes, how they will be displayed</p>
+</section>
 
     
 
@@ -650,7 +650,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/FormItem.php"><a href="files/src-database-formitem.html"><abbr title="src/Database/FormItem.php">FormItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">26</span>
+    <span class="phpdocumentor-element-found-in__line">31</span>
 
     </aside>
 
@@ -661,9 +661,9 @@
     <span class="phpdocumentor-signature__name">$isFromAddress</span>
      = <span class="phpdocumentor-signature__default-value">false</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>If true this form items value is considered the from address in the submitted message and the artist will reply to this</p>
+</section>
 
     
 
@@ -684,7 +684,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/FormItem.php"><a href="files/src-database-formitem.html"><abbr title="src/Database/FormItem.php">FormItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">28</span>
+    <span class="phpdocumentor-element-found-in__line">35</span>
 
     </aside>
 
@@ -695,9 +695,9 @@
     <span class="phpdocumentor-signature__name">$isRequired</span>
      = <span class="phpdocumentor-signature__default-value">false</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>If true this form item is required and needs to be filled out</p>
+</section>
 
     
 
@@ -718,7 +718,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/FormItem.php"><a href="files/src-database-formitem.html"><abbr title="src/Database/FormItem.php">FormItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">27</span>
+    <span class="phpdocumentor-element-found-in__line">33</span>
 
     </aside>
 
@@ -729,9 +729,9 @@
     <span class="phpdocumentor-signature__name">$isSubject</span>
      = <span class="phpdocumentor-signature__default-value">false</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>If true this form items value will be used for the subject of the mail</p>
+</section>
 
     
 
@@ -752,7 +752,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/FormItem.php"><a href="files/src-database-formitem.html"><abbr title="src/Database/FormItem.php">FormItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">23</span>
+    <span class="phpdocumentor-element-found-in__line">25</span>
 
     </aside>
 
@@ -763,9 +763,9 @@
     <span class="phpdocumentor-signature__name">$label</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>The label of the form item</p>
+</section>
 
     
 
@@ -786,7 +786,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/FormItem.php"><a href="files/src-database-formitem.html"><abbr title="src/Database/FormItem.php">FormItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">20</span>
+    <span class="phpdocumentor-element-found-in__line">21</span>
 
     </aside>
 
@@ -798,7 +798,9 @@
      = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
     
-    
+        <section class="phpdocumentor-description"><p>The options of the form item, only needed when the type is select</p>
+</section>
+
     
 
 </article>
@@ -818,7 +820,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/FormItem.php"><a href="files/src-database-formitem.html"><abbr title="src/Database/FormItem.php">FormItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">29</span>
+    <span class="phpdocumentor-element-found-in__line">37</span>
 
     </aside>
 
@@ -829,9 +831,9 @@
     <span class="phpdocumentor-signature__name">$placeholder</span>
      = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>The placeholder text for the form element rendered, may be null</p>
+</section>
 
     
 
@@ -886,7 +888,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/FormItem.php"><a href="files/src-database-formitem.html"><abbr title="src/Database/FormItem.php">FormItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">22</span>
+    <span class="phpdocumentor-element-found-in__line">23</span>
 
     </aside>
 
@@ -898,7 +900,9 @@
      = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
     
-    
+        <section class="phpdocumentor-description"><p>The spam filter contains a list of keywords, by which a submitted form is declared as spam. Messages marked as spam will not be send to the to address of the form</p>
+</section>
+
     
 
 </article>
@@ -918,7 +922,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/FormItem.php"><a href="files/src-database-formitem.html"><abbr title="src/Database/FormItem.php">FormItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">18</span>
+    <span class="phpdocumentor-element-found-in__line">19</span>
 
     </aside>
 
@@ -929,9 +933,9 @@
     <span class="phpdocumentor-signature__name">$type</span>
      = <span class="phpdocumentor-signature__default-value">&#039;text&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>The type of the form item, currently supported are select, checkbox and textarea. You can also specify any valid HTML5 form type</p>
+</section>
 
     
 
@@ -990,7 +994,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/FormItem.php"><a href="files/src-database-formitem.html"><abbr title="src/Database/FormItem.php">FormItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">119</span>
+    <span class="phpdocumentor-element-found-in__line">131</span>
 
     </aside>
 
@@ -1023,7 +1027,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/FormItem.php"><a href="files/src-database-formitem.html"><abbr title="src/Database/FormItem.php">FormItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">138</span>
+    <span class="phpdocumentor-element-found-in__line">150</span>
 
     </aside>
 
@@ -1146,7 +1150,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/FormItem.php"><a href="files/src-database-formitem.html"><abbr title="src/Database/FormItem.php">FormItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">50</span>
+    <span class="phpdocumentor-element-found-in__line">58</span>
 
     </aside>
 
@@ -1179,7 +1183,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/FormItem.php"><a href="files/src-database-formitem.html"><abbr title="src/Database/FormItem.php">FormItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">34</span>
+    <span class="phpdocumentor-element-found-in__line">42</span>
 
     </aside>
 
@@ -1223,7 +1227,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/FormItem.php"><a href="files/src-database-formitem.html"><abbr title="src/Database/FormItem.php">FormItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">50</span>
 
     </aside>
 
@@ -1267,7 +1271,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/FormItem.php"><a href="files/src-database-formitem.html"><abbr title="src/Database/FormItem.php">FormItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">64</span>
+    <span class="phpdocumentor-element-found-in__line">72</span>
 
     </aside>
 
@@ -1365,11 +1369,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/FormItem.php"><a href="files/src-database-formitem.html"><abbr title="src/Database/FormItem.php">FormItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">98</span>
+    <span class="phpdocumentor-element-found-in__line">110</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Formats the form item into an array</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">format</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, string[]|bool|int|string|null&gt;</span></code>
@@ -1397,11 +1402,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/FormItem.php"><a href="files/src-database-formitem.html"><abbr title="src/Database/FormItem.php">FormItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">90</span>
+    <span class="phpdocumentor-element-found-in__line">100</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Gets the form of the current form item</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">getForm</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/App-Database-Form.html"><abbr title="\App\Database\Form">Form</abbr></a>|null</span></code>
@@ -1533,7 +1539,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/FormItem.php"><a href="files/src-database-formitem.html"><abbr title="src/Database/FormItem.php">FormItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">148</span>
+    <span class="phpdocumentor-element-found-in__line">160</span>
 
     </aside>
 
@@ -1577,7 +1583,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/FormItem.php"><a href="files/src-database-formitem.html"><abbr title="src/Database/FormItem.php">FormItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">159</span>
+    <span class="phpdocumentor-element-found-in__line">171</span>
 
     </aside>
 

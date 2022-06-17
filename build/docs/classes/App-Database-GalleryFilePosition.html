@@ -203,7 +203,7 @@
 
     </aside>
 
-            <p class="phpdocumentor-summary">Base class for all entities that need the ability to rearrange themselves in their parent</p>
+            <p class="phpdocumentor-summary">This class is a mapper class to combine galleries and files, while maintaining a position the file is placed at in the gallery</p>
 
 
 
@@ -248,7 +248,7 @@
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="classes/App-Database-GalleryFilePosition.html#property_position">$position</a>
+    <a href="classes/App-Database-Utils-RearrangableEntity.html#property_position">$position</a>
     <span>
                         &nbsp;: int            </span>
 </dt>
@@ -294,35 +294,35 @@
     <span>
                                 &nbsp;: <abbr title="\Iterator">Iterator</abbr>    </span>
 </dt>
-<dd></dd>
+<dd>Not implemented</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-GalleryFilePosition.html#method_findById">findById()</a>
     <span>
-                                &nbsp;: <a href="classes/App-Database-GalleryFilePosition.html"><abbr title="\App\Database\GalleryFilePosition">GalleryFilePosition</abbr></a>    </span>
+                                &nbsp;: object|null    </span>
 </dt>
-<dd></dd>
+<dd>Not implemented</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-GalleryFilePosition.html#method_findByKeyword">findByKeyword()</a>
     <span>
                                 &nbsp;: <abbr title="\Iterator">Iterator</abbr>    </span>
 </dt>
-<dd></dd>
+<dd>Not implemented</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-GalleryFilePosition.html#method_findByPosition">findByPosition()</a>
     <span>
                                 &nbsp;: <a href="classes/App-Database-GalleryFilePosition.html"><abbr title="\App\Database\GalleryFilePosition">GalleryFilePosition</abbr></a>|null    </span>
 </dt>
-<dd>Gets the gallery file position at the given position</dd>
+<dd>Gets the gallery file position at the given position in the given gallery</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-GalleryFilePosition.html#method_format">format()</a>
     <span>
                                 &nbsp;: array&lt;string, array<string,int|string|null>|int&gt;    </span>
 </dt>
-<dd></dd>
+<dd>Formats the gallery file position into an array</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-GalleryFilePosition.html#method_getFile">getFile()</a>
@@ -499,7 +499,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/GalleryFilePosition.php"><a href="files/src-database-galleryfileposition.html"><abbr title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">18</span>
+    <span class="phpdocumentor-element-found-in__line">20</span>
 
     </aside>
 
@@ -510,9 +510,9 @@
     <span class="phpdocumentor-signature__name">$fileId</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>The ID of the file</p>
+</section>
 
     
 
@@ -533,7 +533,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/GalleryFilePosition.php"><a href="files/src-database-galleryfileposition.html"><abbr title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">17</span>
+    <span class="phpdocumentor-element-found-in__line">18</span>
 
     </aside>
 
@@ -544,9 +544,9 @@
     <span class="phpdocumentor-signature__name">$galleryId</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>The ID of the gallery</p>
+</section>
 
     
 
@@ -594,14 +594,14 @@
 >
     <h4 class="phpdocumentor-element__name" id="property_position">
         $position
-        <a href="classes/App-Database-GalleryFilePosition.html#property_position" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/App-Database-Utils-RearrangableEntity.html#property_position" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/GalleryFilePosition.php"><a href="files/src-database-galleryfileposition.html"><abbr title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Utils/RearrangableEntity.php"><a href="files/src-database-utils-rearrangableentity.html"><abbr title="src/Database/Utils/RearrangableEntity.php">RearrangableEntity.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">19</span>
+    <span class="phpdocumentor-element-found-in__line">15</span>
 
     </aside>
 
@@ -865,7 +865,8 @@
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Not implemented</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">findAll</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Iterator">Iterator</abbr></span></code>
@@ -873,19 +874,6 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
-                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type"><abbr title="\Iterator">Iterator</abbr></span>
@@ -910,10 +898,11 @@
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Not implemented</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">findById</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/App-Database-GalleryFilePosition.html"><abbr title="\App\Database\GalleryFilePosition">GalleryFilePosition</abbr></a></span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">findById</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">object|null</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -929,22 +918,9 @@
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
-                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/App-Database-GalleryFilePosition.html"><abbr title="\App\Database\GalleryFilePosition">GalleryFilePosition</abbr></a></span>
+    <span class="phpdocumentor-signature__response_type">object|null</span>
             &mdash;
         
     
@@ -966,7 +942,8 @@
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Not implemented</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">findByKeyword</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$keyword</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Iterator">Iterator</abbr></span></code>
@@ -985,19 +962,6 @@
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
-                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type"><abbr title="\Iterator">Iterator</abbr></span>
@@ -1022,7 +986,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Gets the gallery file position at the given position</p>
+        <p class="phpdocumentor-summary">Gets the gallery file position at the given position in the given gallery</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1036,14 +1000,18 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The gallery ID</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$position</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The files position</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1114,11 +1082,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/GalleryFilePosition.php"><a href="files/src-database-galleryfileposition.html"><abbr title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">102</span>
+    <span class="phpdocumentor-element-found-in__line">104</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Formats the gallery file position into an array</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">format</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, array<string,int|string|null>|int&gt;</span></code>
@@ -1184,7 +1153,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/GalleryFilePosition.php"><a href="files/src-database-galleryfileposition.html"><abbr title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">153</span>
+    <span class="phpdocumentor-element-found-in__line">155</span>
 
     </aside>
 
@@ -1255,7 +1224,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/GalleryFilePosition.php"><a href="files/src-database-galleryfileposition.html"><abbr title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">138</span>
+    <span class="phpdocumentor-element-found-in__line">140</span>
 
     </aside>
 
@@ -1392,7 +1361,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/GalleryFilePosition.php"><a href="files/src-database-galleryfileposition.html"><abbr title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">161</span>
+    <span class="phpdocumentor-element-found-in__line">163</span>
 
     </aside>
 
@@ -1449,7 +1418,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/GalleryFilePosition.php"><a href="files/src-database-galleryfileposition.html"><abbr title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">171</span>
+    <span class="phpdocumentor-element-found-in__line">173</span>
 
     </aside>
 

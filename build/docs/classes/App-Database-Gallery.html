@@ -203,7 +203,7 @@
 
     </aside>
 
-            <p class="phpdocumentor-summary">Base class for all entity classes. this class contains several helper methods and provides a common interface for all entities.</p>
+            <p class="phpdocumentor-summary">This class contains a gallery, galleries are used to arrange files in a list or masonry layout and horizontal or vertical orientation. They can be embedded into segment pages and blog posts</p>
 
 
 
@@ -378,14 +378,14 @@
     <span>
                                 &nbsp;: array&lt;string, array<string,array<string,string|null>|string>|int|string&gt;    </span>
 </dt>
-<dd></dd>
+<dd>Formats the gallery into an array</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Gallery.html#method_getCreator">getCreator()</a>
     <span>
                                 &nbsp;: <a href="classes/App-Database-Artist.html"><abbr title="\App\Database\Artist">Artist</abbr></a>|null    </span>
 </dt>
-<dd>Gets the creator of this file</dd>
+<dd>Gets the creator of this gallery</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Gallery.html#method_getFiles">getFiles()</a>
@@ -413,7 +413,7 @@
     <span>
                                 &nbsp;: <a href="classes/App-Database-Artist.html"><abbr title="\App\Database\Artist">Artist</abbr></a>|null    </span>
 </dt>
-<dd>Gets the artist that last updated this file</dd>
+<dd>Gets the artist that last updated this gallery</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Gallery.html#method_update">update()</a>
@@ -526,22 +526,22 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Gallery.php"><a href="files/src-database-gallery.html"><abbr title="src/Database/Gallery.php">Gallery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">25</span>
+    <span class="phpdocumentor-element-found-in__line">28</span>
 
     </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">ORIENTATION_HORIZONTAL</span>
     = <span class="phpdocumentor-signature__default-value">&#039;horizontal&#039;</span>
 </code>
 
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>Used to mark a gallery for horizontal orientation</p>
+</section>
 
     
 
@@ -555,22 +555,22 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Gallery.php"><a href="files/src-database-gallery.html"><abbr title="src/Database/Gallery.php">Gallery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">26</span>
+    <span class="phpdocumentor-element-found-in__line">30</span>
 
     </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">ORIENTATION_VERTICAL</span>
     = <span class="phpdocumentor-signature__default-value">&#039;vertical&#039;</span>
 </code>
 
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>Used to mark a gallery for verticla orientation</p>
+</section>
 
     
 
@@ -584,22 +584,22 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Gallery.php"><a href="files/src-database-gallery.html"><abbr title="src/Database/Gallery.php">Gallery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">23</span>
+    <span class="phpdocumentor-element-found-in__line">25</span>
 
     </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">TYPE_MASONRY</span>
     = <span class="phpdocumentor-signature__default-value">&#039;masonry&#039;</span>
 </code>
 
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>Used to mark a gallery for masonry layout</p>
+</section>
 
     
 
@@ -613,22 +613,22 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Gallery.php"><a href="files/src-database-gallery.html"><abbr title="src/Database/Gallery.php">Gallery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">22</span>
+    <span class="phpdocumentor-element-found-in__line">23</span>
 
     </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">TYPE_SEQUENCE</span>
     = <span class="phpdocumentor-signature__default-value">&#039;sequence&#039;</span>
 </code>
 
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>Used to mark a gallery for list or sequential layout</p>
+</section>
 
     
 
@@ -657,7 +657,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Gallery.php"><a href="files/src-database-gallery.html"><abbr title="src/Database/Gallery.php">Gallery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">33</span>
+    <span class="phpdocumentor-element-found-in__line">40</span>
 
     </aside>
 
@@ -668,9 +668,9 @@
     <span class="phpdocumentor-signature__name">$createdAt</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>The time the gallery was created</p>
+</section>
 
     
 
@@ -691,7 +691,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Gallery.php"><a href="files/src-database-gallery.html"><abbr title="src/Database/Gallery.php">Gallery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">28</span>
+    <span class="phpdocumentor-element-found-in__line">33</span>
 
     </aside>
 
@@ -702,9 +702,9 @@
     <span class="phpdocumentor-signature__name">$creatorId</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>The ID of the creator of the gallery</p>
+</section>
 
     
 
@@ -725,7 +725,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Gallery.php"><a href="files/src-database-gallery.html"><abbr title="src/Database/Gallery.php">Gallery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">40</span>
+    <span class="phpdocumentor-element-found-in__line">50</span>
 
     </aside>
 
@@ -736,9 +736,9 @@
     <span class="phpdocumentor-signature__name">$description</span>
      = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>The description of the gallery. Currently ignored by the default theme. May contain HTML</p>
+</section>
 
     
 
@@ -793,7 +793,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Gallery.php"><a href="files/src-database-gallery.html"><abbr title="src/Database/Gallery.php">Gallery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">35</span>
+    <span class="phpdocumentor-element-found-in__line">43</span>
 
     </aside>
 
@@ -804,9 +804,9 @@
     <span class="phpdocumentor-signature__name">$lastUpdatedAt</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>The time the gallery was last updated</p>
+</section>
 
     
 
@@ -827,7 +827,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Gallery.php"><a href="files/src-database-gallery.html"><abbr title="src/Database/Gallery.php">Gallery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">38</span>
+    <span class="phpdocumentor-element-found-in__line">47</span>
 
     </aside>
 
@@ -838,9 +838,9 @@
     <span class="phpdocumentor-signature__name">$name</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>The name of the gallery</p>
+</section>
 
     
 
@@ -861,7 +861,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Gallery.php"><a href="files/src-database-gallery.html"><abbr title="src/Database/Gallery.php">Gallery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">44</span>
+    <span class="phpdocumentor-element-found-in__line">56</span>
 
     </aside>
 
@@ -872,9 +872,9 @@
     <span class="phpdocumentor-signature__name">$orientation</span>
      = <span class="phpdocumentor-signature__default-value">self::ORIENTATION_HORIZONTAL</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>The orientation of the gallery. The selected orientation should be respected in themes</p>
+</section>
 
     
 
@@ -895,7 +895,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Gallery.php"><a href="files/src-database-gallery.html"><abbr title="src/Database/Gallery.php">Gallery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">53</span>
 
     </aside>
 
@@ -906,9 +906,9 @@
     <span class="phpdocumentor-signature__name">$type</span>
      = <span class="phpdocumentor-signature__default-value">self::TYPE_SEQUENCE</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>The type or layout of the gallery. The selected layout should be respected in themes</p>
+</section>
 
     
 
@@ -929,7 +929,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Gallery.php"><a href="files/src-database-gallery.html"><abbr title="src/Database/Gallery.php">Gallery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">30</span>
+    <span class="phpdocumentor-element-found-in__line">36</span>
 
     </aside>
 
@@ -940,9 +940,9 @@
     <span class="phpdocumentor-signature__name">$updatedById</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>The ID of the artist that last touched the gallery</p>
+</section>
 
     
 
@@ -1001,7 +1001,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Gallery.php"><a href="files/src-database-gallery.html"><abbr title="src/Database/Gallery.php">Gallery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">184</span>
+    <span class="phpdocumentor-element-found-in__line">200</span>
 
     </aside>
 
@@ -1047,7 +1047,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Gallery.php"><a href="files/src-database-gallery.html"><abbr title="src/Database/Gallery.php">Gallery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">204</span>
+    <span class="phpdocumentor-element-found-in__line">220</span>
 
     </aside>
 
@@ -1183,7 +1183,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Gallery.php"><a href="files/src-database-gallery.html"><abbr title="src/Database/Gallery.php">Gallery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">94</span>
+    <span class="phpdocumentor-element-found-in__line">108</span>
 
     </aside>
 
@@ -1229,7 +1229,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Gallery.php"><a href="files/src-database-gallery.html"><abbr title="src/Database/Gallery.php">Gallery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">56</span>
+    <span class="phpdocumentor-element-found-in__line">68</span>
 
     </aside>
 
@@ -1317,7 +1317,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Gallery.php"><a href="files/src-database-gallery.html"><abbr title="src/Database/Gallery.php">Gallery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">73</span>
+    <span class="phpdocumentor-element-found-in__line">85</span>
 
     </aside>
 
@@ -1335,8 +1335,8 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                <section class="phpdocumentor-description"><p>The keyword to search for</p>
-                </section>
+                    <section class="phpdocumentor-description"><p>The keyword to search for</p>
+</section>
 
             </dd>
             </dl>
@@ -1375,11 +1375,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Gallery.php"><a href="files/src-database-gallery.html"><abbr title="src/Database/Gallery.php">Gallery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">113</span>
+    <span class="phpdocumentor-element-found-in__line">129</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Formats the gallery into an array</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">format</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, array<string,array<string,string|null>|string>|int|string&gt;</span></code>
@@ -1445,11 +1446,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Gallery.php"><a href="files/src-database-gallery.html"><abbr title="src/Database/Gallery.php">Gallery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">161</span>
+    <span class="phpdocumentor-element-found-in__line">177</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Gets the creator of this file</p>
+        <p class="phpdocumentor-summary">Gets the creator of this gallery</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1516,7 +1517,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Gallery.php"><a href="files/src-database-gallery.html"><abbr title="src/Database/Gallery.php">Gallery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">233</span>
+    <span class="phpdocumentor-element-found-in__line">249</span>
 
     </aside>
 
@@ -1645,11 +1646,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Gallery.php"><a href="files/src-database-gallery.html"><abbr title="src/Database/Gallery.php">Gallery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">176</span>
+    <span class="phpdocumentor-element-found-in__line">192</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Gets the artist that last updated this file</p>
+        <p class="phpdocumentor-summary">Gets the artist that last updated this gallery</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1716,7 +1717,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Gallery.php"><a href="files/src-database-gallery.html"><abbr title="src/Database/Gallery.php">Gallery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">212</span>
+    <span class="phpdocumentor-element-found-in__line">228</span>
 
     </aside>
 
