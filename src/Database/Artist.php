@@ -24,36 +24,48 @@ use Laminas\Hydrator\Strategy\BooleanStrategy;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 /**
- *
+ * This class contains all information relevant for an artist. Artists are the users of Jinya CMS
  */
 #[JinyaApi(createRole: AuthenticationChecker::ROLE_ADMIN, readRole: AuthenticationChecker::ROLE_READER, updateRole: AuthenticationChecker::ROLE_ADMIN, deleteRole: AuthenticationChecker::ROLE_ADMIN)]
 class Artist extends LoadableEntity
 {
+    /** @var string The email address of the artist */
     #[JinyaApiField(required: true)]
     public string $email = '';
+    /** @var bool Indicates whether the artist is allowed to log in */
     public bool $enabled = false;
+    /** @var string|null The current two-factor code, gets reset after successful validation */
     #[JinyaApiField(ignore: true)]
     public ?string $twoFactorToken = '';
-    /** @var array<string> $roles */
+    /** @var array<string> $roles The roles of the artist */
     #[JinyaApiField(required: true)]
     public array $roles = [];
+    /** @var string The artist name */
     #[JinyaApiField(required: true)]
     public string $artistName = '';
+    /** @var string|null The path to the profile picture */
     #[JinyaApiField(ignore: true)]
     public ?string $profilePicture = '';
+    /** @var string|null The about me text */
     #[JinyaApiField(ignore: true)]
     public ?string $aboutMe = '';
+    /** @var int|null The count of failed login attempts, after 5 the artist can't log in anymore */
     #[JinyaApiField(ignore: true)]
     public ?int $failedLoginAttempts = 0;
+    /** @var DateTime|null Contains the time until the login is blocked, if the login is not blocked this field is null */
     #[JinyaApiField(ignore: true)]
     public ?DateTime $loginBlockedUntil = null;
+    /** @var bool|null The artist preferred color scheme, null means auto, true means light and false means dark */
     #[JinyaApiField(ignore: true)]
     public ?bool $prefersColorScheme = null;
+    /** @var string The artists password */
+    #[JinyaApiField(ignore: true)]
     public string $password = '';
 
     /**
      * Finds the artist with the given email
-     * @param string $email
+     *
+     * @param string $email The email to search for
      * @return Artist|null
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -79,7 +91,9 @@ class Artist extends LoadableEntity
     }
 
     /**
-     * @param int $id
+     * Finds the artist that belongs to the given ID
+     *
+     * @param int $id The ID to search for
      * @return Artist|null
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -135,11 +149,7 @@ class Artist extends LoadableEntity
     }
 
     /**
-     * Creates the artist
-     *
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws UniqueFailedException
+     * @inheritDoc
      */
     public function create(): void
     {
@@ -167,8 +177,8 @@ class Artist extends LoadableEntity
     }
 
     /**
-     * Counts all available admins
-     * @param int $id
+     * Counts all available admins, excluding the given artist
+     * @param int $id The artist to exclude from check
      * @return int
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -243,9 +253,9 @@ class Artist extends LoadableEntity
     }
 
     /**
-     * Validates the given device code for the given user
+     * Validates the given device code for the given artist
      *
-     * @param string $knownDeviceCode
+     * @param string $knownDeviceCode The device code to validate
      * @return bool
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -260,10 +270,10 @@ class Artist extends LoadableEntity
     }
 
     /**
-     * Changes the password of the user
+     * Changes the password of the artist
      *
-     * @param string $oldPassword
-     * @param string $password
+     * @param string $oldPassword The old password of the artist to validate the password before changing
+     * @param string $password The new password
      * @return bool
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -332,6 +342,8 @@ class Artist extends LoadableEntity
     }
 
     /**
+     * Registers a failed login, after the fifth login failed the login will be blocked for 10 minutes
+     *
      * @throws ForeignKeyFailedException
      * @throws UniqueFailedException
      * @throws InvalidQueryException
@@ -346,6 +358,8 @@ class Artist extends LoadableEntity
     }
 
     /**
+     * Resets the failed login attempts and the time until the login is blocked
+     *
      * @throws ForeignKeyFailedException
      * @throws UniqueFailedException
      * @throws InvalidQueryException

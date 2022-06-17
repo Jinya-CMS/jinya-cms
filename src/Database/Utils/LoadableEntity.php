@@ -41,7 +41,7 @@ abstract class LoadableEntity implements FormattableEntityInterface
     /**
      * Gets all entities that match the given keyword
      *
-     * @param string $keyword
+     * @param string $keyword The keyword to search for
      * @return Iterator
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

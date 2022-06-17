@@ -203,7 +203,8 @@
 
     </aside>
 
-            <p class="phpdocumentor-summary">Base class for all entity classes. this class contains several helper methods and provides a common interface for all entities.</p>
+            <p class="phpdocumentor-summary">This class contains all information relevant for an artist. Artists are the
+                users of Jinya CMS</p>
 
 
 
@@ -322,21 +323,21 @@
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd>Changes the password of the user</dd>
+    <dd>Changes the password of the artist</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Artist.html#method_countAdmins">countAdmins()</a>
     <span>
                                 &nbsp;: int    </span>
 </dt>
-<dd>Counts all available admins</dd>
+    <dd>Counts all available admins, excluding the given artist</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Artist.html#method_create">create()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Creates the artist</dd>
+    <dd>Creates the given entity</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Artist.html#method_delete">delete()</a>
@@ -378,7 +379,7 @@
     <span>
                                 &nbsp;: <a href="classes/App-Database-Artist.html"><abbr title="\App\Database\Artist">Artist</abbr></a>|null    </span>
 </dt>
-<dd>Needs to be implemented to find the derived class by id</dd>
+    <dd>Finds the artist that belongs to the given ID</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Artist.html#method_findByKeyword">findByKeyword()</a>
@@ -413,7 +414,7 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd></dd>
+    <dd>Registers a failed login, after the fifth login failed the login will be blocked for 10 minutes</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Artist.html#method_setPassword">setPassword()</a>
@@ -434,7 +435,7 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd></dd>
+    <dd>Resets the failed login attempts and the time until the login is blocked</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Artist.html#method_update">update()</a>
@@ -448,7 +449,7 @@
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd>Validates the given device code for the given user</dd>
+    <dd>Validates the given device code for the given artist</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Artist.html#method_validatePassword">validatePassword()</a>
@@ -576,24 +577,23 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">44</span>
+        <span class="phpdocumentor-element-found-in__line">50</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">string|null</span>
-    <span class="phpdocumentor-signature__name">$aboutMe</span>
-     = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">string|null</span>
+                            <span class="phpdocumentor-signature__name">$aboutMe</span>
+                            = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The about me text</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -610,24 +610,23 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">40</span>
+        <span class="phpdocumentor-element-found-in__line">44</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">string</span>
-    <span class="phpdocumentor-signature__name">$artistName</span>
-     = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">string</span>
+                            <span class="phpdocumentor-signature__name">$artistName</span>
+                            = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The artist name</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -644,24 +643,23 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+        <span class="phpdocumentor-element-found-in__line">33</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">string</span>
-    <span class="phpdocumentor-signature__name">$email</span>
-     = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">string</span>
+                            <span class="phpdocumentor-signature__name">$email</span>
+                            = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The email address of the artist</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -678,24 +676,24 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">34</span>
+        <span class="phpdocumentor-element-found-in__line">36</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">bool</span>
-    <span class="phpdocumentor-signature__name">$enabled</span>
-     = <span class="phpdocumentor-signature__default-value">false</span></code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">bool</span>
+                            <span class="phpdocumentor-signature__name">$enabled</span>
+                            = <span class="phpdocumentor-signature__default-value">false</span></code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>Indicates whether the artist is allowed to log
+                            in</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -712,24 +710,24 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">46</span>
+        <span class="phpdocumentor-element-found-in__line">53</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">int|null</span>
-    <span class="phpdocumentor-signature__name">$failedLoginAttempts</span>
-     = <span class="phpdocumentor-signature__default-value">0</span></code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">int|null</span>
+                            <span class="phpdocumentor-signature__name">$failedLoginAttempts</span>
+                            = <span class="phpdocumentor-signature__default-value">0</span></code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The count of failed login attempts, after 5 the
+                            artist can't log in anymore</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -780,24 +778,25 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">48</span>
+        <span class="phpdocumentor-element-found-in__line">56</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type"><abbr title="\DateTime">DateTime</abbr>|null</span>
-    <span class="phpdocumentor-signature__name">$loginBlockedUntil</span>
-     = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type"><abbr
+                                    title="\DateTime">DateTime</abbr>|null</span>
+                            <span class="phpdocumentor-signature__name">$loginBlockedUntil</span>
+                            = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>Contains the time until the login is blocked, if
+                            the login is not blocked this field is null</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -814,24 +813,23 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">52</span>
+        <span class="phpdocumentor-element-found-in__line">62</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">string</span>
-    <span class="phpdocumentor-signature__name">$password</span>
-     = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">string</span>
+                            <span class="phpdocumentor-signature__name">$password</span>
+                            = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The artists password</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -848,24 +846,24 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">50</span>
+        <span class="phpdocumentor-element-found-in__line">59</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">bool|null</span>
-    <span class="phpdocumentor-signature__name">$prefersColorScheme</span>
-     = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">bool|null</span>
+                            <span class="phpdocumentor-signature__name">$prefersColorScheme</span>
+                            = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The artist preferred color scheme, null means
+                            auto, true means light and false means dark</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -882,24 +880,23 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+        <span class="phpdocumentor-element-found-in__line">47</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">string|null</span>
-    <span class="phpdocumentor-signature__name">$profilePicture</span>
-     = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">string|null</span>
+                            <span class="phpdocumentor-signature__name">$profilePicture</span>
+                            = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The path to the profile picture</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -916,22 +913,23 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">38</span>
+        <span class="phpdocumentor-element-found-in__line">41</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
-    <span class="phpdocumentor-signature__name">$roles</span>
-     = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
-    
-    
-    
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+                            <span class="phpdocumentor-signature__name">$roles</span>
+                            = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
-</article>
+
+                        <section class="phpdocumentor-description"><p>The roles of the artist</p>
+                        </section>
+
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -948,24 +946,24 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">35</span>
+        <span class="phpdocumentor-element-found-in__line">38</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">string|null</span>
-    <span class="phpdocumentor-signature__name">$twoFactorToken</span>
-     = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">string|null</span>
+                            <span class="phpdocumentor-signature__name">$twoFactorToken</span>
+                            = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The current two-factor code, gets reset after
+                            successful validation</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -1020,11 +1018,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">272</span>
+        <span class="phpdocumentor-element-found-in__line">282</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Changes the password of the user</p>
+                        <p class="phpdocumentor-summary">Changes the password of the artist</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1037,16 +1035,21 @@
                 <span class="phpdocumentor-signature__argument__name">$oldPassword</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>The old password of the artist to validate the password before
+                changing</p>
+            </section>
+
+        </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$password</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>The new password</p>
+            </section>
+
+        </dd>
             </dl>
 
     
@@ -1100,11 +1103,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">177</span>
+        <span class="phpdocumentor-element-found-in__line">187</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Counts all available admins</p>
+                        <p class="phpdocumentor-summary">Counts all available admins, excluding the given artist</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1117,9 +1120,11 @@
                 <span class="phpdocumentor-signature__argument__name">$id</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>The artist to exclude from check</p>
+            </section>
+
+        </dd>
             </dl>
 
     
@@ -1173,11 +1178,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">144</span>
+        <span class="phpdocumentor-element-found-in__line">154</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Creates the artist</p>
+                        <p class="phpdocumentor-summary">Creates the given entity</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1192,29 +1197,12 @@
     </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
+                                        <span class="phpdocumentor-tag__name">inheritDoc</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
-                                                            
-                                             
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
-                                                            
-                                             
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
-                                                            
-                                             
-                                    </dd>
+
+
+                </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -1236,7 +1224,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">160</span>
+        <span class="phpdocumentor-element-found-in__line">170</span>
 
     </aside>
 
@@ -1380,7 +1368,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">194</span>
+        <span class="phpdocumentor-element-found-in__line">204</span>
 
     </aside>
 
@@ -1426,7 +1414,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">64</span>
+        <span class="phpdocumentor-element-found-in__line">76</span>
 
     </aside>
 
@@ -1443,9 +1431,11 @@
                 <span class="phpdocumentor-signature__argument__name">$email</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>The email to search for</p>
+            </section>
+
+        </dd>
             </dl>
 
     
@@ -1515,11 +1505,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">89</span>
+        <span class="phpdocumentor-element-found-in__line">103</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Needs to be implemented to find the derived class by id</p>
+                        <p class="phpdocumentor-summary">Finds the artist that belongs to the given ID</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1532,9 +1522,11 @@
                 <span class="phpdocumentor-signature__argument__name">$id</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>The ID to search for</p>
+            </section>
+
+        </dd>
             </dl>
 
     
@@ -1596,7 +1588,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">107</span>
+        <span class="phpdocumentor-element-found-in__line">121</span>
 
     </aside>
 
@@ -1613,9 +1605,11 @@
                 <span class="phpdocumentor-signature__argument__name">$keyword</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>The keyword to search for</p>
+            </section>
+
+        </dd>
             </dl>
 
     
@@ -1652,7 +1646,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">212</span>
+        <span class="phpdocumentor-element-found-in__line">222</span>
 
     </aside>
 
@@ -1746,25 +1740,28 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_registerFailedLogin">
         registerFailedLogin()
-        <a href="classes/App-Database-Artist.html#method_registerFailedLogin" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/App-Database-Artist.html#method_registerFailedLogin" class="headerlink"><i
+                class="fas fa-link"></i></a>
     </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">339</span>
+                        <aside class="phpdocumentor-element-found-in">
+                            <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a
+                                    href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
+                            :
+                            <span class="phpdocumentor-element-found-in__line">351</span>
 
-    </aside>
+                        </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">registerFailedLogin</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                        <p class="phpdocumentor-summary">Registers a failed login, after the fifth login failed the
+                            login will be blocked for 10 minutes</p>
 
-    
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__name">registerFailedLogin</span><span>(</span><span>)</span><span> : </span><span
+                                class="phpdocumentor-signature__response_type">void</span></code>
+
+
+                        <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                            Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
     <dl class="phpdocumentor-tag-list">
@@ -1813,7 +1810,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">305</span>
+        <span class="phpdocumentor-element-found-in__line">315</span>
 
     </aside>
 
@@ -1856,7 +1853,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">129</span>
+        <span class="phpdocumentor-element-found-in__line">143</span>
 
     </aside>
 
@@ -1898,25 +1895,28 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_unlockAccount">
         unlockAccount()
-        <a href="classes/App-Database-Artist.html#method_unlockAccount" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/App-Database-Artist.html#method_unlockAccount" class="headerlink"><i
+                class="fas fa-link"></i></a>
     </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">353</span>
+                        <aside class="phpdocumentor-element-found-in">
+                            <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a
+                                    href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
+                            :
+                            <span class="phpdocumentor-element-found-in__line">367</span>
 
-    </aside>
+                        </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">unlockAccount</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                        <p class="phpdocumentor-summary">Resets the failed login attempts and the time until the login
+                            is blocked</p>
 
-    
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__name">unlockAccount</span><span>(</span><span>)</span><span> : </span><span
+                                class="phpdocumentor-signature__response_type">void</span></code>
+
+
+                        <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                            Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
     <dl class="phpdocumentor-tag-list">
@@ -1965,7 +1965,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">321</span>
+        <span class="phpdocumentor-element-found-in__line">331</span>
 
     </aside>
 
@@ -2028,11 +2028,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">256</span>
+        <span class="phpdocumentor-element-found-in__line">266</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Validates the given device code for the given user</p>
+                        <p class="phpdocumentor-summary">Validates the given device code for the given artist</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -2045,9 +2045,11 @@
                 <span class="phpdocumentor-signature__argument__name">$knownDeviceCode</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>The device code to validate</p>
+            </section>
+
+        </dd>
             </dl>
 
     
@@ -2117,7 +2119,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Artist.php"><a href="files/src-database-artist.html"><abbr title="src/Database/Artist.php">Artist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">295</span>
+        <span class="phpdocumentor-element-found-in__line">305</span>
 
     </aside>
 

@@ -136,86 +136,86 @@ Search.appendIndex(
             "summary": "",
             "url": ""
         },                {
-            "fqsen": "\\App\\Database\\Analyzer\\VariablesType\u003A\u003ALocal",
-            "name": "Local",
-            "summary": "",
-            "url": ""
-        },                {
-            "fqsen": "\\App\\Database\\Analyzer\\VariablesType\u003A\u003ASession",
-            "name": "Session",
-            "summary": "",
-            "url": ""
-        },                {
-            "fqsen": "\\App\\Database\\ApiKey",
-            "name": "ApiKey",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
-            "url": "classes/App-Database-ApiKey.html"
-        },                {
-            "fqsen": "\\App\\Database\\ApiKey\u003A\u003AfindById\u0028\u0029",
-            "name": "findById",
-            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
-            "url": "classes/App-Database-ApiKey.html#method_findById"
-        },                {
-            "fqsen": "\\App\\Database\\ApiKey\u003A\u003AfindByApiKey\u0028\u0029",
-            "name": "findByApiKey",
-            "summary": "Gets\u0020the\u0020api\u0020key\u0020object\u0020that\u0020belongs\u0020to\u0020the\u0020key",
-            "url": "classes/App-Database-ApiKey.html#method_findByApiKey"
-        },                {
-            "fqsen": "\\App\\Database\\ApiKey\u003A\u003AfindByKeyword\u0028\u0029",
-            "name": "findByKeyword",
-            "summary": "Gets\u0020all\u0020entities\u0020that\u0020match\u0020the\u0020given\u0020keyword",
-            "url": "classes/App-Database-ApiKey.html#method_findByKeyword"
-        },                {
-            "fqsen": "\\App\\Database\\ApiKey\u003A\u003AfindAll\u0028\u0029",
-            "name": "findAll",
-            "summary": "Gets\u0020all\u0020entities\u0020of\u0020the\u0020given\u0020type",
-            "url": "classes/App-Database-ApiKey.html#method_findAll"
-        },                {
-            "fqsen": "\\App\\Database\\ApiKey\u003A\u003AfindByArtist\u0028\u0029",
-            "name": "findByArtist",
-            "summary": "Gets\u0020all\u0020api\u0020keys\u0020for\u0020the\u0020given\u0020artist",
-            "url": "classes/App-Database-ApiKey.html#method_findByArtist"
-        },                {
-            "fqsen": "\\App\\Database\\ApiKey\u003A\u003AsetApiKey\u0028\u0029",
-            "name": "setApiKey",
-            "summary": "Sets\u0020the\u0020api\u0020key\u0020securely",
-            "url": "classes/App-Database-ApiKey.html#method_setApiKey"
-        },                {
-            "fqsen": "\\App\\Database\\ApiKey\u003A\u003AgetArtist\u0028\u0029",
-            "name": "getArtist",
-            "summary": "Gets\u0020the\u0020artist\u0020belonging\u0020to\u0020the\u0020api\u0020key",
-            "url": "classes/App-Database-ApiKey.html#method_getArtist"
-        },                {
-            "fqsen": "\\App\\Database\\ApiKey\u003A\u003Acreate\u0028\u0029",
-            "name": "create",
-            "summary": "Creates\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-ApiKey.html#method_create"
-        },                {
-            "fqsen": "\\App\\Database\\ApiKey\u003A\u003Adelete\u0028\u0029",
-            "name": "delete",
-            "summary": "Deletes\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-ApiKey.html#method_delete"
-        },                {
-            "fqsen": "\\App\\Database\\ApiKey\u003A\u003Aupdate\u0028\u0029",
-            "name": "update",
-            "summary": "Updates\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-ApiKey.html#method_update"
-        },                {
-            "fqsen": "\\App\\Database\\ApiKey\u003A\u003Aformat\u0028\u0029",
-            "name": "format",
-            "summary": "",
-            "url": "classes/App-Database-ApiKey.html#method_format"
-        },                {
-            "fqsen": "\\App\\Database\\ApiKey\u003A\u003A\u0024apiKey",
-            "name": "apiKey",
-            "summary": "",
-            "url": "classes/App-Database-ApiKey.html#property_apiKey"
-        },                {
-            "fqsen": "\\App\\Database\\ApiKey\u003A\u003A\u0024userId",
-            "name": "userId",
-            "summary": "",
-            "url": "classes/App-Database-ApiKey.html#property_userId"
-        },                {
+      "fqsen": "\\App\\Database\\Analyzer\\VariablesType\u003A\u003ALocal",
+      "name": "Local",
+      "summary": "",
+      "url": ""
+    }, {
+      "fqsen": "\\App\\Database\\Analyzer\\VariablesType\u003A\u003ASession",
+      "name": "Session",
+      "summary": "",
+      "url": ""
+    }, {
+      "fqsen": "\\App\\Database\\ApiKey",
+      "name": "ApiKey",
+      "summary": "This\u0020class\u0020contains\u0020an\u0020api\u0020key,\u0020used\u0020to\u0020log\u0020in\u0020to\u0020Jinya\u0020CMS\u0020api",
+      "url": "classes/App-Database-ApiKey.html"
+    }, {
+      "fqsen": "\\App\\Database\\ApiKey\u003A\u003AfindById\u0028\u0029",
+      "name": "findById",
+      "summary": "Not\u0020implemented",
+      "url": "classes/App-Database-ApiKey.html#method_findById"
+    }, {
+      "fqsen": "\\App\\Database\\ApiKey\u003A\u003AfindByApiKey\u0028\u0029",
+      "name": "findByApiKey",
+      "summary": "Gets\u0020the\u0020api\u0020key\u0020object\u0020that\u0020belongs\u0020to\u0020the\u0020key",
+      "url": "classes/App-Database-ApiKey.html#method_findByApiKey"
+    }, {
+      "fqsen": "\\App\\Database\\ApiKey\u003A\u003AfindByKeyword\u0028\u0029",
+      "name": "findByKeyword",
+      "summary": "Not\u0020implemented",
+      "url": "classes/App-Database-ApiKey.html#method_findByKeyword"
+    }, {
+      "fqsen": "\\App\\Database\\ApiKey\u003A\u003AfindAll\u0028\u0029",
+      "name": "findAll",
+      "summary": "Not\u0020implemented",
+      "url": "classes/App-Database-ApiKey.html#method_findAll"
+    }, {
+      "fqsen": "\\App\\Database\\ApiKey\u003A\u003AfindByArtist\u0028\u0029",
+      "name": "findByArtist",
+      "summary": "Gets\u0020all\u0020api\u0020keys\u0020for\u0020the\u0020given\u0020artist",
+      "url": "classes/App-Database-ApiKey.html#method_findByArtist"
+    }, {
+      "fqsen": "\\App\\Database\\ApiKey\u003A\u003AsetApiKey\u0028\u0029",
+      "name": "setApiKey",
+      "summary": "Sets\u0020the\u0020api\u0020key\u0020securely",
+      "url": "classes/App-Database-ApiKey.html#method_setApiKey"
+    }, {
+      "fqsen": "\\App\\Database\\ApiKey\u003A\u003AgetArtist\u0028\u0029",
+      "name": "getArtist",
+      "summary": "Gets\u0020the\u0020artist\u0020belonging\u0020to\u0020the\u0020api\u0020key",
+      "url": "classes/App-Database-ApiKey.html#method_getArtist"
+    }, {
+      "fqsen": "\\App\\Database\\ApiKey\u003A\u003Acreate\u0028\u0029",
+      "name": "create",
+      "summary": "Creates\u0020the\u0020current\u0020api\u0020key",
+      "url": "classes/App-Database-ApiKey.html#method_create"
+    }, {
+      "fqsen": "\\App\\Database\\ApiKey\u003A\u003Adelete\u0028\u0029",
+      "name": "delete",
+      "summary": "Deletes\u0020the\u0020current\u0020api\u0020key",
+      "url": "classes/App-Database-ApiKey.html#method_delete"
+    }, {
+      "fqsen": "\\App\\Database\\ApiKey\u003A\u003Aupdate\u0028\u0029",
+      "name": "update",
+      "summary": "Updates\u0020the\u0020current\u0020api\u0020key",
+      "url": "classes/App-Database-ApiKey.html#method_update"
+    }, {
+      "fqsen": "\\App\\Database\\ApiKey\u003A\u003Aformat\u0028\u0029",
+      "name": "format",
+      "summary": "Formats\u0020the\u0020api\u0020key\u0020into\u0020an\u0020array",
+      "url": "classes/App-Database-ApiKey.html#method_format"
+    }, {
+      "fqsen": "\\App\\Database\\ApiKey\u003A\u003A\u0024apiKey",
+      "name": "apiKey",
+      "summary": "",
+      "url": "classes/App-Database-ApiKey.html#property_apiKey"
+    }, {
+      "fqsen": "\\App\\Database\\ApiKey\u003A\u003A\u0024userId",
+      "name": "userId",
+      "summary": "",
+      "url": "classes/App-Database-ApiKey.html#property_userId"
+    }, {
             "fqsen": "\\App\\Database\\ApiKey\u003A\u003A\u0024validSince",
             "name": "validSince",
             "summary": "",
@@ -230,22 +230,22 @@ Search.appendIndex(
             "name": "remoteAddress",
             "summary": "",
             "url": "classes/App-Database-ApiKey.html#property_remoteAddress"
-        },                {
-            "fqsen": "\\App\\Database\\Artist",
-            "name": "Artist",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
-            "url": "classes/App-Database-Artist.html"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\Artist",
+      "name": "Artist",
+      "summary": "This\u0020class\u0020contains\u0020all\u0020information\u0020relevant\u0020for\u0020an\u0020artist.\u0020Artists\u0020are\u0020the\u0020users\u0020of\u0020Jinya\u0020CMS",
+      "url": "classes/App-Database-Artist.html"
+    },                {
             "fqsen": "\\App\\Database\\Artist\u003A\u003AfindByEmail\u0028\u0029",
             "name": "findByEmail",
             "summary": "Finds\u0020the\u0020artist\u0020with\u0020the\u0020given\u0020email",
             "url": "classes/App-Database-Artist.html#method_findByEmail"
-        },                {
-            "fqsen": "\\App\\Database\\Artist\u003A\u003AfindById\u0028\u0029",
-            "name": "findById",
-            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
-            "url": "classes/App-Database-Artist.html#method_findById"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\Artist\u003A\u003AfindById\u0028\u0029",
+      "name": "findById",
+      "summary": "Finds\u0020the\u0020artist\u0020that\u0020belongs\u0020to\u0020the\u0020given\u0020ID",
+      "url": "classes/App-Database-Artist.html#method_findById"
+    },                {
             "fqsen": "\\App\\Database\\Artist\u003A\u003AfindByKeyword\u0028\u0029",
             "name": "findByKeyword",
             "summary": "Gets\u0020all\u0020entities\u0020that\u0020match\u0020the\u0020given\u0020keyword",
@@ -255,22 +255,22 @@ Search.appendIndex(
             "name": "setTwoFactorCode",
             "summary": "Securely\u0020sets\u0020the\u0020two\u002Dfactor\u0020code",
             "url": "classes/App-Database-Artist.html#method_setTwoFactorCode"
-        },                {
-            "fqsen": "\\App\\Database\\Artist\u003A\u003Acreate\u0028\u0029",
-            "name": "create",
-            "summary": "Creates\u0020the\u0020artist",
-            "url": "classes/App-Database-Artist.html#method_create"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\Artist\u003A\u003Acreate\u0028\u0029",
+      "name": "create",
+      "summary": "Creates\u0020the\u0020given\u0020entity",
+      "url": "classes/App-Database-Artist.html#method_create"
+    },                {
             "fqsen": "\\App\\Database\\Artist\u003A\u003Adelete\u0028\u0029",
             "name": "delete",
             "summary": "Deletes\u0020the\u0020given\u0020entity",
             "url": "classes/App-Database-Artist.html#method_delete"
-        },                {
-            "fqsen": "\\App\\Database\\Artist\u003A\u003AcountAdmins\u0028\u0029",
-            "name": "countAdmins",
-            "summary": "Counts\u0020all\u0020available\u0020admins",
-            "url": "classes/App-Database-Artist.html#method_countAdmins"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\Artist\u003A\u003AcountAdmins\u0028\u0029",
+      "name": "countAdmins",
+      "summary": "Counts\u0020all\u0020available\u0020admins,\u0020excluding\u0020the\u0020given\u0020artist",
+      "url": "classes/App-Database-Artist.html#method_countAdmins"
+    },                {
             "fqsen": "\\App\\Database\\Artist\u003A\u003AfindAll\u0028\u0029",
             "name": "findAll",
             "summary": "Gets\u0020all\u0020entities\u0020of\u0020the\u0020given\u0020type",
@@ -280,17 +280,17 @@ Search.appendIndex(
             "name": "format",
             "summary": "Formats\u0020the\u0020artist",
             "url": "classes/App-Database-Artist.html#method_format"
-        },                {
-            "fqsen": "\\App\\Database\\Artist\u003A\u003AvalidateDevice\u0028\u0029",
-            "name": "validateDevice",
-            "summary": "Validates\u0020the\u0020given\u0020device\u0020code\u0020for\u0020the\u0020given\u0020user",
-            "url": "classes/App-Database-Artist.html#method_validateDevice"
-        },                {
-            "fqsen": "\\App\\Database\\Artist\u003A\u003AchangePassword\u0028\u0029",
-            "name": "changePassword",
-            "summary": "Changes\u0020the\u0020password\u0020of\u0020the\u0020user",
-            "url": "classes/App-Database-Artist.html#method_changePassword"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\Artist\u003A\u003AvalidateDevice\u0028\u0029",
+      "name": "validateDevice",
+      "summary": "Validates\u0020the\u0020given\u0020device\u0020code\u0020for\u0020the\u0020given\u0020artist",
+      "url": "classes/App-Database-Artist.html#method_validateDevice"
+    }, {
+      "fqsen": "\\App\\Database\\Artist\u003A\u003AchangePassword\u0028\u0029",
+      "name": "changePassword",
+      "summary": "Changes\u0020the\u0020password\u0020of\u0020the\u0020artist",
+      "url": "classes/App-Database-Artist.html#method_changePassword"
+    },                {
             "fqsen": "\\App\\Database\\Artist\u003A\u003AvalidatePassword\u0028\u0029",
             "name": "validatePassword",
             "summary": "Validates\u0020the\u0020given\u0020password\u0020against\u0020the\u0020hash\u0020in\u0020the\u0020database",
@@ -305,17 +305,17 @@ Search.appendIndex(
             "name": "update",
             "summary": "Updates\u0020the\u0020artist",
             "url": "classes/App-Database-Artist.html#method_update"
-        },                {
-            "fqsen": "\\App\\Database\\Artist\u003A\u003AregisterFailedLogin\u0028\u0029",
-            "name": "registerFailedLogin",
-            "summary": "",
-            "url": "classes/App-Database-Artist.html#method_registerFailedLogin"
-        },                {
-            "fqsen": "\\App\\Database\\Artist\u003A\u003AunlockAccount\u0028\u0029",
-            "name": "unlockAccount",
-            "summary": "",
-            "url": "classes/App-Database-Artist.html#method_unlockAccount"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\Artist\u003A\u003AregisterFailedLogin\u0028\u0029",
+      "name": "registerFailedLogin",
+      "summary": "Registers\u0020a\u0020failed\u0020login,\u0020after\u0020the\u0020fifth\u0020login\u0020failed\u0020the\u0020login\u0020will\u0020be\u0020blocked\u0020for\u002010\u0020minutes",
+      "url": "classes/App-Database-Artist.html#method_registerFailedLogin"
+    }, {
+      "fqsen": "\\App\\Database\\Artist\u003A\u003AunlockAccount\u0028\u0029",
+      "name": "unlockAccount",
+      "summary": "Resets\u0020the\u0020failed\u0020login\u0020attempts\u0020and\u0020the\u0020time\u0020until\u0020the\u0020login\u0020is\u0020blocked",
+      "url": "classes/App-Database-Artist.html#method_unlockAccount"
+    },                {
             "fqsen": "\\App\\Database\\Artist\u003A\u003A\u0024email",
             "name": "email",
             "summary": "",

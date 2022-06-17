@@ -203,7 +203,7 @@
 
     </aside>
 
-            <p class="phpdocumentor-summary">Base class for all entity classes. this class contains several helper methods and provides a common interface for all entities.</p>
+            <p class="phpdocumentor-summary">This class contains an api key, used to log in to Jinya CMS api</p>
 
 
 
@@ -280,14 +280,14 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Creates the given entity</dd>
+<dd>Creates the current api key</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-ApiKey.html#method_delete">delete()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Deletes the given entity</dd>
+    <dd>Deletes the current api key</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Utils-LoadableEntity.html#method_executeSqlString">executeSqlString()</a>
@@ -308,7 +308,7 @@
     <span>
                                 &nbsp;: <abbr title="\Iterator">Iterator</abbr>    </span>
 </dt>
-<dd>Gets all entities of the given type</dd>
+    <dd>Not implemented</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-ApiKey.html#method_findByApiKey">findByApiKey()</a>
@@ -329,21 +329,21 @@
     <span>
                                 &nbsp;: object|null    </span>
 </dt>
-<dd>Needs to be implemented to find the derived class by id</dd>
+    <dd>Not implemented</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-ApiKey.html#method_findByKeyword">findByKeyword()</a>
     <span>
                                 &nbsp;: <abbr title="\Iterator">Iterator</abbr>    </span>
 </dt>
-<dd>Gets all entities that match the given keyword</dd>
+    <dd>Not implemented</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-ApiKey.html#method_format">format()</a>
     <span>
                                 &nbsp;: array&lt;string, string&gt;    </span>
 </dt>
-<dd></dd>
+    <dd>Formats the api key into an array</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-ApiKey.html#method_getArtist">getArtist()</a>
@@ -378,7 +378,7 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Updates the given entity</dd>
+    <dd>Updates the current api key</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/App-Database-Utils-LoadableEntity.html#method_convertInvalidQueryExceptionToException">convertInvalidQueryExceptionToException()</a>
@@ -738,42 +738,64 @@
         create()
         <a href="classes/App-Database-ApiKey.html#method_create" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ApiKey.php"><a href="files/src-database-apikey.html"><abbr title="src/Database/ApiKey.php">ApiKey.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">119</span>
+                        <aside class="phpdocumentor-element-found-in">
+                            <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ApiKey.php"><a
+                                    href="files/src-database-apikey.html"><abbr title="src/Database/ApiKey.php">ApiKey.php</abbr></a></abbr>
+                            :
+                            <span class="phpdocumentor-element-found-in__line">124</span>
 
-    </aside>
+                        </aside>
 
-        <p class="phpdocumentor-summary">Creates the given entity</p>
+                        <p class="phpdocumentor-summary">Creates the current api key</p>
 
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">create</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__name">create</span><span>(</span><span>)</span><span> : </span><span
+                                class="phpdocumentor-signature__response_type">void</span></code>
 
-    
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
+
+                        <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                            Tags
+                            <a class="headerlink" href="#tags"><i class="fas fa-link"></i></a>
+                        </h5>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
                         </dl>
 
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-        
-    
-</article>
+                        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+                        <span class="phpdocumentor-signature__response_type">void</span>
+                        &mdash;
+
+
+                    </article>
                     <article
         class="phpdocumentor-element
             -method
@@ -784,42 +806,64 @@
         delete()
         <a href="classes/App-Database-ApiKey.html#method_delete" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ApiKey.php"><a href="files/src-database-apikey.html"><abbr title="src/Database/ApiKey.php">ApiKey.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">133</span>
+                        <aside class="phpdocumentor-element-found-in">
+                            <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ApiKey.php"><a
+                                    href="files/src-database-apikey.html"><abbr title="src/Database/ApiKey.php">ApiKey.php</abbr></a></abbr>
+                            :
+                            <span class="phpdocumentor-element-found-in__line">143</span>
 
-    </aside>
+                        </aside>
 
-        <p class="phpdocumentor-summary">Deletes the given entity</p>
+                        <p class="phpdocumentor-summary">Deletes the current api key</p>
 
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">delete</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__name">delete</span><span>(</span><span>)</span><span> : </span><span
+                                class="phpdocumentor-signature__response_type">void</span></code>
 
-    
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
+
+                        <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                            Tags
+                            <a class="headerlink" href="#tags"><i class="fas fa-link"></i></a>
+                        </h5>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
                         </dl>
 
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-        
-    
-</article>
+                        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+                        <span class="phpdocumentor-signature__response_type">void</span>
+                        &mdash;
+
+
+                    </article>
                     <article
         class="phpdocumentor-element
             -method
@@ -927,7 +971,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Gets all entities of the given type</p>
+                        <p class="phpdocumentor-summary">Not implemented</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -936,19 +980,6 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
-                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type"><abbr title="\Iterator">Iterator</abbr></span>
@@ -973,26 +1004,34 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Gets the api key object that belongs to the key</p>
+                        <p class="phpdocumentor-summary">Gets the api key object that belongs to the key</p>
 
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">findByApiKey</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$apiKey</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/App-Database-ApiKey.html"><abbr title="\App\Database\ApiKey">ApiKey</abbr></a>|null</span></code>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__static">static</span> <span
+                                class="phpdocumentor-signature__name">findByApiKey</span><span>(</span><span
+                                class="phpdocumentor-signature__argument"><span
+                                class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span
+                                class="phpdocumentor-signature__argument__name">$apiKey</span></span><span>)</span><span> : </span><span
+                                class="phpdocumentor-signature__response_type"><a
+                                href="classes/App-Database-ApiKey.html"><abbr title="\App\Database\ApiKey">ApiKey</abbr></a>|null</span></code>
 
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$apiKey</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+
+                        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+                        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                                <span class="phpdocumentor-signature__argument__name">$apiKey</span>
+                                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
+                            <dd class="phpdocumentor-argument-list__definition">
+                                <section class="phpdocumentor-description"><p>The api key to search for</p>
+                                </section>
 
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                            </dd>
+                        </dl>
+
+
+                        <h5 class="phpdocumentor-tag-list__heading" id="tags">
         Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
@@ -1062,26 +1101,34 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Gets all api keys for the given artist</p>
+                        <p class="phpdocumentor-summary">Gets all api keys for the given artist</p>
 
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">findByArtist</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$artistId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Iterator">Iterator</abbr>&lt;string|int, <a href="classes/App-Database-ApiKey.html"><abbr title="\App\Database\ApiKey">ApiKey</abbr></a>&gt;</span></code>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__static">static</span> <span
+                                class="phpdocumentor-signature__name">findByArtist</span><span>(</span><span
+                                class="phpdocumentor-signature__argument"><span
+                                class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span
+                                class="phpdocumentor-signature__argument__name">$artistId</span></span><span>)</span><span> : </span><span
+                                class="phpdocumentor-signature__response_type"><abbr title="\Iterator">Iterator</abbr>&lt;string|int, <a
+                                href="classes/App-Database-ApiKey.html"><abbr title="\App\Database\ApiKey">ApiKey</abbr></a>&gt;</span></code>
 
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$artistId</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+
+                        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+                        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                                <span class="phpdocumentor-signature__argument__name">$artistId</span>
+                                : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
+                            <dd class="phpdocumentor-argument-list__definition">
+                                <section class="phpdocumentor-description"><p>The ID of the artist</p>
+                                </section>
 
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                            </dd>
+                        </dl>
+
+
+                        <h5 class="phpdocumentor-tag-list__heading" id="tags">
         Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
@@ -1135,7 +1182,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Needs to be implemented to find the derived class by id</p>
+                        <p class="phpdocumentor-summary">Not implemented</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1156,19 +1203,6 @@
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
-                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">object|null</span>
@@ -1193,7 +1227,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Gets all entities that match the given keyword</p>
+                        <p class="phpdocumentor-summary">Not implemented</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1206,64 +1240,55 @@
                 <span class="phpdocumentor-signature__argument__name">$keyword</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>The keyword to search for</p>
+            </section>
 
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
-                        </dl>
+        </dd>
+    </dl>
 
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><abbr title="\Iterator">Iterator</abbr></span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
+
+                        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+                        <span class="phpdocumentor-signature__response_type"><abbr
+                                title="\Iterator">Iterator</abbr></span>
+                        &mdash;
+
+
+                    </article>
+                <article
+                        class="phpdocumentor-element
             -method
             -public
                                                         "
->
-    <h4 class="phpdocumentor-element__name" id="method_format">
-        format()
-        <a href="classes/App-Database-ApiKey.html#method_format" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ApiKey.php"><a href="files/src-database-apikey.html"><abbr title="src/Database/ApiKey.php">ApiKey.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">157</span>
+                >
+                    <h4 class="phpdocumentor-element__name" id="method_format">
+                        format()
+                        <a class="headerlink" href="classes/App-Database-ApiKey.html#method_format"><i
+                                class="fas fa-link"></i></a>
+                    </h4>
+                    <aside class="phpdocumentor-element-found-in">
+                        <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ApiKey.php"><a
+                                href="files/src-database-apikey.html"><abbr
+                                title="src/Database/ApiKey.php">ApiKey.php</abbr></a></abbr>
+                        :
+                        <span class="phpdocumentor-element-found-in__line">173</span>
 
-    </aside>
+                    </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">format</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, string&gt;</span></code>
+                    <p class="phpdocumentor-summary">Formats the api key into an array</p>
 
-    
-    
-    
+                    <code class="phpdocumentor-code phpdocumentor-signature ">
+                        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__name">format</span><span>(</span><span>)</span><span> : </span><span
+                            class="phpdocumentor-signature__response_type">array&lt;string, string&gt;</span></code>
 
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string, string&gt;</span>
-            &mdash;
-        
-    
-</article>
+
+                    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+                    <span class="phpdocumentor-signature__response_type">array&lt;string, string&gt;</span>
+                    &mdash;
+
+
+                </article>
                     <article
         class="phpdocumentor-element
             -method
@@ -1458,50 +1483,64 @@
         update()
         <a href="classes/App-Database-ApiKey.html#method_update" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ApiKey.php"><a href="files/src-database-apikey.html"><abbr title="src/Database/ApiKey.php">ApiKey.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">143</span>
+                        <aside class="phpdocumentor-element-found-in">
+                            <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ApiKey.php"><a
+                                    href="files/src-database-apikey.html"><abbr title="src/Database/ApiKey.php">ApiKey.php</abbr></a></abbr>
+                            :
+                            <span class="phpdocumentor-element-found-in__line">157</span>
 
-    </aside>
+                        </aside>
 
-        <p class="phpdocumentor-summary">Updates the given entity</p>
+                        <p class="phpdocumentor-summary">Updates the current api key</p>
 
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">update</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__name">update</span><span>(</span><span>)</span><span> : </span><span
+                                class="phpdocumentor-signature__response_type">void</span></code>
 
-    
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
-                                                            
-                                             
-                                    </dd>
+
+                        <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                            Tags
+                            <a class="headerlink" href="#tags"><i class="fas fa-link"></i></a>
+                        </h5>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
                         </dl>
 
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-        
-    
-</article>
+                        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+                        <span class="phpdocumentor-signature__response_type">void</span>
+                        &mdash;
+
+
+                    </article>
                     <article
         class="phpdocumentor-element
             -method

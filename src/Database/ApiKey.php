@@ -12,7 +12,7 @@ use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 use RuntimeException;
 
 /**
- *
+ * This class contains an api key, used to log in to Jinya CMS api
  */
 class ApiKey extends Utils\LoadableEntity
 {
@@ -23,7 +23,7 @@ class ApiKey extends Utils\LoadableEntity
     public string $remoteAddress;
 
     /**
-     * @inheritDoc
+     * Not implemented
      */
     public static function findById(int $id): ?object
     {
@@ -33,7 +33,7 @@ class ApiKey extends Utils\LoadableEntity
     /**
      * Gets the api key object that belongs to the key
      *
-     * @param string $apiKey
+     * @param string $apiKey The api key to search for
      * @return ApiKey|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -53,7 +53,7 @@ class ApiKey extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Not implemented
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -61,17 +61,17 @@ class ApiKey extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Not implemented
      */
     public static function findAll(): Iterator
     {
-        throw new RuntimeException();
+        throw new RuntimeException('Not implemented');
     }
 
     /**
      * Gets all api keys for the given artist
      *
-     * @param int $artistId
+     * @param int $artistId The ID of the artist
      * @return Iterator<ApiKey>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -114,7 +114,12 @@ class ApiKey extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Creates the current api key
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function create(): void
     {
@@ -128,7 +133,12 @@ class ApiKey extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Deletes the current api key
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function delete(): void
     {
@@ -137,8 +147,12 @@ class ApiKey extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
-     * @throws Exception
+     * Updates the current api key
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function update(): void
     {
@@ -152,6 +166,8 @@ class ApiKey extends Utils\LoadableEntity
     }
 
     /**
+     * Formats the api key into an array
+     *
      * @return array<string, string>
      */
     #[ArrayShape([

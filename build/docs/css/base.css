@@ -504,6 +504,10 @@ ol.phpdocumentor-list ul.phpdocumentor-list {
     box-sizing: border-box;
 }
 
+.phpdocumentor-code a {
+    color: var(--light-gray);
+}
+
 .phpdocumentor-code.-dark {
     background: var(--primary-color-darkest);
     color: var(--light-gray);
