@@ -6,7 +6,7 @@ use Laminas\Hydrator\Exception\InvalidArgumentException;
 use Laminas\Hydrator\Strategy\StrategyInterface;
 
 /**
- *
+ * Laminas hydrator strategy to convert nullable booleans between PHP and MySQL
  */
 class NullableBooleanStrategy implements StrategyInterface
 {

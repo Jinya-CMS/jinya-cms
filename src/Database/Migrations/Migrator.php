@@ -9,7 +9,7 @@ use App\Database\Utils\LoadableEntity;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 
 /**
- *
+ * Abstract static class to migrate the Jinya database to the most recent state
  */
 abstract class Migrator extends LoadableEntity
 {
@@ -56,9 +56,11 @@ abstract class Migrator extends LoadableEntity
     }
 
     /**
+     * Executes the given script directly on the database
+     *
      * @param string $script
      */
-    public static function executeSingleMigration(string $script): void
+    private static function executeSingleMigration(string $script): void
     {
         $pdo = self::getPdo();
         $queryAnalyzer = new QueryAnalyzer();

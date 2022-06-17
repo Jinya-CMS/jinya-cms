@@ -3,7 +3,7 @@
 namespace App\Database\Utils;
 
 /**
- *
+ * Common interface for all entities that implement the format method
  */
 interface FormattableEntityInterface
 {

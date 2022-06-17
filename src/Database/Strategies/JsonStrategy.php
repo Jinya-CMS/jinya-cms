@@ -6,7 +6,7 @@ use JsonException;
 use Laminas\Hydrator\Strategy\StrategyInterface;
 
 /**
- *
+ * Laminas hydrator strategy to serialize and deserialize JSON data
  */
 class JsonStrategy implements StrategyInterface
 {

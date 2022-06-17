@@ -16,16 +16,21 @@ use PDO;
 use PDOException;
 
 /**
- *
+ * Base class for all entity classes. this class contains several helper methods and provides a common interface for all entities.
  */
 abstract class LoadableEntity implements FormattableEntityInterface
 {
+    /** @var string The date format for MySQL, MariaDB, Percona etc. */
     public const MYSQL_DATE_FORMAT = 'Y-m-d H:i:s';
+    /** @var PDOx|null The currently active PDOx instance. Needs to be accessed via getPdo function, since it will be instantiated if it is currently null */
     protected static ?PDOx $pdo;
+    /** @var int|string The ID of the entity, usually all entities have an ID and that ID must be either a string or an int */
     public int|string $id = -1;
 
     /**
-     * @param int $id
+     * Needs to be implemented to find the derived class by id
+     *
+     * @param int $id The id of the entity
      * @return object|null
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -57,7 +62,7 @@ abstract class LoadableEntity implements FormattableEntityInterface
     /**
      * Executes the given sql statement
      *
-     * @param string $sql
+     * @param string $sql The sql statement to execute
      * @return array<mixed>|int
      */
     public static function executeSqlString(string $sql): array|int
@@ -72,6 +77,8 @@ abstract class LoadableEntity implements FormattableEntityInterface
     }
 
     /**
+     * Gets the currently active instance of PDOx
+     *
      * @return PDOx
      */
     public static function getPdo(): PDOx
@@ -103,9 +110,9 @@ abstract class LoadableEntity implements FormattableEntityInterface
     }
 
     /**
-     * Executes the given sql statement and returns an int
+     * Executes the given sql statement and returns an int, string, false or null
      *
-     * @param string $sql
+     * @param string $sql The sql statement to execute
      * @return int|string|false|null
      */
     public static function fetchColumn(string $sql): int|string|false|null
@@ -120,7 +127,9 @@ abstract class LoadableEntity implements FormattableEntityInterface
     }
 
     /**
-     * @param array<StrategyInterface> $additionalStrategies
+     * Creates a new instance of ReflectionHydrator using the provided strategies
+     *
+     * @param array<StrategyInterface> $additionalStrategies The additional strategies to use with the ReflectionHydrator
      * @return ReflectionHydrator
      */
     protected static function getHydrator(array $additionalStrategies): ReflectionHydrator
@@ -137,10 +146,10 @@ abstract class LoadableEntity implements FormattableEntityInterface
     /**
      * Fetches a single entity by the given id
      *
-     * @param string $table
-     * @param int $id
-     * @param mixed $prototype
-     * @param StrategyInterface[] $additionalStrategies
+     * @param string $table The table to fetch the entity from
+     * @param int $id The ID the entity to fetch has
+     * @param mixed $prototype An initialized instance of the class to hydrate the values into
+     * @param StrategyInterface[] $additionalStrategies The additional strategies used for hydration
      * @return mixed
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -165,7 +174,9 @@ abstract class LoadableEntity implements FormattableEntityInterface
     }
 
     /**
-     * @param InvalidQueryException $exception
+     * Converts the generic InvalidQueryException of PDOx and returns a more specialized exception or the original exception, if there is no more specific exception
+     *
+     * @param InvalidQueryException $exception The exception to convert
      * @return UniqueFailedException|ForeignKeyFailedException|InvalidQueryException
      */
     #[Pure]
@@ -186,10 +197,10 @@ abstract class LoadableEntity implements FormattableEntityInterface
     }
 
     /**
-     * Fetches all data in a table and creates an array
+     * Fetches all data in a table and returns an Iterator
      *
-     * @param string $table
-     * @param mixed $prototype
+     * @param string $table The table to fetch the data from
+     * @param mixed $prototype An initialized instance of the class to hydrate the values into
      * @param StrategyInterface[] $additionalStrategies
      * @return Iterator
      * @throws ForeignKeyFailedException
@@ -205,6 +216,11 @@ abstract class LoadableEntity implements FormattableEntityInterface
         }
     }
 
+    /**
+     * Gets the ID of the entity as integer value
+     *
+     * @return int
+     */
     public function getIdAsInt(): int
     {
         return (int)$this->id;
@@ -221,6 +237,7 @@ abstract class LoadableEntity implements FormattableEntityInterface
 
     /**
      * Deletes the given entity
+     *
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException
@@ -237,10 +254,12 @@ abstract class LoadableEntity implements FormattableEntityInterface
     abstract public function update(): void;
 
     /**
-     * @param string $table
-     * @param array<StrategyInterface> $strategies
-     * @param array<string> $skippedFields
-     * @return int
+     * Function to create the current entity
+     *
+     * @param string $table The table to create the entity in
+     * @param array<StrategyInterface> $strategies An array of additional hydration strategies
+     * @param array<string> $skippedFields The fields to not include in the sql statement
+     * @return int The new id
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException
@@ -265,9 +284,9 @@ abstract class LoadableEntity implements FormattableEntityInterface
     /**
      * Executes the given statement and returns the result
      *
-     * @param string $statement
-     * @param array<string, int|string|bool> $parameters
-     * @return array<mixed>|int
+     * @param string $statement The sql statement to execute
+     * @param array<string, int|string|bool> $parameters The parameters for the parametrized query
+     * @return array<mixed>|int Either a count of affected rows or an array of data
      * @throws ForeignKeyFailedException
      * @throws UniqueFailedException
      * @throws InvalidQueryException|InvalidQueryException
@@ -299,7 +318,9 @@ abstract class LoadableEntity implements FormattableEntityInterface
     }
 
     /**
-     * @param string $table
+     * Function to delete the current entity
+     *
+     * @param string $table The table to delete the entity from
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException
@@ -311,9 +332,11 @@ abstract class LoadableEntity implements FormattableEntityInterface
     }
 
     /**
-     * @param string $table
-     * @param array<StrategyInterface> $strategies
-     * @param array<string> $skippedFields
+     * Function to update the current entity
+     *
+     * @param string $table The table to update the entity in
+     * @param array<StrategyInterface> $strategies An array of additional hydration strategies
+     * @param array<string> $skippedFields The fields to not include in the sql statement
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException

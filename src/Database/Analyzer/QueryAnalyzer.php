@@ -7,7 +7,7 @@ use PhpMyAdmin\SqlParser\Statement;
 use PhpMyAdmin\SqlParser\Utils\Query;
 
 /**
- *
+ * Helper class to wrap phpmyadmin SQL parser
  */
 class QueryAnalyzer
 {

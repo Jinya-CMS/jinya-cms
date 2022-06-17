@@ -113,7 +113,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Analyzer\\QueryAnalyzer",
             "name": "QueryAnalyzer",
-            "summary": "",
+            "summary": "Helper\u0020class\u0020to\u0020wrap\u0020phpmyadmin\u0020SQL\u0020parser",
             "url": "classes/App-Database-Analyzer-QueryAnalyzer.html"
         },                {
             "fqsen": "\\App\\Database\\Analyzer\\QueryAnalyzer\u003A\u003AgetQueryType\u0028\u0029",
@@ -128,7 +128,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Analyzer\\VariablesType",
             "name": "VariablesType",
-            "summary": "",
+            "summary": "Declares\u0020the\u0020different\u0020variable\u0020types\u0020available\u0020in\u0020MySQL,\u0020MariaDB,\u0020Percona\u0020etc.",
             "url": "classes/App-Database-Analyzer-VariablesType.html"
         },                {
             "fqsen": "\\App\\Database\\Analyzer\\VariablesType\u003A\u003AGlobal",
@@ -148,12 +148,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\ApiKey",
             "name": "ApiKey",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
             "url": "classes/App-Database-ApiKey.html"
         },                {
             "fqsen": "\\App\\Database\\ApiKey\u003A\u003AfindById\u0028\u0029",
             "name": "findById",
-            "summary": "",
+            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
             "url": "classes/App-Database-ApiKey.html#method_findById"
         },                {
             "fqsen": "\\App\\Database\\ApiKey\u003A\u003AfindByApiKey\u0028\u0029",
@@ -233,7 +233,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Artist",
             "name": "Artist",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
             "url": "classes/App-Database-Artist.html"
         },                {
             "fqsen": "\\App\\Database\\Artist\u003A\u003AfindByEmail\u0028\u0029",
@@ -243,7 +243,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Artist\u003A\u003AfindById\u0028\u0029",
             "name": "findById",
-            "summary": "",
+            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
             "url": "classes/App-Database-Artist.html#method_findById"
         },                {
             "fqsen": "\\App\\Database\\Artist\u003A\u003AfindByKeyword\u0028\u0029",
@@ -373,7 +373,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\BlogCategory",
             "name": "BlogCategory",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
             "url": "classes/App-Database-BlogCategory.html"
         },                {
             "fqsen": "\\App\\Database\\BlogCategory\u003A\u003AfindByKeyword\u0028\u0029",
@@ -413,7 +413,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\BlogCategory\u003A\u003AfindById\u0028\u0029",
             "name": "findById",
-            "summary": "",
+            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
             "url": "classes/App-Database-BlogCategory.html#method_findById"
         },                {
             "fqsen": "\\App\\Database\\BlogCategory\u003A\u003AgetBlogPosts\u0028\u0029",
@@ -448,12 +448,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\BlogPost",
             "name": "BlogPost",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
             "url": "classes/App-Database-BlogPost.html"
         },                {
             "fqsen": "\\App\\Database\\BlogPost\u003A\u003AfindById\u0028\u0029",
             "name": "findById",
-            "summary": "",
+            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
             "url": "classes/App-Database-BlogPost.html#method_findById"
         },                {
             "fqsen": "\\App\\Database\\BlogPost\u003A\u003AfindByKeyword\u0028\u0029",
@@ -568,7 +568,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\BlogPostSegment",
             "name": "BlogPostSegment",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020entities\u0020that\u0020need\u0020the\u0020ability\u0020to\u0020rearrange\u0020themselves\u0020in\u0020their\u0020parent",
             "url": "classes/App-Database-BlogPostSegment.html"
         },                {
             "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003AfindById\u0028\u0029",
@@ -663,37 +663,37 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Exceptions\\DeleteLastAdminException",
             "name": "DeleteLastAdminException",
-            "summary": "",
+            "summary": "This\u0020exception\u0020gets\u0020thrown\u0020when\u0020an\u0020attempt\u0020is\u0020made\u0020to\u0020delete\u0020the\u0020last\u0020admin",
             "url": "classes/App-Database-Exceptions-DeleteLastAdminException.html"
         },                {
             "fqsen": "\\App\\Database\\Exceptions\\EmptyResultException",
             "name": "EmptyResultException",
-            "summary": "",
+            "summary": "This\u0020exception\u0020gets\u0020thrown\u0020when\u0020the\u0020result\u0020is\u0020empty,\u0020but\u0020was\u0020excepted\u0020to\u0020contain\u0020data",
             "url": "classes/App-Database-Exceptions-EmptyResultException.html"
         },                {
             "fqsen": "\\App\\Database\\Exceptions\\ForeignKeyFailedException",
             "name": "ForeignKeyFailedException",
-            "summary": "",
+            "summary": "This\u0020exception\u0020is\u0020thrown\u0020when\u0020a\u0020foreign\u0020key\u0020constraint\u0020fails\u0020during\u0020deletion\u0020or\u0020creation",
             "url": "classes/App-Database-Exceptions-ForeignKeyFailedException.html"
         },                {
             "fqsen": "\\App\\Database\\Exceptions\\TransactionFailedException",
             "name": "TransactionFailedException",
-            "summary": "",
+            "summary": "This\u0020exception\u0020is\u0020thrown\u0020when\u0020a\u0020transaction\u0020fails\u0020to\u0020create",
             "url": "classes/App-Database-Exceptions-TransactionFailedException.html"
         },                {
             "fqsen": "\\App\\Database\\Exceptions\\UniqueFailedException",
             "name": "UniqueFailedException",
-            "summary": "",
+            "summary": "This\u0020exception\u0020is\u0020thrown\u0020when\u0020a\u0020unique\u0020constraint\u0020fails",
             "url": "classes/App-Database-Exceptions-UniqueFailedException.html"
         },                {
             "fqsen": "\\App\\Database\\File",
             "name": "File",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
             "url": "classes/App-Database-File.html"
         },                {
             "fqsen": "\\App\\Database\\File\u003A\u003AfindById\u0028\u0029",
             "name": "findById",
-            "summary": "",
+            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
             "url": "classes/App-Database-File.html#method_findById"
         },                {
             "fqsen": "\\App\\Database\\File\u003A\u003AfindByKeyword\u0028\u0029",
@@ -778,12 +778,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Form",
             "name": "Form",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
             "url": "classes/App-Database-Form.html"
         },                {
             "fqsen": "\\App\\Database\\Form\u003A\u003AfindById\u0028\u0029",
             "name": "findById",
-            "summary": "",
+            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
             "url": "classes/App-Database-Form.html#method_findById"
         },                {
             "fqsen": "\\App\\Database\\Form\u003A\u003AfindByKeyword\u0028\u0029",
@@ -868,7 +868,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\FormItem",
             "name": "FormItem",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020entities\u0020that\u0020need\u0020the\u0020ability\u0020to\u0020rearrange\u0020themselves\u0020in\u0020their\u0020parent",
             "url": "classes/App-Database-FormItem.html"
         },                {
             "fqsen": "\\App\\Database\\FormItem\u003A\u003AfindById\u0028\u0029",
@@ -973,12 +973,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Gallery",
             "name": "Gallery",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
             "url": "classes/App-Database-Gallery.html"
         },                {
             "fqsen": "\\App\\Database\\Gallery\u003A\u003AfindById\u0028\u0029",
             "name": "findById",
-            "summary": "",
+            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
             "url": "classes/App-Database-Gallery.html#method_findById"
         },                {
             "fqsen": "\\App\\Database\\Gallery\u003A\u003AfindByKeyword\u0028\u0029",
@@ -1088,7 +1088,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\GalleryFilePosition",
             "name": "GalleryFilePosition",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020entities\u0020that\u0020need\u0020the\u0020ability\u0020to\u0020rearrange\u0020themselves\u0020in\u0020their\u0020parent",
             "url": "classes/App-Database-GalleryFilePosition.html"
         },                {
             "fqsen": "\\App\\Database\\GalleryFilePosition\u003A\u003AfindById\u0028\u0029",
@@ -1163,12 +1163,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\KnownDevice",
             "name": "KnownDevice",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
             "url": "classes/App-Database-KnownDevice.html"
         },                {
             "fqsen": "\\App\\Database\\KnownDevice\u003A\u003AfindById\u0028\u0029",
             "name": "findById",
-            "summary": "",
+            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
             "url": "classes/App-Database-KnownDevice.html#method_findById"
         },                {
             "fqsen": "\\App\\Database\\KnownDevice\u003A\u003AfindByKeyword\u0028\u0029",
@@ -1238,12 +1238,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Menu",
             "name": "Menu",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
             "url": "classes/App-Database-Menu.html"
         },                {
             "fqsen": "\\App\\Database\\Menu\u003A\u003AfindById\u0028\u0029",
             "name": "findById",
-            "summary": "",
+            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
             "url": "classes/App-Database-Menu.html#method_findById"
         },                {
             "fqsen": "\\App\\Database\\Menu\u003A\u003AfindByKeyword\u0028\u0029",
@@ -1298,7 +1298,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\MenuItem",
             "name": "MenuItem",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020entities\u0020that\u0020need\u0020the\u0020ability\u0020to\u0020rearrange\u0020themselves\u0020in\u0020their\u0020parent",
             "url": "classes/App-Database-MenuItem.html"
         },                {
             "fqsen": "\\App\\Database\\MenuItem\u003A\u003AfindByKeyword\u0028\u0029",
@@ -1478,7 +1478,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Migrations\\Migrator",
             "name": "Migrator",
-            "summary": "",
+            "summary": "Abstract\u0020static\u0020class\u0020to\u0020migrate\u0020the\u0020Jinya\u0020database\u0020to\u0020the\u0020most\u0020recent\u0020state",
             "url": "classes/App-Database-Migrations-Migrator.html"
         },                {
             "fqsen": "\\App\\Database\\Migrations\\Migrator\u003A\u003Amigrate\u0028\u0029",
@@ -1488,12 +1488,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Migrations\\Migrator\u003A\u003AexecuteSingleMigration\u0028\u0029",
             "name": "executeSingleMigration",
-            "summary": "",
+            "summary": "Executes\u0020the\u0020given\u0020script\u0020directly\u0020on\u0020the\u0020database",
             "url": "classes/App-Database-Migrations-Migrator.html#method_executeSingleMigration"
         },                {
             "fqsen": "\\App\\Database\\Segment",
             "name": "Segment",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020entities\u0020that\u0020need\u0020the\u0020ability\u0020to\u0020rearrange\u0020themselves\u0020in\u0020their\u0020parent",
             "url": "classes/App-Database-Segment.html"
         },                {
             "fqsen": "\\App\\Database\\Segment\u003A\u003AfindById\u0028\u0029",
@@ -1603,12 +1603,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\SegmentPage",
             "name": "SegmentPage",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
             "url": "classes/App-Database-SegmentPage.html"
         },                {
             "fqsen": "\\App\\Database\\SegmentPage\u003A\u003AfindById\u0028\u0029",
             "name": "findById",
-            "summary": "",
+            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
             "url": "classes/App-Database-SegmentPage.html#method_findById"
         },                {
             "fqsen": "\\App\\Database\\SegmentPage\u003A\u003AfindByKeyword\u0028\u0029",
@@ -1683,12 +1683,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\SimplePage",
             "name": "SimplePage",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
             "url": "classes/App-Database-SimplePage.html"
         },                {
             "fqsen": "\\App\\Database\\SimplePage\u003A\u003AfindById\u0028\u0029",
             "name": "findById",
-            "summary": "",
+            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
             "url": "classes/App-Database-SimplePage.html#method_findById"
         },                {
             "fqsen": "\\App\\Database\\SimplePage\u003A\u003AfindByKeyword\u0028\u0029",
@@ -1763,7 +1763,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Strategies\\JsonStrategy",
             "name": "JsonStrategy",
-            "summary": "",
+            "summary": "Laminas\u0020hydrator\u0020strategy\u0020to\u0020serialize\u0020and\u0020deserialize\u0020JSON\u0020data",
             "url": "classes/App-Database-Strategies-JsonStrategy.html"
         },                {
             "fqsen": "\\App\\Database\\Strategies\\JsonStrategy\u003A\u003Aextract\u0028\u0029",
@@ -1778,7 +1778,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Strategies\\NullableBooleanStrategy",
             "name": "NullableBooleanStrategy",
-            "summary": "",
+            "summary": "Laminas\u0020hydrator\u0020strategy\u0020to\u0020convert\u0020nullable\u0020booleans\u0020between\u0020PHP\u0020and\u0020MySQL",
             "url": "classes/App-Database-Strategies-NullableBooleanStrategy.html"
         },                {
             "fqsen": "\\App\\Database\\Strategies\\NullableBooleanStrategy\u003A\u003Aextract\u0028\u0029",
@@ -1793,7 +1793,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Strategies\\PhpSerializeStrategy",
             "name": "PhpSerializeStrategy",
-            "summary": "",
+            "summary": "Laminas\u0020hydrator\u0020strategy\u0020to\u0020serialize\u0020and\u0020deserialize\u0020PHP\u0020data\u0020with\u0020serialize\u0020method",
             "url": "classes/App-Database-Strategies-PhpSerializeStrategy.html"
         },                {
             "fqsen": "\\App\\Database\\Strategies\\PhpSerializeStrategy\u003A\u003Aextract\u0028\u0029",
@@ -1808,7 +1808,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Theme",
             "name": "Theme",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
             "url": "classes/App-Database-Theme.html"
         },                {
             "fqsen": "\\App\\Database\\Theme\u003A\u003AgetActiveTheme\u0028\u0029",
@@ -1818,7 +1818,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Theme\u003A\u003AfindById\u0028\u0029",
             "name": "findById",
-            "summary": "",
+            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
             "url": "classes/App-Database-Theme.html#method_findById"
         },                {
             "fqsen": "\\App\\Database\\Theme\u003A\u003AfindByKeyword\u0028\u0029",
@@ -1928,7 +1928,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\ThemeAsset",
             "name": "ThemeAsset",
-            "summary": "",
+            "summary": "The\u0020ThemeHelperEntity\u0020adds\u0020several\u0020additional\u0020helper\u0020methods\u0020specifically\u0020for\u0020the\u0020the\u0020entities",
             "url": "classes/App-Database-ThemeAsset.html"
         },                {
             "fqsen": "\\App\\Database\\ThemeAsset\u003A\u003AfindByThemeAndName\u0028\u0029",
@@ -1973,7 +1973,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\ThemeBlogCategory",
             "name": "ThemeBlogCategory",
-            "summary": "",
+            "summary": "The\u0020ThemeHelperEntity\u0020adds\u0020several\u0020additional\u0020helper\u0020methods\u0020specifically\u0020for\u0020the\u0020the\u0020entities",
             "url": "classes/App-Database-ThemeBlogCategory.html"
         },                {
             "fqsen": "\\App\\Database\\ThemeBlogCategory\u003A\u003AfindByThemeAndName\u0028\u0029",
@@ -2018,7 +2018,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\ThemeFile",
             "name": "ThemeFile",
-            "summary": "",
+            "summary": "The\u0020ThemeHelperEntity\u0020adds\u0020several\u0020additional\u0020helper\u0020methods\u0020specifically\u0020for\u0020the\u0020the\u0020entities",
             "url": "classes/App-Database-ThemeFile.html"
         },                {
             "fqsen": "\\App\\Database\\ThemeFile\u003A\u003AfindByThemeAndName\u0028\u0029",
@@ -2063,7 +2063,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\ThemeForm",
             "name": "ThemeForm",
-            "summary": "",
+            "summary": "The\u0020ThemeHelperEntity\u0020adds\u0020several\u0020additional\u0020helper\u0020methods\u0020specifically\u0020for\u0020the\u0020the\u0020entities",
             "url": "classes/App-Database-ThemeForm.html"
         },                {
             "fqsen": "\\App\\Database\\ThemeForm\u003A\u003AfindByThemeAndName\u0028\u0029",
@@ -2108,7 +2108,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\ThemeGallery",
             "name": "ThemeGallery",
-            "summary": "",
+            "summary": "The\u0020ThemeHelperEntity\u0020adds\u0020several\u0020additional\u0020helper\u0020methods\u0020specifically\u0020for\u0020the\u0020the\u0020entities",
             "url": "classes/App-Database-ThemeGallery.html"
         },                {
             "fqsen": "\\App\\Database\\ThemeGallery\u003A\u003AfindByThemeAndName\u0028\u0029",
@@ -2153,7 +2153,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\ThemeMenu",
             "name": "ThemeMenu",
-            "summary": "",
+            "summary": "The\u0020ThemeHelperEntity\u0020adds\u0020several\u0020additional\u0020helper\u0020methods\u0020specifically\u0020for\u0020the\u0020the\u0020entities",
             "url": "classes/App-Database-ThemeMenu.html"
         },                {
             "fqsen": "\\App\\Database\\ThemeMenu\u003A\u003AfindByThemeAndName\u0028\u0029",
@@ -2198,7 +2198,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\ThemePage",
             "name": "ThemePage",
-            "summary": "",
+            "summary": "The\u0020ThemeHelperEntity\u0020adds\u0020several\u0020additional\u0020helper\u0020methods\u0020specifically\u0020for\u0020the\u0020the\u0020entities",
             "url": "classes/App-Database-ThemePage.html"
         },                {
             "fqsen": "\\App\\Database\\ThemePage\u003A\u003AfindByThemeAndName\u0028\u0029",
@@ -2243,7 +2243,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\ThemeSegmentPage",
             "name": "ThemeSegmentPage",
-            "summary": "",
+            "summary": "The\u0020ThemeHelperEntity\u0020adds\u0020several\u0020additional\u0020helper\u0020methods\u0020specifically\u0020for\u0020the\u0020the\u0020entities",
             "url": "classes/App-Database-ThemeSegmentPage.html"
         },                {
             "fqsen": "\\App\\Database\\ThemeSegmentPage\u003A\u003AfindByThemeAndName\u0028\u0029",
@@ -2288,7 +2288,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\UploadingFile",
             "name": "UploadingFile",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
             "url": "classes/App-Database-UploadingFile.html"
         },                {
             "fqsen": "\\App\\Database\\UploadingFile\u003A\u003AfindByFile\u0028\u0029",
@@ -2298,7 +2298,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\UploadingFile\u003A\u003AfindById\u0028\u0029",
             "name": "findById",
-            "summary": "",
+            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
             "url": "classes/App-Database-UploadingFile.html#method_findById"
         },                {
             "fqsen": "\\App\\Database\\UploadingFile\u003A\u003AfindByKeyword\u0028\u0029",
@@ -2353,12 +2353,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\UploadingFileChunk",
             "name": "UploadingFileChunk",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
             "url": "classes/App-Database-UploadingFileChunk.html"
         },                {
             "fqsen": "\\App\\Database\\UploadingFileChunk\u003A\u003AfindById\u0028\u0029",
             "name": "findById",
-            "summary": "",
+            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
             "url": "classes/App-Database-UploadingFileChunk.html#method_findById"
         },                {
             "fqsen": "\\App\\Database\\UploadingFileChunk\u003A\u003AfindByKeyword\u0028\u0029",
@@ -2413,7 +2413,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Utils\\FormattableEntityInterface",
             "name": "FormattableEntityInterface",
-            "summary": "",
+            "summary": "Common\u0020interface\u0020for\u0020all\u0020entities\u0020that\u0020implement\u0020the\u0020format\u0020method",
             "url": "classes/App-Database-Utils-FormattableEntityInterface.html"
         },                {
             "fqsen": "\\App\\Database\\Utils\\FormattableEntityInterface\u003A\u003Aformat\u0028\u0029",
@@ -2423,12 +2423,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Utils\\LoadableEntity",
             "name": "LoadableEntity",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
             "url": "classes/App-Database-Utils-LoadableEntity.html"
         },                {
             "fqsen": "\\App\\Database\\Utils\\LoadableEntity\u003A\u003AfindById\u0028\u0029",
             "name": "findById",
-            "summary": "",
+            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
             "url": "classes/App-Database-Utils-LoadableEntity.html#method_findById"
         },                {
             "fqsen": "\\App\\Database\\Utils\\LoadableEntity\u003A\u003AfindByKeyword\u0028\u0029",
@@ -2448,17 +2448,17 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Utils\\LoadableEntity\u003A\u003AgetPdo\u0028\u0029",
             "name": "getPdo",
-            "summary": "",
+            "summary": "Gets\u0020the\u0020currently\u0020active\u0020instance\u0020of\u0020PDOx",
             "url": "classes/App-Database-Utils-LoadableEntity.html#method_getPdo"
         },                {
             "fqsen": "\\App\\Database\\Utils\\LoadableEntity\u003A\u003AfetchColumn\u0028\u0029",
             "name": "fetchColumn",
-            "summary": "Executes\u0020the\u0020given\u0020sql\u0020statement\u0020and\u0020returns\u0020an\u0020int",
+            "summary": "Executes\u0020the\u0020given\u0020sql\u0020statement\u0020and\u0020returns\u0020an\u0020int,\u0020string,\u0020false\u0020or\u0020null",
             "url": "classes/App-Database-Utils-LoadableEntity.html#method_fetchColumn"
         },                {
             "fqsen": "\\App\\Database\\Utils\\LoadableEntity\u003A\u003AgetHydrator\u0028\u0029",
             "name": "getHydrator",
-            "summary": "",
+            "summary": "Creates\u0020a\u0020new\u0020instance\u0020of\u0020ReflectionHydrator\u0020using\u0020the\u0020provided\u0020strategies",
             "url": "classes/App-Database-Utils-LoadableEntity.html#method_getHydrator"
         },                {
             "fqsen": "\\App\\Database\\Utils\\LoadableEntity\u003A\u003AfetchSingleById\u0028\u0029",
@@ -2468,17 +2468,17 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Utils\\LoadableEntity\u003A\u003AconvertInvalidQueryExceptionToException\u0028\u0029",
             "name": "convertInvalidQueryExceptionToException",
-            "summary": "",
+            "summary": "Converts\u0020the\u0020generic\u0020InvalidQueryException\u0020of\u0020PDOx\u0020and\u0020returns\u0020a\u0020more\u0020specialized\u0020exception\u0020or\u0020the\u0020original\u0020exception,\u0020if\u0020there\u0020is\u0020no\u0020more\u0020specific\u0020exception",
             "url": "classes/App-Database-Utils-LoadableEntity.html#method_convertInvalidQueryExceptionToException"
         },                {
             "fqsen": "\\App\\Database\\Utils\\LoadableEntity\u003A\u003AfetchAllIterator\u0028\u0029",
             "name": "fetchAllIterator",
-            "summary": "Fetches\u0020all\u0020data\u0020in\u0020a\u0020table\u0020and\u0020creates\u0020an\u0020array",
+            "summary": "Fetches\u0020all\u0020data\u0020in\u0020a\u0020table\u0020and\u0020returns\u0020an\u0020Iterator",
             "url": "classes/App-Database-Utils-LoadableEntity.html#method_fetchAllIterator"
         },                {
             "fqsen": "\\App\\Database\\Utils\\LoadableEntity\u003A\u003AgetIdAsInt\u0028\u0029",
             "name": "getIdAsInt",
-            "summary": "",
+            "summary": "Gets\u0020the\u0020ID\u0020of\u0020the\u0020entity\u0020as\u0020integer\u0020value",
             "url": "classes/App-Database-Utils-LoadableEntity.html#method_getIdAsInt"
         },                {
             "fqsen": "\\App\\Database\\Utils\\LoadableEntity\u003A\u003Acreate\u0028\u0029",
@@ -2498,7 +2498,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Utils\\LoadableEntity\u003A\u003AinternalCreate\u0028\u0029",
             "name": "internalCreate",
-            "summary": "",
+            "summary": "Function\u0020to\u0020create\u0020the\u0020current\u0020entity",
             "url": "classes/App-Database-Utils-LoadableEntity.html#method_internalCreate"
         },                {
             "fqsen": "\\App\\Database\\Utils\\LoadableEntity\u003A\u003AexecuteStatement\u0028\u0029",
@@ -2508,12 +2508,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Utils\\LoadableEntity\u003A\u003AinternalDelete\u0028\u0029",
             "name": "internalDelete",
-            "summary": "",
+            "summary": "Function\u0020to\u0020delete\u0020the\u0020current\u0020entity",
             "url": "classes/App-Database-Utils-LoadableEntity.html#method_internalDelete"
         },                {
             "fqsen": "\\App\\Database\\Utils\\LoadableEntity\u003A\u003AinternalUpdate\u0028\u0029",
             "name": "internalUpdate",
-            "summary": "",
+            "summary": "Function\u0020to\u0020update\u0020the\u0020current\u0020entity",
             "url": "classes/App-Database-Utils-LoadableEntity.html#method_internalUpdate"
         },                {
             "fqsen": "\\App\\Database\\Utils\\LoadableEntity\u003A\u003AMYSQL_DATE_FORMAT",
@@ -2533,7 +2533,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Utils\\RearrangableEntity",
             "name": "RearrangableEntity",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020entities\u0020that\u0020need\u0020the\u0020ability\u0020to\u0020rearrange\u0020themselves\u0020in\u0020their\u0020parent",
             "url": "classes/App-Database-Utils-RearrangableEntity.html"
         },                {
             "fqsen": "\\App\\Database\\Utils\\RearrangableEntity\u003A\u003Amove\u0028\u0029",
@@ -2548,7 +2548,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Utils\\RearrangableEntity\u003A\u003AresetOrder\u0028\u0029",
             "name": "resetOrder",
-            "summary": "",
+            "summary": "Resets\u0020the\u0020order\u0020of\u0020all\u0020entities\u0020in\u0020the\u0020given\u0020parent.\u0020Reset\u0020means\u0020in\u0020this\u0020context,\u0020that\u0020it\u0020starts\u0020the\u0020position\u0020from\u00200\u0020and\u0020counts\u0020up",
             "url": "classes/App-Database-Utils-RearrangableEntity.html#method_resetOrder"
         },                {
             "fqsen": "\\App\\Database\\Utils\\RearrangableEntity\u003A\u003A\u0024position",
@@ -2558,17 +2558,17 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Utils\\SkipFieldFilter",
             "name": "SkipFieldFilter",
-            "summary": "",
+            "summary": "A\u0020simple\u0020laminas\u0020hydrator\u0020filter\u0020to\u0020skip\u0020properties\u0020during\u0020hydration\u0020and\u0020dehydration",
             "url": "classes/App-Database-Utils-SkipFieldFilter.html"
         },                {
             "fqsen": "\\App\\Database\\Utils\\SkipFieldFilter\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "SkipFieldFilter\u0020constructor.",
+            "summary": "Creates\u0020a\u0020new\u0020instance\u0020of\u0020the\u0020SkipFieldFilter\u0020using\u0020the\u0020provided\u0020properties",
             "url": "classes/App-Database-Utils-SkipFieldFilter.html#method___construct"
         },                {
             "fqsen": "\\App\\Database\\Utils\\SkipFieldFilter\u003A\u003Afilter\u0028\u0029",
             "name": "filter",
-            "summary": "",
+            "summary": "Returns\u0020true\u0020when\u0020the\u0020property\u0020is\u0020not\u0020available\u0020in\u0020the\u0020provided\u0020list\u0020of\u0020properties\u0020to\u0020skip",
             "url": "classes/App-Database-Utils-SkipFieldFilter.html#method_filter"
         },                {
             "fqsen": "\\App\\Database\\Utils\\SkipFieldFilter\u003A\u003A\u0024propertiesToSkip",
@@ -2578,22 +2578,22 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Utils\\ThemeHelperEntity",
             "name": "ThemeHelperEntity",
-            "summary": "",
+            "summary": "The\u0020ThemeHelperEntity\u0020adds\u0020several\u0020additional\u0020helper\u0020methods\u0020specifically\u0020for\u0020the\u0020the\u0020entities",
             "url": "classes/App-Database-Utils-ThemeHelperEntity.html"
         },                {
             "fqsen": "\\App\\Database\\Utils\\ThemeHelperEntity\u003A\u003AfindById\u0028\u0029",
             "name": "findById",
-            "summary": "",
+            "summary": "Is\u0020not\u0020available\u0020in\u0020theme\u0020entities,\u0020use\u0020findByThemeAndName\u0020instead",
             "url": "classes/App-Database-Utils-ThemeHelperEntity.html#method_findById"
         },                {
             "fqsen": "\\App\\Database\\Utils\\ThemeHelperEntity\u003A\u003AfindByKeyword\u0028\u0029",
             "name": "findByKeyword",
-            "summary": "Gets\u0020all\u0020entities\u0020that\u0020match\u0020the\u0020given\u0020keyword",
+            "summary": "Is\u0020not\u0020available\u0020in\u0020theme\u0020entities,\u0020use\u0020findByTheme\u0020instead\u0020and\u0020filter\u0020the\u0020result",
             "url": "classes/App-Database-Utils-ThemeHelperEntity.html#method_findByKeyword"
         },                {
             "fqsen": "\\App\\Database\\Utils\\ThemeHelperEntity\u003A\u003AfindAll\u0028\u0029",
             "name": "findAll",
-            "summary": "Gets\u0020all\u0020entities\u0020of\u0020the\u0020given\u0020type",
+            "summary": "Is\u0020not\u0020available\u0020in\u0020theme\u0020entities,\u0020use\u0020findByTheme\u0020instead",
             "url": "classes/App-Database-Utils-ThemeHelperEntity.html#method_findAll"
         },                {
             "fqsen": "\\App\\Database\\Utils\\ThemeHelperEntity\u003A\u003AfindByThemeAndName\u0028\u0029",
@@ -2618,12 +2618,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Database\\Utils\\ThemeHelperEntity\u003A\u003AinternalDelete\u0028\u0029",
             "name": "internalDelete",
-            "summary": "",
+            "summary": "Function\u0020to\u0020delete\u0020the\u0020current\u0020entity",
             "url": "classes/App-Database-Utils-ThemeHelperEntity.html#method_internalDelete"
         },                {
             "fqsen": "\\App\\Database\\Utils\\ThemeHelperEntity\u003A\u003AinternalUpdate\u0028\u0029",
             "name": "internalUpdate",
-            "summary": "",
+            "summary": "Function\u0020to\u0020update\u0020the\u0020current\u0020entity",
             "url": "classes/App-Database-Utils-ThemeHelperEntity.html#method_internalUpdate"
         },                {
             "fqsen": "\\App\\Database\\Utils\\ThemeHelperEntity\u003A\u003A\u0024name",

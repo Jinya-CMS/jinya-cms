@@ -7,10 +7,11 @@ use App\Database\Exceptions\UniqueFailedException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 
 /**
- *
+ * Base class for all entities that need the ability to rearrange themselves in their parent
  */
 abstract class RearrangableEntity extends LoadableEntity
 {
+    /** @var int The position of the current entity */
     public int $position;
 
     /**
@@ -46,9 +47,11 @@ abstract class RearrangableEntity extends LoadableEntity
     }
 
     /**
-     * @param string $table
-     * @param string $parentIdName
-     * @param int $parentId
+     * Resets the order of all entities in the given parent. Reset means in this context, that it starts the position from 0 and counts up
+     *
+     * @param string $table The table the entity is rearranged in
+     * @param string $parentIdName The name of the parent id
+     * @param int $parentId The parent id
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException
