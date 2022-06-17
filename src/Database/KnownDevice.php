@@ -10,13 +10,17 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
 /**
- *
+ * This class contains a known device, known devices are used to remove the need for a two-factor code. It is up to the API consumer whether they want to use them or not.
  */
 class KnownDevice extends Utils\LoadableEntity
 {
+    /** @var int The ID of the artist this known device belongs to */
     public int $userId;
+    /** @var string The key of the known device */
     public string $deviceKey;
+    /** @var string The user agent of the browser or API client this known device was issued for */
     public string $userAgent = '';
+    /** @var string The remote address of the API consumer this known device was issued for */
     public string $remoteAddress = '';
 
     /**
@@ -115,6 +119,8 @@ class KnownDevice extends Utils\LoadableEntity
     }
 
     /**
+     * Formats the known device into an array
+     *
      * @return array<string, string>
      */
     #[ArrayShape([
