@@ -15,24 +15,31 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 /**
- *
+ * This class contains a form, forms allow artists to receive feedback from their site visitors
  */
 #[JinyaApi]
 class Form extends Utils\LoadableEntity
 {
+    /** @var int The ID of the creator of the form */
     #[JinyaApiField(ignore: true)]
     public int $creatorId;
+    /** @var int The ID of the artist who last touched the form */
     #[JinyaApiField(ignore: true)]
     public int $updatedById;
+    /** @var DateTime The time the form was created at */
     #[JinyaApiField(ignore: true)]
     public DateTime $createdAt;
+    /** @var DateTime The time the form was last updated at */
     #[JinyaApiField(ignore: true)]
     public DateTime $lastUpdatedAt;
 
+    /** @var string The title of the form */
     #[JinyaApiField(required: true)]
     public string $title;
+    /** @var string The description of the form, may contain HTML */
     #[JinyaApiField]
     public string $description = '';
+    /** @var string The email address filled out forms should be mailed to */
     #[JinyaApiField(required: true)]
     public string $toAddress;
 
@@ -162,6 +169,8 @@ class Form extends Utils\LoadableEntity
     }
 
     /**
+     * Formats the form into an array
+     *
      * @return array<string, array<string, array<string, string|null>|string>|int|string>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -205,7 +214,7 @@ class Form extends Utils\LoadableEntity
     }
 
     /**
-     * Gets the creator of this file
+     * Gets the creator of this form
      *
      * @return Artist|null
      *
@@ -220,7 +229,7 @@ class Form extends Utils\LoadableEntity
     }
 
     /**
-     * Gets the artist that last updated this file
+     * Gets the artist that last updated this form
      *
      * @return Artist|null
      *

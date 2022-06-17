@@ -14,23 +14,30 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 /**
- *
+ * This class contains information about files stored with the media manager in Jinya CMS
  */
 #[JinyaApi]
 class File extends LoadableEntity
 {
+    /** @var int The ID of the creator of the file */
     #[JinyaApiField(ignore: true)]
     public int $creatorId;
+    /** @var int The ID of the artist who last touched the file */
     #[JinyaApiField(ignore: true)]
     public int $updatedById;
+    /** @var DateTime The time the file was created at */
     #[JinyaApiField(ignore: true)]
     public DateTime $createdAt;
+    /** @var DateTime The time the file was last updated at */
     #[JinyaApiField(ignore: true)]
     public DateTime $lastUpdatedAt;
+    /** @var string The path where the file is stored, this path is relative to the web root directory */
     #[JinyaApiField(ignore: true)]
     public string $path = '';
+    /** @var string The name of the file */
     #[JinyaApiField(required: true)]
     public string $name = '';
+    /** @var string The type of the file */
     #[JinyaApiField(ignore: true)]
     public string $type = '';
 
@@ -148,6 +155,8 @@ class File extends LoadableEntity
     }
 
     /**
+     * Formats the file into an array
+     *
      * @return array<string, array<string, array<string, string|null>|string>|int|string>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException

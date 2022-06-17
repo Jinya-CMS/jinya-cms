@@ -10,17 +10,17 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
 /**
- *
+ * This class is a mapper class to combine galleries and files, while maintaining a position the file is placed at in the gallery
  */
 class GalleryFilePosition extends Utils\RearrangableEntity
 {
+    /** @var int The ID of the gallery */
     public int $galleryId;
+    /** @var int The ID of the file */
     public int $fileId;
-    public int $position;
 
     /**
-     * @inheritDoc
-     * @return GalleryFilePosition
+     * Not implemented
      */
     public static function findById(int $id): ?object
     {
@@ -28,7 +28,7 @@ class GalleryFilePosition extends Utils\RearrangableEntity
     }
 
     /**
-     * @inheritDoc
+     * Not implemented
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -36,7 +36,7 @@ class GalleryFilePosition extends Utils\RearrangableEntity
     }
 
     /**
-     * @inheritDoc
+     * Not implemented
      */
     public static function findAll(): Iterator
     {
@@ -44,10 +44,10 @@ class GalleryFilePosition extends Utils\RearrangableEntity
     }
 
     /**
-     * Gets the gallery file position at the given position
+     * Gets the gallery file position at the given position in the given gallery
      *
-     * @param int $id
-     * @param int $position
+     * @param int $id The gallery ID
+     * @param int $position The files position
      * @return GalleryFilePosition|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -93,6 +93,8 @@ class GalleryFilePosition extends Utils\RearrangableEntity
     }
 
     /**
+     * Formats the gallery file position into an array
+     *
      * @return array<string, array<string, int|string|null>|int>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException

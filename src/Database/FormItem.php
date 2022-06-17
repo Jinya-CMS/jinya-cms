@@ -11,21 +11,29 @@ use Laminas\Hydrator\Strategy\BooleanStrategy;
 use RuntimeException;
 
 /**
- *
+ * This class contains a form item, a form has several items
  */
 class FormItem extends Utils\RearrangableEntity
 {
+    /** @var string The type of the form item, currently supported are select, checkbox and textarea. You can also specify any valid HTML5 form type */
     public string $type = 'text';
-    /** @var array<string> */
+    /** @var array<string> The options of the form item, only needed when the type is select */
     public array $options = [];
-    /** @var array<string> */
+    /** @var array<string> The spam filter contains a list of keywords, by which a submitted form is declared as spam. Messages marked as spam will not be send to the to address of the form */
     public array $spamFilter = [];
+    /** @var string The label of the form item */
     public string $label;
+    /** @var string The help text of the form item, it is theme dependent if and if yes, how they will be displayed */
     public string $helpText = '';
+    /** @var int The ID of the form this form item belongs to */
     public int $formId;
+    /** @var bool If true this form items value is considered the from address in the submitted message and the artist will reply to this */
     public bool $isFromAddress = false;
+    /** @var bool If true this form items value will be used for the subject of the mail */
     public bool $isSubject = false;
+    /** @var bool If true this form item is required and needs to be filled out */
     public bool $isRequired = false;
+    /** @var string|null The placeholder text for the form element rendered, may be null */
     public ?string $placeholder = '';
 
     /**
@@ -81,6 +89,8 @@ class FormItem extends Utils\RearrangableEntity
     }
 
     /**
+     * Gets the form of the current form item
+     *
      * @return Form|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -93,6 +103,8 @@ class FormItem extends Utils\RearrangableEntity
     }
 
     /**
+     * Formats the form item into an array
+     *
      * @return array<string, array<string>|bool|int|string|null>
      */
     #[Pure]

@@ -13,34 +13,46 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 /**
- *
+ * This class contains a gallery, galleries are used to arrange files in a list or masonry layout and horizontal or vertical orientation. They can be embedded into segment pages and blog posts
  */
 #[JinyaApi]
 class Gallery extends Utils\LoadableEntity
 {
 
+    /** @var string Used to mark a gallery for list or sequential layout */
     public const TYPE_SEQUENCE = 'sequence';
+    /** @var string Used to mark a gallery for masonry layout */
     public const TYPE_MASONRY = 'masonry';
 
+    /** @var string Used to mark a gallery for horizontal orientation */
     public const ORIENTATION_HORIZONTAL = 'horizontal';
+    /** @var string Used to mark a gallery for verticla orientation */
     public const ORIENTATION_VERTICAL = 'vertical';
 
+    /** @var int The ID of the creator of the gallery */
     #[JinyaApiField(ignore: true)]
     public int $creatorId;
+    /** @var int The ID of the artist that last touched the gallery */
     #[JinyaApiField(ignore: true)]
     public int $updatedById;
 
+    /** @var DateTime The time the gallery was created */
     #[JinyaApiField(ignore: true)]
     public DateTime $createdAt;
+    /** @var DateTime The time the gallery was last updated */
     #[JinyaApiField(ignore: true)]
     public DateTime $lastUpdatedAt;
 
+    /** @var string The name of the gallery */
     #[JinyaApiField(required: true)]
     public string $name;
+    /** @var string The description of the gallery. Currently ignored by the default theme. May contain HTML */
     #[JinyaApiField]
     public string $description = '';
+    /** @var string The type or layout of the gallery. The selected layout should be respected in themes */
     #[JinyaApiField]
     public string $type = self::TYPE_SEQUENCE;
+    /** @var string The orientation of the gallery. The selected orientation should be respected in themes */
     #[JinyaApiField]
     public string $orientation = self::ORIENTATION_HORIZONTAL;
 
@@ -75,13 +87,15 @@ class Gallery extends Utils\LoadableEntity
         $sql = 'SELECT id, creator_id, updated_by_id, created_at, last_updated_at, name, description, type, orientation FROM gallery WHERE name LIKE :nameKeyword OR description LIKE :descKeyword';
 
         try {
-            return self::getPdo()->fetchIterator($sql,
+            return self::getPdo()->fetchIterator(
+                $sql,
                 new self(),
                 ['descKeyword' => "%$keyword%", 'nameKeyword' => "%$keyword%"],
                 [
                     'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                     'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-                ]);
+                ]
+            );
         } catch (InvalidQueryException$exception) {
             throw self::convertInvalidQueryExceptionToException($exception);
         }
@@ -104,6 +118,8 @@ class Gallery extends Utils\LoadableEntity
     }
 
     /**
+     * Formats the gallery into an array
+     *
      * @return array<string, array<string, array<string, string|null>|string>|int|string>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -149,7 +165,7 @@ class Gallery extends Utils\LoadableEntity
     }
 
     /**
-     * Gets the creator of this file
+     * Gets the creator of this gallery
      *
      * @return Artist|null
      *
@@ -164,7 +180,7 @@ class Gallery extends Utils\LoadableEntity
     }
 
     /**
-     * Gets the artist that last updated this file
+     * Gets the artist that last updated this gallery
      *
      * @return Artist|null
      *
