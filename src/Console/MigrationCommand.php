@@ -9,12 +9,15 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use JsonException;
 
 /**
- *
+ * This command migrates the Jinya CMS database to the most recent version
  */
 #[JinyaCommand('migrate')]
 class MigrationCommand extends AbstractCommand
 {
     /**
+     * Executes the migration command
+     *
+     * @return void
      * @throws JsonException
      */
     public function run(): void

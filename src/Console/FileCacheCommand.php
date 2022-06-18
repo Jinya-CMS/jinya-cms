@@ -2,19 +2,30 @@
 
 namespace App\Console;
 
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Storage\StorageBaseService;
 use App\Theming\Extensions\FileExtension;
 use Intervention\Image\ImageManager;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Throwable;
 
 /**
- *
+ * This command generates the file cache of uploaded images
  */
 #[JinyaCommand('file-cache')]
 class FileCacheCommand extends AbstractCommand
 {
 
+    /**
+     * Recreates the file cache
+     *
+     * @return void
+     * @throws ForeignKeyFailedException
+     * @throws UniqueFailedException
+     * @throws InvalidQueryException
+     */
     public function run(): void
     {
         $forceRecache = $this->climate->arguments->get('--force-rebuild') ?: false;
@@ -27,27 +38,23 @@ class FileCacheCommand extends AbstractCommand
                 $image = $manager->make(StorageBaseService::BASE_PATH . '/public/' . $file->path);
                 foreach (FileExtension::RESOLUTIONS_FOR_SOURCE as $width) {
                     $basepath = StorageBaseService::BASE_PATH . '/public/' . $file->path . '-' . $width . 'w.';
-                    if (!$forceRecache && file_exists($basepath . 'webp')) {
-                        $this->climate->info("File cached for WebP in resolution $width");
-                    } else {
+                    if ($forceRecache || !file_exists($basepath . 'webp')) {
                         $this->climate->info("Create file cache for WebP and resolution $width");
                         $image->save($basepath . 'webp');
-                        $this->climate->info("File cached for WebP in resolution $width");
                     }
-                    if (!$forceRecache && file_exists($basepath . 'png')) {
-                        $this->climate->info("File cached for PNG in resolution $width");
-                    } else {
+                    $this->climate->info("File cached for WebP in resolution $width");
+
+                    if ($forceRecache || !file_exists($basepath . 'png')) {
                         $this->climate->info("Create file cache for PNG and resolution $width");
                         $image->save($basepath . 'png');
-                        $this->climate->info("File cached for PNG in resolution $width");
                     }
-                    if (!$forceRecache && file_exists($basepath . 'jpg')) {
-                        $this->climate->info("File cached for JPEG in resolution $width");
-                    } else {
+                    $this->climate->info("File cached for PNG in resolution $width");
+
+                    if ($forceRecache || !file_exists($basepath . 'jpg')) {
                         $this->climate->info("Create file cache for JPEG and resolution $width");
                         $image->save($basepath . 'jpg');
-                        $this->climate->info("File cached for JPEG in resolution $width");
                     }
+                    $this->climate->info("File cached for JPEG in resolution $width");
                 }
             } catch (Throwable $e) {
                 $this->climate->error("Failed to process file $file->name");
