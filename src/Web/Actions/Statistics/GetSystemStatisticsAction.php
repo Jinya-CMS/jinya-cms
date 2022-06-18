@@ -17,12 +17,11 @@ class GetSystemStatisticsAction extends Action
      */
     protected function action(): Response
     {
-        $storageStats = new Storage();
         return $this->respond(
             [
-                'used' => $storageStats->getUsedStorage(),
-                'free' => $storageStats->getFreeStorage(),
-                'total' => $storageStats->getTotalStorage(),
+                'used' => Storage::getUsedStorage(),
+                'free' => Storage::getFreeStorage(),
+                'total' => Storage::getTotalStorage(),
             ]
         );
     }

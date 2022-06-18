@@ -6,11 +6,13 @@ use App\Database\Utils\LoadableEntity;
 use JetBrains\PhpStorm\ArrayShape;
 
 /**
- *
+ * Helper class to get the share of entities in the database
  */
-class Entity
+abstract class Entity
 {
     /**
+     * Gets the count of files, galleries, simple pages, segment pages, forms, blog posts and blog categories
+     *
      * @return array{files: int, galleries: int, simplePages: int, segmentPages: int, forms: int, blogPosts: int, blogCategories: int}
      */
     #[ArrayShape([
@@ -21,7 +23,7 @@ class Entity
         'forms' => 'int',
         'blogPosts' => 'int',
         'blogCategories' => 'int',
-    ])] public function getEntityShare(): array
+    ])] public static function getEntityShare(): array
     {
         $fileCount = 'SELECT COUNT(*) FROM file';
         $galleryCount = 'SELECT COUNT(*) FROM gallery';

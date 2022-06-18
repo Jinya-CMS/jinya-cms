@@ -21,7 +21,6 @@ class GetHistoryStatisticsAction extends Action
      */
     protected function action(): Response
     {
-        $historyStats = new History();
         $type = str_replace('-', '_', $this->args['type']);
         if (!in_array($type, ['file', 'form', 'gallery', 'page', 'segment_page'])) {
             return (new NyholmResponse())
@@ -31,8 +30,8 @@ class GetHistoryStatisticsAction extends Action
 
         return $this->respond(
             [
-                'created' => $this->formatIterator($historyStats->getCreatedHistory($type)),
-                'updated' => $this->formatIterator($historyStats->getUpdatedHistory($type)),
+                'created' => $this->formatIterator(History::getCreatedHistory($type)),
+                'updated' => $this->formatIterator(History::getUpdatedHistory($type)),
             ],
         );
     }

@@ -7,18 +7,27 @@ use DateTime;
 use JsonException;
 
 /**
- *
+ * The matomo client connects to the configured matomo instance and offers a few statistics methods
  */
 class MatomoClient
 {
+    /** @var string The matomo server to query */
     private string $matomoServer;
+    /** @var string The api key to use to connect to the matomo server */
     private string $matomoApiKey;
+    /** @var string The ID of the site you are serving from */
     private string $matomoSiteId;
 
+    /** @internal */
     private function __construct()
     {
     }
 
+    /**
+     * Creates a new matomo client with the ENV configured values
+     *
+     * @return MatomoClient
+     */
     public static function newClient(): MatomoClient
     {
         $client = new MatomoClient();
@@ -30,7 +39,9 @@ class MatomoClient
     }
 
     /**
-     * @param string $period
+     * Gets the visits by country in the given period
+     *
+     * @param string $period The period to look for
      * @return array<array<string, mixed>>
      * @throws JsonException
      */
@@ -49,8 +60,10 @@ class MatomoClient
     }
 
     /**
-     * @param string $action
-     * @param string $period
+     * Sends a request to matomo
+     *
+     * @param string $action The action execute
+     * @param string $period The period to request
      * @return array<array<string, mixed>>
      * @throws JsonException
      */
@@ -67,7 +80,9 @@ class MatomoClient
     }
 
     /**
-     * @param string $period
+     * Gets the visits by browser for the given period
+     *
+     * @param string $period The period to look for
      * @return array<array<string, mixed>>
      * @throws JsonException
      */
@@ -85,7 +100,9 @@ class MatomoClient
     }
 
     /**
-     * @param string $period
+     * Gets the visits by os version
+     *
+     * @param string $period The period to look for
      * @return array<array<string, mixed>>
      * @throws JsonException
      */
@@ -103,7 +120,9 @@ class MatomoClient
     }
 
     /**
-     * @param string $period
+     * Gets the visits by device brand
+     *
+     * @param string $period The period to look for
      * @return array<array<string, mixed>>
      * @throws JsonException
      */
@@ -121,7 +140,9 @@ class MatomoClient
     }
 
     /**
-     * @param string $period
+     * Gets the visits by device type
+     *
+     * @param string $period The period to look for
      * @return array<array<string, mixed>>
      * @throws JsonException
      */
@@ -139,7 +160,9 @@ class MatomoClient
     }
 
     /**
-     * @param string $period
+     * Gets the visits by language
+     *
+     * @param string $period The period to look for
      * @return array<array<string, mixed>>
      * @throws JsonException
      */
@@ -157,7 +180,9 @@ class MatomoClient
     }
 
     /**
-     * @param string $period
+     * Gets the visits by referrer
+     *
+     * @param string $period The period to look for
      * @return array<array<string, mixed>>
      * @throws JsonException
      */

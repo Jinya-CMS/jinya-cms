@@ -17,7 +17,6 @@ class GetEntityStatisticsAction extends Action
      */
     protected function action(): Response
     {
-        $entityStats = new Entity();
-        return $this->respond($entityStats->getEntityShare());
+        return $this->respond(Entity::getEntityShare());
     }
 }
