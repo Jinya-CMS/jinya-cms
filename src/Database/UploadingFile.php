@@ -4,20 +4,22 @@ namespace App\Database;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Utils\UuidGenerator;
-use Exception;
 use Iterator;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
 /**
- *
+ * This class contains and uploading file. Uploading files are temporary entities used to handle the chunked upload feature of Jinya CMS
  */
 class UploadingFile extends Utils\LoadableEntity
 {
+    /** @var int The ID of the file the uploading file belongs to */
     public int $fileId;
 
     /**
+     * Finds an uploading file by the ID of the connected file
+     *
      * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      * @throws ForeignKeyFailedException
@@ -36,8 +38,7 @@ class UploadingFile extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
-     * @return UploadingFile
+     * Not implemented
      */
     public static function findById(int $id): ?object
     {
@@ -45,7 +46,7 @@ class UploadingFile extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Not implemented
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -53,7 +54,7 @@ class UploadingFile extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Not implemented
      */
     public static function findAll(): Iterator
     {
@@ -87,9 +88,11 @@ class UploadingFile extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
-     * @throws Exception
+     * Creates the current uploading file
+     *
+     * @throws Exceptions\UniqueFailedException
      * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      */
     public function create(): void
     {
@@ -99,7 +102,12 @@ class UploadingFile extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Deletes the current uploading file
+     *
+     * @return void
+     * @throws Exceptions\UniqueFailedException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      */
     public function delete(): void
     {
@@ -107,7 +115,7 @@ class UploadingFile extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Not implemented
      */
     public function update(): void
     {
@@ -115,6 +123,8 @@ class UploadingFile extends Utils\LoadableEntity
     }
 
     /**
+     * Always returns an empty array and is not used
+     *
      * @return array<string>
      */
     public function format(): array
@@ -122,6 +132,11 @@ class UploadingFile extends Utils\LoadableEntity
         return [];
     }
 
+    /**
+     * Converts the uploading file ID to string
+     *
+     * @return string
+     */
     public function getIdAsString(): string
     {
         return (string)$this->id;

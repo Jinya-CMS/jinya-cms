@@ -4,29 +4,30 @@ namespace App\Database;
 
 use Iterator;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
 /**
- *
+ * This class contains a chunk of an uploading file
  */
 class UploadingFileChunk extends Utils\LoadableEntity
 {
+    /** @var string The ID of the owning uploading file */
     public string $uploadingFileId;
+    /** @var string The absolut path to the chunk */
     public string $chunkPath;
+    /** @var int The position of the chunk, the chunk position is used to connect the resulting chunks in the correct order */
     public int $chunkPosition;
 
     /**
-     * @inheritDoc
-     * @throws NoResultException
+     * Not implemented
      */
     public static function findById(int $id): ?object
     {
-        return self::fetchSingleById('uploading_file_chunk', $id, new self());
+        throw new RuntimeException('Not implemented');
     }
 
     /**
-     * @inheritDoc
+     * Not implemented
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -34,7 +35,7 @@ class UploadingFileChunk extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Not implemented
      */
     public static function findAll(): Iterator
     {
@@ -60,7 +61,12 @@ class UploadingFileChunk extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Creates the current uploading file chunk
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function create(): void
     {
@@ -68,7 +74,12 @@ class UploadingFileChunk extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Deletes the current uploading file chunk
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function delete(): void
     {
@@ -76,7 +87,7 @@ class UploadingFileChunk extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Not implemented
      */
     public function update(): void
     {
@@ -84,6 +95,8 @@ class UploadingFileChunk extends Utils\LoadableEntity
     }
 
     /**
+     * Always returns an empty array and is not used
+     *
      * @return array<string>
      */
     public function format(): array
