@@ -8,10 +8,15 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
 /**
- *
+ * Simple factory class to create a PSR-3 logger
  */
-class Logger
+abstract class Logger
 {
+    /**
+     * Creates a new PSR-3 logger, based on Monolog
+     *
+     * @return LoggerInterface
+     */
     public static function getLogger(): LoggerInterface
     {
         $path = isset($_ENV['DOCKER']) ? 'php://stdout' : __ROOT__ . '/logs/app.log';
