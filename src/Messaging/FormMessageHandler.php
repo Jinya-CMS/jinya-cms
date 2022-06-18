@@ -15,10 +15,11 @@ use Psr\Http\Message\ServerRequestInterface;
 use Throwable;
 
 /**
- *
+ * The form message handler, handles the data from form posts and send the mail to the configured to address
  */
 class FormMessageHandler
 {
+    /** @var Engine The template engine */
     private Engine $engine;
 
     /**
@@ -92,6 +93,8 @@ class FormMessageHandler
     }
 
     /**
+     * Checks if the provided value is inside the spam keyword list
+     *
      * @param string $value
      * @param array<string> $spamValues
      * @return bool
@@ -113,6 +116,8 @@ class FormMessageHandler
     }
 
     /**
+     * Renders the messaging template and returns the string
+     *
      * @param array<string, mixed> $data
      * @param string $title
      * @return string
