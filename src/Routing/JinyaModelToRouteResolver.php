@@ -23,14 +23,17 @@ use Slim\Exception\HttpMethodNotAllowedException;
 use Slim\Exception\HttpNotFoundException;
 
 /**
- *
+ * This class checks the database namespace and generates the CRUD endpoints for the Jinya api. The endpoints are auto generated based on the JinyaApi attribute
+ * @see JinyaApi
  */
 class JinyaModelToRouteResolver
 {
     /**
-     * @param Request $request
-     * @param Response $response
-     * @param array<string, string> $args
+     * Creates a response based on the passed class and id
+     *
+     * @param Request $request The request to handle
+     * @param Response $response The response to extend and return
+     * @param array<string, string> $args Contains an entity field, and in some cases an ID
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -94,11 +97,13 @@ class JinyaModelToRouteResolver
     }
 
     /**
-     * @param ReflectionClass<LoadableEntity> $reflectionClass
-     * @param string $role
-     * @param Request $request
-     * @param Response $response
-     * @param array<string, string> $args
+     * Executes a GET request
+     *
+     * @param ReflectionClass<LoadableEntity> $reflectionClass The reflection class that reflects the entity
+     * @param string $role The role needed to execute the request
+     * @param Request $request The request to handle
+     * @param Response $response The response to base the returned response on
+     * @param array<string, string> $args If this array contains the key id, the entity with the given id is fetched. Otherwise, all entities are returned or filtered by the keyword query parameter
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -160,11 +165,13 @@ class JinyaModelToRouteResolver
     }
 
     /**
-     * @param ReflectionClass<LoadableEntity> $reflectionClass
-     * @param string $role
-     * @param Request $request
-     * @param Response $response
-     * @param array<string, string> $args
+     * Executes a DELETE request
+     *
+     * @param ReflectionClass<LoadableEntity> $reflectionClass The reflection class that reflects the entity
+     * @param string $role The role needed to execute the request
+     * @param Request $request The request to handle
+     * @param Response $response The response to base the returned response on
+     * @param array<string, string> $args Must contain the key id
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -194,10 +201,12 @@ class JinyaModelToRouteResolver
     }
 
     /**
-     * @param ReflectionClass<LoadableEntity> $reflectionClass
-     * @param string $role
-     * @param Request $request
-     * @param Response $response
+     * Executes a POST request
+     *
+     * @param ReflectionClass<LoadableEntity> $reflectionClass The reflection class that reflects the entity
+     * @param string $role The role needed to execute the request
+     * @param Request $request The request to handle
+     * @param Response $response The response to base the returned response on
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -256,11 +265,11 @@ class JinyaModelToRouteResolver
     }
 
     /**
-     * @param ReflectionClass<LoadableEntity> $reflectionClass
-     * @param string $role
-     * @param Request $request
-     * @param Response $response
-     * @param array<string, string> $args
+     * @param ReflectionClass<LoadableEntity> $reflectionClass The reflection class that reflects the entity
+     * @param string $role The role needed to execute the request
+     * @param Request $request The request to handle
+     * @param Response $response The response to base the returned response on
+     * @param array<string, string> $args This array must contain a key id, otherwise an HttpNotFoundException is thrown
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -312,8 +321,10 @@ class JinyaModelToRouteResolver
     }
 
     /**
-     * @param Request $request
-     * @param string $role
+     * Checks whether the user in the current request has the given role and sets the current user global
+     *
+     * @param Request $request The request to check in
+     * @param string $role The role to check for
      * @return void
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

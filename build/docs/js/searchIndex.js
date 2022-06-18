@@ -2706,16 +2706,16 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Mailing-Types-TwoFactorMail.html#property_templateEngine"
         },                {
-            "fqsen": "\\App\\Maintenance\\PhpInfo\\IniValue",
-            "name": "IniValue",
-            "summary": "",
-            "url": "classes/App-Maintenance-PhpInfo-IniValue.html"
-        },                {
-            "fqsen": "\\App\\Maintenance\\PhpInfo\\IniValue\u003A\u003AjsonSerialize\u0028\u0029",
-            "name": "jsonSerialize",
-            "summary": "",
-            "url": "classes/App-Maintenance-PhpInfo-IniValue.html#method_jsonSerialize"
-        },                {
+      "fqsen": "\\App\\Maintenance\\PhpInfo\\IniValue",
+      "name": "IniValue",
+      "summary": "This\u0020class\u0020contains\u0020a\u0020PHP\u0020INI\u0020value",
+      "url": "classes/App-Maintenance-PhpInfo-IniValue.html"
+    }, {
+      "fqsen": "\\App\\Maintenance\\PhpInfo\\IniValue\u003A\u003AjsonSerialize\u0028\u0029",
+      "name": "jsonSerialize",
+      "summary": "Serializes\u0020the\u0020INI\u0020value\u0020data\u0020into\u0020an\u0020array",
+      "url": "classes/App-Maintenance-PhpInfo-IniValue.html#method_jsonSerialize"
+    },                {
             "fqsen": "\\App\\Maintenance\\PhpInfo\\IniValue\u003A\u003A\u0024value",
             "name": "value",
             "summary": "",
@@ -2725,17 +2725,17 @@ Search.appendIndex(
             "name": "configName",
             "summary": "",
             "url": "classes/App-Maintenance-PhpInfo-IniValue.html#property_configName"
-        },                {
-            "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpExtension",
-            "name": "PhpExtension",
-            "summary": "",
-            "url": "classes/App-Maintenance-PhpInfo-PhpExtension.html"
-        },                {
-            "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpExtension\u003A\u003AjsonSerialize\u0028\u0029",
-            "name": "jsonSerialize",
-            "summary": "",
-            "url": "classes/App-Maintenance-PhpInfo-PhpExtension.html#method_jsonSerialize"
-        },                {
+        }, {
+      "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpExtension",
+      "name": "PhpExtension",
+      "summary": "This\u0020class\u0020contains\u0020information\u0020about\u0020a\u0020PHP\u0020extension",
+      "url": "classes/App-Maintenance-PhpInfo-PhpExtension.html"
+    }, {
+      "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpExtension\u003A\u003AjsonSerialize\u0028\u0029",
+      "name": "jsonSerialize",
+      "summary": "Serializes\u0020the\u0020PHP\u0020extension\u0020data\u0020into\u0020an\u0020array",
+      "url": "classes/App-Maintenance-PhpInfo-PhpExtension.html#method_jsonSerialize"
+    },                {
             "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpExtension\u003A\u003A\u0024extensionName",
             "name": "extensionName",
             "summary": "",
@@ -2770,17 +2770,17 @@ Search.appendIndex(
             "name": "getLoadedExtensions",
             "summary": "Gets\u0020an\u0020array\u0020of\u0020loaded\u0020extensions",
             "url": "classes/App-Maintenance-PhpInfo-PhpInfoService.html#method_getLoadedExtensions"
-        },                {
-            "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpInfoService\u003A\u003AgetAdditionalData\u0028\u0029",
-            "name": "getAdditionalData",
-            "summary": "",
-            "url": "classes/App-Maintenance-PhpInfo-PhpInfoService.html#method_getAdditionalData"
-        },                {
-            "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpInfoService\u003A\u003AcalculateMb\u0028\u0029",
-            "name": "calculateMb",
-            "summary": "",
-            "url": "classes/App-Maintenance-PhpInfo-PhpInfoService.html#method_calculateMb"
-        },                {
+        }, {
+      "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpInfoService\u003A\u003AgetAdditionalData\u0028\u0029",
+      "name": "getAdditionalData",
+      "summary": "Gets\u0020additional\u0020data\u0020for\u0020extensions,\u0020currently\u0020supported\u0020are\u0020zend\u0020opcache,\u0020apcu\u0020and\u0020hash",
+      "url": "classes/App-Maintenance-PhpInfo-PhpInfoService.html#method_getAdditionalData"
+    }, {
+      "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpInfoService\u003A\u003AcalculateMb\u0028\u0029",
+      "name": "calculateMb",
+      "summary": "Converts\u0020bytes\u0020to\u0020megabytes",
+      "url": "classes/App-Maintenance-PhpInfo-PhpInfoService.html#method_calculateMb"
+    },                {
             "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpInfoService\u003A\u003AgetVersion\u0028\u0029",
             "name": "getVersion",
             "summary": "Gets\u0020the\u0020PHP\u0020version",
@@ -2800,12 +2800,12 @@ Search.appendIndex(
             "name": "getApacheModules",
             "summary": "Gets\u0020all\u0020apache\u0020modules",
             "url": "classes/App-Maintenance-PhpInfo-PhpInfoService.html#method_getApacheModules"
-        },                {
-            "fqsen": "\\App\\Messaging\\FormMessageHandler",
-            "name": "FormMessageHandler",
-            "summary": "",
-            "url": "classes/App-Messaging-FormMessageHandler.html"
-        },                {
+        }, {
+      "fqsen": "\\App\\Messaging\\FormMessageHandler",
+      "name": "FormMessageHandler",
+      "summary": "The\u0020form\u0020message\u0020handler,\u0020handles\u0020the\u0020data\u0020from\u0020form\u0020posts\u0020and\u0020send\u0020the\u0020mail\u0020to\u0020the\u0020configured\u0020to\u0020address",
+      "url": "classes/App-Messaging-FormMessageHandler.html"
+    },                {
             "fqsen": "\\App\\Messaging\\FormMessageHandler\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
             "summary": "FormMessageHandler\u0020constructor.",
@@ -2815,32 +2815,32 @@ Search.appendIndex(
             "name": "handleFormPost",
             "summary": "Handles\u0020the\u0020form\u0020post\u0020and\u0020creates",
             "url": "classes/App-Messaging-FormMessageHandler.html#method_handleFormPost"
-        },                {
-            "fqsen": "\\App\\Messaging\\FormMessageHandler\u003A\u003AisSpam\u0028\u0029",
-            "name": "isSpam",
-            "summary": "",
-            "url": "classes/App-Messaging-FormMessageHandler.html#method_isSpam"
-        },                {
-            "fqsen": "\\App\\Messaging\\FormMessageHandler\u003A\u003ArenderTemplate\u0028\u0029",
-            "name": "renderTemplate",
-            "summary": "",
-            "url": "classes/App-Messaging-FormMessageHandler.html#method_renderTemplate"
-        },                {
+        }, {
+      "fqsen": "\\App\\Messaging\\FormMessageHandler\u003A\u003AisSpam\u0028\u0029",
+      "name": "isSpam",
+      "summary": "Checks\u0020if\u0020the\u0020provided\u0020value\u0020is\u0020inside\u0020the\u0020spam\u0020keyword\u0020list",
+      "url": "classes/App-Messaging-FormMessageHandler.html#method_isSpam"
+    }, {
+      "fqsen": "\\App\\Messaging\\FormMessageHandler\u003A\u003ArenderTemplate\u0028\u0029",
+      "name": "renderTemplate",
+      "summary": "Renders\u0020the\u0020messaging\u0020template\u0020and\u0020returns\u0020the\u0020string",
+      "url": "classes/App-Messaging-FormMessageHandler.html#method_renderTemplate"
+    },                {
             "fqsen": "\\App\\Messaging\\FormMessageHandler\u003A\u003A\u0024engine",
             "name": "engine",
             "summary": "",
             "url": "classes/App-Messaging-FormMessageHandler.html#property_engine"
-        },                {
-            "fqsen": "\\App\\Routing\\Attributes\\JinyaApi",
-            "name": "JinyaApi",
-            "summary": "",
-            "url": "classes/App-Routing-Attributes-JinyaApi.html"
-        },                {
-            "fqsen": "\\App\\Routing\\Attributes\\JinyaApi\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "",
-            "url": "classes/App-Routing-Attributes-JinyaApi.html#method___construct"
-        },                {
+        }, {
+      "fqsen": "\\App\\Routing\\Attributes\\JinyaApi",
+      "name": "JinyaApi",
+      "summary": "This\u0020attribute\u0020is\u0020used\u0020to\u0020make\u0020an\u0020entity\u0020class\u0020routable\u0020and\u0020available\u0020via\u0020the\u0020REST\u0020API",
+      "url": "classes/App-Routing-Attributes-JinyaApi.html"
+    }, {
+      "fqsen": "\\App\\Routing\\Attributes\\JinyaApi\u003A\u003A__construct\u0028\u0029",
+      "name": "__construct",
+      "summary": "Creates\u0020a\u0020new\u0020instance\u0020of\u0020JinyaApi",
+      "url": "classes/App-Routing-Attributes-JinyaApi.html#method___construct"
+    },                {
             "fqsen": "\\App\\Routing\\Attributes\\JinyaApi\u003A\u003A\u0024createEnabled",
             "name": "createEnabled",
             "summary": "",
@@ -2880,17 +2880,17 @@ Search.appendIndex(
             "name": "deleteRole",
             "summary": "",
             "url": "classes/App-Routing-Attributes-JinyaApi.html#property_deleteRole"
-        },                {
-            "fqsen": "\\App\\Routing\\Attributes\\JinyaApiField",
-            "name": "JinyaApiField",
-            "summary": "",
-            "url": "classes/App-Routing-Attributes-JinyaApiField.html"
-        },                {
-            "fqsen": "\\App\\Routing\\Attributes\\JinyaApiField\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "",
-            "url": "classes/App-Routing-Attributes-JinyaApiField.html#method___construct"
-        },                {
+        }, {
+      "fqsen": "\\App\\Routing\\Attributes\\JinyaApiField",
+      "name": "JinyaApiField",
+      "summary": "Specifies\u0020whether\u0020a\u0020field\u0020in\u0020a\u0020JinyaApi\u0020entity\u0020is\u0020required\u0020or\u0020ignored",
+      "url": "classes/App-Routing-Attributes-JinyaApiField.html"
+    }, {
+      "fqsen": "\\App\\Routing\\Attributes\\JinyaApiField\u003A\u003A__construct\u0028\u0029",
+      "name": "__construct",
+      "summary": "Creates\u0020a\u0020new\u0020JinyaApiField",
+      "url": "classes/App-Routing-Attributes-JinyaApiField.html#method___construct"
+    },                {
             "fqsen": "\\App\\Routing\\Attributes\\JinyaApiField\u003A\u003A\u0024ignore",
             "name": "ignore",
             "summary": "",
@@ -2900,42 +2900,42 @@ Search.appendIndex(
             "name": "required",
             "summary": "",
             "url": "classes/App-Routing-Attributes-JinyaApiField.html#property_required"
-        },                {
-            "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver",
-            "name": "JinyaModelToRouteResolver",
-            "summary": "",
-            "url": "classes/App-Routing-JinyaModelToRouteResolver.html"
-        },                {
-            "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver\u003A\u003AresolveActionWithClassAndId\u0028\u0029",
-            "name": "resolveActionWithClassAndId",
-            "summary": "",
-            "url": "classes/App-Routing-JinyaModelToRouteResolver.html#method_resolveActionWithClassAndId"
-        },                {
-            "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver\u003A\u003AexecuteGetRequest\u0028\u0029",
-            "name": "executeGetRequest",
-            "summary": "",
-            "url": "classes/App-Routing-JinyaModelToRouteResolver.html#method_executeGetRequest"
-        },                {
-            "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver\u003A\u003AexecuteDeleteRequest\u0028\u0029",
-            "name": "executeDeleteRequest",
-            "summary": "",
-            "url": "classes/App-Routing-JinyaModelToRouteResolver.html#method_executeDeleteRequest"
-        },                {
-            "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver\u003A\u003AexecutePostRequest\u0028\u0029",
-            "name": "executePostRequest",
-            "summary": "",
-            "url": "classes/App-Routing-JinyaModelToRouteResolver.html#method_executePostRequest"
-        },                {
+        }, {
+      "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver",
+      "name": "JinyaModelToRouteResolver",
+      "summary": "This\u0020class\u0020checks\u0020the\u0020database\u0020namespace\u0020and\u0020generates\u0020the\u0020CRUD\u0020endpoints\u0020for\u0020the\u0020Jinya\u0020api.\u0020The\u0020endpoints\u0020are\u0020auto\u0020generated\u0020based\u0020on\u0020the\u0020JinyaApi\u0020attribute",
+      "url": "classes/App-Routing-JinyaModelToRouteResolver.html"
+    }, {
+      "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver\u003A\u003AresolveActionWithClassAndId\u0028\u0029",
+      "name": "resolveActionWithClassAndId",
+      "summary": "Creates\u0020a\u0020response\u0020based\u0020on\u0020the\u0020passed\u0020class\u0020and\u0020id",
+      "url": "classes/App-Routing-JinyaModelToRouteResolver.html#method_resolveActionWithClassAndId"
+    }, {
+      "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver\u003A\u003AexecuteGetRequest\u0028\u0029",
+      "name": "executeGetRequest",
+      "summary": "Executes\u0020a\u0020GET\u0020request",
+      "url": "classes/App-Routing-JinyaModelToRouteResolver.html#method_executeGetRequest"
+    }, {
+      "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver\u003A\u003AexecuteDeleteRequest\u0028\u0029",
+      "name": "executeDeleteRequest",
+      "summary": "Executes\u0020a\u0020DELETE\u0020request",
+      "url": "classes/App-Routing-JinyaModelToRouteResolver.html#method_executeDeleteRequest"
+    }, {
+      "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver\u003A\u003AexecutePostRequest\u0028\u0029",
+      "name": "executePostRequest",
+      "summary": "Executes\u0020a\u0020POST\u0020request",
+      "url": "classes/App-Routing-JinyaModelToRouteResolver.html#method_executePostRequest"
+    },                {
             "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver\u003A\u003AexecutePutRequest\u0028\u0029",
             "name": "executePutRequest",
             "summary": "",
             "url": "classes/App-Routing-JinyaModelToRouteResolver.html#method_executePutRequest"
-        },                {
-            "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver\u003A\u003AcheckRole\u0028\u0029",
-            "name": "checkRole",
-            "summary": "",
-            "url": "classes/App-Routing-JinyaModelToRouteResolver.html#method_checkRole"
-        },                {
+        }, {
+      "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver\u003A\u003AcheckRole\u0028\u0029",
+      "name": "checkRole",
+      "summary": "Checks\u0020whether\u0020the\u0020user\u0020in\u0020the\u0020current\u0020request\u0020has\u0020the\u0020given\u0020role\u0020and\u0020sets\u0020the\u0020current\u0020user\u0020global",
+      "url": "classes/App-Routing-JinyaModelToRouteResolver.html#method_checkRole"
+    },                {
             "fqsen": "\\App\\Statistics\\Entity",
             "name": "Entity",
             "summary": "",
