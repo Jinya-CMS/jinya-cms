@@ -4,6 +4,7 @@ namespace App\Database;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Utils\UuidGenerator;
+use Exception;
 use Iterator;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
@@ -93,6 +94,7 @@ class UploadingFile extends Utils\LoadableEntity
      * @throws Exceptions\UniqueFailedException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
+     * @throws Exception
      */
     public function create(): void
     {

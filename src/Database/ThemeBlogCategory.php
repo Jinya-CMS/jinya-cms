@@ -10,13 +10,16 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
 /**
- *
+ * This class contains a blog category connected to a theme
  */
 class ThemeBlogCategory extends Utils\ThemeHelperEntity
 {
+    /** @var int The blog category ID */
     public int $blogCategoryId = -1;
 
     /**
+     * Finds a blog category by name and theme
+     *
      * @param int $themeId
      * @param string $name
      * @return ThemeBlogCategory|null
@@ -35,6 +38,8 @@ class ThemeBlogCategory extends Utils\ThemeHelperEntity
     }
 
     /**
+     * Finds all theme blog categories in the with the given ID
+     *
      * @param int $themeId
      * @return Iterator<ThemeBlogCategory>
      * @throws ForeignKeyFailedException
@@ -50,7 +55,12 @@ class ThemeBlogCategory extends Utils\ThemeHelperEntity
     }
 
     /**
-     * @inheritDoc
+     * Creates the current theme blog category
+     *
+     * @return void
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     public function create(): void
     {
@@ -58,7 +68,12 @@ class ThemeBlogCategory extends Utils\ThemeHelperEntity
     }
 
     /**
-     * @inheritDoc
+     * Deletes the current theme blog category
+     *
+     * @return void
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     public function delete(): void
     {
@@ -66,7 +81,12 @@ class ThemeBlogCategory extends Utils\ThemeHelperEntity
     }
 
     /**
-     * @inheritDoc
+     * Updates the current theme
+     *
+     * @return void
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     public function update(): void
     {
@@ -74,6 +94,8 @@ class ThemeBlogCategory extends Utils\ThemeHelperEntity
     }
 
     /**
+     * Formats the theme blog category into an array
+     *
      * @return array<string, array<string, mixed>|string|null>
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -90,6 +112,8 @@ class ThemeBlogCategory extends Utils\ThemeHelperEntity
     }
 
     /**
+     * Gets the blog category associated to this theme blog category
+     *
      * @return BlogCategory|null
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

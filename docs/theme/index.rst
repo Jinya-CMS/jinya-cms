@@ -1,7 +1,7 @@
-.. title:: Theming
+Theming
+===
 
 .. toctree::
-   :hidden:
    :maxdepth: 2
 
     create

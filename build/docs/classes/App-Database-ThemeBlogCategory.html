@@ -60,7 +60,7 @@
                     <section class="phpdocumentor-sidebar__category">
             <h2 class="phpdocumentor-sidebar__category-header">Documentation</h2>
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
-    <a href="guide/theme/index.html" class=""></a>
+    <a href="guide/theme/index.html" class="">Theming</a>
 </h4>
     <ul class="phpdocumentor-list">
                     <li>
@@ -203,7 +203,7 @@
 
     </aside>
 
-            <p class="phpdocumentor-summary">The ThemeHelperEntity adds several additional helper methods specifically for the the entities</p>
+            <p class="phpdocumentor-summary">This class contains a blog category connected to a theme</p>
 
 
 
@@ -266,14 +266,14 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd></dd>
+<dd>Creates the current theme blog category</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-ThemeBlogCategory.html#method_delete">delete()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd></dd>
+<dd>Deletes the current theme blog category</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Utils-LoadableEntity.html#method_executeSqlString">executeSqlString()</a>
@@ -315,28 +315,28 @@
     <span>
                                 &nbsp;: <abbr title="\Iterator">Iterator</abbr>&lt;string|int, <a href="classes/App-Database-ThemeBlogCategory.html"><abbr title="\App\Database\ThemeBlogCategory">ThemeBlogCategory</abbr></a>&gt;    </span>
 </dt>
-<dd>Finds the items for the given theme</dd>
+<dd>Finds all theme blog categories in the with the given ID</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-ThemeBlogCategory.html#method_findByThemeAndName">findByThemeAndName()</a>
     <span>
                                 &nbsp;: <a href="classes/App-Database-ThemeBlogCategory.html"><abbr title="\App\Database\ThemeBlogCategory">ThemeBlogCategory</abbr></a>|null    </span>
 </dt>
-<dd>Finds a file by name and theme</dd>
+<dd>Finds a blog category by name and theme</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-ThemeBlogCategory.html#method_format">format()</a>
     <span>
                                 &nbsp;: array&lt;string, array<string,mixed>|string|null&gt;    </span>
 </dt>
-<dd></dd>
+<dd>Formats the theme blog category into an array</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-ThemeBlogCategory.html#method_getBlogCategory">getBlogCategory()</a>
     <span>
                                 &nbsp;: <a href="classes/App-Database-BlogCategory.html"><abbr title="\App\Database\BlogCategory">BlogCategory</abbr></a>|null    </span>
 </dt>
-<dd></dd>
+<dd>Gets the blog category associated to this theme blog category</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Utils-LoadableEntity.html#method_getIdAsInt">getIdAsInt()</a>
@@ -357,7 +357,7 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd></dd>
+<dd>Updates the current theme</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/App-Database-Utils-LoadableEntity.html#method_convertInvalidQueryExceptionToException">convertInvalidQueryExceptionToException()</a>
@@ -492,7 +492,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ThemeBlogCategory.php"><a href="files/src-database-themeblogcategory.html"><abbr title="src/Database/ThemeBlogCategory.php">ThemeBlogCategory.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">17</span>
+    <span class="phpdocumentor-element-found-in__line">18</span>
 
     </aside>
 
@@ -503,9 +503,9 @@
     <span class="phpdocumentor-signature__name">$blogCategoryId</span>
      = <span class="phpdocumentor-signature__default-value">-1</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>The blog category ID</p>
+</section>
 
     
 
@@ -666,11 +666,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ThemeBlogCategory.php"><a href="files/src-database-themeblogcategory.html"><abbr title="src/Database/ThemeBlogCategory.php">ThemeBlogCategory.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">55</span>
+    <span class="phpdocumentor-element-found-in__line">65</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Creates the current theme blog category</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">create</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
@@ -684,10 +685,27 @@
     </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
+                    <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
-                                                                                
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+                                                            
+                                             
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+                                                            
                                              
                                     </dd>
                         </dl>
@@ -711,11 +729,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ThemeBlogCategory.php"><a href="files/src-database-themeblogcategory.html"><abbr title="src/Database/ThemeBlogCategory.php">ThemeBlogCategory.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">63</span>
+    <span class="phpdocumentor-element-found-in__line">78</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Deletes the current theme blog category</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">delete</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
@@ -729,10 +748,27 @@
     </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
+                    <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
-                                                                                
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+                                                            
+                                             
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+                                                            
                                              
                                     </dd>
                         </dl>
@@ -1059,11 +1095,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ThemeBlogCategory.php"><a href="files/src-database-themeblogcategory.html"><abbr title="src/Database/ThemeBlogCategory.php">ThemeBlogCategory.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">44</span>
+    <span class="phpdocumentor-element-found-in__line">49</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Finds the items for the given theme</p>
+        <p class="phpdocumentor-summary">Finds all theme blog categories in the with the given ID</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1132,11 +1168,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ThemeBlogCategory.php"><a href="files/src-database-themeblogcategory.html"><abbr title="src/Database/ThemeBlogCategory.php">ThemeBlogCategory.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">29</span>
+    <span class="phpdocumentor-element-found-in__line">32</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Finds a file by name and theme</p>
+        <p class="phpdocumentor-summary">Finds a blog category by name and theme</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1228,11 +1264,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ThemeBlogCategory.php"><a href="files/src-database-themeblogcategory.html"><abbr title="src/Database/ThemeBlogCategory.php">ThemeBlogCategory.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">83</span>
+    <span class="phpdocumentor-element-found-in__line">105</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Formats the theme blog category into an array</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">format</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, array<string,mixed>|string|null&gt;</span></code>
@@ -1298,11 +1335,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ThemeBlogCategory.php"><a href="files/src-database-themeblogcategory.html"><abbr title="src/Database/ThemeBlogCategory.php">ThemeBlogCategory.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">99</span>
+    <span class="phpdocumentor-element-found-in__line">123</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Gets the blog category associated to this theme blog category</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">getBlogCategory</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/App-Database-BlogCategory.html"><abbr title="\App\Database\BlogCategory">BlogCategory</abbr></a>|null</span></code>
@@ -1434,11 +1472,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ThemeBlogCategory.php"><a href="files/src-database-themeblogcategory.html"><abbr title="src/Database/ThemeBlogCategory.php">ThemeBlogCategory.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">71</span>
+    <span class="phpdocumentor-element-found-in__line">91</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Updates the current theme</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">update</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
@@ -1452,10 +1491,27 @@
     </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
+                    <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
-                                                                                
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+                                                            
+                                             
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+                                                            
                                              
                                     </dd>
                         </dl>

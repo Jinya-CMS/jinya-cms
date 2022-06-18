@@ -3,18 +3,17 @@
 namespace App\Database;
 
 use App\Database\Utils\ThemeHelperEntity;
-use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
 /**
- *
+ * This class contains a segment page connected to a theme
  */
 class ThemeSegmentPage extends ThemeHelperEntity
 {
-
+    /** @var int The segment page ID */
     public int $segmentPageId = -1;
 
     /**
@@ -52,6 +51,8 @@ class ThemeSegmentPage extends ThemeHelperEntity
     }
 
     /**
+     * Formats the theme segment page into an array
+     *
      * @return array<string, array<string, array<string, array<string, string|null>|string>|int|string>|string|null>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -70,7 +71,6 @@ class ThemeSegmentPage extends ThemeHelperEntity
      * Gets the page of the theme page
      *
      * @return SegmentPage|null
-     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -78,13 +78,16 @@ class ThemeSegmentPage extends ThemeHelperEntity
      */
     public function getSegmentPage(): ?SegmentPage
     {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return SegmentPage::findById($this->segmentPageId);
     }
 
     /**
-     * @inheritDoc
-     * @throws Exception
+     * Creates the current theme segment page
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function create(): void
     {
@@ -92,7 +95,12 @@ class ThemeSegmentPage extends ThemeHelperEntity
     }
 
     /**
-     * @inheritDoc
+     * Deletes the current theme segment page
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function delete(): void
     {
@@ -100,8 +108,12 @@ class ThemeSegmentPage extends ThemeHelperEntity
     }
 
     /**
-     * @inheritDoc
+     * Updates the current theme segment page
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function update(): void
     {

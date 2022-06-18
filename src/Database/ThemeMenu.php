@@ -3,18 +3,17 @@
 namespace App\Database;
 
 use App\Database\Utils\ThemeHelperEntity;
-use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
 /**
- *
+ * This class contains a menu connected to a theme
  */
 class ThemeMenu extends ThemeHelperEntity
 {
-
+    /** @var int The menu ID */
     public int $menuId = -1;
 
     /**
@@ -52,6 +51,8 @@ class ThemeMenu extends ThemeHelperEntity
     }
 
     /**
+     * Formats the theme menu into an array
+     *
      * @return array<string, array<string, array<string, int|string>|int|string>|string|null>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -70,7 +71,6 @@ class ThemeMenu extends ThemeHelperEntity
      * Gets the menu of the theme menu
      *
      * @return Menu|null
-     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -82,8 +82,12 @@ class ThemeMenu extends ThemeHelperEntity
     }
 
     /**
-     * @inheritDoc
-     * @throws Exception
+     * Creates the current theme menu
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function create(): void
     {
@@ -91,7 +95,12 @@ class ThemeMenu extends ThemeHelperEntity
     }
 
     /**
-     * @inheritDoc
+     * Deletes the current theme menu
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function delete(): void
     {
@@ -99,8 +108,12 @@ class ThemeMenu extends ThemeHelperEntity
     }
 
     /**
-     * @inheritDoc
+     * Updates the current theme menu
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function update(): void
     {

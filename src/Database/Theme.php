@@ -4,7 +4,6 @@ namespace App\Database;
 
 use App\Database\Strategies\JsonStrategy;
 use App\Routing\Attributes\JinyaApi;
-use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
@@ -13,18 +12,20 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use stdClass;
 
 /**
- *
+ * This class contains all information for themes that are stored in the database. Apart from the database side there are also filesystem theme information.
  */
 #[JinyaApi(createEnabled: false, readEnabled: true, updateEnabled: false, deleteEnabled: false)]
 class Theme extends Utils\LoadableEntity
 {
-
-    /** @var array<mixed> */
+    /** @var array<mixed> The stored configuration in the database */
     public array $configuration;
+    /** @var string The theme description */
     public string $description;
+    /** @var string The theme name */
     public string $name;
+    /** @var string The theme display name */
     public string $displayName;
-    /** @var array<string, string> */
+    /** @var array<string, string> A key-value store of SCSS variables changed by an artist */
     public array $scssVariables;
 
     /**
@@ -52,7 +53,8 @@ class Theme extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Finds the theme with matching ID
+     *
      * @param int $id
      * @return Theme|null
      * @throws Exceptions\ForeignKeyFailedException
@@ -74,8 +76,13 @@ class Theme extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Finds all themes matching the keyword
+     *
+     * @param string $keyword
      * @return Iterator<Theme>
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -92,8 +99,12 @@ class Theme extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Finds all themes
+     *
      * @return Iterator<Theme>
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public static function findAll(): Iterator
     {
@@ -135,6 +146,7 @@ class Theme extends Utils\LoadableEntity
 
     /**
      * Makes the current theme active
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -150,7 +162,6 @@ class Theme extends Utils\LoadableEntity
      * Gets all theme files
      *
      * @return array<string, File>
-     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -172,7 +183,6 @@ class Theme extends Utils\LoadableEntity
      * Gets all theme categories
      *
      * @return array<string, BlogCategory>
-     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -194,7 +204,6 @@ class Theme extends Utils\LoadableEntity
      * Gets all theme galleries
      *
      * @return array<string, Gallery>
-     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -216,7 +225,6 @@ class Theme extends Utils\LoadableEntity
      * Gets all theme forms
      *
      * @return array<string, Form>
-     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -238,7 +246,6 @@ class Theme extends Utils\LoadableEntity
      * Gets all theme menus
      *
      * @return array<string, Menu>
-     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -260,7 +267,6 @@ class Theme extends Utils\LoadableEntity
      * Gets all theme segment pages
      *
      * @return array<string, SegmentPage>
-     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -282,7 +288,6 @@ class Theme extends Utils\LoadableEntity
      * Gets all theme pages
      *
      * @return array<string, SimplePage>
-     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -321,8 +326,12 @@ class Theme extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
-     * @throws Exception
+     * Creates the current theme
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function create(): void
     {
@@ -336,7 +345,12 @@ class Theme extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Deletes the current theme
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function delete(): void
     {
@@ -344,7 +358,12 @@ class Theme extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Updates the current theme
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function update(): void
     {
@@ -358,6 +377,8 @@ class Theme extends Utils\LoadableEntity
     }
 
     /**
+     * Formats the theme into an array
+     *
      * @return array<string, array<string, mixed>|int|stdClass|string>
      */
     #[Pure]

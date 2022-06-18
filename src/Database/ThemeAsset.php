@@ -1,9 +1,8 @@
-<?php /** @noinspection PropertyInitializationFlawsInspection */
+<?php
 
 namespace App\Database;
 
 use App\Database\Utils\ThemeHelperEntity;
-use Exception;
 use Iterator;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
@@ -13,16 +12,18 @@ use Jinya\PDOx\Exceptions\NoResultException;
  */
 class ThemeAsset extends ThemeHelperEntity
 {
-    public int $themeId = -1;
+    /** @var string The public path of the asset */
     public string $publicPath = '';
 
     /**
-     * Finds a page by name and theme
+     * Finds an asset by name and theme
      *
+     * @param int $themeId
+     * @param string $name
+     * @return ThemeAsset|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
-     * @throws NoResultException
+     * @throws InvalidQueryException
      * @throws NoResultException
      */
     public static function findByThemeAndName(int $themeId, string $name): ?ThemeAsset
@@ -51,8 +52,12 @@ class ThemeAsset extends ThemeHelperEntity
     }
 
     /**
-     * @inheritDoc
-     * @throws Exception
+     * Creates the current theme asset
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function create(): void
     {
@@ -60,7 +65,12 @@ class ThemeAsset extends ThemeHelperEntity
     }
 
     /**
-     * @inheritDoc
+     * Deletes the current theme asset
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function delete(): void
     {
@@ -68,8 +78,12 @@ class ThemeAsset extends ThemeHelperEntity
     }
 
     /**
-     * @inheritDoc
+     * Updates the current theme
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function update(): void
     {
@@ -77,6 +91,8 @@ class ThemeAsset extends ThemeHelperEntity
     }
 
     /**
+     * Always returns an empty array
+     *
      * @return array<string>
      */
     public function format(): array

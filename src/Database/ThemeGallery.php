@@ -3,18 +3,17 @@
 namespace App\Database;
 
 use App\Database\Utils\ThemeHelperEntity;
-use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
 /**
- *
+ * This class contains a gallery connected to a theme
  */
 class ThemeGallery extends ThemeHelperEntity
 {
-
+    /** @var int The gallery ID */
     public int $galleryId = -1;
 
     /**
@@ -52,6 +51,8 @@ class ThemeGallery extends ThemeHelperEntity
     }
 
     /**
+     * Formats the theme gallery into an array
+     *
      * @return array<string, array<string, array<string, array<string, string|null>|string>|int|string>|string|null>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -78,13 +79,16 @@ class ThemeGallery extends ThemeHelperEntity
      */
     public function getGallery(): ?Gallery
     {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return Gallery::findById($this->galleryId);
     }
 
     /**
-     * @inheritDoc
-     * @throws Exception
+     * Creates the given theme gallery
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function create(): void
     {
@@ -92,7 +96,12 @@ class ThemeGallery extends ThemeHelperEntity
     }
 
     /**
-     * @inheritDoc
+     * Deletes the current theme gallery
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function delete(): void
     {
@@ -100,8 +109,12 @@ class ThemeGallery extends ThemeHelperEntity
     }
 
     /**
-     * @inheritDoc
+     * Updates the current theme gallery
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function update(): void
     {

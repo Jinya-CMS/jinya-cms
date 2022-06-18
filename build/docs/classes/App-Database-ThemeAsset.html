@@ -60,7 +60,7 @@
                     <section class="phpdocumentor-sidebar__category">
             <h2 class="phpdocumentor-sidebar__category-header">Documentation</h2>
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
-    <a href="guide/theme/index.html" class=""></a>
+    <a href="guide/theme/index.html" class="">Theming</a>
 </h4>
     <ul class="phpdocumentor-list">
                     <li>
@@ -199,7 +199,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ThemeAsset.php"><a href="files/src-database-themeasset.html"><abbr title="src/Database/ThemeAsset.php">ThemeAsset.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">14</span>
+    <span class="phpdocumentor-element-found-in__line">13</span>
 
     </aside>
 
@@ -248,7 +248,7 @@
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="classes/App-Database-ThemeAsset.html#property_themeId">$themeId</a>
+    <a href="classes/App-Database-Utils-ThemeHelperEntity.html#property_themeId">$themeId</a>
     <span>
                         &nbsp;: int            </span>
 </dt>
@@ -266,14 +266,14 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd></dd>
+<dd>Creates the current theme asset</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-ThemeAsset.html#method_delete">delete()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-    <dd></dd>
+<dd>Deletes the current theme asset</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Utils-LoadableEntity.html#method_executeSqlString">executeSqlString()</a>
@@ -320,16 +320,16 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-ThemeAsset.html#method_findByThemeAndName">findByThemeAndName()</a>
     <span>
-                                &nbsp;: <a href="classes/App-Database-ThemeAsset.html"><abbr title="\App\Database\ThemeAsset">ThemeAsset</abbr></a>|<a href="classes/App-Database-ThemeFile.html"><abbr title="\App\Database\ThemeFile">ThemeFile</abbr></a>|<a href="classes/App-Database-ThemeForm.html"><abbr title="\App\Database\ThemeForm">ThemeForm</abbr></a>|<a href="classes/App-Database-ThemeGallery.html"><abbr title="\App\Database\ThemeGallery">ThemeGallery</abbr></a>|<a href="classes/App-Database-ThemeMenu.html"><abbr title="\App\Database\ThemeMenu">ThemeMenu</abbr></a>|<a href="classes/App-Database-ThemePage.html"><abbr title="\App\Database\ThemePage">ThemePage</abbr></a>|<a href="classes/App-Database-ThemeSegmentPage.html"><abbr title="\App\Database\ThemeSegmentPage">ThemeSegmentPage</abbr></a>|<a href="classes/App-Database-ThemeBlogCategory.html"><abbr title="\App\Database\ThemeBlogCategory">ThemeBlogCategory</abbr></a>    </span>
+                                &nbsp;: <a href="classes/App-Database-ThemeAsset.html"><abbr title="\App\Database\ThemeAsset">ThemeAsset</abbr></a>|null    </span>
 </dt>
-<dd>Finds a page by name and theme</dd>
+<dd>Finds an asset by name and theme</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-ThemeAsset.html#method_format">format()</a>
     <span>
                                 &nbsp;: array&lt;string|int, string&gt;    </span>
 </dt>
-<dd></dd>
+<dd>Always returns an empty array</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Utils-LoadableEntity.html#method_getIdAsInt">getIdAsInt()</a>
@@ -350,7 +350,7 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-    <dd></dd>
+<dd>Updates the current theme</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/App-Database-Utils-LoadableEntity.html#method_convertInvalidQueryExceptionToException">convertInvalidQueryExceptionToException()</a>
@@ -553,7 +553,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ThemeAsset.php"><a href="files/src-database-themeasset.html"><abbr title="src/Database/ThemeAsset.php">ThemeAsset.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">17</span>
+    <span class="phpdocumentor-element-found-in__line">16</span>
 
     </aside>
 
@@ -564,9 +564,9 @@
     <span class="phpdocumentor-signature__name">$publicPath</span>
      = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>The public path of the asset</p>
+</section>
 
     
 
@@ -580,14 +580,14 @@
 >
     <h4 class="phpdocumentor-element__name" id="property_themeId">
         $themeId
-        <a href="classes/App-Database-ThemeAsset.html#property_themeId" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/App-Database-Utils-ThemeHelperEntity.html#property_themeId" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ThemeAsset.php"><a href="files/src-database-themeasset.html"><abbr title="src/Database/ThemeAsset.php">ThemeAsset.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Utils/ThemeHelperEntity.php"><a href="files/src-database-utils-themehelperentity.html"><abbr title="src/Database/Utils/ThemeHelperEntity.php">ThemeHelperEntity.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">16</span>
+    <span class="phpdocumentor-element-found-in__line">31</span>
 
     </aside>
 
@@ -659,12 +659,13 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ThemeAsset.php"><a href="files/src-database-themeasset.html"><abbr title="src/Database/ThemeAsset.php">ThemeAsset.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">57</span>
+    <span class="phpdocumentor-element-found-in__line">62</span>
 
     </aside>
 
+        <p class="phpdocumentor-summary">Creates the current theme asset</p>
 
-                        <code class="phpdocumentor-code phpdocumentor-signature ">
+    <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">create</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
@@ -675,22 +676,31 @@
         Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
-                        <dl class="phpdocumentor-tag-list">
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
                             <dt class="phpdocumentor-tag-list__entry">
-                                <span class="phpdocumentor-tag__name">inheritDoc</span>
-                            </dt>
-                            <dd class="phpdocumentor-tag-list__definition">
-
-
-                            </dd>
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
                             <dt class="phpdocumentor-tag-list__entry">
-                                <span class="phpdocumentor-tag__name">throws</span>
-                            </dt>
-                            <dd class="phpdocumentor-tag-list__definition">
-                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
-
-
-                            </dd>
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+                                                            
+                                             
+                                    </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -712,37 +722,56 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ThemeAsset.php"><a href="files/src-database-themeasset.html"><abbr title="src/Database/ThemeAsset.php">ThemeAsset.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">65</span>
+    <span class="phpdocumentor-element-found-in__line">75</span>
 
     </aside>
 
+        <p class="phpdocumentor-summary">Deletes the current theme asset</p>
 
-                        <code class="phpdocumentor-code phpdocumentor-signature ">
-                            <span class="phpdocumentor-signature__visibility">public</span>
-                            <span class="phpdocumentor-signature__name">delete</span><span>(</span><span>)</span><span> : </span><span
-                                class="phpdocumentor-signature__response_type">void</span></code>
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">delete</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-
-                        <h5 class="phpdocumentor-tag-list__heading" id="tags">
-                            Tags
-                            <a class="headerlink" href="#tags"><i class="fas fa-link"></i></a>
-                        </h5>
-                        <dl class="phpdocumentor-tag-list">
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
                             <dt class="phpdocumentor-tag-list__entry">
-                                <span class="phpdocumentor-tag__name">inheritDoc</span>
-                            </dt>
-                            <dd class="phpdocumentor-tag-list__definition">
-
-
-                            </dd>
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+                                                            
+                                             
+                                    </dd>
                         </dl>
 
-                        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-                        <span class="phpdocumentor-signature__response_type">void</span>
-                        &mdash;
-
-
-                    </article>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+        
+    
+</article>
                     <article
         class="phpdocumentor-element
             -method
@@ -1059,7 +1088,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ThemeAsset.php"><a href="files/src-database-themeasset.html"><abbr title="src/Database/ThemeAsset.php">ThemeAsset.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">45</span>
+    <span class="phpdocumentor-element-found-in__line">46</span>
 
     </aside>
 
@@ -1132,15 +1161,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ThemeAsset.php"><a href="files/src-database-themeasset.html"><abbr title="src/Database/ThemeAsset.php">ThemeAsset.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">28</span>
+    <span class="phpdocumentor-element-found-in__line">29</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Finds a page by name and theme</p>
+        <p class="phpdocumentor-summary">Finds an asset by name and theme</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">findByThemeAndName</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$themeId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/App-Database-ThemeAsset.html"><abbr title="\App\Database\ThemeAsset">ThemeAsset</abbr></a>|<a href="classes/App-Database-ThemeFile.html"><abbr title="\App\Database\ThemeFile">ThemeFile</abbr></a>|<a href="classes/App-Database-ThemeForm.html"><abbr title="\App\Database\ThemeForm">ThemeForm</abbr></a>|<a href="classes/App-Database-ThemeGallery.html"><abbr title="\App\Database\ThemeGallery">ThemeGallery</abbr></a>|<a href="classes/App-Database-ThemeMenu.html"><abbr title="\App\Database\ThemeMenu">ThemeMenu</abbr></a>|<a href="classes/App-Database-ThemePage.html"><abbr title="\App\Database\ThemePage">ThemePage</abbr></a>|<a href="classes/App-Database-ThemeSegmentPage.html"><abbr title="\App\Database\ThemeSegmentPage">ThemeSegmentPage</abbr></a>|<a href="classes/App-Database-ThemeBlogCategory.html"><abbr title="\App\Database\ThemeBlogCategory">ThemeBlogCategory</abbr></a></span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">findByThemeAndName</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$themeId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/App-Database-ThemeAsset.html"><abbr title="\App\Database\ThemeAsset">ThemeAsset</abbr></a>|null</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -1150,18 +1179,14 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The ID of the theme the entity belongs to</p>
-</section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$name</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The name of the entity link value</p>
-</section>
-
+                
             </dd>
             </dl>
 
@@ -1183,14 +1208,6 @@
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
-                                                            
-                                             
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
                                                                 <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
                                                             
                                              
@@ -1199,7 +1216,7 @@
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Jinya\PDOx\Exceptions\NoResultException">NoResultException</abbr></span>
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
                                                             
                                              
                                     </dd>
@@ -1214,7 +1231,7 @@
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/App-Database-ThemeAsset.html"><abbr title="\App\Database\ThemeAsset">ThemeAsset</abbr></a>|<a href="classes/App-Database-ThemeFile.html"><abbr title="\App\Database\ThemeFile">ThemeFile</abbr></a>|<a href="classes/App-Database-ThemeForm.html"><abbr title="\App\Database\ThemeForm">ThemeForm</abbr></a>|<a href="classes/App-Database-ThemeGallery.html"><abbr title="\App\Database\ThemeGallery">ThemeGallery</abbr></a>|<a href="classes/App-Database-ThemeMenu.html"><abbr title="\App\Database\ThemeMenu">ThemeMenu</abbr></a>|<a href="classes/App-Database-ThemePage.html"><abbr title="\App\Database\ThemePage">ThemePage</abbr></a>|<a href="classes/App-Database-ThemeSegmentPage.html"><abbr title="\App\Database\ThemeSegmentPage">ThemeSegmentPage</abbr></a>|<a href="classes/App-Database-ThemeBlogCategory.html"><abbr title="\App\Database\ThemeBlogCategory">ThemeBlogCategory</abbr></a></span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/App-Database-ThemeAsset.html"><abbr title="\App\Database\ThemeAsset">ThemeAsset</abbr></a>|null</span>
             &mdash;
         
     
@@ -1232,11 +1249,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ThemeAsset.php"><a href="files/src-database-themeasset.html"><abbr title="src/Database/ThemeAsset.php">ThemeAsset.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">82</span>
+    <span class="phpdocumentor-element-found-in__line">98</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Always returns an empty array</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">format</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span></code>
@@ -1330,12 +1348,13 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/ThemeAsset.php"><a href="files/src-database-themeasset.html"><abbr title="src/Database/ThemeAsset.php">ThemeAsset.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">74</span>
+    <span class="phpdocumentor-element-found-in__line">88</span>
 
     </aside>
 
+        <p class="phpdocumentor-summary">Updates the current theme</p>
 
-                        <code class="phpdocumentor-code phpdocumentor-signature ">
+    <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">update</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
@@ -1346,24 +1365,31 @@
         Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
-                        <dl class="phpdocumentor-tag-list">
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
                             <dt class="phpdocumentor-tag-list__entry">
-                                <span class="phpdocumentor-tag__name">inheritDoc</span>
-                            </dt>
-                            <dd class="phpdocumentor-tag-list__definition">
-
-
-                            </dd>
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
                             <dt class="phpdocumentor-tag-list__entry">
-                                <span class="phpdocumentor-tag__name">throws</span>
-                            </dt>
-                            <dd class="phpdocumentor-tag-list__definition">
-                                <span class="phpdocumentor-tag-link"><a
-                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
-                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
-
-
-                            </dd>
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+                                                            
+                                             
+                                    </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>

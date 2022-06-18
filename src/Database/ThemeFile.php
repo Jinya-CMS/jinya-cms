@@ -3,18 +3,17 @@
 namespace App\Database;
 
 use App\Database\Utils\ThemeHelperEntity;
-use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
 /**
- *
+ * This class contains a file connected to a theme
  */
 class ThemeFile extends ThemeHelperEntity
 {
-
+    /** @var int The file ID */
     public int $fileId = -1;
 
     /**
@@ -52,6 +51,8 @@ class ThemeFile extends ThemeHelperEntity
     }
 
     /**
+     * Formats the theme file into an array
+     *
      * @return array<string, array<string, array<string, array<string, string|null>|string>|int|string>|string|null>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -78,13 +79,16 @@ class ThemeFile extends ThemeHelperEntity
      */
     public function getFile(): ?File
     {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return File::findById($this->fileId);
     }
 
     /**
-     * @inheritDoc
-     * @throws Exception
+     * Create the current theme file
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function create(): void
     {
@@ -92,7 +96,12 @@ class ThemeFile extends ThemeHelperEntity
     }
 
     /**
-     * @inheritDoc
+     * Deletes the current theme file
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function delete(): void
     {
@@ -100,8 +109,12 @@ class ThemeFile extends ThemeHelperEntity
     }
 
     /**
-     * @inheritDoc
+     * Updates the current theme file
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function update(): void
     {
