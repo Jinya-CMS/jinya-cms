@@ -8,22 +8,26 @@ use ReturnTypeWillChange;
 use stdClass;
 
 /**
- *
+ * This class contains information about a PHP extension
  */
 class PhpExtension implements JsonSerializable
 {
+    /** @var string The name of the extension */
     public string $extensionName;
 
-    /** @var array<IniValue> */
+    /** @var array<IniValue> The ini values of the extension */
     public array $iniValues = [];
 
+    /** @var string The version of the extension, it usually equals the */
     public string $version;
 
-    /** @var array<string>|stdClass */
+    /** @var array<string>|stdClass The additional data available in an extension */
     public array|stdClass $additionalData = [];
 
     /**
-     * @inheritDoc
+     * Serializes the PHP extension data into an array
+     *
+     * @return array<string, mixed>
      */
     #[ReturnTypeWillChange]
     #[ArrayShape([

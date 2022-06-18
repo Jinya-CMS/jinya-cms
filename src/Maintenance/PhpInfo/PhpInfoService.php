@@ -69,6 +69,8 @@ class PhpInfoService
     }
 
     /**
+     * Gets additional data for extensions, currently supported are zend opcache, apcu and hash
+     *
      * @param string $extension
      * @return array<string, mixed>|stdClass
      */
@@ -120,6 +122,12 @@ class PhpInfoService
         return new stdClass();
     }
 
+    /**
+     * Converts bytes to megabytes
+     *
+     * @param int $bytes
+     * @return float|int
+     */
     private function calculateMb(int $bytes): float|int
     {
         return $bytes / 1024 / 1024;
