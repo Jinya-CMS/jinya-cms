@@ -13,14 +13,15 @@ use PHPMailer\PHPMailer\Exception;
 use Throwable;
 
 /**
- *
+ * This class is the new login mail and should be sent when a new login was registered
  */
 class NewLoginMail
 {
+    /** @var Engine The template engine used for the email */
     private Engine $templateEngine;
 
     /**
-     * TwoFactorMail constructor.
+     * NewLoginMail constructor.
      */
     public function __construct()
     {
@@ -28,7 +29,7 @@ class NewLoginMail
     }
 
     /**
-     * Sends the two factor email
+     * Sends the new login mail
      *
      * @param string $artistEmail
      * @param string $artistName

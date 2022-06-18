@@ -58,22 +58,22 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Console\\FileCacheCommand",
             "name": "FileCacheCommand",
-            "summary": "This\u0020is\u0020the\u0020base\u0020class\u0020for\u0020all\u0020commands,\u0020the\u0020cli\u0020executor\u0020expects\u0020all\u0020commands\u0020to\u0020extend\u0020this\u0020class\u0020and\u0020have\u0020a\u0020JinyaCommand\u0020attribute",
+            "summary": "This\u0020command\u0020generates\u0020the\u0020file\u0020cache\u0020of\u0020uploaded\u0020images",
             "url": "classes/App-Console-FileCacheCommand.html"
         },                {
             "fqsen": "\\App\\Console\\FileCacheCommand\u003A\u003Arun\u0028\u0029",
             "name": "run",
-            "summary": "Gets\u0020executed\u0020by\u0020the\u0020cli\u0020executor",
+            "summary": "Recreates\u0020the\u0020file\u0020cache",
             "url": "classes/App-Console-FileCacheCommand.html#method_run"
         },                {
             "fqsen": "\\App\\Console\\JinyaCommand",
             "name": "JinyaCommand",
-            "summary": "",
+            "summary": "This\u0020attribute\u0020marks\u0020a\u0020class\u0020that\u0020extends\u0020AbstractCommand\u0020as\u0020a\u0020executable\u0020command\u0020for\u0020the\u0020CLI",
             "url": "classes/App-Console-JinyaCommand.html"
         },                {
             "fqsen": "\\App\\Console\\JinyaCommand\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "Creates\u0020a\u0020new\u0020JinyaCommand",
             "url": "classes/App-Console-JinyaCommand.html#method___construct"
         },                {
             "fqsen": "\\App\\Console\\JinyaCommand\u003A\u003A\u0024command",
@@ -83,12 +83,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Console\\MigrationCommand",
             "name": "MigrationCommand",
-            "summary": "This\u0020is\u0020the\u0020base\u0020class\u0020for\u0020all\u0020commands,\u0020the\u0020cli\u0020executor\u0020expects\u0020all\u0020commands\u0020to\u0020extend\u0020this\u0020class\u0020and\u0020have\u0020a\u0020JinyaCommand\u0020attribute",
+            "summary": "This\u0020command\u0020migrates\u0020the\u0020Jinya\u0020CMS\u0020database\u0020to\u0020the\u0020most\u0020recent\u0020version",
             "url": "classes/App-Console-MigrationCommand.html"
         },                {
             "fqsen": "\\App\\Console\\MigrationCommand\u003A\u003Arun\u0028\u0029",
             "name": "run",
-            "summary": "Gets\u0020executed\u0020by\u0020the\u0020cli\u0020executor",
+            "summary": "Executes\u0020the\u0020migration\u0020command",
             "url": "classes/App-Console-MigrationCommand.html#method_run"
         },                {
             "fqsen": "\\App\\Database\\Analyzer\\DatabaseAnalyzer",
@@ -2628,37 +2628,37 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Logging\\Logger",
             "name": "Logger",
-            "summary": "",
+            "summary": "Simple\u0020factory\u0020class\u0020to\u0020create\u0020a\u0020PSR\u002D3\u0020logger",
             "url": "classes/App-Logging-Logger.html"
         },                {
             "fqsen": "\\App\\Logging\\Logger\u003A\u003AgetLogger\u0028\u0029",
             "name": "getLogger",
-            "summary": "",
+            "summary": "Creates\u0020a\u0020new\u0020PSR\u002D3\u0020logger,\u0020based\u0020on\u0020Monolog",
             "url": "classes/App-Logging-Logger.html#method_getLogger"
         },                {
             "fqsen": "\\App\\Mailing\\Factory\\MailerFactory",
             "name": "MailerFactory",
-            "summary": "",
+            "summary": "A\u0020simple\u0020factory\u0020class\u0020to\u0020create\u0020a\u0020new\u0020PHPMailer\u0020instance",
             "url": "classes/App-Mailing-Factory-MailerFactory.html"
         },                {
             "fqsen": "\\App\\Mailing\\Factory\\MailerFactory\u003A\u003AgetMailer\u0028\u0029",
             "name": "getMailer",
-            "summary": "",
+            "summary": "Creates\u0020a\u0020new\u0020PHPMailer\u0020instance\u0020based\u0020on\u0020the\u0020environment\u0020variables\u0020configured",
             "url": "classes/App-Mailing-Factory-MailerFactory.html#method_getMailer"
         },                {
             "fqsen": "\\App\\Mailing\\Types\\NewLoginMail",
             "name": "NewLoginMail",
-            "summary": "",
+            "summary": "This\u0020class\u0020is\u0020the\u0020new\u0020login\u0020mail\u0020and\u0020should\u0020be\u0020sent\u0020when\u0020a\u0020new\u0020login\u0020was\u0020registered",
             "url": "classes/App-Mailing-Types-NewLoginMail.html"
         },                {
             "fqsen": "\\App\\Mailing\\Types\\NewLoginMail\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "TwoFactorMail\u0020constructor.",
+            "summary": "NewLoginMail\u0020constructor.",
             "url": "classes/App-Mailing-Types-NewLoginMail.html#method___construct"
         },                {
             "fqsen": "\\App\\Mailing\\Types\\NewLoginMail\u003A\u003AsendMail\u0028\u0029",
             "name": "sendMail",
-            "summary": "Sends\u0020the\u0020two\u0020factor\u0020email",
+            "summary": "Sends\u0020the\u0020new\u0020login\u0020mail",
             "url": "classes/App-Mailing-Types-NewLoginMail.html#method_sendMail"
         },                {
             "fqsen": "\\App\\Mailing\\Types\\NewLoginMail\u003A\u003A\u0024templateEngine",
@@ -2668,7 +2668,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Mailing\\Types\\NewSavedDeviceMail",
             "name": "NewSavedDeviceMail",
-            "summary": "",
+            "summary": "This\u0020class\u0020is\u0020the\u0020new\u0020saved\u0020device\u0020mail\u0020and\u0020should\u0020be\u0020sent\u0020when\u0020a\u0020new\u0020saved\u0020device\u0020was\u0020registered",
             "url": "classes/App-Mailing-Types-NewSavedDeviceMail.html"
         },                {
             "fqsen": "\\App\\Mailing\\Types\\NewSavedDeviceMail\u003A\u003A__construct\u0028\u0029",
@@ -2678,7 +2678,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Mailing\\Types\\NewSavedDeviceMail\u003A\u003AsendMail\u0028\u0029",
             "name": "sendMail",
-            "summary": "Sends\u0020the\u0020two\u0020factor\u0020email",
+            "summary": "Sends\u0020the\u0020new\u0020saved\u0020device\u0020email",
             "url": "classes/App-Mailing-Types-NewSavedDeviceMail.html#method_sendMail"
         },                {
             "fqsen": "\\App\\Mailing\\Types\\NewSavedDeviceMail\u003A\u003A\u0024templateEngine",
@@ -2688,7 +2688,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Mailing\\Types\\TwoFactorMail",
             "name": "TwoFactorMail",
-            "summary": "",
+            "summary": "This\u0020class\u0020is\u0020the\u0020two\u002Dfactor\u0020mail\u0020and\u0020should\u0020be\u0020sent\u0020when\u0020a\u0020two\u002Dfactor\u0020code\u0020was\u0020requested",
             "url": "classes/App-Mailing-Types-TwoFactorMail.html"
         },                {
             "fqsen": "\\App\\Mailing\\Types\\TwoFactorMail\u003A\u003A__construct\u0028\u0029",
@@ -2698,7 +2698,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Mailing\\Types\\TwoFactorMail\u003A\u003AsendMail\u0028\u0029",
             "name": "sendMail",
-            "summary": "Sends\u0020the\u0020two\u0020factor\u0020email",
+            "summary": "Sends\u0020the\u0020two\u002Dfactor\u0020email",
             "url": "classes/App-Mailing-Types-TwoFactorMail.html#method_sendMail"
         },                {
             "fqsen": "\\App\\Mailing\\Types\\TwoFactorMail\u003A\u003A\u0024templateEngine",

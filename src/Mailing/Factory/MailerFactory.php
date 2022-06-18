@@ -5,10 +5,16 @@ namespace App\Mailing\Factory;
 use PHPMailer\PHPMailer\PHPMailer;
 
 /**
- *
+ * A simple factory class to create a new PHPMailer instance
+ * @see \PHPMailer\PHPMailer\PHPMailer
  */
-class MailerFactory
+abstract class MailerFactory
 {
+    /**
+     * Creates a new PHPMailer instance based on the environment variables configured
+     *
+     * @return PHPMailer
+     */
     public static function getMailer(): PHPMailer
     {
         $mailer = new PHPMailer();

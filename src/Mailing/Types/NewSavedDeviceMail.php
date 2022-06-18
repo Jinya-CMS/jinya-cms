@@ -13,10 +13,11 @@ use PHPMailer\PHPMailer\Exception;
 use Throwable;
 
 /**
- *
+ * This class is the new saved device mail and should be sent when a new saved device was registered
  */
 class NewSavedDeviceMail
 {
+    /** @var Engine The template engine used for the email */
     private Engine $templateEngine;
 
     /**
@@ -28,7 +29,7 @@ class NewSavedDeviceMail
     }
 
     /**
-     * Sends the two factor email
+     * Sends the new saved device email
      *
      * @param string $artistEmail
      * @param string $artistName

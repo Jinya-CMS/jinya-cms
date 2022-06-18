@@ -8,7 +8,7 @@ use PHPMailer\PHPMailer\Exception;
 use Throwable;
 
 /**
- *
+ * This class is the two-factor mail and should be sent when a two-factor code was requested
  */
 class TwoFactorMail
 {
@@ -23,7 +23,7 @@ class TwoFactorMail
     }
 
     /**
-     * Sends the two factor email
+     * Sends the two-factor email
      *
      * @param string $artistEmail
      * @param string $artistName
