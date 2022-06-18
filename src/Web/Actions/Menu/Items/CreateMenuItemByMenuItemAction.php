@@ -16,7 +16,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class CreateMenuItemByMenuItemAction extends MenuItemAction
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

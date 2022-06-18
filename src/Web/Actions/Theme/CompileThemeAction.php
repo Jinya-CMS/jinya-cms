@@ -15,7 +15,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class CompileThemeAction extends ThemeAction
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @return Response
      * @throws Database\Exceptions\ForeignKeyFailedException
      * @throws Database\Exceptions\UniqueFailedException

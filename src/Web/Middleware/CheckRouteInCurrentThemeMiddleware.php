@@ -34,7 +34,7 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @param ServerRequestInterface $request
      * @param RequestHandlerInterface $handler
      * @return ResponseInterface

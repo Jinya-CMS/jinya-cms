@@ -18,7 +18,7 @@ use Slim\Exception\HttpNotFoundException;
 class GetFileContentAction extends Action
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @throws HttpNotFoundException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

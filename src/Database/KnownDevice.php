@@ -24,7 +24,7 @@ class KnownDevice extends Utils\LoadableEntity
     public string $remoteAddress = '';
 
     /**
-     * {@inheritDoc}
+     * Not implemented
      */
     public static function findById(int $id): ?object
     {
@@ -32,7 +32,7 @@ class KnownDevice extends Utils\LoadableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * Not implemented
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -58,7 +58,7 @@ class KnownDevice extends Utils\LoadableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * Not implemented
      */
     public static function findAll(): Iterator
     {
@@ -86,7 +86,12 @@ class KnownDevice extends Utils\LoadableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * Creates the current known device
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function create(): void
     {
@@ -94,7 +99,12 @@ class KnownDevice extends Utils\LoadableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * Deletes the current known device
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function delete(): void
     {
@@ -102,7 +112,12 @@ class KnownDevice extends Utils\LoadableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * Updates the current known device
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function update(): void
     {

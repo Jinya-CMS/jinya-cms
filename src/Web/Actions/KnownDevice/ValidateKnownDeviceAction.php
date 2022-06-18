@@ -17,7 +17,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class ValidateKnownDeviceAction extends Action
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @return Response
      * @throws BadCredentialsException
      * @throws ForeignKeyFailedException

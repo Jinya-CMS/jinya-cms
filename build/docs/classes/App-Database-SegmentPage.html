@@ -199,11 +199,11 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/SegmentPage.php"><a href="files/src-database-segmentpage.html"><abbr title="src/Database/SegmentPage.php">SegmentPage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">19</span>
+    <span class="phpdocumentor-element-found-in__line">18</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Base class for all entity classes. this class contains several helper methods and provides a common interface for all entities.</p>
+        <p class="phpdocumentor-summary">This class contains information about segment pages</p>
 
 
 
@@ -280,14 +280,14 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Creates the given entity</dd>
+    <dd>Creates the current segment page</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-SegmentPage.html#method_delete">delete()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Deletes the given entity</dd>
+    <dd>Deletes the current segment page</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Utils-LoadableEntity.html#method_executeSqlString">executeSqlString()</a>
@@ -308,21 +308,21 @@
     <span>
                                 &nbsp;: <abbr title="\Iterator">Iterator</abbr>&lt;string|int, <a href="classes/App-Database-SegmentPage.html"><abbr title="\App\Database\SegmentPage">SegmentPage</abbr></a>&gt;    </span>
 </dt>
-<dd>Gets all entities of the given type</dd>
+    <dd>Finds all segment pages</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-SegmentPage.html#method_findById">findById()</a>
     <span>
                                 &nbsp;: <a href="classes/App-Database-SegmentPage.html"><abbr title="\App\Database\SegmentPage">SegmentPage</abbr></a>|null    </span>
 </dt>
-<dd>Needs to be implemented to find the derived class by id</dd>
+    <dd>Finds the segment page with the matching ID</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-SegmentPage.html#method_findByKeyword">findByKeyword()</a>
     <span>
                                 &nbsp;: <abbr title="\Iterator">Iterator</abbr>&lt;string|int, <a href="classes/App-Database-SegmentPage.html"><abbr title="\App\Database\SegmentPage">SegmentPage</abbr></a>&gt;    </span>
 </dt>
-<dd>Gets all entities that match the given keyword</dd>
+    <dd>Finds all segment pages that match the keyword</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-SegmentPage.html#method_format">format()</a>
@@ -371,7 +371,7 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Updates the given entity</dd>
+    <dd>Updates the current segment page</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/App-Database-Utils-LoadableEntity.html#method_convertInvalidQueryExceptionToException">convertInvalidQueryExceptionToException()</a>
@@ -492,24 +492,23 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/SegmentPage.php"><a href="files/src-database-segmentpage.html"><abbr title="src/Database/SegmentPage.php">SegmentPage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">27</span>
+        <span class="phpdocumentor-element-found-in__line">29</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type"><abbr title="\DateTime">DateTime</abbr></span>
-    <span class="phpdocumentor-signature__name">$createdAt</span>
-    </code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type"><abbr title="\DateTime">DateTime</abbr></span>
+                            <span class="phpdocumentor-signature__name">$createdAt</span>
+                        </code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The time the segment page was created</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -530,20 +529,19 @@
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">int</span>
-    <span class="phpdocumentor-signature__name">$creatorId</span>
-    </code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">int</span>
+                            <span class="phpdocumentor-signature__name">$creatorId</span>
+                        </code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The ID of the creator of the segment page</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -594,24 +592,23 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/SegmentPage.php"><a href="files/src-database-segmentpage.html"><abbr title="src/Database/SegmentPage.php">SegmentPage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">29</span>
+        <span class="phpdocumentor-element-found-in__line">32</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type"><abbr title="\DateTime">DateTime</abbr></span>
-    <span class="phpdocumentor-signature__name">$lastUpdatedAt</span>
-    </code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type"><abbr title="\DateTime">DateTime</abbr></span>
+                            <span class="phpdocumentor-signature__name">$lastUpdatedAt</span>
+                        </code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The time the segment page was last updated</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -628,24 +625,23 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/SegmentPage.php"><a href="files/src-database-segmentpage.html"><abbr title="src/Database/SegmentPage.php">SegmentPage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+        <span class="phpdocumentor-element-found-in__line">36</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">string</span>
-    <span class="phpdocumentor-signature__name">$name</span>
-    </code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">string</span>
+                            <span class="phpdocumentor-signature__name">$name</span>
+                        </code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The name of the segment page</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -662,24 +658,24 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/SegmentPage.php"><a href="files/src-database-segmentpage.html"><abbr title="src/Database/SegmentPage.php">SegmentPage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">24</span>
+        <span class="phpdocumentor-element-found-in__line">25</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">int</span>
-    <span class="phpdocumentor-signature__name">$updatedById</span>
-    </code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">int</span>
+                            <span class="phpdocumentor-signature__name">$updatedById</span>
+                        </code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The ID of the artist who last updated the segment
+                            page</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -734,11 +730,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/SegmentPage.php"><a href="files/src-database-segmentpage.html"><abbr title="src/Database/SegmentPage.php">SegmentPage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">95</span>
+        <span class="phpdocumentor-element-found-in__line">113</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Creates the given entity</p>
+                        <p class="phpdocumentor-summary">Creates the current segment page</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -751,22 +747,36 @@
         Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
-                                                            
-                                             
-                                    </dd>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -788,11 +798,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/SegmentPage.php"><a href="files/src-database-segmentpage.html"><abbr title="src/Database/SegmentPage.php">SegmentPage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">115</span>
+        <span class="phpdocumentor-element-found-in__line">138</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Deletes the given entity</p>
+                        <p class="phpdocumentor-summary">Deletes the current segment page</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -805,14 +815,36 @@
         Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -924,11 +956,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/SegmentPage.php"><a href="files/src-database-segmentpage.html"><abbr title="src/Database/SegmentPage.php">SegmentPage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">79</span>
+        <span class="phpdocumentor-element-found-in__line">93</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Gets all entities of the given type</p>
+                        <p class="phpdocumentor-summary">Finds all segment pages</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -941,14 +973,36 @@
         Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -970,11 +1024,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/SegmentPage.php"><a href="files/src-database-segmentpage.html"><abbr title="src/Database/SegmentPage.php">SegmentPage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">44</span>
+        <span class="phpdocumentor-element-found-in__line">49</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Needs to be implemented to find the derived class by id</p>
+                        <p class="phpdocumentor-summary">Finds the segment page with the matching ID</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -999,13 +1053,6 @@
     </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
@@ -1058,11 +1105,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/SegmentPage.php"><a href="files/src-database-segmentpage.html"><abbr title="src/Database/SegmentPage.php">SegmentPage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">61</span>
+        <span class="phpdocumentor-element-found-in__line">71</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Gets all entities that match the given keyword</p>
+                        <p class="phpdocumentor-summary">Finds all segment pages that match the keyword</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1076,8 +1123,6 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The keyword to search for</p>
-</section>
 
             </dd>
             </dl>
@@ -1087,14 +1132,36 @@
         Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -1116,7 +1183,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/SegmentPage.php"><a href="files/src-database-segmentpage.html"><abbr title="src/Database/SegmentPage.php">SegmentPage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">146</span>
+        <span class="phpdocumentor-element-found-in__line">174</span>
 
     </aside>
 
@@ -1187,7 +1254,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/SegmentPage.php"><a href="files/src-database-segmentpage.html"><abbr title="src/Database/SegmentPage.php">SegmentPage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">190</span>
+        <span class="phpdocumentor-element-found-in__line">218</span>
 
     </aside>
 
@@ -1324,7 +1391,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/SegmentPage.php"><a href="files/src-database-segmentpage.html"><abbr title="src/Database/SegmentPage.php">SegmentPage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">218</span>
+        <span class="phpdocumentor-element-found-in__line">246</span>
 
     </aside>
 
@@ -1387,7 +1454,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/SegmentPage.php"><a href="files/src-database-segmentpage.html"><abbr title="src/Database/SegmentPage.php">SegmentPage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">205</span>
+        <span class="phpdocumentor-element-found-in__line">233</span>
 
     </aside>
 
@@ -1458,11 +1525,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/SegmentPage.php"><a href="files/src-database-segmentpage.html"><abbr title="src/Database/SegmentPage.php">SegmentPage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">123</span>
+        <span class="phpdocumentor-element-found-in__line">151</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Updates the given entity</p>
+                        <p class="phpdocumentor-summary">Updates the current segment page</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1475,14 +1542,36 @@
         Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>

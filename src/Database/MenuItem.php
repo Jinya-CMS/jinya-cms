@@ -2,7 +2,6 @@
 
 namespace App\Database;
 
-use Exception;
 use Iterator;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
@@ -46,7 +45,7 @@ class MenuItem extends Utils\RearrangableEntity
     public ?bool $blogHomePage = false;
 
     /**
-     * {@inheritDoc}
+     * Not implemented
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -54,7 +53,7 @@ class MenuItem extends Utils\RearrangableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * Not implemented
      */
     public static function findAll(): Iterator
     {
@@ -156,7 +155,8 @@ class MenuItem extends Utils\RearrangableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * Finds the menu item matching the ID
+     *
      * @param int $id
      * @return MenuItem|null
      * @throws Exceptions\ForeignKeyFailedException
@@ -188,8 +188,12 @@ class MenuItem extends Utils\RearrangableEntity
     }
 
     /**
-     * {@inheritDoc}
-     * @throws Exception
+     * Creates the current menu item, also moves the position of the other menu items according to the new position
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function create(): void
     {
@@ -198,6 +202,10 @@ class MenuItem extends Utils\RearrangableEntity
     }
 
     /**
+     * Moves the current menu item. Depending on the parent it will rearrange the positions and move the menu items in the correct order
+     *
+     * @param int $position
+     * @return void
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -218,7 +226,13 @@ class MenuItem extends Utils\RearrangableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * Updates the menu item
+     *
+     * @param bool $rearrange If true, the menu items on the same level will be rearranged in hierarchy.
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function update(bool $rearrange = true): void
     {
@@ -230,7 +244,12 @@ class MenuItem extends Utils\RearrangableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * Deletes the current menu item, the order of the remaining items will be reset
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function delete(): void
     {
@@ -239,7 +258,13 @@ class MenuItem extends Utils\RearrangableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * Moves the current menu item to the new position. All other menu items are rearranged accordingly
+     *
+     * @param int $newPosition
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function move(int $newPosition): void
     {

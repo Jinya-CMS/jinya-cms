@@ -15,7 +15,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class ActivateThemeAction extends ThemeAction
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

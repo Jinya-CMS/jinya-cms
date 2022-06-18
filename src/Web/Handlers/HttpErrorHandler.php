@@ -19,7 +19,7 @@ use Throwable;
 class HttpErrorHandler extends SlimErrorHandler
 {
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      * @throws JsonException
      */
     protected function respond(): Response

@@ -11,7 +11,7 @@ use Laminas\Hydrator\Strategy\StrategyInterface;
 class JsonStrategy implements StrategyInterface
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @throws JsonException
      */
     public function extract($value, ?object $object = null)
@@ -20,7 +20,7 @@ class JsonStrategy implements StrategyInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @param array<string>|null $data
      * @throws JsonException
      */

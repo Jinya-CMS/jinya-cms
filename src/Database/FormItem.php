@@ -37,7 +37,7 @@ class FormItem extends Utils\RearrangableEntity
     public ?string $placeholder = '';
 
     /**
-     * {@inheritDoc}
+     * Not implemented
      */
     public static function findById(int $id): ?object
     {
@@ -45,7 +45,7 @@ class FormItem extends Utils\RearrangableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * Not implemented
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -53,7 +53,7 @@ class FormItem extends Utils\RearrangableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * Not implemented
      */
     public static function findAll(): Iterator
     {
@@ -126,7 +126,12 @@ class FormItem extends Utils\RearrangableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * Creates the current form item, also moves the position of the other form items according to the new position
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function create(): void
     {
@@ -145,7 +150,12 @@ class FormItem extends Utils\RearrangableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * Deletes the current form item, the order of the remaining items will be reset
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function delete(): void
     {
@@ -155,7 +165,13 @@ class FormItem extends Utils\RearrangableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * Moves the current form item to the new position. All other form items are rearranged accordingly
+     *
+     * @param int $newPosition
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function move(int $newPosition): void
     {
@@ -166,7 +182,12 @@ class FormItem extends Utils\RearrangableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * Updates the given form item
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function update(): void
     {

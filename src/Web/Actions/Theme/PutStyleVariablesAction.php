@@ -16,7 +16,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class PutStyleVariablesAction extends ThemeAction
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

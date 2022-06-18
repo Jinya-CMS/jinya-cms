@@ -4,7 +4,6 @@ namespace App\Database;
 
 use App\Routing\Attributes\JinyaApi;
 use App\Routing\Attributes\JinyaApiField;
-use Exception;
 use Iterator;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
@@ -23,7 +22,8 @@ class Menu extends Utils\LoadableEntity
     public ?int $logo = null;
 
     /**
-     * {@inheritDoc}
+     * Finds the menu with the matching ID
+     *
      * @param int $id
      * @return Menu|null
      * @throws Exceptions\ForeignKeyFailedException
@@ -37,8 +37,13 @@ class Menu extends Utils\LoadableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * Finds all menus matching the keyword
+     *
+     * @param string $keyword
      * @return Iterator<Menu>
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -51,8 +56,12 @@ class Menu extends Utils\LoadableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * Finds all menus
+     *
      * @return Iterator<Menu>
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public static function findAll(): Iterator
     {
@@ -108,8 +117,12 @@ class Menu extends Utils\LoadableEntity
     }
 
     /**
-     * {@inheritDoc}
-     * @throws Exception
+     * Creates the current menu
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function create(): void
     {
@@ -117,7 +130,12 @@ class Menu extends Utils\LoadableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * Deletes the current menu
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function delete(): void
     {
@@ -125,7 +143,12 @@ class Menu extends Utils\LoadableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * Updates the current menu
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function update(): void
     {

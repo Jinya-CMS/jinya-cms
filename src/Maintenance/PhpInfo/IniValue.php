@@ -16,7 +16,7 @@ class IniValue implements JsonSerializable
     public ?string $configName;
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     #[ReturnTypeWillChange] #[ArrayShape(['value' => 'null|string', 'name' => 'null|string'])] public function jsonSerialize()
     {

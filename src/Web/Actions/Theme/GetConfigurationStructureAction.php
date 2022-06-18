@@ -14,7 +14,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class GetConfigurationStructureAction extends ThemeAction
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @throws Database\Exceptions\ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws Database\Exceptions\UniqueFailedException

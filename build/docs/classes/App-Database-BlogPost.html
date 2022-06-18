@@ -301,14 +301,14 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Creates the given entity</dd>
+<dd>Creates the current blog post</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-BlogPost.html#method_delete">delete()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Deletes the given entity</dd>
+    <dd>Deletes the current blog post</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Utils-LoadableEntity.html#method_executeSqlString">executeSqlString()</a>
@@ -329,21 +329,22 @@
     <span>
                                 &nbsp;: <abbr title="\Iterator">Iterator</abbr>&lt;string|int, <a href="classes/App-Database-BlogPost.html"><abbr title="\App\Database\BlogPost">BlogPost</abbr></a>&gt;    </span>
 </dt>
-<dd>Gets all entities of the given type</dd>
+    <dd>Finds all blog posts. It is not differentiated between public and private posts.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-BlogPost.html#method_findById">findById()</a>
-    <span>
-                                &nbsp;: object|null    </span>
+                <span>
+                                &nbsp;: <a href="classes/App-Database-BlogPost.html"><abbr
+                        title="\App\Database\BlogPost">BlogPost</abbr></a>|null    </span>
 </dt>
-<dd>Needs to be implemented to find the derived class by id</dd>
+    <dd>Finds the blog post with the given id</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-BlogPost.html#method_findByKeyword">findByKeyword()</a>
     <span>
                                 &nbsp;: <abbr title="\Iterator">Iterator</abbr>&lt;string|int, <a href="classes/App-Database-BlogPost.html"><abbr title="\App\Database\BlogPost">BlogPost</abbr></a>&gt;    </span>
 </dt>
-<dd>Gets all entities that match the given keyword</dd>
+    <dd>Finds the blog posts by the given keyword</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-BlogPost.html#method_findBySlug">findBySlug()</a>
@@ -364,7 +365,7 @@
     <span>
                                 &nbsp;: array&lt;string, array<string,array<string,string|null>|int|string>|bool|int|string|null&gt;    </span>
 </dt>
-<dd></dd>
+    <dd>Formats the blog post into an array</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-BlogPost.html#method_getCategory">getCategory()</a>
@@ -413,7 +414,7 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Updates the given entity</dd>
+    <dd>Updates the current blog post</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/App-Database-Utils-LoadableEntity.html#method_convertInvalidQueryExceptionToException">convertInvalidQueryExceptionToException()</a>
@@ -858,7 +859,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/BlogPost.php"><a href="files/src-database-blogpost.html"><abbr title="src/Database/BlogPost.php">BlogPost.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">146</span>
+        <span class="phpdocumentor-element-found-in__line">161</span>
 
     </aside>
 
@@ -917,11 +918,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/BlogPost.php"><a href="files/src-database-blogpost.html"><abbr title="src/Database/BlogPost.php">BlogPost.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">260</span>
+        <span class="phpdocumentor-element-found-in__line">281</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Creates the given entity</p>
+                        <p class="phpdocumentor-summary">Creates the current blog post</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -934,14 +935,45 @@
         Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\NoResultException">NoResultException</abbr></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -963,11 +995,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/BlogPost.php"><a href="files/src-database-blogpost.html"><abbr title="src/Database/BlogPost.php">BlogPost.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">276</span>
+        <span class="phpdocumentor-element-found-in__line">302</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Deletes the given entity</p>
+                        <p class="phpdocumentor-summary">Deletes the current blog post</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -980,14 +1012,36 @@
         Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -1099,11 +1153,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/BlogPost.php"><a href="files/src-database-blogpost.html"><abbr title="src/Database/BlogPost.php">BlogPost.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">108</span>
+        <span class="phpdocumentor-element-found-in__line">123</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Gets all entities of the given type</p>
+                        <p class="phpdocumentor-summary">Finds all blog posts. It is not differentiated between public
+                            and private posts.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1116,14 +1171,36 @@
         Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -1145,15 +1222,22 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/BlogPost.php"><a href="files/src-database-blogpost.html"><abbr title="src/Database/BlogPost.php">BlogPost.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">55</span>
+        <span class="phpdocumentor-element-found-in__line">61</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Needs to be implemented to find the derived class by id</p>
+                        <p class="phpdocumentor-summary">Finds the blog post with the given id</p>
 
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">findById</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">object|null</span></code>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__static">static</span> <span
+                                class="phpdocumentor-signature__name">findById</span><span>(</span><span
+                                class="phpdocumentor-signature__argument"><span
+                                class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span
+                                class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span
+                                class="phpdocumentor-signature__response_type"><a
+                                href="classes/App-Database-BlogPost.html"><abbr
+                                title="\App\Database\BlogPost">BlogPost</abbr></a>|null</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -1163,8 +1247,6 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The id of the entity</p>
-</section>
 
             </dd>
             </dl>
@@ -1174,26 +1256,51 @@
         Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Jinya\PDOx\Exceptions\NoResultException">NoResultException</abbr></span>
-                                                            
-                                             
-                                    </dd>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\NoResultException">NoResultException</abbr></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">object|null</span>
+                        <span class="phpdocumentor-signature__response_type"><a
+                                href="classes/App-Database-BlogPost.html"><abbr
+                                title="\App\Database\BlogPost">BlogPost</abbr></a>|null</span>
             &mdash;
         
     
@@ -1211,11 +1318,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/BlogPost.php"><a href="files/src-database-blogpost.html"><abbr title="src/Database/BlogPost.php">BlogPost.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">67</span>
+        <span class="phpdocumentor-element-found-in__line">78</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Gets all entities that match the given keyword</p>
+                        <p class="phpdocumentor-summary">Finds the blog posts by the given keyword</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1229,8 +1336,6 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The keyword to search for</p>
-</section>
 
             </dd>
             </dl>
@@ -1240,14 +1345,36 @@
         Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -1269,7 +1396,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/BlogPost.php"><a href="files/src-database-blogpost.html"><abbr title="src/Database/BlogPost.php">BlogPost.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">126</span>
+        <span class="phpdocumentor-element-found-in__line">141</span>
 
     </aside>
 
@@ -1352,7 +1479,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/BlogPost.php"><a href="files/src-database-blogpost.html"><abbr title="src/Database/BlogPost.php">BlogPost.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">90</span>
+        <span class="phpdocumentor-element-found-in__line">101</span>
 
     </aside>
 
@@ -1412,34 +1539,28 @@
         format()
         <a href="classes/App-Database-BlogPost.html#method_format" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/BlogPost.php"><a href="files/src-database-blogpost.html"><abbr title="src/Database/BlogPost.php">BlogPost.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">307</span>
+                        <aside class="phpdocumentor-element-found-in">
+                            <abbr class="phpdocumentor-element-found-in__file" title="src/Database/BlogPost.php"><a
+                                    href="files/src-database-blogpost.html"><abbr title="src/Database/BlogPost.php">BlogPost.php</abbr></a></abbr>
+                            :
+                            <span class="phpdocumentor-element-found-in__line">339</span>
 
-    </aside>
+                        </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">format</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, array<string,array<string,string|null>|int|string>|bool|int|string|null&gt;</span></code>
+                        <p class="phpdocumentor-summary">Formats the blog post into an array</p>
 
-    
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__name">format</span><span>(</span><span>)</span><span> : </span><span
+                                class="phpdocumentor-signature__response_type">array&lt;string, array<string,array<string,string|null>|int|string>|bool|int|string|null&gt;</span></code>
+
+
+                        <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                            Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
@@ -1492,7 +1613,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/BlogPost.php"><a href="files/src-database-blogpost.html"><abbr title="src/Database/BlogPost.php">BlogPost.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">398</span>
+        <span class="phpdocumentor-element-found-in__line">430</span>
 
     </aside>
 
@@ -1563,7 +1684,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/BlogPost.php"><a href="files/src-database-blogpost.html"><abbr title="src/Database/BlogPost.php">BlogPost.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">366</span>
+        <span class="phpdocumentor-element-found-in__line">398</span>
 
     </aside>
 
@@ -1634,7 +1755,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/BlogPost.php"><a href="files/src-database-blogpost.html"><abbr title="src/Database/BlogPost.php">BlogPost.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">380</span>
+        <span class="phpdocumentor-element-found-in__line">412</span>
 
     </aside>
 
@@ -1771,7 +1892,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/BlogPost.php"><a href="files/src-database-blogpost.html"><abbr title="src/Database/BlogPost.php">BlogPost.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">415</span>
+        <span class="phpdocumentor-element-found-in__line">447</span>
 
     </aside>
 
@@ -1834,11 +1955,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/BlogPost.php"><a href="files/src-database-blogpost.html"><abbr title="src/Database/BlogPost.php">BlogPost.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">285</span>
+        <span class="phpdocumentor-element-found-in__line">316</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Updates the given entity</p>
+                        <p class="phpdocumentor-summary">Updates the current blog post</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1851,22 +1972,45 @@
         Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Jinya\PDOx\Exceptions\NoResultException">NoResultException</abbr></span>
-                                                            
-                                             
-                                    </dd>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\NoResultException">NoResultException</abbr></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -2536,7 +2680,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/BlogPost.php"><a href="files/src-database-blogpost.html"><abbr title="src/Database/BlogPost.php">BlogPost.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">212</span>
+        <span class="phpdocumentor-element-found-in__line">227</span>
 
     </aside>
 
@@ -2607,7 +2751,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/BlogPost.php"><a href="files/src-database-blogpost.html"><abbr title="src/Database/BlogPost.php">BlogPost.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">195</span>
+        <span class="phpdocumentor-element-found-in__line">210</span>
 
     </aside>
 

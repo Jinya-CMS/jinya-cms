@@ -17,7 +17,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class GetProfilePictureAction extends Action
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @throws NoResultException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

@@ -51,7 +51,7 @@ class ThemeAsset extends ThemeHelperEntity
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @throws Exception
      */
     public function create(): void
@@ -60,7 +60,7 @@ class ThemeAsset extends ThemeHelperEntity
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function delete(): void
     {
@@ -68,7 +68,7 @@ class ThemeAsset extends ThemeHelperEntity
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @throws Exceptions\UniqueFailedException
      */
     public function update(): void

@@ -49,8 +49,14 @@ class BlogPost extends Utils\LoadableEntity
     public ?int $categoryId = null;
 
     /**
-     * @inheritDoc
+     * Finds the blog post with the given id
+     *
+     * @param int $id
+     * @return BlogPost|null
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      * @throws NoResultException
+     * @throws UniqueFailedException
      */
     public static function findById(int $id): BlogPost|null
     {
@@ -61,8 +67,13 @@ class BlogPost extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Finds the blog posts by the given keyword
+     *
+     * @param string $keyword
      * @return Iterator<BlogPost>
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -102,8 +113,12 @@ class BlogPost extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Finds all blog posts. It is not differentiated between public and private posts.
+     *
      * @return Iterator<BlogPost>
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     public static function findAll(): Iterator
     {
@@ -255,7 +270,13 @@ class BlogPost extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Creates the current blog post
+     *
+     * @return void
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
+     * @throws UniqueFailedException
      */
     public function create(): void
     {
@@ -271,7 +292,12 @@ class BlogPost extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Deletes the current blog post
+     *
+     * @return void
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     public function delete(): void
     {
@@ -279,8 +305,13 @@ class BlogPost extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Updates the current blog post
+     *
+     * @return void
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      * @throws NoResultException
+     * @throws UniqueFailedException
      */
     public function update(): void
     {
@@ -297,7 +328,8 @@ class BlogPost extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Formats the blog post into an array
+     *
      * @return array<string, array<string, array<string, string|null>|int|string>|bool|int|string|null>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException

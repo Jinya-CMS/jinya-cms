@@ -31,7 +31,7 @@ class LoginAction extends Action
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @throws Exception
      */
     protected function action(): Response

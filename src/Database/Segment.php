@@ -9,21 +9,29 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
 /**
- *
+ * This class contains a segment of segment pages. Segments can contain different kinds of data, currently supported are galleries, forms, files and static HTML content. If the data is a file it is also possible to specify an action which can be either script or link. Depending on the action the fields have to be set accordingly.
  */
 class Segment extends Utils\RearrangableEntity
 {
+    /** @var int The ID of the segment page this segment belongs to */
     public int $pageId;
+    /** @var int|null The ID of the form this segment contains */
     public ?int $formId;
+    /** @var int|null The ID of the gallery this segment contains */
     public ?int $galleryId;
+    /** @var int|null The ID of the file this segment contains */
     public ?int $fileId;
+    /** @var string|null The action type to execute when the file is clicked. It can be either script, link or none */
     public ?string $action;
+    /** @var string|null The script to execute when the file is clicked */
     public ?string $script;
+    /** @var string|null The link to open when the file is clicked */
     public ?string $target;
+    /** @var string|null The HTML content of the segment */
     public ?string $html;
 
     /**
-     * @inheritDoc
+     * Not implemented
      */
     public static function findById(int $id): ?object
     {
@@ -31,7 +39,7 @@ class Segment extends Utils\RearrangableEntity
     }
 
     /**
-     * @inheritDoc
+     * Not implemented
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -39,7 +47,7 @@ class Segment extends Utils\RearrangableEntity
     }
 
     /**
-     * @inheritDoc
+     * Not implemented
      */
     public static function findAll(): Iterator
     {
@@ -130,6 +138,8 @@ class Segment extends Utils\RearrangableEntity
     }
 
     /**
+     * Formats the segment into an array
+     *
      * @return array<string, array<string, int|string|null>|int|string|null>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -188,7 +198,12 @@ class Segment extends Utils\RearrangableEntity
     }
 
     /**
-     * @inheritDoc
+     * Creates the current segment and also rearranges the other segments in the page based on the position
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function create(): void
     {
@@ -198,7 +213,12 @@ class Segment extends Utils\RearrangableEntity
     }
 
     /**
-     * @inheritDoc
+     * Deletes the given segment, the order of the remaining segments will be reset
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function delete(): void
     {
@@ -208,7 +228,13 @@ class Segment extends Utils\RearrangableEntity
     }
 
     /**
-     * @inheritDoc
+     * Moves the segment to a new position and rearranges the other items accordingly
+     *
+     * @param int $newPosition
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function move(int $newPosition): void
     {
@@ -218,7 +244,12 @@ class Segment extends Utils\RearrangableEntity
     }
 
     /**
-     * @inheritDoc
+     * Updates the current menu item
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function update(): void
     {

@@ -12,7 +12,7 @@ use Throwable;
 class GetUpdateAction extends UpdateAction
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @return Response
      * @throws JsonException
      * @throws Throwable

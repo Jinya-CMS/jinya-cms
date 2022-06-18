@@ -42,7 +42,8 @@ class File extends LoadableEntity
     public string $type = '';
 
     /**
-     * @inheritDoc
+     * Finds the file with the given id
+     *
      * @param int $id
      * @return File|null
      * @throws Exceptions\ForeignKeyFailedException
@@ -64,8 +65,13 @@ class File extends LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Finds all files matching the given keyword
+     *
+     * @param string $keyword
      * @return Iterator<File>
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -82,8 +88,12 @@ class File extends LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Finds all files
+     *
      * @return Iterator<File>
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public static function findAll(): Iterator
     {
@@ -111,7 +121,12 @@ class File extends LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Creates the current file
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function create(): void
     {
@@ -131,7 +146,12 @@ class File extends LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Deletes the current file
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function delete(): void
     {
@@ -139,7 +159,12 @@ class File extends LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Updates the current file
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function update(): void
     {

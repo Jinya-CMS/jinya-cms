@@ -15,7 +15,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class PutConfigurationAction extends ThemeAction
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

@@ -12,7 +12,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class GetVersionInfo extends UpdateAction
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @throws JsonException
      */
     protected function action(): Response

@@ -13,7 +13,7 @@ use Slim\ResponseEmitter as SlimResponseEmitter;
 class ResponseEmitter extends SlimResponseEmitter
 {
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function emit(ResponseInterface $response): void
     {

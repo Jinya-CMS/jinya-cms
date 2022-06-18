@@ -17,7 +17,7 @@ use Slim\Exception\HttpNotFoundException;
 class DeleteSegmentAction extends Action
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws HttpNotFoundException

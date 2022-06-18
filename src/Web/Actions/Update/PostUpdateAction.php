@@ -16,7 +16,7 @@ use ZipArchive;
 class PostUpdateAction extends UpdateAction
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @return ResponseInterface
      * @throws JsonException
      * @throws Throwable

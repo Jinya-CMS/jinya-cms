@@ -17,7 +17,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class UpdatePositionAction extends Action
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

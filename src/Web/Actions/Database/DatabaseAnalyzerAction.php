@@ -13,7 +13,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class DatabaseAnalyzerAction extends Action
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function action(): Response
     {

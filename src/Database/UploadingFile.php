@@ -36,7 +36,7 @@ class UploadingFile extends Utils\LoadableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @return UploadingFile
      */
     public static function findById(int $id): ?object
@@ -45,7 +45,7 @@ class UploadingFile extends Utils\LoadableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -53,7 +53,7 @@ class UploadingFile extends Utils\LoadableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public static function findAll(): Iterator
     {
@@ -87,7 +87,7 @@ class UploadingFile extends Utils\LoadableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @throws Exception
      * @throws ForeignKeyFailedException
      */
@@ -99,7 +99,7 @@ class UploadingFile extends Utils\LoadableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function delete(): void
     {
@@ -107,7 +107,7 @@ class UploadingFile extends Utils\LoadableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function update(): void
     {

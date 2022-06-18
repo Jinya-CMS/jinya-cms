@@ -2,7 +2,6 @@
 
 namespace App\Database;
 
-use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
@@ -72,8 +71,12 @@ class GalleryFilePosition extends Utils\RearrangableEntity
     }
 
     /**
-     * @inheritDoc
-     * @throws Exception
+     * Creates the current gallery file position, also moves the position of the other gallery file positions according to the new position
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function create(): void
     {
@@ -83,7 +86,12 @@ class GalleryFilePosition extends Utils\RearrangableEntity
     }
 
     /**
-     * @inheritDoc
+     * Deletes the current gallery file position, also resets the position of the other gallery file positions according to the new position
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function delete(): void
     {
@@ -158,7 +166,13 @@ class GalleryFilePosition extends Utils\RearrangableEntity
     }
 
     /**
-     * @inheritDoc
+     * Moves the current gallery file position to the new position. All other gallery file positions are rearranged accordingly
+     *
+     * @param int $newPosition
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function move(int $newPosition): void
     {
@@ -168,7 +182,12 @@ class GalleryFilePosition extends Utils\RearrangableEntity
     }
 
     /**
-     * @inheritDoc
+     * Updates the current gallery file position
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function update(): void
     {

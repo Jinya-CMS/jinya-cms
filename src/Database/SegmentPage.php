@@ -6,7 +6,6 @@ use App\Authentication\CurrentUser;
 use App\Routing\Attributes\JinyaApi;
 use App\Routing\Attributes\JinyaApiField;
 use DateTime;
-use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
@@ -14,26 +13,32 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 /**
- *
+ * This class contains information about segment pages
  */
 #[JinyaApi]
 class SegmentPage extends Utils\LoadableEntity
 {
+    /** @var int The ID of the creator of the segment page */
     #[JinyaApiField(ignore: true)]
     public int $creatorId;
+    /** @var int The ID of the artist who last updated the segment page */
     #[JinyaApiField(ignore: true)]
     public int $updatedById;
 
+    /** @var DateTime The time the segment page was created */
     #[JinyaApiField(ignore: true)]
     public DateTime $createdAt;
+    /** @var DateTime The time the segment page was last updated */
     #[JinyaApiField(ignore: true)]
     public DateTime $lastUpdatedAt;
 
+    /** @var string The name of the segment page */
     #[JinyaApiField(required: true)]
     public string $name;
 
     /**
-     * @inheritDoc
+     * Finds the segment page with the matching ID
+     *
      * @param int $id
      * @return SegmentPage|null
      * @throws Exceptions\ForeignKeyFailedException
@@ -55,8 +60,13 @@ class SegmentPage extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Finds all segment pages that match the keyword
+     *
+     * @param string $keyword
      * @return Iterator<SegmentPage>
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -73,8 +83,12 @@ class SegmentPage extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Finds all segment pages
+     *
      * @return Iterator<SegmentPage>
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public static function findAll(): Iterator
     {
@@ -89,8 +103,12 @@ class SegmentPage extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
-     * @throws Exception
+     * Creates the current segment page
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function create(): void
     {
@@ -110,7 +128,12 @@ class SegmentPage extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Deletes the current segment page
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function delete(): void
     {
@@ -118,7 +141,12 @@ class SegmentPage extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Updates the current segment page
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function update(): void
     {

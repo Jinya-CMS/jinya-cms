@@ -14,7 +14,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class GetDefaultConfigurationValues extends ThemeAction
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @return Response
      * @throws Database\Exceptions\ForeignKeyFailedException
      * @throws InvalidQueryException

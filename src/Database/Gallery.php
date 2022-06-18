@@ -57,7 +57,8 @@ class Gallery extends Utils\LoadableEntity
     public string $orientation = self::ORIENTATION_HORIZONTAL;
 
     /**
-     * @inheritDoc
+     * Finds the gallery with the given id
+     *
      * @param int $id
      * @return Gallery|null
      * @throws Exceptions\ForeignKeyFailedException
@@ -79,8 +80,13 @@ class Gallery extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Finds all galleries matching the keyword
+     *
+     * @param string $keyword
      * @return Iterator<Gallery>
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -102,8 +108,12 @@ class Gallery extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Finds all galleries
+     *
      * @return Iterator<Gallery>
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public static function findAll(): Iterator
     {
@@ -168,7 +178,6 @@ class Gallery extends Utils\LoadableEntity
      * Gets the creator of this gallery
      *
      * @return Artist|null
-     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -183,7 +192,6 @@ class Gallery extends Utils\LoadableEntity
      * Gets the artist that last updated this gallery
      *
      * @return Artist|null
-     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -195,7 +203,12 @@ class Gallery extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Creates the current artist
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function create(): void
     {
@@ -215,7 +228,12 @@ class Gallery extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Deletes the current gallery
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function delete(): void
     {
@@ -223,7 +241,12 @@ class Gallery extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Updates the current gallery
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function update(): void
     {

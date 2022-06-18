@@ -37,8 +37,13 @@ class BlogCategory extends Utils\LoadableEntity
     public ?string $webhookUrl = '';
 
     /**
-     * @inheritDoc
+     * Finds the blog categories by keyword
+     *
+     * @param string $keyword
      * @return Iterator<BlogCategory>
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -52,8 +57,12 @@ class BlogCategory extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Finds all blog categories
+     *
      * @return Iterator<BlogCategory>
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     public static function findAll(): Iterator
     {
@@ -61,7 +70,12 @@ class BlogCategory extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Creates the current blog category
+     *
+     * @return void
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     public function create(): void
     {
@@ -71,7 +85,12 @@ class BlogCategory extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Deletes the current blog category
+     *
+     * @return void
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     public function delete(): void
     {
@@ -79,7 +98,12 @@ class BlogCategory extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Updates the current blog category
+     *
+     * @return void
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     public function update(): void
     {
@@ -138,8 +162,14 @@ class BlogCategory extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Finds the blog category with the given ID
+     *
+     * @param int $id
+     * @return BlogCategory|null
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      * @throws NoResultException
+     * @throws UniqueFailedException
      */
     public static function findById(int $id): BlogCategory|null
     {

@@ -199,7 +199,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/GalleryFilePosition.php"><a href="files/src-database-galleryfileposition.html"><abbr title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">15</span>
+    <span class="phpdocumentor-element-found-in__line">14</span>
 
     </aside>
 
@@ -266,14 +266,18 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd></dd>
+    <dd>Creates the current gallery file position, also moves the position of the other gallery file positions according
+        to the new position
+    </dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-GalleryFilePosition.html#method_delete">delete()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd></dd>
+    <dd>Deletes the current gallery file position, also resets the position of the other gallery file positions
+        according to the new position
+    </dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Utils-LoadableEntity.html#method_executeSqlString">executeSqlString()</a>
@@ -357,14 +361,16 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Moves the entity</dd>
+    <dd>Moves the current gallery file position to the new position. All other gallery file positions are rearranged
+        accordingly
+    </dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-GalleryFilePosition.html#method_update">update()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd></dd>
+    <dd>Updates the current gallery file position</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/App-Database-Utils-LoadableEntity.html#method_convertInvalidQueryExceptionToException">convertInvalidQueryExceptionToException()</a>
@@ -499,7 +505,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/GalleryFilePosition.php"><a href="files/src-database-galleryfileposition.html"><abbr title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">20</span>
+        <span class="phpdocumentor-element-found-in__line">19</span>
 
     </aside>
 
@@ -533,7 +539,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/GalleryFilePosition.php"><a href="files/src-database-galleryfileposition.html"><abbr title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">18</span>
+        <span class="phpdocumentor-element-found-in__line">17</span>
 
     </aside>
 
@@ -668,44 +674,62 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_create">
         create()
-        <a href="classes/App-Database-GalleryFilePosition.html#method_create" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/App-Database-GalleryFilePosition.html#method_create" class="headerlink"><i
+                class="fas fa-link"></i></a>
     </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/GalleryFilePosition.php"><a href="files/src-database-galleryfileposition.html"><abbr title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">78</span>
+                        <aside class="phpdocumentor-element-found-in">
+                            <abbr class="phpdocumentor-element-found-in__file"
+                                  title="src/Database/GalleryFilePosition.php"><a
+                                    href="files/src-database-galleryfileposition.html"><abbr
+                                    title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
+                            :
+                            <span class="phpdocumentor-element-found-in__line">81</span>
 
-    </aside>
+                        </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">create</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                        <p class="phpdocumentor-summary">Creates the current gallery file position, also moves the
+                            position of the other gallery file positions according to the new position</p>
 
-    
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__name">create</span><span>(</span><span>)</span><span> : </span><span
+                                class="phpdocumentor-signature__response_type">void</span></code>
+
+
+                        <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                            Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
-                                                            
-                                             
-                                    </dd>
-                        </dl>
+                                        <span class="phpdocumentor-tag__name">throws</span>
+                                    </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <span class="phpdocumentor-tag-link"><a
+                    href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                    title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">throws</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <span class="phpdocumentor-tag-link"><a
+                    href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                    title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">throws</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <span class="phpdocumentor-tag-link"><abbr title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+        </dd>
+    </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">void</span>
@@ -721,35 +745,62 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_delete">
         delete()
-        <a href="classes/App-Database-GalleryFilePosition.html#method_delete" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/App-Database-GalleryFilePosition.html#method_delete" class="headerlink"><i
+                class="fas fa-link"></i></a>
     </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/GalleryFilePosition.php"><a href="files/src-database-galleryfileposition.html"><abbr title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">88</span>
+                        <aside class="phpdocumentor-element-found-in">
+                            <abbr class="phpdocumentor-element-found-in__file"
+                                  title="src/Database/GalleryFilePosition.php"><a
+                                    href="files/src-database-galleryfileposition.html"><abbr
+                                    title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
+                            :
+                            <span class="phpdocumentor-element-found-in__line">96</span>
 
-    </aside>
+                        </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">delete</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                        <p class="phpdocumentor-summary">Deletes the current gallery file position, also resets the
+                            position of the other gallery file positions according to the new position</p>
 
-    
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__name">delete</span><span>(</span><span>)</span><span> : </span><span
+                                class="phpdocumentor-signature__response_type">void</span></code>
+
+
+                        <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                            Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -861,7 +912,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/GalleryFilePosition.php"><a href="files/src-database-galleryfileposition.html"><abbr title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">41</span>
+        <span class="phpdocumentor-element-found-in__line">40</span>
 
     </aside>
 
@@ -894,7 +945,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/GalleryFilePosition.php"><a href="files/src-database-galleryfileposition.html"><abbr title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">25</span>
+        <span class="phpdocumentor-element-found-in__line">24</span>
 
     </aside>
 
@@ -938,7 +989,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/GalleryFilePosition.php"><a href="files/src-database-galleryfileposition.html"><abbr title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">33</span>
+        <span class="phpdocumentor-element-found-in__line">32</span>
 
     </aside>
 
@@ -982,7 +1033,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/GalleryFilePosition.php"><a href="files/src-database-galleryfileposition.html"><abbr title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">58</span>
+        <span class="phpdocumentor-element-found-in__line">57</span>
 
     </aside>
 
@@ -1082,7 +1133,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/GalleryFilePosition.php"><a href="files/src-database-galleryfileposition.html"><abbr title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">104</span>
+        <span class="phpdocumentor-element-found-in__line">112</span>
 
     </aside>
 
@@ -1153,7 +1204,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/GalleryFilePosition.php"><a href="files/src-database-galleryfileposition.html"><abbr title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">155</span>
+        <span class="phpdocumentor-element-found-in__line">163</span>
 
     </aside>
 
@@ -1224,7 +1275,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/GalleryFilePosition.php"><a href="files/src-database-galleryfileposition.html"><abbr title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">140</span>
+        <span class="phpdocumentor-element-found-in__line">148</span>
 
     </aside>
 
@@ -1361,11 +1412,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/GalleryFilePosition.php"><a href="files/src-database-galleryfileposition.html"><abbr title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">163</span>
+        <span class="phpdocumentor-element-found-in__line">177</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Moves the entity</p>
+                        <p class="phpdocumentor-summary">Moves the current gallery file position to the new position.
+                            All other gallery file positions are rearranged accordingly</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1379,7 +1431,6 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
 
             </dd>
             </dl>
@@ -1389,14 +1440,36 @@
         Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -1413,35 +1486,61 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_update">
         update()
-        <a href="classes/App-Database-GalleryFilePosition.html#method_update" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/App-Database-GalleryFilePosition.html#method_update" class="headerlink"><i
+                class="fas fa-link"></i></a>
     </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/GalleryFilePosition.php"><a href="files/src-database-galleryfileposition.html"><abbr title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">173</span>
+                        <aside class="phpdocumentor-element-found-in">
+                            <abbr class="phpdocumentor-element-found-in__file"
+                                  title="src/Database/GalleryFilePosition.php"><a
+                                    href="files/src-database-galleryfileposition.html"><abbr
+                                    title="src/Database/GalleryFilePosition.php">GalleryFilePosition.php</abbr></a></abbr>
+                            :
+                            <span class="phpdocumentor-element-found-in__line">192</span>
 
-    </aside>
+                        </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">update</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                        <p class="phpdocumentor-summary">Updates the current gallery file position</p>
 
-    
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__name">update</span><span>(</span><span>)</span><span> : </span><span
+                                class="phpdocumentor-signature__response_type">void</span></code>
+
+
+                        <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                            Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>

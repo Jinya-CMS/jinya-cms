@@ -37,7 +37,7 @@ abstract class FrontAction extends Action
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @throws Throwable
      */
     protected function action(): Response

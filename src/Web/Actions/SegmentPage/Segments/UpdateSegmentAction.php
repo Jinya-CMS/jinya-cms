@@ -20,7 +20,7 @@ use Slim\Exception\HttpNotFoundException;
 class UpdateSegmentAction extends Action
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws HttpNotFoundException

@@ -203,7 +203,10 @@
 
     </aside>
 
-            <p class="phpdocumentor-summary">Base class for all entities that need the ability to rearrange themselves in their parent</p>
+            <p class="phpdocumentor-summary">This class contains a segment of segment pages. Segments can contain
+                different kinds of data, currently supported are galleries, forms, files and static HTML content. If the
+                data is a file it is also possible to specify an action which can be either script or link. Depending on
+                the action the fields have to be set accordingly.</p>
 
 
 
@@ -308,14 +311,14 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd></dd>
+    <dd>Creates the current segment and also rearranges the other segments in the page based on the position</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Segment.html#method_delete">delete()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd></dd>
+    <dd>Deletes the given segment, the order of the remaining segments will be reset</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Utils-LoadableEntity.html#method_executeSqlString">executeSqlString()</a>
@@ -336,21 +339,21 @@
     <span>
                                 &nbsp;: <abbr title="\Iterator">Iterator</abbr>    </span>
 </dt>
-<dd></dd>
+    <dd>Not implemented</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Segment.html#method_findById">findById()</a>
     <span>
                                 &nbsp;: object|null    </span>
 </dt>
-<dd></dd>
+    <dd>Not implemented</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Segment.html#method_findByKeyword">findByKeyword()</a>
     <span>
                                 &nbsp;: <abbr title="\Iterator">Iterator</abbr>    </span>
 </dt>
-<dd></dd>
+    <dd>Not implemented</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Segment.html#method_findByPosition">findByPosition()</a>
@@ -364,7 +367,7 @@
     <span>
                                 &nbsp;: array&lt;string, array<string,int|string|null>|int|string|null&gt;    </span>
 </dt>
-<dd></dd>
+    <dd>Formats the segment into an array</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Segment.html#method_getFile">getFile()</a>
@@ -413,14 +416,14 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Moves the entity</dd>
+    <dd>Moves the segment to a new position and rearranges the other items accordingly</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Segment.html#method_update">update()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd></dd>
+    <dd>Updates the current menu item</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/App-Database-Utils-LoadableEntity.html#method_convertInvalidQueryExceptionToException">convertInvalidQueryExceptionToException()</a>
@@ -555,24 +558,24 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">20</span>
+        <span class="phpdocumentor-element-found-in__line">25</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">string|null</span>
-    <span class="phpdocumentor-signature__name">$action</span>
-    </code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">string|null</span>
+                            <span class="phpdocumentor-signature__name">$action</span>
+                        </code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The action type to execute when the file is
+                            clicked. It can be either script, link or none</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -589,24 +592,23 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">19</span>
+        <span class="phpdocumentor-element-found-in__line">23</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">int|null</span>
-    <span class="phpdocumentor-signature__name">$fileId</span>
-    </code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">int|null</span>
+                            <span class="phpdocumentor-signature__name">$fileId</span>
+                        </code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The ID of the file this segment contains</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -623,24 +625,23 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">17</span>
+        <span class="phpdocumentor-element-found-in__line">19</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">int|null</span>
-    <span class="phpdocumentor-signature__name">$formId</span>
-    </code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">int|null</span>
+                            <span class="phpdocumentor-signature__name">$formId</span>
+                        </code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The ID of the form this segment contains</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -657,24 +658,23 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">18</span>
+        <span class="phpdocumentor-element-found-in__line">21</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">int|null</span>
-    <span class="phpdocumentor-signature__name">$galleryId</span>
-    </code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">int|null</span>
+                            <span class="phpdocumentor-signature__name">$galleryId</span>
+                        </code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The ID of the gallery this segment contains</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -691,24 +691,23 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">23</span>
+        <span class="phpdocumentor-element-found-in__line">31</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">string|null</span>
-    <span class="phpdocumentor-signature__name">$html</span>
-    </code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">string|null</span>
+                            <span class="phpdocumentor-signature__name">$html</span>
+                        </code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The HTML content of the segment</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -759,24 +758,24 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">16</span>
+        <span class="phpdocumentor-element-found-in__line">17</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">int</span>
-    <span class="phpdocumentor-signature__name">$pageId</span>
-    </code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">int</span>
+                            <span class="phpdocumentor-signature__name">$pageId</span>
+                        </code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The ID of the segment page this segment belongs
+                            to</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -827,24 +826,23 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">21</span>
+        <span class="phpdocumentor-element-found-in__line">27</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">string|null</span>
-    <span class="phpdocumentor-signature__name">$script</span>
-    </code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">string|null</span>
+                            <span class="phpdocumentor-signature__name">$script</span>
+                        </code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The script to execute when the file is clicked</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -861,24 +859,23 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">22</span>
+        <span class="phpdocumentor-element-found-in__line">29</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">string|null</span>
-    <span class="phpdocumentor-signature__name">$target</span>
-    </code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">string|null</span>
+                            <span class="phpdocumentor-signature__name">$target</span>
+                        </code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The link to open when the file is clicked</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -930,33 +927,57 @@
         create()
         <a href="classes/App-Database-Segment.html#method_create" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">193</span>
+                        <aside class="phpdocumentor-element-found-in">
+                            <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a
+                                    href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
+                            :
+                            <span class="phpdocumentor-element-found-in__line">208</span>
 
-    </aside>
+                        </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">create</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                        <p class="phpdocumentor-summary">Creates the current segment and also rearranges the other
+                            segments in the page based on the position</p>
 
-    
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__name">create</span><span>(</span><span>)</span><span> : </span><span
+                                class="phpdocumentor-signature__response_type">void</span></code>
+
+
+                        <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                            Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -975,33 +996,57 @@
         delete()
         <a href="classes/App-Database-Segment.html#method_delete" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">203</span>
+                        <aside class="phpdocumentor-element-found-in">
+                            <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a
+                                    href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
+                            :
+                            <span class="phpdocumentor-element-found-in__line">223</span>
 
-    </aside>
+                        </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">delete</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                        <p class="phpdocumentor-summary">Deletes the given segment, the order of the remaining segments
+                            will be reset</p>
 
-    
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__name">delete</span><span>(</span><span>)</span><span> : </span><span
+                                class="phpdocumentor-signature__response_type">void</span></code>
+
+
+                        <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                            Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -1110,36 +1155,25 @@
         findAll()
         <a href="classes/App-Database-Segment.html#method_findAll" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">44</span>
+                        <aside class="phpdocumentor-element-found-in">
+                            <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a
+                                    href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
+                            :
+                            <span class="phpdocumentor-element-found-in__line">52</span>
 
-    </aside>
+                        </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">findAll</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Iterator">Iterator</abbr></span></code>
+                        <p class="phpdocumentor-summary">Not implemented</p>
 
-    
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
-                        </dl>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__static">static</span> <span
+                                class="phpdocumentor-signature__name">findAll</span><span>(</span><span>)</span><span> : </span><span
+                                class="phpdocumentor-signature__response_type"><abbr
+                                title="\Iterator">Iterator</abbr></span></code>
 
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+
+                        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type"><abbr title="\Iterator">Iterator</abbr></span>
             &mdash;
         
@@ -1155,23 +1189,30 @@
         findById()
         <a href="classes/App-Database-Segment.html#method_findById" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">28</span>
+                        <aside class="phpdocumentor-element-found-in">
+                            <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a
+                                    href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
+                            :
+                            <span class="phpdocumentor-element-found-in__line">36</span>
 
-    </aside>
+                        </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">findById</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">object|null</span></code>
+                        <p class="phpdocumentor-summary">Not implemented</p>
 
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$id</span>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__static">static</span> <span
+                                class="phpdocumentor-signature__name">findById</span><span>(</span><span
+                                class="phpdocumentor-signature__argument"><span
+                                class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span
+                                class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span
+                                class="phpdocumentor-signature__response_type">object|null</span></code>
+
+
+                        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+                        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                                <span class="phpdocumentor-signature__argument__name">$id</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -1181,19 +1222,6 @@
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
-                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">object|null</span>
@@ -1211,23 +1239,31 @@
         findByKeyword()
         <a href="classes/App-Database-Segment.html#method_findByKeyword" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+                        <aside class="phpdocumentor-element-found-in">
+                            <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a
+                                    href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
+                            :
+                            <span class="phpdocumentor-element-found-in__line">44</span>
 
-    </aside>
+                        </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">findByKeyword</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$keyword</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Iterator">Iterator</abbr></span></code>
+                        <p class="phpdocumentor-summary">Not implemented</p>
 
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$keyword</span>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__static">static</span> <span
+                                class="phpdocumentor-signature__name">findByKeyword</span><span>(</span><span
+                                class="phpdocumentor-signature__argument"><span
+                                class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span
+                                class="phpdocumentor-signature__argument__name">$keyword</span></span><span>)</span><span> : </span><span
+                                class="phpdocumentor-signature__response_type"><abbr
+                                title="\Iterator">Iterator</abbr></span></code>
+
+
+                        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+                        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                                <span class="phpdocumentor-signature__argument__name">$keyword</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -1237,19 +1273,6 @@
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
-                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type"><abbr title="\Iterator">Iterator</abbr></span>
@@ -1270,7 +1293,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">61</span>
+        <span class="phpdocumentor-element-found-in__line">69</span>
 
     </aside>
 
@@ -1363,23 +1386,24 @@
         format()
         <a href="classes/App-Database-Segment.html#method_format" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">139</span>
+                        <aside class="phpdocumentor-element-found-in">
+                            <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a
+                                    href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
+                            :
+                            <span class="phpdocumentor-element-found-in__line">149</span>
 
-    </aside>
+                        </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">format</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, array<string,int|string|null>|int|string|null&gt;</span></code>
+                        <p class="phpdocumentor-summary">Formats the segment into an array</p>
 
-    
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__name">format</span><span>(</span><span>)</span><span> : </span><span
+                                class="phpdocumentor-signature__response_type">array&lt;string, array<string,int|string|null>|int|string|null&gt;</span></code>
+
+
+                        <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                            Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
     <dl class="phpdocumentor-tag-list">
@@ -1436,7 +1460,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">84</span>
+        <span class="phpdocumentor-element-found-in__line">92</span>
 
     </aside>
 
@@ -1507,7 +1531,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">98</span>
+        <span class="phpdocumentor-element-found-in__line">106</span>
 
     </aside>
 
@@ -1578,7 +1602,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">112</span>
+        <span class="phpdocumentor-element-found-in__line">120</span>
 
     </aside>
 
@@ -1715,7 +1739,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">127</span>
+        <span class="phpdocumentor-element-found-in__line">135</span>
 
     </aside>
 
@@ -1786,11 +1810,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">213</span>
+        <span class="phpdocumentor-element-found-in__line">239</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Moves the entity</p>
+                        <p class="phpdocumentor-summary">Moves the segment to a new position and rearranges the other
+                            items accordingly</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1804,7 +1829,6 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
 
             </dd>
             </dl>
@@ -1814,14 +1838,36 @@
         Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -1840,33 +1886,56 @@
         update()
         <a href="classes/App-Database-Segment.html#method_update" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">223</span>
+                        <aside class="phpdocumentor-element-found-in">
+                            <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Segment.php"><a
+                                    href="files/src-database-segment.html"><abbr title="src/Database/Segment.php">Segment.php</abbr></a></abbr>
+                            :
+                            <span class="phpdocumentor-element-found-in__line">254</span>
 
-    </aside>
+                        </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">update</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                        <p class="phpdocumentor-summary">Updates the current menu item</p>
 
-    
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__name">update</span><span>(</span><span>)</span><span> : </span><span
+                                class="phpdocumentor-signature__response_type">void</span></code>
+
+
+                        <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                            Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>

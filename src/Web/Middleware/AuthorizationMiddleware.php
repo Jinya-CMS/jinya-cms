@@ -23,7 +23,7 @@ class AuthorizationMiddleware implements MiddlewareInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @throws HttpForbiddenException
      * @throws Exception
      */

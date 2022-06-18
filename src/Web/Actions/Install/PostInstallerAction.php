@@ -16,7 +16,7 @@ use Throwable;
 class PostInstallerAction extends InstallAction
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @throws Throwable
      * @throws Throwable
      * @throws Throwable

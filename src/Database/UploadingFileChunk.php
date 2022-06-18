@@ -17,7 +17,7 @@ class UploadingFileChunk extends Utils\LoadableEntity
     public int $chunkPosition;
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @throws NoResultException
      */
     public static function findById(int $id): ?object
@@ -26,7 +26,7 @@ class UploadingFileChunk extends Utils\LoadableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -34,7 +34,7 @@ class UploadingFileChunk extends Utils\LoadableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public static function findAll(): Iterator
     {
@@ -60,7 +60,7 @@ class UploadingFileChunk extends Utils\LoadableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function create(): void
     {
@@ -68,7 +68,7 @@ class UploadingFileChunk extends Utils\LoadableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function delete(): void
     {
@@ -76,7 +76,7 @@ class UploadingFileChunk extends Utils\LoadableEntity
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function update(): void
     {

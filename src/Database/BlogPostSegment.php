@@ -77,7 +77,8 @@ class BlogPostSegment extends Utils\RearrangableEntity
     }
 
     /**
-     * @inheritDoc
+     * Formats the blog post segment into an array
+     *
      * @return array<string, array<string, int|string|null>|int|string|null>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
@@ -123,7 +124,12 @@ class BlogPostSegment extends Utils\RearrangableEntity
     }
 
     /**
-     * @inheritDoc
+     * Creates the current blog post segment. During creation the other blog post segments will be moved based on the position
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function create(): void
     {
@@ -133,7 +139,12 @@ class BlogPostSegment extends Utils\RearrangableEntity
     }
 
     /**
-     * @inheritDoc
+     * Deletes the current blog post segment, the order of the remaining segments will be reset
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function delete(): void
     {
@@ -157,7 +168,13 @@ class BlogPostSegment extends Utils\RearrangableEntity
     }
 
     /**
-     * @inheritDoc
+     * Moves the blog post segment to a new position and rearranges the other items accordingly
+     *
+     * @param int $newPosition
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function move(int $newPosition): void
     {
@@ -167,7 +184,12 @@ class BlogPostSegment extends Utils\RearrangableEntity
     }
 
     /**
-     * @inheritDoc
+     * Updates the current blog post segment
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function update(): void
     {

@@ -246,36 +246,36 @@ Search.appendIndex(
             "summary": "Finds\u0020the\u0020artist\u0020that\u0020belongs\u0020to\u0020the\u0020given\u0020ID",
             "url": "classes/App-Database-Artist.html#method_findById"
         },                {
-            "fqsen": "\\App\\Database\\Artist\u003A\u003AfindByKeyword\u0028\u0029",
-            "name": "findByKeyword",
-            "summary": "Gets\u0020all\u0020entities\u0020that\u0020match\u0020the\u0020given\u0020keyword",
-            "url": "classes/App-Database-Artist.html#method_findByKeyword"
-        },                {
+      "fqsen": "\\App\\Database\\Artist\u003A\u003AfindByKeyword\u0028\u0029",
+      "name": "findByKeyword",
+      "summary": "Finds\u0020the\u0020artists\u0020by\u0020the\u0020given\u0020keyword",
+      "url": "classes/App-Database-Artist.html#method_findByKeyword"
+    },                {
             "fqsen": "\\App\\Database\\Artist\u003A\u003AsetTwoFactorCode\u0028\u0029",
             "name": "setTwoFactorCode",
             "summary": "Securely\u0020sets\u0020the\u0020two\u002Dfactor\u0020code",
             "url": "classes/App-Database-Artist.html#method_setTwoFactorCode"
-        },                {
-            "fqsen": "\\App\\Database\\Artist\u003A\u003Acreate\u0028\u0029",
-            "name": "create",
-            "summary": "Creates\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-Artist.html#method_create"
-        },                {
-            "fqsen": "\\App\\Database\\Artist\u003A\u003Adelete\u0028\u0029",
-            "name": "delete",
-            "summary": "Deletes\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-Artist.html#method_delete"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\Artist\u003A\u003Acreate\u0028\u0029",
+      "name": "create",
+      "summary": "Creates\u0020the\u0020current\u0020artist",
+      "url": "classes/App-Database-Artist.html#method_create"
+    }, {
+      "fqsen": "\\App\\Database\\Artist\u003A\u003Adelete\u0028\u0029",
+      "name": "delete",
+      "summary": "Deletes\u0020the\u0020current\u0020artist",
+      "url": "classes/App-Database-Artist.html#method_delete"
+    },                {
             "fqsen": "\\App\\Database\\Artist\u003A\u003AcountAdmins\u0028\u0029",
             "name": "countAdmins",
             "summary": "Counts\u0020all\u0020available\u0020admins,\u0020excluding\u0020the\u0020given\u0020artist",
             "url": "classes/App-Database-Artist.html#method_countAdmins"
-        },                {
-            "fqsen": "\\App\\Database\\Artist\u003A\u003AfindAll\u0028\u0029",
-            "name": "findAll",
-            "summary": "Gets\u0020all\u0020entities\u0020of\u0020the\u0020given\u0020type",
-            "url": "classes/App-Database-Artist.html#method_findAll"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\Artist\u003A\u003AfindAll\u0028\u0029",
+      "name": "findAll",
+      "summary": "Finds\u0020all\u0020artists",
+      "url": "classes/App-Database-Artist.html#method_findAll"
+    },                {
             "fqsen": "\\App\\Database\\Artist\u003A\u003Aformat\u0028\u0029",
             "name": "format",
             "summary": "Formats\u0020the\u0020artist",
@@ -375,32 +375,32 @@ Search.appendIndex(
             "name": "BlogCategory",
             "summary": "This\u0020class\u0020contains\u0020a\u0020blog\u0020category,\u0020blog\u0020categories\u0020can\u0020have\u0020child\u0020categories\u0020and\u0020have\u0020blog\u0020posts.",
             "url": "classes/App-Database-BlogCategory.html"
-        },                {
-            "fqsen": "\\App\\Database\\BlogCategory\u003A\u003AfindByKeyword\u0028\u0029",
-            "name": "findByKeyword",
-            "summary": "Gets\u0020all\u0020entities\u0020that\u0020match\u0020the\u0020given\u0020keyword",
-            "url": "classes/App-Database-BlogCategory.html#method_findByKeyword"
-        },                {
-            "fqsen": "\\App\\Database\\BlogCategory\u003A\u003AfindAll\u0028\u0029",
-            "name": "findAll",
-            "summary": "Gets\u0020all\u0020entities\u0020of\u0020the\u0020given\u0020type",
-            "url": "classes/App-Database-BlogCategory.html#method_findAll"
-        },                {
-            "fqsen": "\\App\\Database\\BlogCategory\u003A\u003Acreate\u0028\u0029",
-            "name": "create",
-            "summary": "Creates\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-BlogCategory.html#method_create"
-        },                {
-            "fqsen": "\\App\\Database\\BlogCategory\u003A\u003Adelete\u0028\u0029",
-            "name": "delete",
-            "summary": "Deletes\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-BlogCategory.html#method_delete"
-        },                {
-            "fqsen": "\\App\\Database\\BlogCategory\u003A\u003Aupdate\u0028\u0029",
-            "name": "update",
-            "summary": "Updates\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-BlogCategory.html#method_update"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\BlogCategory\u003A\u003AfindByKeyword\u0028\u0029",
+      "name": "findByKeyword",
+      "summary": "Finds\u0020the\u0020blog\u0020categories\u0020by\u0020keyword",
+      "url": "classes/App-Database-BlogCategory.html#method_findByKeyword"
+    }, {
+      "fqsen": "\\App\\Database\\BlogCategory\u003A\u003AfindAll\u0028\u0029",
+      "name": "findAll",
+      "summary": "Finds\u0020all\u0020blog\u0020categories",
+      "url": "classes/App-Database-BlogCategory.html#method_findAll"
+    }, {
+      "fqsen": "\\App\\Database\\BlogCategory\u003A\u003Acreate\u0028\u0029",
+      "name": "create",
+      "summary": "Creates\u0020the\u0020current\u0020blog\u0020category",
+      "url": "classes/App-Database-BlogCategory.html#method_create"
+    }, {
+      "fqsen": "\\App\\Database\\BlogCategory\u003A\u003Adelete\u0028\u0029",
+      "name": "delete",
+      "summary": "Deletes\u0020the\u0020current\u0020blog\u0020category",
+      "url": "classes/App-Database-BlogCategory.html#method_delete"
+    }, {
+      "fqsen": "\\App\\Database\\BlogCategory\u003A\u003Aupdate\u0028\u0029",
+      "name": "update",
+      "summary": "Updates\u0020the\u0020current\u0020blog\u0020category",
+      "url": "classes/App-Database-BlogCategory.html#method_update"
+    },                {
             "fqsen": "\\App\\Database\\BlogCategory\u003A\u003Aformat\u0028\u0029",
             "name": "format",
             "summary": "Formats\u0020the\u0020blog\u0020category",
@@ -410,12 +410,12 @@ Search.appendIndex(
             "name": "getParent",
             "summary": "Gets\u0020the\u0020categories\u0020parent\u0020category,\u0020if\u0020it\u0020has\u0020no\u0020parent\u0020the\u0020result\u0020is\u0020null",
             "url": "classes/App-Database-BlogCategory.html#method_getParent"
-        },                {
-            "fqsen": "\\App\\Database\\BlogCategory\u003A\u003AfindById\u0028\u0029",
-            "name": "findById",
-            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
-            "url": "classes/App-Database-BlogCategory.html#method_findById"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\BlogCategory\u003A\u003AfindById\u0028\u0029",
+      "name": "findById",
+      "summary": "Finds\u0020the\u0020blog\u0020category\u0020with\u0020the\u0020given\u0020ID",
+      "url": "classes/App-Database-BlogCategory.html#method_findById"
+    },                {
             "fqsen": "\\App\\Database\\BlogCategory\u003A\u003AgetBlogPosts\u0028\u0029",
             "name": "getBlogPosts",
             "summary": "Gets\u0020all\u0020blog\u0020posts\u0020in\u0020the\u0020current\u0020category",
@@ -450,27 +450,27 @@ Search.appendIndex(
             "name": "BlogPost",
             "summary": "This\u0020class\u0020contains\u0020the\u0020information\u0020of\u0020a\u0020blog\u0020post",
             "url": "classes/App-Database-BlogPost.html"
-        },                {
-            "fqsen": "\\App\\Database\\BlogPost\u003A\u003AfindById\u0028\u0029",
-            "name": "findById",
-            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
-            "url": "classes/App-Database-BlogPost.html#method_findById"
-        },                {
-            "fqsen": "\\App\\Database\\BlogPost\u003A\u003AfindByKeyword\u0028\u0029",
-            "name": "findByKeyword",
-            "summary": "Gets\u0020all\u0020entities\u0020that\u0020match\u0020the\u0020given\u0020keyword",
-            "url": "classes/App-Database-BlogPost.html#method_findByKeyword"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\BlogPost\u003A\u003AfindById\u0028\u0029",
+      "name": "findById",
+      "summary": "Finds\u0020the\u0020blog\u0020post\u0020with\u0020the\u0020given\u0020id",
+      "url": "classes/App-Database-BlogPost.html#method_findById"
+    }, {
+      "fqsen": "\\App\\Database\\BlogPost\u003A\u003AfindByKeyword\u0028\u0029",
+      "name": "findByKeyword",
+      "summary": "Finds\u0020the\u0020blog\u0020posts\u0020by\u0020the\u0020given\u0020keyword",
+      "url": "classes/App-Database-BlogPost.html#method_findByKeyword"
+    },                {
             "fqsen": "\\App\\Database\\BlogPost\u003A\u003AfindPublicPosts\u0028\u0029",
             "name": "findPublicPosts",
             "summary": "Finds\u0020all\u0020public\u0020blog\u0020posts",
             "url": "classes/App-Database-BlogPost.html#method_findPublicPosts"
-        },                {
-            "fqsen": "\\App\\Database\\BlogPost\u003A\u003AfindAll\u0028\u0029",
-            "name": "findAll",
-            "summary": "Gets\u0020all\u0020entities\u0020of\u0020the\u0020given\u0020type",
-            "url": "classes/App-Database-BlogPost.html#method_findAll"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\BlogPost\u003A\u003AfindAll\u0028\u0029",
+      "name": "findAll",
+      "summary": "Finds\u0020all\u0020blog\u0020posts.\u0020It\u0020is\u0020not\u0020differentiated\u0020between\u0020public\u0020and\u0020private\u0020posts.",
+      "url": "classes/App-Database-BlogPost.html#method_findAll"
+    },                {
             "fqsen": "\\App\\Database\\BlogPost\u003A\u003AfindBySlug\u0028\u0029",
             "name": "findBySlug",
             "summary": "Finds\u0020the\u0020blog\u0020post\u0020by\u0020the\u0020given\u0020slug",
@@ -490,27 +490,27 @@ Search.appendIndex(
             "name": "executeHook",
             "summary": "Executes\u0020the\u0020webhook\u0020defined\u0020in\u0020the\u0020category",
             "url": "classes/App-Database-BlogPost.html#method_executeHook"
-        },                {
-            "fqsen": "\\App\\Database\\BlogPost\u003A\u003Acreate\u0028\u0029",
-            "name": "create",
-            "summary": "Creates\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-BlogPost.html#method_create"
-        },                {
-            "fqsen": "\\App\\Database\\BlogPost\u003A\u003Adelete\u0028\u0029",
-            "name": "delete",
-            "summary": "Deletes\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-BlogPost.html#method_delete"
-        },                {
-            "fqsen": "\\App\\Database\\BlogPost\u003A\u003Aupdate\u0028\u0029",
-            "name": "update",
-            "summary": "Updates\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-BlogPost.html#method_update"
-        },                {
-            "fqsen": "\\App\\Database\\BlogPost\u003A\u003Aformat\u0028\u0029",
-            "name": "format",
-            "summary": "",
-            "url": "classes/App-Database-BlogPost.html#method_format"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\BlogPost\u003A\u003Acreate\u0028\u0029",
+      "name": "create",
+      "summary": "Creates\u0020the\u0020current\u0020blog\u0020post",
+      "url": "classes/App-Database-BlogPost.html#method_create"
+    }, {
+      "fqsen": "\\App\\Database\\BlogPost\u003A\u003Adelete\u0028\u0029",
+      "name": "delete",
+      "summary": "Deletes\u0020the\u0020current\u0020blog\u0020post",
+      "url": "classes/App-Database-BlogPost.html#method_delete"
+    }, {
+      "fqsen": "\\App\\Database\\BlogPost\u003A\u003Aupdate\u0028\u0029",
+      "name": "update",
+      "summary": "Updates\u0020the\u0020current\u0020blog\u0020post",
+      "url": "classes/App-Database-BlogPost.html#method_update"
+    }, {
+      "fqsen": "\\App\\Database\\BlogPost\u003A\u003Aformat\u0028\u0029",
+      "name": "format",
+      "summary": "Formats\u0020the\u0020blog\u0020post\u0020into\u0020an\u0020array",
+      "url": "classes/App-Database-BlogPost.html#method_format"
+    },                {
             "fqsen": "\\App\\Database\\BlogPost\u003A\u003AgetCreator\u0028\u0029",
             "name": "getCreator",
             "summary": "Gets\u0020the\u0020creator\u0020of\u0020the\u0020blog\u0020post",
@@ -590,37 +590,37 @@ Search.appendIndex(
             "name": "findByPosition",
             "summary": "Finds\u0020the\u0020segment\u0020by\u0020a\u0020post\u0020and\u0020the\u0020position",
             "url": "classes/App-Database-BlogPostSegment.html#method_findByPosition"
-        },                {
-            "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003Aformat\u0028\u0029",
-            "name": "format",
-            "summary": "",
-            "url": "classes/App-Database-BlogPostSegment.html#method_format"
-        },                {
-            "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003Acreate\u0028\u0029",
-            "name": "create",
-            "summary": "",
-            "url": "classes/App-Database-BlogPostSegment.html#method_create"
-        },                {
-            "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003Adelete\u0028\u0029",
-            "name": "delete",
-            "summary": "",
-            "url": "classes/App-Database-BlogPostSegment.html#method_delete"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003Aformat\u0028\u0029",
+      "name": "format",
+      "summary": "Formats\u0020the\u0020blog\u0020post\u0020segment\u0020into\u0020an\u0020array",
+      "url": "classes/App-Database-BlogPostSegment.html#method_format"
+    }, {
+      "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003Acreate\u0028\u0029",
+      "name": "create",
+      "summary": "Creates\u0020the\u0020current\u0020blog\u0020post\u0020segment.\u0020During\u0020creation\u0020the\u0020other\u0020blog\u0020post\u0020segments\u0020will\u0020be\u0020moved\u0020based\u0020on\u0020the\u0020position",
+      "url": "classes/App-Database-BlogPostSegment.html#method_create"
+    }, {
+      "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003Adelete\u0028\u0029",
+      "name": "delete",
+      "summary": "Deletes\u0020the\u0020current\u0020blog\u0020post\u0020segment,\u0020the\u0020order\u0020of\u0020the\u0020remaining\u0020segments\u0020will\u0020be\u0020reset",
+      "url": "classes/App-Database-BlogPostSegment.html#method_delete"
+    },                {
             "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003AgetBlogPost\u0028\u0029",
             "name": "getBlogPost",
             "summary": "Gets\u0020the\u0020post\u0020this\u0020segment\u0020belongs\u0020to",
             "url": "classes/App-Database-BlogPostSegment.html#method_getBlogPost"
-        },                {
-            "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003Amove\u0028\u0029",
-            "name": "move",
-            "summary": "Moves\u0020the\u0020entity",
-            "url": "classes/App-Database-BlogPostSegment.html#method_move"
-        },                {
-            "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003Aupdate\u0028\u0029",
-            "name": "update",
-            "summary": "",
-            "url": "classes/App-Database-BlogPostSegment.html#method_update"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003Amove\u0028\u0029",
+      "name": "move",
+      "summary": "Moves\u0020the\u0020blog\u0020post\u0020segment\u0020to\u0020a\u0020new\u0020position\u0020and\u0020rearranges\u0020the\u0020other\u0020items\u0020accordingly",
+      "url": "classes/App-Database-BlogPostSegment.html#method_move"
+    }, {
+      "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003Aupdate\u0028\u0029",
+      "name": "update",
+      "summary": "Updates\u0020the\u0020current\u0020blog\u0020post\u0020segment",
+      "url": "classes/App-Database-BlogPostSegment.html#method_update"
+    },                {
             "fqsen": "\\App\\Database\\BlogPostSegment\u003A\u003AgetFile\u0028\u0029",
             "name": "getFile",
             "summary": "The\u0020file\u0020this\u0020segment\u0020contains",
@@ -690,42 +690,42 @@ Search.appendIndex(
             "name": "File",
             "summary": "This\u0020class\u0020contains\u0020information\u0020about\u0020files\u0020stored\u0020with\u0020the\u0020media\u0020manager\u0020in\u0020Jinya\u0020CMS",
             "url": "classes/App-Database-File.html"
-        },                {
-            "fqsen": "\\App\\Database\\File\u003A\u003AfindById\u0028\u0029",
-            "name": "findById",
-            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
-            "url": "classes/App-Database-File.html#method_findById"
-        },                {
-            "fqsen": "\\App\\Database\\File\u003A\u003AfindByKeyword\u0028\u0029",
-            "name": "findByKeyword",
-            "summary": "Gets\u0020all\u0020entities\u0020that\u0020match\u0020the\u0020given\u0020keyword",
-            "url": "classes/App-Database-File.html#method_findByKeyword"
-        },                {
-            "fqsen": "\\App\\Database\\File\u003A\u003AfindAll\u0028\u0029",
-            "name": "findAll",
-            "summary": "Gets\u0020all\u0020entities\u0020of\u0020the\u0020given\u0020type",
-            "url": "classes/App-Database-File.html#method_findAll"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\File\u003A\u003AfindById\u0028\u0029",
+      "name": "findById",
+      "summary": "Finds\u0020the\u0020file\u0020with\u0020the\u0020given\u0020id",
+      "url": "classes/App-Database-File.html#method_findById"
+    }, {
+      "fqsen": "\\App\\Database\\File\u003A\u003AfindByKeyword\u0028\u0029",
+      "name": "findByKeyword",
+      "summary": "Finds\u0020all\u0020files\u0020matching\u0020the\u0020given\u0020keyword",
+      "url": "classes/App-Database-File.html#method_findByKeyword"
+    }, {
+      "fqsen": "\\App\\Database\\File\u003A\u003AfindAll\u0028\u0029",
+      "name": "findAll",
+      "summary": "Finds\u0020all\u0020files",
+      "url": "classes/App-Database-File.html#method_findAll"
+    },                {
             "fqsen": "\\App\\Database\\File\u003A\u003AgetUploadChunks\u0028\u0029",
             "name": "getUploadChunks",
             "summary": "Gets\u0020the\u0020uploading\u0020chunks",
             "url": "classes/App-Database-File.html#method_getUploadChunks"
-        },                {
-            "fqsen": "\\App\\Database\\File\u003A\u003Acreate\u0028\u0029",
-            "name": "create",
-            "summary": "Creates\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-File.html#method_create"
-        },                {
-            "fqsen": "\\App\\Database\\File\u003A\u003Adelete\u0028\u0029",
-            "name": "delete",
-            "summary": "Deletes\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-File.html#method_delete"
-        },                {
-            "fqsen": "\\App\\Database\\File\u003A\u003Aupdate\u0028\u0029",
-            "name": "update",
-            "summary": "Updates\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-File.html#method_update"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\File\u003A\u003Acreate\u0028\u0029",
+      "name": "create",
+      "summary": "Creates\u0020the\u0020current\u0020file",
+      "url": "classes/App-Database-File.html#method_create"
+    }, {
+      "fqsen": "\\App\\Database\\File\u003A\u003Adelete\u0028\u0029",
+      "name": "delete",
+      "summary": "Deletes\u0020the\u0020current\u0020file",
+      "url": "classes/App-Database-File.html#method_delete"
+    }, {
+      "fqsen": "\\App\\Database\\File\u003A\u003Aupdate\u0028\u0029",
+      "name": "update",
+      "summary": "Updates\u0020the\u0020current\u0020file",
+      "url": "classes/App-Database-File.html#method_update"
+    },                {
             "fqsen": "\\App\\Database\\File\u003A\u003Aformat\u0028\u0029",
             "name": "format",
             "summary": "Formats\u0020the\u0020file\u0020into\u0020an\u0020array",
@@ -780,42 +780,42 @@ Search.appendIndex(
             "name": "Form",
             "summary": "This\u0020class\u0020contains\u0020a\u0020form,\u0020forms\u0020allow\u0020artists\u0020to\u0020receive\u0020feedback\u0020from\u0020their\u0020site\u0020visitors",
             "url": "classes/App-Database-Form.html"
-        },                {
-            "fqsen": "\\App\\Database\\Form\u003A\u003AfindById\u0028\u0029",
-            "name": "findById",
-            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
-            "url": "classes/App-Database-Form.html#method_findById"
-        },                {
-            "fqsen": "\\App\\Database\\Form\u003A\u003AfindByKeyword\u0028\u0029",
-            "name": "findByKeyword",
-            "summary": "Gets\u0020all\u0020entities\u0020that\u0020match\u0020the\u0020given\u0020keyword",
-            "url": "classes/App-Database-Form.html#method_findByKeyword"
-        },                {
-            "fqsen": "\\App\\Database\\Form\u003A\u003AfindAll\u0028\u0029",
-            "name": "findAll",
-            "summary": "Gets\u0020all\u0020entities\u0020of\u0020the\u0020given\u0020type",
-            "url": "classes/App-Database-Form.html#method_findAll"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\Form\u003A\u003AfindById\u0028\u0029",
+      "name": "findById",
+      "summary": "Finds\u0020the\u0020form\u0020with\u0020the\u0020given\u0020ID",
+      "url": "classes/App-Database-Form.html#method_findById"
+    }, {
+      "fqsen": "\\App\\Database\\Form\u003A\u003AfindByKeyword\u0028\u0029",
+      "name": "findByKeyword",
+      "summary": "Finds\u0020all\u0020forms\u0020matching\u0020the\u0020keyword",
+      "url": "classes/App-Database-Form.html#method_findByKeyword"
+    }, {
+      "fqsen": "\\App\\Database\\Form\u003A\u003AfindAll\u0028\u0029",
+      "name": "findAll",
+      "summary": "Finds\u0020all\u0020forms",
+      "url": "classes/App-Database-Form.html#method_findAll"
+    },                {
             "fqsen": "\\App\\Database\\Form\u003A\u003AgetItems\u0028\u0029",
             "name": "getItems",
             "summary": "Gets\u0020all\u0020form\u0020items\u0020in\u0020the\u0020form",
             "url": "classes/App-Database-Form.html#method_getItems"
-        },                {
-            "fqsen": "\\App\\Database\\Form\u003A\u003Acreate\u0028\u0029",
-            "name": "create",
-            "summary": "Creates\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-Form.html#method_create"
-        },                {
-            "fqsen": "\\App\\Database\\Form\u003A\u003Adelete\u0028\u0029",
-            "name": "delete",
-            "summary": "Deletes\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-Form.html#method_delete"
-        },                {
-            "fqsen": "\\App\\Database\\Form\u003A\u003Aupdate\u0028\u0029",
-            "name": "update",
-            "summary": "Updates\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-Form.html#method_update"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\Form\u003A\u003Acreate\u0028\u0029",
+      "name": "create",
+      "summary": "Creates\u0020the\u0020current\u0020form",
+      "url": "classes/App-Database-Form.html#method_create"
+    }, {
+      "fqsen": "\\App\\Database\\Form\u003A\u003Adelete\u0028\u0029",
+      "name": "delete",
+      "summary": "Deletes\u0020the\u0020current\u0020form",
+      "url": "classes/App-Database-Form.html#method_delete"
+    }, {
+      "fqsen": "\\App\\Database\\Form\u003A\u003Aupdate\u0028\u0029",
+      "name": "update",
+      "summary": "Updates\u0020the\u0020current\u0020form",
+      "url": "classes/App-Database-Form.html#method_update"
+    },                {
             "fqsen": "\\App\\Database\\Form\u003A\u003Aformat\u0028\u0029",
             "name": "format",
             "summary": "Formats\u0020the\u0020form\u0020into\u0020an\u0020array",
@@ -870,22 +870,22 @@ Search.appendIndex(
             "name": "FormItem",
             "summary": "This\u0020class\u0020contains\u0020a\u0020form\u0020item,\u0020a\u0020form\u0020has\u0020several\u0020items",
             "url": "classes/App-Database-FormItem.html"
-        },                {
-            "fqsen": "\\App\\Database\\FormItem\u003A\u003AfindById\u0028\u0029",
-            "name": "findById",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Database-FormItem.html#method_findById"
-        },                {
-            "fqsen": "\\App\\Database\\FormItem\u003A\u003AfindByKeyword\u0028\u0029",
-            "name": "findByKeyword",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Database-FormItem.html#method_findByKeyword"
-        },                {
-            "fqsen": "\\App\\Database\\FormItem\u003A\u003AfindAll\u0028\u0029",
-            "name": "findAll",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Database-FormItem.html#method_findAll"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\FormItem\u003A\u003AfindById\u0028\u0029",
+      "name": "findById",
+      "summary": "Not\u0020implemented",
+      "url": "classes/App-Database-FormItem.html#method_findById"
+    }, {
+      "fqsen": "\\App\\Database\\FormItem\u003A\u003AfindByKeyword\u0028\u0029",
+      "name": "findByKeyword",
+      "summary": "Not\u0020implemented",
+      "url": "classes/App-Database-FormItem.html#method_findByKeyword"
+    }, {
+      "fqsen": "\\App\\Database\\FormItem\u003A\u003AfindAll\u0028\u0029",
+      "name": "findAll",
+      "summary": "Not\u0020implemented",
+      "url": "classes/App-Database-FormItem.html#method_findAll"
+    },                {
             "fqsen": "\\App\\Database\\FormItem\u003A\u003AfindByPosition\u0028\u0029",
             "name": "findByPosition",
             "summary": "Gets\u0020the\u0020form\u0020item\u0020at\u0020the\u0020given\u0020position\u0020in\u0020the\u0020given\u0020form",
@@ -900,27 +900,27 @@ Search.appendIndex(
             "name": "format",
             "summary": "Formats\u0020the\u0020form\u0020item\u0020into\u0020an\u0020array",
             "url": "classes/App-Database-FormItem.html#method_format"
-        },                {
-            "fqsen": "\\App\\Database\\FormItem\u003A\u003Acreate\u0028\u0029",
-            "name": "create",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Database-FormItem.html#method_create"
-        },                {
-            "fqsen": "\\App\\Database\\FormItem\u003A\u003Adelete\u0028\u0029",
-            "name": "delete",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Database-FormItem.html#method_delete"
-        },                {
-            "fqsen": "\\App\\Database\\FormItem\u003A\u003Amove\u0028\u0029",
-            "name": "move",
-            "summary": "Moves\u0020the\u0020entity",
-            "url": "classes/App-Database-FormItem.html#method_move"
-        },                {
-            "fqsen": "\\App\\Database\\FormItem\u003A\u003Aupdate\u0028\u0029",
-            "name": "update",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Database-FormItem.html#method_update"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\FormItem\u003A\u003Acreate\u0028\u0029",
+      "name": "create",
+      "summary": "Creates\u0020the\u0020current\u0020form\u0020item,\u0020also\u0020moves\u0020the\u0020position\u0020of\u0020the\u0020other\u0020form\u0020items\u0020according\u0020to\u0020the\u0020new\u0020position",
+      "url": "classes/App-Database-FormItem.html#method_create"
+    }, {
+      "fqsen": "\\App\\Database\\FormItem\u003A\u003Adelete\u0028\u0029",
+      "name": "delete",
+      "summary": "Deletes\u0020the\u0020current\u0020form\u0020item,\u0020the\u0020order\u0020of\u0020the\u0020remaining\u0020items\u0020will\u0020be\u0020reset",
+      "url": "classes/App-Database-FormItem.html#method_delete"
+    }, {
+      "fqsen": "\\App\\Database\\FormItem\u003A\u003Amove\u0028\u0029",
+      "name": "move",
+      "summary": "Moves\u0020the\u0020current\u0020form\u0020item\u0020to\u0020the\u0020new\u0020position.\u0020All\u0020other\u0020form\u0020items\u0020are\u0020rearranged\u0020accordingly",
+      "url": "classes/App-Database-FormItem.html#method_move"
+    }, {
+      "fqsen": "\\App\\Database\\FormItem\u003A\u003Aupdate\u0028\u0029",
+      "name": "update",
+      "summary": "Updates\u0020the\u0020given\u0020form\u0020item",
+      "url": "classes/App-Database-FormItem.html#method_update"
+    },                {
             "fqsen": "\\App\\Database\\FormItem\u003A\u003A\u0024type",
             "name": "type",
             "summary": "",
@@ -975,22 +975,22 @@ Search.appendIndex(
             "name": "Gallery",
             "summary": "This\u0020class\u0020contains\u0020a\u0020gallery,\u0020galleries\u0020are\u0020used\u0020to\u0020arrange\u0020files\u0020in\u0020a\u0020list\u0020or\u0020masonry\u0020layout\u0020and\u0020horizontal\u0020or\u0020vertical\u0020orientation.\u0020They\u0020can\u0020be\u0020embedded\u0020into\u0020segment\u0020pages\u0020and\u0020blog\u0020posts",
             "url": "classes/App-Database-Gallery.html"
-        },                {
-            "fqsen": "\\App\\Database\\Gallery\u003A\u003AfindById\u0028\u0029",
-            "name": "findById",
-            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
-            "url": "classes/App-Database-Gallery.html#method_findById"
-        },                {
-            "fqsen": "\\App\\Database\\Gallery\u003A\u003AfindByKeyword\u0028\u0029",
-            "name": "findByKeyword",
-            "summary": "Gets\u0020all\u0020entities\u0020that\u0020match\u0020the\u0020given\u0020keyword",
-            "url": "classes/App-Database-Gallery.html#method_findByKeyword"
-        },                {
-            "fqsen": "\\App\\Database\\Gallery\u003A\u003AfindAll\u0028\u0029",
-            "name": "findAll",
-            "summary": "Gets\u0020all\u0020entities\u0020of\u0020the\u0020given\u0020type",
-            "url": "classes/App-Database-Gallery.html#method_findAll"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\Gallery\u003A\u003AfindById\u0028\u0029",
+      "name": "findById",
+      "summary": "Finds\u0020the\u0020gallery\u0020with\u0020the\u0020given\u0020id",
+      "url": "classes/App-Database-Gallery.html#method_findById"
+    }, {
+      "fqsen": "\\App\\Database\\Gallery\u003A\u003AfindByKeyword\u0028\u0029",
+      "name": "findByKeyword",
+      "summary": "Finds\u0020all\u0020galleries\u0020matching\u0020the\u0020keyword",
+      "url": "classes/App-Database-Gallery.html#method_findByKeyword"
+    }, {
+      "fqsen": "\\App\\Database\\Gallery\u003A\u003AfindAll\u0028\u0029",
+      "name": "findAll",
+      "summary": "Finds\u0020all\u0020galleries",
+      "url": "classes/App-Database-Gallery.html#method_findAll"
+    },                {
             "fqsen": "\\App\\Database\\Gallery\u003A\u003Aformat\u0028\u0029",
             "name": "format",
             "summary": "Formats\u0020the\u0020gallery\u0020into\u0020an\u0020array",
@@ -1005,22 +1005,22 @@ Search.appendIndex(
             "name": "getUpdatedBy",
             "summary": "Gets\u0020the\u0020artist\u0020that\u0020last\u0020updated\u0020this\u0020gallery",
             "url": "classes/App-Database-Gallery.html#method_getUpdatedBy"
-        },                {
-            "fqsen": "\\App\\Database\\Gallery\u003A\u003Acreate\u0028\u0029",
-            "name": "create",
-            "summary": "Creates\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-Gallery.html#method_create"
-        },                {
-            "fqsen": "\\App\\Database\\Gallery\u003A\u003Adelete\u0028\u0029",
-            "name": "delete",
-            "summary": "Deletes\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-Gallery.html#method_delete"
-        },                {
-            "fqsen": "\\App\\Database\\Gallery\u003A\u003Aupdate\u0028\u0029",
-            "name": "update",
-            "summary": "Updates\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-Gallery.html#method_update"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\Gallery\u003A\u003Acreate\u0028\u0029",
+      "name": "create",
+      "summary": "Creates\u0020the\u0020current\u0020artist",
+      "url": "classes/App-Database-Gallery.html#method_create"
+    }, {
+      "fqsen": "\\App\\Database\\Gallery\u003A\u003Adelete\u0028\u0029",
+      "name": "delete",
+      "summary": "Deletes\u0020the\u0020current\u0020gallery",
+      "url": "classes/App-Database-Gallery.html#method_delete"
+    }, {
+      "fqsen": "\\App\\Database\\Gallery\u003A\u003Aupdate\u0028\u0029",
+      "name": "update",
+      "summary": "Updates\u0020the\u0020current\u0020gallery",
+      "url": "classes/App-Database-Gallery.html#method_update"
+    },                {
             "fqsen": "\\App\\Database\\Gallery\u003A\u003AgetFiles\u0028\u0029",
             "name": "getFiles",
             "summary": "Get\u0020all\u0020files\u0020in\u0020gallery",
@@ -1110,17 +1110,17 @@ Search.appendIndex(
             "name": "findByPosition",
             "summary": "Gets\u0020the\u0020gallery\u0020file\u0020position\u0020at\u0020the\u0020given\u0020position\u0020in\u0020the\u0020given\u0020gallery",
             "url": "classes/App-Database-GalleryFilePosition.html#method_findByPosition"
-        },                {
-            "fqsen": "\\App\\Database\\GalleryFilePosition\u003A\u003Acreate\u0028\u0029",
-            "name": "create",
-            "summary": "",
-            "url": "classes/App-Database-GalleryFilePosition.html#method_create"
-        },                {
-            "fqsen": "\\App\\Database\\GalleryFilePosition\u003A\u003Adelete\u0028\u0029",
-            "name": "delete",
-            "summary": "",
-            "url": "classes/App-Database-GalleryFilePosition.html#method_delete"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\GalleryFilePosition\u003A\u003Acreate\u0028\u0029",
+      "name": "create",
+      "summary": "Creates\u0020the\u0020current\u0020gallery\u0020file\u0020position,\u0020also\u0020moves\u0020the\u0020position\u0020of\u0020the\u0020other\u0020gallery\u0020file\u0020positions\u0020according\u0020to\u0020the\u0020new\u0020position",
+      "url": "classes/App-Database-GalleryFilePosition.html#method_create"
+    }, {
+      "fqsen": "\\App\\Database\\GalleryFilePosition\u003A\u003Adelete\u0028\u0029",
+      "name": "delete",
+      "summary": "Deletes\u0020the\u0020current\u0020gallery\u0020file\u0020position,\u0020also\u0020resets\u0020the\u0020position\u0020of\u0020the\u0020other\u0020gallery\u0020file\u0020positions\u0020according\u0020to\u0020the\u0020new\u0020position",
+      "url": "classes/App-Database-GalleryFilePosition.html#method_delete"
+    },                {
             "fqsen": "\\App\\Database\\GalleryFilePosition\u003A\u003Aformat\u0028\u0029",
             "name": "format",
             "summary": "Formats\u0020the\u0020gallery\u0020file\u0020position\u0020into\u0020an\u0020array",
@@ -1135,17 +1135,17 @@ Search.appendIndex(
             "name": "getFile",
             "summary": "Gets\u0020the\u0020associated\u0020file",
             "url": "classes/App-Database-GalleryFilePosition.html#method_getFile"
-        },                {
-            "fqsen": "\\App\\Database\\GalleryFilePosition\u003A\u003Amove\u0028\u0029",
-            "name": "move",
-            "summary": "Moves\u0020the\u0020entity",
-            "url": "classes/App-Database-GalleryFilePosition.html#method_move"
-        },                {
-            "fqsen": "\\App\\Database\\GalleryFilePosition\u003A\u003Aupdate\u0028\u0029",
-            "name": "update",
-            "summary": "",
-            "url": "classes/App-Database-GalleryFilePosition.html#method_update"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\GalleryFilePosition\u003A\u003Amove\u0028\u0029",
+      "name": "move",
+      "summary": "Moves\u0020the\u0020current\u0020gallery\u0020file\u0020position\u0020to\u0020the\u0020new\u0020position.\u0020All\u0020other\u0020gallery\u0020file\u0020positions\u0020are\u0020rearranged\u0020accordingly",
+      "url": "classes/App-Database-GalleryFilePosition.html#method_move"
+    }, {
+      "fqsen": "\\App\\Database\\GalleryFilePosition\u003A\u003Aupdate\u0028\u0029",
+      "name": "update",
+      "summary": "Updates\u0020the\u0020current\u0020gallery\u0020file\u0020position",
+      "url": "classes/App-Database-GalleryFilePosition.html#method_update"
+    },                {
             "fqsen": "\\App\\Database\\GalleryFilePosition\u003A\u003A\u0024galleryId",
             "name": "galleryId",
             "summary": "",
@@ -1160,47 +1160,47 @@ Search.appendIndex(
             "name": "KnownDevice",
             "summary": "This\u0020class\u0020contains\u0020a\u0020known\u0020device,\u0020known\u0020devices\u0020are\u0020used\u0020to\u0020remove\u0020the\u0020need\u0020for\u0020a\u0020two\u002Dfactor\u0020code.\u0020It\u0020is\u0020up\u0020to\u0020the\u0020API\u0020consumer\u0020whether\u0020they\u0020want\u0020to\u0020use\u0020them\u0020or\u0020not.",
             "url": "classes/App-Database-KnownDevice.html"
-        },                {
-            "fqsen": "\\App\\Database\\KnownDevice\u003A\u003AfindById\u0028\u0029",
-            "name": "findById",
-            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
-            "url": "classes/App-Database-KnownDevice.html#method_findById"
-        },                {
-            "fqsen": "\\App\\Database\\KnownDevice\u003A\u003AfindByKeyword\u0028\u0029",
-            "name": "findByKeyword",
-            "summary": "Gets\u0020all\u0020entities\u0020that\u0020match\u0020the\u0020given\u0020keyword",
-            "url": "classes/App-Database-KnownDevice.html#method_findByKeyword"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\KnownDevice\u003A\u003AfindById\u0028\u0029",
+      "name": "findById",
+      "summary": "Not\u0020implemented",
+      "url": "classes/App-Database-KnownDevice.html#method_findById"
+    }, {
+      "fqsen": "\\App\\Database\\KnownDevice\u003A\u003AfindByKeyword\u0028\u0029",
+      "name": "findByKeyword",
+      "summary": "Not\u0020implemented",
+      "url": "classes/App-Database-KnownDevice.html#method_findByKeyword"
+    },                {
             "fqsen": "\\App\\Database\\KnownDevice\u003A\u003AfindByArtist\u0028\u0029",
             "name": "findByArtist",
             "summary": "Gets\u0020all\u0020known\u0020devices\u0020for\u0020the\u0020given\u0020artist",
             "url": "classes/App-Database-KnownDevice.html#method_findByArtist"
-        },                {
-            "fqsen": "\\App\\Database\\KnownDevice\u003A\u003AfindAll\u0028\u0029",
-            "name": "findAll",
-            "summary": "Gets\u0020all\u0020entities\u0020of\u0020the\u0020given\u0020type",
-            "url": "classes/App-Database-KnownDevice.html#method_findAll"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\KnownDevice\u003A\u003AfindAll\u0028\u0029",
+      "name": "findAll",
+      "summary": "Not\u0020implemented",
+      "url": "classes/App-Database-KnownDevice.html#method_findAll"
+    },                {
             "fqsen": "\\App\\Database\\KnownDevice\u003A\u003AfindByCode\u0028\u0029",
             "name": "findByCode",
             "summary": "Gets\u0020a\u0020known\u0020device\u0020by\u0020code",
             "url": "classes/App-Database-KnownDevice.html#method_findByCode"
-        },                {
-            "fqsen": "\\App\\Database\\KnownDevice\u003A\u003Acreate\u0028\u0029",
-            "name": "create",
-            "summary": "Creates\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-KnownDevice.html#method_create"
-        },                {
-            "fqsen": "\\App\\Database\\KnownDevice\u003A\u003Adelete\u0028\u0029",
-            "name": "delete",
-            "summary": "Deletes\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-KnownDevice.html#method_delete"
-        },                {
-            "fqsen": "\\App\\Database\\KnownDevice\u003A\u003Aupdate\u0028\u0029",
-            "name": "update",
-            "summary": "Updates\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-KnownDevice.html#method_update"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\KnownDevice\u003A\u003Acreate\u0028\u0029",
+      "name": "create",
+      "summary": "Creates\u0020the\u0020current\u0020known\u0020device",
+      "url": "classes/App-Database-KnownDevice.html#method_create"
+    }, {
+      "fqsen": "\\App\\Database\\KnownDevice\u003A\u003Adelete\u0028\u0029",
+      "name": "delete",
+      "summary": "Deletes\u0020the\u0020current\u0020known\u0020device",
+      "url": "classes/App-Database-KnownDevice.html#method_delete"
+    }, {
+      "fqsen": "\\App\\Database\\KnownDevice\u003A\u003Aupdate\u0028\u0029",
+      "name": "update",
+      "summary": "Updates\u0020the\u0020current\u0020known\u0020device",
+      "url": "classes/App-Database-KnownDevice.html#method_update"
+    },                {
             "fqsen": "\\App\\Database\\KnownDevice\u003A\u003AsetDeviceKey\u0028\u0029",
             "name": "setDeviceKey",
             "summary": "Securely\u0020sets\u0020the\u0020device\u0020code",
@@ -1235,22 +1235,22 @@ Search.appendIndex(
             "name": "Menu",
             "summary": "This\u0020class\u0020contains\u0020a\u0020menu,\u0020menus\u0020contain\u0020menu\u0020items,\u0020which\u0020are\u0020used\u0020to\u0020create\u0020the\u0020navigation\u0020in\u0020themes",
             "url": "classes/App-Database-Menu.html"
-        },                {
-            "fqsen": "\\App\\Database\\Menu\u003A\u003AfindById\u0028\u0029",
-            "name": "findById",
-            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
-            "url": "classes/App-Database-Menu.html#method_findById"
-        },                {
-            "fqsen": "\\App\\Database\\Menu\u003A\u003AfindByKeyword\u0028\u0029",
-            "name": "findByKeyword",
-            "summary": "Gets\u0020all\u0020entities\u0020that\u0020match\u0020the\u0020given\u0020keyword",
-            "url": "classes/App-Database-Menu.html#method_findByKeyword"
-        },                {
-            "fqsen": "\\App\\Database\\Menu\u003A\u003AfindAll\u0028\u0029",
-            "name": "findAll",
-            "summary": "Gets\u0020all\u0020entities\u0020of\u0020the\u0020given\u0020type",
-            "url": "classes/App-Database-Menu.html#method_findAll"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\Menu\u003A\u003AfindById\u0028\u0029",
+      "name": "findById",
+      "summary": "Finds\u0020the\u0020menu\u0020with\u0020the\u0020matching\u0020ID",
+      "url": "classes/App-Database-Menu.html#method_findById"
+    }, {
+      "fqsen": "\\App\\Database\\Menu\u003A\u003AfindByKeyword\u0028\u0029",
+      "name": "findByKeyword",
+      "summary": "Finds\u0020all\u0020menus\u0020matching\u0020the\u0020keyword",
+      "url": "classes/App-Database-Menu.html#method_findByKeyword"
+    }, {
+      "fqsen": "\\App\\Database\\Menu\u003A\u003AfindAll\u0028\u0029",
+      "name": "findAll",
+      "summary": "Finds\u0020all\u0020menus",
+      "url": "classes/App-Database-Menu.html#method_findAll"
+    },                {
             "fqsen": "\\App\\Database\\Menu\u003A\u003Aformat\u0028\u0029",
             "name": "format",
             "summary": "Formats\u0020the\u0020current\u0020menu\u0020into\u0020an\u0020array",
@@ -1260,22 +1260,22 @@ Search.appendIndex(
             "name": "getLogo",
             "summary": "Gets\u0020the\u0020logo\u0020file",
             "url": "classes/App-Database-Menu.html#method_getLogo"
-        },                {
-            "fqsen": "\\App\\Database\\Menu\u003A\u003Acreate\u0028\u0029",
-            "name": "create",
-            "summary": "Creates\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-Menu.html#method_create"
-        },                {
-            "fqsen": "\\App\\Database\\Menu\u003A\u003Adelete\u0028\u0029",
-            "name": "delete",
-            "summary": "Deletes\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-Menu.html#method_delete"
-        },                {
-            "fqsen": "\\App\\Database\\Menu\u003A\u003Aupdate\u0028\u0029",
-            "name": "update",
-            "summary": "Updates\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-Menu.html#method_update"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\Menu\u003A\u003Acreate\u0028\u0029",
+      "name": "create",
+      "summary": "Creates\u0020the\u0020current\u0020menu",
+      "url": "classes/App-Database-Menu.html#method_create"
+    }, {
+      "fqsen": "\\App\\Database\\Menu\u003A\u003Adelete\u0028\u0029",
+      "name": "delete",
+      "summary": "Deletes\u0020the\u0020current\u0020menu",
+      "url": "classes/App-Database-Menu.html#method_delete"
+    }, {
+      "fqsen": "\\App\\Database\\Menu\u003A\u003Aupdate\u0028\u0029",
+      "name": "update",
+      "summary": "Updates\u0020the\u0020current\u0020menu",
+      "url": "classes/App-Database-Menu.html#method_update"
+    },                {
             "fqsen": "\\App\\Database\\Menu\u003A\u003AgetItems\u0028\u0029",
             "name": "getItems",
             "summary": "Gets\u0020the\u0020menu\u0020items",
@@ -1295,17 +1295,17 @@ Search.appendIndex(
             "name": "MenuItem",
             "summary": "This\u0020class\u0020contains\u0020a\u0020menu\u0020item.\u0020A\u0020menu\u0020item\u0020is\u0020a\u0020class\u0020containing\u0020information\u0020about\u0020an\u0020entry\u0020in\u0020a\u0020menu.",
             "url": "classes/App-Database-MenuItem.html"
-        },                {
-            "fqsen": "\\App\\Database\\MenuItem\u003A\u003AfindByKeyword\u0028\u0029",
-            "name": "findByKeyword",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Database-MenuItem.html#method_findByKeyword"
-        },                {
-            "fqsen": "\\App\\Database\\MenuItem\u003A\u003AfindAll\u0028\u0029",
-            "name": "findAll",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Database-MenuItem.html#method_findAll"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\MenuItem\u003A\u003AfindByKeyword\u0028\u0029",
+      "name": "findByKeyword",
+      "summary": "Not\u0020implemented",
+      "url": "classes/App-Database-MenuItem.html#method_findByKeyword"
+    }, {
+      "fqsen": "\\App\\Database\\MenuItem\u003A\u003AfindAll\u0028\u0029",
+      "name": "findAll",
+      "summary": "Not\u0020implemented",
+      "url": "classes/App-Database-MenuItem.html#method_findAll"
+    },                {
             "fqsen": "\\App\\Database\\MenuItem\u003A\u003AfindByMenuAndPosition\u0028\u0029",
             "name": "findByMenuAndPosition",
             "summary": "Finds\u0020a\u0020menu\u0020item\u0020by\u0020its\u0020parent\u0020menu\u0020and\u0020the\u0020position",
@@ -1325,42 +1325,42 @@ Search.appendIndex(
             "name": "getParent",
             "summary": "Gets\u0020the\u0020parent",
             "url": "classes/App-Database-MenuItem.html#method_getParent"
-        },                {
-            "fqsen": "\\App\\Database\\MenuItem\u003A\u003AfindById\u0028\u0029",
-            "name": "findById",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Database-MenuItem.html#method_findById"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\MenuItem\u003A\u003AfindById\u0028\u0029",
+      "name": "findById",
+      "summary": "Finds\u0020the\u0020menu\u0020item\u0020matching\u0020the\u0020ID",
+      "url": "classes/App-Database-MenuItem.html#method_findById"
+    },                {
             "fqsen": "\\App\\Database\\MenuItem\u003A\u003AgetMenu\u0028\u0029",
             "name": "getMenu",
             "summary": "Gets\u0020the\u0020menu",
             "url": "classes/App-Database-MenuItem.html#method_getMenu"
-        },                {
-            "fqsen": "\\App\\Database\\MenuItem\u003A\u003Acreate\u0028\u0029",
-            "name": "create",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Database-MenuItem.html#method_create"
-        },                {
-            "fqsen": "\\App\\Database\\MenuItem\u003A\u003Arearrange\u0028\u0029",
-            "name": "rearrange",
-            "summary": "",
-            "url": "classes/App-Database-MenuItem.html#method_rearrange"
-        },                {
-            "fqsen": "\\App\\Database\\MenuItem\u003A\u003Aupdate\u0028\u0029",
-            "name": "update",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Database-MenuItem.html#method_update"
-        },                {
-            "fqsen": "\\App\\Database\\MenuItem\u003A\u003Adelete\u0028\u0029",
-            "name": "delete",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Database-MenuItem.html#method_delete"
-        },                {
-            "fqsen": "\\App\\Database\\MenuItem\u003A\u003Amove\u0028\u0029",
-            "name": "move",
-            "summary": "Moves\u0020the\u0020entity",
-            "url": "classes/App-Database-MenuItem.html#method_move"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\MenuItem\u003A\u003Acreate\u0028\u0029",
+      "name": "create",
+      "summary": "Creates\u0020the\u0020current\u0020menu\u0020item,\u0020also\u0020moves\u0020the\u0020position\u0020of\u0020the\u0020other\u0020menu\u0020items\u0020according\u0020to\u0020the\u0020new\u0020position",
+      "url": "classes/App-Database-MenuItem.html#method_create"
+    }, {
+      "fqsen": "\\App\\Database\\MenuItem\u003A\u003Arearrange\u0028\u0029",
+      "name": "rearrange",
+      "summary": "Moves\u0020the\u0020current\u0020menu\u0020item.\u0020Depending\u0020on\u0020the\u0020parent\u0020it\u0020will\u0020rearrange\u0020the\u0020positions\u0020and\u0020move\u0020the\u0020menu\u0020items\u0020in\u0020the\u0020correct\u0020order",
+      "url": "classes/App-Database-MenuItem.html#method_rearrange"
+    }, {
+      "fqsen": "\\App\\Database\\MenuItem\u003A\u003Aupdate\u0028\u0029",
+      "name": "update",
+      "summary": "Updates\u0020the\u0020menu\u0020item",
+      "url": "classes/App-Database-MenuItem.html#method_update"
+    }, {
+      "fqsen": "\\App\\Database\\MenuItem\u003A\u003Adelete\u0028\u0029",
+      "name": "delete",
+      "summary": "Deletes\u0020the\u0020current\u0020menu\u0020item,\u0020the\u0020order\u0020of\u0020the\u0020remaining\u0020items\u0020will\u0020be\u0020reset",
+      "url": "classes/App-Database-MenuItem.html#method_delete"
+    }, {
+      "fqsen": "\\App\\Database\\MenuItem\u003A\u003Amove\u0028\u0029",
+      "name": "move",
+      "summary": "Moves\u0020the\u0020current\u0020menu\u0020item\u0020to\u0020the\u0020new\u0020position.\u0020All\u0020other\u0020menu\u0020items\u0020are\u0020rearranged\u0020accordingly",
+      "url": "classes/App-Database-MenuItem.html#method_move"
+    },                {
             "fqsen": "\\App\\Database\\MenuItem\u003A\u003AformatRecursive\u0028\u0029",
             "name": "formatRecursive",
             "summary": "Formats\u0020the\u0020menu\u0020items\u0020below\u0020this\u0020recursive",
@@ -1485,27 +1485,27 @@ Search.appendIndex(
             "name": "executeSingleMigration",
             "summary": "Executes\u0020the\u0020given\u0020script\u0020directly\u0020on\u0020the\u0020database",
             "url": "classes/App-Database-Migrations-Migrator.html#method_executeSingleMigration"
-        },                {
-            "fqsen": "\\App\\Database\\Segment",
-            "name": "Segment",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020entities\u0020that\u0020need\u0020the\u0020ability\u0020to\u0020rearrange\u0020themselves\u0020in\u0020their\u0020parent",
-            "url": "classes/App-Database-Segment.html"
-        },                {
-            "fqsen": "\\App\\Database\\Segment\u003A\u003AfindById\u0028\u0029",
-            "name": "findById",
-            "summary": "",
-            "url": "classes/App-Database-Segment.html#method_findById"
-        },                {
-            "fqsen": "\\App\\Database\\Segment\u003A\u003AfindByKeyword\u0028\u0029",
-            "name": "findByKeyword",
-            "summary": "",
-            "url": "classes/App-Database-Segment.html#method_findByKeyword"
-        },                {
-            "fqsen": "\\App\\Database\\Segment\u003A\u003AfindAll\u0028\u0029",
-            "name": "findAll",
-            "summary": "",
-            "url": "classes/App-Database-Segment.html#method_findAll"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\Segment",
+      "name": "Segment",
+      "summary": "This\u0020class\u0020contains\u0020a\u0020segment\u0020of\u0020segment\u0020pages.\u0020Segments\u0020can\u0020contain\u0020different\u0020kinds\u0020of\u0020data,\u0020currently\u0020supported\u0020are\u0020galleries,\u0020forms,\u0020files\u0020and\u0020static\u0020HTML\u0020content.\u0020If\u0020the\u0020data\u0020is\u0020a\u0020file\u0020it\u0020is\u0020also\u0020possible\u0020to\u0020specify\u0020an\u0020action\u0020which\u0020can\u0020be\u0020either\u0020script\u0020or\u0020link.\u0020Depending\u0020on\u0020the\u0020action\u0020the\u0020fields\u0020have\u0020to\u0020be\u0020set\u0020accordingly.",
+      "url": "classes/App-Database-Segment.html"
+    }, {
+      "fqsen": "\\App\\Database\\Segment\u003A\u003AfindById\u0028\u0029",
+      "name": "findById",
+      "summary": "Not\u0020implemented",
+      "url": "classes/App-Database-Segment.html#method_findById"
+    }, {
+      "fqsen": "\\App\\Database\\Segment\u003A\u003AfindByKeyword\u0028\u0029",
+      "name": "findByKeyword",
+      "summary": "Not\u0020implemented",
+      "url": "classes/App-Database-Segment.html#method_findByKeyword"
+    }, {
+      "fqsen": "\\App\\Database\\Segment\u003A\u003AfindAll\u0028\u0029",
+      "name": "findAll",
+      "summary": "Not\u0020implemented",
+      "url": "classes/App-Database-Segment.html#method_findAll"
+    },                {
             "fqsen": "\\App\\Database\\Segment\u003A\u003AfindByPosition\u0028\u0029",
             "name": "findByPosition",
             "summary": "Gets\u0020the\u0020segment\u0020at\u0020the\u0020given\u0020position\u0020in\u0020the\u0020given\u0020page",
@@ -1530,32 +1530,32 @@ Search.appendIndex(
             "name": "getSegmentPage",
             "summary": "Gets\u0020the\u0020corresponding\u0020segment\u0020page",
             "url": "classes/App-Database-Segment.html#method_getSegmentPage"
-        },                {
-            "fqsen": "\\App\\Database\\Segment\u003A\u003Aformat\u0028\u0029",
-            "name": "format",
-            "summary": "",
-            "url": "classes/App-Database-Segment.html#method_format"
-        },                {
-            "fqsen": "\\App\\Database\\Segment\u003A\u003Acreate\u0028\u0029",
-            "name": "create",
-            "summary": "",
-            "url": "classes/App-Database-Segment.html#method_create"
-        },                {
-            "fqsen": "\\App\\Database\\Segment\u003A\u003Adelete\u0028\u0029",
-            "name": "delete",
-            "summary": "",
-            "url": "classes/App-Database-Segment.html#method_delete"
-        },                {
-            "fqsen": "\\App\\Database\\Segment\u003A\u003Amove\u0028\u0029",
-            "name": "move",
-            "summary": "Moves\u0020the\u0020entity",
-            "url": "classes/App-Database-Segment.html#method_move"
-        },                {
-            "fqsen": "\\App\\Database\\Segment\u003A\u003Aupdate\u0028\u0029",
-            "name": "update",
-            "summary": "",
-            "url": "classes/App-Database-Segment.html#method_update"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\Segment\u003A\u003Aformat\u0028\u0029",
+      "name": "format",
+      "summary": "Formats\u0020the\u0020segment\u0020into\u0020an\u0020array",
+      "url": "classes/App-Database-Segment.html#method_format"
+    }, {
+      "fqsen": "\\App\\Database\\Segment\u003A\u003Acreate\u0028\u0029",
+      "name": "create",
+      "summary": "Creates\u0020the\u0020current\u0020segment\u0020and\u0020also\u0020rearranges\u0020the\u0020other\u0020segments\u0020in\u0020the\u0020page\u0020based\u0020on\u0020the\u0020position",
+      "url": "classes/App-Database-Segment.html#method_create"
+    }, {
+      "fqsen": "\\App\\Database\\Segment\u003A\u003Adelete\u0028\u0029",
+      "name": "delete",
+      "summary": "Deletes\u0020the\u0020given\u0020segment,\u0020the\u0020order\u0020of\u0020the\u0020remaining\u0020segments\u0020will\u0020be\u0020reset",
+      "url": "classes/App-Database-Segment.html#method_delete"
+    }, {
+      "fqsen": "\\App\\Database\\Segment\u003A\u003Amove\u0028\u0029",
+      "name": "move",
+      "summary": "Moves\u0020the\u0020segment\u0020to\u0020a\u0020new\u0020position\u0020and\u0020rearranges\u0020the\u0020other\u0020items\u0020accordingly",
+      "url": "classes/App-Database-Segment.html#method_move"
+    }, {
+      "fqsen": "\\App\\Database\\Segment\u003A\u003Aupdate\u0028\u0029",
+      "name": "update",
+      "summary": "Updates\u0020the\u0020current\u0020menu\u0020item",
+      "url": "classes/App-Database-Segment.html#method_update"
+    },                {
             "fqsen": "\\App\\Database\\Segment\u003A\u003A\u0024pageId",
             "name": "pageId",
             "summary": "",
@@ -1595,42 +1595,42 @@ Search.appendIndex(
             "name": "html",
             "summary": "",
             "url": "classes/App-Database-Segment.html#property_html"
-        },                {
-            "fqsen": "\\App\\Database\\SegmentPage",
-            "name": "SegmentPage",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
-            "url": "classes/App-Database-SegmentPage.html"
-        },                {
-            "fqsen": "\\App\\Database\\SegmentPage\u003A\u003AfindById\u0028\u0029",
-            "name": "findById",
-            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
-            "url": "classes/App-Database-SegmentPage.html#method_findById"
-        },                {
-            "fqsen": "\\App\\Database\\SegmentPage\u003A\u003AfindByKeyword\u0028\u0029",
-            "name": "findByKeyword",
-            "summary": "Gets\u0020all\u0020entities\u0020that\u0020match\u0020the\u0020given\u0020keyword",
-            "url": "classes/App-Database-SegmentPage.html#method_findByKeyword"
-        },                {
-            "fqsen": "\\App\\Database\\SegmentPage\u003A\u003AfindAll\u0028\u0029",
-            "name": "findAll",
-            "summary": "Gets\u0020all\u0020entities\u0020of\u0020the\u0020given\u0020type",
-            "url": "classes/App-Database-SegmentPage.html#method_findAll"
-        },                {
-            "fqsen": "\\App\\Database\\SegmentPage\u003A\u003Acreate\u0028\u0029",
-            "name": "create",
-            "summary": "Creates\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-SegmentPage.html#method_create"
-        },                {
-            "fqsen": "\\App\\Database\\SegmentPage\u003A\u003Adelete\u0028\u0029",
-            "name": "delete",
-            "summary": "Deletes\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-SegmentPage.html#method_delete"
-        },                {
-            "fqsen": "\\App\\Database\\SegmentPage\u003A\u003Aupdate\u0028\u0029",
-            "name": "update",
-            "summary": "Updates\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-SegmentPage.html#method_update"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\SegmentPage",
+      "name": "SegmentPage",
+      "summary": "This\u0020class\u0020contains\u0020information\u0020about\u0020segment\u0020pages",
+      "url": "classes/App-Database-SegmentPage.html"
+    }, {
+      "fqsen": "\\App\\Database\\SegmentPage\u003A\u003AfindById\u0028\u0029",
+      "name": "findById",
+      "summary": "Finds\u0020the\u0020segment\u0020page\u0020with\u0020the\u0020matching\u0020ID",
+      "url": "classes/App-Database-SegmentPage.html#method_findById"
+    }, {
+      "fqsen": "\\App\\Database\\SegmentPage\u003A\u003AfindByKeyword\u0028\u0029",
+      "name": "findByKeyword",
+      "summary": "Finds\u0020all\u0020segment\u0020pages\u0020that\u0020match\u0020the\u0020keyword",
+      "url": "classes/App-Database-SegmentPage.html#method_findByKeyword"
+    }, {
+      "fqsen": "\\App\\Database\\SegmentPage\u003A\u003AfindAll\u0028\u0029",
+      "name": "findAll",
+      "summary": "Finds\u0020all\u0020segment\u0020pages",
+      "url": "classes/App-Database-SegmentPage.html#method_findAll"
+    }, {
+      "fqsen": "\\App\\Database\\SegmentPage\u003A\u003Acreate\u0028\u0029",
+      "name": "create",
+      "summary": "Creates\u0020the\u0020current\u0020segment\u0020page",
+      "url": "classes/App-Database-SegmentPage.html#method_create"
+    }, {
+      "fqsen": "\\App\\Database\\SegmentPage\u003A\u003Adelete\u0028\u0029",
+      "name": "delete",
+      "summary": "Deletes\u0020the\u0020current\u0020segment\u0020page",
+      "url": "classes/App-Database-SegmentPage.html#method_delete"
+    }, {
+      "fqsen": "\\App\\Database\\SegmentPage\u003A\u003Aupdate\u0028\u0029",
+      "name": "update",
+      "summary": "Updates\u0020the\u0020current\u0020segment\u0020page",
+      "url": "classes/App-Database-SegmentPage.html#method_update"
+    },                {
             "fqsen": "\\App\\Database\\SegmentPage\u003A\u003Aformat\u0028\u0029",
             "name": "format",
             "summary": "Formats\u0020the\u0020current\u0020segment_page",
@@ -1675,42 +1675,42 @@ Search.appendIndex(
             "name": "name",
             "summary": "",
             "url": "classes/App-Database-SegmentPage.html#property_name"
-        },                {
-            "fqsen": "\\App\\Database\\SimplePage",
-            "name": "SimplePage",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
-            "url": "classes/App-Database-SimplePage.html"
-        },                {
-            "fqsen": "\\App\\Database\\SimplePage\u003A\u003AfindById\u0028\u0029",
-            "name": "findById",
-            "summary": "Needs\u0020to\u0020be\u0020implemented\u0020to\u0020find\u0020the\u0020derived\u0020class\u0020by\u0020id",
-            "url": "classes/App-Database-SimplePage.html#method_findById"
-        },                {
-            "fqsen": "\\App\\Database\\SimplePage\u003A\u003AfindByKeyword\u0028\u0029",
-            "name": "findByKeyword",
-            "summary": "Gets\u0020all\u0020entities\u0020that\u0020match\u0020the\u0020given\u0020keyword",
-            "url": "classes/App-Database-SimplePage.html#method_findByKeyword"
-        },                {
-            "fqsen": "\\App\\Database\\SimplePage\u003A\u003AfindAll\u0028\u0029",
-            "name": "findAll",
-            "summary": "Gets\u0020all\u0020entities\u0020of\u0020the\u0020given\u0020type",
-            "url": "classes/App-Database-SimplePage.html#method_findAll"
-        },                {
-            "fqsen": "\\App\\Database\\SimplePage\u003A\u003Acreate\u0028\u0029",
-            "name": "create",
-            "summary": "Creates\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-SimplePage.html#method_create"
-        },                {
-            "fqsen": "\\App\\Database\\SimplePage\u003A\u003Adelete\u0028\u0029",
-            "name": "delete",
-            "summary": "Deletes\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-SimplePage.html#method_delete"
-        },                {
-            "fqsen": "\\App\\Database\\SimplePage\u003A\u003Aupdate\u0028\u0029",
-            "name": "update",
-            "summary": "Updates\u0020the\u0020given\u0020entity",
-            "url": "classes/App-Database-SimplePage.html#method_update"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\SimplePage",
+      "name": "SimplePage",
+      "summary": "This\u0020class\u0020contains\u0020a\u0020simple\u0020page.\u0020Simple\u0020pages\u0020only\u0020contain\u0020HTML\u0020content\u0020and\u0020a\u0020title",
+      "url": "classes/App-Database-SimplePage.html"
+    }, {
+      "fqsen": "\\App\\Database\\SimplePage\u003A\u003AfindById\u0028\u0029",
+      "name": "findById",
+      "summary": "Finds\u0020the\u0020simple\u0020page\u0020with\u0020the\u0020matching\u0020ID",
+      "url": "classes/App-Database-SimplePage.html#method_findById"
+    }, {
+      "fqsen": "\\App\\Database\\SimplePage\u003A\u003AfindByKeyword\u0028\u0029",
+      "name": "findByKeyword",
+      "summary": "Finds\u0020all\u0020simple\u0020pages\u0020matching\u0020the\u0020given\u0020keyword",
+      "url": "classes/App-Database-SimplePage.html#method_findByKeyword"
+    }, {
+      "fqsen": "\\App\\Database\\SimplePage\u003A\u003AfindAll\u0028\u0029",
+      "name": "findAll",
+      "summary": "Finds\u0020all\u0020simple\u0020pages",
+      "url": "classes/App-Database-SimplePage.html#method_findAll"
+    }, {
+      "fqsen": "\\App\\Database\\SimplePage\u003A\u003Acreate\u0028\u0029",
+      "name": "create",
+      "summary": "Creates\u0020the\u0020current\u0020simple\u0020page",
+      "url": "classes/App-Database-SimplePage.html#method_create"
+    }, {
+      "fqsen": "\\App\\Database\\SimplePage\u003A\u003Adelete\u0028\u0029",
+      "name": "delete",
+      "summary": "Deletes\u0020the\u0020current\u0020simple\u0020page",
+      "url": "classes/App-Database-SimplePage.html#method_delete"
+    }, {
+      "fqsen": "\\App\\Database\\SimplePage\u003A\u003Aupdate\u0028\u0029",
+      "name": "update",
+      "summary": "Updates\u0020the\u0020current\u0020simple\u0020page",
+      "url": "classes/App-Database-SimplePage.html#method_update"
+    },                {
             "fqsen": "\\App\\Database\\SimplePage\u003A\u003Aformat\u0028\u0029",
             "name": "format",
             "summary": "Formats\u0020the\u0020current\u0020page",
@@ -1760,17 +1760,17 @@ Search.appendIndex(
             "name": "JsonStrategy",
             "summary": "Laminas\u0020hydrator\u0020strategy\u0020to\u0020serialize\u0020and\u0020deserialize\u0020JSON\u0020data",
             "url": "classes/App-Database-Strategies-JsonStrategy.html"
-        },                {
-            "fqsen": "\\App\\Database\\Strategies\\JsonStrategy\u003A\u003Aextract\u0028\u0029",
-            "name": "extract",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Database-Strategies-JsonStrategy.html#method_extract"
-        },                {
-            "fqsen": "\\App\\Database\\Strategies\\JsonStrategy\u003A\u003Ahydrate\u0028\u0029",
-            "name": "hydrate",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Database-Strategies-JsonStrategy.html#method_hydrate"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\Strategies\\JsonStrategy\u003A\u003Aextract\u0028\u0029",
+      "name": "extract",
+      "summary": "",
+      "url": "classes/App-Database-Strategies-JsonStrategy.html#method_extract"
+    }, {
+      "fqsen": "\\App\\Database\\Strategies\\JsonStrategy\u003A\u003Ahydrate\u0028\u0029",
+      "name": "hydrate",
+      "summary": "",
+      "url": "classes/App-Database-Strategies-JsonStrategy.html#method_hydrate"
+    },                {
             "fqsen": "\\App\\Database\\Strategies\\NullableBooleanStrategy",
             "name": "NullableBooleanStrategy",
             "summary": "Laminas\u0020hydrator\u0020strategy\u0020to\u0020convert\u0020nullable\u0020booleans\u0020between\u0020PHP\u0020and\u0020MySQL",
@@ -1790,17 +1790,17 @@ Search.appendIndex(
             "name": "PhpSerializeStrategy",
             "summary": "Laminas\u0020hydrator\u0020strategy\u0020to\u0020serialize\u0020and\u0020deserialize\u0020PHP\u0020data\u0020with\u0020serialize\u0020method",
             "url": "classes/App-Database-Strategies-PhpSerializeStrategy.html"
-        },                {
-            "fqsen": "\\App\\Database\\Strategies\\PhpSerializeStrategy\u003A\u003Aextract\u0028\u0029",
-            "name": "extract",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Database-Strategies-PhpSerializeStrategy.html#method_extract"
-        },                {
-            "fqsen": "\\App\\Database\\Strategies\\PhpSerializeStrategy\u003A\u003Ahydrate\u0028\u0029",
-            "name": "hydrate",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Database-Strategies-PhpSerializeStrategy.html#method_hydrate"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\Strategies\\PhpSerializeStrategy\u003A\u003Aextract\u0028\u0029",
+      "name": "extract",
+      "summary": "",
+      "url": "classes/App-Database-Strategies-PhpSerializeStrategy.html#method_extract"
+    }, {
+      "fqsen": "\\App\\Database\\Strategies\\PhpSerializeStrategy\u003A\u003Ahydrate\u0028\u0029",
+      "name": "hydrate",
+      "summary": "",
+      "url": "classes/App-Database-Strategies-PhpSerializeStrategy.html#method_hydrate"
+    },                {
             "fqsen": "\\App\\Database\\Theme",
             "name": "Theme",
             "summary": "Base\u0020class\u0020for\u0020all\u0020entity\u0020classes.\u0020this\u0020class\u0020contains\u0020several\u0020helper\u0020methods\u0020and\u0020provides\u0020a\u0020common\u0020interface\u0020for\u0020all\u0020entities.",
@@ -1935,22 +1935,22 @@ Search.appendIndex(
             "name": "findByTheme",
             "summary": "Finds\u0020the\u0020pages\u0020for\u0020the\u0020given\u0020theme",
             "url": "classes/App-Database-ThemeAsset.html#method_findByTheme"
-        },                {
-            "fqsen": "\\App\\Database\\ThemeAsset\u003A\u003Acreate\u0028\u0029",
-            "name": "create",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Database-ThemeAsset.html#method_create"
-        },                {
-            "fqsen": "\\App\\Database\\ThemeAsset\u003A\u003Adelete\u0028\u0029",
-            "name": "delete",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Database-ThemeAsset.html#method_delete"
-        },                {
-            "fqsen": "\\App\\Database\\ThemeAsset\u003A\u003Aupdate\u0028\u0029",
-            "name": "update",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Database-ThemeAsset.html#method_update"
-        },                {
+        }, {
+      "fqsen": "\\App\\Database\\ThemeAsset\u003A\u003Acreate\u0028\u0029",
+      "name": "create",
+      "summary": "",
+      "url": "classes/App-Database-ThemeAsset.html#method_create"
+    }, {
+      "fqsen": "\\App\\Database\\ThemeAsset\u003A\u003Adelete\u0028\u0029",
+      "name": "delete",
+      "summary": "",
+      "url": "classes/App-Database-ThemeAsset.html#method_delete"
+    }, {
+      "fqsen": "\\App\\Database\\ThemeAsset\u003A\u003Aupdate\u0028\u0029",
+      "name": "update",
+      "summary": "",
+      "url": "classes/App-Database-ThemeAsset.html#method_update"
+    },                {
             "fqsen": "\\App\\Database\\ThemeAsset\u003A\u003Aformat\u0028\u0029",
             "name": "format",
             "summary": "",
@@ -2715,12 +2715,12 @@ Search.appendIndex(
             "name": "IniValue",
             "summary": "",
             "url": "classes/App-Maintenance-PhpInfo-IniValue.html"
-        },                {
-            "fqsen": "\\App\\Maintenance\\PhpInfo\\IniValue\u003A\u003AjsonSerialize\u0028\u0029",
-            "name": "jsonSerialize",
-            "summary": "\u007B\u0040inheritdoc\u007D",
-            "url": "classes/App-Maintenance-PhpInfo-IniValue.html#method_jsonSerialize"
-        },                {
+        }, {
+      "fqsen": "\\App\\Maintenance\\PhpInfo\\IniValue\u003A\u003AjsonSerialize\u0028\u0029",
+      "name": "jsonSerialize",
+      "summary": "",
+      "url": "classes/App-Maintenance-PhpInfo-IniValue.html#method_jsonSerialize"
+    },                {
             "fqsen": "\\App\\Maintenance\\PhpInfo\\IniValue\u003A\u003A\u0024value",
             "name": "value",
             "summary": "",
@@ -2735,12 +2735,12 @@ Search.appendIndex(
             "name": "PhpExtension",
             "summary": "",
             "url": "classes/App-Maintenance-PhpInfo-PhpExtension.html"
-        },                {
-            "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpExtension\u003A\u003AjsonSerialize\u0028\u0029",
-            "name": "jsonSerialize",
-            "summary": "\u007B\u0040inheritdoc\u007D",
-            "url": "classes/App-Maintenance-PhpInfo-PhpExtension.html#method_jsonSerialize"
-        },                {
+        }, {
+      "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpExtension\u003A\u003AjsonSerialize\u0028\u0029",
+      "name": "jsonSerialize",
+      "summary": "",
+      "url": "classes/App-Maintenance-PhpInfo-PhpExtension.html#method_jsonSerialize"
+    },                {
             "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpExtension\u003A\u003A\u0024extensionName",
             "name": "extensionName",
             "summary": "",
@@ -4435,12 +4435,12 @@ Search.appendIndex(
             "name": "PostInstallerAction",
             "summary": "",
             "url": "classes/App-Web-Actions-Install-PostInstallerAction.html"
-        },                {
-            "fqsen": "\\App\\Web\\Actions\\Install\\PostInstallerAction\u003A\u003Aaction\u0028\u0029",
-            "name": "action",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Web-Actions-Install-PostInstallerAction.html#method_action"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Actions\\Install\\PostInstallerAction\u003A\u003Aaction\u0028\u0029",
+      "name": "action",
+      "summary": "",
+      "url": "classes/App-Web-Actions-Install-PostInstallerAction.html#method_action"
+    },                {
             "fqsen": "\\App\\Web\\Actions\\KnownDevice\\DeleteKnownDeviceAction",
             "name": "DeleteKnownDeviceAction",
             "summary": "",
@@ -4485,42 +4485,42 @@ Search.appendIndex(
             "name": "CreateMenuItemByMenuAction",
             "summary": "",
             "url": "classes/App-Web-Actions-Menu-Items-CreateMenuItemByMenuAction.html"
-        },                {
-            "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\CreateMenuItemByMenuAction\u003A\u003Aaction\u0028\u0029",
-            "name": "action",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Web-Actions-Menu-Items-CreateMenuItemByMenuAction.html#method_action"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\CreateMenuItemByMenuAction\u003A\u003Aaction\u0028\u0029",
+      "name": "action",
+      "summary": "",
+      "url": "classes/App-Web-Actions-Menu-Items-CreateMenuItemByMenuAction.html#method_action"
+    },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\CreateMenuItemByMenuItemAction",
             "name": "CreateMenuItemByMenuItemAction",
             "summary": "",
             "url": "classes/App-Web-Actions-Menu-Items-CreateMenuItemByMenuItemAction.html"
-        },                {
-            "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\CreateMenuItemByMenuItemAction\u003A\u003Aaction\u0028\u0029",
-            "name": "action",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Web-Actions-Menu-Items-CreateMenuItemByMenuItemAction.html#method_action"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\CreateMenuItemByMenuItemAction\u003A\u003Aaction\u0028\u0029",
+      "name": "action",
+      "summary": "",
+      "url": "classes/App-Web-Actions-Menu-Items-CreateMenuItemByMenuItemAction.html#method_action"
+    },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\DeleteMenuItemAction",
             "name": "DeleteMenuItemAction",
             "summary": "",
             "url": "classes/App-Web-Actions-Menu-Items-DeleteMenuItemAction.html"
-        },                {
-            "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\DeleteMenuItemAction\u003A\u003Aaction\u0028\u0029",
-            "name": "action",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Web-Actions-Menu-Items-DeleteMenuItemAction.html#method_action"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\DeleteMenuItemAction\u003A\u003Aaction\u0028\u0029",
+      "name": "action",
+      "summary": "",
+      "url": "classes/App-Web-Actions-Menu-Items-DeleteMenuItemAction.html#method_action"
+    },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\GetMenuItemsByMenuAction",
             "name": "GetMenuItemsByMenuAction",
             "summary": "",
             "url": "classes/App-Web-Actions-Menu-Items-GetMenuItemsByMenuAction.html"
-        },                {
-            "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\GetMenuItemsByMenuAction\u003A\u003Aaction\u0028\u0029",
-            "name": "action",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Web-Actions-Menu-Items-GetMenuItemsByMenuAction.html#method_action"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\GetMenuItemsByMenuAction\u003A\u003Aaction\u0028\u0029",
+      "name": "action",
+      "summary": "",
+      "url": "classes/App-Web-Actions-Menu-Items-GetMenuItemsByMenuAction.html#method_action"
+    },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\MenuItemAction",
             "name": "MenuItemAction",
             "summary": "",
@@ -4560,12 +4560,12 @@ Search.appendIndex(
             "name": "UpdateMenuItemAction",
             "summary": "",
             "url": "classes/App-Web-Actions-Menu-Items-UpdateMenuItemAction.html"
-        },                {
-            "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\UpdateMenuItemAction\u003A\u003Aaction\u0028\u0029",
-            "name": "action",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Web-Actions-Menu-Items-UpdateMenuItemAction.html#method_action"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\UpdateMenuItemAction\u003A\u003Aaction\u0028\u0029",
+      "name": "action",
+      "summary": "",
+      "url": "classes/App-Web-Actions-Menu-Items-UpdateMenuItemAction.html#method_action"
+    },                {
             "fqsen": "\\App\\Web\\Actions\\MyJinya\\GetArtistInfoAction",
             "name": "GetArtistInfoAction",
             "summary": "",
@@ -4780,22 +4780,22 @@ Search.appendIndex(
             "name": "ActivateThemeAction",
             "summary": "",
             "url": "classes/App-Web-Actions-Theme-ActivateThemeAction.html"
-        },                {
-            "fqsen": "\\App\\Web\\Actions\\Theme\\ActivateThemeAction\u003A\u003Aaction\u0028\u0029",
-            "name": "action",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Web-Actions-Theme-ActivateThemeAction.html#method_action"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Actions\\Theme\\ActivateThemeAction\u003A\u003Aaction\u0028\u0029",
+      "name": "action",
+      "summary": "",
+      "url": "classes/App-Web-Actions-Theme-ActivateThemeAction.html#method_action"
+    },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\CompileThemeAction",
             "name": "CompileThemeAction",
             "summary": "",
             "url": "classes/App-Web-Actions-Theme-CompileThemeAction.html"
-        },                {
-            "fqsen": "\\App\\Web\\Actions\\Theme\\CompileThemeAction\u003A\u003Aaction\u0028\u0029",
-            "name": "action",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Web-Actions-Theme-CompileThemeAction.html#method_action"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Actions\\Theme\\CompileThemeAction\u003A\u003Aaction\u0028\u0029",
+      "name": "action",
+      "summary": "",
+      "url": "classes/App-Web-Actions-Theme-CompileThemeAction.html#method_action"
+    },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\CreateThemeAction",
             "name": "CreateThemeAction",
             "summary": "",
@@ -4810,22 +4810,22 @@ Search.appendIndex(
             "name": "GetConfigurationStructureAction",
             "summary": "",
             "url": "classes/App-Web-Actions-Theme-GetConfigurationStructureAction.html"
-        },                {
-            "fqsen": "\\App\\Web\\Actions\\Theme\\GetConfigurationStructureAction\u003A\u003Aaction\u0028\u0029",
-            "name": "action",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Web-Actions-Theme-GetConfigurationStructureAction.html#method_action"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Actions\\Theme\\GetConfigurationStructureAction\u003A\u003Aaction\u0028\u0029",
+      "name": "action",
+      "summary": "",
+      "url": "classes/App-Web-Actions-Theme-GetConfigurationStructureAction.html#method_action"
+    },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\GetDefaultConfigurationValues",
             "name": "GetDefaultConfigurationValues",
             "summary": "",
             "url": "classes/App-Web-Actions-Theme-GetDefaultConfigurationValues.html"
-        },                {
-            "fqsen": "\\App\\Web\\Actions\\Theme\\GetDefaultConfigurationValues\u003A\u003Aaction\u0028\u0029",
-            "name": "action",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Web-Actions-Theme-GetDefaultConfigurationValues.html#method_action"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Actions\\Theme\\GetDefaultConfigurationValues\u003A\u003Aaction\u0028\u0029",
+      "name": "action",
+      "summary": "",
+      "url": "classes/App-Web-Actions-Theme-GetDefaultConfigurationValues.html#method_action"
+    },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\GetLinkItemAction",
             "name": "GetLinkItemAction",
             "summary": "",
@@ -4840,32 +4840,32 @@ Search.appendIndex(
             "name": "GetPreviewImageAction",
             "summary": "",
             "url": "classes/App-Web-Actions-Theme-GetPreviewImageAction.html"
-        },                {
-            "fqsen": "\\App\\Web\\Actions\\Theme\\GetPreviewImageAction\u003A\u003Aaction\u0028\u0029",
-            "name": "action",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Web-Actions-Theme-GetPreviewImageAction.html#method_action"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Actions\\Theme\\GetPreviewImageAction\u003A\u003Aaction\u0028\u0029",
+      "name": "action",
+      "summary": "",
+      "url": "classes/App-Web-Actions-Theme-GetPreviewImageAction.html#method_action"
+    },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\GetStyleVariablesAction",
             "name": "GetStyleVariablesAction",
             "summary": "",
             "url": "classes/App-Web-Actions-Theme-GetStyleVariablesAction.html"
-        },                {
-            "fqsen": "\\App\\Web\\Actions\\Theme\\GetStyleVariablesAction\u003A\u003Aaction\u0028\u0029",
-            "name": "action",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Web-Actions-Theme-GetStyleVariablesAction.html#method_action"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Actions\\Theme\\GetStyleVariablesAction\u003A\u003Aaction\u0028\u0029",
+      "name": "action",
+      "summary": "",
+      "url": "classes/App-Web-Actions-Theme-GetStyleVariablesAction.html#method_action"
+    },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\PutConfigurationAction",
             "name": "PutConfigurationAction",
             "summary": "",
             "url": "classes/App-Web-Actions-Theme-PutConfigurationAction.html"
-        },                {
-            "fqsen": "\\App\\Web\\Actions\\Theme\\PutConfigurationAction\u003A\u003Aaction\u0028\u0029",
-            "name": "action",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Web-Actions-Theme-PutConfigurationAction.html#method_action"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Actions\\Theme\\PutConfigurationAction\u003A\u003Aaction\u0028\u0029",
+      "name": "action",
+      "summary": "",
+      "url": "classes/App-Web-Actions-Theme-PutConfigurationAction.html#method_action"
+    },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\PutLinkItemAction",
             "name": "PutLinkItemAction",
             "summary": "",
@@ -4880,12 +4880,12 @@ Search.appendIndex(
             "name": "PutStyleVariablesAction",
             "summary": "",
             "url": "classes/App-Web-Actions-Theme-PutStyleVariablesAction.html"
-        },                {
-            "fqsen": "\\App\\Web\\Actions\\Theme\\PutStyleVariablesAction\u003A\u003Aaction\u0028\u0029",
-            "name": "action",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Web-Actions-Theme-PutStyleVariablesAction.html#method_action"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Actions\\Theme\\PutStyleVariablesAction\u003A\u003Aaction\u0028\u0029",
+      "name": "action",
+      "summary": "",
+      "url": "classes/App-Web-Actions-Theme-PutStyleVariablesAction.html#method_action"
+    },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\ThemeAction",
             "name": "ThemeAction",
             "summary": "",
@@ -4910,12 +4910,12 @@ Search.appendIndex(
             "name": "GetUpdateAction",
             "summary": "",
             "url": "classes/App-Web-Actions-Update-GetUpdateAction.html"
-        },                {
-            "fqsen": "\\App\\Web\\Actions\\Update\\GetUpdateAction\u003A\u003Aaction\u0028\u0029",
-            "name": "action",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Web-Actions-Update-GetUpdateAction.html#method_action"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Actions\\Update\\GetUpdateAction\u003A\u003Aaction\u0028\u0029",
+      "name": "action",
+      "summary": "",
+      "url": "classes/App-Web-Actions-Update-GetUpdateAction.html#method_action"
+    },                {
             "fqsen": "\\App\\Web\\Actions\\Update\\InitUpdateProcess",
             "name": "InitUpdateProcess",
             "summary": "",
@@ -4930,12 +4930,12 @@ Search.appendIndex(
             "name": "PostUpdateAction",
             "summary": "",
             "url": "classes/App-Web-Actions-Update-PostUpdateAction.html"
-        },                {
-            "fqsen": "\\App\\Web\\Actions\\Update\\PostUpdateAction\u003A\u003Aaction\u0028\u0029",
-            "name": "action",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Web-Actions-Update-PostUpdateAction.html#method_action"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Actions\\Update\\PostUpdateAction\u003A\u003Aaction\u0028\u0029",
+      "name": "action",
+      "summary": "",
+      "url": "classes/App-Web-Actions-Update-PostUpdateAction.html#method_action"
+    },                {
             "fqsen": "\\App\\Web\\Actions\\Update\\UpdateAction",
             "name": "UpdateAction",
             "summary": "",
@@ -4970,12 +4970,12 @@ Search.appendIndex(
             "name": "GetVersionInfo",
             "summary": "",
             "url": "classes/App-Web-Actions-Version-GetVersionInfo.html"
-        },                {
-            "fqsen": "\\App\\Web\\Actions\\Version\\GetVersionInfo\u003A\u003Aaction\u0028\u0029",
-            "name": "action",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Web-Actions-Version-GetVersionInfo.html#method_action"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Actions\\Version\\GetVersionInfo\u003A\u003Aaction\u0028\u0029",
+      "name": "action",
+      "summary": "",
+      "url": "classes/App-Web-Actions-Version-GetVersionInfo.html#method_action"
+    },                {
             "fqsen": "\\App\\Web\\Exceptions\\BadCredentialsException",
             "name": "BadCredentialsException",
             "summary": "",
@@ -5045,12 +5045,12 @@ Search.appendIndex(
             "name": "HttpErrorHandler",
             "summary": "",
             "url": "classes/App-Web-Handlers-HttpErrorHandler.html"
-        },                {
-            "fqsen": "\\App\\Web\\Handlers\\HttpErrorHandler\u003A\u003Arespond\u0028\u0029",
-            "name": "respond",
-            "summary": "\u007B\u0040inheritdoc\u007D",
-            "url": "classes/App-Web-Handlers-HttpErrorHandler.html#method_respond"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Handlers\\HttpErrorHandler\u003A\u003Arespond\u0028\u0029",
+      "name": "respond",
+      "summary": "",
+      "url": "classes/App-Web-Handlers-HttpErrorHandler.html#method_respond"
+    },                {
             "fqsen": "\\App\\Web\\Middleware\\AuthorizationMiddleware",
             "name": "AuthorizationMiddleware",
             "summary": "",
@@ -5060,12 +5060,12 @@ Search.appendIndex(
             "name": "__construct",
             "summary": "",
             "url": "classes/App-Web-Middleware-AuthorizationMiddleware.html#method___construct"
-        },                {
-            "fqsen": "\\App\\Web\\Middleware\\AuthorizationMiddleware\u003A\u003Aprocess\u0028\u0029",
-            "name": "process",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Web-Middleware-AuthorizationMiddleware.html#method_process"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Middleware\\AuthorizationMiddleware\u003A\u003Aprocess\u0028\u0029",
+      "name": "process",
+      "summary": "",
+      "url": "classes/App-Web-Middleware-AuthorizationMiddleware.html#method_process"
+    },                {
             "fqsen": "\\App\\Web\\Middleware\\AuthorizationMiddleware\u003A\u003ALOGGED_IN_ARTIST",
             "name": "LOGGED_IN_ARTIST",
             "summary": "",
@@ -5110,12 +5110,12 @@ Search.appendIndex(
             "name": "__construct",
             "summary": "CheckRouteInCurrentThemeMiddleware\u0020constructor.",
             "url": "classes/App-Web-Middleware-CheckRouteInCurrentThemeMiddleware.html#method___construct"
-        },                {
-            "fqsen": "\\App\\Web\\Middleware\\CheckRouteInCurrentThemeMiddleware\u003A\u003Aprocess\u0028\u0029",
-            "name": "process",
-            "summary": "\u007B\u0040inheritDoc\u007D",
-            "url": "classes/App-Web-Middleware-CheckRouteInCurrentThemeMiddleware.html#method_process"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Middleware\\CheckRouteInCurrentThemeMiddleware\u003A\u003Aprocess\u0028\u0029",
+      "name": "process",
+      "summary": "",
+      "url": "classes/App-Web-Middleware-CheckRouteInCurrentThemeMiddleware.html#method_process"
+    },                {
             "fqsen": "\\App\\Web\\Middleware\\CheckRouteInCurrentThemeMiddleware\u003A\u003AcheckMenuItem\u0028\u0029",
             "name": "checkMenuItem",
             "summary": "",
@@ -5130,12 +5130,12 @@ Search.appendIndex(
             "name": "ResponseEmitter",
             "summary": "",
             "url": "classes/App-Web-ResponseEmitter-ResponseEmitter.html"
-        },                {
-            "fqsen": "\\App\\Web\\ResponseEmitter\\ResponseEmitter\u003A\u003Aemit\u0028\u0029",
-            "name": "emit",
-            "summary": "\u007B\u0040inheritdoc\u007D",
-            "url": "classes/App-Web-ResponseEmitter-ResponseEmitter.html#method_emit"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\ResponseEmitter\\ResponseEmitter\u003A\u003Aemit\u0028\u0029",
+      "name": "emit",
+      "summary": "",
+      "url": "classes/App-Web-ResponseEmitter-ResponseEmitter.html#method_emit"
+    },                {
             "fqsen": "\\",
             "name": "\\",
             "summary": "",

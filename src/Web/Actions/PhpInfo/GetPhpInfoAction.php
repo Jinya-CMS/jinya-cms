@@ -13,7 +13,7 @@ use ReflectionException;
 class GetPhpInfoAction extends Action
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @throws ReflectionException
      */
     protected function action(): Response

@@ -12,7 +12,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class GetArtistInfoAction extends Action
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @return Response
      */
     protected function action(): Response

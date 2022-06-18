@@ -19,7 +19,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class DeactivateArtistAction extends Action
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @return Response
      * @throws ConflictException
      * @throws ForeignKeyFailedException

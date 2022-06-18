@@ -23,7 +23,7 @@ class PhpExtension implements JsonSerializable
     public array|stdClass $additionalData = [];
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     #[ReturnTypeWillChange]
     #[ArrayShape([

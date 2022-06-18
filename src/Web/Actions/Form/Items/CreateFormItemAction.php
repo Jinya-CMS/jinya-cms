@@ -17,7 +17,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class CreateFormItemAction extends Action
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

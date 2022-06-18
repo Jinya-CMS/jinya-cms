@@ -6,7 +6,6 @@ use App\Authentication\CurrentUser;
 use App\Routing\Attributes\JinyaApi;
 use App\Routing\Attributes\JinyaApiField;
 use DateTime;
-use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
@@ -14,28 +13,35 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 /**
- *
+ * This class contains a simple page. Simple pages only contain HTML content and a title
  */
 #[JinyaApi]
 class SimplePage extends Utils\LoadableEntity
 {
+    /** @var int The ID of the creator */
     #[JinyaApiField(ignore: true)]
     public int $creatorId;
+    /** @var int The ID of the artist that last updated the simple page */
     #[JinyaApiField(ignore: true)]
     public int $updatedById;
 
+    /** @var DateTime The time the simple page was created */
     #[JinyaApiField(ignore: true)]
     public DateTime $createdAt;
+    /** @var DateTime The time the simple page was last updated */
     #[JinyaApiField(ignore: true)]
     public DateTime $lastUpdatedAt;
 
+    /** @var string The content of the simple page */
     #[JinyaApiField(required: true)]
     public string $content;
+    /** @var string The title of the simple page */
     #[JinyaApiField(required: true)]
     public string $title;
 
     /**
-     * @inheritDoc
+     * Finds the simple page with the matching ID
+     *
      * @param int $id
      * @return SimplePage|null
      * @throws Exceptions\ForeignKeyFailedException
@@ -57,8 +63,13 @@ class SimplePage extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Finds all simple pages matching the given keyword
+     *
+     * @param string $keyword
      * @return Iterator<SimplePage>
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -75,8 +86,12 @@ class SimplePage extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Finds all simple pages
+     *
      * @return Iterator<SimplePage>
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public static function findAll(): Iterator
     {
@@ -91,8 +106,12 @@ class SimplePage extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
-     * @throws Exception
+     * Creates the current simple page
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function create(): void
     {
@@ -112,7 +131,12 @@ class SimplePage extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Deletes the current simple page
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function delete(): void
     {
@@ -120,7 +144,12 @@ class SimplePage extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Updates the current simple page
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function update(): void
     {
@@ -183,7 +212,6 @@ class SimplePage extends Utils\LoadableEntity
      * Gets the creator
      *
      * @return Artist|null
-     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -198,7 +226,6 @@ class SimplePage extends Utils\LoadableEntity
      * Gets the artist who last updated the page
      *
      * @return Artist|null
-     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException

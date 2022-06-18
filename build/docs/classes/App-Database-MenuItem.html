@@ -203,7 +203,8 @@
 
     </aside>
 
-            <p class="phpdocumentor-summary">Base class for all entities that need the ability to rearrange themselves in their parent</p>
+            <p class="phpdocumentor-summary">This class contains a menu item. A menu item is a class containing
+                information about an entry in a menu.</p>
 
 
 
@@ -336,14 +337,15 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>{@inheritDoc}</dd>
+    <dd>Creates the current menu item, also moves the position of the other menu items according to the new position
+    </dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-MenuItem.html#method_delete">delete()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>{@inheritDoc}</dd>
+    <dd>Deletes the current menu item, the order of the remaining items will be reset</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-Utils-LoadableEntity.html#method_executeSqlString">executeSqlString()</a>
@@ -364,21 +366,21 @@
     <span>
                                 &nbsp;: <abbr title="\Iterator">Iterator</abbr>    </span>
 </dt>
-<dd>{@inheritDoc}</dd>
+    <dd>Not implemented</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-MenuItem.html#method_findById">findById()</a>
     <span>
                                 &nbsp;: <a href="classes/App-Database-MenuItem.html"><abbr title="\App\Database\MenuItem">MenuItem</abbr></a>|null    </span>
 </dt>
-<dd>{@inheritDoc}</dd>
+    <dd>Finds the menu item matching the ID</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-MenuItem.html#method_findByKeyword">findByKeyword()</a>
     <span>
                                 &nbsp;: <abbr title="\Iterator">Iterator</abbr>    </span>
 </dt>
-<dd>{@inheritDoc}</dd>
+    <dd>Not implemented</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-MenuItem.html#method_findByMenuAndPosition">findByMenuAndPosition()</a>
@@ -497,14 +499,14 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Moves the entity</dd>
+    <dd>Moves the current menu item to the new position. All other menu items are rearranged accordingly</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Database-MenuItem.html#method_update">update()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>{@inheritDoc}</dd>
+    <dd>Updates the menu item</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/App-Database-Utils-LoadableEntity.html#method_convertInvalidQueryExceptionToException">convertInvalidQueryExceptionToException()</a>
@@ -588,7 +590,9 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd></dd>
+    <dd>Moves the current menu item. Depending on the parent it will rearrange the positions and move the menu items in
+        the correct order
+    </dd>
 
         </dl>
 
@@ -653,24 +657,24 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">24</span>
+        <span class="phpdocumentor-element-found-in__line">36</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">int|null</span>
-    <span class="phpdocumentor-signature__name">$artistId</span>
-     = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">int|null</span>
+                            <span class="phpdocumentor-signature__name">$artistId</span>
+                            = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The ID of the artist this menu item should
+                            render</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -687,24 +691,24 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">29</span>
+        <span class="phpdocumentor-element-found-in__line">46</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">bool|null</span>
-    <span class="phpdocumentor-signature__name">$blogHomePage</span>
-     = <span class="phpdocumentor-signature__default-value">false</span></code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">bool|null</span>
+                            <span class="phpdocumentor-signature__name">$blogHomePage</span>
+                            = <span class="phpdocumentor-signature__default-value">false</span></code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>If it is set to true, this menu item renders the
+                            blog home page</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -721,24 +725,24 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">28</span>
+        <span class="phpdocumentor-element-found-in__line">44</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">int|null</span>
-    <span class="phpdocumentor-signature__name">$categoryId</span>
-     = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">int|null</span>
+                            <span class="phpdocumentor-signature__name">$categoryId</span>
+                            = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The ID of the blog category this menu item should
+                            render</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -755,24 +759,24 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">23</span>
+        <span class="phpdocumentor-element-found-in__line">34</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">int|null</span>
-    <span class="phpdocumentor-signature__name">$formId</span>
-     = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">int|null</span>
+                            <span class="phpdocumentor-signature__name">$formId</span>
+                            = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The ID of the form this menu item should
+                            render</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -789,24 +793,24 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">25</span>
+        <span class="phpdocumentor-element-found-in__line">38</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">int|null</span>
-    <span class="phpdocumentor-signature__name">$galleryId</span>
-     = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">int|null</span>
+                            <span class="phpdocumentor-signature__name">$galleryId</span>
+                            = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The ID of the gallery this menu item should
+                            render</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -823,24 +827,24 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">22</span>
+        <span class="phpdocumentor-element-found-in__line">32</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">bool</span>
-    <span class="phpdocumentor-signature__name">$highlighted</span>
-     = <span class="phpdocumentor-signature__default-value">false</span></code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">bool</span>
+                            <span class="phpdocumentor-signature__name">$highlighted</span>
+                            = <span class="phpdocumentor-signature__default-value">false</span></code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>When true the menu item should get a special
+                            highlighting in the frontend. Themes must respect the decision of the artist</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -891,24 +895,24 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">18</span>
+        <span class="phpdocumentor-element-found-in__line">19</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">int|null</span>
-    <span class="phpdocumentor-signature__name">$menuId</span>
-     = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">int|null</span>
+                            <span class="phpdocumentor-signature__name">$menuId</span>
+                            = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The ID of the menu this menu item belongs to. If
+                            the menu item has a menu item as parent this value is null</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -925,24 +929,24 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">27</span>
+        <span class="phpdocumentor-element-found-in__line">42</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">int|null</span>
-    <span class="phpdocumentor-signature__name">$pageId</span>
-     = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">int|null</span>
+                            <span class="phpdocumentor-signature__name">$pageId</span>
+                            = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The ID of the page this menu item should
+                            render</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -959,24 +963,24 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">19</span>
+        <span class="phpdocumentor-element-found-in__line">21</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">int|null</span>
-    <span class="phpdocumentor-signature__name">$parentId</span>
-     = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">int|null</span>
+                            <span class="phpdocumentor-signature__name">$parentId</span>
+                            = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The ID of the menu item, this menu item has as
+                            parent. If the menu item has a menu as parent this value is null</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -1027,24 +1031,28 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">21</span>
+        <span class="phpdocumentor-element-found-in__line">30</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">string|null</span>
-    <span class="phpdocumentor-signature__name">$route</span>
-     = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">string|null</span>
+                            <span class="phpdocumentor-signature__name">$route</span>
+                            = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The link of the menu item. This link can be either
+                            an absolute URL, a relative URL or null.
+                            Absolute URLs open the link directly, while relative URLs are handled by the frontend
+                            controller and will render different entities.
+                            Usually a null value indicates that the menu item is used as a parent item, which has no
+                            link but rather opens and shows the sub items</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -1061,24 +1069,24 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">26</span>
+        <span class="phpdocumentor-element-found-in__line">40</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">int|null</span>
-    <span class="phpdocumentor-signature__name">$segmentPageId</span>
-     = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">int|null</span>
+                            <span class="phpdocumentor-signature__name">$segmentPageId</span>
+                            = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The ID of the segment page this menu item should
+                            render</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -1095,24 +1103,24 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">20</span>
+        <span class="phpdocumentor-element-found-in__line">23</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">string</span>
-    <span class="phpdocumentor-signature__name">$title</span>
-    </code>
 
-        <section class="phpdocumentor-description"></section>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__type">string</span>
+                            <span class="phpdocumentor-signature__name">$title</span>
+                        </code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+                        <section class="phpdocumentor-description"><p>The title of the menu item. This title is supposed
+                            to be displayed in the frontend</p>
+                        </section>
 
-</article>
+
+                    </article>
                     <article
         class="
             phpdocumentor-element
@@ -1167,11 +1175,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">177</span>
+        <span class="phpdocumentor-element-found-in__line">199</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">{@inheritDoc}</p>
+                        <p class="phpdocumentor-summary">Creates the current menu item, also moves the position of the
+                            other menu items according to the new position</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1184,15 +1193,36 @@
         Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
     </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
-                                                            
-                                             
-                                    </dd>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -1214,26 +1244,61 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">218</span>
+        <span class="phpdocumentor-element-found-in__line">255</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">{@inheritDoc}</p>
+                        <p class="phpdocumentor-summary">Deletes the current menu item, the order of the remaining items
+                            will be reset</p>
 
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">delete</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__name">delete</span><span>(</span><span>)</span><span> : </span><span
+                                class="phpdocumentor-signature__response_type">void</span></code>
 
-    
-    
-    
 
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-        
-    
-</article>
+                        <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                            Tags
+                            <a class="headerlink" href="#tags"><i class="fas fa-link"></i></a>
+                        </h5>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
+                        </dl>
+
+                        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+                        <span class="phpdocumentor-signature__response_type">void</span>
+                        &mdash;
+
+
+                    </article>
                     <article
         class="phpdocumentor-element
             -method
@@ -1337,11 +1402,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+        <span class="phpdocumentor-element-found-in__line">59</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">{@inheritDoc}</p>
+                        <p class="phpdocumentor-summary">Not implemented</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1370,11 +1435,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">150</span>
+        <span class="phpdocumentor-element-found-in__line">168</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">{@inheritDoc}</p>
+                        <p class="phpdocumentor-summary">Finds the menu item matching the ID</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1451,11 +1516,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">34</span>
+        <span class="phpdocumentor-element-found-in__line">51</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">{@inheritDoc}</p>
+                        <p class="phpdocumentor-summary">Not implemented</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1495,7 +1560,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">59</span>
+        <span class="phpdocumentor-element-found-in__line">76</span>
 
     </aside>
 
@@ -1591,7 +1656,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">82</span>
+        <span class="phpdocumentor-element-found-in__line">101</span>
 
     </aside>
 
@@ -1609,7 +1674,6 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1617,7 +1681,6 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
 
             </dd>
             </dl>
@@ -1640,14 +1703,6 @@
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
-                                                            
-                                             
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
                                                                 <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
                                                             
                                              
@@ -1656,7 +1711,7 @@
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Jinya\PDOx\Exceptions\NoResultException">NoResultException</abbr></span>
+                    <span class="phpdocumentor-tag-link"><abbr title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
                                                             
                                              
                                     </dd>
@@ -1689,7 +1744,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">109</span>
+        <span class="phpdocumentor-element-found-in__line">126</span>
 
     </aside>
 
@@ -1778,7 +1833,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">258</span>
+        <span class="phpdocumentor-element-found-in__line">301</span>
 
     </aside>
 
@@ -1849,7 +1904,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">241</span>
+        <span class="phpdocumentor-element-found-in__line">284</span>
 
     </aside>
 
@@ -1920,7 +1975,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">338</span>
+        <span class="phpdocumentor-element-found-in__line">381</span>
 
     </aside>
 
@@ -1991,7 +2046,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">410</span>
+        <span class="phpdocumentor-element-found-in__line">453</span>
 
     </aside>
 
@@ -2062,7 +2117,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">320</span>
+        <span class="phpdocumentor-element-found-in__line">363</span>
 
     </aside>
 
@@ -2133,7 +2188,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">392</span>
+        <span class="phpdocumentor-element-found-in__line">435</span>
 
     </aside>
 
@@ -2237,7 +2292,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">447</span>
+        <span class="phpdocumentor-element-found-in__line">490</span>
 
     </aside>
 
@@ -2300,7 +2355,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">164</span>
+        <span class="phpdocumentor-element-found-in__line">182</span>
 
     </aside>
 
@@ -2371,7 +2426,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">356</span>
+        <span class="phpdocumentor-element-found-in__line">399</span>
 
     </aside>
 
@@ -2442,7 +2497,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">132</span>
+        <span class="phpdocumentor-element-found-in__line">149</span>
 
     </aside>
 
@@ -2546,7 +2601,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">374</span>
+        <span class="phpdocumentor-element-found-in__line">417</span>
 
     </aside>
 
@@ -2617,37 +2672,75 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">227</span>
+        <span class="phpdocumentor-element-found-in__line">270</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Moves the entity</p>
+                        <p class="phpdocumentor-summary">Moves the current menu item to the new position. All other menu
+                            items are rearranged accordingly</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">move</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$newPosition</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+        <span class="phpdocumentor-signature__name">move</span><span>(</span><span
+            class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span
+            class="phpdocumentor-signature__argument__name">$newPosition</span></span><span>)</span><span> : </span><span
+            class="phpdocumentor-signature__response_type">void</span></code>
 
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$newPosition</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+
+                        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+                        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                                <span class="phpdocumentor-signature__argument__name">$newPosition</span>
+                                : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                            <dd class="phpdocumentor-argument-list__definition">
 
-            </dd>
-            </dl>
+                            </dd>
+                        </dl>
 
-    
 
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-        
-    
-</article>
+                        <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                            Tags
+                            <a class="headerlink" href="#tags"><i class="fas fa-link"></i></a>
+                        </h5>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
+                        </dl>
+
+                        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+                        <span class="phpdocumentor-signature__response_type">void</span>
+                        &mdash;
+
+
+                    </article>
                     <article
         class="phpdocumentor-element
             -method
@@ -2661,37 +2754,79 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">206</span>
+        <span class="phpdocumentor-element-found-in__line">238</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">{@inheritDoc}</p>
+                        <p class="phpdocumentor-summary">Updates the menu item</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">update</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rearrange</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+        <span class="phpdocumentor-signature__name">update</span><span>(</span><span
+            class="phpdocumentor-signature__argument"><span>[</span><span
+            class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span
+            class="phpdocumentor-signature__argument__name">$rearrange</span><span> = </span><span
+            class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span>)</span><span> : </span><span
+            class="phpdocumentor-signature__response_type">void</span></code>
 
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$rearrange</span>
-                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">true</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
 
-            </dd>
-            </dl>
+                        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+                        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                                <span class="phpdocumentor-signature__argument__name">$rearrange</span>
+                                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                                = <span class="phpdocumentor-signature__argument__default-value">true</span></dt>
+                            <dd class="phpdocumentor-argument-list__definition">
+                                <section class="phpdocumentor-description"><p>If true, the menu items on the same level
+                                    will be rearranged in hierarchy.</p>
+                                </section>
 
-    
+                            </dd>
+                        </dl>
 
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-        
-    
-</article>
+
+                        <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                            Tags
+                            <a class="headerlink" href="#tags"><i class="fas fa-link"></i></a>
+                        </h5>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><a
+                                        href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr
+                                        title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+
+
+                            </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">throws</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+                                <span class="phpdocumentor-tag-link"><abbr
+                                        title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+
+
+                            </dd>
+                        </dl>
+
+                        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+                        <span class="phpdocumentor-signature__response_type">void</span>
+                        &mdash;
+
+
+                    </article>
                     <article
         class="phpdocumentor-element
             -method
@@ -3544,7 +3679,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">429</span>
+        <span class="phpdocumentor-element-found-in__line">472</span>
 
     </aside>
 
@@ -3622,27 +3757,33 @@
         rearrange()
         <a href="classes/App-Database-MenuItem.html#method_rearrange" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">188</span>
+                        <aside class="phpdocumentor-element-found-in">
+                            <abbr class="phpdocumentor-element-found-in__file" title="src/Database/MenuItem.php"><a
+                                    href="files/src-database-menuitem.html"><abbr title="src/Database/MenuItem.php">MenuItem.php</abbr></a></abbr>
+                            :
+                            <span class="phpdocumentor-element-found-in__line">214</span>
 
-    </aside>
+                        </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">rearrange</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$position</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                        <p class="phpdocumentor-summary">Moves the current menu item. Depending on the parent it will
+                            rearrange the positions and move the menu items in the correct order</p>
 
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$position</span>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">private</span>
+                            <span class="phpdocumentor-signature__name">rearrange</span><span>(</span><span
+                                class="phpdocumentor-signature__argument"><span
+                                class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span
+                                class="phpdocumentor-signature__argument__name">$position</span></span><span>)</span><span> : </span><span
+                                class="phpdocumentor-signature__response_type">void</span></code>
+
+
+                        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+                        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                                <span class="phpdocumentor-signature__argument__name">$position</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
 
             </dd>
             </dl>

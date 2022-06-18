@@ -115,8 +115,13 @@ class Artist extends LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Finds the artists by the given keyword
+     *
+     * @param string $keyword
      * @return Iterator<Artist>
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -149,7 +154,12 @@ class Artist extends LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Creates the current artist
+     *
+     * @return void
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     public function create(): void
     {
@@ -164,8 +174,13 @@ class Artist extends LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Deletes the current artist
+     *
+     * @return void
      * @throws DeleteLastAdminException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     public function delete(): void
     {
@@ -178,6 +193,7 @@ class Artist extends LoadableEntity
 
     /**
      * Counts all available admins, excluding the given artist
+     *
      * @param int $id The artist to exclude from check
      * @return int
      * @throws ForeignKeyFailedException
@@ -198,8 +214,12 @@ class Artist extends LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Finds all artists
+     *
      * @return Iterator<Artist>
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     public static function findAll(): Iterator
     {

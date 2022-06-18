@@ -19,7 +19,7 @@ use Throwable;
 class PostFrontAction extends FrontAction
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      * @return Response
      * @throws Exception
      * @throws ForeignKeyFailedException

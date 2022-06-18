@@ -7,7 +7,6 @@ use App\Database\Strategies\JsonStrategy;
 use App\Routing\Attributes\JinyaApi;
 use App\Routing\Attributes\JinyaApiField;
 use DateTime;
-use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
@@ -44,7 +43,8 @@ class Form extends Utils\LoadableEntity
     public string $toAddress;
 
     /**
-     * @inheritDoc
+     * Finds the form with the given ID
+     *
      * @param int $id
      * @return Form|null
      * @throws Exceptions\ForeignKeyFailedException
@@ -66,8 +66,13 @@ class Form extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Finds all forms matching the keyword
+     *
+     * @param string $keyword
      * @return Iterator<Form>
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -85,8 +90,12 @@ class Form extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Finds all forms
+     *
      * @return Iterator<Form>
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public static function findAll(): Iterator
     {
@@ -123,8 +132,12 @@ class Form extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
-     * @throws Exception
+     * Creates the current form
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function create(): void
     {
@@ -144,7 +157,12 @@ class Form extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Deletes the current form
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function delete(): void
     {
@@ -152,7 +170,12 @@ class Form extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * Updates the current form
+     *
+     * @return void
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function update(): void
     {
