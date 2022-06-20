@@ -11,7 +11,7 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
 /**
- *
+ * A simple helper to handle profile picture uploads
  */
 class ProfilePictureService extends StorageBaseService
 {

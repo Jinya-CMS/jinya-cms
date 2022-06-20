@@ -15,7 +15,7 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
 /**
- *
+ * A simple helper to handle file uploads
  */
 class FileUploadService extends StorageBaseService
 {
