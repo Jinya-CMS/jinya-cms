@@ -204,7 +204,8 @@
 
     </aside>
 
-        
+            <p class="phpdocumentor-summary">Provides extensions to the Plates engine, adding helper methods for themes</p>
+
 
 
 
@@ -250,7 +251,7 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd></dd>
+<dd>Creates a new ThemeExtension class</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Theming-Extensions-ThemeExtension.html#method_asset">asset()</a>
@@ -264,28 +265,28 @@
     <span>
                                 &nbsp;: bool|string|null    </span>
 </dt>
-<dd></dd>
+<dd>Gets a configuration value from the database, if the value is not set in the database the default value will be set</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Theming-Extensions-ThemeExtension.html#method_register">register()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd></dd>
+<dd>Registers the helper method with the plates engine</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Theming-Extensions-ThemeExtension.html#method_scripts">scripts()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd></dd>
+<dd>Returns script tags for all configured scripts</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Theming-Extensions-ThemeExtension.html#method_styles">styles()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd></dd>
+<dd>Returns link tags for all configured stylesheets</dd>
 
         </dl>
 
@@ -315,7 +316,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/Extensions/ThemeExtension.php"><a href="files/src-theming-extensions-themeextension.html"><abbr title="src/Theming/Extensions/ThemeExtension.php">ThemeExtension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">18</span>
+    <span class="phpdocumentor-element-found-in__line">20</span>
 
     </aside>
 
@@ -326,9 +327,9 @@
     <span class="phpdocumentor-signature__name">$dbTheme</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>The currently active database theme</p>
+</section>
 
     
 
@@ -349,7 +350,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/Extensions/ThemeExtension.php"><a href="files/src-theming-extensions-themeextension.html"><abbr title="src/Theming/Extensions/ThemeExtension.php">ThemeExtension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">17</span>
+    <span class="phpdocumentor-element-found-in__line">18</span>
 
     </aside>
 
@@ -360,9 +361,9 @@
     <span class="phpdocumentor-signature__name">$theme</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>The currently active theming theme</p>
+</section>
 
     
 
@@ -387,11 +388,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/Extensions/ThemeExtension.php"><a href="files/src-theming-extensions-themeextension.html"><abbr title="src/Theming/Extensions/ThemeExtension.php">ThemeExtension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">24</span>
+    <span class="phpdocumentor-element-found-in__line">28</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Creates a new ThemeExtension class</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Theming-Theme.html"><abbr title="\App\Theming\Theme">Theme</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$theme</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Database-Theme.html"><abbr title="\App\Database\Theme">Theme</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dbTheme</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
@@ -436,7 +438,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/Extensions/ThemeExtension.php"><a href="files/src-theming-extensions-themeextension.html"><abbr title="src/Theming/Extensions/ThemeExtension.php">ThemeExtension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">49</span>
+    <span class="phpdocumentor-element-found-in__line">57</span>
 
     </aside>
 
@@ -508,11 +510,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/Extensions/ThemeExtension.php"><a href="files/src-theming-extensions-themeextension.html"><abbr title="src/Theming/Extensions/ThemeExtension.php">ThemeExtension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">59</span>
+    <span class="phpdocumentor-element-found-in__line">69</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Gets a configuration value from the database, if the value is not set in the database the default value will be set</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">config</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$group</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$field</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool|string|null</span></code>
@@ -525,14 +528,18 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The group the configuration value belongs to</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$field</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The field the configuration value belongs to</p>
+</section>
+
             </dd>
             </dl>
 
@@ -557,11 +564,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/Extensions/ThemeExtension.php"><a href="files/src-theming-extensions-themeextension.html"><abbr title="src/Theming/Extensions/ThemeExtension.php">ThemeExtension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">34</span>
+    <span class="phpdocumentor-element-found-in__line">40</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Registers the helper method with the plates engine</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">register</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\League\Plates\Engine">Engine</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$engine</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
@@ -599,11 +607,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/Extensions/ThemeExtension.php"><a href="files/src-theming-extensions-themeextension.html"><abbr title="src/Theming/Extensions/ThemeExtension.php">ThemeExtension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">83</span>
+    <span class="phpdocumentor-element-found-in__line">97</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Returns script tags for all configured scripts</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">scripts</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
@@ -631,11 +640,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Theming/Extensions/ThemeExtension.php"><a href="files/src-theming-extensions-themeextension.html"><abbr title="src/Theming/Extensions/ThemeExtension.php">ThemeExtension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">67</span>
+    <span class="phpdocumentor-element-found-in__line">79</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Returns link tags for all configured stylesheets</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">styles</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>

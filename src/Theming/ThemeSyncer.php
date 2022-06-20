@@ -7,13 +7,16 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
 /**
- *
+ * Helper class to synchronise the themes in the file system with the database
  */
 class ThemeSyncer
 {
+    /** @var string The path where themes are stored */
     public const THEME_BASE_PATH = __DIR__ . '/../../themes/';
 
     /**
+     * Syncs the themes from the local file system into the database
+     * 
      * @throws Database\Exceptions\ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws Database\Exceptions\UniqueFailedException

@@ -2696,56 +2696,56 @@ Search.appendIndex(
             "summary": "TwoFactorMail\u0020constructor.",
             "url": "classes/App-Mailing-Types-TwoFactorMail.html#method___construct"
         },                {
-      "fqsen": "\\App\\Mailing\\Types\\TwoFactorMail\u003A\u003AsendMail\u0028\u0029",
-      "name": "sendMail",
-      "summary": "Sends\u0020the\u0020two\u002Dfactor\u0020email",
-      "url": "classes/App-Mailing-Types-TwoFactorMail.html#method_sendMail"
-    }, {
-      "fqsen": "\\App\\Mailing\\Types\\TwoFactorMail\u003A\u003A\u0024templateEngine",
-      "name": "templateEngine",
-      "summary": "",
-      "url": "classes/App-Mailing-Types-TwoFactorMail.html#property_templateEngine"
-    }, {
-      "fqsen": "\\App\\Maintenance\\PhpInfo\\IniValue",
-      "name": "IniValue",
-      "summary": "This\u0020class\u0020contains\u0020a\u0020PHP\u0020INI\u0020value",
-      "url": "classes/App-Maintenance-PhpInfo-IniValue.html"
-    }, {
-      "fqsen": "\\App\\Maintenance\\PhpInfo\\IniValue\u003A\u003AjsonSerialize\u0028\u0029",
-      "name": "jsonSerialize",
-      "summary": "Serializes\u0020the\u0020INI\u0020value\u0020data\u0020into\u0020an\u0020array",
-      "url": "classes/App-Maintenance-PhpInfo-IniValue.html#method_jsonSerialize"
-    }, {
-      "fqsen": "\\App\\Maintenance\\PhpInfo\\IniValue\u003A\u003A\u0024value",
-      "name": "value",
-      "summary": "",
-      "url": "classes/App-Maintenance-PhpInfo-IniValue.html#property_value"
-    }, {
-      "fqsen": "\\App\\Maintenance\\PhpInfo\\IniValue\u003A\u003A\u0024configName",
-      "name": "configName",
-      "summary": "",
-      "url": "classes/App-Maintenance-PhpInfo-IniValue.html#property_configName"
-    }, {
-      "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpExtension",
-      "name": "PhpExtension",
-      "summary": "This\u0020class\u0020contains\u0020information\u0020about\u0020a\u0020PHP\u0020extension",
-      "url": "classes/App-Maintenance-PhpInfo-PhpExtension.html"
-    }, {
-      "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpExtension\u003A\u003AjsonSerialize\u0028\u0029",
-      "name": "jsonSerialize",
-      "summary": "Serializes\u0020the\u0020PHP\u0020extension\u0020data\u0020into\u0020an\u0020array",
-      "url": "classes/App-Maintenance-PhpInfo-PhpExtension.html#method_jsonSerialize"
-    }, {
-      "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpExtension\u003A\u003A\u0024extensionName",
-      "name": "extensionName",
-      "summary": "",
-      "url": "classes/App-Maintenance-PhpInfo-PhpExtension.html#property_extensionName"
-    }, {
-      "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpExtension\u003A\u003A\u0024iniValues",
-      "name": "iniValues",
-      "summary": "",
-      "url": "classes/App-Maintenance-PhpInfo-PhpExtension.html#property_iniValues"
-    }, {
+            "fqsen": "\\App\\Mailing\\Types\\TwoFactorMail\u003A\u003AsendMail\u0028\u0029",
+            "name": "sendMail",
+            "summary": "Sends\u0020the\u0020two\u002Dfactor\u0020email",
+            "url": "classes/App-Mailing-Types-TwoFactorMail.html#method_sendMail"
+        },                {
+            "fqsen": "\\App\\Mailing\\Types\\TwoFactorMail\u003A\u003A\u0024templateEngine",
+            "name": "templateEngine",
+            "summary": "",
+            "url": "classes/App-Mailing-Types-TwoFactorMail.html#property_templateEngine"
+        },                {
+            "fqsen": "\\App\\Maintenance\\PhpInfo\\IniValue",
+            "name": "IniValue",
+            "summary": "This\u0020class\u0020contains\u0020a\u0020PHP\u0020INI\u0020value",
+            "url": "classes/App-Maintenance-PhpInfo-IniValue.html"
+        },                {
+            "fqsen": "\\App\\Maintenance\\PhpInfo\\IniValue\u003A\u003AjsonSerialize\u0028\u0029",
+            "name": "jsonSerialize",
+            "summary": "Serializes\u0020the\u0020INI\u0020value\u0020data\u0020into\u0020an\u0020array",
+            "url": "classes/App-Maintenance-PhpInfo-IniValue.html#method_jsonSerialize"
+        },                {
+            "fqsen": "\\App\\Maintenance\\PhpInfo\\IniValue\u003A\u003A\u0024value",
+            "name": "value",
+            "summary": "",
+            "url": "classes/App-Maintenance-PhpInfo-IniValue.html#property_value"
+        },                {
+            "fqsen": "\\App\\Maintenance\\PhpInfo\\IniValue\u003A\u003A\u0024configName",
+            "name": "configName",
+            "summary": "",
+            "url": "classes/App-Maintenance-PhpInfo-IniValue.html#property_configName"
+        },                {
+            "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpExtension",
+            "name": "PhpExtension",
+            "summary": "This\u0020class\u0020contains\u0020information\u0020about\u0020a\u0020PHP\u0020extension",
+            "url": "classes/App-Maintenance-PhpInfo-PhpExtension.html"
+        },                {
+            "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpExtension\u003A\u003AjsonSerialize\u0028\u0029",
+            "name": "jsonSerialize",
+            "summary": "Serializes\u0020the\u0020PHP\u0020extension\u0020data\u0020into\u0020an\u0020array",
+            "url": "classes/App-Maintenance-PhpInfo-PhpExtension.html#method_jsonSerialize"
+        },                {
+            "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpExtension\u003A\u003A\u0024extensionName",
+            "name": "extensionName",
+            "summary": "",
+            "url": "classes/App-Maintenance-PhpInfo-PhpExtension.html#property_extensionName"
+        },                {
+            "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpExtension\u003A\u003A\u0024iniValues",
+            "name": "iniValues",
+            "summary": "",
+            "url": "classes/App-Maintenance-PhpInfo-PhpExtension.html#property_iniValues"
+        },                {
             "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpExtension\u003A\u003A\u0024version",
             "name": "version",
             "summary": "",
@@ -2760,97 +2760,97 @@ Search.appendIndex(
             "name": "PhpInfoService",
             "summary": "",
             "url": "classes/App-Maintenance-PhpInfo-PhpInfoService.html"
-    }, {
-      "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpInfoService\u003A\u003AgetUname\u0028\u0029",
-      "name": "getUname",
-      "summary": "Gets\u0020the\u0020unix\u0020name",
-      "url": "classes/App-Maintenance-PhpInfo-PhpInfoService.html#method_getUname"
-    }, {
-      "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpInfoService\u003A\u003AgetLoadedExtensions\u0028\u0029",
-      "name": "getLoadedExtensions",
-      "summary": "Gets\u0020an\u0020array\u0020of\u0020loaded\u0020extensions",
-      "url": "classes/App-Maintenance-PhpInfo-PhpInfoService.html#method_getLoadedExtensions"
-    }, {
-      "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpInfoService\u003A\u003AgetAdditionalData\u0028\u0029",
-      "name": "getAdditionalData",
-      "summary": "Gets\u0020additional\u0020data\u0020for\u0020extensions,\u0020currently\u0020supported\u0020are\u0020zend\u0020opcache,\u0020apcu\u0020and\u0020hash",
-      "url": "classes/App-Maintenance-PhpInfo-PhpInfoService.html#method_getAdditionalData"
-    }, {
-      "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpInfoService\u003A\u003AcalculateMb\u0028\u0029",
-      "name": "calculateMb",
-      "summary": "Converts\u0020bytes\u0020to\u0020megabytes",
-      "url": "classes/App-Maintenance-PhpInfo-PhpInfoService.html#method_calculateMb"
-    }, {
-      "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpInfoService\u003A\u003AgetVersion\u0028\u0029",
-      "name": "getVersion",
-      "summary": "Gets\u0020the\u0020PHP\u0020version",
-      "url": "classes/App-Maintenance-PhpInfo-PhpInfoService.html#method_getVersion"
-    }, {
-      "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpInfoService\u003A\u003AgetZendVersion\u0028\u0029",
-      "name": "getZendVersion",
-      "summary": "Gets\u0020the\u0020version\u0020of\u0020the\u0020Zend\u0020Engine",
-      "url": "classes/App-Maintenance-PhpInfo-PhpInfoService.html#method_getZendVersion"
-    }, {
-      "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpInfoService\u003A\u003AgetApacheVersion\u0028\u0029",
-      "name": "getApacheVersion",
-      "summary": "Gets\u0020the\u0020apache\u0020version",
-      "url": "classes/App-Maintenance-PhpInfo-PhpInfoService.html#method_getApacheVersion"
-    }, {
-      "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpInfoService\u003A\u003AgetApacheModules\u0028\u0029",
-      "name": "getApacheModules",
-      "summary": "Gets\u0020all\u0020apache\u0020modules",
-      "url": "classes/App-Maintenance-PhpInfo-PhpInfoService.html#method_getApacheModules"
-    }, {
-      "fqsen": "\\App\\Messaging\\FormMessageHandler",
-      "name": "FormMessageHandler",
-      "summary": "The\u0020form\u0020message\u0020handler,\u0020handles\u0020the\u0020data\u0020from\u0020form\u0020posts\u0020and\u0020send\u0020the\u0020mail\u0020to\u0020the\u0020configured\u0020to\u0020address",
-      "url": "classes/App-Messaging-FormMessageHandler.html"
-    }, {
-      "fqsen": "\\App\\Messaging\\FormMessageHandler\u003A\u003A__construct\u0028\u0029",
-      "name": "__construct",
-      "summary": "FormMessageHandler\u0020constructor.",
-      "url": "classes/App-Messaging-FormMessageHandler.html#method___construct"
-    }, {
-      "fqsen": "\\App\\Messaging\\FormMessageHandler\u003A\u003AhandleFormPost\u0028\u0029",
-      "name": "handleFormPost",
-      "summary": "Handles\u0020the\u0020form\u0020post\u0020and\u0020creates",
-      "url": "classes/App-Messaging-FormMessageHandler.html#method_handleFormPost"
-    }, {
-      "fqsen": "\\App\\Messaging\\FormMessageHandler\u003A\u003AisSpam\u0028\u0029",
-      "name": "isSpam",
-      "summary": "Checks\u0020if\u0020the\u0020provided\u0020value\u0020is\u0020inside\u0020the\u0020spam\u0020keyword\u0020list",
-      "url": "classes/App-Messaging-FormMessageHandler.html#method_isSpam"
-    }, {
-      "fqsen": "\\App\\Messaging\\FormMessageHandler\u003A\u003ArenderTemplate\u0028\u0029",
-      "name": "renderTemplate",
-      "summary": "Renders\u0020the\u0020messaging\u0020template\u0020and\u0020returns\u0020the\u0020string",
-      "url": "classes/App-Messaging-FormMessageHandler.html#method_renderTemplate"
-    }, {
-      "fqsen": "\\App\\Messaging\\FormMessageHandler\u003A\u003A\u0024engine",
-      "name": "engine",
-      "summary": "",
-      "url": "classes/App-Messaging-FormMessageHandler.html#property_engine"
-    }, {
-      "fqsen": "\\App\\Routing\\Attributes\\JinyaApi",
-      "name": "JinyaApi",
-      "summary": "This\u0020attribute\u0020is\u0020used\u0020to\u0020make\u0020an\u0020entity\u0020class\u0020routable\u0020and\u0020available\u0020via\u0020the\u0020REST\u0020API",
-      "url": "classes/App-Routing-Attributes-JinyaApi.html"
-    }, {
-      "fqsen": "\\App\\Routing\\Attributes\\JinyaApi\u003A\u003A__construct\u0028\u0029",
-      "name": "__construct",
-      "summary": "Creates\u0020a\u0020new\u0020instance\u0020of\u0020JinyaApi",
-      "url": "classes/App-Routing-Attributes-JinyaApi.html#method___construct"
-    }, {
-      "fqsen": "\\App\\Routing\\Attributes\\JinyaApi\u003A\u003A\u0024createEnabled",
-      "name": "createEnabled",
-      "summary": "",
-      "url": "classes/App-Routing-Attributes-JinyaApi.html#property_createEnabled"
-    }, {
-      "fqsen": "\\App\\Routing\\Attributes\\JinyaApi\u003A\u003A\u0024createRole",
-      "name": "createRole",
-      "summary": "",
-      "url": "classes/App-Routing-Attributes-JinyaApi.html#property_createRole"
-    }, {
+        },                {
+            "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpInfoService\u003A\u003AgetUname\u0028\u0029",
+            "name": "getUname",
+            "summary": "Gets\u0020the\u0020unix\u0020name",
+            "url": "classes/App-Maintenance-PhpInfo-PhpInfoService.html#method_getUname"
+        },                {
+            "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpInfoService\u003A\u003AgetLoadedExtensions\u0028\u0029",
+            "name": "getLoadedExtensions",
+            "summary": "Gets\u0020an\u0020array\u0020of\u0020loaded\u0020extensions",
+            "url": "classes/App-Maintenance-PhpInfo-PhpInfoService.html#method_getLoadedExtensions"
+        },                {
+            "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpInfoService\u003A\u003AgetAdditionalData\u0028\u0029",
+            "name": "getAdditionalData",
+            "summary": "Gets\u0020additional\u0020data\u0020for\u0020extensions,\u0020currently\u0020supported\u0020are\u0020zend\u0020opcache,\u0020apcu\u0020and\u0020hash",
+            "url": "classes/App-Maintenance-PhpInfo-PhpInfoService.html#method_getAdditionalData"
+        },                {
+            "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpInfoService\u003A\u003AcalculateMb\u0028\u0029",
+            "name": "calculateMb",
+            "summary": "Converts\u0020bytes\u0020to\u0020megabytes",
+            "url": "classes/App-Maintenance-PhpInfo-PhpInfoService.html#method_calculateMb"
+        },                {
+            "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpInfoService\u003A\u003AgetVersion\u0028\u0029",
+            "name": "getVersion",
+            "summary": "Gets\u0020the\u0020PHP\u0020version",
+            "url": "classes/App-Maintenance-PhpInfo-PhpInfoService.html#method_getVersion"
+        },                {
+            "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpInfoService\u003A\u003AgetZendVersion\u0028\u0029",
+            "name": "getZendVersion",
+            "summary": "Gets\u0020the\u0020version\u0020of\u0020the\u0020Zend\u0020Engine",
+            "url": "classes/App-Maintenance-PhpInfo-PhpInfoService.html#method_getZendVersion"
+        },                {
+            "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpInfoService\u003A\u003AgetApacheVersion\u0028\u0029",
+            "name": "getApacheVersion",
+            "summary": "Gets\u0020the\u0020apache\u0020version",
+            "url": "classes/App-Maintenance-PhpInfo-PhpInfoService.html#method_getApacheVersion"
+        },                {
+            "fqsen": "\\App\\Maintenance\\PhpInfo\\PhpInfoService\u003A\u003AgetApacheModules\u0028\u0029",
+            "name": "getApacheModules",
+            "summary": "Gets\u0020all\u0020apache\u0020modules",
+            "url": "classes/App-Maintenance-PhpInfo-PhpInfoService.html#method_getApacheModules"
+        },                {
+            "fqsen": "\\App\\Messaging\\FormMessageHandler",
+            "name": "FormMessageHandler",
+            "summary": "The\u0020form\u0020message\u0020handler,\u0020handles\u0020the\u0020data\u0020from\u0020form\u0020posts\u0020and\u0020send\u0020the\u0020mail\u0020to\u0020the\u0020configured\u0020to\u0020address",
+            "url": "classes/App-Messaging-FormMessageHandler.html"
+        },                {
+            "fqsen": "\\App\\Messaging\\FormMessageHandler\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "FormMessageHandler\u0020constructor.",
+            "url": "classes/App-Messaging-FormMessageHandler.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Messaging\\FormMessageHandler\u003A\u003AhandleFormPost\u0028\u0029",
+            "name": "handleFormPost",
+            "summary": "Handles\u0020the\u0020form\u0020post\u0020and\u0020creates",
+            "url": "classes/App-Messaging-FormMessageHandler.html#method_handleFormPost"
+        },                {
+            "fqsen": "\\App\\Messaging\\FormMessageHandler\u003A\u003AisSpam\u0028\u0029",
+            "name": "isSpam",
+            "summary": "Checks\u0020if\u0020the\u0020provided\u0020value\u0020is\u0020inside\u0020the\u0020spam\u0020keyword\u0020list",
+            "url": "classes/App-Messaging-FormMessageHandler.html#method_isSpam"
+        },                {
+            "fqsen": "\\App\\Messaging\\FormMessageHandler\u003A\u003ArenderTemplate\u0028\u0029",
+            "name": "renderTemplate",
+            "summary": "Renders\u0020the\u0020messaging\u0020template\u0020and\u0020returns\u0020the\u0020string",
+            "url": "classes/App-Messaging-FormMessageHandler.html#method_renderTemplate"
+        },                {
+            "fqsen": "\\App\\Messaging\\FormMessageHandler\u003A\u003A\u0024engine",
+            "name": "engine",
+            "summary": "",
+            "url": "classes/App-Messaging-FormMessageHandler.html#property_engine"
+        },                {
+            "fqsen": "\\App\\Routing\\Attributes\\JinyaApi",
+            "name": "JinyaApi",
+            "summary": "This\u0020attribute\u0020is\u0020used\u0020to\u0020make\u0020an\u0020entity\u0020class\u0020routable\u0020and\u0020available\u0020via\u0020the\u0020REST\u0020API",
+            "url": "classes/App-Routing-Attributes-JinyaApi.html"
+        },                {
+            "fqsen": "\\App\\Routing\\Attributes\\JinyaApi\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Creates\u0020a\u0020new\u0020instance\u0020of\u0020JinyaApi",
+            "url": "classes/App-Routing-Attributes-JinyaApi.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Routing\\Attributes\\JinyaApi\u003A\u003A\u0024createEnabled",
+            "name": "createEnabled",
+            "summary": "",
+            "url": "classes/App-Routing-Attributes-JinyaApi.html#property_createEnabled"
+        },                {
+            "fqsen": "\\App\\Routing\\Attributes\\JinyaApi\u003A\u003A\u0024createRole",
+            "name": "createRole",
+            "summary": "",
+            "url": "classes/App-Routing-Attributes-JinyaApi.html#property_createRole"
+        },                {
             "fqsen": "\\App\\Routing\\Attributes\\JinyaApi\u003A\u003A\u0024readEnabled",
             "name": "readEnabled",
             "summary": "",
@@ -2870,112 +2870,112 @@ Search.appendIndex(
             "name": "updateRole",
             "summary": "",
             "url": "classes/App-Routing-Attributes-JinyaApi.html#property_updateRole"
-    }, {
-      "fqsen": "\\App\\Routing\\Attributes\\JinyaApi\u003A\u003A\u0024deleteEnabled",
-      "name": "deleteEnabled",
-      "summary": "",
-      "url": "classes/App-Routing-Attributes-JinyaApi.html#property_deleteEnabled"
-    }, {
-      "fqsen": "\\App\\Routing\\Attributes\\JinyaApi\u003A\u003A\u0024deleteRole",
-      "name": "deleteRole",
-      "summary": "",
-      "url": "classes/App-Routing-Attributes-JinyaApi.html#property_deleteRole"
-    }, {
-      "fqsen": "\\App\\Routing\\Attributes\\JinyaApiField",
-      "name": "JinyaApiField",
-      "summary": "Specifies\u0020whether\u0020a\u0020field\u0020in\u0020a\u0020JinyaApi\u0020entity\u0020is\u0020required\u0020or\u0020ignored",
-      "url": "classes/App-Routing-Attributes-JinyaApiField.html"
-    }, {
-      "fqsen": "\\App\\Routing\\Attributes\\JinyaApiField\u003A\u003A__construct\u0028\u0029",
-      "name": "__construct",
-      "summary": "Creates\u0020a\u0020new\u0020JinyaApiField",
-      "url": "classes/App-Routing-Attributes-JinyaApiField.html#method___construct"
-    }, {
-      "fqsen": "\\App\\Routing\\Attributes\\JinyaApiField\u003A\u003A\u0024ignore",
-      "name": "ignore",
-      "summary": "",
-      "url": "classes/App-Routing-Attributes-JinyaApiField.html#property_ignore"
-    }, {
-      "fqsen": "\\App\\Routing\\Attributes\\JinyaApiField\u003A\u003A\u0024required",
-      "name": "required",
-      "summary": "",
-      "url": "classes/App-Routing-Attributes-JinyaApiField.html#property_required"
-    }, {
-      "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver",
-      "name": "JinyaModelToRouteResolver",
-      "summary": "This\u0020class\u0020checks\u0020the\u0020database\u0020namespace\u0020and\u0020generates\u0020the\u0020CRUD\u0020endpoints\u0020for\u0020the\u0020Jinya\u0020api.\u0020The\u0020endpoints\u0020are\u0020auto\u0020generated\u0020based\u0020on\u0020the\u0020JinyaApi\u0020attribute",
-      "url": "classes/App-Routing-JinyaModelToRouteResolver.html"
-    }, {
-      "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver\u003A\u003AresolveActionWithClassAndId\u0028\u0029",
-      "name": "resolveActionWithClassAndId",
-      "summary": "Creates\u0020a\u0020response\u0020based\u0020on\u0020the\u0020passed\u0020class\u0020and\u0020id",
-      "url": "classes/App-Routing-JinyaModelToRouteResolver.html#method_resolveActionWithClassAndId"
-    }, {
-      "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver\u003A\u003AexecuteGetRequest\u0028\u0029",
-      "name": "executeGetRequest",
-      "summary": "Executes\u0020a\u0020GET\u0020request",
-      "url": "classes/App-Routing-JinyaModelToRouteResolver.html#method_executeGetRequest"
-    }, {
-      "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver\u003A\u003AexecuteDeleteRequest\u0028\u0029",
-      "name": "executeDeleteRequest",
-      "summary": "Executes\u0020a\u0020DELETE\u0020request",
-      "url": "classes/App-Routing-JinyaModelToRouteResolver.html#method_executeDeleteRequest"
-    }, {
-      "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver\u003A\u003AexecutePostRequest\u0028\u0029",
-      "name": "executePostRequest",
-      "summary": "Executes\u0020a\u0020POST\u0020request",
-      "url": "classes/App-Routing-JinyaModelToRouteResolver.html#method_executePostRequest"
-    }, {
-      "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver\u003A\u003AexecutePutRequest\u0028\u0029",
-      "name": "executePutRequest",
-      "summary": "",
-      "url": "classes/App-Routing-JinyaModelToRouteResolver.html#method_executePutRequest"
-    }, {
-      "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver\u003A\u003AcheckRole\u0028\u0029",
-      "name": "checkRole",
-      "summary": "Checks\u0020whether\u0020the\u0020user\u0020in\u0020the\u0020current\u0020request\u0020has\u0020the\u0020given\u0020role\u0020and\u0020sets\u0020the\u0020current\u0020user\u0020global",
-      "url": "classes/App-Routing-JinyaModelToRouteResolver.html#method_checkRole"
-    }, {
-      "fqsen": "\\App\\Statistics\\Entity",
-      "name": "Entity",
-      "summary": "Helper\u0020class\u0020to\u0020get\u0020the\u0020share\u0020of\u0020entities\u0020in\u0020the\u0020database",
-      "url": "classes/App-Statistics-Entity.html"
-    }, {
-      "fqsen": "\\App\\Statistics\\Entity\u003A\u003AgetEntityShare\u0028\u0029",
-      "name": "getEntityShare",
-      "summary": "Gets\u0020the\u0020count\u0020of\u0020files,\u0020galleries,\u0020simple\u0020pages,\u0020segment\u0020pages,\u0020forms,\u0020blog\u0020posts\u0020and\u0020blog\u0020categories",
-      "url": "classes/App-Statistics-Entity.html#method_getEntityShare"
-    }, {
-      "fqsen": "\\App\\Statistics\\History",
-      "name": "History",
-      "summary": "Helper\u0020class\u0020to\u0020get\u0020the\u0020history\u0020of\u0020the\u0020given\u0020entity\u0020type",
-      "url": "classes/App-Statistics-History.html"
-    }, {
-      "fqsen": "\\App\\Statistics\\History\u003A\u003AgetCreatedHistory\u0028\u0029",
-      "name": "getCreatedHistory",
-      "summary": "Gets\u0020the\u0020create\u0020history\u0020of\u0020the\u0020given\u0020entity\u0020type",
-      "url": "classes/App-Statistics-History.html#method_getCreatedHistory"
-    }, {
-      "fqsen": "\\App\\Statistics\\History\u003A\u003AgetUpdatedHistory\u0028\u0029",
-      "name": "getUpdatedHistory",
-      "summary": "Gets\u0020the\u0020update\u0020history\u0020of\u0020the\u0020given\u0020entity\u0020type",
-      "url": "classes/App-Statistics-History.html#method_getUpdatedHistory"
-    }, {
-      "fqsen": "\\App\\Statistics\\HistoryEntry",
-      "name": "HistoryEntry",
-      "summary": "A\u0020history\u0020entry\u0020contains\u0020the\u0020count\u0020and\u0020date\u0020of\u0020changes",
-      "url": "classes/App-Statistics-HistoryEntry.html"
-    }, {
-      "fqsen": "\\App\\Statistics\\HistoryEntry\u003A\u003AjsonSerialize\u0028\u0029",
-      "name": "jsonSerialize",
-      "summary": "Serializes\u0020the\u0020data\u0020into\u0020JSON",
-      "url": "classes/App-Statistics-HistoryEntry.html#method_jsonSerialize"
-    }, {
-      "fqsen": "\\App\\Statistics\\HistoryEntry\u003A\u003Aformat\u0028\u0029",
-      "name": "format",
-      "summary": "Formats\u0020the\u0020data\u0020into\u0020an\u0020array",
-      "url": "classes/App-Statistics-HistoryEntry.html#method_format"
-    },                {
+        },                {
+            "fqsen": "\\App\\Routing\\Attributes\\JinyaApi\u003A\u003A\u0024deleteEnabled",
+            "name": "deleteEnabled",
+            "summary": "",
+            "url": "classes/App-Routing-Attributes-JinyaApi.html#property_deleteEnabled"
+        },                {
+            "fqsen": "\\App\\Routing\\Attributes\\JinyaApi\u003A\u003A\u0024deleteRole",
+            "name": "deleteRole",
+            "summary": "",
+            "url": "classes/App-Routing-Attributes-JinyaApi.html#property_deleteRole"
+        },                {
+            "fqsen": "\\App\\Routing\\Attributes\\JinyaApiField",
+            "name": "JinyaApiField",
+            "summary": "Specifies\u0020whether\u0020a\u0020field\u0020in\u0020a\u0020JinyaApi\u0020entity\u0020is\u0020required\u0020or\u0020ignored",
+            "url": "classes/App-Routing-Attributes-JinyaApiField.html"
+        },                {
+            "fqsen": "\\App\\Routing\\Attributes\\JinyaApiField\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Creates\u0020a\u0020new\u0020JinyaApiField",
+            "url": "classes/App-Routing-Attributes-JinyaApiField.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Routing\\Attributes\\JinyaApiField\u003A\u003A\u0024ignore",
+            "name": "ignore",
+            "summary": "",
+            "url": "classes/App-Routing-Attributes-JinyaApiField.html#property_ignore"
+        },                {
+            "fqsen": "\\App\\Routing\\Attributes\\JinyaApiField\u003A\u003A\u0024required",
+            "name": "required",
+            "summary": "",
+            "url": "classes/App-Routing-Attributes-JinyaApiField.html#property_required"
+        },                {
+            "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver",
+            "name": "JinyaModelToRouteResolver",
+            "summary": "This\u0020class\u0020checks\u0020the\u0020database\u0020namespace\u0020and\u0020generates\u0020the\u0020CRUD\u0020endpoints\u0020for\u0020the\u0020Jinya\u0020api.\u0020The\u0020endpoints\u0020are\u0020auto\u0020generated\u0020based\u0020on\u0020the\u0020JinyaApi\u0020attribute",
+            "url": "classes/App-Routing-JinyaModelToRouteResolver.html"
+        },                {
+            "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver\u003A\u003AresolveActionWithClassAndId\u0028\u0029",
+            "name": "resolveActionWithClassAndId",
+            "summary": "Creates\u0020a\u0020response\u0020based\u0020on\u0020the\u0020passed\u0020class\u0020and\u0020id",
+            "url": "classes/App-Routing-JinyaModelToRouteResolver.html#method_resolveActionWithClassAndId"
+        },                {
+            "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver\u003A\u003AexecuteGetRequest\u0028\u0029",
+            "name": "executeGetRequest",
+            "summary": "Executes\u0020a\u0020GET\u0020request",
+            "url": "classes/App-Routing-JinyaModelToRouteResolver.html#method_executeGetRequest"
+        },                {
+            "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver\u003A\u003AexecuteDeleteRequest\u0028\u0029",
+            "name": "executeDeleteRequest",
+            "summary": "Executes\u0020a\u0020DELETE\u0020request",
+            "url": "classes/App-Routing-JinyaModelToRouteResolver.html#method_executeDeleteRequest"
+        },                {
+            "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver\u003A\u003AexecutePostRequest\u0028\u0029",
+            "name": "executePostRequest",
+            "summary": "Executes\u0020a\u0020POST\u0020request",
+            "url": "classes/App-Routing-JinyaModelToRouteResolver.html#method_executePostRequest"
+        },                {
+            "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver\u003A\u003AexecutePutRequest\u0028\u0029",
+            "name": "executePutRequest",
+            "summary": "",
+            "url": "classes/App-Routing-JinyaModelToRouteResolver.html#method_executePutRequest"
+        },                {
+            "fqsen": "\\App\\Routing\\JinyaModelToRouteResolver\u003A\u003AcheckRole\u0028\u0029",
+            "name": "checkRole",
+            "summary": "Checks\u0020whether\u0020the\u0020user\u0020in\u0020the\u0020current\u0020request\u0020has\u0020the\u0020given\u0020role\u0020and\u0020sets\u0020the\u0020current\u0020user\u0020global",
+            "url": "classes/App-Routing-JinyaModelToRouteResolver.html#method_checkRole"
+        },                {
+            "fqsen": "\\App\\Statistics\\Entity",
+            "name": "Entity",
+            "summary": "Helper\u0020class\u0020to\u0020get\u0020the\u0020share\u0020of\u0020entities\u0020in\u0020the\u0020database",
+            "url": "classes/App-Statistics-Entity.html"
+        },                {
+            "fqsen": "\\App\\Statistics\\Entity\u003A\u003AgetEntityShare\u0028\u0029",
+            "name": "getEntityShare",
+            "summary": "Gets\u0020the\u0020count\u0020of\u0020files,\u0020galleries,\u0020simple\u0020pages,\u0020segment\u0020pages,\u0020forms,\u0020blog\u0020posts\u0020and\u0020blog\u0020categories",
+            "url": "classes/App-Statistics-Entity.html#method_getEntityShare"
+        },                {
+            "fqsen": "\\App\\Statistics\\History",
+            "name": "History",
+            "summary": "Helper\u0020class\u0020to\u0020get\u0020the\u0020history\u0020of\u0020the\u0020given\u0020entity\u0020type",
+            "url": "classes/App-Statistics-History.html"
+        },                {
+            "fqsen": "\\App\\Statistics\\History\u003A\u003AgetCreatedHistory\u0028\u0029",
+            "name": "getCreatedHistory",
+            "summary": "Gets\u0020the\u0020create\u0020history\u0020of\u0020the\u0020given\u0020entity\u0020type",
+            "url": "classes/App-Statistics-History.html#method_getCreatedHistory"
+        },                {
+            "fqsen": "\\App\\Statistics\\History\u003A\u003AgetUpdatedHistory\u0028\u0029",
+            "name": "getUpdatedHistory",
+            "summary": "Gets\u0020the\u0020update\u0020history\u0020of\u0020the\u0020given\u0020entity\u0020type",
+            "url": "classes/App-Statistics-History.html#method_getUpdatedHistory"
+        },                {
+            "fqsen": "\\App\\Statistics\\HistoryEntry",
+            "name": "HistoryEntry",
+            "summary": "A\u0020history\u0020entry\u0020contains\u0020the\u0020count\u0020and\u0020date\u0020of\u0020changes",
+            "url": "classes/App-Statistics-HistoryEntry.html"
+        },                {
+            "fqsen": "\\App\\Statistics\\HistoryEntry\u003A\u003AjsonSerialize\u0028\u0029",
+            "name": "jsonSerialize",
+            "summary": "Serializes\u0020the\u0020data\u0020into\u0020JSON",
+            "url": "classes/App-Statistics-HistoryEntry.html#method_jsonSerialize"
+        },                {
+            "fqsen": "\\App\\Statistics\\HistoryEntry\u003A\u003Aformat\u0028\u0029",
+            "name": "format",
+            "summary": "Formats\u0020the\u0020data\u0020into\u0020an\u0020array",
+            "url": "classes/App-Statistics-HistoryEntry.html#method_format"
+        },                {
             "fqsen": "\\App\\Statistics\\HistoryEntry\u003A\u003A\u0024count",
             "name": "count",
             "summary": "",
@@ -2985,57 +2985,57 @@ Search.appendIndex(
             "name": "date",
             "summary": "",
             "url": "classes/App-Statistics-HistoryEntry.html#property_date"
-        }, {
-      "fqsen": "\\App\\Statistics\\MatomoClient",
-      "name": "MatomoClient",
-      "summary": "The\u0020matomo\u0020client\u0020connects\u0020to\u0020the\u0020configured\u0020matomo\u0020instance\u0020and\u0020offers\u0020a\u0020few\u0020statistics\u0020methods",
-      "url": "classes/App-Statistics-MatomoClient.html"
-    }, {
-      "fqsen": "\\App\\Statistics\\MatomoClient\u003A\u003AnewClient\u0028\u0029",
-      "name": "newClient",
-      "summary": "Creates\u0020a\u0020new\u0020matomo\u0020client\u0020with\u0020the\u0020ENV\u0020configured\u0020values",
-      "url": "classes/App-Statistics-MatomoClient.html#method_newClient"
-    }, {
-      "fqsen": "\\App\\Statistics\\MatomoClient\u003A\u003AgetVisitsByCountry\u0028\u0029",
-      "name": "getVisitsByCountry",
-      "summary": "Gets\u0020the\u0020visits\u0020by\u0020country\u0020in\u0020the\u0020given\u0020period",
-      "url": "classes/App-Statistics-MatomoClient.html#method_getVisitsByCountry"
-    }, {
-      "fqsen": "\\App\\Statistics\\MatomoClient\u003A\u003ArequestMatomo\u0028\u0029",
-      "name": "requestMatomo",
-      "summary": "Sends\u0020a\u0020request\u0020to\u0020matomo",
-      "url": "classes/App-Statistics-MatomoClient.html#method_requestMatomo"
-    }, {
-      "fqsen": "\\App\\Statistics\\MatomoClient\u003A\u003AgetVisitsByBrowsers\u0028\u0029",
-      "name": "getVisitsByBrowsers",
-      "summary": "Gets\u0020the\u0020visits\u0020by\u0020browser\u0020for\u0020the\u0020given\u0020period",
-      "url": "classes/App-Statistics-MatomoClient.html#method_getVisitsByBrowsers"
-    }, {
-      "fqsen": "\\App\\Statistics\\MatomoClient\u003A\u003AgetVisitsByOsVersions\u0028\u0029",
-      "name": "getVisitsByOsVersions",
-      "summary": "Gets\u0020the\u0020visits\u0020by\u0020os\u0020version",
-      "url": "classes/App-Statistics-MatomoClient.html#method_getVisitsByOsVersions"
-    }, {
-      "fqsen": "\\App\\Statistics\\MatomoClient\u003A\u003AgetVisitsByDeviceBrand\u0028\u0029",
-      "name": "getVisitsByDeviceBrand",
-      "summary": "Gets\u0020the\u0020visits\u0020by\u0020device\u0020brand",
-      "url": "classes/App-Statistics-MatomoClient.html#method_getVisitsByDeviceBrand"
-    }, {
-      "fqsen": "\\App\\Statistics\\MatomoClient\u003A\u003AgetVisitsByDeviceType\u0028\u0029",
-      "name": "getVisitsByDeviceType",
-      "summary": "Gets\u0020the\u0020visits\u0020by\u0020device\u0020type",
-      "url": "classes/App-Statistics-MatomoClient.html#method_getVisitsByDeviceType"
-    }, {
-      "fqsen": "\\App\\Statistics\\MatomoClient\u003A\u003AgetVisitsByLanguage\u0028\u0029",
-      "name": "getVisitsByLanguage",
-      "summary": "Gets\u0020the\u0020visits\u0020by\u0020language",
-      "url": "classes/App-Statistics-MatomoClient.html#method_getVisitsByLanguage"
-    }, {
-      "fqsen": "\\App\\Statistics\\MatomoClient\u003A\u003AgetVisitsByReferrer\u0028\u0029",
-      "name": "getVisitsByReferrer",
-      "summary": "Gets\u0020the\u0020visits\u0020by\u0020referrer",
-      "url": "classes/App-Statistics-MatomoClient.html#method_getVisitsByReferrer"
-    },                {
+        },                {
+            "fqsen": "\\App\\Statistics\\MatomoClient",
+            "name": "MatomoClient",
+            "summary": "The\u0020matomo\u0020client\u0020connects\u0020to\u0020the\u0020configured\u0020matomo\u0020instance\u0020and\u0020offers\u0020a\u0020few\u0020statistics\u0020methods",
+            "url": "classes/App-Statistics-MatomoClient.html"
+        },                {
+            "fqsen": "\\App\\Statistics\\MatomoClient\u003A\u003AnewClient\u0028\u0029",
+            "name": "newClient",
+            "summary": "Creates\u0020a\u0020new\u0020matomo\u0020client\u0020with\u0020the\u0020ENV\u0020configured\u0020values",
+            "url": "classes/App-Statistics-MatomoClient.html#method_newClient"
+        },                {
+            "fqsen": "\\App\\Statistics\\MatomoClient\u003A\u003AgetVisitsByCountry\u0028\u0029",
+            "name": "getVisitsByCountry",
+            "summary": "Gets\u0020the\u0020visits\u0020by\u0020country\u0020in\u0020the\u0020given\u0020period",
+            "url": "classes/App-Statistics-MatomoClient.html#method_getVisitsByCountry"
+        },                {
+            "fqsen": "\\App\\Statistics\\MatomoClient\u003A\u003ArequestMatomo\u0028\u0029",
+            "name": "requestMatomo",
+            "summary": "Sends\u0020a\u0020request\u0020to\u0020matomo",
+            "url": "classes/App-Statistics-MatomoClient.html#method_requestMatomo"
+        },                {
+            "fqsen": "\\App\\Statistics\\MatomoClient\u003A\u003AgetVisitsByBrowsers\u0028\u0029",
+            "name": "getVisitsByBrowsers",
+            "summary": "Gets\u0020the\u0020visits\u0020by\u0020browser\u0020for\u0020the\u0020given\u0020period",
+            "url": "classes/App-Statistics-MatomoClient.html#method_getVisitsByBrowsers"
+        },                {
+            "fqsen": "\\App\\Statistics\\MatomoClient\u003A\u003AgetVisitsByOsVersions\u0028\u0029",
+            "name": "getVisitsByOsVersions",
+            "summary": "Gets\u0020the\u0020visits\u0020by\u0020os\u0020version",
+            "url": "classes/App-Statistics-MatomoClient.html#method_getVisitsByOsVersions"
+        },                {
+            "fqsen": "\\App\\Statistics\\MatomoClient\u003A\u003AgetVisitsByDeviceBrand\u0028\u0029",
+            "name": "getVisitsByDeviceBrand",
+            "summary": "Gets\u0020the\u0020visits\u0020by\u0020device\u0020brand",
+            "url": "classes/App-Statistics-MatomoClient.html#method_getVisitsByDeviceBrand"
+        },                {
+            "fqsen": "\\App\\Statistics\\MatomoClient\u003A\u003AgetVisitsByDeviceType\u0028\u0029",
+            "name": "getVisitsByDeviceType",
+            "summary": "Gets\u0020the\u0020visits\u0020by\u0020device\u0020type",
+            "url": "classes/App-Statistics-MatomoClient.html#method_getVisitsByDeviceType"
+        },                {
+            "fqsen": "\\App\\Statistics\\MatomoClient\u003A\u003AgetVisitsByLanguage\u0028\u0029",
+            "name": "getVisitsByLanguage",
+            "summary": "Gets\u0020the\u0020visits\u0020by\u0020language",
+            "url": "classes/App-Statistics-MatomoClient.html#method_getVisitsByLanguage"
+        },                {
+            "fqsen": "\\App\\Statistics\\MatomoClient\u003A\u003AgetVisitsByReferrer\u0028\u0029",
+            "name": "getVisitsByReferrer",
+            "summary": "Gets\u0020the\u0020visits\u0020by\u0020referrer",
+            "url": "classes/App-Statistics-MatomoClient.html#method_getVisitsByReferrer"
+        },                {
             "fqsen": "\\App\\Statistics\\MatomoClient\u003A\u003A\u0024matomoServer",
             "name": "matomoServer",
             "summary": "",
@@ -3050,32 +3050,32 @@ Search.appendIndex(
             "name": "matomoSiteId",
             "summary": "",
             "url": "classes/App-Statistics-MatomoClient.html#property_matomoSiteId"
-        }, {
-      "fqsen": "\\App\\Statistics\\Storage",
-      "name": "Storage",
-      "summary": "Helper\u0020class\u0020to\u0020get\u0020storage\u0020statistics",
-      "url": "classes/App-Statistics-Storage.html"
-    }, {
-      "fqsen": "\\App\\Statistics\\Storage\u003A\u003AgetTotalStorage\u0028\u0029",
-      "name": "getTotalStorage",
-      "summary": "Gets\u0020the\u0020total\u0020available\u0020storage\u0020on\u0020the\u0020system",
-      "url": "classes/App-Statistics-Storage.html#method_getTotalStorage"
-    }, {
-      "fqsen": "\\App\\Statistics\\Storage\u003A\u003AgetFreeStorage\u0028\u0029",
-      "name": "getFreeStorage",
-      "summary": "Gets\u0020the\u0020free\u0020available\u0020storage\u0020on\u0020the\u0020system",
-      "url": "classes/App-Statistics-Storage.html#method_getFreeStorage"
-    }, {
-      "fqsen": "\\App\\Statistics\\Storage\u003A\u003AgetUsedStorage\u0028\u0029",
-      "name": "getUsedStorage",
-      "summary": "Gets\u0020the\u0020storage\u0020used\u0020by\u0020Jinya\u0020CMS",
-      "url": "classes/App-Statistics-Storage.html#method_getUsedStorage"
-    }, {
-      "fqsen": "\\App\\Storage\\FileUploadService",
-      "name": "FileUploadService",
-      "summary": "A\u0020simple\u0020helper\u0020to\u0020handle\u0020file\u0020uploads",
-      "url": "classes/App-Storage-FileUploadService.html"
-    },                {
+        },                {
+            "fqsen": "\\App\\Statistics\\Storage",
+            "name": "Storage",
+            "summary": "Helper\u0020class\u0020to\u0020get\u0020storage\u0020statistics",
+            "url": "classes/App-Statistics-Storage.html"
+        },                {
+            "fqsen": "\\App\\Statistics\\Storage\u003A\u003AgetTotalStorage\u0028\u0029",
+            "name": "getTotalStorage",
+            "summary": "Gets\u0020the\u0020total\u0020available\u0020storage\u0020on\u0020the\u0020system",
+            "url": "classes/App-Statistics-Storage.html#method_getTotalStorage"
+        },                {
+            "fqsen": "\\App\\Statistics\\Storage\u003A\u003AgetFreeStorage\u0028\u0029",
+            "name": "getFreeStorage",
+            "summary": "Gets\u0020the\u0020free\u0020available\u0020storage\u0020on\u0020the\u0020system",
+            "url": "classes/App-Statistics-Storage.html#method_getFreeStorage"
+        },                {
+            "fqsen": "\\App\\Statistics\\Storage\u003A\u003AgetUsedStorage\u0028\u0029",
+            "name": "getUsedStorage",
+            "summary": "Gets\u0020the\u0020storage\u0020used\u0020by\u0020Jinya\u0020CMS",
+            "url": "classes/App-Statistics-Storage.html#method_getUsedStorage"
+        },                {
+            "fqsen": "\\App\\Storage\\FileUploadService",
+            "name": "FileUploadService",
+            "summary": "A\u0020simple\u0020helper\u0020to\u0020handle\u0020file\u0020uploads",
+            "url": "classes/App-Storage-FileUploadService.html"
+        },                {
             "fqsen": "\\App\\Storage\\FileUploadService\u003A\u003AsaveChunk\u0028\u0029",
             "name": "saveChunk",
             "summary": "Saves\u0020a\u0020new\u0020file\u0020chunk\u0020and\u0020returns\u0020it",
@@ -3090,12 +3090,12 @@ Search.appendIndex(
             "name": "clearChunks",
             "summary": "Removes\u0020all\u0020chunks\u0020for\u0020the\u0020given\u0020file",
             "url": "classes/App-Storage-FileUploadService.html#method_clearChunks"
-        }, {
-      "fqsen": "\\App\\Storage\\ProfilePictureService",
-      "name": "ProfilePictureService",
-      "summary": "A\u0020simple\u0020helper\u0020to\u0020handle\u0020profile\u0020picture\u0020uploads",
-      "url": "classes/App-Storage-ProfilePictureService.html"
-    },                {
+        },                {
+            "fqsen": "\\App\\Storage\\ProfilePictureService",
+            "name": "ProfilePictureService",
+            "summary": "A\u0020simple\u0020helper\u0020to\u0020handle\u0020profile\u0020picture\u0020uploads",
+            "url": "classes/App-Storage-ProfilePictureService.html"
+        },                {
             "fqsen": "\\App\\Storage\\ProfilePictureService\u003A\u003AsaveProfilePicture\u0028\u0029",
             "name": "saveProfilePicture",
             "summary": "Sets\u0020and\u0020saves\u0020the\u0020profile\u0020picture\u0020of\u0020the\u0020given\u0020artist",
@@ -3105,17 +3105,17 @@ Search.appendIndex(
             "name": "deleteProfilePicture",
             "summary": "Deletes\u0020the\u0020artists\u0020profile\u0020picture",
             "url": "classes/App-Storage-ProfilePictureService.html#method_deleteProfilePicture"
-        }, {
-      "fqsen": "\\App\\Storage\\StorageBaseService",
-      "name": "StorageBaseService",
-      "summary": "Provides\u0020helpers\u0020for\u0020storage\u0020services.\u0020It\u0020contains\u0020several\u0020constants\u0020and\u0020a\u0020helper\u0020method\u0020for\u0020hashing\u0020files",
-      "url": "classes/App-Storage-StorageBaseService.html"
-    }, {
-      "fqsen": "\\App\\Storage\\StorageBaseService\u003A\u003AgetFileHash\u0028\u0029",
-      "name": "getFileHash",
-      "summary": "Hashes\u0020the\u0020given\u0020resources\u0020content",
-      "url": "classes/App-Storage-StorageBaseService.html#method_getFileHash"
-    },                {
+        },                {
+            "fqsen": "\\App\\Storage\\StorageBaseService",
+            "name": "StorageBaseService",
+            "summary": "Provides\u0020helpers\u0020for\u0020storage\u0020services.\u0020It\u0020contains\u0020several\u0020constants\u0020and\u0020a\u0020helper\u0020method\u0020for\u0020hashing\u0020files",
+            "url": "classes/App-Storage-StorageBaseService.html"
+        },                {
+            "fqsen": "\\App\\Storage\\StorageBaseService\u003A\u003AgetFileHash\u0028\u0029",
+            "name": "getFileHash",
+            "summary": "Hashes\u0020the\u0020given\u0020resources\u0020content",
+            "url": "classes/App-Storage-StorageBaseService.html#method_getFileHash"
+        },                {
             "fqsen": "\\App\\Storage\\StorageBaseService\u003A\u003AWEB_PATH",
             "name": "WEB_PATH",
             "summary": "",
@@ -3183,37 +3183,37 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Theming\\Engine",
             "name": "Engine",
-            "summary": "",
+            "summary": "Helper\u0020class\u0020to\u0020create\u0020a\u0020new\u0020Plates\u0020engine",
             "url": "classes/App-Theming-Engine.html"
         },                {
             "fqsen": "\\App\\Theming\\Engine\u003A\u003AgetPlatesEngine\u0028\u0029",
             "name": "getPlatesEngine",
-            "summary": "",
+            "summary": "Creates\u0020a\u0020new\u0020Plates\u0020engine\u0020and\u0020registers\u0020the\u0020default\u0020routes",
             "url": "classes/App-Theming-Engine.html#method_getPlatesEngine"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\FileExtension",
             "name": "FileExtension",
-            "summary": "",
+            "summary": "Provides\u0020extensions\u0020to\u0020the\u0020Plates\u0020engine,\u0020adding\u0020helper\u0020methods\u0020for\u0020image\u0020handling\u0020of\u0020files",
             "url": "classes/App-Theming-Extensions-FileExtension.html"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\FileExtension\u003A\u003Aregister\u0028\u0029",
             "name": "register",
-            "summary": "",
+            "summary": "Registers\u0020the\u0020helper\u0020method\u0020with\u0020the\u0020plates\u0020engine",
             "url": "classes/App-Theming-Extensions-FileExtension.html#method_register"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\FileExtension\u003A\u003Asrcset\u0028\u0029",
             "name": "srcset",
-            "summary": "",
+            "summary": "Generates\u0020a\u0020srcset\u0020compatible\u0020string\u0020for\u0020use\u0020in\u0020img\u0020and\u0020picture\u0020tags",
             "url": "classes/App-Theming-Extensions-FileExtension.html#method_srcset"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\FileExtension\u003A\u003Asizes\u0028\u0029",
             "name": "sizes",
-            "summary": "",
+            "summary": "Returns\u0020the\u0020sizes\u0020supported\u0020by\u0020the\u0020srcset\u0020method",
             "url": "classes/App-Theming-Extensions-FileExtension.html#method_sizes"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\FileExtension\u003A\u003ApictureSources\u0028\u0029",
             "name": "pictureSources",
-            "summary": "",
+            "summary": "Generates\u0020source\u0020tags\u0020for\u0020use\u0020in\u0020a\u0020picture\u0020element",
             "url": "classes/App-Theming-Extensions-FileExtension.html#method_pictureSources"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\FileExtension\u003A\u003ARESOLUTIONS_FOR_SOURCE",
@@ -3228,87 +3228,87 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\LinksExtension",
             "name": "LinksExtension",
-            "summary": "",
+            "summary": "Provides\u0020extensions\u0020to\u0020the\u0020Plates\u0020engine,\u0020adding\u0020helper\u0020methods\u0020for\u0020handling\u0020of\u0020configuration\u0020links",
             "url": "classes/App-Theming-Extensions-LinksExtension.html"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "Creates\u0020a\u0020new\u0020LinksExtension\u0020class",
             "url": "classes/App-Theming-Extensions-LinksExtension.html#method___construct"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003Aregister\u0028\u0029",
             "name": "register",
-            "summary": "",
+            "summary": "Registers\u0020the\u0020helper\u0020method\u0020with\u0020the\u0020plates\u0020engine",
             "url": "classes/App-Theming-Extensions-LinksExtension.html#method_register"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003AhasSegmentPage\u0028\u0029",
             "name": "hasSegmentPage",
-            "summary": "",
+            "summary": "Returns\u0020true\u0020when\u0020a\u0020segment\u0020page\u0020with\u0020that\u0020name\u0020is\u0020configured",
             "url": "classes/App-Theming-Extensions-LinksExtension.html#method_hasSegmentPage"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003AhasSimplePage\u0028\u0029",
             "name": "hasSimplePage",
-            "summary": "",
+            "summary": "Returns\u0020true\u0020when\u0020a\u0020simple\u0020page\u0020with\u0020that\u0020name\u0020is\u0020configured",
             "url": "classes/App-Theming-Extensions-LinksExtension.html#method_hasSimplePage"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003AhasFile\u0028\u0029",
             "name": "hasFile",
-            "summary": "",
+            "summary": "Returns\u0020true\u0020when\u0020a\u0020file\u0020with\u0020that\u0020name\u0020is\u0020configured",
             "url": "classes/App-Theming-Extensions-LinksExtension.html#method_hasFile"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003AhasGallery\u0028\u0029",
             "name": "hasGallery",
-            "summary": "",
+            "summary": "Returns\u0020true\u0020when\u0020a\u0020gallery\u0020with\u0020that\u0020name\u0020is\u0020configured",
             "url": "classes/App-Theming-Extensions-LinksExtension.html#method_hasGallery"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003AhasMenu\u0028\u0029",
             "name": "hasMenu",
-            "summary": "",
+            "summary": "Returns\u0020true\u0020when\u0020a\u0020menu\u0020with\u0020that\u0020name\u0020is\u0020configured",
             "url": "classes/App-Theming-Extensions-LinksExtension.html#method_hasMenu"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003AhasForm\u0028\u0029",
             "name": "hasForm",
-            "summary": "",
+            "summary": "Returns\u0020true\u0020when\u0020a\u0020form\u0020with\u0020that\u0020name\u0020is\u0020configured",
             "url": "classes/App-Theming-Extensions-LinksExtension.html#method_hasForm"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003AhasBlogCategory\u0028\u0029",
             "name": "hasBlogCategory",
-            "summary": "",
+            "summary": "Returns\u0020true\u0020when\u0020a\u0020blog\u0020category\u0020with\u0020that\u0020name\u0020is\u0020configured",
             "url": "classes/App-Theming-Extensions-LinksExtension.html#method_hasBlogCategory"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003AsegmentPage\u0028\u0029",
             "name": "segmentPage",
-            "summary": "",
+            "summary": "Returns\u0020the\u0020segment\u0020page\u0020with\u0020the\u0020given\u0020name\u0020or\u0020null",
             "url": "classes/App-Theming-Extensions-LinksExtension.html#method_segmentPage"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003AsimplePage\u0028\u0029",
             "name": "simplePage",
-            "summary": "",
+            "summary": "Returns\u0020the\u0020simple\u0020page\u0020with\u0020the\u0020given\u0020name\u0020or\u0020null",
             "url": "classes/App-Theming-Extensions-LinksExtension.html#method_simplePage"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003Afile\u0028\u0029",
             "name": "file",
-            "summary": "",
+            "summary": "Returns\u0020the\u0020file\u0020with\u0020the\u0020given\u0020name\u0020or\u0020null",
             "url": "classes/App-Theming-Extensions-LinksExtension.html#method_file"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003Aform\u0028\u0029",
             "name": "form",
-            "summary": "",
+            "summary": "Returns\u0020the\u0020form\u0020with\u0020the\u0020given\u0020name\u0020or\u0020null",
             "url": "classes/App-Theming-Extensions-LinksExtension.html#method_form"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003Amenu\u0028\u0029",
             "name": "menu",
-            "summary": "",
+            "summary": "Returns\u0020the\u0020menu\u0020with\u0020the\u0020given\u0020name\u0020or\u0020null",
             "url": "classes/App-Theming-Extensions-LinksExtension.html#method_menu"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003AblogCategory\u0028\u0029",
             "name": "blogCategory",
-            "summary": "",
+            "summary": "Returns\u0020the\u0020blog\u0020category\u0020with\u0020the\u0020given\u0020name\u0020or\u0020null",
             "url": "classes/App-Theming-Extensions-LinksExtension.html#method_blogCategory"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003Agallery\u0028\u0029",
             "name": "gallery",
-            "summary": "",
+            "summary": "Returns\u0020the\u0020gallery\u0020with\u0020the\u0020given\u0020name\u0020or\u0020null",
             "url": "classes/App-Theming-Extensions-LinksExtension.html#method_gallery"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\LinksExtension\u003A\u003A\u0024dbTheme",
@@ -3318,12 +3318,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\MenuExtension",
             "name": "MenuExtension",
-            "summary": "",
+            "summary": "Provides\u0020extensions\u0020to\u0020the\u0020Plates\u0020engine,\u0020adding\u0020helper\u0020methods\u0020for\u0020menus",
             "url": "classes/App-Theming-Extensions-MenuExtension.html"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\MenuExtension\u003A\u003Aregister\u0028\u0029",
             "name": "register",
-            "summary": "",
+            "summary": "Registers\u0020the\u0020helper\u0020method\u0020with\u0020the\u0020plates\u0020engine",
             "url": "classes/App-Theming-Extensions-MenuExtension.html#method_register"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\MenuExtension\u003A\u003AisChildActiveMenuItem\u0028\u0029",
@@ -3343,17 +3343,17 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\ThemeExtension",
             "name": "ThemeExtension",
-            "summary": "",
+            "summary": "Provides\u0020extensions\u0020to\u0020the\u0020Plates\u0020engine,\u0020adding\u0020helper\u0020methods\u0020for\u0020themes",
             "url": "classes/App-Theming-Extensions-ThemeExtension.html"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\ThemeExtension\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "Creates\u0020a\u0020new\u0020ThemeExtension\u0020class",
             "url": "classes/App-Theming-Extensions-ThemeExtension.html#method___construct"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\ThemeExtension\u003A\u003Aregister\u0028\u0029",
             "name": "register",
-            "summary": "",
+            "summary": "Registers\u0020the\u0020helper\u0020method\u0020with\u0020the\u0020plates\u0020engine",
             "url": "classes/App-Theming-Extensions-ThemeExtension.html#method_register"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\ThemeExtension\u003A\u003Aasset\u0028\u0029",
@@ -3363,17 +3363,17 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\ThemeExtension\u003A\u003Aconfig\u0028\u0029",
             "name": "config",
-            "summary": "",
+            "summary": "Gets\u0020a\u0020configuration\u0020value\u0020from\u0020the\u0020database,\u0020if\u0020the\u0020value\u0020is\u0020not\u0020set\u0020in\u0020the\u0020database\u0020the\u0020default\u0020value\u0020will\u0020be\u0020set",
             "url": "classes/App-Theming-Extensions-ThemeExtension.html#method_config"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\ThemeExtension\u003A\u003Astyles\u0028\u0029",
             "name": "styles",
-            "summary": "",
+            "summary": "Returns\u0020link\u0020tags\u0020for\u0020all\u0020configured\u0020stylesheets",
             "url": "classes/App-Theming-Extensions-ThemeExtension.html#method_styles"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\ThemeExtension\u003A\u003Ascripts\u0028\u0029",
             "name": "scripts",
-            "summary": "",
+            "summary": "Returns\u0020script\u0020tags\u0020for\u0020all\u0020configured\u0020scripts",
             "url": "classes/App-Theming-Extensions-ThemeExtension.html#method_scripts"
         },                {
             "fqsen": "\\App\\Theming\\Extensions\\ThemeExtension\u003A\u003A\u0024theme",
@@ -3388,7 +3388,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Theming\\Theme",
             "name": "Theme",
-            "summary": "",
+            "summary": "Themes\u0020contain\u0020all\u0020information\u0020about\u0020the\u0020cache\u0020state\u0020and\u0020several\u0020helpers\u0020for\u0020themes",
             "url": "classes/App-Theming-Theme.html"
         },                {
             "fqsen": "\\App\\Theming\\Theme\u003A\u003A__construct\u0028\u0029",
@@ -3398,7 +3398,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Theming\\Theme\u003A\u003AparseThemePhp\u0028\u0029",
             "name": "parseThemePhp",
-            "summary": "",
+            "summary": "Parses\u0020the\u0020theme.php\u0020file",
             "url": "classes/App-Theming-Theme.html#method_parseThemePhp"
         },                {
             "fqsen": "\\App\\Theming\\Theme\u003A\u003AgetActiveTheme\u0028\u0029",
@@ -3428,12 +3428,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Theming\\Theme\u003A\u003AclearStyleCache\u0028\u0029",
             "name": "clearStyleCache",
-            "summary": "",
+            "summary": "Clears\u0020the\u0020styles\u0020cache",
             "url": "classes/App-Theming-Theme.html#method_clearStyleCache"
         },                {
             "fqsen": "\\App\\Theming\\Theme\u003A\u003AgetStyleCache\u0028\u0029",
             "name": "getStyleCache",
-            "summary": "",
+            "summary": "Gets\u0020the\u0020style\u0020cache",
             "url": "classes/App-Theming-Theme.html#method_getStyleCache"
         },                {
             "fqsen": "\\App\\Theming\\Theme\u003A\u003AcompileScriptCache\u0028\u0029",
@@ -3443,12 +3443,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Theming\\Theme\u003A\u003AclearScriptCache\u0028\u0029",
             "name": "clearScriptCache",
-            "summary": "",
+            "summary": "Clears\u0020the\u0020script\u0020cache",
             "url": "classes/App-Theming-Theme.html#method_clearScriptCache"
         },                {
             "fqsen": "\\App\\Theming\\Theme\u003A\u003AgetScriptCache\u0028\u0029",
             "name": "getScriptCache",
-            "summary": "",
+            "summary": "Gets\u0020the\u0020script\u0020cache",
             "url": "classes/App-Theming-Theme.html#method_getScriptCache"
         },                {
             "fqsen": "\\App\\Theming\\Theme\u003A\u003AcompileAssetCache\u0028\u0029",
@@ -3458,27 +3458,27 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Theming\\Theme\u003A\u003AclearAssetCache\u0028\u0029",
             "name": "clearAssetCache",
-            "summary": "",
+            "summary": "Clears\u0020the\u0020asset\u0020cache",
             "url": "classes/App-Theming-Theme.html#method_clearAssetCache"
         },                {
             "fqsen": "\\App\\Theming\\Theme\u003A\u003AgetAssetCache\u0028\u0029",
             "name": "getAssetCache",
-            "summary": "",
+            "summary": "Gets\u0020the\u0020asset\u0020cache",
             "url": "classes/App-Theming-Theme.html#method_getAssetCache"
         },                {
             "fqsen": "\\App\\Theming\\Theme\u003A\u003AgetStyleVariables\u0028\u0029",
             "name": "getStyleVariables",
-            "summary": "",
+            "summary": "Gets\u0020all\u0020style\u0020variables\u0020from\u0020the\u0020theme\u0020configuration",
             "url": "classes/App-Theming-Theme.html#method_getStyleVariables"
         },                {
             "fqsen": "\\App\\Theming\\Theme\u003A\u003AgetConfigurationStructure\u0028\u0029",
             "name": "getConfigurationStructure",
-            "summary": "",
+            "summary": "Gets\u0020the\u0020configuration\u0020structure\u0020from\u0020the\u0020theme.php",
             "url": "classes/App-Theming-Theme.html#method_getConfigurationStructure"
         },                {
             "fqsen": "\\App\\Theming\\Theme\u003A\u003AgetPreviewImagePath\u0028\u0029",
             "name": "getPreviewImagePath",
-            "summary": "",
+            "summary": "Gets\u0020the\u0020path\u0020to\u0020the\u0020preview\u0020image",
             "url": "classes/App-Theming-Theme.html#method_getPreviewImagePath"
         },                {
             "fqsen": "\\App\\Theming\\Theme\u003A\u003AERROR_BEHAVIOR_HOMEPAGE",
@@ -3518,12 +3518,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Theming\\ThemeSyncer",
             "name": "ThemeSyncer",
-            "summary": "",
+            "summary": "Helper\u0020class\u0020to\u0020synchronise\u0020the\u0020themes\u0020in\u0020the\u0020file\u0020system\u0020with\u0020the\u0020database",
             "url": "classes/App-Theming-ThemeSyncer.html"
         },                {
             "fqsen": "\\App\\Theming\\ThemeSyncer\u003A\u003AsyncThemes\u0028\u0029",
             "name": "syncThemes",
-            "summary": "",
+            "summary": "Syncs\u0020the\u0020themes\u0020from\u0020the\u0020local\u0020file\u0020system\u0020into\u0020the\u0020database",
             "url": "classes/App-Theming-ThemeSyncer.html#method_syncThemes"
         },                {
             "fqsen": "\\App\\Theming\\ThemeSyncer\u003A\u003ATHEME_BASE_PATH",

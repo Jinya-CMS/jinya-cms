@@ -14,18 +14,24 @@ use ScssPhp\ScssPhp\Compiler;
 use ScssPhp\ScssPhp\OutputStyle;
 
 /**
- *
+ * Themes contain all information about the cache state and several helpers for themes
  */
 class Theme implements ExtensionInterface
 {
+    /** @var string Use this in your theme.php if you want to redirect to the homepage if there is any error */
     public const ERROR_BEHAVIOR_HOMEPAGE = 'homepage';
+    /** @var string Use this in your theme.php if you want to show an error page if there is any error */
     public const ERROR_BEHAVIOR_ERROR_PAGE = 'errorpage';
+    /** @var string The base public path for themes */
     public const BASE_PUBLIC_PATH = '/themes/';
+    /** @var string The default cache path for themes */
     public const BASE_CACHE_PATH = __DIR__ . '/../../public' . self::BASE_PUBLIC_PATH;
 
+    /** @var Database\Theme The theme from the database */
     private Database\Theme $dbTheme;
+    /** @var Compiler The SCSS compiler used to compile the themes */
     private Compiler $scssCompiler;
-    /** @var array<string, mixed> */
+    /** @var array<string, mixed> The configuration of the theme */
     private array $configuration;
 
     /**
@@ -50,6 +56,11 @@ class Theme implements ExtensionInterface
         $this->parseThemePhp();
     }
 
+    /**
+     * Parses the theme.php file
+     *
+     * @return void
+     */
     private function parseThemePhp(): void
     {
         $themePhpFile = ThemeSyncer::THEME_BASE_PATH . $this->dbTheme->name . '/theme.php';
@@ -128,6 +139,11 @@ class Theme implements ExtensionInterface
         }
     }
 
+    /**
+     * Clears the styles cache
+     *
+     * @return void
+     */
     private function clearStyleCache(): void
     {
         foreach ($this->getStyleCache() as $file) {
@@ -138,6 +154,8 @@ class Theme implements ExtensionInterface
     }
 
     /**
+     * Gets the style cache
+     *
      * @return array<string>
      */
     private function getStyleCache(): array
@@ -172,6 +190,11 @@ class Theme implements ExtensionInterface
         }
     }
 
+    /**
+     * Clears the script cache
+     *
+     * @return void
+     */
     private function clearScriptCache(): void
     {
         foreach ($this->getScriptCache() as $file) {
@@ -182,6 +205,8 @@ class Theme implements ExtensionInterface
     }
 
     /**
+     * Gets the script cache
+     *
      * @return array<string>
      */
     private function getScriptCache(): array
@@ -232,6 +257,11 @@ class Theme implements ExtensionInterface
         }
     }
 
+    /**
+     * Clears the asset cache
+     *
+     * @return void
+     */
     private function clearAssetCache(): void
     {
         foreach ($this->getAssetCache() as $file) {
@@ -242,6 +272,8 @@ class Theme implements ExtensionInterface
     }
 
     /**
+     * Gets the asset cache
+     *
      * @return array<string>
      */
     private function getAssetCache(): array
@@ -253,6 +285,8 @@ class Theme implements ExtensionInterface
     }
 
     /**
+     * Gets all style variables from the theme configuration
+     *
      * @return array<string>
      */
     public function getStyleVariables(): array
@@ -285,6 +319,8 @@ class Theme implements ExtensionInterface
     }
 
     /**
+     * Gets the configuration structure from the theme.php
+     *
      * @return array<string, mixed>
      */
     public function getConfigurationStructure(): array
@@ -292,6 +328,11 @@ class Theme implements ExtensionInterface
         return $this->configuration['configurationStructure'] ?? [];
     }
 
+    /**
+     * Gets the path to the preview image
+     *
+     * @return string
+     */
     public function getPreviewImagePath(): string
     {
         return $this->configuration['previewImage'] ?? '';

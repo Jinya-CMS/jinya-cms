@@ -3,10 +3,15 @@
 namespace App\Theming;
 
 /**
- *
+ * Helper class to create a new Plates engine
  */
-class Engine
+abstract class Engine
 {
+    /**
+     * Creates a new Plates engine and registers the default routes
+     *
+     * @return \League\Plates\Engine
+     */
     public static function getPlatesEngine(): \League\Plates\Engine
     {
         $engine = new \League\Plates\Engine();

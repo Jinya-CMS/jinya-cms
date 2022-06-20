@@ -11,15 +11,20 @@ use League\Plates\Extension\ExtensionInterface;
 use RuntimeException;
 
 /**
- *
+ * Provides extensions to the Plates engine, adding helper methods for image handling of files
  */
 class FileExtension implements ExtensionInterface
 {
+    /** @var int[] The default resolutions supported by Jinya CMS */
     public const RESOLUTIONS_FOR_SOURCE = [480, 720, 1080, 2160, 4320];
+    /** @var string The default sizes property supported by Jinya CMS */
     private string $sizesAsString = '100vw';
 
     /**
-     * @inheritDoc
+     * Registers the helper method with the plates engine
+     *
+     * @param Engine $engine
+     * @return void
      */
     public function register(Engine $engine): void
     {
@@ -29,6 +34,8 @@ class FileExtension implements ExtensionInterface
     }
 
     /**
+     * Generates a srcset compatible string for use in img and picture tags
+     *
      * @param File $file
      * @param ImageType|false $imageType
      * @return string
@@ -71,6 +78,8 @@ class FileExtension implements ExtensionInterface
     }
 
     /**
+     * Returns the sizes supported by the srcset method
+     *
      * @return string
      */
     public function sizes(): string
@@ -79,6 +88,8 @@ class FileExtension implements ExtensionInterface
     }
 
     /**
+     * Generates source tags for use in a picture element
+     *
      * @param File $file
      * @param ImageType ...$imageType
      * @return string

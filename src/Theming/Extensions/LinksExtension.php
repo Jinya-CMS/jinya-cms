@@ -18,14 +18,17 @@ use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
 
 /**
- *
+ * Provides extensions to the Plates engine, adding helper methods for handling of configuration links
  */
 class LinksExtension implements ExtensionInterface
 {
 
+    /** @var Theme The theme from the database */
     private Theme $dbTheme;
 
     /**
+     * Creates a new LinksExtension class
+     *
      * @param Theme $dbTheme
      */
     public function __construct(Theme $dbTheme)
@@ -34,6 +37,8 @@ class LinksExtension implements ExtensionInterface
     }
 
     /**
+     * Registers the helper method with the plates engine
+     *
      * @param Engine $engine
      * @return void
      */
@@ -59,6 +64,8 @@ class LinksExtension implements ExtensionInterface
     }
 
     /**
+     * Returns true when a segment page with that name is configured
+     *
      * @param string $name
      * @return bool
      * @throws ForeignKeyFailedException
@@ -72,6 +79,8 @@ class LinksExtension implements ExtensionInterface
     }
 
     /**
+     * Returns true when a simple page with that name is configured
+     *
      * @param string $name
      * @return bool
      * @throws ForeignKeyFailedException
@@ -85,6 +94,8 @@ class LinksExtension implements ExtensionInterface
     }
 
     /**
+     * Returns true when a file with that name is configured
+     *
      * @param string $name
      * @return bool
      * @throws ForeignKeyFailedException
@@ -98,6 +109,8 @@ class LinksExtension implements ExtensionInterface
     }
 
     /**
+     * Returns true when a gallery with that name is configured
+     *
      * @param string $name
      * @return bool
      * @throws ForeignKeyFailedException
@@ -111,6 +124,8 @@ class LinksExtension implements ExtensionInterface
     }
 
     /**
+     * Returns true when a menu with that name is configured
+     *
      * @param string $name
      * @return bool
      * @throws ForeignKeyFailedException
@@ -124,6 +139,8 @@ class LinksExtension implements ExtensionInterface
     }
 
     /**
+     * Returns true when a form with that name is configured
+     *
      * @param string $name
      * @return bool
      * @throws ForeignKeyFailedException
@@ -137,6 +154,8 @@ class LinksExtension implements ExtensionInterface
     }
 
     /**
+     * Returns true when a blog category with that name is configured
+     *
      * @param string $name
      * @return bool
      * @throws ForeignKeyFailedException
@@ -150,6 +169,8 @@ class LinksExtension implements ExtensionInterface
     }
 
     /**
+     * Returns the segment page with the given name or null
+     *
      * @param string $name
      * @return SegmentPage|null
      * @throws ForeignKeyFailedException
@@ -163,6 +184,8 @@ class LinksExtension implements ExtensionInterface
     }
 
     /**
+     * Returns the simple page with the given name or null
+     *
      * @param string $name
      * @return SimplePage|null
      * @throws ForeignKeyFailedException
@@ -176,6 +199,8 @@ class LinksExtension implements ExtensionInterface
     }
 
     /**
+     * Returns the file with the given name or null
+     *
      * @param string $name
      * @return File|null
      * @throws ForeignKeyFailedException
@@ -189,6 +214,8 @@ class LinksExtension implements ExtensionInterface
     }
 
     /**
+     * Returns the form with the given name or null
+     *
      * @param string $name
      * @return Form|null
      * @throws ForeignKeyFailedException
@@ -202,6 +229,8 @@ class LinksExtension implements ExtensionInterface
     }
 
     /**
+     * Returns the menu with the given name or null
+     *
      * @param string $name
      * @return Menu|null
      * @throws ForeignKeyFailedException
@@ -215,6 +244,8 @@ class LinksExtension implements ExtensionInterface
     }
 
     /**
+     * Returns the blog category with the given name or null
+     *
      * @param string $name
      * @return BlogCategory|null
      * @throws ForeignKeyFailedException
@@ -228,6 +259,8 @@ class LinksExtension implements ExtensionInterface
     }
 
     /**
+     * Returns the gallery with the given name or null
+     *
      * @param string $name
      * @return Gallery|null
      * @throws ForeignKeyFailedException

@@ -12,12 +12,14 @@ use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
 
 /**
- *
+ * Provides extensions to the Plates engine, adding helper methods for menus
  */
 class MenuExtension implements ExtensionInterface
 {
 
     /**
+     * Registers the helper method with the plates engine
+     * 
      * @param Engine $engine
      * @return void
      */

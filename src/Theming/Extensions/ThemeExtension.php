@@ -9,15 +9,19 @@ use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
 
 /**
- *
+ * Provides extensions to the Plates engine, adding helper methods for themes
  */
 class ThemeExtension implements ExtensionInterface
 {
 
+    /** @var Theming\Theme The currently active theming theme */
     private Theming\Theme $theme;
+    /** @var Database\Theme The currently active database theme */
     private Database\Theme $dbTheme;
 
     /**
+     * Creates a new ThemeExtension class
+     *
      * @param Theming\Theme $theme
      * @param Database\Theme $dbTheme
      */
@@ -28,6 +32,8 @@ class ThemeExtension implements ExtensionInterface
     }
 
     /**
+     * Registers the helper method with the plates engine
+     *
      * @param Engine $engine
      * @return void
      */
@@ -40,6 +46,8 @@ class ThemeExtension implements ExtensionInterface
     }
 
     /**
+     *
+     *
      * @param string $name
      * @return Database\ThemeAsset
      * @throws Database\Exceptions\ForeignKeyFailedException
@@ -52,8 +60,10 @@ class ThemeExtension implements ExtensionInterface
     }
 
     /**
-     * @param string $group
-     * @param string $field
+     * Gets a configuration value from the database, if the value is not set in the database the default value will be set
+     *
+     * @param string $group The group the configuration value belongs to
+     * @param string $field The field the configuration value belongs to
      * @return bool|string|null
      */
     public function config(string $group, string $field): bool|string|null
@@ -62,6 +72,8 @@ class ThemeExtension implements ExtensionInterface
     }
 
     /**
+     * Returns link tags for all configured stylesheets
+     *
      * @return string
      */
     public function styles(): string
@@ -78,6 +90,8 @@ class ThemeExtension implements ExtensionInterface
     }
 
     /**
+     * Returns script tags for all configured scripts
+     *
      * @return string
      */
     public function scripts(): string
