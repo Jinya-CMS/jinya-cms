@@ -16,13 +16,18 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Throwable;
 
 /**
- *
+ * Action for login
  */
 class LoginAction extends Action
 {
+    /** @var NewLoginMail New log mail factory */
     public NewLoginMail $newLoginMail;
+    /** @var NewSavedDeviceMail New saved device mail factory */
     public NewSavedDeviceMail $newSavedDeviceMail;
 
+    /**
+     * Creates a new LoginAction and initializes the mail factories
+     */
     public function __construct()
     {
         parent::__construct();
@@ -31,7 +36,8 @@ class LoginAction extends Action
     }
 
     /**
-     * @inheritDoc
+     * Executes the login, saves the api key and sends the login mail
+     *
      * @throws Exception
      */
     protected function action(): Response

@@ -14,11 +14,11 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Throwable;
 
 /**
- *
+ * Action for two-factor login
  */
 class TwoFactorAction extends Action
 {
-
+    /** @var TwoFactorMail Two-factor mail factory */
     private TwoFactorMail $twoFactorMail;
 
     /**
@@ -31,7 +31,8 @@ class TwoFactorAction extends Action
     }
 
     /**
-     * @inheritDoc
+     * Executes the two factor action, the password and email are validated and the two-factor code is send if the values match
+     *
      * @return Response
      * @throws Exception
      * @throws ForeignKeyFailedException

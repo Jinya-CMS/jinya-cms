@@ -13,11 +13,13 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpForbiddenException;
 
 /**
- *
+ * Action to change the password
  */
 class ChangePasswordAction extends Action
 {
     /**
+     * Changes the password for the current user
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws HttpForbiddenException
