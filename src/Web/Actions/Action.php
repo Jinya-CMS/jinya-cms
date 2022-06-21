@@ -14,7 +14,7 @@ use Psr\Log\LoggerInterface;
 use Slim\Exception\HttpBadRequestException;
 
 /**
- *
+ * Base class for all http actions that can't be generated with reflection
  */
 abstract class Action
 {
@@ -81,32 +81,27 @@ abstract class Action
     public const HTTP_LOOP_DETECTED = 508;
     public const HTTP_NOT_EXTENDED = 510;
     public const HTTP_NETWORK_AUTHENTICATION_REQUIRED = 511;
-    /**
-     * @var array<string, mixed>
-     */
+
+    /** @var array<string, mixed> The query parameters */
     public array $queryParams;
-    /**
-     * @var LoggerInterface
-     */
+
+    /** @var LoggerInterface The logger for the action */
     protected LoggerInterface $logger;
-    /**
-     * @var Request
-     */
+
+    /** @var Request The parsed http request */
     protected Request $request;
-    /**
-     * @var Response
-     */
+
+    /** @var Response The http response for this action */
     protected Response $response;
-    /**
-     * @var array<string, int|string|float|mixed>
-     */
+
+    /** @var array<string, int|string|float|mixed> The arguments parsed by slim from fast route */
     protected array $args;
-    /**
-     * @var array<string, mixed>
-     */
+
+    /** @var array<string, mixed> The parsed body of the action */
     protected array $body;
 
     /**
+     * Creates a new Action
      */
     public function __construct()
     {
@@ -114,6 +109,8 @@ abstract class Action
     }
 
     /**
+     * Invokes the class like a method
+     *
      * @param Request $request
      * @param Response $response
      * @param array<string, mixed> $args
@@ -132,12 +129,16 @@ abstract class Action
     }
 
     /**
+     * The action to run when the request gets executed
+     *
      * @return Response
      * @throws HttpBadRequestException
      */
     abstract protected function action(): Response;
 
     /**
+     * Responds the given data formatted as list
+     *
      * @param array<mixed> $data
      * @param int $offset
      * @param int $count
@@ -149,6 +150,8 @@ abstract class Action
     }
 
     /**
+     * Responds the given payload with the given http status code as json
+     *
      * @param mixed $payload
      * @param int $statusCode
      * @param int $jsonFlags
@@ -165,6 +168,8 @@ abstract class Action
     }
 
     /**
+     * Formats a list to the common list response format
+     *
      * @param array<mixed> $data
      * @param int $offset
      * @param int $count
@@ -216,7 +221,7 @@ abstract class Action
     }
 
     /**
-     * Format the artist list
+     * Runs the format method on every item in the given iterator
      *
      * @param Iterator $iterator
      * @return array<mixed>
