@@ -11,12 +11,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to delete an api key
  */
 class DeleteApiKeyAction extends Action
 {
     /**
-     * @inheritDoc
+     * Finds the api key by the key in the route arguments and deletes it
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

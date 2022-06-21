@@ -12,12 +12,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to list api keys
  */
 class ListAllApiKeysAction extends Action
 {
     /**
-     * @inheritDoc
+     * Gets all api keys for the currently logged-in user
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

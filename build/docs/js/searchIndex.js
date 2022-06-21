@@ -3583,37 +3583,37 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Action",
             "name": "Action",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Action.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Action\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "Creates\u0020a\u0020new\u0020Action",
             "url": "classes/App-Web-Actions-Action.html#method___construct"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Action\u003A\u003A__invoke\u0028\u0029",
             "name": "__invoke",
-            "summary": "",
+            "summary": "Invokes\u0020the\u0020class\u0020like\u0020a\u0020method",
             "url": "classes/App-Web-Actions-Action.html#method___invoke"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Action\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Action.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Action\u003A\u003ArespondList\u0028\u0029",
             "name": "respondList",
-            "summary": "",
+            "summary": "Responds\u0020the\u0020given\u0020data\u0020formatted\u0020as\u0020list",
             "url": "classes/App-Web-Actions-Action.html#method_respondList"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Action\u003A\u003Arespond\u0028\u0029",
             "name": "respond",
-            "summary": "",
+            "summary": "Responds\u0020the\u0020given\u0020payload\u0020with\u0020the\u0020given\u0020http\u0020status\u0020code\u0020as\u0020json",
             "url": "classes/App-Web-Actions-Action.html#method_respond"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Action\u003A\u003AformatList\u0028\u0029",
             "name": "formatList",
-            "summary": "",
+            "summary": "Formats\u0020a\u0020list\u0020to\u0020the\u0020common\u0020list\u0020response\u0020format",
             "url": "classes/App-Web-Actions-Action.html#method_formatList"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Action\u003A\u003ArespondFile\u0028\u0029",
@@ -3628,7 +3628,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Action\u003A\u003AformatIterator\u0028\u0029",
             "name": "formatIterator",
-            "summary": "Format\u0020the\u0020artist\u0020list",
+            "summary": "Runs\u0020the\u0020format\u0020method\u0020on\u0020every\u0020item\u0020in\u0020the\u0020given\u0020iterator",
             "url": "classes/App-Web-Actions-Action.html#method_formatIterator"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Action\u003A\u003AHTTP_CONTINUE",
@@ -3978,47 +3978,47 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\ApiKey\\DeleteApiKeyAction",
             "name": "DeleteApiKeyAction",
-            "summary": "",
+            "summary": "Action\u0020to\u0020delete\u0020an\u0020api\u0020key",
             "url": "classes/App-Web-Actions-ApiKey-DeleteApiKeyAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\ApiKey\\DeleteApiKeyAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "Finds\u0020the\u0020api\u0020key\u0020by\u0020the\u0020key\u0020in\u0020the\u0020route\u0020arguments\u0020and\u0020deletes\u0020it",
             "url": "classes/App-Web-Actions-ApiKey-DeleteApiKeyAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\ApiKey\\ListAllApiKeysAction",
             "name": "ListAllApiKeysAction",
-            "summary": "",
+            "summary": "Action\u0020to\u0020list\u0020api\u0020keys",
             "url": "classes/App-Web-Actions-ApiKey-ListAllApiKeysAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\ApiKey\\ListAllApiKeysAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "Gets\u0020all\u0020api\u0020keys\u0020for\u0020the\u0020currently\u0020logged\u002Din\u0020user",
             "url": "classes/App-Web-Actions-ApiKey-ListAllApiKeysAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Artist\\ActivateArtistAction",
             "name": "ActivateArtistAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Artist-ActivateArtistAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Artist\\ActivateArtistAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Artist-ActivateArtistAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Artist\\DeactivateArtistAction",
             "name": "DeactivateArtistAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Artist-DeactivateArtistAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Artist\\DeactivateArtistAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Artist-DeactivateArtistAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Artist\\ProfilePicture\\DeleteProfilePictureAction",
             "name": "DeleteProfilePictureAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Artist-ProfilePicture-DeleteProfilePictureAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Artist\\ProfilePicture\\DeleteProfilePictureAction\u003A\u003A__construct\u0028\u0029",
@@ -4028,7 +4028,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Artist\\ProfilePicture\\DeleteProfilePictureAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Artist-ProfilePicture-DeleteProfilePictureAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Artist\\ProfilePicture\\DeleteProfilePictureAction\u003A\u003A\u0024profilePictureService",
@@ -4038,17 +4038,17 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Artist\\ProfilePicture\\GetProfilePictureAction",
             "name": "GetProfilePictureAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Artist-ProfilePicture-GetProfilePictureAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Artist\\ProfilePicture\\GetProfilePictureAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Artist-ProfilePicture-GetProfilePictureAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Artist\\ProfilePicture\\UploadProfilePictureAction",
             "name": "UploadProfilePictureAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Artist-ProfilePicture-UploadProfilePictureAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Artist\\ProfilePicture\\UploadProfilePictureAction\u003A\u003A__construct\u0028\u0029",
@@ -4058,7 +4058,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Artist\\ProfilePicture\\UploadProfilePictureAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Artist-ProfilePicture-UploadProfilePictureAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Artist\\ProfilePicture\\UploadProfilePictureAction\u003A\u003A\u0024profilePictureService",
@@ -4068,27 +4068,27 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Authentication\\ChangePasswordAction",
             "name": "ChangePasswordAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Authentication-ChangePasswordAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Authentication\\ChangePasswordAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Authentication-ChangePasswordAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Authentication\\LoginAction",
             "name": "LoginAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Authentication-LoginAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Authentication\\LoginAction\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "Creates\u0020a\u0020new\u0020Action",
             "url": "classes/App-Web-Actions-Authentication-LoginAction.html#method___construct"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Authentication\\LoginAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Authentication-LoginAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Authentication\\LoginAction\u003A\u003A\u0024newLoginMail",
@@ -4103,7 +4103,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Authentication\\TwoFactorAction",
             "name": "TwoFactorAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Authentication-TwoFactorAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Authentication\\TwoFactorAction\u003A\u003A__construct\u0028\u0029",
@@ -4113,7 +4113,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Authentication\\TwoFactorAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Authentication-TwoFactorAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Authentication\\TwoFactorAction\u003A\u003A\u0024twoFactorMail",
@@ -4123,77 +4123,77 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Blog\\Post\\BatchSegmentsAction",
             "name": "BatchSegmentsAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Blog-Post-BatchSegmentsAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Blog\\Post\\BatchSegmentsAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Blog-Post-BatchSegmentsAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Blog\\Post\\GetSegmentsAction",
             "name": "GetSegmentsAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Blog-Post-GetSegmentsAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Blog\\Post\\GetSegmentsAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Blog-Post-GetSegmentsAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Blog\\Post\\ListPostsByCategoryAction",
             "name": "ListPostsByCategoryAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Blog-Post-ListPostsByCategoryAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Blog\\Post\\ListPostsByCategoryAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Blog-Post-ListPostsByCategoryAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Database\\DatabaseAnalyzerAction",
             "name": "DatabaseAnalyzerAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Database-DatabaseAnalyzerAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Database\\DatabaseAnalyzerAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Database-DatabaseAnalyzerAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Database\\ExecuteQueryAction",
             "name": "ExecuteQueryAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Database-ExecuteQueryAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Database\\ExecuteQueryAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Database-ExecuteQueryAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Environment\\GetEnvironmentAction",
             "name": "GetEnvironmentAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Environment-GetEnvironmentAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Environment\\GetEnvironmentAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Environment-GetEnvironmentAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\File\\GetFileContentAction",
             "name": "GetFileContentAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-File-GetFileContentAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\File\\GetFileContentAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-File-GetFileContentAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\File\\Upload\\FinishUploadAction",
             "name": "FinishUploadAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-File-Upload-FinishUploadAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\File\\Upload\\FinishUploadAction\u003A\u003A__construct\u0028\u0029",
@@ -4203,7 +4203,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\File\\Upload\\FinishUploadAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-File-Upload-FinishUploadAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\File\\Upload\\FinishUploadAction\u003A\u003A\u0024fileUploadService",
@@ -4213,17 +4213,17 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\File\\Upload\\StartUploadAction",
             "name": "StartUploadAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-File-Upload-StartUploadAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\File\\Upload\\StartUploadAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-File-Upload-StartUploadAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\File\\Upload\\UploadChunkAction",
             "name": "UploadChunkAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-File-Upload-UploadChunkAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\File\\Upload\\UploadChunkAction\u003A\u003A__construct\u0028\u0029",
@@ -4233,7 +4233,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\File\\Upload\\UploadChunkAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-File-Upload-UploadChunkAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\File\\Upload\\UploadChunkAction\u003A\u003A\u0024fileUploadService",
@@ -4243,47 +4243,47 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Form\\Items\\CreateFormItemAction",
             "name": "CreateFormItemAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Form-Items-CreateFormItemAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Form\\Items\\CreateFormItemAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Form-Items-CreateFormItemAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Form\\Items\\DeleteFormItemAction",
             "name": "DeleteFormItemAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Form-Items-DeleteFormItemAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Form\\Items\\DeleteFormItemAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Form-Items-DeleteFormItemAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Form\\Items\\GetFormItemsAction",
             "name": "GetFormItemsAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Form-Items-GetFormItemsAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Form\\Items\\GetFormItemsAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Form-Items-GetFormItemsAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Form\\Items\\UpdateFormItemAction",
             "name": "UpdateFormItemAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Form-Items-UpdateFormItemAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Form\\Items\\UpdateFormItemAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Form-Items-UpdateFormItemAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Frontend\\FrontAction",
             "name": "FrontAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Frontend-FrontAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Frontend\\FrontAction\u003A\u003A__construct\u0028\u0029",
@@ -4293,7 +4293,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Frontend\\FrontAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Frontend-FrontAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Frontend\\FrontAction\u003A\u003AprotectedAction\u0028\u0029",
@@ -4323,7 +4323,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Frontend\\GetBlogFrontAction",
             "name": "GetBlogFrontAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Frontend-GetBlogFrontAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Frontend\\GetBlogFrontAction\u003A\u003AprotectedAction\u0028\u0029",
@@ -4333,7 +4333,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Frontend\\GetFrontAction",
             "name": "GetFrontAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Frontend-GetFrontAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Frontend\\GetFrontAction\u003A\u003AprotectedAction\u0028\u0029",
@@ -4343,7 +4343,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Frontend\\PostFrontAction",
             "name": "PostFrontAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Frontend-PostFrontAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Frontend\\PostFrontAction\u003A\u003AprotectedAction\u0028\u0029",
@@ -4353,47 +4353,47 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\CreatePositionAction",
             "name": "CreatePositionAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Gallery-Positions-CreatePositionAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\CreatePositionAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Gallery-Positions-CreatePositionAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\DeletePositionAction",
             "name": "DeletePositionAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Gallery-Positions-DeletePositionAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\DeletePositionAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Gallery-Positions-DeletePositionAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\GetPositionsAction",
             "name": "GetPositionsAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Gallery-Positions-GetPositionsAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\GetPositionsAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Gallery-Positions-GetPositionsAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\UpdatePositionAction",
             "name": "UpdatePositionAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Gallery-Positions-UpdatePositionAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\UpdatePositionAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Gallery-Positions-UpdatePositionAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Install\\GetInstallerAction",
             "name": "GetInstallerAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Install-GetInstallerAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Install\\GetInstallerAction\u003A\u003Aaction\u0028\u0029",
@@ -4403,7 +4403,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Install\\InstallAction",
             "name": "InstallAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Install-InstallAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Install\\InstallAction\u003A\u003A__construct\u0028\u0029",
@@ -4423,7 +4423,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Install\\PostInstallerAction",
             "name": "PostInstallerAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Install-PostInstallerAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Install\\PostInstallerAction\u003A\u003Aaction\u0028\u0029",
@@ -4433,47 +4433,47 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\KnownDevice\\DeleteKnownDeviceAction",
             "name": "DeleteKnownDeviceAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-KnownDevice-DeleteKnownDeviceAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\KnownDevice\\DeleteKnownDeviceAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-KnownDevice-DeleteKnownDeviceAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\KnownDevice\\ListAllKnownDevicesAction",
             "name": "ListAllKnownDevicesAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-KnownDevice-ListAllKnownDevicesAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\KnownDevice\\ListAllKnownDevicesAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-KnownDevice-ListAllKnownDevicesAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\KnownDevice\\ValidateKnownDeviceAction",
             "name": "ValidateKnownDeviceAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-KnownDevice-ValidateKnownDeviceAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\KnownDevice\\ValidateKnownDeviceAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-KnownDevice-ValidateKnownDeviceAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\LocateIp\\LocatorAction",
             "name": "LocatorAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-LocateIp-LocatorAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\LocateIp\\LocatorAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-LocateIp-LocatorAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\CreateMenuItemByMenuAction",
             "name": "CreateMenuItemByMenuAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Menu-Items-CreateMenuItemByMenuAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\CreateMenuItemByMenuAction\u003A\u003Aaction\u0028\u0029",
@@ -4483,7 +4483,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\CreateMenuItemByMenuItemAction",
             "name": "CreateMenuItemByMenuItemAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Menu-Items-CreateMenuItemByMenuItemAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\CreateMenuItemByMenuItemAction\u003A\u003Aaction\u0028\u0029",
@@ -4493,7 +4493,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\DeleteMenuItemAction",
             "name": "DeleteMenuItemAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Menu-Items-DeleteMenuItemAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\DeleteMenuItemAction\u003A\u003Aaction\u0028\u0029",
@@ -4503,7 +4503,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\GetMenuItemsByMenuAction",
             "name": "GetMenuItemsByMenuAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Menu-Items-GetMenuItemsByMenuAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\GetMenuItemsByMenuAction\u003A\u003Aaction\u0028\u0029",
@@ -4513,7 +4513,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\MenuItemAction",
             "name": "MenuItemAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Menu-Items-MenuItemAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\MenuItemAction\u003A\u003AfillMenuItem\u0028\u0029",
@@ -4528,27 +4528,27 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\MoveMenuItemParentToItemAction",
             "name": "MoveMenuItemParentToItemAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Menu-Items-MoveMenuItemParentToItemAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\MoveMenuItemParentToItemAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Menu-Items-MoveMenuItemParentToItemAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\ResetMenuItemParentAction",
             "name": "ResetMenuItemParentAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Menu-Items-ResetMenuItemParentAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\ResetMenuItemParentAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Menu-Items-ResetMenuItemParentAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\UpdateMenuItemAction",
             "name": "UpdateMenuItemAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Menu-Items-UpdateMenuItemAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\UpdateMenuItemAction\u003A\u003Aaction\u0028\u0029",
@@ -4558,217 +4558,217 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\MyJinya\\GetArtistInfoAction",
             "name": "GetArtistInfoAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-MyJinya-GetArtistInfoAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\MyJinya\\GetArtistInfoAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-MyJinya-GetArtistInfoAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\MyJinya\\UpdateAboutMeAction",
             "name": "UpdateAboutMeAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-MyJinya-UpdateAboutMeAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\MyJinya\\UpdateAboutMeAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-MyJinya-UpdateAboutMeAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\MyJinya\\UpdateColorScheme",
             "name": "UpdateColorScheme",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-MyJinya-UpdateColorScheme.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\MyJinya\\UpdateColorScheme\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-MyJinya-UpdateColorScheme.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\PhpInfo\\GetPhpInfoAction",
             "name": "GetPhpInfoAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-PhpInfo-GetPhpInfoAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\PhpInfo\\GetPhpInfoAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-PhpInfo-GetPhpInfoAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\CreateFileSegmentAction",
             "name": "CreateFileSegmentAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-CreateFileSegmentAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\CreateFileSegmentAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-CreateFileSegmentAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\CreateFormSegmentAction",
             "name": "CreateFormSegmentAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-CreateFormSegmentAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\CreateFormSegmentAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-CreateFormSegmentAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\CreateGallerySegmentAction",
             "name": "CreateGallerySegmentAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-CreateGallerySegmentAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\CreateGallerySegmentAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-CreateGallerySegmentAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\CreateHtmlSegmentAction",
             "name": "CreateHtmlSegmentAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-CreateHtmlSegmentAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\CreateHtmlSegmentAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-CreateHtmlSegmentAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\DeleteSegmentAction",
             "name": "DeleteSegmentAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-DeleteSegmentAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\DeleteSegmentAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-DeleteSegmentAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\GetSegmentsAction",
             "name": "GetSegmentsAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-GetSegmentsAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\GetSegmentsAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-GetSegmentsAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\UpdateSegmentAction",
             "name": "UpdateSegmentAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-UpdateSegmentAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\UpdateSegmentAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-UpdateSegmentAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetEntityStatisticsAction",
             "name": "GetEntityStatisticsAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Statistics-GetEntityStatisticsAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetEntityStatisticsAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Statistics-GetEntityStatisticsAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetHistoryStatisticsAction",
             "name": "GetHistoryStatisticsAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Statistics-GetHistoryStatisticsAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetHistoryStatisticsAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Statistics-GetHistoryStatisticsAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetSystemStatisticsAction",
             "name": "GetSystemStatisticsAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Statistics-GetSystemStatisticsAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetSystemStatisticsAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Statistics-GetSystemStatisticsAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByBrowserAction",
             "name": "GetVisitsByBrowserAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByBrowserAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByBrowserAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByBrowserAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByCountryAction",
             "name": "GetVisitsByCountryAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByCountryAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByCountryAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByCountryAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByDeviceBrandAction",
             "name": "GetVisitsByDeviceBrandAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByDeviceBrandAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByDeviceBrandAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByDeviceBrandAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByDeviceTypeAction",
             "name": "GetVisitsByDeviceTypeAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByDeviceTypeAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByDeviceTypeAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByDeviceTypeAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByLanguageAction",
             "name": "GetVisitsByLanguageAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByLanguageAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByLanguageAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByLanguageAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByOsAction",
             "name": "GetVisitsByOsAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByOsAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByOsAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByOsAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByReferrerAction",
             "name": "GetVisitsByReferrerAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByReferrerAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByReferrerAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByReferrerAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\ActivateThemeAction",
             "name": "ActivateThemeAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Theme-ActivateThemeAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\ActivateThemeAction\u003A\u003Aaction\u0028\u0029",
@@ -4778,7 +4778,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\CompileThemeAction",
             "name": "CompileThemeAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Theme-CompileThemeAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\CompileThemeAction\u003A\u003Aaction\u0028\u0029",
@@ -4788,17 +4788,17 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\CreateThemeAction",
             "name": "CreateThemeAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Theme-CreateThemeAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\CreateThemeAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Theme-CreateThemeAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\GetConfigurationStructureAction",
             "name": "GetConfigurationStructureAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Theme-GetConfigurationStructureAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\GetConfigurationStructureAction\u003A\u003Aaction\u0028\u0029",
@@ -4808,7 +4808,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\GetDefaultConfigurationValues",
             "name": "GetDefaultConfigurationValues",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Theme-GetDefaultConfigurationValues.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\GetDefaultConfigurationValues\u003A\u003Aaction\u0028\u0029",
@@ -4818,7 +4818,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\GetLinkItemAction",
             "name": "GetLinkItemAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Theme-GetLinkItemAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\GetLinkItemAction\u003A\u003Aaction\u0028\u0029",
@@ -4828,7 +4828,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\GetPreviewImageAction",
             "name": "GetPreviewImageAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Theme-GetPreviewImageAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\GetPreviewImageAction\u003A\u003Aaction\u0028\u0029",
@@ -4838,7 +4838,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\GetStyleVariablesAction",
             "name": "GetStyleVariablesAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Theme-GetStyleVariablesAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\GetStyleVariablesAction\u003A\u003Aaction\u0028\u0029",
@@ -4848,7 +4848,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\PutConfigurationAction",
             "name": "PutConfigurationAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Theme-PutConfigurationAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\PutConfigurationAction\u003A\u003Aaction\u0028\u0029",
@@ -4858,7 +4858,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\PutLinkItemAction",
             "name": "PutLinkItemAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Theme-PutLinkItemAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\PutLinkItemAction\u003A\u003Aaction\u0028\u0029",
@@ -4868,7 +4868,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\PutStyleVariablesAction",
             "name": "PutStyleVariablesAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Theme-PutStyleVariablesAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\PutStyleVariablesAction\u003A\u003Aaction\u0028\u0029",
@@ -4878,7 +4878,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\ThemeAction",
             "name": "ThemeAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Theme-ThemeAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\ThemeAction\u003A\u003AsyncThemes\u0028\u0029",
@@ -4888,17 +4888,17 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\UpdateThemeFilesAction",
             "name": "UpdateThemeFilesAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Theme-UpdateThemeFilesAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\UpdateThemeFilesAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Theme-UpdateThemeFilesAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Update\\GetUpdateAction",
             "name": "GetUpdateAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Update-GetUpdateAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Update\\GetUpdateAction\u003A\u003Aaction\u0028\u0029",
@@ -4908,17 +4908,17 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Update\\InitUpdateProcess",
             "name": "InitUpdateProcess",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Update-InitUpdateProcess.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Update\\InitUpdateProcess\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
             "url": "classes/App-Web-Actions-Update-InitUpdateProcess.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Update\\PostUpdateAction",
             "name": "PostUpdateAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Update-PostUpdateAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Update\\PostUpdateAction\u003A\u003Aaction\u0028\u0029",
@@ -4928,7 +4928,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Update\\UpdateAction",
             "name": "UpdateAction",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Update-UpdateAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Update\\UpdateAction\u003A\u003A__construct\u0028\u0029",
@@ -4958,7 +4958,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Version\\GetVersionInfo",
             "name": "GetVersionInfo",
-            "summary": "",
+            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
             "url": "classes/App-Web-Actions-Version-GetVersionInfo.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Version\\GetVersionInfo\u003A\u003Aaction\u0028\u0029",
