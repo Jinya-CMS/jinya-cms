@@ -19,10 +19,11 @@ use RuntimeException;
 use Throwable;
 
 /**
- *
+ * Middleware to check if the current route is in any configured menu for the current theme
  */
 class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
 {
+    /** @var Engine The template engine */
     private Engine $engine;
 
     /**
@@ -34,7 +35,10 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
     }
 
     /**
-     * @inheritDoc
+     * Processes the middleware, during processing the request the current request URI is being parsed and checked if it is available in the currently activated theme. If yes, the FrontController is invoked. If not, the error handler is invoked returning either an error page or the homepage, depending on the theme configuration.
+     *
+     * Before the error handler is invoked, the blog posts will be searched for the slug
+     *
      * @param ServerRequestInterface $request
      * @param RequestHandlerInterface $handler
      * @return ResponseInterface
@@ -106,11 +110,13 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
     }
 
     /**
+     * Checks if the given menu item matches the path
+     *
      * @throws Database\Exceptions\UniqueFailedException
      * @throws Database\Exceptions\ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    public function checkMenuItem(MenuItem $menuItem, string $path): bool|int|float
+    public function checkMenuItem(MenuItem $menuItem, string $path): bool
     {
         $result = $path === $menuItem->route;
         foreach ($menuItem->getItems() as $item) {

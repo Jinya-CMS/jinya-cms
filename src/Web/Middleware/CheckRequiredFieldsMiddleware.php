@@ -14,13 +14,12 @@ use Slim\Exception\HttpNotImplementedException;
  */
 class CheckRequiredFieldsMiddleware implements MiddlewareInterface
 {
-    /**
-     * @var array<string>
-     */
+    /** @var array<string> The required fields */
     private array $fields;
 
     /**
      * CheckFieldsMiddleware constructor.
+     *
      * @param array<string> $fields
      */
     public function __construct(array $fields)
@@ -29,6 +28,8 @@ class CheckRequiredFieldsMiddleware implements MiddlewareInterface
     }
 
     /**
+     * Processes the middleware, during the processing the request will be checked for all required fields
+     *
      * @throws HttpNotImplementedException
      * @throws MissingFieldsException
      */
@@ -45,6 +46,8 @@ class CheckRequiredFieldsMiddleware implements MiddlewareInterface
     }
 
     /**
+     * Checks the required fields in the passed request body. If the fields don't match a MissingFieldsException is thrown
+     *
      * @param array<string, mixed> $body
      * @param array<string> $requiredFields
      * @param Request $request

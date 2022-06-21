@@ -12,18 +12,25 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Slim\Exception\HttpForbiddenException;
 
 /**
- *
+ * The authorization middleware checks the authorization and sets the currently logged in user
  */
 class AuthorizationMiddleware implements MiddlewareInterface
 {
+    /** @var string Constant for the currently logged in user */
     public const LOGGED_IN_ARTIST = 'logged_in_artist';
 
+    /**
+     * Creates a new authorization middleware and initalizes it with the needed role
+     *
+     * @param string|null $role
+     */
     public function __construct(private readonly string|null $role = null)
     {
     }
 
     /**
-     * @inheritDoc
+     * Processes the middleware, during the processing the logged in user will be checked against the role and the current user will be set to the user from the request
+     *
      * @throws HttpForbiddenException
      * @throws Exception
      */
