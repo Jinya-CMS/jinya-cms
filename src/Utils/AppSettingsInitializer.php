@@ -7,10 +7,15 @@ require_once __DIR__ . '/../../defines.php';
 use Dotenv\Dotenv;
 
 /**
- *
+ * Initializes all environment variables from .env
  */
-class AppSettingsInitializer
+abstract class AppSettingsInitializer
 {
+    /**
+     * Loads the local .env file and validates all environment variables
+     *
+     * @return void
+     */
     public static function loadDotEnv(): void
     {
         if (file_exists(__ROOT__ . '/.env')) {

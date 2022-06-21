@@ -3533,52 +3533,52 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Utils\\AppSettingsInitializer",
             "name": "AppSettingsInitializer",
-            "summary": "",
+            "summary": "Initializes\u0020all\u0020environment\u0020variables\u0020from\u0020.env",
             "url": "classes/App-Utils-AppSettingsInitializer.html"
         },                {
             "fqsen": "\\App\\Utils\\AppSettingsInitializer\u003A\u003AloadDotEnv\u0028\u0029",
             "name": "loadDotEnv",
-            "summary": "",
+            "summary": "Loads\u0020the\u0020local\u0020.env\u0020file\u0020and\u0020validates\u0020all\u0020environment\u0020variables",
             "url": "classes/App-Utils-AppSettingsInitializer.html#method_loadDotEnv"
         },                {
             "fqsen": "\\App\\Utils\\ImageType",
             "name": "ImageType",
-            "summary": "",
+            "summary": "Helper\u0020enum\u0020to\u0020differentiate\u0020between\u0020image\u0020file\u0020types",
             "url": "classes/App-Utils-ImageType.html"
         },                {
             "fqsen": "\\App\\Utils\\ImageType\u003A\u003AWebp",
             "name": "Webp",
-            "summary": "",
+            "summary": "Images\u0020of\u0020type\u0020WebP",
             "url": ""
         },                {
             "fqsen": "\\App\\Utils\\ImageType\u003A\u003APng",
             "name": "Png",
-            "summary": "",
+            "summary": "Images\u0020of\u0020type\u0020PNG",
             "url": ""
         },                {
             "fqsen": "\\App\\Utils\\ImageType\u003A\u003AJpg",
             "name": "Jpg",
-            "summary": "",
+            "summary": "Images\u0020of\u0020type\u0020JPG",
             "url": ""
         },                {
             "fqsen": "\\App\\Utils\\ImageType\u003A\u003AGif",
             "name": "Gif",
-            "summary": "",
+            "summary": "Images\u0020of\u0020type\u0020GIF",
             "url": ""
         },                {
             "fqsen": "\\App\\Utils\\ImageType\u003A\u003ABmp",
             "name": "Bmp",
-            "summary": "",
+            "summary": "Images\u0020of\u0020type\u0020BMP",
             "url": ""
         },                {
             "fqsen": "\\App\\Utils\\UuidGenerator",
             "name": "UuidGenerator",
-            "summary": "",
+            "summary": "Helper\u0020class\u0020to\u0020generate\u0020UUIDs",
             "url": "classes/App-Utils-UuidGenerator.html"
         },                {
             "fqsen": "\\App\\Utils\\UuidGenerator\u003A\u003AgenerateV4\u0028\u0029",
             "name": "generateV4",
-            "summary": "",
+            "summary": "Generates\u0020a\u0020new\u0020UUID\u0020of\u0020version\u00204",
             "url": "classes/App-Utils-UuidGenerator.html#method_generateV4"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Action",

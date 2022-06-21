@@ -5,11 +5,13 @@ namespace App\Utils;
 use Exception;
 
 /**
- *
+ * Helper class to generate UUIDs
  */
-class UuidGenerator
+abstract class UuidGenerator
 {
     /**
+     * Generates a new UUID of version 4
+     *
      * @return string
      * @throws Exception
      */
