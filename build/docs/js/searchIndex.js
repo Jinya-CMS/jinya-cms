@@ -4966,66 +4966,66 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Web-Actions-Version-GetVersionInfo.html#method_action"
         },                {
-            "fqsen": "\\App\\Web\\Exceptions\\BadCredentialsException",
-            "name": "BadCredentialsException",
-            "summary": "",
-            "url": "classes/App-Web-Exceptions-BadCredentialsException.html"
-        },                {
+      "fqsen": "\\App\\Web\\Exceptions\\BadCredentialsException",
+      "name": "BadCredentialsException",
+      "summary": "This\u0020exception\u0020is\u0020thrown\u0020when\u0020the\u0020credentials\u0020are\u0020invalid,\u0020cause\u0020either\u0020username\u0020and\u0020password\u0020don\u0027t\u0020match\u0020or\u0020the\u0020api\u0020key\u0020is\u0020invalid",
+      "url": "classes/App-Web-Exceptions-BadCredentialsException.html"
+    },                {
             "fqsen": "\\App\\Web\\Exceptions\\BadCredentialsException\u003A\u003A\u0024code",
             "name": "code",
             "summary": "",
             "url": "classes/App-Web-Exceptions-BadCredentialsException.html#property_code"
-        },                {
-            "fqsen": "\\App\\Web\\Exceptions\\ConflictException",
-            "name": "ConflictException",
-            "summary": "",
-            "url": "classes/App-Web-Exceptions-ConflictException.html"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Exceptions\\ConflictException",
+      "name": "ConflictException",
+      "summary": "This\u0020exception\u0020is\u0020thrown\u0020when\u0020a\u0020conflict\u0020arises,\u0020a\u0020common\u0020example\u0020is\u0020failed\u0020unique\u0020and\u0020foreign\u0020key\u0020constraints",
+      "url": "classes/App-Web-Exceptions-ConflictException.html"
+    },                {
             "fqsen": "\\App\\Web\\Exceptions\\ConflictException\u003A\u003A\u0024code",
             "name": "code",
             "summary": "",
             "url": "classes/App-Web-Exceptions-ConflictException.html#property_code"
-        },                {
-            "fqsen": "\\App\\Web\\Exceptions\\MissingFieldsException",
-            "name": "MissingFieldsException",
-            "summary": "",
-            "url": "classes/App-Web-Exceptions-MissingFieldsException.html"
-        },                {
-            "fqsen": "\\App\\Web\\Exceptions\\MissingFieldsException\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "",
-            "url": "classes/App-Web-Exceptions-MissingFieldsException.html#method___construct"
-        },                {
-            "fqsen": "\\App\\Web\\Exceptions\\MissingFieldsException\u003A\u003AjsonSerialize\u0028\u0029",
-            "name": "jsonSerialize",
-            "summary": "",
-            "url": "classes/App-Web-Exceptions-MissingFieldsException.html#method_jsonSerialize"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Exceptions\\MissingFieldsException",
+      "name": "MissingFieldsException",
+      "summary": "This\u0020exception\u0020is\u0020thrown\u0020when\u0020a\u0020create\u0020request\u0020has\u0020missing\u0020fields",
+      "url": "classes/App-Web-Exceptions-MissingFieldsException.html"
+    }, {
+      "fqsen": "\\App\\Web\\Exceptions\\MissingFieldsException\u003A\u003A__construct\u0028\u0029",
+      "name": "__construct",
+      "summary": "Creates\u0020a\u0020new\u0020MissingFieldsException,\u0020sets\u0020the\u0020fields\u0020and\u0020the\u0020response\u0020code\u0020to\u0020400",
+      "url": "classes/App-Web-Exceptions-MissingFieldsException.html#method___construct"
+    }, {
+      "fqsen": "\\App\\Web\\Exceptions\\MissingFieldsException\u003A\u003AjsonSerialize\u0028\u0029",
+      "name": "jsonSerialize",
+      "summary": "JSON\u0020serializes\u0020the\u0020exception",
+      "url": "classes/App-Web-Exceptions-MissingFieldsException.html#method_jsonSerialize"
+    },                {
             "fqsen": "\\App\\Web\\Exceptions\\MissingFieldsException\u003A\u003A\u0024fields",
             "name": "fields",
             "summary": "",
             "url": "classes/App-Web-Exceptions-MissingFieldsException.html#property_fields"
-        },                {
-            "fqsen": "\\App\\Web\\Exceptions\\NoResultException",
-            "name": "NoResultException",
-            "summary": "",
-            "url": "classes/App-Web-Exceptions-NoResultException.html"
-        },                {
-            "fqsen": "\\App\\Web\\Exceptions\\NoResultException\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "",
-            "url": "classes/App-Web-Exceptions-NoResultException.html#method___construct"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Exceptions\\NoResultException",
+      "name": "NoResultException",
+      "summary": "This\u0020exception\u0020is\u0020thrown,\u0020when\u0020the\u0020requested\u0020entity\u0020is\u0020not\u0020found\u0020in\u0020the\u0020database",
+      "url": "classes/App-Web-Exceptions-NoResultException.html"
+    }, {
+      "fqsen": "\\App\\Web\\Exceptions\\NoResultException\u003A\u003A__construct\u0028\u0029",
+      "name": "__construct",
+      "summary": "Creates\u0020a\u0020new\u0020NoResultException",
+      "url": "classes/App-Web-Exceptions-NoResultException.html#method___construct"
+    },                {
             "fqsen": "\\App\\Web\\Exceptions\\NoResultException\u003A\u003A\u0024code",
             "name": "code",
             "summary": "",
             "url": "classes/App-Web-Exceptions-NoResultException.html#property_code"
-        },                {
-            "fqsen": "\\App\\Web\\Exceptions\\UnknownDeviceException",
-            "name": "UnknownDeviceException",
-            "summary": "",
-            "url": "classes/App-Web-Exceptions-UnknownDeviceException.html"
-        },                {
+        }, {
+      "fqsen": "\\App\\Web\\Exceptions\\UnknownDeviceException",
+      "name": "UnknownDeviceException",
+      "summary": "This\u0020exception\u0020is\u0020thrown,\u0020when\u0020the\u0020device\u0020code\u0020used\u0020to\u0020bypass\u0020two\u002Dfactor\u0020auth\u0020is\u0020unknown\u0020or\u0020not\u0020valid\u0020for\u0020the\u0020user",
+      "url": "classes/App-Web-Exceptions-UnknownDeviceException.html"
+    },                {
             "fqsen": "\\App\\Web\\Exceptions\\UnknownDeviceException\u003A\u003A\u0024code",
             "name": "code",
             "summary": "",
