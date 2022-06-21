@@ -11,12 +11,13 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to activate an artist
  */
 class ActivateArtistAction extends Action
 {
     /**
-     * @inheritDoc
+     * Activates the given artist
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

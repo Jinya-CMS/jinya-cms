@@ -14,12 +14,13 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to deactivate an artist
  */
 class DeactivateArtistAction extends Action
 {
     /**
-     * @inheritDoc
+     * Dectivates the given artist
+     *
      * @return Response
      * @throws ConflictException
      * @throws ForeignKeyFailedException

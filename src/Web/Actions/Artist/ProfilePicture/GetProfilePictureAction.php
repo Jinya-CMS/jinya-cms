@@ -12,12 +12,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to get the profile picture
  */
 class GetProfilePictureAction extends Action
 {
     /**
-     * @inheritDoc
+     * Returns the profile picture as file
+     *
      * @throws NoResultException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

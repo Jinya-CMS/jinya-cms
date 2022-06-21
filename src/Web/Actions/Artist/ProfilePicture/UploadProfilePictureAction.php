@@ -12,7 +12,7 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to upload a new profile picture
  */
 class UploadProfilePictureAction extends Action
 {
@@ -28,7 +28,8 @@ class UploadProfilePictureAction extends Action
     }
 
     /**
-     * @inheritDoc
+     * Takes the body and sets the body as new profile picture for the given artist
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

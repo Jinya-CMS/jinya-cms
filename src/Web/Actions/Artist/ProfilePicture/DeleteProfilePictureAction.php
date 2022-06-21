@@ -12,11 +12,12 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to delete the profile picture
  */
 class DeleteProfilePictureAction extends Action
 {
 
+    /** @var ProfilePictureService The profile picture service */
     private ProfilePictureService $profilePictureService;
 
     /**
@@ -29,7 +30,8 @@ class DeleteProfilePictureAction extends Action
     }
 
     /**
-     * @inheritDoc
+     * Action that deletes the profile picture for the given user
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
