@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Web\Handlers;
 
 use App\Web\Actions\Action;
@@ -14,12 +12,13 @@ use Slim\Handlers\ErrorHandler as SlimErrorHandler;
 use Throwable;
 
 /**
- *
+ * A Slim error handler to respond if the request fails a specialized JSON error
  */
 class HttpErrorHandler extends SlimErrorHandler
 {
     /**
-     * @inheritDoc
+     * Returns a specialized JSON response containing all information about the error data
+     *
      * @throws JsonException
      */
     protected function respond(): Response
