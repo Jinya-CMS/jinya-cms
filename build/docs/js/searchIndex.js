@@ -4966,66 +4966,66 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Web-Actions-Version-GetVersionInfo.html#method_action"
         },                {
-      "fqsen": "\\App\\Web\\Exceptions\\BadCredentialsException",
-      "name": "BadCredentialsException",
-      "summary": "This\u0020exception\u0020is\u0020thrown\u0020when\u0020the\u0020credentials\u0020are\u0020invalid,\u0020cause\u0020either\u0020username\u0020and\u0020password\u0020don\u0027t\u0020match\u0020or\u0020the\u0020api\u0020key\u0020is\u0020invalid",
-      "url": "classes/App-Web-Exceptions-BadCredentialsException.html"
-    },                {
+            "fqsen": "\\App\\Web\\Exceptions\\BadCredentialsException",
+            "name": "BadCredentialsException",
+            "summary": "This\u0020exception\u0020is\u0020thrown\u0020when\u0020the\u0020credentials\u0020are\u0020invalid,\u0020cause\u0020either\u0020username\u0020and\u0020password\u0020don\u0027t\u0020match\u0020or\u0020the\u0020api\u0020key\u0020is\u0020invalid",
+            "url": "classes/App-Web-Exceptions-BadCredentialsException.html"
+        },                {
             "fqsen": "\\App\\Web\\Exceptions\\BadCredentialsException\u003A\u003A\u0024code",
             "name": "code",
             "summary": "",
             "url": "classes/App-Web-Exceptions-BadCredentialsException.html#property_code"
-        }, {
-      "fqsen": "\\App\\Web\\Exceptions\\ConflictException",
-      "name": "ConflictException",
-      "summary": "This\u0020exception\u0020is\u0020thrown\u0020when\u0020a\u0020conflict\u0020arises,\u0020a\u0020common\u0020example\u0020is\u0020failed\u0020unique\u0020and\u0020foreign\u0020key\u0020constraints",
-      "url": "classes/App-Web-Exceptions-ConflictException.html"
-    },                {
+        },                {
+            "fqsen": "\\App\\Web\\Exceptions\\ConflictException",
+            "name": "ConflictException",
+            "summary": "This\u0020exception\u0020is\u0020thrown\u0020when\u0020a\u0020conflict\u0020arises,\u0020a\u0020common\u0020example\u0020is\u0020failed\u0020unique\u0020and\u0020foreign\u0020key\u0020constraints",
+            "url": "classes/App-Web-Exceptions-ConflictException.html"
+        },                {
             "fqsen": "\\App\\Web\\Exceptions\\ConflictException\u003A\u003A\u0024code",
             "name": "code",
             "summary": "",
             "url": "classes/App-Web-Exceptions-ConflictException.html#property_code"
-        }, {
-      "fqsen": "\\App\\Web\\Exceptions\\MissingFieldsException",
-      "name": "MissingFieldsException",
-      "summary": "This\u0020exception\u0020is\u0020thrown\u0020when\u0020a\u0020create\u0020request\u0020has\u0020missing\u0020fields",
-      "url": "classes/App-Web-Exceptions-MissingFieldsException.html"
-    }, {
-      "fqsen": "\\App\\Web\\Exceptions\\MissingFieldsException\u003A\u003A__construct\u0028\u0029",
-      "name": "__construct",
-      "summary": "Creates\u0020a\u0020new\u0020MissingFieldsException,\u0020sets\u0020the\u0020fields\u0020and\u0020the\u0020response\u0020code\u0020to\u0020400",
-      "url": "classes/App-Web-Exceptions-MissingFieldsException.html#method___construct"
-    }, {
-      "fqsen": "\\App\\Web\\Exceptions\\MissingFieldsException\u003A\u003AjsonSerialize\u0028\u0029",
-      "name": "jsonSerialize",
-      "summary": "JSON\u0020serializes\u0020the\u0020exception",
-      "url": "classes/App-Web-Exceptions-MissingFieldsException.html#method_jsonSerialize"
-    },                {
+        },                {
+            "fqsen": "\\App\\Web\\Exceptions\\MissingFieldsException",
+            "name": "MissingFieldsException",
+            "summary": "This\u0020exception\u0020is\u0020thrown\u0020when\u0020a\u0020create\u0020request\u0020has\u0020missing\u0020fields",
+            "url": "classes/App-Web-Exceptions-MissingFieldsException.html"
+        },                {
+            "fqsen": "\\App\\Web\\Exceptions\\MissingFieldsException\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Creates\u0020a\u0020new\u0020MissingFieldsException,\u0020sets\u0020the\u0020fields\u0020and\u0020the\u0020response\u0020code\u0020to\u0020400",
+            "url": "classes/App-Web-Exceptions-MissingFieldsException.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Web\\Exceptions\\MissingFieldsException\u003A\u003AjsonSerialize\u0028\u0029",
+            "name": "jsonSerialize",
+            "summary": "JSON\u0020serializes\u0020the\u0020exception",
+            "url": "classes/App-Web-Exceptions-MissingFieldsException.html#method_jsonSerialize"
+        },                {
             "fqsen": "\\App\\Web\\Exceptions\\MissingFieldsException\u003A\u003A\u0024fields",
             "name": "fields",
             "summary": "",
             "url": "classes/App-Web-Exceptions-MissingFieldsException.html#property_fields"
-        }, {
-      "fqsen": "\\App\\Web\\Exceptions\\NoResultException",
-      "name": "NoResultException",
-      "summary": "This\u0020exception\u0020is\u0020thrown,\u0020when\u0020the\u0020requested\u0020entity\u0020is\u0020not\u0020found\u0020in\u0020the\u0020database",
-      "url": "classes/App-Web-Exceptions-NoResultException.html"
-    }, {
-      "fqsen": "\\App\\Web\\Exceptions\\NoResultException\u003A\u003A__construct\u0028\u0029",
-      "name": "__construct",
-      "summary": "Creates\u0020a\u0020new\u0020NoResultException",
-      "url": "classes/App-Web-Exceptions-NoResultException.html#method___construct"
-    },                {
+        },                {
+            "fqsen": "\\App\\Web\\Exceptions\\NoResultException",
+            "name": "NoResultException",
+            "summary": "This\u0020exception\u0020is\u0020thrown,\u0020when\u0020the\u0020requested\u0020entity\u0020is\u0020not\u0020found\u0020in\u0020the\u0020database",
+            "url": "classes/App-Web-Exceptions-NoResultException.html"
+        },                {
+            "fqsen": "\\App\\Web\\Exceptions\\NoResultException\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Creates\u0020a\u0020new\u0020NoResultException",
+            "url": "classes/App-Web-Exceptions-NoResultException.html#method___construct"
+        },                {
             "fqsen": "\\App\\Web\\Exceptions\\NoResultException\u003A\u003A\u0024code",
             "name": "code",
             "summary": "",
             "url": "classes/App-Web-Exceptions-NoResultException.html#property_code"
-        }, {
-      "fqsen": "\\App\\Web\\Exceptions\\UnknownDeviceException",
-      "name": "UnknownDeviceException",
-      "summary": "This\u0020exception\u0020is\u0020thrown,\u0020when\u0020the\u0020device\u0020code\u0020used\u0020to\u0020bypass\u0020two\u002Dfactor\u0020auth\u0020is\u0020unknown\u0020or\u0020not\u0020valid\u0020for\u0020the\u0020user",
-      "url": "classes/App-Web-Exceptions-UnknownDeviceException.html"
-    },                {
+        },                {
+            "fqsen": "\\App\\Web\\Exceptions\\UnknownDeviceException",
+            "name": "UnknownDeviceException",
+            "summary": "This\u0020exception\u0020is\u0020thrown,\u0020when\u0020the\u0020device\u0020code\u0020used\u0020to\u0020bypass\u0020two\u002Dfactor\u0020auth\u0020is\u0020unknown\u0020or\u0020not\u0020valid\u0020for\u0020the\u0020user",
+            "url": "classes/App-Web-Exceptions-UnknownDeviceException.html"
+        },                {
             "fqsen": "\\App\\Web\\Exceptions\\UnknownDeviceException\u003A\u003A\u0024code",
             "name": "code",
             "summary": "",
@@ -5033,27 +5033,27 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Handlers\\HttpErrorHandler",
             "name": "HttpErrorHandler",
-            "summary": "",
+            "summary": "A\u0020Slim\u0020error\u0020handler\u0020to\u0020respond\u0020if\u0020the\u0020request\u0020fails\u0020a\u0020specialized\u0020JSON\u0020error",
             "url": "classes/App-Web-Handlers-HttpErrorHandler.html"
         },                {
             "fqsen": "\\App\\Web\\Handlers\\HttpErrorHandler\u003A\u003Arespond\u0028\u0029",
             "name": "respond",
-            "summary": "",
+            "summary": "Returns\u0020a\u0020specialized\u0020JSON\u0020response\u0020containing\u0020all\u0020information\u0020about\u0020the\u0020error\u0020data",
             "url": "classes/App-Web-Handlers-HttpErrorHandler.html#method_respond"
         },                {
             "fqsen": "\\App\\Web\\Middleware\\AuthorizationMiddleware",
             "name": "AuthorizationMiddleware",
-            "summary": "",
+            "summary": "The\u0020authorization\u0020middleware\u0020checks\u0020the\u0020authorization\u0020and\u0020sets\u0020the\u0020currently\u0020logged\u0020in\u0020user",
             "url": "classes/App-Web-Middleware-AuthorizationMiddleware.html"
         },                {
             "fqsen": "\\App\\Web\\Middleware\\AuthorizationMiddleware\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "Creates\u0020a\u0020new\u0020authorization\u0020middleware\u0020and\u0020initalizes\u0020it\u0020with\u0020the\u0020needed\u0020role",
             "url": "classes/App-Web-Middleware-AuthorizationMiddleware.html#method___construct"
         },                {
             "fqsen": "\\App\\Web\\Middleware\\AuthorizationMiddleware\u003A\u003Aprocess\u0028\u0029",
             "name": "process",
-            "summary": "",
+            "summary": "Processes\u0020the\u0020middleware,\u0020during\u0020the\u0020processing\u0020the\u0020logged\u0020in\u0020user\u0020will\u0020be\u0020checked\u0020against\u0020the\u0020role\u0020and\u0020the\u0020current\u0020user\u0020will\u0020be\u0020set\u0020to\u0020the\u0020user\u0020from\u0020the\u0020request",
             "url": "classes/App-Web-Middleware-AuthorizationMiddleware.html#method_process"
         },                {
             "fqsen": "\\App\\Web\\Middleware\\AuthorizationMiddleware\u003A\u003ALOGGED_IN_ARTIST",
@@ -5078,12 +5078,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Middleware\\CheckRequiredFieldsMiddleware\u003A\u003Aprocess\u0028\u0029",
             "name": "process",
-            "summary": "",
+            "summary": "Processes\u0020the\u0020middleware,\u0020during\u0020the\u0020processing\u0020the\u0020request\u0020will\u0020be\u0020checked\u0020for\u0020all\u0020required\u0020fields",
             "url": "classes/App-Web-Middleware-CheckRequiredFieldsMiddleware.html#method_process"
         },                {
             "fqsen": "\\App\\Web\\Middleware\\CheckRequiredFieldsMiddleware\u003A\u003AcheckRequiredFields\u0028\u0029",
             "name": "checkRequiredFields",
-            "summary": "",
+            "summary": "Checks\u0020the\u0020required\u0020fields\u0020in\u0020the\u0020passed\u0020request\u0020body.\u0020If\u0020the\u0020fields\u0020don\u0027t\u0020match\u0020a\u0020MissingFieldsException\u0020is\u0020thrown",
             "url": "classes/App-Web-Middleware-CheckRequiredFieldsMiddleware.html#method_checkRequiredFields"
         },                {
             "fqsen": "\\App\\Web\\Middleware\\CheckRequiredFieldsMiddleware\u003A\u003A\u0024fields",
@@ -5093,7 +5093,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Middleware\\CheckRouteInCurrentThemeMiddleware",
             "name": "CheckRouteInCurrentThemeMiddleware",
-            "summary": "",
+            "summary": "Middleware\u0020to\u0020check\u0020if\u0020the\u0020current\u0020route\u0020is\u0020in\u0020any\u0020configured\u0020menu\u0020for\u0020the\u0020current\u0020theme",
             "url": "classes/App-Web-Middleware-CheckRouteInCurrentThemeMiddleware.html"
         },                {
             "fqsen": "\\App\\Web\\Middleware\\CheckRouteInCurrentThemeMiddleware\u003A\u003A__construct\u0028\u0029",
@@ -5103,28 +5103,18 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Middleware\\CheckRouteInCurrentThemeMiddleware\u003A\u003Aprocess\u0028\u0029",
             "name": "process",
-            "summary": "",
+            "summary": "Processes\u0020the\u0020middleware,\u0020during\u0020processing\u0020the\u0020request\u0020the\u0020current\u0020request\u0020URI\u0020is\u0020being\u0020parsed\u0020and\u0020checked\u0020if\u0020it\u0020is\u0020available\u0020in\u0020the\u0020currently\u0020activated\u0020theme.\u0020If\u0020yes,\u0020the\u0020FrontController\u0020is\u0020invoked.\u0020If\u0020not,\u0020the\u0020error\u0020handler\u0020is\u0020invoked\u0020returning\u0020either\u0020an\u0020error\u0020page\u0020or\u0020the\u0020homepage,\u0020depending\u0020on\u0020the\u0020theme\u0020configuration.",
             "url": "classes/App-Web-Middleware-CheckRouteInCurrentThemeMiddleware.html#method_process"
         },                {
             "fqsen": "\\App\\Web\\Middleware\\CheckRouteInCurrentThemeMiddleware\u003A\u003AcheckMenuItem\u0028\u0029",
             "name": "checkMenuItem",
-            "summary": "",
+            "summary": "Checks\u0020if\u0020the\u0020given\u0020menu\u0020item\u0020matches\u0020the\u0020path",
             "url": "classes/App-Web-Middleware-CheckRouteInCurrentThemeMiddleware.html#method_checkMenuItem"
         },                {
             "fqsen": "\\App\\Web\\Middleware\\CheckRouteInCurrentThemeMiddleware\u003A\u003A\u0024engine",
             "name": "engine",
             "summary": "",
             "url": "classes/App-Web-Middleware-CheckRouteInCurrentThemeMiddleware.html#property_engine"
-        },                {
-            "fqsen": "\\App\\Web\\ResponseEmitter\\ResponseEmitter",
-            "name": "ResponseEmitter",
-            "summary": "",
-            "url": "classes/App-Web-ResponseEmitter-ResponseEmitter.html"
-        },                {
-            "fqsen": "\\App\\Web\\ResponseEmitter\\ResponseEmitter\u003A\u003Aemit\u0028\u0029",
-            "name": "emit",
-            "summary": "",
-            "url": "classes/App-Web-ResponseEmitter-ResponseEmitter.html#method_emit"
         },                {
             "fqsen": "\\",
             "name": "\\",
@@ -5420,10 +5410,5 @@ Search.appendIndex(
             "name": "Middleware",
             "summary": "",
             "url": "namespaces/app-web-middleware.html"
-        },                {
-            "fqsen": "\\App\\Web\\ResponseEmitter",
-            "name": "ResponseEmitter",
-            "summary": "",
-            "url": "namespaces/app-web-responseemitter.html"
         }            ]
 );

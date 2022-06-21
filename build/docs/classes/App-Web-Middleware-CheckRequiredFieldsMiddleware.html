@@ -251,14 +251,14 @@
     <span>
                                 &nbsp;: <abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr>    </span>
 </dt>
-<dd></dd>
+<dd>Processes the middleware, during the processing the request will be checked for all required fields</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/App-Web-Middleware-CheckRequiredFieldsMiddleware.html#method_checkRequiredFields">checkRequiredFields()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd></dd>
+<dd>Checks the required fields in the passed request body. If the fields don&#039;t match a MissingFieldsException is thrown</dd>
 
         </dl>
 
@@ -288,7 +288,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Web/Middleware/CheckRequiredFieldsMiddleware.php"><a href="files/src-web-middleware-checkrequiredfieldsmiddleware.html"><abbr title="src/Web/Middleware/CheckRequiredFieldsMiddleware.php">CheckRequiredFieldsMiddleware.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">20</span>
+    <span class="phpdocumentor-element-found-in__line">18</span>
 
     </aside>
 
@@ -300,7 +300,9 @@
     </code>
 
     
-    
+        <section class="phpdocumentor-description"><p>The required fields</p>
+</section>
+
     
 
 </article>
@@ -324,7 +326,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Web/Middleware/CheckRequiredFieldsMiddleware.php"><a href="files/src-web-middleware-checkrequiredfieldsmiddleware.html"><abbr title="src/Web/Middleware/CheckRequiredFieldsMiddleware.php">CheckRequiredFieldsMiddleware.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">26</span>
+    <span class="phpdocumentor-element-found-in__line">25</span>
 
     </aside>
 
@@ -367,11 +369,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Web/Middleware/CheckRequiredFieldsMiddleware.php"><a href="files/src-web-middleware-checkrequiredfieldsmiddleware.html"><abbr title="src/Web/Middleware/CheckRequiredFieldsMiddleware.php">CheckRequiredFieldsMiddleware.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">35</span>
+    <span class="phpdocumentor-element-found-in__line">36</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Processes the middleware, during the processing the request will be checked for all required fields</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">process</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Message\ServerRequestInterface">ServerRequestInterface</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$request</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Server\RequestHandlerInterface">RequestHandlerInterface</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$handler</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span></code>
@@ -440,11 +443,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Web/Middleware/CheckRequiredFieldsMiddleware.php"><a href="files/src-web-middleware-checkrequiredfieldsmiddleware.html"><abbr title="src/Web/Middleware/CheckRequiredFieldsMiddleware.php">CheckRequiredFieldsMiddleware.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">53</span>
+    <span class="phpdocumentor-element-found-in__line">56</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Checks the required fields in the passed request body. If the fields don&#039;t match a MissingFieldsException is thrown</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
                     <span class="phpdocumentor-signature__name">checkRequiredFields</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$body</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$requiredFields</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Message\ServerRequestInterface">ServerRequestInterface</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$request</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>

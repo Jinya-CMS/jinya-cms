@@ -5,9 +5,9 @@ require __ROOT__ . '/vendor/autoload.php';
 
 use App\Utils\AppSettingsInitializer;
 use App\Web\Handlers\HttpErrorHandler;
-use App\Web\ResponseEmitter\ResponseEmitter;
 use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
+use Slim\ResponseEmitter;
 
 AppSettingsInitializer::loadDotEnv();
 

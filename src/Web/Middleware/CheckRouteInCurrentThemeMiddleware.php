@@ -116,7 +116,7 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
      * @throws Database\Exceptions\ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    public function checkMenuItem(MenuItem $menuItem, string $path): bool
+    public function checkMenuItem(MenuItem $menuItem, string $path): bool|int
     {
         $result = $path === $menuItem->route;
         foreach ($menuItem->getItems() as $item) {

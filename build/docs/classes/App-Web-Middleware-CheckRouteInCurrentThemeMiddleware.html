@@ -204,7 +204,8 @@
 
     </aside>
 
-        
+            <p class="phpdocumentor-summary">Middleware to check if the current route is in any configured menu for the current theme</p>
+
 
 
 
@@ -248,16 +249,16 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Web-Middleware-CheckRouteInCurrentThemeMiddleware.html#method_checkMenuItem">checkMenuItem()</a>
     <span>
-                                &nbsp;: bool|int|float    </span>
+                                &nbsp;: bool|int    </span>
 </dt>
-<dd></dd>
+<dd>Checks if the given menu item matches the path</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Web-Middleware-CheckRouteInCurrentThemeMiddleware.html#method_process">process()</a>
     <span>
                                 &nbsp;: <abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr>    </span>
 </dt>
-<dd></dd>
+<dd>Processes the middleware, during processing the request the current request URI is being parsed and checked if it is available in the currently activated theme. If yes, the FrontController is invoked. If not, the error handler is invoked returning either an error page or the homepage, depending on the theme configuration.</dd>
 
         </dl>
 
@@ -287,7 +288,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Web/Middleware/CheckRouteInCurrentThemeMiddleware.php"><a href="files/src-web-middleware-checkrouteincurrentthememiddleware.html"><abbr title="src/Web/Middleware/CheckRouteInCurrentThemeMiddleware.php">CheckRouteInCurrentThemeMiddleware.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">26</span>
+    <span class="phpdocumentor-element-found-in__line">27</span>
 
     </aside>
 
@@ -298,9 +299,9 @@
     <span class="phpdocumentor-signature__name">$engine</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>The template engine</p>
+</section>
 
     
 
@@ -325,7 +326,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Web/Middleware/CheckRouteInCurrentThemeMiddleware.php"><a href="files/src-web-middleware-checkrouteincurrentthememiddleware.html"><abbr title="src/Web/Middleware/CheckRouteInCurrentThemeMiddleware.php">CheckRouteInCurrentThemeMiddleware.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">31</span>
+    <span class="phpdocumentor-element-found-in__line">32</span>
 
     </aside>
 
@@ -358,14 +359,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Web/Middleware/CheckRouteInCurrentThemeMiddleware.php"><a href="files/src-web-middleware-checkrouteincurrentthememiddleware.html"><abbr title="src/Web/Middleware/CheckRouteInCurrentThemeMiddleware.php">CheckRouteInCurrentThemeMiddleware.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">113</span>
+    <span class="phpdocumentor-element-found-in__line">119</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Checks if the given menu item matches the path</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">checkMenuItem</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Database-MenuItem.html"><abbr title="\App\Database\MenuItem">MenuItem</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$menuItem</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$path</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool|int|float</span></code>
+                    <span class="phpdocumentor-signature__name">checkMenuItem</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Database-MenuItem.html"><abbr title="\App\Database\MenuItem">MenuItem</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$menuItem</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$path</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool|int</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -421,7 +423,7 @@
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">bool|int|float</span>
+    <span class="phpdocumentor-signature__response_type">bool|int</span>
             &mdash;
         
     
@@ -439,16 +441,19 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Web/Middleware/CheckRouteInCurrentThemeMiddleware.php"><a href="files/src-web-middleware-checkrouteincurrentthememiddleware.html"><abbr title="src/Web/Middleware/CheckRouteInCurrentThemeMiddleware.php">CheckRouteInCurrentThemeMiddleware.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">47</span>
+    <span class="phpdocumentor-element-found-in__line">51</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Processes the middleware, during processing the request the current request URI is being parsed and checked if it is available in the currently activated theme. If yes, the FrontController is invoked. If not, the error handler is invoked returning either an error page or the homepage, depending on the theme configuration.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">process</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Message\ServerRequestInterface">ServerRequestInterface</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$request</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Server\RequestHandlerInterface">RequestHandlerInterface</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$handler</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span></code>
 
-    
+        <section class="phpdocumentor-description"><p>Before the error handler is invoked, the blog posts will be searched for the slug</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -474,13 +479,6 @@
     </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
