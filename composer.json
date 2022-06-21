@@ -15,7 +15,7 @@
     "guzzlehttp/guzzle": "7.4.4",
     "jinya/plates": "4.0.0",
     "monolog/monolog": "2.7.0",
-    "phpmailer/phpmailer": "v6.6.2",
+    "phpmailer/phpmailer": "v6.6.3",
     "phpmyadmin/sql-parser": "5.5.0",
     "league/climate": "3.8.1",
     "scssphp/scssphp": "v1.10.3",
