@@ -4241,61 +4241,61 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Web-Actions-File-Upload-UploadChunkAction.html#property_fileUploadService"
         },                {
-      "fqsen": "\\App\\Web\\Actions\\Form\\Items\\CreateFormItemAction",
-      "name": "CreateFormItemAction",
-      "summary": "Action\u0020to\u0020create\u0020a\u0020form\u0020item",
-      "url": "classes/App-Web-Actions-Form-Items-CreateFormItemAction.html"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Form\\Items\\CreateFormItemAction\u003A\u003Aaction\u0028\u0029",
-      "name": "action",
-      "summary": "Creates\u0020a\u0020new\u0020form\u0020item\u0020with\u0020the\u0020values\u0020from\u0020the\u0020body",
-      "url": "classes/App-Web-Actions-Form-Items-CreateFormItemAction.html#method_action"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Form\\Items\\DeleteFormItemAction",
-      "name": "DeleteFormItemAction",
-      "summary": "Action\u0020to\u0020delete\u0020a\u0020form\u0020item",
-      "url": "classes/App-Web-Actions-Form-Items-DeleteFormItemAction.html"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Form\\Items\\DeleteFormItemAction\u003A\u003Aaction\u0028\u0029",
-      "name": "action",
-      "summary": "Deletes\u0020the\u0020form\u0020item\u0020by\u0020form\u0020id\u0020and\u0020position",
-      "url": "classes/App-Web-Actions-Form-Items-DeleteFormItemAction.html#method_action"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Form\\Items\\GetFormItemsAction",
-      "name": "GetFormItemsAction",
-      "summary": "Action\u0020to\u0020get\u0020form\u0020items\u0020of\u0020a\u0020form",
-      "url": "classes/App-Web-Actions-Form-Items-GetFormItemsAction.html"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Form\\Items\\GetFormItemsAction\u003A\u003Aaction\u0028\u0029",
-      "name": "action",
-      "summary": "Returns\u0020the\u0020form\u0020items\u0020for\u0020the\u0020given\u0020form",
-      "url": "classes/App-Web-Actions-Form-Items-GetFormItemsAction.html#method_action"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Form\\Items\\UpdateFormItemAction",
-      "name": "UpdateFormItemAction",
-      "summary": "Action\u0020to\u0020update\u0020form\u0020items",
-      "url": "classes/App-Web-Actions-Form-Items-UpdateFormItemAction.html"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Form\\Items\\UpdateFormItemAction\u003A\u003Aaction\u0028\u0029",
-      "name": "action",
-      "summary": "Updates\u0020the\u0020form\u0020item\u0020by\u0020form\u0020id\u0020and\u0020position",
-      "url": "classes/App-Web-Actions-Form-Items-UpdateFormItemAction.html#method_action"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Frontend\\FrontAction",
-      "name": "FrontAction",
-      "summary": "The\u0020base\u0020action\u0020for\u0020all\u0020front\u0020actions",
-      "url": "classes/App-Web-Actions-Frontend-FrontAction.html"
-    },                {
+            "fqsen": "\\App\\Web\\Actions\\Form\\Items\\CreateFormItemAction",
+            "name": "CreateFormItemAction",
+            "summary": "Action\u0020to\u0020create\u0020a\u0020form\u0020item",
+            "url": "classes/App-Web-Actions-Form-Items-CreateFormItemAction.html"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Form\\Items\\CreateFormItemAction\u003A\u003Aaction\u0028\u0029",
+            "name": "action",
+            "summary": "Creates\u0020a\u0020new\u0020form\u0020item\u0020with\u0020the\u0020values\u0020from\u0020the\u0020body",
+            "url": "classes/App-Web-Actions-Form-Items-CreateFormItemAction.html#method_action"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Form\\Items\\DeleteFormItemAction",
+            "name": "DeleteFormItemAction",
+            "summary": "Action\u0020to\u0020delete\u0020a\u0020form\u0020item",
+            "url": "classes/App-Web-Actions-Form-Items-DeleteFormItemAction.html"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Form\\Items\\DeleteFormItemAction\u003A\u003Aaction\u0028\u0029",
+            "name": "action",
+            "summary": "Deletes\u0020the\u0020form\u0020item\u0020by\u0020form\u0020id\u0020and\u0020position",
+            "url": "classes/App-Web-Actions-Form-Items-DeleteFormItemAction.html#method_action"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Form\\Items\\GetFormItemsAction",
+            "name": "GetFormItemsAction",
+            "summary": "Action\u0020to\u0020get\u0020form\u0020items\u0020of\u0020a\u0020form",
+            "url": "classes/App-Web-Actions-Form-Items-GetFormItemsAction.html"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Form\\Items\\GetFormItemsAction\u003A\u003Aaction\u0028\u0029",
+            "name": "action",
+            "summary": "Returns\u0020the\u0020form\u0020items\u0020for\u0020the\u0020given\u0020form",
+            "url": "classes/App-Web-Actions-Form-Items-GetFormItemsAction.html#method_action"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Form\\Items\\UpdateFormItemAction",
+            "name": "UpdateFormItemAction",
+            "summary": "Action\u0020to\u0020update\u0020form\u0020items",
+            "url": "classes/App-Web-Actions-Form-Items-UpdateFormItemAction.html"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Form\\Items\\UpdateFormItemAction\u003A\u003Aaction\u0028\u0029",
+            "name": "action",
+            "summary": "Updates\u0020the\u0020form\u0020item\u0020by\u0020form\u0020id\u0020and\u0020position",
+            "url": "classes/App-Web-Actions-Form-Items-UpdateFormItemAction.html#method_action"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Frontend\\FrontAction",
+            "name": "FrontAction",
+            "summary": "The\u0020base\u0020action\u0020for\u0020all\u0020front\u0020actions",
+            "url": "classes/App-Web-Actions-Frontend-FrontAction.html"
+        },                {
             "fqsen": "\\App\\Web\\Actions\\Frontend\\FrontAction\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
             "summary": "FrontAction\u0020constructor.",
             "url": "classes/App-Web-Actions-Frontend-FrontAction.html#method___construct"
-        }, {
-      "fqsen": "\\App\\Web\\Actions\\Frontend\\FrontAction\u003A\u003Aaction\u0028\u0029",
-      "name": "action",
-      "summary": "Executes\u0020the\u0020front\u0020action.\u0020If\u0020an\u0020error\u0020occurs\u0020either\u0020the\u0020homepage\u0020or\u0020a\u0020page\u0020with\u0020the\u0020error\u0020code\u0020will\u0020be\u0020returned.\u0020If\u0020all\u0020error\u0020handling\u0020fails,\u0020the\u0020emergency\u0020website\u0020will\u0020be\u0020shown",
-      "url": "classes/App-Web-Actions-Frontend-FrontAction.html#method_action"
-    },                {
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Frontend\\FrontAction\u003A\u003Aaction\u0028\u0029",
+            "name": "action",
+            "summary": "Executes\u0020the\u0020front\u0020action.\u0020If\u0020an\u0020error\u0020occurs\u0020either\u0020the\u0020homepage\u0020or\u0020a\u0020page\u0020with\u0020the\u0020error\u0020code\u0020will\u0020be\u0020returned.\u0020If\u0020all\u0020error\u0020handling\u0020fails,\u0020the\u0020emergency\u0020website\u0020will\u0020be\u0020shown",
+            "url": "classes/App-Web-Actions-Frontend-FrontAction.html#method_action"
+        },                {
             "fqsen": "\\App\\Web\\Actions\\Frontend\\FrontAction\u003A\u003AprotectedAction\u0028\u0029",
             "name": "protectedAction",
             "summary": "Gets\u0020executed\u0020in\u0020a\u0020secure\u0020context",
@@ -4320,92 +4320,92 @@ Search.appendIndex(
             "name": "activeTheme",
             "summary": "",
             "url": "classes/App-Web-Actions-Frontend-FrontAction.html#property_activeTheme"
-        }, {
-      "fqsen": "\\App\\Web\\Actions\\Frontend\\GetBlogFrontAction",
-      "name": "GetBlogFrontAction",
-      "summary": "Action\u0020to\u0020show\u0020blog\u0020frontend",
-      "url": "classes/App-Web-Actions-Frontend-GetBlogFrontAction.html"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Frontend\\GetBlogFrontAction\u003A\u003AprotectedAction\u0028\u0029",
-      "name": "protectedAction",
-      "summary": "Displays\u0020the\u0020given\u0020blog\u0020post\u0020or\u0020returns\u0020a\u0020404\u0020page",
-      "url": "classes/App-Web-Actions-Frontend-GetBlogFrontAction.html#method_protectedAction"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Frontend\\GetFrontAction",
-      "name": "GetFrontAction",
-      "summary": "Action\u0020to\u0020get\u0020the\u0020frontend",
-      "url": "classes/App-Web-Actions-Frontend-GetFrontAction.html"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Frontend\\GetFrontAction\u003A\u003AprotectedAction\u0028\u0029",
-      "name": "protectedAction",
-      "summary": "Renders\u0020the\u0020given\u0020frontend\u0020route\u0020or\u0020a\u0020matching\u0020blog\u0020post\u0020if\u0020there\u0020is\u0020no\u0020menu\u0020item\u0020with\u0020the\u0020given\u0020route",
-      "url": "classes/App-Web-Actions-Frontend-GetFrontAction.html#method_protectedAction"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Frontend\\PostFrontAction",
-      "name": "PostFrontAction",
-      "summary": "Action\u0020to\u0020post\u0020the\u0020forms",
-      "url": "classes/App-Web-Actions-Frontend-PostFrontAction.html"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Frontend\\PostFrontAction\u003A\u003AprotectedAction\u0028\u0029",
-      "name": "protectedAction",
-      "summary": "Executes\u0020the\u0020form\u0020post.\u0020If\u0020the\u0020form\u0020is\u0020not\u0020found\u0020the\u0020404\u0020page\u0020will\u0020be\u0020returned",
-      "url": "classes/App-Web-Actions-Frontend-PostFrontAction.html#method_protectedAction"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\CreatePositionAction",
-      "name": "CreatePositionAction",
-      "summary": "Action\u0020to\u0020create\u0020gallery\u0020positions",
-      "url": "classes/App-Web-Actions-Gallery-Positions-CreatePositionAction.html"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\CreatePositionAction\u003A\u003Aaction\u0028\u0029",
-      "name": "action",
-      "summary": "Creates\u0020a\u0020new\u0020gallery\u0020file\u0020position\u0020for\u0020the\u0020given\u0020gallery",
-      "url": "classes/App-Web-Actions-Gallery-Positions-CreatePositionAction.html#method_action"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\DeletePositionAction",
-      "name": "DeletePositionAction",
-      "summary": "Action\u0020to\u0020delete\u0020a\u0020position",
-      "url": "classes/App-Web-Actions-Gallery-Positions-DeletePositionAction.html"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\DeletePositionAction\u003A\u003Aaction\u0028\u0029",
-      "name": "action",
-      "summary": "Deletes\u0020the\u0020gallery\u0020file\u0020position\u0020by\u0020gallery\u0020id\u0020and\u0020position",
-      "url": "classes/App-Web-Actions-Gallery-Positions-DeletePositionAction.html#method_action"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\GetPositionsAction",
-      "name": "GetPositionsAction",
-      "summary": "Action\u0020to\u0020get\u0020all\u0020positions",
-      "url": "classes/App-Web-Actions-Gallery-Positions-GetPositionsAction.html"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\GetPositionsAction\u003A\u003Aaction\u0028\u0029",
-      "name": "action",
-      "summary": "Gets\u0020all\u0020positions\u0020for\u0020the\u0020given\u0020gallery",
-      "url": "classes/App-Web-Actions-Gallery-Positions-GetPositionsAction.html#method_action"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\UpdatePositionAction",
-      "name": "UpdatePositionAction",
-      "summary": "Action\u0020to\u0020update\u0020a\u0020position",
-      "url": "classes/App-Web-Actions-Gallery-Positions-UpdatePositionAction.html"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\UpdatePositionAction\u003A\u003Aaction\u0028\u0029",
-      "name": "action",
-      "summary": "Updates\u0020the\u0020given\u0020gallery\u0020file\u0020position\u0020by\u0020gallery\u0020id\u0020and\u0020position",
-      "url": "classes/App-Web-Actions-Gallery-Positions-UpdatePositionAction.html#method_action"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Install\\GetInstallerAction",
-      "name": "GetInstallerAction",
-      "summary": "Action\u0020to\u0020show\u0020the\u0020installer\u0020page",
-      "url": "classes/App-Web-Actions-Install-GetInstallerAction.html"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Install\\GetInstallerAction\u003A\u003Aaction\u0028\u0029",
-      "name": "action",
-      "summary": "Renders\u0020the\u0020installer\u0020page",
-      "url": "classes/App-Web-Actions-Install-GetInstallerAction.html#method_action"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Install\\InstallAction",
-      "name": "InstallAction",
-      "summary": "Base\u0020installer\u0020action",
-      "url": "classes/App-Web-Actions-Install-InstallAction.html"
-    },                {
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Frontend\\GetBlogFrontAction",
+            "name": "GetBlogFrontAction",
+            "summary": "Action\u0020to\u0020show\u0020blog\u0020frontend",
+            "url": "classes/App-Web-Actions-Frontend-GetBlogFrontAction.html"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Frontend\\GetBlogFrontAction\u003A\u003AprotectedAction\u0028\u0029",
+            "name": "protectedAction",
+            "summary": "Displays\u0020the\u0020given\u0020blog\u0020post\u0020or\u0020returns\u0020a\u0020404\u0020page",
+            "url": "classes/App-Web-Actions-Frontend-GetBlogFrontAction.html#method_protectedAction"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Frontend\\GetFrontAction",
+            "name": "GetFrontAction",
+            "summary": "Action\u0020to\u0020get\u0020the\u0020frontend",
+            "url": "classes/App-Web-Actions-Frontend-GetFrontAction.html"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Frontend\\GetFrontAction\u003A\u003AprotectedAction\u0028\u0029",
+            "name": "protectedAction",
+            "summary": "Renders\u0020the\u0020given\u0020frontend\u0020route\u0020or\u0020a\u0020matching\u0020blog\u0020post\u0020if\u0020there\u0020is\u0020no\u0020menu\u0020item\u0020with\u0020the\u0020given\u0020route",
+            "url": "classes/App-Web-Actions-Frontend-GetFrontAction.html#method_protectedAction"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Frontend\\PostFrontAction",
+            "name": "PostFrontAction",
+            "summary": "Action\u0020to\u0020post\u0020the\u0020forms",
+            "url": "classes/App-Web-Actions-Frontend-PostFrontAction.html"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Frontend\\PostFrontAction\u003A\u003AprotectedAction\u0028\u0029",
+            "name": "protectedAction",
+            "summary": "Executes\u0020the\u0020form\u0020post.\u0020If\u0020the\u0020form\u0020is\u0020not\u0020found\u0020the\u0020404\u0020page\u0020will\u0020be\u0020returned",
+            "url": "classes/App-Web-Actions-Frontend-PostFrontAction.html#method_protectedAction"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\CreatePositionAction",
+            "name": "CreatePositionAction",
+            "summary": "Action\u0020to\u0020create\u0020gallery\u0020positions",
+            "url": "classes/App-Web-Actions-Gallery-Positions-CreatePositionAction.html"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\CreatePositionAction\u003A\u003Aaction\u0028\u0029",
+            "name": "action",
+            "summary": "Creates\u0020a\u0020new\u0020gallery\u0020file\u0020position\u0020for\u0020the\u0020given\u0020gallery",
+            "url": "classes/App-Web-Actions-Gallery-Positions-CreatePositionAction.html#method_action"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\DeletePositionAction",
+            "name": "DeletePositionAction",
+            "summary": "Action\u0020to\u0020delete\u0020a\u0020position",
+            "url": "classes/App-Web-Actions-Gallery-Positions-DeletePositionAction.html"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\DeletePositionAction\u003A\u003Aaction\u0028\u0029",
+            "name": "action",
+            "summary": "Deletes\u0020the\u0020gallery\u0020file\u0020position\u0020by\u0020gallery\u0020id\u0020and\u0020position",
+            "url": "classes/App-Web-Actions-Gallery-Positions-DeletePositionAction.html#method_action"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\GetPositionsAction",
+            "name": "GetPositionsAction",
+            "summary": "Action\u0020to\u0020get\u0020all\u0020positions",
+            "url": "classes/App-Web-Actions-Gallery-Positions-GetPositionsAction.html"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\GetPositionsAction\u003A\u003Aaction\u0028\u0029",
+            "name": "action",
+            "summary": "Gets\u0020all\u0020positions\u0020for\u0020the\u0020given\u0020gallery",
+            "url": "classes/App-Web-Actions-Gallery-Positions-GetPositionsAction.html#method_action"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\UpdatePositionAction",
+            "name": "UpdatePositionAction",
+            "summary": "Action\u0020to\u0020update\u0020a\u0020position",
+            "url": "classes/App-Web-Actions-Gallery-Positions-UpdatePositionAction.html"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Gallery\\Positions\\UpdatePositionAction\u003A\u003Aaction\u0028\u0029",
+            "name": "action",
+            "summary": "Updates\u0020the\u0020given\u0020gallery\u0020file\u0020position\u0020by\u0020gallery\u0020id\u0020and\u0020position",
+            "url": "classes/App-Web-Actions-Gallery-Positions-UpdatePositionAction.html#method_action"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Install\\GetInstallerAction",
+            "name": "GetInstallerAction",
+            "summary": "Action\u0020to\u0020show\u0020the\u0020installer\u0020page",
+            "url": "classes/App-Web-Actions-Install-GetInstallerAction.html"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Install\\GetInstallerAction\u003A\u003Aaction\u0028\u0029",
+            "name": "action",
+            "summary": "Renders\u0020the\u0020installer\u0020page",
+            "url": "classes/App-Web-Actions-Install-GetInstallerAction.html#method_action"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Install\\InstallAction",
+            "name": "InstallAction",
+            "summary": "Base\u0020installer\u0020action",
+            "url": "classes/App-Web-Actions-Install-InstallAction.html"
+        },                {
             "fqsen": "\\App\\Web\\Actions\\Install\\InstallAction\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
             "summary": "InstallAction\u0020constructor.",
@@ -4420,100 +4420,100 @@ Search.appendIndex(
             "name": "engine",
             "summary": "",
             "url": "classes/App-Web-Actions-Install-InstallAction.html#property_engine"
-        }, {
-      "fqsen": "\\App\\Web\\Actions\\Install\\PostInstallerAction",
-      "name": "PostInstallerAction",
-      "summary": "Action\u0020to\u0020post\u0020the\u0020installer",
-      "url": "classes/App-Web-Actions-Install-PostInstallerAction.html"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\Install\\PostInstallerAction\u003A\u003Aaction\u0028\u0029",
-      "name": "action",
-      "summary": "Executes\u0020the\u0020post\u0020for\u0020the\u0020installer.\u0020This\u0020creates\u0020the\u0020first\u0020admin\u0020and\u0020.env\u0020file",
-      "url": "classes/App-Web-Actions-Install-PostInstallerAction.html#method_action"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\KnownDevice\\DeleteKnownDeviceAction",
-      "name": "DeleteKnownDeviceAction",
-      "summary": "Action\u0020to\u0020delete\u0020a\u0020known\u0020device",
-      "url": "classes/App-Web-Actions-KnownDevice-DeleteKnownDeviceAction.html"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\KnownDevice\\DeleteKnownDeviceAction\u003A\u003Aaction\u0028\u0029",
-      "name": "action",
-      "summary": "Deletes\u0020the\u0020known\u0020device\u0020by\u0020the\u0020given\u0020key",
-      "url": "classes/App-Web-Actions-KnownDevice-DeleteKnownDeviceAction.html#method_action"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\KnownDevice\\ListAllKnownDevicesAction",
-      "name": "ListAllKnownDevicesAction",
-      "summary": "Action\u0020to\u0020list\u0020all\u0020known\u0020devices\u0020for\u0020the\u0020current\u0020user",
-      "url": "classes/App-Web-Actions-KnownDevice-ListAllKnownDevicesAction.html"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\KnownDevice\\ListAllKnownDevicesAction\u003A\u003Aaction\u0028\u0029",
-      "name": "action",
-      "summary": "Returns\u0020a\u0020list\u0020of\u0020all\u0020known\u0020devices\u0020from\u0020the\u0020current\u0020user",
-      "url": "classes/App-Web-Actions-KnownDevice-ListAllKnownDevicesAction.html#method_action"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\KnownDevice\\ValidateKnownDeviceAction",
-      "name": "ValidateKnownDeviceAction",
-      "summary": "Action\u0020to\u0020validate\u0020a\u0020known\u0020device",
-      "url": "classes/App-Web-Actions-KnownDevice-ValidateKnownDeviceAction.html"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\KnownDevice\\ValidateKnownDeviceAction\u003A\u003Aaction\u0028\u0029",
-      "name": "action",
-      "summary": "Checks\u0020if\u0020the\u0020known\u0020device\u0020is\u0020valid\u0020and\u0020known",
-      "url": "classes/App-Web-Actions-KnownDevice-ValidateKnownDeviceAction.html#method_action"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\LocateIp\\LocatorAction",
-      "name": "LocatorAction",
-      "summary": "Action\u0020to\u0020locate\u0020an\u0020IP\u0020with\u0020freegeoip.app",
-      "url": "classes/App-Web-Actions-LocateIp-LocatorAction.html"
-    }, {
-      "fqsen": "\\App\\Web\\Actions\\LocateIp\\LocatorAction\u003A\u003Aaction\u0028\u0029",
-      "name": "action",
-      "summary": "Locates\u0020the\u0020given\u0020IP",
-      "url": "classes/App-Web-Actions-LocateIp-LocatorAction.html#method_action"
-    },                {
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Install\\PostInstallerAction",
+            "name": "PostInstallerAction",
+            "summary": "Action\u0020to\u0020post\u0020the\u0020installer",
+            "url": "classes/App-Web-Actions-Install-PostInstallerAction.html"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\Install\\PostInstallerAction\u003A\u003Aaction\u0028\u0029",
+            "name": "action",
+            "summary": "Executes\u0020the\u0020post\u0020for\u0020the\u0020installer.\u0020This\u0020creates\u0020the\u0020first\u0020admin\u0020and\u0020.env\u0020file",
+            "url": "classes/App-Web-Actions-Install-PostInstallerAction.html#method_action"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\KnownDevice\\DeleteKnownDeviceAction",
+            "name": "DeleteKnownDeviceAction",
+            "summary": "Action\u0020to\u0020delete\u0020a\u0020known\u0020device",
+            "url": "classes/App-Web-Actions-KnownDevice-DeleteKnownDeviceAction.html"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\KnownDevice\\DeleteKnownDeviceAction\u003A\u003Aaction\u0028\u0029",
+            "name": "action",
+            "summary": "Deletes\u0020the\u0020known\u0020device\u0020by\u0020the\u0020given\u0020key",
+            "url": "classes/App-Web-Actions-KnownDevice-DeleteKnownDeviceAction.html#method_action"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\KnownDevice\\ListAllKnownDevicesAction",
+            "name": "ListAllKnownDevicesAction",
+            "summary": "Action\u0020to\u0020list\u0020all\u0020known\u0020devices\u0020for\u0020the\u0020current\u0020user",
+            "url": "classes/App-Web-Actions-KnownDevice-ListAllKnownDevicesAction.html"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\KnownDevice\\ListAllKnownDevicesAction\u003A\u003Aaction\u0028\u0029",
+            "name": "action",
+            "summary": "Returns\u0020a\u0020list\u0020of\u0020all\u0020known\u0020devices\u0020from\u0020the\u0020current\u0020user",
+            "url": "classes/App-Web-Actions-KnownDevice-ListAllKnownDevicesAction.html#method_action"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\KnownDevice\\ValidateKnownDeviceAction",
+            "name": "ValidateKnownDeviceAction",
+            "summary": "Action\u0020to\u0020validate\u0020a\u0020known\u0020device",
+            "url": "classes/App-Web-Actions-KnownDevice-ValidateKnownDeviceAction.html"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\KnownDevice\\ValidateKnownDeviceAction\u003A\u003Aaction\u0028\u0029",
+            "name": "action",
+            "summary": "Checks\u0020if\u0020the\u0020known\u0020device\u0020is\u0020valid\u0020and\u0020known",
+            "url": "classes/App-Web-Actions-KnownDevice-ValidateKnownDeviceAction.html#method_action"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\LocateIp\\LocatorAction",
+            "name": "LocatorAction",
+            "summary": "Action\u0020to\u0020locate\u0020an\u0020IP\u0020with\u0020freegeoip.app",
+            "url": "classes/App-Web-Actions-LocateIp-LocatorAction.html"
+        },                {
+            "fqsen": "\\App\\Web\\Actions\\LocateIp\\LocatorAction\u003A\u003Aaction\u0028\u0029",
+            "name": "action",
+            "summary": "Locates\u0020the\u0020given\u0020IP",
+            "url": "classes/App-Web-Actions-LocateIp-LocatorAction.html#method_action"
+        },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\CreateMenuItemByMenuAction",
             "name": "CreateMenuItemByMenuAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020create\u0020a\u0020menu\u0020item\u0020with\u0020menu\u0020as\u0020parent",
             "url": "classes/App-Web-Actions-Menu-Items-CreateMenuItemByMenuAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\CreateMenuItemByMenuAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "Creates\u0020the\u0020menu\u0020item\u0020in\u0020the\u0020body\u0020with\u0020the\u0020given\u0020menu\u0020as\u0020parent",
             "url": "classes/App-Web-Actions-Menu-Items-CreateMenuItemByMenuAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\CreateMenuItemByMenuItemAction",
             "name": "CreateMenuItemByMenuItemAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020create\u0020a\u0020menu\u0020item\u0020with\u0020menu\u0020item\u0020as\u0020parent",
             "url": "classes/App-Web-Actions-Menu-Items-CreateMenuItemByMenuItemAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\CreateMenuItemByMenuItemAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "Creates\u0020the\u0020menu\u0020item\u0020in\u0020the\u0020body\u0020with\u0020the\u0020given\u0020menu\u0020as\u0020parent",
             "url": "classes/App-Web-Actions-Menu-Items-CreateMenuItemByMenuItemAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\DeleteMenuItemAction",
             "name": "DeleteMenuItemAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020delete\u0020a\u0020menu\u0020item",
             "url": "classes/App-Web-Actions-Menu-Items-DeleteMenuItemAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\DeleteMenuItemAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "Deletes\u0020the\u0020given\u0020menu\u0020item",
             "url": "classes/App-Web-Actions-Menu-Items-DeleteMenuItemAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\GetMenuItemsByMenuAction",
             "name": "GetMenuItemsByMenuAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020get\u0020menu\u0020items\u0020by\u0020menu",
             "url": "classes/App-Web-Actions-Menu-Items-GetMenuItemsByMenuAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\GetMenuItemsByMenuAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "Gets\u0020all\u0020menu\u0020items\u0020in\u0020the\u0020given\u0020menu\u0020recursively",
             "url": "classes/App-Web-Actions-Menu-Items-GetMenuItemsByMenuAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\MenuItemAction",
             "name": "MenuItemAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Base\u0020action\u0020for\u0020menu\u0020items",
             "url": "classes/App-Web-Actions-Menu-Items-MenuItemAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\MenuItemAction\u003A\u003AfillMenuItem\u0028\u0029",
@@ -4528,412 +4528,412 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\MoveMenuItemParentToItemAction",
             "name": "MoveMenuItemParentToItemAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020move\u0020a\u0020menu\u0020item\u0020to\u0020a\u0020new\u0020parent",
             "url": "classes/App-Web-Actions-Menu-Items-MoveMenuItemParentToItemAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\MoveMenuItemParentToItemAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Moves\u0020the\u0020given\u0020menu\u0020item\u0020to\u0020the\u0020new\u0020parent\u0020set\u0020in\u0020the\u0020body.",
             "url": "classes/App-Web-Actions-Menu-Items-MoveMenuItemParentToItemAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\ResetMenuItemParentAction",
             "name": "ResetMenuItemParentAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020set\u0020the\u0020menu\u0020item\u0020parent\u0020to\u0020the\u0020menu",
             "url": "classes/App-Web-Actions-Menu-Items-ResetMenuItemParentAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\ResetMenuItemParentAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Moves\u0020the\u0020menu\u0020item\u0020to\u0020the\u0020menu\u0020as\u0020new\u0020parent",
             "url": "classes/App-Web-Actions-Menu-Items-ResetMenuItemParentAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\UpdateMenuItemAction",
             "name": "UpdateMenuItemAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020update\u0020a\u0020menu\u0020item\u0020excluding\u0020its\u0020parent",
             "url": "classes/App-Web-Actions-Menu-Items-UpdateMenuItemAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Menu\\Items\\UpdateMenuItemAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "Updates\u0020the\u0020given\u0020menu\u0020item\u0020from\u0020the\u0020body",
             "url": "classes/App-Web-Actions-Menu-Items-UpdateMenuItemAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\MyJinya\\GetArtistInfoAction",
             "name": "GetArtistInfoAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020get\u0020info\u0020about\u0020current\u0020artist",
             "url": "classes/App-Web-Actions-MyJinya-GetArtistInfoAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\MyJinya\\GetArtistInfoAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Gets\u0020the\u0020information\u0020of\u0020the\u0020current\u0020artist",
             "url": "classes/App-Web-Actions-MyJinya-GetArtistInfoAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\MyJinya\\UpdateAboutMeAction",
             "name": "UpdateAboutMeAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020update\u0020the\u0020about\u0020me\u0020section\u0020the\u0020current\u0020artist",
             "url": "classes/App-Web-Actions-MyJinya-UpdateAboutMeAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\MyJinya\\UpdateAboutMeAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Updates\u0020the\u0020about\u0020me\u0020data\u0020of\u0020the\u0020artist,\u0020currently\u0020contains\u0020email,\u0020artist\u0020name\u0020and\u0020about\u0020me\u0020info",
             "url": "classes/App-Web-Actions-MyJinya-UpdateAboutMeAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\MyJinya\\UpdateColorScheme",
             "name": "UpdateColorScheme",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020change\u0020the\u0020color\u0020scheme\u0020of\u0020the\u0020artist",
             "url": "classes/App-Web-Actions-MyJinya-UpdateColorScheme.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\MyJinya\\UpdateColorScheme\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Updates\u0020the\u0020color\u0020scheme\u0020to\u0020the\u0020new\u0020value",
             "url": "classes/App-Web-Actions-MyJinya-UpdateColorScheme.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\PhpInfo\\GetPhpInfoAction",
             "name": "GetPhpInfoAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020grab\u0020several\u0020PHP\u0020information",
             "url": "classes/App-Web-Actions-PhpInfo-GetPhpInfoAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\PhpInfo\\GetPhpInfoAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Gets\u0020several\u0020PHP,\u0020apache\u0020and\u0020system\u0020information",
             "url": "classes/App-Web-Actions-PhpInfo-GetPhpInfoAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\CreateFileSegmentAction",
             "name": "CreateFileSegmentAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020create\u0020a\u0020file\u0020segment",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-CreateFileSegmentAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\CreateFileSegmentAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Creates\u0020a\u0020new\u0020file\u0020segment\u0020with\u0020the\u0020information\u0020from\u0020the\u0020post\u0020body",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-CreateFileSegmentAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\CreateFormSegmentAction",
             "name": "CreateFormSegmentAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020create\u0020a\u0020form\u0020segment",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-CreateFormSegmentAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\CreateFormSegmentAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Creates\u0020a\u0020new\u0020form\u0020segment\u0020with\u0020the\u0020information\u0020from\u0020the\u0020post\u0020body",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-CreateFormSegmentAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\CreateGallerySegmentAction",
             "name": "CreateGallerySegmentAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020create\u0020a\u0020gallery\u0020segment",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-CreateGallerySegmentAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\CreateGallerySegmentAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Creates\u0020a\u0020new\u0020gallery\u0020segment\u0020with\u0020the\u0020information\u0020from\u0020the\u0020post\u0020body",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-CreateGallerySegmentAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\CreateHtmlSegmentAction",
             "name": "CreateHtmlSegmentAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020create\u0020an\u0020HTML\u0020segment",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-CreateHtmlSegmentAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\CreateHtmlSegmentAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Creates\u0020a\u0020new\u0020HTML\u0020segment\u0020with\u0020the\u0020given\u0020content",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-CreateHtmlSegmentAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\DeleteSegmentAction",
             "name": "DeleteSegmentAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020delete\u0020a\u0020segment",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-DeleteSegmentAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\DeleteSegmentAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Deletes\u0020the\u0020segment\u0020in\u0020the\u0020given\u0020page\u0020at\u0020the\u0020given\u0020position",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-DeleteSegmentAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\GetSegmentsAction",
             "name": "GetSegmentsAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020get\u0020all\u0020segments",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-GetSegmentsAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\GetSegmentsAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Gets\u0020all\u0020segments\u0020for\u0020the\u0020given\u0020segment\u0020page",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-GetSegmentsAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\UpdateSegmentAction",
             "name": "UpdateSegmentAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020update\u0020a\u0020segment",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-UpdateSegmentAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\SegmentPage\\Segments\\UpdateSegmentAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Updates\u0020the\u0020segment\u0020at\u0020the\u0020given\u0020position\u0020in\u0020the\u0020given\u0020page",
             "url": "classes/App-Web-Actions-SegmentPage-Segments-UpdateSegmentAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetEntityStatisticsAction",
             "name": "GetEntityStatisticsAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020get\u0020entity\u0020share\u0020in\u0020Jinya\u0020CMS",
             "url": "classes/App-Web-Actions-Statistics-GetEntityStatisticsAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetEntityStatisticsAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Gets\u0020the\u0020entity\u0020share",
             "url": "classes/App-Web-Actions-Statistics-GetEntityStatisticsAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetHistoryStatisticsAction",
             "name": "GetHistoryStatisticsAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020get\u0020history\u0020statistics",
             "url": "classes/App-Web-Actions-Statistics-GetHistoryStatisticsAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetHistoryStatisticsAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Gets\u0020the\u0020created\u0020and\u0020updated\u0020statistics\u0020for\u0020the\u0020given\u0020type",
             "url": "classes/App-Web-Actions-Statistics-GetHistoryStatisticsAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetSystemStatisticsAction",
             "name": "GetSystemStatisticsAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020get\u0020the\u0020system\u0020storage\u0020stats",
             "url": "classes/App-Web-Actions-Statistics-GetSystemStatisticsAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetSystemStatisticsAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Gets\u0020the\u0020system\u0020storage\u0020statistics,\u0020currently\u0020used,\u0020free\u0020and\u0020total\u0020disk\u0020space",
             "url": "classes/App-Web-Actions-Statistics-GetSystemStatisticsAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByBrowserAction",
             "name": "GetVisitsByBrowserAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020get\u0020visits\u0020by\u0020browser\u0020from\u0020matomo",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByBrowserAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByBrowserAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Gets\u0020the\u0020visits\u0020by\u0020browser\u0020from\u0020matomo",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByBrowserAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByCountryAction",
             "name": "GetVisitsByCountryAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020get\u0020visits\u0020by\u0020country\u0020from\u0020matomo",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByCountryAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByCountryAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Gets\u0020the\u0020visits\u0020by\u0020country\u0020from\u0020matomo",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByCountryAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByDeviceBrandAction",
             "name": "GetVisitsByDeviceBrandAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020get\u0020visits\u0020by\u0020device\u0020brand\u0020from\u0020matomo",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByDeviceBrandAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByDeviceBrandAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Gets\u0020the\u0020visits\u0020by\u0020device\u0020brand\u0020from\u0020matomo",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByDeviceBrandAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByDeviceTypeAction",
             "name": "GetVisitsByDeviceTypeAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020get\u0020visits\u0020by\u0020device\u0020type\u0020from\u0020matomo",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByDeviceTypeAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByDeviceTypeAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Gets\u0020the\u0020visits\u0020by\u0020device\u0020type\u0020from\u0020matomo",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByDeviceTypeAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByLanguageAction",
             "name": "GetVisitsByLanguageAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020get\u0020visits\u0020by\u0020language\u0020from\u0020matomo",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByLanguageAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByLanguageAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Gets\u0020the\u0020visits\u0020by\u0020referrer\u0020from\u0020matomo",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByLanguageAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByOsAction",
             "name": "GetVisitsByOsAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020get\u0020visits\u0020by\u0020os\u0020version\u0020from\u0020matomo",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByOsAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByOsAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Gets\u0020the\u0020visits\u0020by\u0020os\u0020versions\u0020from\u0020matomo",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByOsAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByReferrerAction",
             "name": "GetVisitsByReferrerAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020get\u0020visits\u0020by\u0020referrer\u0020from\u0020matomo",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByReferrerAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Statistics\\GetVisitsByReferrerAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Gets\u0020the\u0020visits\u0020by\u0020referrer\u0020from\u0020matomo",
             "url": "classes/App-Web-Actions-Statistics-GetVisitsByReferrerAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\ActivateThemeAction",
             "name": "ActivateThemeAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020activate\u0020a\u0020theme",
             "url": "classes/App-Web-Actions-Theme-ActivateThemeAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\ActivateThemeAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "Activates\u0020the\u0020given\u0020theme",
             "url": "classes/App-Web-Actions-Theme-ActivateThemeAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\CompileThemeAction",
             "name": "CompileThemeAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020compile\u0020theme\u0020assets",
             "url": "classes/App-Web-Actions-Theme-CompileThemeAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\CompileThemeAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "Compiles\u0020all\u0020theme\u0020assets",
             "url": "classes/App-Web-Actions-Theme-CompileThemeAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\CreateThemeAction",
             "name": "CreateThemeAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020upload\u0020a\u0020theme",
             "url": "classes/App-Web-Actions-Theme-CreateThemeAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\CreateThemeAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Uploads\u0020a\u0020new\u0020theme,\u0020unzips\u0020the\u0020posted\u0020body\u0020and\u0020syncs\u0020all\u0020themes",
             "url": "classes/App-Web-Actions-Theme-CreateThemeAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\GetConfigurationStructureAction",
             "name": "GetConfigurationStructureAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020get\u0020the\u0020configuration\u0020structure",
             "url": "classes/App-Web-Actions-Theme-GetConfigurationStructureAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\GetConfigurationStructureAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "Gets\u0020the\u0020structure\u0020of\u0020the\u0020configuration\u0020for\u0020the\u0020given\u0020theme",
             "url": "classes/App-Web-Actions-Theme-GetConfigurationStructureAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\GetDefaultConfigurationValues",
             "name": "GetDefaultConfigurationValues",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020get\u0020the\u0020default\u0020configuration\u0020values",
             "url": "classes/App-Web-Actions-Theme-GetDefaultConfigurationValues.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\GetDefaultConfigurationValues\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "Gets\u0020the\u0020default\u0020configuration\u0020values\u0020by\u0020theme\u0020ID",
             "url": "classes/App-Web-Actions-Theme-GetDefaultConfigurationValues.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\GetLinkItemAction",
             "name": "GetLinkItemAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020get\u0020the\u0020links\u0020by\u0020entity\u0020type",
             "url": "classes/App-Web-Actions-Theme-GetLinkItemAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\GetLinkItemAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "Gets\u0020the\u0020links\u0020by\u0020entity\u0020type\u0020and\u0020theme",
             "url": "classes/App-Web-Actions-Theme-GetLinkItemAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\GetPreviewImageAction",
             "name": "GetPreviewImageAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020get\u0020the\u0020theme\u0020preview\u0020image",
             "url": "classes/App-Web-Actions-Theme-GetPreviewImageAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\GetPreviewImageAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "Gets\u0020the\u0020theme\u0020preview\u0020image,\u0020if\u0020no\u0020preview\u0020image\u0020is\u0020configured\u0020a\u0020204\u0020is\u0020returned",
             "url": "classes/App-Web-Actions-Theme-GetPreviewImageAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\GetStyleVariablesAction",
             "name": "GetStyleVariablesAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020get\u0020all\u0020style\u0020variables",
             "url": "classes/App-Web-Actions-Theme-GetStyleVariablesAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\GetStyleVariablesAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "Gets\u0020the\u0020SCSS\u0020variables\u0020from\u0020the\u0020given\u0020theme",
             "url": "classes/App-Web-Actions-Theme-GetStyleVariablesAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\PutConfigurationAction",
             "name": "PutConfigurationAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020update\u0020the\u0020configuration",
             "url": "classes/App-Web-Actions-Theme-PutConfigurationAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\PutConfigurationAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "Updates\u0020the\u0020theme\u0020configuration\u0020for\u0020the\u0020given\u0020theme.\u0020Before\u0020an\u0020update\u0020is\u0020made,\u0020the\u0020themes\u0020will\u0020be\u0020synced\u0020to\u0020have\u0020the\u0020latest\u0020state",
             "url": "classes/App-Web-Actions-Theme-PutConfigurationAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\PutLinkItemAction",
             "name": "PutLinkItemAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020update\u0020a\u0020theme\u0020link",
             "url": "classes/App-Web-Actions-Theme-PutLinkItemAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\PutLinkItemAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "Updates\u0020the\u0020theme\u0020link\u0020of\u0020the\u0020given\u0020entity\u0020type\u0020with\u0020the\u0020given\u0020ID\u0020and\u0020name",
             "url": "classes/App-Web-Actions-Theme-PutLinkItemAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\PutStyleVariablesAction",
             "name": "PutStyleVariablesAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020update\u0020the\u0020SCSS\u0020variables",
             "url": "classes/App-Web-Actions-Theme-PutStyleVariablesAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\PutStyleVariablesAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "Updates\u0020the\u0020SCSS\u0020variable\u0020for\u0020the\u0020given\u0020theme\u0020from\u0020the\u0020body",
             "url": "classes/App-Web-Actions-Theme-PutStyleVariablesAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\ThemeAction",
             "name": "ThemeAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "The\u0020base\u0020theme\u0020action",
             "url": "classes/App-Web-Actions-Theme-ThemeAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\ThemeAction\u003A\u003AsyncThemes\u0028\u0029",
             "name": "syncThemes",
-            "summary": "",
+            "summary": "Syncs\u0020the\u0020themes\u0020using\u0020the\u0020ThemeSyncer",
             "url": "classes/App-Web-Actions-Theme-ThemeAction.html#method_syncThemes"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\UpdateThemeFilesAction",
             "name": "UpdateThemeFilesAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020update\u0020a\u0020theme",
             "url": "classes/App-Web-Actions-Theme-UpdateThemeFilesAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Theme\\UpdateThemeFilesAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Updates\u0020the\u0020given\u0020theme,\u0020from\u0020the\u0020zip\u0020file\u0020in\u0020the\u0020body",
             "url": "classes/App-Web-Actions-Theme-UpdateThemeFilesAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Update\\GetUpdateAction",
             "name": "GetUpdateAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020get\u0020the\u0020update\u0020UI",
             "url": "classes/App-Web-Actions-Update-GetUpdateAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Update\\GetUpdateAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "Renders\u0020the\u0020update\u0020UI",
             "url": "classes/App-Web-Actions-Update-GetUpdateAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Update\\InitUpdateProcess",
             "name": "InitUpdateProcess",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020set\u0020the\u0020update\u0020cookie",
             "url": "classes/App-Web-Actions-Update-InitUpdateProcess.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Update\\InitUpdateProcess\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "The\u0020action\u0020to\u0020run\u0020when\u0020the\u0020request\u0020gets\u0020executed",
+            "summary": "Initializes\u0020the\u0020update\u0020process\u0020and\u0020generates\u0020a\u0020special\u0020key\u0020to\u0020allow\u0020updates",
             "url": "classes/App-Web-Actions-Update-InitUpdateProcess.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Update\\PostUpdateAction",
             "name": "PostUpdateAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020post\u0020the\u0020update",
             "url": "classes/App-Web-Actions-Update-PostUpdateAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Update\\PostUpdateAction\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "Executes\u0020the\u0020update,\u0020first\u0020the\u0020latest\u0020version\u0020will\u0020be\u0020loaded\u0020from\u0020the\u0020configured\u0020release\u0020server,\u0020unpacks\u0020the\u0020zip\u0020and\u0020replaces\u0020the\u0020files",
             "url": "classes/App-Web-Actions-Update-PostUpdateAction.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Update\\UpdateAction",
             "name": "UpdateAction",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Base\u0020action\u0020for\u0020updates",
             "url": "classes/App-Web-Actions-Update-UpdateAction.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Update\\UpdateAction\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "InstallAction\u0020constructor.",
+            "summary": "UpdateAction\u0020constructor.",
             "url": "classes/App-Web-Actions-Update-UpdateAction.html#method___construct"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Update\\UpdateAction\u003A\u003Arender\u0028\u0029",
@@ -4943,12 +4943,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Update\\UpdateAction\u003A\u003AgetReleasePath\u0028\u0029",
             "name": "getReleasePath",
-            "summary": "",
+            "summary": "Gets\u0020the\u0020path\u0020of\u0020the\u0020given\u0020release\u0020version",
             "url": "classes/App-Web-Actions-Update-UpdateAction.html#method_getReleasePath"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Update\\UpdateAction\u003A\u003AgetReleases\u0028\u0029",
             "name": "getReleases",
-            "summary": "",
+            "summary": "Gets\u0020all\u0020currently\u0020available\u0020releases\u0020from\u0020the\u0020configured\u0020update\u0020server",
             "url": "classes/App-Web-Actions-Update-UpdateAction.html#method_getReleases"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Update\\UpdateAction\u003A\u003A\u0024engine",
@@ -4958,12 +4958,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Web\\Actions\\Version\\GetVersionInfo",
             "name": "GetVersionInfo",
-            "summary": "Base\u0020class\u0020for\u0020all\u0020http\u0020actions\u0020that\u0020can\u0027t\u0020be\u0020generated\u0020with\u0020reflection",
+            "summary": "Action\u0020to\u0020get\u0020version\u0020info",
             "url": "classes/App-Web-Actions-Version-GetVersionInfo.html"
         },                {
             "fqsen": "\\App\\Web\\Actions\\Version\\GetVersionInfo\u003A\u003Aaction\u0028\u0029",
             "name": "action",
-            "summary": "",
+            "summary": "Gets\u0020the\u0020most\u0020recent\u0020version\u0020and\u0020the\u0020current\u0020version",
             "url": "classes/App-Web-Actions-Version-GetVersionInfo.html#method_action"
         },                {
             "fqsen": "\\App\\Web\\Exceptions\\BadCredentialsException",

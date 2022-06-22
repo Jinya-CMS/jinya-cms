@@ -206,7 +206,7 @@
 
     </aside>
 
-            <p class="phpdocumentor-summary">Base class for all http actions that can&#039;t be generated with reflection</p>
+            <p class="phpdocumentor-summary">Action to move a menu item to a new parent</p>
 
 
 
@@ -724,7 +724,7 @@
     <span>
                                 &nbsp;: <abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr>    </span>
 </dt>
-<dd>The action to run when the request gets executed</dd>
+<dd>Moves the given menu item to the new parent set in the body.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/App-Web-Actions-Action.html#method_formatIterator">formatIterator()</a>
@@ -2941,17 +2941,19 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Web/Actions/Menu/Items/MoveMenuItemParentToItemAction.php"><a href="files/src-web-actions-menu-items-movemenuitemparenttoitemaction.html"><abbr title="src/Web/Actions/Menu/Items/MoveMenuItemParentToItemAction.php">MoveMenuItemParentToItemAction.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">25</span>
+    <span class="phpdocumentor-element-found-in__line">28</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">The action to run when the request gets executed</p>
+        <p class="phpdocumentor-summary">Moves the given menu item to the new parent set in the body.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
                     <span class="phpdocumentor-signature__name">action</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span></code>
 
-    
+        <section class="phpdocumentor-description"><p>If the args don't contain the key newParent, the menu item is moved one level up</p>
+</section>
+
     
     
     <h5 class="phpdocumentor-tag-list__heading" id="tags">

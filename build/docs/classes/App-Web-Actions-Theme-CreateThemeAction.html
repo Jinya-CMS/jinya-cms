@@ -185,7 +185,7 @@
     CreateThemeAction
 
         <span class="phpdocumentor-element__extends">
-        extends <a href="classes/App-Web-Actions-Action.html"><abbr title="\App\Web\Actions\Action">Action</abbr></a>
+        extends <a href="classes/App-Web-Actions-Theme-ThemeAction.html"><abbr title="\App\Web\Actions\Theme\ThemeAction">ThemeAction</abbr></a>
     </span>
     
             <div class="phpdocumentor-element__package">
@@ -201,11 +201,11 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Web/Actions/Theme/CreateThemeAction.php"><a href="files/src-web-actions-theme-createthemeaction.html"><abbr title="src/Web/Actions/Theme/CreateThemeAction.php">CreateThemeAction.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">19</span>
+    <span class="phpdocumentor-element-found-in__line">18</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Base class for all http actions that can&#039;t be generated with reflection</p>
+            <p class="phpdocumentor-summary">Action to upload a theme</p>
 
 
 
@@ -723,7 +723,7 @@
     <span>
                                 &nbsp;: <abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr>    </span>
 </dt>
-<dd>The action to run when the request gets executed</dd>
+<dd>Uploads a new theme, unzips the posted body and syncs all themes</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/App-Web-Actions-Action.html#method_formatIterator">formatIterator()</a>
@@ -766,6 +766,13 @@
                                 &nbsp;: <abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr>    </span>
 </dt>
 <dd>Responds the given data formatted as list</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/App-Web-Actions-Theme-ThemeAction.html#method_syncThemes">syncThemes()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Syncs the themes using the ThemeSyncer</dd>
 
         </dl>
 
@@ -2940,11 +2947,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Web/Actions/Theme/CreateThemeAction.php"><a href="files/src-web-actions-theme-createthemeaction.html"><abbr title="src/Web/Actions/Theme/CreateThemeAction.php">CreateThemeAction.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">31</span>
+    <span class="phpdocumentor-element-found-in__line">32</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">The action to run when the request gets executed</p>
+        <p class="phpdocumentor-summary">Uploads a new theme, unzips the posted body and syncs all themes</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -3314,6 +3321,77 @@
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_syncThemes">
+        syncThemes()
+        <a href="classes/App-Web-Actions-Theme-ThemeAction.html#method_syncThemes" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Web/Actions/Theme/ThemeAction.php"><a href="files/src-web-actions-theme-themeaction.html"><abbr title="src/Web/Actions/Theme/ThemeAction.php">ThemeAction.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">25</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Syncs the themes using the ThemeSyncer</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+                    <span class="phpdocumentor-signature__name">syncThemes</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-ForeignKeyFailedException.html"><abbr title="\App\Database\Exceptions\ForeignKeyFailedException">ForeignKeyFailedException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Jinya\PDOx\Exceptions\InvalidQueryException">InvalidQueryException</abbr></span>
+                                                            
+                                             
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/App-Database-Exceptions-UniqueFailedException.html"><abbr title="\App\Database\Exceptions\UniqueFailedException">UniqueFailedException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Jinya\PDOx\Exceptions\NoResultException">NoResultException</abbr></span>
+                                                            
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
             &mdash;
         
     
