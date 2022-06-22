@@ -11,10 +11,11 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to finalise a file upload
  */
 class FinishUploadAction extends Action
 {
+    /** @var FileUploadService The file upload service */
     private FileUploadService $fileUploadService;
 
     /**
@@ -27,7 +28,8 @@ class FinishUploadAction extends Action
     }
 
     /**
-     * @inheritDoc
+     * Finalises the upload for the given file
+     *
      * @return Response
      * @throws InvalidQueryException
      * @throws NoResultException

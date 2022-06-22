@@ -5,7 +5,6 @@ namespace App\Web\Actions\File;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
-use App\Utils\ImageManipulator;
 use App\Web\Actions\Action;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
@@ -13,12 +12,13 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpNotFoundException;
 
 /**
- *
+ * Action to get the content of a file
  */
 class GetFileContentAction extends Action
 {
     /**
-     * @inheritDoc
+     * Grabs the content of the file and returns it
+     *
      * @throws HttpNotFoundException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

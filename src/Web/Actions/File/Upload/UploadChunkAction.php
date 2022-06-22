@@ -12,10 +12,11 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to upload a chunk
  */
 class UploadChunkAction extends Action
 {
+    /** @var FileUploadService The file upload service */
     private FileUploadService $fileUploadService;
 
     /**
@@ -28,7 +29,8 @@ class UploadChunkAction extends Action
     }
 
     /**
-     * @inheritDoc
+     * Creates a new UploadingFileChunk for the given file and the given position
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

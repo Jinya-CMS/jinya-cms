@@ -11,13 +11,14 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to initialize an upload
  */
 class StartUploadAction extends Action
 {
 
     /**
-     * @inheritDoc
+     * Starts a new file upload and creates an UploadingFile
+     *
      * @return Response
      * @throws InvalidQueryException
      * @throws NoResultException
