@@ -15,12 +15,13 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpNotFoundException;
 
 /**
- *
+ * Action to update a segment
  */
 class UpdateSegmentAction extends Action
 {
     /**
-     * @inheritDoc
+     * Updates the segment at the given position in the given page
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws HttpNotFoundException

@@ -12,12 +12,13 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpNotFoundException;
 
 /**
- *
+ * Action to delete a segment
  */
 class DeleteSegmentAction extends Action
 {
     /**
-     * @inheritDoc
+     * Deletes the segment in the given page at the given position
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws HttpNotFoundException

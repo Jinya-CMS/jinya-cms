@@ -13,12 +13,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to create a gallery segment
  */
 class CreateGallerySegmentAction extends Action
 {
     /**
-     * @inheritDoc
+     * Creates a new gallery segment with the information from the post body
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

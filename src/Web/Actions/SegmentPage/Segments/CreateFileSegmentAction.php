@@ -13,12 +13,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to create a file segment
  */
 class CreateFileSegmentAction extends Action
 {
     /**
-     * @inheritDoc
+     * Creates a new file segment with the information from the post body
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

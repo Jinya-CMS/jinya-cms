@@ -12,12 +12,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to create an HTML segment
  */
 class CreateHtmlSegmentAction extends Action
 {
     /**
-     * @inheritDoc
+     * Creates a new HTML segment with the given content
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

@@ -11,12 +11,13 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to get all segments
  */
 class GetSegmentsAction extends Action
 {
     /**
-     * @inheritDoc
+     * Gets all segments for the given segment page
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
