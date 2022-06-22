@@ -12,12 +12,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to update a position
  */
 class UpdatePositionAction extends Action
 {
     /**
-     * @inheritDoc
+     * Updates the given gallery file position by gallery id and position
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

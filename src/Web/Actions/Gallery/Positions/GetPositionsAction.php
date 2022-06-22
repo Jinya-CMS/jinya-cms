@@ -11,12 +11,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to get all positions
  */
 class GetPositionsAction extends Action
 {
     /**
-     * @inheritDoc
+     * Gets all positions for the given gallery
+     *
      * @throws NoResultException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

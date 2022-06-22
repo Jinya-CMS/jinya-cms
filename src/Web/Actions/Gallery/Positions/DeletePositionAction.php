@@ -11,12 +11,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to delete a position
  */
 class DeletePositionAction extends Action
 {
     /**
-     * @inheritDoc
+     * Deletes the gallery file position by gallery id and position
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

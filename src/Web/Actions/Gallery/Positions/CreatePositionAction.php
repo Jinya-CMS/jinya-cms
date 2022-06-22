@@ -13,19 +13,18 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to create gallery positions
  */
 class CreatePositionAction extends Action
 {
     /**
-     * @inheritDoc
+     * Creates a new gallery file position for the given gallery
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws NoResultException
      * @throws UniqueFailedException
-     * @throws \Jinya\PDOx\Exceptions\NoResultException
-     * @throws \Jinya\PDOx\Exceptions\NoResultException
      * @throws \Jinya\PDOx\Exceptions\NoResultException
      */
     protected function action(): Response
