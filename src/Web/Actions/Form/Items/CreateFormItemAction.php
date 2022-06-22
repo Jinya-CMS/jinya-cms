@@ -12,12 +12,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to create a form item
  */
 class CreateFormItemAction extends Action
 {
     /**
-     * @inheritDoc
+     * Creates a new form item with the values from the body
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

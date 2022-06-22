@@ -11,12 +11,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to delete a form item
  */
 class DeleteFormItemAction extends Action
 {
     /**
-     * @inheritDoc
+     * Deletes the form item by form id and position
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

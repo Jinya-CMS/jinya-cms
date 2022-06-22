@@ -11,12 +11,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to update form items
  */
 class UpdateFormItemAction extends Action
 {
     /**
-     * @inheritDoc
+     * Updates the form item by form id and position
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
