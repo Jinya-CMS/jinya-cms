@@ -11,11 +11,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to list posts by category
  */
 class ListPostsByCategoryAction extends Action
 {
     /**
+     * Gets all posts from the given category, always includes the posts from child categories
+     *
      * @return Response
      * @throws NoResultException
      * @throws ForeignKeyFailedException

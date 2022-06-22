@@ -12,11 +12,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to batch replace blog post segments
  */
 class BatchSegmentsAction extends Action
 {
     /**
+     * Batch replaces the segments of the given blog post with the segments in the body
+     *
      * @return Response
      * @throws NoResultException
      * @throws ForeignKeyFailedException
@@ -32,10 +34,6 @@ class BatchSegmentsAction extends Action
             throw new NoResultException($this->request, 'Post not found');
         }
 
-        /**
-         * @psalm-suppress PossiblyNullArrayAccess
-         * @psalm-suppress PossiblyNullArgument
-         */
         $post->batchReplaceSegments($this->body['segments']);
 
         return $this->noContent();
