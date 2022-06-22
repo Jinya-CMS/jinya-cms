@@ -9,12 +9,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to get the configuration structure
  */
 class GetConfigurationStructureAction extends ThemeAction
 {
     /**
-     * @inheritDoc
+     * Gets the structure of the configuration for the given theme
+     *
      * @throws Database\Exceptions\ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws Database\Exceptions\UniqueFailedException
@@ -29,7 +30,6 @@ class GetConfigurationStructureAction extends ThemeAction
             throw new NoResultException($this->request, 'Theme not found');
         }
 
-        /** @noinspection PhpParamsInspection */
         $theme = new Theming\Theme($dbTheme);
 
         return $this->respond($theme->getConfigurationStructure());

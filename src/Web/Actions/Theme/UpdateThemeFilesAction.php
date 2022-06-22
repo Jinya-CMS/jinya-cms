@@ -15,12 +15,14 @@ use Psr\Http\Message\ResponseInterface as Response;
 use ZipArchive;
 
 /**
- *
+ * Action to update a theme
  */
 class UpdateThemeFilesAction extends Action
 {
 
     /**
+     * Updates the given theme, from the zip file in the body
+     *
      * @return Response
      * @throws NoResultException
      * @throws ForeignKeyFailedException

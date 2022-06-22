@@ -10,12 +10,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to compile theme assets
  */
 class CompileThemeAction extends ThemeAction
 {
     /**
-     * @inheritDoc
+     * Compiles all theme assets
+     *
      * @return Response
      * @throws Database\Exceptions\ForeignKeyFailedException
      * @throws Database\Exceptions\UniqueFailedException
@@ -26,6 +27,7 @@ class CompileThemeAction extends ThemeAction
      */
     protected function action(): Response
     {
+        $this->syncThemes();
         $themeId = $this->args['id'];
         $dbTheme = Database\Theme::findById($themeId);
         if (!$dbTheme) {

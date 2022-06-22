@@ -6,7 +6,6 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Theming\ThemeSyncer;
 use App\Utils\UuidGenerator;
-use App\Web\Actions\Action;
 use App\Web\Exceptions\NoResultException;
 use Exception;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
@@ -14,12 +13,14 @@ use Psr\Http\Message\ResponseInterface as Response;
 use ZipArchive;
 
 /**
- *
+ * Action to upload a theme
  */
-class CreateThemeAction extends Action
+class CreateThemeAction extends ThemeAction
 {
 
     /**
+     * Uploads a new theme, unzips the posted body and syncs all themes
+     *
      * @return Response
      * @throws NoResultException
      * @throws ForeignKeyFailedException
@@ -38,8 +39,7 @@ class CreateThemeAction extends Action
             $zipArchive = new ZipArchive();
             $zipArchive->open($tmpFile);
             $zipArchive->extractTo(ThemeSyncer::THEME_BASE_PATH . $themeName);
-            $themeSyncer = new ThemeSyncer();
-            $themeSyncer->syncThemes();
+            $this->syncThemes();
 
             unlink($tmpFile);
         }

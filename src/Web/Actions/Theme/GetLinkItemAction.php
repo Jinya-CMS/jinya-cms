@@ -11,13 +11,14 @@ use Psr\Http\Message\ResponseInterface as Response;
 use stdClass;
 
 /**
- *
+ * Action to get the links by entity type
  */
 class GetLinkItemAction extends ThemeAction
 {
 
     /**
-     * @inheritDoc
+     * Gets the links by entity type and theme
+     *
      * @throws ForeignKeyFailedException
      * @throws UniqueFailedException
      * @throws InvalidQueryException

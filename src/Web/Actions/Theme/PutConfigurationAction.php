@@ -10,12 +10,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to update the configuration
  */
 class PutConfigurationAction extends ThemeAction
 {
     /**
-     * @inheritDoc
+     * Updates the theme configuration for the given theme. Before an update is made, the themes will be synced to have the latest state
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

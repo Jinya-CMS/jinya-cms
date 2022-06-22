@@ -10,11 +10,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
 /**
- *
+ * The base theme action
  */
 abstract class ThemeAction extends Action
 {
     /**
+     * Syncs the themes using the ThemeSyncer
+     *
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException

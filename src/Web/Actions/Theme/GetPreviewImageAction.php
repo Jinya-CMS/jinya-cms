@@ -10,12 +10,13 @@ use Nyholm\Psr7\Stream;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to get the theme preview image
  */
 class GetPreviewImageAction extends ThemeAction
 {
     /**
-     * @inheritDoc
+     * Gets the theme preview image, if no preview image is configured a 204 is returned
+     *
      * @return Response
      * @throws Database\Exceptions\ForeignKeyFailedException
      * @throws Database\Exceptions\UniqueFailedException
@@ -35,7 +36,7 @@ class GetPreviewImageAction extends ThemeAction
         if (file_exists($theme->getPreviewImagePath())) {
             return $this->response
                 ->withBody(Stream::create(fopen($theme->getPreviewImagePath(), 'rb') ?: ''))
-                ->withHeader('Content-Type', 'application/octet-stream')
+                ->withHeader('Content-Type', mime_content_type($theme->getPreviewImagePath()) ?: 'application/octet-stream')
                 ->withStatus(self::HTTP_OK);
         }
 

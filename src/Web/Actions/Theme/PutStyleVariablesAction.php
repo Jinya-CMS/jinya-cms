@@ -11,12 +11,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to update the SCSS variables
  */
 class PutStyleVariablesAction extends ThemeAction
 {
     /**
-     * @inheritDoc
+     * Updates the SCSS variable for the given theme from the body
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

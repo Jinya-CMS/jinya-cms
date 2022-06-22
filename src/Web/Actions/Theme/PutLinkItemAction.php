@@ -12,13 +12,14 @@ use ReflectionClass;
 use ReflectionException;
 
 /**
- *
+ * Action to update a theme link
  */
 class PutLinkItemAction extends ThemeAction
 {
 
     /**
-     * @inheritDoc
+     * Updates the theme link of the given entity type with the given ID and name
+     *
      * @throws ReflectionException
      * @throws ForeignKeyFailedException
      * @throws UniqueFailedException

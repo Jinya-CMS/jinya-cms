@@ -9,12 +9,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to get all style variables
  */
 class GetStyleVariablesAction extends ThemeAction
 {
     /**
-     * @inheritDoc
+     * Gets the SCSS variables from the given theme
+     *
      * @throws Database\Exceptions\ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws Database\Exceptions\UniqueFailedException
@@ -29,7 +30,6 @@ class GetStyleVariablesAction extends ThemeAction
             throw new NoResultException($this->request, 'Theme not found');
         }
 
-        /** @noinspection PhpParamsInspection */
         $theme = new Theming\Theme($dbTheme);
         $vars = $theme->getStyleVariables();
         $dbVars = $dbTheme->scssVariables;

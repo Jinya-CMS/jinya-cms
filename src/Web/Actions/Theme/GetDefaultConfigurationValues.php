@@ -9,12 +9,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to get the default configuration values
  */
 class GetDefaultConfigurationValues extends ThemeAction
 {
     /**
-     * @inheritDoc
+     * Gets the default configuration values by theme ID
+     *
      * @return Response
      * @throws Database\Exceptions\ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -30,7 +31,6 @@ class GetDefaultConfigurationValues extends ThemeAction
             throw new NoResultException($this->request, 'Theme not found');
         }
 
-        /** @noinspection PhpParamsInspection */
         $theme = new Theming\Theme($dbTheme);
         $config = $theme->getConfigurationValues();
 

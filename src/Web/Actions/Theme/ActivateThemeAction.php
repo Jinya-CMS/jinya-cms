@@ -10,12 +10,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to activate a theme
  */
 class ActivateThemeAction extends ThemeAction
 {
     /**
-     * @inheritDoc
+     * Activates the given theme
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
