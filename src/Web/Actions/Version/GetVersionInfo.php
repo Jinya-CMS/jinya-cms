@@ -7,12 +7,13 @@ use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to get version info
  */
 class GetVersionInfo extends UpdateAction
 {
     /**
-     * @inheritDoc
+     * Gets the most recent version and the current version
+     *
      * @throws JsonException
      */
     protected function action(): Response
