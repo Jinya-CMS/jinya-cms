@@ -8,12 +8,14 @@ use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to get visits by device type from matomo
  */
 class GetVisitsByDeviceTypeAction extends Action
 {
 
     /**
+     * Gets the visits by device type from matomo
+     *
      * @throws JsonException
      */
     protected function action(): Response

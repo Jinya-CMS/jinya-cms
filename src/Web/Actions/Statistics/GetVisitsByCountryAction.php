@@ -8,13 +8,14 @@ use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to get visits by country from matomo
  */
 class GetVisitsByCountryAction extends Action
 {
 
     /**
-     * @inheritDoc
+     * Gets the visits by country from matomo
+     *
      * @throws JsonException
      */
     protected function action(): Response

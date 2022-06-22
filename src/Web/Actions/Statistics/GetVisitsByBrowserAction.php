@@ -8,12 +8,14 @@ use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to get visits by browser from matomo
  */
 class GetVisitsByBrowserAction extends Action
 {
 
     /**
+     * Gets the visits by browser from matomo
+     *
      * @throws JsonException
      */
     protected function action(): Response

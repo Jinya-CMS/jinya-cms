@@ -9,13 +9,14 @@ use Nyholm\Psr7\Response as NyholmResponse;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to get history statistics
  */
 class GetHistoryStatisticsAction extends Action
 {
 
     /**
-     * @inheritDoc
+     * Gets the created and updated statistics for the given type
+     *
      * @throws InvalidQueryException
      * @throws InvalidQueryException
      */
