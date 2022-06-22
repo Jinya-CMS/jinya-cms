@@ -11,12 +11,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to delete a known device
  */
 class DeleteKnownDeviceAction extends Action
 {
     /**
-     * @inheritDoc
+     * Deletes the known device by the given key
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

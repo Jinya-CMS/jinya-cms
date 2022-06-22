@@ -12,12 +12,13 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to validate a known device
  */
 class ValidateKnownDeviceAction extends Action
 {
     /**
-     * @inheritDoc
+     * Checks if the known device is valid and known
+     *
      * @return Response
      * @throws BadCredentialsException
      * @throws ForeignKeyFailedException

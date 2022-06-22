@@ -12,12 +12,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to list all known devices for the current user
  */
 class ListAllKnownDevicesAction extends Action
 {
     /**
-     * @inheritDoc
+     * Returns a list of all known devices from the current user
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
