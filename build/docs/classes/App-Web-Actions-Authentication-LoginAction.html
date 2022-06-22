@@ -205,7 +205,7 @@
 
     </aside>
 
-            <p class="phpdocumentor-summary">Base class for all http actions that can&#039;t be generated with reflection</p>
+            <p class="phpdocumentor-summary">Action for login</p>
 
 
 
@@ -723,7 +723,7 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Creates a new Action</dd>
+<dd>Creates a new LoginAction and initializes the mail factories</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Web-Actions-Action.html#method___invoke">__invoke()</a>
@@ -737,7 +737,7 @@
     <span>
                                 &nbsp;: <abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr>    </span>
 </dt>
-<dd>The action to run when the request gets executed</dd>
+<dd>Executes the login, saves the api key and sends the login mail</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/App-Web-Actions-Action.html#method_formatIterator">formatIterator()</a>
@@ -2642,7 +2642,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Web/Actions/Authentication/LoginAction.php"><a href="files/src-web-actions-authentication-loginaction.html"><abbr title="src/Web/Actions/Authentication/LoginAction.php">LoginAction.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">23</span>
+    <span class="phpdocumentor-element-found-in__line">24</span>
 
     </aside>
 
@@ -2653,9 +2653,9 @@
     <span class="phpdocumentor-signature__name">$newLoginMail</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>New log mail factory</p>
+</section>
 
     
 
@@ -2676,7 +2676,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Web/Actions/Authentication/LoginAction.php"><a href="files/src-web-actions-authentication-loginaction.html"><abbr title="src/Web/Actions/Authentication/LoginAction.php">LoginAction.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">24</span>
+    <span class="phpdocumentor-element-found-in__line">26</span>
 
     </aside>
 
@@ -2687,9 +2687,9 @@
     <span class="phpdocumentor-signature__name">$newSavedDeviceMail</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>New saved device mail factory</p>
+</section>
 
     
 
@@ -2918,11 +2918,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Web/Actions/Authentication/LoginAction.php"><a href="files/src-web-actions-authentication-loginaction.html"><abbr title="src/Web/Actions/Authentication/LoginAction.php">LoginAction.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">26</span>
+    <span class="phpdocumentor-element-found-in__line">31</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Creates a new Action</p>
+        <p class="phpdocumentor-summary">Creates a new LoginAction and initializes the mail factories</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -3022,11 +3022,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Web/Actions/Authentication/LoginAction.php"><a href="files/src-web-actions-authentication-loginaction.html"><abbr title="src/Web/Actions/Authentication/LoginAction.php">LoginAction.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">37</span>
+    <span class="phpdocumentor-element-found-in__line">43</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">The action to run when the request gets executed</p>
+        <p class="phpdocumentor-summary">Executes the login, saves the api key and sends the login mail</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -3041,13 +3041,6 @@
     </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">inheritDoc</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
