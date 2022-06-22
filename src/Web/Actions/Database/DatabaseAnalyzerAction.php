@@ -8,12 +8,14 @@ use App\Web\Actions\Action;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to analyse the database
  */
 class DatabaseAnalyzerAction extends Action
 {
     /**
-     * @inheritDoc
+     * Analyses the tables, server details and variables of the database
+     *
+     * @return Response
      */
     protected function action(): Response
     {

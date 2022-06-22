@@ -8,11 +8,13 @@ use App\Web\Actions\Action;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to execute a query
  */
 class ExecuteQueryAction extends Action
 {
     /**
+     * Executes the query passed in the request body, only UPDATE, DELETE, INSERT, SELECT, EXPLAIN, CHECK, CHECKSUM, ANALYSE and SHOW statements are supported
+     *
      * @return Response
      */
     protected function action(): Response
