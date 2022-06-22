@@ -11,13 +11,14 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Throwable;
 
 /**
- *
+ * Action to show blog frontend
  */
 class GetBlogFrontAction extends FrontAction
 {
 
     /**
-     * @inheritDoc
+     * Displays the given blog post or returns a 404 page
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

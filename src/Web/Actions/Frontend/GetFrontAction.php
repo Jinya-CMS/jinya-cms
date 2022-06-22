@@ -12,11 +12,13 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Throwable;
 
 /**
- *
+ * Action to get the frontend
  */
 class GetFrontAction extends FrontAction
 {
     /**
+     * Renders the given frontend route or a matching blog post if there is no menu item with the given route
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

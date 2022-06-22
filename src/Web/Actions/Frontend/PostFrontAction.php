@@ -14,12 +14,13 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Throwable;
 
 /**
- *
+ * Action to post the forms
  */
 class PostFrontAction extends FrontAction
 {
     /**
-     * @inheritDoc
+     * Executes the form post. If the form is not found the 404 page will be returned
+     *
      * @return Response
      * @throws Exception
      * @throws ForeignKeyFailedException

@@ -14,12 +14,14 @@ use Slim\Exception\HttpException;
 use Throwable;
 
 /**
- *
+ * The base action for all front actions
  */
 abstract class FrontAction extends Action
 {
+    /** @var Engine The Plates engine */
     protected Engine $engine;
 
+    /** @var Theming\Theme The active theming theme */
     protected Theming\Theme $activeTheme;
 
     /**
@@ -37,7 +39,8 @@ abstract class FrontAction extends Action
     }
 
     /**
-     * @inheritDoc
+     * Executes the front action. If an error occurs either the homepage or a page with the error code will be returned. If all error handling fails, the emergency website will be shown
+     *
      * @throws Throwable
      */
     protected function action(): Response
