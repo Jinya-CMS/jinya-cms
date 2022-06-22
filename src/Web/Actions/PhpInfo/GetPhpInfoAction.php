@@ -8,12 +8,13 @@ use Psr\Http\Message\ResponseInterface as Response;
 use ReflectionException;
 
 /**
- *
+ * Action to grab several PHP information
  */
 class GetPhpInfoAction extends Action
 {
     /**
-     * @inheritDoc
+     * Gets several PHP, apache and system information
+     *
      * @throws ReflectionException
      */
     protected function action(): Response
