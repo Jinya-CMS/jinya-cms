@@ -11,12 +11,13 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Throwable;
 
 /**
- *
+ * Action to post the installer
  */
 class PostInstallerAction extends InstallAction
 {
     /**
-     * @inheritDoc
+     * Executes the post for the installer. This creates the first admin and .env file
+     *
      * @throws Throwable
      * @throws Throwable
      * @throws Throwable

@@ -9,11 +9,11 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Throwable;
 
 /**
- *
+ * Base installer action
  */
 abstract class InstallAction extends Action
 {
-
+    /** @var Engine The Plates engine */
     protected Engine $engine;
 
     /**
