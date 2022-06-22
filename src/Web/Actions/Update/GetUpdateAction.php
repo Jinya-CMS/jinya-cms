@@ -7,12 +7,13 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Throwable;
 
 /**
- *
+ * Action to get the update UI
  */
 class GetUpdateAction extends UpdateAction
 {
     /**
-     * @inheritDoc
+     * Renders the update UI
+     *
      * @return Response
      * @throws JsonException
      * @throws Throwable

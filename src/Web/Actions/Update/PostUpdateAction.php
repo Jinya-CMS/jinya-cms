@@ -11,12 +11,13 @@ use Throwable;
 use ZipArchive;
 
 /**
- *
+ * Action to post the update
  */
 class PostUpdateAction extends UpdateAction
 {
     /**
-     * @inheritDoc
+     * Executes the update, first the latest version will be loaded from the configured release server, unpacks the zip and replaces the files
+     *
      * @return ResponseInterface
      * @throws JsonException
      * @throws Throwable

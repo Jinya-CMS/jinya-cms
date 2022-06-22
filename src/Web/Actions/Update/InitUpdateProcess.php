@@ -6,11 +6,13 @@ use App\Web\Actions\Action;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to set the update cookie
  */
 class InitUpdateProcess extends Action
 {
     /**
+     * Initializes the update process and generates a special key to allow updates
+     *
      * @return Response
      */
     protected function action(): Response

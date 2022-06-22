@@ -10,15 +10,16 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Throwable;
 
 /**
- *
+ * Base action for updates
  */
 abstract class UpdateAction extends Action
 {
 
+    /** @var Engine The Plates engine */
     protected Engine $engine;
 
     /**
-     * InstallAction constructor.
+     * UpdateAction constructor.
      */
     public function __construct()
     {
@@ -49,6 +50,8 @@ abstract class UpdateAction extends Action
     }
 
     /**
+     * Gets the path of the given release version
+     *
      * @param string $version
      * @return string
      * @throws JsonException
@@ -60,6 +63,8 @@ abstract class UpdateAction extends Action
     }
 
     /**
+     * Gets all currently available releases from the configured update server
+     *
      * @return array<string, string>
      * @throws JsonException
      */
