@@ -9,12 +9,13 @@ use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to locate an IP with freegeoip.app
  */
 class LocatorAction extends Action
 {
     /**
-     * @inheritDoc
+     * Locates the given IP
+     *
      * @throws JsonException
      * @throws GuzzleException
      */
