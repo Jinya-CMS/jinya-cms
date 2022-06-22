@@ -11,13 +11,14 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to change the color scheme of the artist
  */
 class UpdateColorScheme extends Action
 {
 
     /**
-     * @inheritDoc
+     * Updates the color scheme to the new value
+     *
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException

@@ -7,12 +7,13 @@ use App\Web\Middleware\AuthorizationMiddleware;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to get info about current artist
  */
 class GetArtistInfoAction extends Action
 {
     /**
-     * @inheritDoc
+     * Gets the information of the current artist
+     *
      * @return Response
      */
     protected function action(): Response

@@ -11,12 +11,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to update the about me section the current artist
  */
 class UpdateAboutMeAction extends Action
 {
     /**
-     * @inheritDoc
+     * Updates the about me data of the artist, currently contains email, artist name and about me info
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
