@@ -11,11 +11,14 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to move a menu item to a new parent
  */
 class MoveMenuItemParentToItemAction extends Action
 {
     /**
+     * Moves the given menu item to the new parent set in the body.
+     * If the args don't contain the key newParent, the menu item is moved one level up
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

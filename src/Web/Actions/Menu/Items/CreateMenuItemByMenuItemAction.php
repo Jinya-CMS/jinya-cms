@@ -11,18 +11,18 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to create a menu item with menu item as parent
  */
 class CreateMenuItemByMenuItemAction extends MenuItemAction
 {
     /**
-     * @inheritDoc
+     * Creates the menu item in the body with the given menu as parent
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws NoResultException
      * @throws UniqueFailedException
-     * @throws \Jinya\PDOx\Exceptions\NoResultException
      * @throws \Jinya\PDOx\Exceptions\NoResultException
      */
     protected function action(): Response

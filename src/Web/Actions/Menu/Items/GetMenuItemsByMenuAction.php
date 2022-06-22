@@ -10,12 +10,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to get menu items by menu
  */
 class GetMenuItemsByMenuAction extends MenuItemAction
 {
     /**
-     * @inheritDoc
+     * Gets all menu items in the given menu recursively
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

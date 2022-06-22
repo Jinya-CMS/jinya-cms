@@ -17,7 +17,7 @@ use Iterator;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 
 /**
- *
+ * Base action for menu items
  */
 abstract class MenuItemAction extends Action
 {

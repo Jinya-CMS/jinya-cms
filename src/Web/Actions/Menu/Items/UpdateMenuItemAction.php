@@ -10,12 +10,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to update a menu item excluding its parent
  */
 class UpdateMenuItemAction extends MenuItemAction
 {
     /**
-     * @inheritDoc
+     * Updates the given menu item from the body
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -31,7 +32,6 @@ class UpdateMenuItemAction extends MenuItemAction
             throw new NoResultException($this->request, 'Menu item not found');
         }
 
-        /** @noinspection PhpParamsInspection */
         $menuItem = $this->fillMenuItem($menuItem);
         $menuItem->update();
 

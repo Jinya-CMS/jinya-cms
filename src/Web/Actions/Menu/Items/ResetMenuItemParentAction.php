@@ -11,11 +11,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to set the menu item parent to the menu
  */
 class ResetMenuItemParentAction extends Action
 {
     /**
+     * Moves the menu item to the menu as new parent
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

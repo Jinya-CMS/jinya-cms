@@ -10,12 +10,13 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to delete a menu item
  */
 class DeleteMenuItemAction extends MenuItemAction
 {
     /**
-     * @inheritDoc
+     * Deletes the given menu item
+     *
      * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
