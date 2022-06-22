@@ -7,10 +7,15 @@ use Dotenv\Dotenv;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- *
+ * Action to get the env variables
  */
 class GetEnvironmentAction extends Action
 {
+    /**
+     * Gets all environment variables
+     *
+     * @return Response
+     */
     protected function action(): Response
     {
         $env = Dotenv::parse(file_get_contents(__ROOT__ . '/.env') ?: '');
