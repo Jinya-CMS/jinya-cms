@@ -7,7 +7,7 @@
 >
     <title>Jinya CMS</title>
     <paths>
-        <output>build/docs</output>
+        <output>docs</output>
     </paths>
     <version number="24.0.0">
         <api>
@@ -17,11 +17,11 @@
         </api>
         <guide format="rst">
             <source dsn=".">
-                <path>docs</path>
+                <path>guides</path>
             </source>
             <output>guide</output>
         </guide>
     </version>
     <setting name="guides.enabled" value="true"/>
-    <template location="./docs/jinya-theme"/>
+    <template location="./phpdoc/jinya-theme"/>
 </phpdocumentor>
