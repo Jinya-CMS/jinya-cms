@@ -138,17 +138,17 @@ spec:
                 }
                 stage('PHPUnit MySQL') {
                     steps {
-                        sh './vendor/bin/phpunit --log-junit ./report.xml --configuration ./phpunit.jenkins.mysql.xml'
+                        sh './vendor/bin/phpunit --log-junit=report.mysql.xml --configuration ./phpunit.jenkins.mysql.xml'
                     }
                 }
                 stage('PHPUnit MariaDB') {
                     steps {
-                        sh './vendor/bin/phpunit --log-junit ./report.xml --configuration ./phpunit.jenkins.mariadb.xml'
+                        sh './vendor/bin/phpunit --log-junit=report.mariadb.xml --configuration ./phpunit.jenkins.mariadb.xml'
                     }
                 }
                 stage('PHPUnit Percona') {
                     steps {
-                        sh './vendor/bin/phpunit --log-junit ./report.xml --configuration ./phpunit.jenkins.percona.xml'
+                        sh './vendor/bin/phpunit --log-junit=report.percona.xml --configuration ./phpunit.jenkins.percona.xml'
                     }
                 }
             }
@@ -249,7 +249,9 @@ spec:
     }
     post {
         always {
-            junit 'report.xml'
+            junit 'report.mysql.xml'
+            junit 'report.mariadb.xml'
+            junit 'report.percona.xml'
         }
     }
 }
