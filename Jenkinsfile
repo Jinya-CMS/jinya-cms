@@ -76,7 +76,7 @@ spec:
         - name: MYSQL_USER
           value: jinya
     - name: percona
-      image: quay.imanuel.dev/dockerhub/percona---percona-server:8
+      image: quay.imanuel.dev/dockerhub/percona---percona-server:8.0
       ports:
         - containerPort: 3326
       args:
