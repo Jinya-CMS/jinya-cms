@@ -137,23 +137,19 @@ spec:
                         sh './vendor/bin/phpstan --no-progress analyze ./src ./app ./cli ./public --memory-limit 1G'
                     }
                 }
-                stage('PHPUnit') {
-                    parallel {
-                        stage('MySQL') {
-                            steps {
-                                sh './vendor/bin/phpunit --log-junit ./report.xml --configuration ./phpunit.jenkins.mysql.xml'
-                            }
-                        }
-                        stage('MariaDB') {
-                            steps {
-                                sh './vendor/bin/phpunit --log-junit ./report.xml --configuration ./phpunit.jenkins.mariadb.xml'
-                            }
-                        }
-                        stage('Percona') {
-                            steps {
-                                sh './vendor/bin/phpunit --log-junit ./report.xml --configuration ./phpunit.jenkins.percona.xml'
-                            }
-                        }
+                stage('PHPUnit MySQL') {
+                    steps {
+                        sh './vendor/bin/phpunit --log-junit ./report.xml --configuration ./phpunit.jenkins.mysql.xml'
+                    }
+                }
+                stage('PHPUnit MariaDB') {
+                    steps {
+                        sh './vendor/bin/phpunit --log-junit ./report.xml --configuration ./phpunit.jenkins.mariadb.xml'
+                    }
+                }
+                stage('PHPUnit Percona') {
+                    steps {
+                        sh './vendor/bin/phpunit --log-junit ./report.xml --configuration ./phpunit.jenkins.percona.xml'
                     }
                 }
             }
