@@ -22,7 +22,7 @@ spec:
         - infinity
       env:
         - name: PHP_MEMORY_LIMIT
-          value: 1024M
+          value: 2048M
     - name: package
       image: quay.imanuel.dev/dockerhub/library---golang:latest
       command:
@@ -41,11 +41,50 @@ spec:
       image: quay.imanuel.dev/dockerhub/library---mysql:8
       ports:
         - containerPort: 3306
+          hostPort: 3306
       args:
         - --transaction-isolation=READ-COMMITTED
         - --binlog-format=ROW
         - --max-connections=1000
         - --bind-address=0.0.0.0
+      env:
+        - name: MYSQL_DATABASE
+          value: jinya
+        - name: MYSQL_PASSWORD
+          value: jinya
+        - name: MYSQL_ROOT_PASSWORD
+          value: jinya
+        - name: MYSQL_USER
+          value: jinya
+    - name: mariadb
+      image: quay.imanuel.dev/dockerhub/library---mariadb:10
+      ports:
+        - containerPort: 3316
+      args:
+        - --transaction-isolation=READ-COMMITTED
+        - --binlog-format=ROW
+        - --max-connections=1000
+        - --bind-address=0.0.0.0
+        - --port=3316
+      env:
+        - name: MYSQL_DATABASE
+          value: jinya
+        - name: MYSQL_PASSWORD
+          value: jinya
+        - name: MYSQL_ROOT_PASSWORD
+          value: jinya
+        - name: MYSQL_USER
+          value: jinya
+    - name: percona
+      image: quay.imanuel.dev/dockerhub/library---percona:8
+      ports:
+        - containerPort: 3326
+      args:
+        - --transaction-isolation=READ-COMMITTED
+        - --binlog-format=ROW
+        - --max-connections=1000
+        - --bind-address=0.0.0.0
+        - --port=3326
       env:
         - name: MYSQL_DATABASE
           value: jinya
@@ -99,8 +138,22 @@ spec:
                     }
                 }
                 stage('PHPUnit') {
-                    steps {
-                        sh './vendor/bin/phpunit --log-junit ./report.xml --configuration ./phpunit.jenkins.xml'
+                    parallel {
+                        stage('MySQL') {
+                            steps {
+                                sh './vendor/bin/phpunit --log-junit ./report.xml --configuration ./phpunit.jenkins.mysql.xml'
+                            }
+                        }
+                        stage('MariaDB') {
+                            steps {
+                                sh './vendor/bin/phpunit --log-junit ./report.xml --configuration ./phpunit.jenkins.mariadb.xml'
+                            }
+                        }
+                        stage('Percona') {
+                            steps {
+                                sh './vendor/bin/phpunit --log-junit ./report.xml --configuration ./phpunit.jenkins.percona.xml'
+                            }
+                        }
                     }
                 }
             }
