@@ -41,7 +41,6 @@ spec:
       image: quay.imanuel.dev/dockerhub/library---mysql:8
       ports:
         - containerPort: 3306
-          hostPort: 3306
       args:
         - --transaction-isolation=READ-COMMITTED
         - --binlog-format=ROW
