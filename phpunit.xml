@@ -25,6 +25,7 @@
     </coverage>
 
     <extensions>
+        <extension class="App\Tests\Extensions\PrepareIniValuesHook"/>
         <extension class="App\Tests\Extensions\DefinesHook"/>
         <extension class="App\Tests\Extensions\MigrationHook"/>
         <extension class="App\Tests\Extensions\CleanDatabaseAfterTestHook"/>
