@@ -205,13 +205,14 @@ class BlogCategoryTest extends TestCase
         self::assertCount(3, $posts);
     }
 
-    public function createBlogPost(string $title, string $slug, int $categoryId): BlogPost
+    public function createBlogPost(string $title, string $slug, int $categoryId, bool $public = true): BlogPost
     {
         $blogPost = new BlogPost();
         $blogPost->title = $title;
         $blogPost->slug = $slug;
         $blogPost->creatorId = CurrentUser::$currentUser->getIdAsInt();
         $blogPost->categoryId = $categoryId;
+        $blogPost->public = $public;
 
         $blogPost->create();
 
@@ -235,5 +236,17 @@ class BlogCategoryTest extends TestCase
 
         $posts = $cat->getBlogPosts(false);
         self::assertCount(1, $posts);
+    }
+
+    public function testGetBlogPostsPostsDontIncludeChildrenOnlyPublic(): void
+    {
+        $cat = $this->createBlogCategory();
+
+        $this->createBlogPost('Test 1', 'test-1', $cat->getIdAsInt(), false);
+        $this->createBlogPost('Test 2', 'test-2', $cat->getIdAsInt(), true);
+        $this->createBlogPost('Test 3', 'test-3', $cat->getIdAsInt(), true);
+
+        $posts = $cat->getBlogPosts(false, true);
+        self::assertCount(2, $posts);
     }
 }

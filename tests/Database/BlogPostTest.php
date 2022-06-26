@@ -24,6 +24,68 @@ class BlogPostTest extends TestCase
         $this->assertEquals($post->format(), $foundPost->format());
     }
 
+    public function testCreateWithWebhookHttp(): void
+    {
+        $_SERVER['HTTP_HOST'] = 'localhost';
+        $post = $this->createBlogPost(false);
+        $post->public = true;
+        $category = $post->getCategory();
+        $category->webhookEnabled = true;
+        $category->webhookUrl = 'http://httpbin.org/post';
+        $category->update();
+        $post->create();
+
+        $foundPost = BlogPost::findById($post->getIdAsInt());
+        $this->assertEquals($post->format(), $foundPost->format());
+    }
+
+    public function testCreateWithInvalidWebhook(): void
+    {
+        $_SERVER['HTTP_HOST'] = 'localhost';
+        $post = $this->createBlogPost(false);
+        $post->public = true;
+        $category = $post->getCategory();
+        $category->webhookEnabled = true;
+        $category->webhookUrl = 'test';
+        $category->update();
+        $post->create();
+
+        $foundPost = BlogPost::findById($post->getIdAsInt());
+        $this->assertEquals($post->format(), $foundPost->format());
+    }
+
+    public function testCreateWithWebhookHttps(): void
+    {
+        $_SERVER['HTTP_HOST'] = 'localhost';
+        $post = $this->createBlogPost(false);
+        $post->public = true;
+        $category = $post->getCategory();
+        $category->webhookEnabled = true;
+        $category->webhookUrl = 'https://httpbin.org/post';
+        $category->update();
+        $post->create();
+
+        $foundPost = BlogPost::findById($post->getIdAsInt());
+        $this->assertEquals($post->format(), $foundPost->format());
+    }
+
+    public function testUpdateWithWebhookHttps(): void
+    {
+        $_SERVER['HTTP_HOST'] = 'localhost';
+        $post = $this->createBlogPost(false);
+        $post->public = false;
+        $category = $post->getCategory();
+        $category->webhookEnabled = true;
+        $category->webhookUrl = 'https://httpbin.org/post';
+        $category->update();
+        $post->create();
+
+        $post->public = true;
+        $post->update();
+        $this->assertTrue(true);
+    }
+
+
     private function createBlogPost(bool $execute = true, bool $withCategory = true, bool $withHeaderImage = true, string $title = 'Test', string $slug = 'test'): BlogPost
     {
         $post = new BlogPost();
@@ -155,6 +217,18 @@ class BlogPostTest extends TestCase
         $this->createBlogPost(title: 'Test 4', slug: 'test-4');
         $found = BlogPost::findAll();
         $this->assertCount(4, $found);
+    }
+
+    public function testFindPublic(): void
+    {
+        $this->createBlogPost(title: 'Test 1', slug: 'test-1');
+        $this->createBlogPost(title: 'Test 2', slug: 'test-2');
+        $this->createBlogPost(title: 'Test 3', slug: 'test-3');
+        $public = $this->createBlogPost(execute: false, title: 'Test 4', slug: 'test-4');
+        $public->public = true;
+        $public->create();
+        $found = BlogPost::findPublicPosts();
+        $this->assertCount(1, $found);
     }
 
     public function testFindAllNoneCreated(): void

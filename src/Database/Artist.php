@@ -247,7 +247,8 @@ class Artist extends LoadableEntity
         'roles' => 'array',
         'enabled' => 'bool',
         'id' => 'int',
-        'aboutMe' => 'null|string'
+        'aboutMe' => 'null|string',
+        'colorScheme' => 'string'
     ])]
     public function format(): array
     {

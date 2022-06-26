@@ -77,6 +77,36 @@ class ArtistTest extends TestCase
         $this->assertEquals($artist, $savedArtist);
     }
 
+    public function testFormatPrefersColorSchemeDark(): void
+    {
+        $artist = $this->createArtist(execute: false);
+        $artist->prefersColorScheme = true;
+        $artist->create();
+
+        $formatted = $artist->format();
+        $this->assertEquals('dark', $formatted['colorScheme']);
+    }
+
+    public function testFormatPrefersColorSchemeLight(): void
+    {
+        $artist = $this->createArtist(execute: false);
+        $artist->prefersColorScheme = false;
+        $artist->create();
+
+        $formatted = $artist->format();
+        $this->assertEquals('light', $formatted['colorScheme']);
+    }
+
+    public function testFormatPrefersColorSchemeAuto(): void
+    {
+        $artist = $this->createArtist(execute: false);
+        $artist->prefersColorScheme = null;
+        $artist->create();
+
+        $formatted = $artist->format();
+        $this->assertEquals('auto', $formatted['colorScheme']);
+    }
+
     public function testCreateDuplicate(): void
     {
         $this->expectException(UniqueFailedException::class);

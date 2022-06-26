@@ -3,6 +3,7 @@
 namespace Jinya\Tests\Database;
 
 use App\Authentication\CurrentUser;
+use App\Database\BlogCategory;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Form;
@@ -246,6 +247,39 @@ class MenuItemTest extends TestCase
         $menuItem->galleryId = $gallery->getIdAsInt();
 
         $this->assertEquals($gallery->format(), $menuItem->getGallery()->format());
+    }
+
+    private function createBlogCategory(): BlogCategory
+    {
+        $blogCategory = new BlogCategory();
+        $blogCategory->name = 'BlogCategory';
+        $blogCategory->create();
+
+        return $blogCategory;
+    }
+
+    public function testCreateBlogCategory(): void
+    {
+        $menu = $this->createMenu();
+
+        $blogCategory = $this->createBlogCategory();
+        $menuItem = $this->createMenuItem();
+        $menuItem->menuId = $menu->getIdAsInt();
+        $menuItem->categoryId = $blogCategory->getIdAsInt();
+        $menuItem->create();
+
+        $found = MenuItem::findById($menuItem->getIdAsInt());
+
+        $this->assertEquals($blogCategory->getIdAsInt(), $found->categoryId);
+    }
+
+    public function testGetBlogCategory(): void
+    {
+        $blogCategory = $this->createBlogCategory();
+        $menuItem = $this->createMenuItem();
+        $menuItem->categoryId = $blogCategory->getIdAsInt();
+
+        $this->assertEquals($blogCategory->format(), $menuItem->getBlogCategory()->format());
     }
 
     public function testFormatGallery(): void

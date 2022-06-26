@@ -125,6 +125,15 @@ class BlogPostSegmentTest extends TestCase
         ], $segment->format());
     }
 
+    public function testGetFile(): void
+    {
+        $file = $this->createFile();
+        $post = $this->createBlogPost();
+        $segment = $this->createBlogPostSegment(0, $post->getIdAsInt(), fileId: $file->getIdAsInt());
+        $this->assertEquals($file->name, $segment->getFile()->name);
+        self::assertNull($segment->getGallery());
+    }
+
     private function createFile(): File
     {
         $file = new File();
@@ -152,6 +161,15 @@ class BlogPostSegmentTest extends TestCase
                 'orientation' => $gallery->orientation,
             ],
         ], $segment->format());
+    }
+
+    public function testGetGallery(): void
+    {
+        $gallery = $this->createGallery();
+        $post = $this->createBlogPost();
+        $segment = $this->createBlogPostSegment(0, $post->getIdAsInt(), galleryId: $gallery->getIdAsInt());
+        $this->assertEquals($gallery->name, $segment->getGallery()->name);
+        self::assertNull($segment->getFile());
     }
 
     private function createGallery(): Gallery
