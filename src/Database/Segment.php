@@ -16,19 +16,19 @@ class Segment extends Utils\RearrangableEntity
     /** @var int The ID of the segment page this segment belongs to */
     public int $pageId;
     /** @var int|null The ID of the form this segment contains */
-    public ?int $formId;
+    public ?int $formId = null;
     /** @var int|null The ID of the gallery this segment contains */
-    public ?int $galleryId;
+    public ?int $galleryId = null;
     /** @var int|null The ID of the file this segment contains */
-    public ?int $fileId;
+    public ?int $fileId = null;
     /** @var string|null The action type to execute when the file is clicked. It can be either script, link or none */
-    public ?string $action;
+    public ?string $action = null;
     /** @var string|null The script to execute when the file is clicked */
-    public ?string $script;
+    public ?string $script = null;
     /** @var string|null The link to open when the file is clicked */
-    public ?string $target;
+    public ?string $target = null;
     /** @var string|null The HTML content of the segment */
-    public ?string $html;
+    public ?string $html = null;
 
     /**
      * Not implemented
@@ -91,6 +91,10 @@ class Segment extends Utils\RearrangableEntity
      */
     public function getFile(): ?File
     {
+        if ($this->fileId === null) {
+            return null;
+        }
+
         return File::findById($this->fileId);
     }
 
@@ -105,6 +109,10 @@ class Segment extends Utils\RearrangableEntity
      */
     public function getForm(): ?Form
     {
+        if ($this->formId === null) {
+            return null;
+        }
+
         return Form::findById($this->formId);
     }
 
@@ -119,6 +127,10 @@ class Segment extends Utils\RearrangableEntity
      */
     public function getGallery(): ?Gallery
     {
+        if ($this->galleryId === null) {
+            return null;
+        }
+
         return Gallery::findById($this->galleryId);
     }
 

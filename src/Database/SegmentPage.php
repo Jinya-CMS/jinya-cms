@@ -238,7 +238,7 @@ class SegmentPage extends Utils\LoadableEntity
     /**
      * Get all segments in page
      *
-     * @return Iterator
+     * @return Iterator<Segment>
      * @throws Exceptions\ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
