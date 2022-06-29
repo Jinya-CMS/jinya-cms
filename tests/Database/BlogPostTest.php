@@ -27,6 +27,7 @@ class BlogPostTest extends TestCase
     public function testCreateWithWebhookHttp(): void
     {
         $_SERVER['HTTP_HOST'] = 'localhost';
+        $_SERVER['REQUEST_URI'] = '/';
         $post = $this->createBlogPost(false);
         $post->public = true;
         $category = $post->getCategory();
@@ -42,6 +43,7 @@ class BlogPostTest extends TestCase
     public function testCreateWithInvalidWebhook(): void
     {
         $_SERVER['HTTP_HOST'] = 'localhost';
+        $_SERVER['REQUEST_URI'] = '/';
         $post = $this->createBlogPost(false);
         $post->public = true;
         $category = $post->getCategory();
@@ -57,6 +59,7 @@ class BlogPostTest extends TestCase
     public function testCreateWithWebhookHttps(): void
     {
         $_SERVER['HTTP_HOST'] = 'localhost';
+        $_SERVER['REQUEST_URI'] = '/';
         $post = $this->createBlogPost(false);
         $post->public = true;
         $category = $post->getCategory();
@@ -72,6 +75,7 @@ class BlogPostTest extends TestCase
     public function testUpdateWithWebhookHttps(): void
     {
         $_SERVER['HTTP_HOST'] = 'localhost';
+        $_SERVER['REQUEST_URI'] = '/';
         $post = $this->createBlogPost(false);
         $post->public = false;
         $category = $post->getCategory();
