@@ -23,7 +23,7 @@ abstract class LoadableEntity implements FormattableEntityInterface
     /** @var string The date format for MySQL, MariaDB, Percona etc. */
     public const MYSQL_DATE_FORMAT = 'Y-m-d H:i:s';
     /** @var PDOx|null The currently active PDOx instance. Needs to be accessed via getPdo function, since it will be instantiated if it is currently null */
-    protected static ?PDOx $pdo;
+    protected static ?PDOx $pdo = null;
     /** @var int|string The ID of the entity, usually all entities have an ID and that ID must be either a string or an int */
     public int|string $id = -1;
 
@@ -83,6 +83,10 @@ abstract class LoadableEntity implements FormattableEntityInterface
      */
     public static function getPdo(): PDOx
     {
+        if (self::$pdo !== null) {
+            return self::$pdo;
+        }
+
         $database = getenv('MYSQL_DATABASE');
         $user = getenv('MYSQL_USER') ?: '';
         $password = getenv('MYSQL_PASSWORD') ?: '';
@@ -100,6 +104,7 @@ abstract class LoadableEntity implements FormattableEntityInterface
             ]
         );
         $pdo->exec("set names $charset");
+        self::$pdo = $pdo;
 
         return $pdo;
     }

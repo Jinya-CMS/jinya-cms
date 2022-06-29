@@ -1,6 +1,6 @@
 # Changelog
 
-## Release notes - Jinya Gallery CMS - Version 24.0.1
+## Release notes - Jinya Gallery CMS - Version 24.0.2
 
 Emergency fix for issue with persistent strategies
 
