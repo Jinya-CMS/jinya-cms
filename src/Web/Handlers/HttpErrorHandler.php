@@ -25,7 +25,8 @@ class HttpErrorHandler extends SlimErrorHandler
     {
         $exception = $this->exception;
         try {
-            $this->logger->error(json_encode($exception, JSON_THROW_ON_ERROR));
+            $this->logger->error($exception->getMessage());
+            $this->logger->error($exception->getTraceAsString());
         } catch (Throwable) {
         }
 

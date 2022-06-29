@@ -3,6 +3,7 @@
 namespace App\Database;
 
 use App\Database\Strategies\JsonStrategy;
+use App\Database\Strategies\ThemeDescriptionStrategy;
 use App\Routing\Attributes\JinyaApi;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
@@ -19,8 +20,8 @@ class Theme extends Utils\LoadableEntity
 {
     /** @var array<mixed> The stored configuration in the database */
     public array $configuration;
-    /** @var string The theme description */
-    public string $description;
+    /** @var string[] The theme description */
+    public array $description;
     /** @var string The theme name */
     public string $name;
     /** @var string The theme display name */
@@ -46,6 +47,7 @@ class Theme extends Utils\LoadableEntity
             return self::getPdo()->fetchObject($sql, new self(), null, [
                 'scssVariables' => new JsonStrategy(),
                 'configuration' => new JsonStrategy(),
+                'description' => new ThemeDescriptionStrategy(),
             ]);
         } catch (InvalidQueryException$exception) {
             throw self::convertInvalidQueryExceptionToException($exception);
@@ -71,6 +73,7 @@ class Theme extends Utils\LoadableEntity
             [
                 'scssVariables' => new JsonStrategy(),
                 'configuration' => new JsonStrategy(),
+                'description' => new ThemeDescriptionStrategy(),
             ]
         );
     }
@@ -92,6 +95,7 @@ class Theme extends Utils\LoadableEntity
             return self::getPdo()->fetchIterator($sql, new self(), ['descKeyword' => "%$keyword%", 'nameKeyword' => "%$keyword%"], [
                 'scssVariables' => new JsonStrategy(),
                 'configuration' => new JsonStrategy(),
+                'description' => new ThemeDescriptionStrategy(),
             ]);
         } catch (InvalidQueryException$exception) {
             throw self::convertInvalidQueryExceptionToException($exception);
@@ -114,6 +118,7 @@ class Theme extends Utils\LoadableEntity
             [
                 'scssVariables' => new JsonStrategy(),
                 'configuration' => new JsonStrategy(),
+                'description' => new ThemeDescriptionStrategy(),
             ]
         );
     }
@@ -138,6 +143,7 @@ class Theme extends Utils\LoadableEntity
                 [
                     'scssVariables' => new JsonStrategy(),
                     'configuration' => new JsonStrategy(),
+                    'description' => new ThemeDescriptionStrategy(),
                 ]);
         } catch (InvalidQueryException$exception) {
             throw self::convertInvalidQueryExceptionToException($exception);
@@ -340,6 +346,7 @@ class Theme extends Utils\LoadableEntity
             [
                 'scssVariables' => new JsonStrategy(),
                 'configuration' => new JsonStrategy(),
+                'description' => new ThemeDescriptionStrategy(),
             ]
         );
     }
@@ -372,6 +379,7 @@ class Theme extends Utils\LoadableEntity
             [
                 'scssVariables' => new JsonStrategy(),
                 'configuration' => new JsonStrategy(),
+                'description' => new ThemeDescriptionStrategy(),
             ]
         );
     }
@@ -384,7 +392,7 @@ class Theme extends Utils\LoadableEntity
     #[Pure]
     #[ArrayShape([
         'configuration' => 'array|\stdClass',
-        'description' => 'string',
+        'description' => 'array',
         'name' => 'string',
         'displayName' => 'string',
         'scssVariables' => 'array|\stdClass',

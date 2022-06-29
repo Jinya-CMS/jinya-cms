@@ -312,7 +312,7 @@
                                 <img class="jinya-theme-details__preview"
                                      src={previewImage}
                                      alt={$_('design.themes.details.preview')}>
-                                <div class="jinya-theme-details__description">{@html selectedTheme?.description}</div>
+                                <div class="jinya-theme-details__description">{@html getValueForCurrentLanguage(selectedTheme?.description ?? {'en': ''})}</div>
                             </div>
                         {/if}
                         {#if selectedTab === 'configuration' && configurationStructure && configurationStructure.groups}

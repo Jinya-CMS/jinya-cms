@@ -16,7 +16,7 @@ class ThemeSyncer
 
     /**
      * Syncs the themes from the local file system into the database
-     * 
+     *
      * @throws Database\Exceptions\ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws Database\Exceptions\UniqueFailedException
@@ -43,8 +43,13 @@ class ThemeSyncer
                 $dbTheme->scssVariables = [];
                 $dbTheme->name = $name;
                 $dbTheme->displayName = $config['displayName'] ?? $name;
-                $dbTheme->description = $config['description'] ?? '';
+                $dbTheme->description = is_array($config['description']) ? $config['description'] : ['en' => $config['description']];
                 $dbTheme->create();
+            } else {
+                $dbTheme = Database\Theme::findByName($name);
+                $dbTheme->displayName = $config['displayName'] ?? $name;
+                $dbTheme->description = is_array($config['description']) ? $config['description'] : ['en' => $config['description']];
+                $dbTheme->update();
             }
         }
 
