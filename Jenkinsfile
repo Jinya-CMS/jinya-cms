@@ -129,28 +129,24 @@ spec:
                 }
             }
         }
-        stage('Tests and liniting') {
-            parallel {
-                stage('Phpstan') {
-                    steps {
-                        sh './vendor/bin/phpstan --no-progress analyze ./src ./app ./cli ./public --memory-limit 1G'
-                    }
-                }
-                stage('PHPUnit MySQL') {
-                    steps {
-                        sh './vendor/bin/phpunit --log-junit=report.mysql.xml --configuration ./phpunit.jenkins.mysql.xml'
-                    }
-                }
-                stage('PHPUnit MariaDB') {
-                    steps {
-                        sh './vendor/bin/phpunit --log-junit=report.mariadb.xml --configuration ./phpunit.jenkins.mariadb.xml'
-                    }
-                }
-                stage('PHPUnit Percona') {
-                    steps {
-                        sh './vendor/bin/phpunit --log-junit=report.percona.xml --configuration ./phpunit.jenkins.percona.xml'
-                    }
-                }
+        stage('Phpstan') {
+            steps {
+                sh './vendor/bin/phpstan --no-progress analyze ./src ./app ./cli ./public --memory-limit 1G'
+            }
+        }
+        stage('PHPUnit MySQL') {
+            steps {
+                sh './vendor/bin/phpunit --log-junit=report.mysql.xml --configuration ./phpunit.jenkins.mysql.xml'
+            }
+        }
+        stage('PHPUnit MariaDB') {
+            steps {
+                sh './vendor/bin/phpunit --log-junit=report.mariadb.xml --configuration ./phpunit.jenkins.mariadb.xml'
+            }
+        }
+        stage('PHPUnit Percona') {
+            steps {
+                sh './vendor/bin/phpunit --log-junit=report.percona.xml --configuration ./phpunit.jenkins.percona.xml'
             }
         }
         stage('Archive artifact') {

@@ -106,7 +106,7 @@ class ThemeBlogCategoryTest extends TestCase
         $theme = new Theme();
         $theme->name = Uuid::uuid();
         $theme->displayName = Uuid::uuid();
-        $theme->description = Uuid::uuid();
+        $theme->description = ['en' => Uuid::uuid()];
         $theme->scssVariables = [];
         $theme->configuration = [];
         $theme->create();
