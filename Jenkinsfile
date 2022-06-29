@@ -151,15 +151,15 @@ spec:
                         sh './vendor/bin/phpunit --log-junit=report.percona.xml --configuration ./phpunit.jenkins.percona.xml'
                     }
                 }
-                stage('Archive artifact') {
-                    when {
-                        branch 'main'
-                    }
-                    steps {
-                        sh "zip -r ./jinya-cms.zip ./* --exclude .git/ --exclude .sonarwork/ --exclude sonar-project.properties"
-                        archiveArtifacts artifacts: 'jinya-cms.zip', followSymlinks: false, onlyIfSuccessful: true
-                    }
-                }
+            }
+        }
+        stage('Archive artifact') {
+            when {
+                branch 'main'
+            }
+            steps {
+                sh "zip -r ./jinya-cms.zip ./* --exclude .git/ --exclude .sonarwork/ --exclude sonar-project.properties"
+                archiveArtifacts artifacts: 'jinya-cms.zip', followSymlinks: false, onlyIfSuccessful: true
             }
         }
         stage('Release build') {
