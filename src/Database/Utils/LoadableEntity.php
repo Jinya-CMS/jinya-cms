@@ -83,10 +83,6 @@ abstract class LoadableEntity implements FormattableEntityInterface
      */
     public static function getPdo(): PDOx
     {
-        if (isset(self::$pdo) && self::$pdo !== null) {
-            return self::$pdo;
-        }
-
         $database = getenv('MYSQL_DATABASE');
         $user = getenv('MYSQL_USER') ?: '';
         $password = getenv('MYSQL_PASSWORD') ?: '';
@@ -104,7 +100,6 @@ abstract class LoadableEntity implements FormattableEntityInterface
             ]
         );
         $pdo->exec("set names $charset");
-        self::$pdo = $pdo;
 
         return $pdo;
     }
