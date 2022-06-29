@@ -16,11 +16,7 @@ class ThemeDescriptionStrategy implements StrategyInterface
      */
     public function extract($value, ?object $object = null)
     {
-        try {
-            return json_encode($value, JSON_THROW_ON_ERROR);
-        } catch (JsonException) {
-            return "\"$value\"";
-        }
+        return json_encode($value, JSON_THROW_ON_ERROR);
     }
 
     /**
