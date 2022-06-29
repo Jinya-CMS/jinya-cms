@@ -1,5 +1,20 @@
 # Changelog
 
+## Release notes - Jinya Gallery CMS - Version 24.0.0
+
+### User Stories
+
+* [TG-135](https://taiga.imanuel.dev/project/jinya-cms/us/135) Document PHP classes, methods and fields
+* [TG-137](https://taiga.imanuel.dev/project/jinya-cms/us/137) Don't keep file ending when uploading files
+* [TG-138](https://taiga.imanuel.dev/project/jinya-cms/us/138) Compress images
+* [TG-139](https://taiga.imanuel.dev/project/jinya-cms/us/139) Extract theme extensions into classes
+* [TG-144](https://taiga.imanuel.dev/project/jinya-cms/us/144) Unify build and docker in Jenkinsfile
+* [TG-145](https://taiga.imanuel.dev/project/jinya-cms/us/145) Update Jenkinsfile for MySQL, MariaDB and Percona
+
+### Fixed issues
+
+* [TG-147](https://taiga.imanuel.dev/project/jinya-cms/issue/147) ThemeSyncer crashes with new multilingual themes
+
 ## Release notes - Jinya Gallery CMS - Version 23.1.2
 
 Docker image used wrong PHP version
