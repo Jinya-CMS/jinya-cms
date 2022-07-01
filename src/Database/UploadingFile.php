@@ -25,7 +25,6 @@ class UploadingFile extends Utils\LoadableEntity
      * @throws Exceptions\UniqueFailedException
      * @throws ForeignKeyFailedException
      * @throws NoResultException
-     * @throws NoResultException
      */
     public static function findByFile(int $fileId): ?UploadingFile
     {
