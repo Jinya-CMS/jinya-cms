@@ -4,15 +4,23 @@ namespace Jinya\Tests\Database;
 
 use App\Database\BlogCategory;
 use App\Database\Exceptions\UniqueFailedException;
-use App\Database\Theme;
 use App\Database\ThemeBlogCategory;
+use App\Tests\ThemeTestCase;
 use Faker\Provider\Uuid;
-use PHPUnit\Framework\TestCase;
 
-class ThemeBlogCategoryTest extends TestCase
+class ThemeBlogCategoryTest extends ThemeTestCase
 {
-    private Theme $theme;
     private BlogCategory $category;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $category = new BlogCategory();
+        $category->name = Uuid::uuid();
+        $category->create();
+
+        $this->category = $category;
+    }
 
     public function testFormat(): void
     {
@@ -99,24 +107,5 @@ class ThemeBlogCategoryTest extends TestCase
 
         $found = ThemeBlogCategory::findByTheme($this->theme->getIdAsInt());
         $this->assertCount(2, $found);
-    }
-
-    protected function setUp(): void
-    {
-        $theme = new Theme();
-        $theme->name = Uuid::uuid();
-        $theme->displayName = Uuid::uuid();
-        $theme->description = ['en' => Uuid::uuid()];
-        $theme->scssVariables = [];
-        $theme->configuration = [];
-        $theme->create();
-
-        $this->theme = $theme;
-
-        $category = new BlogCategory();
-        $category->name = Uuid::uuid();
-        $category->create();
-
-        $this->category = $category;
     }
 }
