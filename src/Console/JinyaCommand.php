@@ -5,7 +5,7 @@ namespace App\Console;
 use Attribute;
 
 /**
- * This attribute marks a class that extends AbstractCommand as a executable command for the CLI
+ * This attribute marks a class that extends AbstractCommand as an executable command for the CLI
  */
 #[Attribute(Attribute::TARGET_CLASS)]
 class JinyaCommand
