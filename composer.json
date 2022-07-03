@@ -4,6 +4,7 @@
   "license": "MIT",
   "require": {
     "php": ">=8.1",
+    "ext-date": "*",
     "ext-fileinfo": "*",
     "ext-imagick": "*",
     "ext-intl": "*",

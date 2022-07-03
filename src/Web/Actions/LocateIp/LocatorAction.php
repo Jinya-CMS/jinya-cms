@@ -23,13 +23,13 @@ class LocatorAction extends Action
     {
         $ip = $this->args['ip'];
         $client = new Client();
-        $result = $client->get("https://freegeoip.app/json/$ip");
+        $result = $client->get("http://ip-api.com/json/$ip");
         $location = json_decode($result->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
 
         return $this->respond(
             [
-                'country' => $location['country_name'],
-                'region' => $location['region_name'],
+                'country' => $location['country'],
+                'region' => $location['regionName'],
                 'city' => $location['city'],
             ]
         );
