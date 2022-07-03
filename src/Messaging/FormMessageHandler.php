@@ -52,13 +52,15 @@ class FormMessageHandler
         $fromAddress = 'Some person';
         foreach ($form->getItems() as $item) {
             /** @var $item FormItem */
+            if ($item->isRequired && !array_key_exists($item->id, $body)) {
+                $missingFields[] = $item->label;
+                continue;
+            }
+
             if ($item->type === 'checkbox') {
                 $value = $body[$item->id] ?? false;
             } else {
                 $value = $body[$item->id];
-            }
-            if ($item->isRequired) {
-                $missingFields[] = $item->label;
             }
 
             if ($item->isSubject) {
@@ -72,6 +74,13 @@ class FormMessageHandler
             $formValues[$item->label] = $value ?: null;
             $spamFilter = $item->spamFilter;
             $isSpam |= $this->isSpam((string)$value, $spamFilter);
+            if ($isSpam) {
+                break;
+            }
+        }
+
+        if (!empty($missingFields)) {
+            throw new MissingFieldsException($request, $missingFields);
         }
 
         if (!$isSpam) {
@@ -86,10 +95,6 @@ class FormMessageHandler
             $mailer->isHTML();
             $mailer->send();
         }
-
-        if (!empty($missingFields)) {
-            throw new MissingFieldsException($request, $missingFields);
-        }
     }
 
     /**
@@ -99,7 +104,7 @@ class FormMessageHandler
      * @param array<string> $spamValues
      * @return bool
      */
-    private function isSpam(string $value, array $spamValues): bool
+    public function isSpam(string $value, array $spamValues): bool
     {
         $values = array_filter($spamValues);
         if (empty($values)) {
