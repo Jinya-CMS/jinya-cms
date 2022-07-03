@@ -114,8 +114,8 @@ spec:
                 sh 'curl -sL https://deb.nodesource.com/setup_current.x -o nodesource_setup.sh'
                 sh 'bash nodesource_setup.sh'
                 sh "apt-get install -y libzip-dev git wget unzip zip nodejs libicu-dev libmagickwand-dev libcurl4-openssl-dev"
-                sh 'pecl install imagick'
-                sh 'docker-php-ext-enable imagick'
+                sh 'pecl install imagick pcov apcu'
+                sh 'docker-php-ext-enable imagick pcov apcu'
                 sh 'npm install -g yarn'
                 sh "docker-php-ext-install pdo pdo_mysql zip intl curl"
                 sh "php --version"

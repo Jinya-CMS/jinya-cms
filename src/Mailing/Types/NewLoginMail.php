@@ -42,7 +42,7 @@ class NewLoginMail
     public function sendMail(string $artistEmail, string $artistName, ApiKey $apiKey): void
     {
         $client = new Client();
-        $result = $client->get("https://freegeoip.app/json/$apiKey->remoteAddress");
+        $result = $client->get("http://ip-api.com/json/$apiKey->remoteAddress");
         $userAgent = new Agent(userAgent: $apiKey->userAgent);
         $browser = $userAgent->browser();
         $platform = $userAgent->platform();

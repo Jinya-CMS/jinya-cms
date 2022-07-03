@@ -43,7 +43,7 @@ class NewSavedDeviceMail
     public function sendMail(string $artistEmail, string $artistName, KnownDevice $knownDevice): void
     {
         $client = new Client();
-        $result = $client->get("https://freegeoip.app/json/$knownDevice->remoteAddress");
+        $result = $client->get("http://ip-api.com/json/$knownDevice->remoteAddress");
         $userAgent = new Agent(userAgent: $knownDevice->userAgent);
         $browser = $userAgent->browser();
         $platform = $userAgent->platform();
