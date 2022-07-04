@@ -26,7 +26,7 @@ use Slim\Exception\HttpNotFoundException;
  * This class checks the database namespace and generates the CRUD endpoints for the Jinya api. The endpoints are auto generated based on the JinyaApi attribute
  * @see JinyaApi
  */
-class JinyaModelToRouteResolver
+abstract class JinyaModelToRouteResolver
 {
     /**
      * Creates a response based on the passed class and id
@@ -160,8 +160,6 @@ class JinyaModelToRouteResolver
                     ->withStatus(200);
             }
         }
-
-        throw new HttpMethodNotAllowedException($request);
     }
 
     /**
@@ -196,8 +194,6 @@ class JinyaModelToRouteResolver
         } else {
             throw new HttpNotFoundException($request);
         }
-
-        throw new HttpMethodNotAllowedException($request);
     }
 
     /**
@@ -253,12 +249,13 @@ class JinyaModelToRouteResolver
 
         if (method_exists($entity, 'create')) {
             $entity->create();
+            $data = [];
             if (method_exists($entity, 'format')) {
-                $response->getBody()->write(json_encode($entity->format(), JSON_THROW_ON_ERROR));
-                return $response->withAddedHeader('Content-Type', 'application/json')->withStatus(201);
+                $data = $entity->format();
             }
 
-            return $response->withStatus(204);
+            $response->getBody()->write(json_encode($data, JSON_THROW_ON_ERROR));
+            return $response->withAddedHeader('Content-Type', 'application/json')->withStatus(201);
         }
 
         throw new HttpMethodNotAllowedException($request);
@@ -316,8 +313,6 @@ class JinyaModelToRouteResolver
         } else {
             throw new HttpNotFoundException($request);
         }
-
-        throw new HttpMethodNotAllowedException($request);
     }
 
     /**
