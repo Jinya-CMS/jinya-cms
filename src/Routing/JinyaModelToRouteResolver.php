@@ -160,6 +160,8 @@ abstract class JinyaModelToRouteResolver
                     ->withStatus(200);
             }
         }
+
+        throw new HttpNotFoundException($request);
     }
 
     /**
@@ -191,9 +193,9 @@ abstract class JinyaModelToRouteResolver
                     return $response->withStatus(204);
                 }
             }
-        } else {
-            throw new HttpNotFoundException($request);
         }
+
+        throw new HttpNotFoundException($request);
     }
 
     /**
@@ -310,9 +312,9 @@ abstract class JinyaModelToRouteResolver
                     return $response->withStatus(204);
                 }
             }
-        } else {
-            throw new HttpNotFoundException($request);
         }
+
+        throw new HttpNotFoundException($request);
     }
 
     /**
