@@ -42,7 +42,7 @@ class ProfilePictureService extends StorageBaseService
         } elseif (is_resource($data)) {
             $fileName = $this->getFileHash($data);
         } else {
-            $fileName = '';
+            throw new RuntimeException();
         }
         file_put_contents(self::SAVE_PATH . $fileName, $data);
         $artist->profilePicture = self::WEB_PATH . $fileName;
@@ -64,6 +64,6 @@ class ProfilePictureService extends StorageBaseService
         if ($artist === null) {
             throw new EmptyResultException('Artist not found');
         }
-        unlink(self::BASE_PATH . $artist->profilePicture);
+        unlink(self::BASE_PATH . '/public/' . $artist->profilePicture);
     }
 }
