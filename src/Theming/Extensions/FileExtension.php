@@ -5,7 +5,6 @@ namespace App\Theming\Extensions;
 use App\Database\File;
 use App\Storage\StorageBaseService;
 use App\Utils\ImageType;
-use Intervention\Image\ImageManager;
 use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
 use RuntimeException;
@@ -46,15 +45,7 @@ class FileExtension implements ExtensionInterface
         $sources = [];
         foreach (self::RESOLUTIONS_FOR_SOURCE as $width) {
             if ($imageType === false) {
-                $manager = new ImageManager(['driver' => 'imagick']);
-                $image = $manager->make(StorageBaseService::BASE_PATH . '/public/' . $file->path);
-                $fullpath = StorageBaseService::BASE_PATH . '/public/' . $file->path . '-' . $width . 'w.' . $image->extension;
-                if (file_exists($fullpath)) {
-                    $webpath = $file->path . '-' . $width . 'w.' . $image->extension;
-                    $sources[] = "$webpath ${width}w";
-                } else {
-                    $sources[] = "/image.php?id=$file->id&width=$width ${width}w";
-                }
+                $sources[] = "/image.php?id=$file->id&width=$width ${width}w";
             } else {
                 $type = match ($imageType) {
                     ImageType::Webp => 'webp',
@@ -62,7 +53,6 @@ class FileExtension implements ExtensionInterface
                     ImageType::Jpg => 'jpg',
                     ImageType::Gif => 'gif',
                     ImageType::Bmp => 'bmp',
-                    default => throw new RuntimeException('Unexpected match value'),
                 };
                 $fullpath = StorageBaseService::BASE_PATH . '/public/' . $file->path . '-' . $width . 'w.' . $type;
                 if (file_exists($fullpath)) {
