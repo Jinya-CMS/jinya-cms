@@ -91,7 +91,7 @@ class ThemeGalleryTest extends ThemeTestCase
         self::assertNotNull(ThemeGallery::findByThemeAndName($this->theme->getIdAsInt(), 'Test'));
     }
 
-    public function testGalleryat(): void
+    public function testGalleryFormat(): void
     {
         $themeGallery = new ThemeGallery();
         $themeGallery->galleryId = $this->gallery->getIdAsInt();
@@ -100,8 +100,8 @@ class ThemeGalleryTest extends ThemeTestCase
         $themeGallery->create();
 
         self::assertEquals([
-            'name' => 'Test',
-            'gallery' => $this->gallery->format(),
+                               'name' => 'Test',
+                               'gallery' => $this->gallery->format(),
         ], $themeGallery->format());
     }
 
