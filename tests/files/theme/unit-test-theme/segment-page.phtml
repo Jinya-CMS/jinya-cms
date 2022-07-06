@@ -1,0 +1,18 @@
+<?php
+/**
+ * The file segment-page.phtml gets the variables below passed. The variable $page contains the segment page for this
+ * route. Make sure to include code for all segment types.
+ */
+/** @var \App\Database\SegmentPage $page */
+$this->layout('theme::layout', ['title' => $page->name]);
+?>
+<?php $this->start('maincontent') ?>
+    <div>
+        <h1><?= $this->e($page->name) ?></h1>
+    </div>
+    <article>
+        <?php foreach ($page->getSegments() as $segment): ?>
+            <?php // Render the segment page segments ?>
+        <?php endforeach ?>
+    </article>
+<?php $this->stop('maincontent') ?>

@@ -1,0 +1,13 @@
+<?php
+/**
+ * The file simple-page.phtml gets the variables below passed. The variable $page contains the simple page for this
+ * route. When rendering the content, make sure to *not* escape it.
+ */
+/** @var \App\Database\SimplePage $page */
+?>
+<?php $this->layout('theme::layout', ['title' => $page->name]) ?>
+<?php $this->start('maincontent') ?>
+<main>
+    <?= $page->content ?>
+</main>
+<?php $this->stop() ?>

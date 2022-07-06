@@ -1,0 +1,15 @@
+<?php
+/** @var \League\Plates\Template\Template $this */
+/** @var \App\Database\MenuItem $item */
+$subItems = iterator_to_array($item->getItems());
+?>
+<li>
+    <a href="<?= $item->route ?>"><?= $item->title ?></a>
+    <?php if (!empty($subItems)): ?>
+        <ul>
+            <?php foreach ($subItems as $subItem): ?>
+                <?= $this->fetch('theme::include/menuitem', ['item' => $subItem]) ?>
+            <?php endforeach ?>
+        </ul>
+    <?php endif ?>
+</li>

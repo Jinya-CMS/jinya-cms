@@ -40,7 +40,8 @@
   "require-dev": {
     "roave/security-advisories": "dev-latest",
     "phpunit/phpunit": "9.5.21",
-    "phpstan/phpstan": "1.7.15"
+    "phpstan/phpstan": "1.7.15",
+    "symfony/filesystem": "v6.1.0"
   },
   "config": {
     "process-timeout": 0,

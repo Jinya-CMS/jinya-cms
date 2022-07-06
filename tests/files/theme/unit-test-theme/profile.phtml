@@ -1,0 +1,20 @@
+<?php
+/**
+ * The file profile.phtml gets the variables below passed. The $artist variable contains the artist passed for this
+ * route.
+ */
+/** @var \App\Database\Artist $artist */
+?>
+<?php $this->layout('theme::layout', ['title' => $artist->artistName]) ?>
+<?php $this->start('maincontent') ?>
+    <main>
+        <aside>
+            <h1><?= $this->e($artist->artistName) ?></h1>
+            <img src="<?= $artist->profilePicture ?>" alt="<?= $this->e($artist->artistName) ?>">
+            <a href="mailto:<?= $this->e($artist->email) ?>">Send me an email</a>
+        </aside>
+        <article>
+            <?= $artist->aboutMe ?>
+        </article>
+    </main>
+<?php $this->stop() ?>

@@ -1,0 +1,14 @@
+<?php
+/**
+ * The file gallery.phtml gets the variables below passed. The $gallery variable contains the gallery for the current
+ * route. Make sure to follow the settings of the gallery when creating your gallery theme.
+ */
+/** @var \App\Database\Gallery $gallery */
+?>
+<?php $this->layout('theme::layout', ['title' => $gallery->name]) ?>
+<?php $this->start('maincontent') ?>
+    <main>
+        <span><?= $this->e($gallery->name) ?></span>
+        <?php // Display files in gallery based on orientation and type ?>
+    </main>
+<?php $this->stop() ?>

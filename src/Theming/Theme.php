@@ -5,13 +5,14 @@ namespace App\Theming;
 use App\Database;
 use Exception;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
 use JShrink\Minifier;
 use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
 use RuntimeException;
 use ScssPhp\ScssPhp\Compiler;
+use ScssPhp\ScssPhp\Node\Number;
 use ScssPhp\ScssPhp\OutputStyle;
+use ScssPhp\ScssPhp\ValueConverter;
 
 /**
  * Themes contain all information about the cache state and several helpers for themes
@@ -43,17 +44,29 @@ class Theme implements ExtensionInterface
         $this->scssCompiler = new Compiler();
         $this->scssCompiler->setSourceMap(Compiler::SOURCE_MAP_NONE);
         $this->scssCompiler->setOutputStyle(OutputStyle::COMPRESSED);
-        $this->scssCompiler->registerFunction('jinya-asset', function (array $args) {
-            $assets = $this->dbTheme->getAssets();
-            $assetName = $this->scssCompiler->getStringText($args[0]);
-            if (array_key_exists($assetName, $assets)) {
-                return 'url("' . $assets[$assetName]->publicPath . '")';
-            }
-
-            throw new RuntimeException("Asset with name $assetName not found");
-        }, ['assetName']);
+        $this->scssCompiler->registerFunction('jinya-asset', [$this, 'scssJinyaAsset'], ['assetName']);
 
         $this->parseThemePhp();
+    }
+
+    /**
+     * Includes an asset into SCSS
+     *
+     * @param array<string> $args
+     * @return array|mixed|Number
+     * @throws Database\Exceptions\ForeignKeyFailedException
+     * @throws Database\Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     */
+    public function scssJinyaAsset(array $args): mixed
+    {
+        $assets = $this->dbTheme->getAssets();
+        $assetName = $this->scssCompiler->getStringText($args[0]);
+        if (array_key_exists($assetName, $assets)) {
+            return ValueConverter::fromPhp('url("' . $assets[$assetName]->publicPath . '")');
+        }
+
+        throw new RuntimeException("Asset with name $assetName not found");
     }
 
     /**
@@ -69,19 +82,6 @@ class Theme implements ExtensionInterface
         }
 
         $this->configuration = require $themePhpFile;
-    }
-
-    /**
-     * Gets the currently activated theme
-     *
-     * @throws Database\Exceptions\ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws Database\Exceptions\UniqueFailedException
-     * @throws NoResultException
-     */
-    public static function getActiveTheme(): Theme
-    {
-        return new self(Database\Theme::getActiveTheme());
     }
 
     /**

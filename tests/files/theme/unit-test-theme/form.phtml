@@ -1,0 +1,71 @@
+<?php
+/**
+ * The file form.phtml gets the variables below passed. The $form contains the form for this route. The boolean $success
+ * indicates whether the form was submitted successfully. The $missingFields array contains the missing fields, in case
+ * the form submit fails. The form also gets based an array $body which contains all field values posted to the server.
+ */
+/** @var \App\Database\Form $form */
+/** @var bool $success */
+/** @var array<string> $missingFields */
+$this->layout('theme::layout', ['title' => $form->title]);
+?>
+<?php $this->start('maincontent') ?>
+    <main>
+        <?php
+        // It is very important to not specify an action. The only needed attribute is the method attribute with
+        // value POST or post
+        ?>
+        <form method="POST">
+            <h1><?= $this->e($form->title) ?></h1>
+            <div><?= $form->description ?></div>
+            <?php if ($success): ?>
+                <div>
+                    <?php // Message when the form was sent ?>
+                </div>
+            <?php elseif (!$success || count($missingFields) > 0): ?>
+                <div>
+                    <?php // Message when the form was not sent ?>
+                </div>
+            <?php endif ?>
+            <?php foreach ($form->getItems() as $item): ?>
+                <?php $itemId = uniqid($item->type, true) ?>
+                <?php if ($item->type === 'checkbox'): ?>
+                    <div>
+                        <input id="<?= $itemId ?>" name="<?= $item->id ?>" <?= $item->isRequired ? 'required' : '' ?>
+                               placeholder="<?= $this->e($item->placeholder ?? $item->label) ?>" type="checkbox">
+                        <label for="<?= $itemId ?>"><?= $this->e($item->label) ?></label>
+                    </div>
+                <?php elseif ($item->type === 'textarea'): ?>
+                    <div>
+                        <label for="<?= $itemId ?>"><?= $this->e($item->label) ?></label>
+                        <textarea id="<?= $itemId ?>" rows="5" <?= $item->isRequired ? 'required' : '' ?>
+                                  placeholder="<?= $this->e($item->placeholder ?? $item->label) ?>"
+                                  name="<?= $item->id ?>"></textarea>
+                    </div>
+                <?php elseif ($item->type === 'select'): ?>
+                    <div>
+                        <label for="<?= $itemId ?>"><?= $this->e($item->label) ?></label>
+                        <select id="<?= $itemId ?>" name="<?= $item->id ?>" <?= $item->isRequired ? 'required' : '' ?>>
+                            <option value="" disabled selected="selected">
+                                <?= $this->e($item->placeholder ?? $item->label) ?>
+                            </option>
+                            <?php foreach ($item->options as $option): ?>
+                                <option value="<?= $option ?>"><?= $this->e($option) ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+                <?php else: ?>
+                    <div>
+                        <label for="<?= $itemId ?>"><?= $this->e($item->label) ?></label>
+                        <input id="<?= $itemId ?>" name="<?= $item->id ?>" type="<?= $this->e($item->type) ?>"
+                               placeholder="<?= $this->e($item->placeholder ?? $item->label) ?>"
+                            <?= $item->isRequired ? 'required' : '' ?>>
+                    </div>
+                <?php endif ?>
+            <?php endforeach ?>
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </main>
+<?php $this->stop() ?>
