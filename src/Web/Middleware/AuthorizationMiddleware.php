@@ -20,7 +20,7 @@ class AuthorizationMiddleware implements MiddlewareInterface
     public const LOGGED_IN_ARTIST = 'logged_in_artist';
 
     /**
-     * Creates a new authorization middleware and initalizes it with the needed role
+     * Creates a new authorization middleware and initializes it with the needed role
      *
      * @param string|null $role
      */

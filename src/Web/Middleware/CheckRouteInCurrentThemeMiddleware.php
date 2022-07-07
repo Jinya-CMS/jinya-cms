@@ -11,6 +11,7 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use League\Plates\Engine;
 use League\Plates\Extension\URI;
 use Nyholm\Psr7\Response;
+use Nyholm\Psr7\Stream;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -90,22 +91,25 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
             $queryParams = $request->getQueryParams();
             $this->engine->addData(['body' => $parsedBody, 'queryParams' => $queryParams]);
             $this->engine->loadExtension($activeThemingTheme);
+            $this->engine->loadExtension(new Theming\Extensions\FileExtension());
+            $this->engine->loadExtension(new Theming\Extensions\LinksExtension($activeTheme));
+            $this->engine->loadExtension(new Theming\Extensions\ThemeExtension($activeThemingTheme, $activeTheme));
             $this->engine->loadExtension(new Theming\Extensions\MenuExtension());
             $this->engine->loadExtension(new URI($request->getUri()->getPath()));
 
             $renderResult = $this->engine->render('theme::404');
-            $response->getBody()->write($renderResult);
 
             return $response
                 ->withHeader('Content-Type', 'text/html')
-                ->withStatus(Action::HTTP_NOT_FOUND);
+                ->withStatus(Action::HTTP_NOT_FOUND)
+                ->withBody(Stream::create($renderResult));
         } catch (Throwable $exception) {
             $renderResult = $this->engine->render('emergency::500', ['exception' => $exception]);
-            $response->getBody()->write($renderResult);
 
             return $response
                 ->withHeader('Content-Type', 'text/html')
-                ->withStatus(Action::HTTP_INTERNAL_SERVER_ERROR);
+                ->withStatus(Action::HTTP_INTERNAL_SERVER_ERROR)
+                ->withBody(Stream::create($renderResult));
         }
     }
 
@@ -116,13 +120,17 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
      * @throws Database\Exceptions\ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    public function checkMenuItem(MenuItem $menuItem, string $path): bool|int
+    private function checkMenuItem(MenuItem $menuItem, string $path): bool
     {
-        $result = $path === $menuItem->route;
+        if ($path === $menuItem->route) {
+            return true;
+        }
         foreach ($menuItem->getItems() as $item) {
-            $result |= $this->checkMenuItem($item, $path);
+            if ($this->checkMenuItem($item, $path)) {
+                return true;
+            }
         }
 
-        return $result;
+        return false;
     }
 }
