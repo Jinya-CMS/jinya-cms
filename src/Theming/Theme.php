@@ -52,7 +52,7 @@ class Theme implements ExtensionInterface
     /**
      * Includes an asset into SCSS
      *
-     * @param array<string> $args
+     * @param array<mixed> $args
      * @return array|mixed|Number
      * @throws Database\Exceptions\ForeignKeyFailedException
      * @throws Database\Exceptions\UniqueFailedException
