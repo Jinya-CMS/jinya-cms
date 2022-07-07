@@ -11,7 +11,6 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class ThemeTest extends TestCase
 {
-    private static bool $existedBeforeTest = false;
     private static string $name;
     private static Filesystem $fs;
     private Theming\Theme $theme;
@@ -223,11 +222,7 @@ class ThemeTest extends TestCase
         self::$name = uniqid('unit-test-theme', true);
         self::$fs = new Filesystem();
 
-        if (self::$fs->exists(ThemeSyncer::THEME_BASE_PATH . self::$name)) {
-            self::$existedBeforeTest = true;
-        } else {
-            self::$fs->mirror(__ROOT__ . '/tests/files/theme/unit-test-theme', ThemeSyncer::THEME_BASE_PATH . self::$name);
-        }
+        self::$fs->mirror(__ROOT__ . '/tests/files/theme/unit-test-theme', ThemeSyncer::THEME_BASE_PATH . self::$name);
 
         $themeSyncer = new ThemeSyncer();
         $themeSyncer->syncThemes();
@@ -239,9 +234,7 @@ class ThemeTest extends TestCase
     protected function tearDown(): void
     {
         parent::tearDown();
-        if (!self::$existedBeforeTest) {
-            self::$fs->remove(ThemeSyncer::THEME_BASE_PATH . self::$name);
-            self::$fs->remove(__ROOT__ . '/public/themes/' . self::$name);
-        }
+        self::$fs->remove(ThemeSyncer::THEME_BASE_PATH . self::$name);
+        self::$fs->remove(__ROOT__ . '/public/themes/' . self::$name);
     }
 }

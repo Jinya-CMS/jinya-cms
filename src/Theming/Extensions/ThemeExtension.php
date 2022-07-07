@@ -5,6 +5,7 @@ namespace App\Theming\Extensions;
 use App\Database;
 use App\Theming;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
 
@@ -49,14 +50,15 @@ class ThemeExtension implements ExtensionInterface
      *
      *
      * @param string $name
-     * @return Database\ThemeAsset
+     * @return Database\ThemeAsset|null
      * @throws Database\Exceptions\ForeignKeyFailedException
      * @throws Database\Exceptions\UniqueFailedException
      * @throws InvalidQueryException
+     * @throws NoResultException
      */
-    public function asset(string $name): Database\ThemeAsset
+    public function asset(string $name): ?Database\ThemeAsset
     {
-        return $this->dbTheme->getAssets()[$name];
+        return Database\ThemeAsset::findByThemeAndName($this->dbTheme->getIdAsInt(), $name);
     }
 
     /**
@@ -78,12 +80,16 @@ class ThemeExtension implements ExtensionInterface
      */
     public function styles(): string
     {
-        $styleFiles = scandir(Theming\Theme::BASE_CACHE_PATH . $this->dbTheme->name . '/styles/');
-        $styleFiles = array_map(fn($item) => Theming\Theme::BASE_PUBLIC_PATH . $this->dbTheme->name . "/styles/$item", $styleFiles ?: []);
-        $styleFiles = array_filter($styleFiles, static fn($item) => str_ends_with($item, '.css'));
-        $tags = '';
-        foreach ($styleFiles as $file) {
-            $tags .= "<link type='text/css' rel='stylesheet' href='$file'>";
+        if (file_exists(Theming\Theme::BASE_CACHE_PATH . $this->dbTheme->name . '/styles/')) {
+            $styleFiles = scandir(Theming\Theme::BASE_CACHE_PATH . $this->dbTheme->name . '/styles/');
+            $styleFiles = array_map(fn($item) => Theming\Theme::BASE_PUBLIC_PATH . $this->dbTheme->name . "/styles/$item", $styleFiles ?: []);
+            $styleFiles = array_filter($styleFiles, static fn($item) => str_ends_with($item, '.css'));
+            $tags = '';
+            foreach ($styleFiles as $file) {
+                $tags .= "<link type='text/css' rel='stylesheet' href='$file'>";
+            }
+        } else {
+            $tags = '';
         }
 
         return $tags;
@@ -96,12 +102,16 @@ class ThemeExtension implements ExtensionInterface
      */
     public function scripts(): string
     {
-        $scriptFiles = scandir(Theming\Theme::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts/');
-        $scriptFiles = array_map(fn($item) => Theming\Theme::BASE_PUBLIC_PATH . $this->dbTheme->name . "/scripts/$item", $scriptFiles ?: []);
-        $scriptFiles = array_filter($scriptFiles, static fn($item) => str_ends_with($item, '.js'));
-        $tags = '';
-        foreach ($scriptFiles as $file) {
-            $tags .= "<script src='$file'></script>";
+        if (file_exists(Theming\Theme::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts/')) {
+            $scriptFiles = scandir(Theming\Theme::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts/');
+            $scriptFiles = array_map(fn($item) => Theming\Theme::BASE_PUBLIC_PATH . $this->dbTheme->name . "/scripts/$item", $scriptFiles ?: []);
+            $scriptFiles = array_filter($scriptFiles, static fn($item) => str_ends_with($item, '.js'));
+            $tags = '';
+            foreach ($scriptFiles as $file) {
+                $tags .= "<script src='$file'></script>";
+            }
+        } else {
+            $tags = '';
         }
 
         return $tags;
