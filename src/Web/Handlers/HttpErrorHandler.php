@@ -13,6 +13,7 @@ use Throwable;
 
 /**
  * A Slim error handler to respond if the request fails a specialized JSON error
+ * @codeCoverageIgnore
  */
 class HttpErrorHandler extends SlimErrorHandler
 {

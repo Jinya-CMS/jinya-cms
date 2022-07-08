@@ -8,6 +8,7 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 
 /**
  * Helper class to get the history of the given entity type
+ * @codeCoverageIgnore
  */
 abstract class History
 {

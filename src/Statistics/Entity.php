@@ -7,6 +7,7 @@ use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * Helper class to get the share of entities in the database
+ * @codeCoverageIgnore
  */
 abstract class Entity
 {

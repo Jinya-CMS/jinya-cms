@@ -8,6 +8,7 @@ use JsonSerializable;
 
 /**
  * A history entry contains the count and date of changes
+ * @codeCoverageIgnore
  */
 class HistoryEntry implements JsonSerializable, FormattableEntityInterface
 {

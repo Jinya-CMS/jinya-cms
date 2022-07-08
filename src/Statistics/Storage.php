@@ -7,6 +7,7 @@ use RecursiveIteratorIterator;
 
 /**
  * Helper class to get storage statistics
+ * @codeCoverageIgnore
  */
 abstract class Storage
 {

@@ -8,6 +8,7 @@ use JsonException;
 
 /**
  * The matomo client connects to the configured matomo instance and offers a few statistics methods
+ * @codeCoverageIgnore
  */
 class MatomoClient
 {
