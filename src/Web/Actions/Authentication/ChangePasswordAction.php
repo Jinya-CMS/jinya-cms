@@ -34,14 +34,10 @@ class ChangePasswordAction extends Action
         /** @var Artist $currentArtist */
         $currentArtist = $this->request->getAttribute(AuthorizationMiddleware::LOGGED_IN_ARTIST);
 
-        if ($password) {
-            if (!$currentArtist->changePassword($oldPassword, $password)) {
-                throw new HttpForbiddenException($this->request, 'Old password is invalid');
-            }
-
-            return $this->noContent();
+        if (!$currentArtist->changePassword($oldPassword, $password)) {
+            throw new HttpForbiddenException($this->request, 'Old password is invalid');
         }
 
-        throw new MissingFieldsException($this->request, ['password']);
+        return $this->noContent();
     }
 }

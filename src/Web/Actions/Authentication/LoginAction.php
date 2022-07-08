@@ -52,7 +52,7 @@ class LoginAction extends Action
             $userAgentHeader = $this->request->getHeaderLine('User-Agent');
             if (!empty($knownDeviceCode) && $artist->validateDevice($knownDeviceCode)) {
                 $knownDevice = KnownDevice::findByCode($knownDeviceCode);
-            } elseif ($artist->twoFactorToken === $twoFactorCode) {
+            } elseif ($artist->twoFactorToken !== null && $artist->twoFactorToken !== '' && $artist->twoFactorToken === $twoFactorCode) {
                 $knownDevice = new KnownDevice();
                 $knownDevice->setDeviceKey();
                 $knownDevice->userId = (int)$artist->id;
@@ -70,7 +70,7 @@ class LoginAction extends Action
                 } catch (Throwable $exception) {
                     $this->logger->warning($exception->getMessage());
                 }
-            } elseif (empty($knownDeviceCode) && empty($twoFactorCode)) {
+            } elseif (empty($knownDeviceCode) && !empty($twoFactorCode)) {
                 throw new UnknownDeviceException($this->request, 'Unknown device');
             } else {
                 throw new BadCredentialsException($this->request, 'Bad credentials');
