@@ -4,8 +4,8 @@ namespace Jinya\Tests\Web\Actions\Artist;
 
 use App\Authentication\CurrentUser;
 use App\Database\Artist;
-use App\Web\Actions\Artist\ActivateArtistAction;
 use App\Web\Actions\Artist\DeactivateArtistAction;
+use App\Web\Exceptions\ConflictException;
 use App\Web\Exceptions\NoResultException;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
@@ -37,7 +37,30 @@ class DectivateArtistActionTest extends TestCase
         $request = new ServerRequest('', '');
         $response = new Response();
 
-        $action = new ActivateArtistAction();
+        $action = new DeactivateArtistAction();
         $action($request, $response, ['id' => -1]);
+    }
+
+    public function test__invokeDeactivateLastAdmin(): void
+    {
+        $artist = new Artist();
+        $artist->email = 'test@example.com';
+        $artist->aboutMe = 'About me';
+        $artist->profilePicture = 'profilepicture';
+        $artist->artistName = 'Test Artist';
+        $artist->enabled = true;
+        $artist->roles = ['ROLE_ADMIN'];
+        $artist->setPassword('start1234');
+        $artist->create();
+
+        $this->expectException(ConflictException::class);
+        $request = new ServerRequest('', '');
+        $response = new Response();
+
+        CurrentUser::$currentUser->roles = ['ROLE_ADMIN'];
+        CurrentUser::$currentUser->update();
+
+        $action = new DeactivateArtistAction();
+        $action($request, $response, ['id' => $artist->getIdAsInt()]);
     }
 }
