@@ -2,13 +2,13 @@
 
 namespace App\Web\Actions\File\Upload;
 
-use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Storage\FileUploadService;
 use App\Web\Actions\Action;
 use App\Web\Exceptions\NoResultException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Exception\HttpNotFoundException;
 
 /**
  * Action to finalise a file upload
@@ -34,15 +34,14 @@ class FinishUploadAction extends Action
      * @throws InvalidQueryException
      * @throws NoResultException
      * @throws UniqueFailedException
-     * @throws \Jinya\PDOx\Exceptions\NoResultException
      */
     protected function action(): Response
     {
         $fileId = $this->args['id'];
         try {
             $this->fileUploadService->finishUpload($fileId);
-        } catch (ForeignKeyFailedException) {
-            throw new NoResultException($this->request, 'File not found');
+        } catch (\Jinya\PDOx\Exceptions\NoResultException) {
+            throw new HttpNotFoundException($this->request, 'File not found');
         }
 
         return $this->noContent();

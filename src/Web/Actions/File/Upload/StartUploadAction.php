@@ -6,9 +6,11 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\UploadingFile;
 use App\Web\Actions\Action;
+use App\Web\Exceptions\ConflictException;
 use App\Web\Exceptions\NoResultException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Exception\HttpNotFoundException;
 
 /**
  * Action to initialize an upload
@@ -32,7 +34,9 @@ class StartUploadAction extends Action
         try {
             $uploadingFile->create();
         } catch (ForeignKeyFailedException) {
-            throw new NoResultException($this->request, 'File not found');
+            throw new HttpNotFoundException($this->request, 'File not found');
+        } catch (UniqueFailedException) {
+            throw new ConflictException($this->request, 'Upload started already');
         }
 
         return $this->noContent();
