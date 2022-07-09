@@ -3,7 +3,6 @@
 namespace App\Web\Actions\Environment;
 
 use App\Web\Actions\Action;
-use Dotenv\Dotenv;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
@@ -18,7 +17,7 @@ class GetEnvironmentAction extends Action
      */
     protected function action(): Response
     {
-        $env = Dotenv::parse(file_get_contents(__ROOT__ . '/.env') ?: '');
+        $env = array_filter($_ENV, static fn($key) => str_starts_with($key, 'MAILER') || str_starts_with($key, 'JINYA') || str_starts_with($key, 'MYSQL') || str_starts_with($key, 'MATOMO'), ARRAY_FILTER_USE_KEY);
         $data = array_map(
             static fn($key, $value) => [
                 'key' => $key,
