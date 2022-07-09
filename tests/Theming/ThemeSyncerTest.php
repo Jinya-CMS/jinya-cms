@@ -4,6 +4,7 @@ namespace Jinya\Tests\Theming;
 
 use App\Database\Theme;
 use App\Theming\ThemeSyncer;
+use Faker\Provider\Uuid;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -57,7 +58,7 @@ class ThemeSyncerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        self::$name = uniqid('unit-test-theme', true);
+        self::$name = Uuid::uuid();
         self::$fs = new Filesystem();
 
         self::$fs->mirror(__ROOT__ . '/tests/files/theme/unit-test-theme', ThemeSyncer::THEME_BASE_PATH . self::$name);
