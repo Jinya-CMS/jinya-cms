@@ -242,7 +242,7 @@ class GetFrontActionTest extends FrontTestCase
         $response = new Response();
 
         $action = new GetFrontAction();
-        $result = $action($request, $response, ['slug' => $post->slug]);
+        $result = $action($request, $response, ['route' => $post->slug]);
 
         self::assertEquals(200, $result->getStatusCode());
     }
