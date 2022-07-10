@@ -5,7 +5,7 @@
  */
 /** @var \App\Database\SimplePage $page */
 ?>
-<?php $this->layout('theme::layout', ['title' => $page->name]) ?>
+<?php $this->layout('theme::layout', ['title' => $page->title]) ?>
 <?php $this->start('maincontent') ?>
 <main>
     <?= $page->content ?>

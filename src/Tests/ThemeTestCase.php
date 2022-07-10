@@ -6,7 +6,7 @@ use App\Database\Theme;
 use Faker\Provider\Uuid;
 use PHPUnit\Framework\TestCase;
 
-class ThemeTestCase extends TestCase
+abstract class ThemeTestCase extends TestCase
 {
     protected Theme $theme;
 
