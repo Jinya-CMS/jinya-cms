@@ -157,6 +157,7 @@ class PhpInfoService
      * Gets the apache version
      *
      * @return string
+     * @codeCoverageIgnore
      */
     public function getApacheVersion(): string
     {
@@ -171,6 +172,7 @@ class PhpInfoService
      * Gets all apache modules
      *
      * @return array<string>
+     * @codeCoverageIgnore
      */
     public function getApacheModules(): array
     {
