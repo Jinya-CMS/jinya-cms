@@ -69,7 +69,7 @@ class CheckRouteInCurrentThemeMiddlewareTest extends TestCase
     {
         $fs = new Filesystem();
         try {
-            $this->name = uniqid('unit-test-theme', true);
+            $this->name = Uuid::uuid();
 
             $fs->mirror(__ROOT__ . '/tests/files/theme/unit-test-theme', ThemeSyncer::THEME_BASE_PATH . $this->name);
 
@@ -113,7 +113,7 @@ class CheckRouteInCurrentThemeMiddlewareTest extends TestCase
     {
         $fs = new Filesystem();
         try {
-            $this->name = uniqid('unit-test-theme', true);
+            $this->name = Uuid::uuid();
 
             $fs->mirror(__ROOT__ . '/tests/files/theme/unit-test-theme', ThemeSyncer::THEME_BASE_PATH . $this->name);
 
