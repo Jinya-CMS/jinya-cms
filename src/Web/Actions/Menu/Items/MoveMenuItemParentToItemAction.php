@@ -42,7 +42,7 @@ class MoveMenuItemParentToItemAction extends Action
             if (!$parent) {
                 throw new NoResultException($this->request, 'Parent menu item not found');
             }
-            if ($parent->parentId) {
+            if ($parent->parentId !== false && $parent->parentId !== null) {
                 $menuItem->parentId = $parent->parentId;
                 $menuItem->menuId = null;
             } else {
