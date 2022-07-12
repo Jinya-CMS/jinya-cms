@@ -29,16 +29,17 @@ class ProfilePictureServiceTest extends TestCase
 
     public function testSaveAndDeleteProfilePictureFile(): void
     {
-        copy('https://picsum.photos/200/300', __ROOT__ . '/tmp/file');
+        $path = __ROOT__ . '/tmp/' . Uuid::uuid();
+        copy('https://picsum.photos/200/300', $path);
 
-        $this->service->saveProfilePicture($this->artist->getIdAsInt(), fopen(__ROOT__ . '/tmp/file', 'rb+'));
+        $this->service->saveProfilePicture($this->artist->getIdAsInt(), fopen($path, 'rb+'));
         $loadedArtist = Artist::findByEmail($this->artist->email);
         self::assertFileExists(StorageBaseService::BASE_PATH . '/public/' . $loadedArtist->profilePicture);
 
         $this->service->deleteProfilePicture($loadedArtist->getIdAsInt());
         self::assertFileDoesNotExist(StorageBaseService::BASE_PATH . '/public/' . $loadedArtist->profilePicture);
 
-        @unlink(__ROOT__ . '/tmp/file');
+        @unlink($path);
     }
 
     public function testSaveProfilePictureArtistNotFound(): void
