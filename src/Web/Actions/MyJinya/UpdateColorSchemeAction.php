@@ -13,7 +13,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 /**
  * Action to change the color scheme of the artist
  */
-class UpdateColorScheme extends Action
+class UpdateColorSchemeAction extends Action
 {
 
     /**

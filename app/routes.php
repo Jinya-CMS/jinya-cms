@@ -48,7 +48,7 @@ use App\Web\Actions\Menu\Items\ResetMenuItemParentAction;
 use App\Web\Actions\Menu\Items\UpdateMenuItemAction;
 use App\Web\Actions\MyJinya\GetArtistInfoAction;
 use App\Web\Actions\MyJinya\UpdateAboutMeAction;
-use App\Web\Actions\MyJinya\UpdateColorScheme;
+use App\Web\Actions\MyJinya\UpdateColorSchemeAction;
 use App\Web\Actions\PhpInfo\GetPhpInfoAction;
 use App\Web\Actions\SegmentPage\Segments\CreateFileSegmentAction;
 use App\Web\Actions\SegmentPage\Segments\CreateFormSegmentAction;
@@ -260,7 +260,7 @@ return function (App $app) {
         $proxy->get('/me', GetArtistInfoAction::class)->add(AuthorizationMiddleware::class);
         $proxy->get('/account', GetArtistInfoAction::class)->add(AuthorizationMiddleware::class);
         $proxy->put('/me', UpdateAboutMeAction::class)->add(AuthorizationMiddleware::class);
-        $proxy->put('/me/colorscheme', UpdateColorScheme::class)
+        $proxy->put('/me/colorscheme', UpdateColorSchemeAction::class)
             ->add(new CheckRequiredFieldsMiddleware(['colorScheme']))
             ->add(AuthorizationMiddleware::class);
 
