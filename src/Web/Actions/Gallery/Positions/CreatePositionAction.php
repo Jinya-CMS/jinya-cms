@@ -29,7 +29,6 @@ class CreatePositionAction extends Action
      */
     protected function action(): Response
     {
-
         $galleryId = $this->args['galleryId'];
         $position = $this->body['position'];
         $file = $this->body['file'];
