@@ -3,7 +3,7 @@ designer
 docker-compose.yml
 Dockerfile
 Jenkinsfile
-.env
+.env.dist
 composer.phar
 designer@tmp
 jinya-cms.zip

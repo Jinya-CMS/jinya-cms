@@ -19,8 +19,6 @@ class PostInstallerAction extends InstallAction
      * Executes the post for the installer. This creates the first admin and .env file
      *
      * @throws Throwable
-     * @throws Throwable
-     * @throws Throwable
      */
     protected function action(): Response
     {

@@ -18,8 +18,8 @@ abstract class AppSettingsInitializer
      */
     public static function loadDotEnv(): void
     {
-        if (file_exists(__ROOT__ . '/.env')) {
-            $dotenv = Dotenv::createUnsafeImmutable(__ROOT__);
+        if (file_exists(__ROOT__ . '/.env') || file_exists(__ROOT__ . '/.env.dist')) {
+            $dotenv = Dotenv::createUnsafeImmutable(__ROOT__, ['.env', '.env.dist']);
             $dotenv->load();
             $dotenv->required(
                 [
