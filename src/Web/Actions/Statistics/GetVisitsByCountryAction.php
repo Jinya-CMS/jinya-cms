@@ -9,6 +9,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 /**
  * Action to get visits by country from matomo
+ * @codeCoverageIgnore
  */
 class GetVisitsByCountryAction extends Action
 {

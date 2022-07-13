@@ -7,8 +7,9 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 /**
  * Action to set the update cookie
+ * @codeCoverageIgnore
  */
-class InitUpdateProcess extends Action
+class InitUpdateProcessAction extends Action
 {
     /**
      * Initializes the update process and generates a special key to allow updates

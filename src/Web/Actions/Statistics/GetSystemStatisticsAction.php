@@ -8,6 +8,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 /**
  * Action to get the system storage stats
+ * @codeCoverageIgnore
  */
 class GetSystemStatisticsAction extends Action
 {

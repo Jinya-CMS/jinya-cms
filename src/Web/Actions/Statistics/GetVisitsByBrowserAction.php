@@ -9,6 +9,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 /**
  * Action to get visits by browser from matomo
+ * @codeCoverageIgnore
  */
 class GetVisitsByBrowserAction extends Action
 {

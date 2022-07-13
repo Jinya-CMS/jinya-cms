@@ -80,7 +80,7 @@ use App\Web\Actions\Theme\PutLinkItemAction;
 use App\Web\Actions\Theme\PutStyleVariablesAction;
 use App\Web\Actions\Theme\UpdateThemeFilesAction;
 use App\Web\Actions\Update\GetUpdateAction;
-use App\Web\Actions\Update\InitUpdateProcess;
+use App\Web\Actions\Update\InitUpdateProcessAction;
 use App\Web\Actions\Update\PostUpdateAction;
 use App\Web\Actions\Version\GetVersionInfo;
 use App\Web\Middleware\AuthorizationMiddleware;
@@ -328,7 +328,7 @@ return function (App $app) {
         })->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
 
         // Update
-        $proxy->put('/update', InitUpdateProcess::class)
+        $proxy->put('/update', InitUpdateProcessAction::class)
             ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_ADMIN));
 
         // Version

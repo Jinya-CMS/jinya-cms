@@ -8,6 +8,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 /**
  * Action to get entity share in Jinya CMS
+ * @codeCoverageIgnore
  */
 class GetEntityStatisticsAction extends Action
 {

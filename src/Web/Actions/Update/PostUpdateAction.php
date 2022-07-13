@@ -12,6 +12,7 @@ use ZipArchive;
 
 /**
  * Action to post the update
+ * @codeCoverageIgnore
  */
 class PostUpdateAction extends UpdateAction
 {

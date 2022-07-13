@@ -9,6 +9,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 /**
  * Action to get visits by device type from matomo
+ * @codeCoverageIgnore
  */
 class GetVisitsByDeviceTypeAction extends Action
 {

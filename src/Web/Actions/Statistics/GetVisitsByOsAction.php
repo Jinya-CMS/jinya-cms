@@ -9,6 +9,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 /**
  * Action to get visits by os version from matomo
+ * @codeCoverageIgnore
  */
 class GetVisitsByOsAction extends Action
 {

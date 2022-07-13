@@ -10,6 +10,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 /**
  * Action to get history statistics
+ * @codeCoverageIgnore
  */
 class GetHistoryStatisticsAction extends Action
 {
