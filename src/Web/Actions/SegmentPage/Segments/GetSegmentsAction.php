@@ -29,7 +29,7 @@ class GetSegmentsAction extends Action
         $id = $this->args['id'];
         $segmentPage = SegmentPage::findById($id);
         if ($segmentPage === null) {
-            throw new \App\Web\Exceptions\NoResultException($this->request);
+            throw new \App\Web\Exceptions\NoResultException($this->request, 'Segment page not found');
         }
         $segments = $segmentPage->getSegments();
 
