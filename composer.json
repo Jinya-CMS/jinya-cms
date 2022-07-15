@@ -28,9 +28,9 @@
     "jenssegers/agent": "v2.6.4",
     "fakerphp/faker": "v1.19.0",
     "melbahja/semver": "1.0.1",
-    "league/uri": "6.7.0",
+    "league/uri": "6.7.1",
     "jinya/pdox": "0.9.0",
-    "laminas/laminas-hydrator": "4.3.1",
+    "laminas/laminas-hydrator": "4.5.0",
     "intervention/image": "2.7.2"
   },
   "suggest": {
@@ -40,7 +40,7 @@
   "require-dev": {
     "roave/security-advisories": "dev-latest",
     "phpunit/phpunit": "9.5.21",
-    "phpstan/phpstan": "1.7.15",
+    "phpstan/phpstan": "1.8.1",
     "symfony/filesystem": "v6.1.0"
   },
   "config": {

@@ -13,7 +13,7 @@
     "page": "1.11.6",
     "sortablejs": "1.15.0",
     "svelte-i18n": "3.4.0",
-    "tinymce": "6.0.3",
+    "tinymce": "6.1.0",
     "ua-parser-js": "1.0.2",
     "lodash": "4.17.21"
   },
@@ -21,13 +21,13 @@
     "@rollup/plugin-commonjs": "22.0.1",
     "@rollup/plugin-json": "4.1.0",
     "@rollup/plugin-node-resolve": "13.3.0",
-    "eslint": "8.18.0",
+    "eslint": "8.19.0",
     "eslint-plugin-svelte3": "4.0.0",
     "postcss": "8.4.14",
-    "rollup": "2.75.7",
+    "rollup": "2.77.0",
     "rollup-plugin-copy": "3.4.0",
     "rollup-plugin-postcss": "4.0.2",
     "rollup-plugin-svelte": "7.1.0",
-    "svelte": "3.48.0"
+    "svelte": "3.49.0"
   }
 }
