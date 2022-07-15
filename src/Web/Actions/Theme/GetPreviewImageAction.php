@@ -35,7 +35,7 @@ class GetPreviewImageAction extends ThemeAction
         $theme = new Theming\Theme($dbTheme);
         if (file_exists($theme->getPreviewImagePath())) {
             return $this->response
-                ->withBody(Stream::create(fopen($theme->getPreviewImagePath(), 'rb') ?: ''))
+                ->withBody(Stream::create(fopen($theme->getPreviewImagePath(), 'rb+') ?: ''))
                 ->withHeader('Content-Type', mime_content_type($theme->getPreviewImagePath()) ?: 'application/octet-stream')
                 ->withStatus(self::HTTP_OK);
         }

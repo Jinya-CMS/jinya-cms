@@ -71,7 +71,7 @@ use App\Web\Actions\Theme\ActivateThemeAction;
 use App\Web\Actions\Theme\CompileThemeAction;
 use App\Web\Actions\Theme\CreateThemeAction;
 use App\Web\Actions\Theme\GetConfigurationStructureAction;
-use App\Web\Actions\Theme\GetDefaultConfigurationValues;
+use App\Web\Actions\Theme\GetDefaultConfigurationValuesAction;
 use App\Web\Actions\Theme\GetLinkItemAction;
 use App\Web\Actions\Theme\GetPreviewImageAction;
 use App\Web\Actions\Theme\GetStyleVariablesAction;
@@ -321,7 +321,7 @@ return function (App $app) {
 
             $proxy->group('/{id}/configuration', function (RouteCollectorProxy $proxy) {
                 $proxy->get('/structure', GetConfigurationStructureAction::class);
-                $proxy->get('/default', GetDefaultConfigurationValues::class);
+                $proxy->get('/default', GetDefaultConfigurationValuesAction::class);
 
                 $proxy->put('', PutConfigurationAction::class);
             });
