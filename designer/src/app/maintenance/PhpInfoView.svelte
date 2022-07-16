@@ -1,6 +1,6 @@
 <script>
-  import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
+  import { _ } from 'svelte-i18n';
   import { get } from '../../http/request';
 
   let phpInfo = null;
@@ -116,6 +116,16 @@
                         <dd class="cosmo-key-value-list__value">{additionalData.memorySize} MB</dd>
                         <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.apcu.memoryType')}</dt>
                         <dd class="cosmo-key-value-list__value">{additionalData.memoryType}</dd>
+                    </dl>
+                {:else if type === 'date'}
+                    <h2>{$_('maintenance.php.extension.more_info')}</h2>
+                    <dl class="cosmo-key-value-list">
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.date.enabled')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.enabled}</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.date.default_timezone')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.defaultTimezone}</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.date.database_version')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.databaseVersion}</dd>
                     </dl>
                 {/if}
             {/if}

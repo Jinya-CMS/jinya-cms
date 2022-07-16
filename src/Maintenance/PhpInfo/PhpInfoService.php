@@ -129,6 +129,15 @@ class PhpInfoService
             ];
         }
 
+        if ($lowerExt === 'date') {
+            return [
+                'type' => 'date',
+                'defaultTimezone' => date_default_timezone_get(),
+                'databaseVersion' => timezone_version_get(),
+                'enabled' => true,
+            ];
+        }
+
         return new stdClass();
     }
 

@@ -731,6 +731,11 @@
         "hash": {
           "enabled": "Aktiviert",
           "algos": "Hashalgorithmen"
+        },
+        "date": {
+          "enabled": "Aktiviert",
+          "database_version": "\"Olson\" Zeitzonen Datenbank Version",
+          "default_timezone": "Standardzeitzone"
         }
       },
       "ini": {
