@@ -37,29 +37,6 @@ class SegmentPage extends Utils\LoadableEntity
     public string $name;
 
     /**
-     * Finds the segment page with the matching ID
-     *
-     * @param int $id
-     * @return SegmentPage|null
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     */
-    public static function findById(int $id): ?SegmentPage
-    {
-        return self::fetchSingleById(
-            'segment_page',
-            $id,
-            new self(),
-            [
-                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]
-        );
-    }
-
-    /**
      * Finds all segment pages that match the keyword
      *
      * @param string $keyword
@@ -218,6 +195,29 @@ class SegmentPage extends Utils\LoadableEntity
     public function getCreator(): ?Artist
     {
         return Artist::findById($this->creatorId);
+    }
+
+    /**
+     * Finds the segment page with the matching ID
+     *
+     * @param int $id
+     * @return SegmentPage|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
+     */
+    public static function findById(int $id): ?SegmentPage
+    {
+        return self::fetchSingleById(
+            'segment_page',
+            $id,
+            new self(),
+            [
+                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            ]
+        );
     }
 
     /**

@@ -127,23 +127,6 @@ abstract class LoadableEntity implements FormattableEntityInterface
     }
 
     /**
-     * Creates a new instance of ReflectionHydrator using the provided strategies
-     *
-     * @param array<StrategyInterface> $additionalStrategies The additional strategies to use with the ReflectionHydrator
-     * @return ReflectionHydrator
-     */
-    protected static function getHydrator(array $additionalStrategies): ReflectionHydrator
-    {
-        $hydrator = new ReflectionHydrator();
-        $hydrator->setNamingStrategy(new UnderscoreNamingStrategy());
-        foreach ($additionalStrategies as $key => $additionalStrategy) {
-            $hydrator->addStrategy($key, $additionalStrategy);
-        }
-
-        return $hydrator;
-    }
-
-    /**
      * Fetches a single entity by the given id
      *
      * @param string $table The table to fetch the entity from
@@ -279,6 +262,23 @@ abstract class LoadableEntity implements FormattableEntityInterface
         $this->id = (int)self::getPdo()->lastInsertId();
 
         return $this->id;
+    }
+
+    /**
+     * Creates a new instance of ReflectionHydrator using the provided strategies
+     *
+     * @param array<StrategyInterface> $additionalStrategies The additional strategies to use with the ReflectionHydrator
+     * @return ReflectionHydrator
+     */
+    protected static function getHydrator(array $additionalStrategies): ReflectionHydrator
+    {
+        $hydrator = new ReflectionHydrator();
+        $hydrator->setNamingStrategy(new UnderscoreNamingStrategy());
+        foreach ($additionalStrategies as $key => $additionalStrategy) {
+            $hydrator->addStrategy($key, $additionalStrategy);
+        }
+
+        return $hydrator;
     }
 
     /**

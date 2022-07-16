@@ -23,14 +23,6 @@ class ApiKey extends Utils\LoadableEntity
     public string $remoteAddress;
 
     /**
-     * Not implemented
-     */
-    public static function findById(int $id): ?object
-    {
-        throw new RuntimeException('Not implemented');
-    }
-
-    /**
      * Gets the api key object that belongs to the key
      *
      * @param string $apiKey The api key to search for
@@ -111,6 +103,14 @@ class ApiKey extends Utils\LoadableEntity
     public function getArtist(): ?Artist
     {
         return Artist::findById($this->userId);
+    }
+
+    /**
+     * Not implemented
+     */
+    public static function findById(int $id): ?object
+    {
+        throw new RuntimeException('Not implemented');
     }
 
     /**

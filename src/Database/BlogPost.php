@@ -49,24 +49,6 @@ class BlogPost extends Utils\LoadableEntity
     public ?int $categoryId = null;
 
     /**
-     * Finds the blog post with the given id
-     *
-     * @param int $id
-     * @return BlogPost|null
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     * @throws UniqueFailedException
-     */
-    public static function findById(int $id): BlogPost|null
-    {
-        return self::fetchSingleById('blog_post', $id, new self(), [
-            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            'public' => new BooleanStrategy(1, 0),
-        ]);
-    }
-
-    /**
      * Finds the blog posts by the given keyword
      *
      * @param string $keyword
@@ -202,18 +184,25 @@ class BlogPost extends Utils\LoadableEntity
     }
 
     /**
-     * Returns the default port for the given scheme
+     * Creates the current blog post
      *
-     * @param string $scheme The scheme to check for, if the scheme is https the return value is 443 otherwise 80
-     * @return int
+     * @return void
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
+     * @throws UniqueFailedException
      */
-    private function getDefaultPort(string $scheme): int
+    public function create(): void
     {
-        if ($scheme === 'https') {
-            return 443;
-        }
+        $this->createdAt = new DateTime();
+        $this->creatorId = (int)CurrentUser::$currentUser?->id;
 
-        return 80;
+        $this->internalCreate('blog_post', [
+            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            'public' => new BooleanStrategy(1, 0),
+        ]);
+
+        $this->executeHook();
     }
 
     /**
@@ -270,61 +259,39 @@ class BlogPost extends Utils\LoadableEntity
     }
 
     /**
-     * Creates the current blog post
+     * The category of the post, if the post has no category, null is returned
      *
-     * @return void
-     * @throws ForeignKeyFailedException
+     * @return BlogCategory|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
      * @throws NoResultException
-     * @throws UniqueFailedException
      */
-    public function create(): void
+    public function getCategory(): BlogCategory|null
     {
-        $this->createdAt = new DateTime();
-        $this->creatorId = (int)CurrentUser::$currentUser?->id;
-
-        $this->internalCreate('blog_post', [
-            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            'public' => new BooleanStrategy(1, 0),
-        ]);
-
-        $this->executeHook();
-    }
-
-    /**
-     * Deletes the current blog post
-     *
-     * @return void
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws UniqueFailedException
-     */
-    public function delete(): void
-    {
-        $this->internalDelete('blog_post');
-    }
-
-    /**
-     * Updates the current blog post
-     *
-     * @return void
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     * @throws UniqueFailedException
-     */
-    public function update(): void
-    {
-        /** @var BlogPost $oldState */
-        $oldState = self::findById($this->getIdAsInt());
-        $wasPublic = $oldState->public;
-        $this->internalUpdate('blog_post', [
-            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            'public' => new BooleanStrategy(1, 0),
-        ]);
-        if ($wasPublic === false && ($this->public ?? false)) {
-            $this->executeHook();
+        if ($this->categoryId === null) {
+            return null;
         }
+
+        return BlogCategory::findById($this->categoryId);
+    }
+
+    /**
+     * Finds the blog post with the given id
+     *
+     * @param int $id
+     * @return BlogPost|null
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
+     * @throws UniqueFailedException
+     */
+    public static function findById(int $id): BlogPost|null
+    {
+        return self::fetchSingleById('blog_post', $id, new self(), [
+            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            'public' => new BooleanStrategy(1, 0),
+        ]);
     }
 
     /**
@@ -419,21 +386,54 @@ class BlogPost extends Utils\LoadableEntity
     }
 
     /**
-     * The category of the post, if the post has no category, null is returned
+     * Returns the default port for the given scheme
      *
-     * @return BlogCategory|null
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
+     * @param string $scheme The scheme to check for, if the scheme is https the return value is 443 otherwise 80
+     * @return int
      */
-    public function getCategory(): BlogCategory|null
+    private function getDefaultPort(string $scheme): int
     {
-        if ($this->categoryId === null) {
-            return null;
+        if ($scheme === 'https') {
+            return 443;
         }
 
-        return BlogCategory::findById($this->categoryId);
+        return 80;
+    }
+
+    /**
+     * Deletes the current blog post
+     *
+     * @return void
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
+     */
+    public function delete(): void
+    {
+        $this->internalDelete('blog_post');
+    }
+
+    /**
+     * Updates the current blog post
+     *
+     * @return void
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
+     * @throws UniqueFailedException
+     */
+    public function update(): void
+    {
+        /** @var BlogPost $oldState */
+        $oldState = self::findById($this->getIdAsInt());
+        $wasPublic = $oldState->public;
+        $this->internalUpdate('blog_post', [
+            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            'public' => new BooleanStrategy(1, 0),
+        ]);
+        if ($wasPublic === false && ($this->public ?? false)) {
+            $this->executeHook();
+        }
     }
 
     /**

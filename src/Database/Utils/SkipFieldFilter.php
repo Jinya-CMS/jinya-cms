@@ -16,7 +16,7 @@ class SkipFieldFilter implements FilterInterface
 
     /**
      * Creates a new instance of the SkipFieldFilter using the provided properties
-     * 
+     *
      * @param array<string> $propertiesToSkip The properties to skip during the filter stage
      */
     public function __construct(array $propertiesToSkip)
@@ -25,8 +25,8 @@ class SkipFieldFilter implements FilterInterface
     }
 
     /**
-     * Returns true when the property is not available in the provided list of properties to skip 
-     * 
+     * Returns true when the property is not available in the provided list of properties to skip
+     *
      * @param string $property The property to filter
      * @param object|null $instance Not needed
      * @return bool

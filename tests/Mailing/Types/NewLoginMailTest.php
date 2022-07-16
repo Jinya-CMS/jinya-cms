@@ -14,7 +14,7 @@ class NewLoginMailTest extends TestCase
     {
         $apiKey = new ApiKey();
         $apiKey->userAgent = Faker\Factory::create()->firefox();
-        $apiKey->remoteAddress = '127.0.0.1';
+        $apiKey->remoteAddress = '185.216.179.123';
 
         $loginMail = new NewLoginMail();
         $loginMail->sendMail('test@example.com', 'Theo Test', $apiKey);

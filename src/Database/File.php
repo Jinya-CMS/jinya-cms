@@ -42,29 +42,6 @@ class File extends LoadableEntity
     public string $type = '';
 
     /**
-     * Finds the file with the given id
-     *
-     * @param int $id
-     * @return File|null
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     */
-    public static function findById(int $id): ?File
-    {
-        return self::fetchSingleById(
-            'file',
-            $id,
-            new self(),
-            [
-                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]
-        );
-    }
-
-    /**
      * Finds all files matching the given keyword
      *
      * @param string $keyword
@@ -237,6 +214,29 @@ class File extends LoadableEntity
     public function getCreator(): ?Artist
     {
         return Artist::findById($this->creatorId);
+    }
+
+    /**
+     * Finds the file with the given id
+     *
+     * @param int $id
+     * @return File|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
+     */
+    public static function findById(int $id): ?File
+    {
+        return self::fetchSingleById(
+            'file',
+            $id,
+            new self(),
+            [
+                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            ]
+        );
     }
 
     /**

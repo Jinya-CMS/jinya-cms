@@ -40,29 +40,6 @@ class SimplePage extends Utils\LoadableEntity
     public string $title;
 
     /**
-     * Finds the simple page with the matching ID
-     *
-     * @param int $id
-     * @return SimplePage|null
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     */
-    public static function findById(int $id): ?SimplePage
-    {
-        return self::fetchSingleById(
-            'page',
-            $id,
-            new self(),
-            [
-                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]
-        );
-    }
-
-    /**
      * Finds all simple pages matching the given keyword
      *
      * @param string $keyword
@@ -220,6 +197,29 @@ class SimplePage extends Utils\LoadableEntity
     public function getCreator(): ?Artist
     {
         return Artist::findById($this->creatorId);
+    }
+
+    /**
+     * Finds the simple page with the matching ID
+     *
+     * @param int $id
+     * @return SimplePage|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
+     */
+    public static function findById(int $id): ?SimplePage
+    {
+        return self::fetchSingleById(
+            'page',
+            $id,
+            new self(),
+            [
+                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            ]
+        );
     }
 
     /**

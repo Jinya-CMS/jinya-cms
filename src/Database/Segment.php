@@ -33,14 +33,6 @@ class Segment extends Utils\RearrangableEntity
     /**
      * Not implemented
      */
-    public static function findById(int $id): ?object
-    {
-        throw new RuntimeException('Not implemented');
-    }
-
-    /**
-     * Not implemented
-     */
     public static function findByKeyword(string $keyword): Iterator
     {
         throw new RuntimeException('Not implemented');
@@ -96,6 +88,14 @@ class Segment extends Utils\RearrangableEntity
         }
 
         return File::findById($this->fileId);
+    }
+
+    /**
+     * Not implemented
+     */
+    public static function findById(int $id): ?object
+    {
+        throw new RuntimeException('Not implemented');
     }
 
     /**

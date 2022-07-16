@@ -22,7 +22,7 @@ use League\Plates\Template\Template;
     <?php
     if (array_key_exists('city', $location) && !empty($location['city'])): ?>
         Which is located at, <?= $this->e($location['city']) ?><?php
-        if (!empty($location['regionName'])): ?>, <?= $this->e($location['regionName']) ?><?php
+        if (!empty($location['region'])): ?>, <?= $this->e($location['region']) ?><?php
         endif ?><?php
         if (!empty($location['country'])): ?> in <?= $this->e($location['country']) ?><?php
         endif ?>.
@@ -39,6 +39,9 @@ endif ?>
 <p>
     Greetings,<br/>
     Your Jinya Team
+</p>
+<p>
+    The IP address was located with <?= $this->e($location['providedBy']) ?>.
 </p>
 </body>
 </html>

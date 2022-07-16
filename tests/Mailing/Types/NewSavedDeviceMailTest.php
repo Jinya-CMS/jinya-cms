@@ -14,7 +14,7 @@ class NewSavedDeviceMailTest extends TestCase
     {
         $knownDevice = new KnownDevice();
         $knownDevice->userAgent = Faker\Factory::create()->firefox();
-        $knownDevice->remoteAddress = '127.0.0.1';
+        $knownDevice->remoteAddress = '185.216.179.123';
 
         $savedDeviceMail = new NewSavedDeviceMail();
         $savedDeviceMail->sendMail('test@example.com', 'Theo Test', $knownDevice);

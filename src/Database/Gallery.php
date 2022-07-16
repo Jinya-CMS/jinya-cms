@@ -57,29 +57,6 @@ class Gallery extends Utils\LoadableEntity
     public string $orientation = self::ORIENTATION_HORIZONTAL;
 
     /**
-     * Finds the gallery with the given id
-     *
-     * @param int $id
-     * @return Gallery|null
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     */
-    public static function findById(int $id): ?Gallery
-    {
-        return self::fetchSingleById(
-            'gallery',
-            $id,
-            new self(),
-            [
-                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]
-        );
-    }
-
-    /**
      * Finds all galleries matching the keyword
      *
      * @param string $keyword
@@ -186,6 +163,29 @@ class Gallery extends Utils\LoadableEntity
     public function getCreator(): ?Artist
     {
         return Artist::findById($this->creatorId);
+    }
+
+    /**
+     * Finds the gallery with the given id
+     *
+     * @param int $id
+     * @return Gallery|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
+     */
+    public static function findById(int $id): ?Gallery
+    {
+        return self::fetchSingleById(
+            'gallery',
+            $id,
+            new self(),
+            [
+                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            ]
+        );
     }
 
     /**

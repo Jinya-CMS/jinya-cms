@@ -50,6 +50,21 @@ class Theme implements ExtensionInterface
     }
 
     /**
+     * Parses the theme.php file
+     *
+     * @return void
+     */
+    private function parseThemePhp(): void
+    {
+        $themePhpFile = ThemeSyncer::THEME_BASE_PATH . $this->dbTheme->name . '/theme.php';
+        if (!file_exists($themePhpFile)) {
+            throw new RuntimeException("Theme.php is not found, expecting it here: $themePhpFile");
+        }
+
+        $this->configuration = require $themePhpFile;
+    }
+
+    /**
      * Includes an asset into SCSS
      *
      * @param array<mixed> $args
@@ -67,21 +82,6 @@ class Theme implements ExtensionInterface
         }
 
         throw new RuntimeException("Asset with name $assetName not found");
-    }
-
-    /**
-     * Parses the theme.php file
-     *
-     * @return void
-     */
-    private function parseThemePhp(): void
-    {
-        $themePhpFile = ThemeSyncer::THEME_BASE_PATH . $this->dbTheme->name . '/theme.php';
-        if (!file_exists($themePhpFile)) {
-            throw new RuntimeException("Theme.php is not found, expecting it here: $themePhpFile");
-        }
-
-        $this->configuration = require $themePhpFile;
     }
 
     /**

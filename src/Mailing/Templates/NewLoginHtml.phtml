@@ -21,7 +21,7 @@ use League\Plates\Template\Template;
     The login was from the IP address <?= $this->e($remoteAddress) ?>.
     <?php
     if (array_key_exists('city', $location) && !empty($location['city'])): ?>
-        Which is located at, <?= $this->e($location['city']) ?>, <?= $this->e($location['regionName']) ?> in <?= $this->e(
+        Which is located at, <?= $this->e($location['city']) ?>, <?= $this->e($location['region']) ?> in <?= $this->e(
             $location['country']
         ) ?>.
     <?php
@@ -37,6 +37,9 @@ endif ?>
 <p>
     Greetings,<br/>
     Your Jinya Team
+</p>
+<p>
+    The IP address was located with <?= $this->e($location['providedBy']) ?>.
 </p>
 </body>
 </html>

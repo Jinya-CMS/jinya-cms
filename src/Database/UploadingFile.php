@@ -19,33 +19,6 @@ class UploadingFile extends Utils\LoadableEntity
     public int $fileId;
 
     /**
-     * Finds an uploading file by the ID of the connected file
-     *
-     * @throws InvalidQueryException
-     * @throws Exceptions\UniqueFailedException
-     * @throws ForeignKeyFailedException
-     * @throws NoResultException
-     */
-    public static function findByFile(int $fileId): ?UploadingFile
-    {
-        $sql = 'SELECT id, file_id FROM uploading_file WHERE file_id = :fileId';
-
-        try {
-            return self::getPdo()->fetchObject($sql, new self(), ['fileId' => $fileId]);
-        } catch (InvalidQueryException$exception) {
-            throw self::convertInvalidQueryExceptionToException($exception);
-        }
-    }
-
-    /**
-     * Not implemented
-     */
-    public static function findById(int $id): ?object
-    {
-        throw new RuntimeException('Not implemented');
-    }
-
-    /**
      * Not implemented
      */
     public static function findByKeyword(string $keyword): Iterator
@@ -74,6 +47,25 @@ class UploadingFile extends Utils\LoadableEntity
     }
 
     /**
+     * Finds an uploading file by the ID of the connected file
+     *
+     * @throws InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
+     * @throws ForeignKeyFailedException
+     * @throws NoResultException
+     */
+    public static function findByFile(int $fileId): ?UploadingFile
+    {
+        $sql = 'SELECT id, file_id FROM uploading_file WHERE file_id = :fileId';
+
+        try {
+            return self::getPdo()->fetchObject($sql, new self(), ['fileId' => $fileId]);
+        } catch (InvalidQueryException$exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
+        }
+    }
+
+    /**
      * Gets the corresponding file
      *
      * @return File|null
@@ -85,6 +77,14 @@ class UploadingFile extends Utils\LoadableEntity
     public function getFile(): ?File
     {
         return File::findById($this->fileId);
+    }
+
+    /**
+     * Not implemented
+     */
+    public static function findById(int $id): ?object
+    {
+        throw new RuntimeException('Not implemented');
     }
 
     /**

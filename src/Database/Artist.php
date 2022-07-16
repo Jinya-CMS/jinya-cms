@@ -174,67 +174,6 @@ class Artist extends LoadableEntity
     }
 
     /**
-     * Deletes the current artist
-     *
-     * @return void
-     * @throws DeleteLastAdminException
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws UniqueFailedException
-     */
-    public function delete(): void
-    {
-        if (self::countAdmins($this->getIdAsInt()) >= 1) {
-            $this->internalDelete('users');
-        } else {
-            throw new DeleteLastAdminException('Cannot delete last admin');
-        }
-    }
-
-    /**
-     * Counts all available admins, excluding the given artist
-     *
-     * @param int $id The artist to exclude from check
-     * @return int
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws UniqueFailedException
-     */
-    public static function countAdmins(int $id): int
-    {
-        $users = self::findAll();
-        $admins = 0;
-        foreach ($users as $user) {
-            if ($user->enabled && $id !== $user->getIdAsInt() && in_array(AuthenticationChecker::ROLE_ADMIN, $user->roles, true)) {
-                $admins++;
-            }
-        }
-
-        return $admins;
-    }
-
-    /**
-     * Finds all artists
-     *
-     * @return Iterator<Artist>
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws UniqueFailedException
-     */
-    public static function findAll(): Iterator
-    {
-        return self::fetchAllIterator(
-            'users',
-            new self(),
-            [
-                'enabled' => new BooleanStrategy(1, 0),
-                'roles' => new PhpSerializeStrategy(),
-                'prefersColorScheme' => new NullableBooleanStrategy(),
-            ]
-        );
-    }
-
-    /**
      * Formats the artist
      *
      * @return array<string, array<string>|bool|int|string|null>
@@ -357,6 +296,67 @@ class Artist extends LoadableEntity
                 'enabled' => new BooleanStrategy(1, 0),
                 'roles' => new PhpSerializeStrategy(),
                 'loginBlockedUntil' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                'prefersColorScheme' => new NullableBooleanStrategy(),
+            ]
+        );
+    }
+
+    /**
+     * Deletes the current artist
+     *
+     * @return void
+     * @throws DeleteLastAdminException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
+     */
+    public function delete(): void
+    {
+        if (self::countAdmins($this->getIdAsInt()) >= 1) {
+            $this->internalDelete('users');
+        } else {
+            throw new DeleteLastAdminException('Cannot delete last admin');
+        }
+    }
+
+    /**
+     * Counts all available admins, excluding the given artist
+     *
+     * @param int $id The artist to exclude from check
+     * @return int
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
+     */
+    public static function countAdmins(int $id): int
+    {
+        $users = self::findAll();
+        $admins = 0;
+        foreach ($users as $user) {
+            if ($user->enabled && $id !== $user->getIdAsInt() && in_array(AuthenticationChecker::ROLE_ADMIN, $user->roles, true)) {
+                $admins++;
+            }
+        }
+
+        return $admins;
+    }
+
+    /**
+     * Finds all artists
+     *
+     * @return Iterator<Artist>
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
+     */
+    public static function findAll(): Iterator
+    {
+        return self::fetchAllIterator(
+            'users',
+            new self(),
+            [
+                'enabled' => new BooleanStrategy(1, 0),
+                'roles' => new PhpSerializeStrategy(),
                 'prefersColorScheme' => new NullableBooleanStrategy(),
             ]
         );

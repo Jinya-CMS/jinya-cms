@@ -21,14 +21,6 @@ class GalleryFilePosition extends Utils\RearrangableEntity
     /**
      * Not implemented
      */
-    public static function findById(int $id): ?object
-    {
-        throw new RuntimeException('Not implemented');
-    }
-
-    /**
-     * Not implemented
-     */
     public static function findByKeyword(string $keyword): Iterator
     {
         throw new RuntimeException('Not implemented');
@@ -148,6 +140,14 @@ class GalleryFilePosition extends Utils\RearrangableEntity
     public function getGallery(): ?Gallery
     {
         return Gallery::findById($this->galleryId);
+    }
+
+    /**
+     * Not implemented
+     */
+    public static function findById(int $id): ?object
+    {
+        throw new RuntimeException('Not implemented');
     }
 
     /**

@@ -19,7 +19,7 @@ class MenuExtension implements ExtensionInterface
 
     /**
      * Registers the helper method with the plates engine
-     * 
+     *
      * @param Engine $engine
      * @return void
      */

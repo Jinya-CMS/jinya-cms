@@ -43,29 +43,6 @@ class Form extends Utils\LoadableEntity
     public string $toAddress;
 
     /**
-     * Finds the form with the given ID
-     *
-     * @param int $id
-     * @return Form|null
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     */
-    public static function findById(int $id): ?Form
-    {
-        return self::fetchSingleById(
-            'form',
-            $id,
-            new self(),
-            [
-                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]
-        );
-    }
-
-    /**
      * Finds all forms matching the keyword
      *
      * @param string $keyword
@@ -249,6 +226,29 @@ class Form extends Utils\LoadableEntity
     public function getCreator(): ?Artist
     {
         return Artist::findById($this->creatorId);
+    }
+
+    /**
+     * Finds the form with the given ID
+     *
+     * @param int $id
+     * @return Form|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
+     */
+    public static function findById(int $id): ?Form
+    {
+        return self::fetchSingleById(
+            'form',
+            $id,
+            new self(),
+            [
+                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            ]
+        );
     }
 
     /**

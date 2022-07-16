@@ -69,6 +69,16 @@ class PhpInfoService
     }
 
     /**
+     * Gets the PHP version
+     *
+     * @return string
+     */
+    public function getVersion(): string
+    {
+        return PHP_VERSION;
+    }
+
+    /**
      * Gets additional data for extensions, currently supported are zend opcache, apcu and hash
      *
      * @param string $extension
@@ -131,16 +141,6 @@ class PhpInfoService
     private function calculateMb(int $bytes): float|int
     {
         return $bytes / 1024 / 1024;
-    }
-
-    /**
-     * Gets the PHP version
-     *
-     * @return string
-     */
-    public function getVersion(): string
-    {
-        return PHP_VERSION;
     }
 
     /**

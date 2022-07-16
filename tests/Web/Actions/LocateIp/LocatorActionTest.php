@@ -24,7 +24,7 @@ class LocatorActionTest extends TestCase
         self::assertArrayHasKey('city', $body);
 
         self::assertEquals('Germany', $body['country']);
-        self::assertEquals('Baden-Württemberg', $body['region']);
-        self::assertEquals('Karlsruhe', $body['city']);
+        self::assertEquals('Baden-Wurttemberg', $body['region']);
+        self::assertEquals('Karlsruhe (Nordweststadt)', $body['city']);
     }
 }

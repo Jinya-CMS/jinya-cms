@@ -110,7 +110,7 @@ class ThemeForm extends ThemeHelperEntity
 
     /**
      * Updates the current theme form
-     * 
+     *
      * @return void
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException

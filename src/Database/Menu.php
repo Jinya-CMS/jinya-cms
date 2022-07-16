@@ -22,21 +22,6 @@ class Menu extends Utils\LoadableEntity
     public ?int $logo = null;
 
     /**
-     * Finds the menu with the matching ID
-     *
-     * @param int $id
-     * @return Menu|null
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     */
-    public static function findById(int $id): ?Menu
-    {
-        return self::fetchSingleById('menu', $id, new self());
-    }
-
-    /**
      * Finds all menus matching the keyword
      *
      * @param string $keyword
@@ -114,6 +99,21 @@ class Menu extends Utils\LoadableEntity
         }
 
         return File::findById($this->logo);
+    }
+
+    /**
+     * Finds the menu with the matching ID
+     *
+     * @param int $id
+     * @return Menu|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
+     */
+    public static function findById(int $id): ?Menu
+    {
+        return self::fetchSingleById('menu', $id, new self());
     }
 
     /**

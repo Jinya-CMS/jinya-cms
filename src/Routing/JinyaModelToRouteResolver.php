@@ -165,6 +165,23 @@ abstract class JinyaModelToRouteResolver
     }
 
     /**
+     * Checks whether the user in the current request has the given role and sets the current user global
+     *
+     * @param Request $request The request to check in
+     * @param string $role The role to check for
+     * @return void
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
+     * @throws UniqueFailedException
+     */
+    private static function checkRole(Request $request, string $role): void
+    {
+        $artist = AuthenticationChecker::checkRequestForUser($request, $role);
+        CurrentUser::$currentUser = $artist;
+    }
+
+    /**
      * Executes a DELETE request
      *
      * @param ReflectionClass<LoadableEntity> $reflectionClass The reflection class that reflects the entity
@@ -315,22 +332,5 @@ abstract class JinyaModelToRouteResolver
         }
 
         throw new HttpNotFoundException($request);
-    }
-
-    /**
-     * Checks whether the user in the current request has the given role and sets the current user global
-     *
-     * @param Request $request The request to check in
-     * @param string $role The role to check for
-     * @return void
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     * @throws UniqueFailedException
-     */
-    private static function checkRole(Request $request, string $role): void
-    {
-        $artist = AuthenticationChecker::checkRequestForUser($request, $role);
-        CurrentUser::$currentUser = $artist;
     }
 }
