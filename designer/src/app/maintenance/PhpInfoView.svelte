@@ -157,6 +157,14 @@
                         <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.opcache.jitEnabled')}</dt>
                         <dd class="cosmo-key-value-list__value">{additionalData.jitEnabled}</dd>
                     </dl>
+                {:else if type === 'pcre'}
+                    <h2>{$_('maintenance.php.extension.more_info')}</h2>
+                    <dl class="cosmo-key-value-list">
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.pcre.enabled')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.enabled}</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.pcre.version')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.version}</dd>
+                    </dl>
                 {/if}
             {/if}
         </div>

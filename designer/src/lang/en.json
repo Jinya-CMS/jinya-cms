@@ -751,6 +751,10 @@
           "wastedMemory": "Wasted memory (in MB)",
           "currentWastedMemoryPercentage": "Wasted memory (in percent)",
           "jitEnabled": "JIT enabled"
+        },
+        "pcre": {
+          "enabled": "Activated",
+          "version": "Version"
         }
       },
       "ini": {

@@ -751,6 +751,10 @@
           "wastedMemory": "Verschwendeter Speicher (in MB)",
           "currentWastedMemoryPercentage": "Verschwendeter Speicher (Prozent)",
           "jitEnabled": "JIT aktiviert"
+        },
+        "pcre": {
+          "enabled": "Aktiviert",
+          "version": "Version"
         }
       },
       "ini": {

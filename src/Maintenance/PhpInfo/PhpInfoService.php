@@ -167,6 +167,14 @@ class PhpInfoService
             ];
         }
 
+        if ($lowerExt === 'pcre') {
+            return [
+                'type' => 'pcre',
+                'enabled' => true,
+                'version' => PCRE_VERSION,
+            ];
+        }
+
         return new stdClass();
     }
 
