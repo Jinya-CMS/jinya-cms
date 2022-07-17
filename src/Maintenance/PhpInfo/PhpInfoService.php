@@ -159,6 +159,14 @@ class PhpInfoService
             ];
         }
 
+        if ($lowerExt === 'mbstring') {
+            return [
+                'type' => 'mbstring',
+                'enabled' => true,
+                'encodings' => implode(', ', mb_list_encodings()),
+            ];
+        }
+
         return new stdClass();
     }
 

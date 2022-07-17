@@ -131,6 +131,14 @@
                         <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.intl.ids')}</dt>
                         <dd class="cosmo-key-value-list__value">{additionalData.ids}</dd>
                     </dl>
+                {:else if type === 'mbstring'}
+                    <h2>{$_('maintenance.php.extension.more_info')}</h2>
+                    <dl class="cosmo-key-value-list">
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.mbstring.enabled')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.enabled}</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.mbstring.encodings')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.encodings}</dd>
+                    </dl>
                 {:else if type === 'opcache'}
                     <h2>{$_('maintenance.php.extension.more_info')}</h2>
                     <dl class="cosmo-key-value-list">

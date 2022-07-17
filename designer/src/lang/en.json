@@ -739,6 +739,10 @@
           "enabled": "Activated",
           "ids": "Transliterator IDs"
         },
+        "mbstring": {
+          "enabled": "Activated",
+          "encodings": "Supported encodings"
+        },
         "opcache": {
           "enabled": "Activated",
           "full": "Cache full",
