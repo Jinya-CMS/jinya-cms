@@ -1,5 +1,14 @@
 # Changelog
 
+## Release notes - Jinya Gallery CMS - Version 24.1.0
+
+### User Stories
+
+* [TG-14](https://taiga.imanuel.dev/project/jinya-cms/us/14) Implement unit tests
+* [TG-148](https://taiga.imanuel.dev/project/jinya-cms/us/148) Integrate geop IP database
+* [TG-149](https://taiga.imanuel.dev/project/jinya-cms/us/149) Extend PHPInfo detail information
+* [TG-165](https://taiga.imanuel.dev/project/jinya-cms/us/165) Remove test artifacts after tests are done
+
 ## Release notes - Jinya Gallery CMS - Version 24.0.2
 
 Emergency fix for issue with persistent strategies
