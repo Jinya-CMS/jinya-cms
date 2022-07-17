@@ -165,6 +165,38 @@
                         <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.pcre.version')}</dt>
                         <dd class="cosmo-key-value-list__value">{additionalData.version}</dd>
                     </dl>
+                {:else if type === 'pdo'}
+                    <h2>{$_('maintenance.php.extension.more_info')}</h2>
+                    <dl class="cosmo-key-value-list">
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.pdo.enabled')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.enabled}</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.pdo.available_drivers')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.availableDrivers}</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.pdo.server_version')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.serverVersion}</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.pdo.server_info')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.serverInfo}</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.pdo.driver_name')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.driverName}</dd>
+                    </dl>
+                {:else if type === 'pdo_mysql'}
+                    <h2>{$_('maintenance.php.extension.more_info')}</h2>
+                    <dl class="cosmo-key-value-list">
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.pdo_mysql.client_version')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.clientVersion}</dd>
+                    </dl>
+                {:else if type === 'phar'}
+                    <h2>{$_('maintenance.php.extension.more_info')}</h2>
+                    <dl class="cosmo-key-value-list">
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.phar.enabled')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.enabled}</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.phar.api_version')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.apiVersion}</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.phar.compressions')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.compressions}</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.phar.signatures')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.signatures}</dd>
+                    </dl>
                 {/if}
             {/if}
         </div>

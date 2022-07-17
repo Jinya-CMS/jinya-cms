@@ -2,8 +2,11 @@
 
 namespace App\Maintenance\PhpInfo;
 
+use App\Database\Utils\LoadableEntity;
 use Imagick;
 use JetBrains\PhpStorm\Pure;
+use PDO;
+use Phar;
 use ReflectionException;
 use ReflectionExtension;
 use stdClass;
@@ -172,6 +175,37 @@ class PhpInfoService
                 'type' => 'pcre',
                 'enabled' => true,
                 'version' => PCRE_VERSION,
+            ];
+        }
+
+        if ($lowerExt === 'pdo') {
+            $pdo = LoadableEntity::getPdo();
+            return [
+                'type' => 'pdo',
+                'enabled' => true,
+                'availableDrivers' => implode(', ', PDO::getAvailableDrivers()),
+                'clientVersion' => $pdo->getAttribute(PDO::ATTR_CLIENT_VERSION),
+                'serverVersion' => $pdo->getAttribute(PDO::ATTR_SERVER_VERSION),
+                'serverInfo' => $pdo->getAttribute(PDO::ATTR_SERVER_INFO),
+                'driverName' => $pdo->getAttribute(PDO::ATTR_DRIVER_NAME),
+            ];
+        }
+
+        if ($lowerExt === 'pdo_mysql') {
+            $pdo = LoadableEntity::getPdo();
+            return [
+                'type' => 'pdo_mysql',
+                'clientVersion' => $pdo->getAttribute(PDO::ATTR_CLIENT_VERSION),
+            ];
+        }
+
+        if ($lowerExt === 'phar') {
+            return [
+                'type' => 'phar',
+                'enabled' => true,
+                'compressions' => implode(', ', Phar::getSupportedCompression()),
+                'apiVersion' => Phar::apiVersion(),
+                'signatures' => implode(', ', Phar::getSupportedSignatures()),
             ];
         }
 

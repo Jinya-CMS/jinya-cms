@@ -755,6 +755,22 @@
         "pcre": {
           "enabled": "Aktiviert",
           "version": "Version"
+        },
+        "pdo": {
+          "enabled": "Aktiviert",
+          "available_drivers": "Verfügbare Datenbanktreiber",
+          "server_version": "Server Version",
+          "server_info": "Server Info",
+          "driver_name": "Aktueller Treiber"
+        },
+        "pdo_mysql": {
+          "client_version": "Client Version"
+        },
+        "phar": {
+          "enabled": "Aktiviert",
+          "compressions": "Unterstützte Kompressionsalgorithmen",
+          "api_version": "API Version",
+          "signatures": "Unterstützte Signaturalgorithmen"
         }
       },
       "ini": {
