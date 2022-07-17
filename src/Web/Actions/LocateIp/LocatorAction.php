@@ -19,6 +19,9 @@ class LocatorAction extends Action
     protected function action(): Response
     {
         $ip = $this->args['ip'];
+        /**
+         * @phpstan-ignore-next-line
+         */
         $location = json_decode(file_get_contents("https://ip.jinya.de/?ip=$ip"), true, 512, JSON_THROW_ON_ERROR);
 
         return $this->respond($location);
