@@ -736,6 +736,13 @@
           "enabled": "Aktiviert",
           "database_version": "\"Olson\" Zeitzonen Datenbank Version",
           "default_timezone": "Standardzeitzone"
+        },
+        "imagick": {
+          "enabled": "Aktiviert",
+          "version": "Version",
+          "copyright": "Copyright",
+          "package": "Paket",
+          "release_date": "Releasedatum"
         }
       },
       "ini": {

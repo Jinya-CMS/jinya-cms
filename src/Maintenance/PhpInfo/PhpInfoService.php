@@ -2,6 +2,7 @@
 
 namespace App\Maintenance\PhpInfo;
 
+use Imagick;
 use JetBrains\PhpStorm\Pure;
 use ReflectionException;
 use ReflectionExtension;
@@ -135,6 +136,17 @@ class PhpInfoService
                 'defaultTimezone' => date_default_timezone_get(),
                 'databaseVersion' => timezone_version_get(),
                 'enabled' => true,
+            ];
+        }
+
+        if ($lowerExt === 'imagick') {
+            return [
+                'type' => 'imagick',
+                'enabled' => true,
+                'version' => Imagick::getVersion()['versionString'],
+                'copyright' => Imagick::getCopyright(),
+                'package' => Imagick::getPackageName(),
+                'releaseDate' => Imagick::getReleaseDate(),
             ];
         }
 

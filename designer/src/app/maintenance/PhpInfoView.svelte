@@ -127,6 +127,20 @@
                         <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.date.database_version')}</dt>
                         <dd class="cosmo-key-value-list__value">{additionalData.databaseVersion}</dd>
                     </dl>
+                {:else if type === 'imagick'}
+                    <h2>{$_('maintenance.php.extension.more_info')}</h2>
+                    <dl class="cosmo-key-value-list">
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.imagick.enabled')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.enabled}</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.imagick.version')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.version}</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.imagick.copyright')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.copyright}</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.imagick.package')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.package}</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.imagick.release_date')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.releaseDate}</dd>
+                    </dl>
                 {/if}
             {/if}
         </div>
