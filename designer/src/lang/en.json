@@ -712,6 +712,33 @@
         "version": "Version",
         "more_info": "More informations",
         "ini_values": "Settings",
+        "apcu": {
+          "enabled": "Activated",
+          "numberSlots": "Number slots",
+          "numberEntries": "Number entries",
+          "memorySize": "Memory size (in MB)",
+          "memoryType": "Memory type"
+        },
+        "date": {
+          "enabled": "Activated",
+          "database_version": "\"Olson\" Timezone Database Version",
+          "default_timezone": "Default timezone"
+        },
+        "hash": {
+          "enabled": "Activated",
+          "algos": "Hash algorithms"
+        },
+        "imagick": {
+          "enabled": "Activated",
+          "version": "Version",
+          "copyright": "Copyright",
+          "package": "Package",
+          "release_date": "Release date"
+        },
+        "intl": {
+          "enabled": "Activated",
+          "ids": "Transliterator IDs"
+        },
         "opcache": {
           "enabled": "Activated",
           "full": "Cache full",
@@ -720,29 +747,6 @@
           "wastedMemory": "Wasted memory (in MB)",
           "currentWastedMemoryPercentage": "Wasted memory (in percent)",
           "jitEnabled": "JIT enabled"
-        },
-        "apcu": {
-          "enabled": "Activated",
-          "numberSlots": "Number slots",
-          "numberEntries": "Number entries",
-          "memorySize": "Memory size (in MB)",
-          "memoryType": "Memory type"
-        },
-        "hash": {
-          "enabled": "Activated",
-          "algos": "Hash algorithms"
-        },
-        "date": {
-          "enabled": "Activated",
-          "database_version": "\"Olson\" Timezone Database Version",
-          "default_timezone": "Default timezone"
-        },
-        "imagick": {
-          "enabled": "Activated",
-          "version": "Version",
-          "copyright": "Copyright",
-          "package": "Package",
-          "release_date": "Release date"
         }
       },
       "ini": {

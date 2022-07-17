@@ -712,6 +712,33 @@
         "version": "Version",
         "more_info": "Mehr Informationen",
         "ini_values": "Einstellungen",
+        "apcu": {
+          "enabled": "Aktiviert",
+          "numberSlots": "Anzahl Slots",
+          "numberEntries": "Anzahl Einträge",
+          "memorySize": "Speichergröße (in MB)",
+          "memoryType": "Speichertyp"
+        },
+        "date": {
+          "enabled": "Aktiviert",
+          "database_version": "\"Olson\" Zeitzonen Datenbank Version",
+          "default_timezone": "Standardzeitzone"
+        },
+        "hash": {
+          "enabled": "Aktiviert",
+          "algos": "Hashalgorithmen"
+        },
+        "imagick": {
+          "enabled": "Aktiviert",
+          "version": "Version",
+          "copyright": "Copyright",
+          "package": "Paket",
+          "release_date": "Releasedatum"
+        },
+        "intl": {
+          "enabled": "Aktiviert",
+          "ids": "Transliterator IDs"
+        },
         "opcache": {
           "enabled": "Aktiviert",
           "full": "Cache voll",
@@ -720,29 +747,6 @@
           "wastedMemory": "Verschwendeter Speicher (in MB)",
           "currentWastedMemoryPercentage": "Verschwendeter Speicher (Prozent)",
           "jitEnabled": "JIT aktiviert"
-        },
-        "apcu": {
-          "enabled": "Aktiviert",
-          "numberSlots": "Anzahl Slots",
-          "numberEntries": "Anzahl Einträge",
-          "memorySize": "Speichergröße (in MB)",
-          "memoryType": "Speichertyp"
-        },
-        "hash": {
-          "enabled": "Aktiviert",
-          "algos": "Hashalgorithmen"
-        },
-        "date": {
-          "enabled": "Aktiviert",
-          "database_version": "\"Olson\" Zeitzonen Datenbank Version",
-          "default_timezone": "Standardzeitzone"
-        },
-        "imagick": {
-          "enabled": "Aktiviert",
-          "version": "Version",
-          "copyright": "Copyright",
-          "package": "Paket",
-          "release_date": "Releasedatum"
         }
       },
       "ini": {

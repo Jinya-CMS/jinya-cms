@@ -7,6 +7,7 @@ use JetBrains\PhpStorm\Pure;
 use ReflectionException;
 use ReflectionExtension;
 use stdClass;
+use Transliterator;
 
 /**
  *
@@ -147,6 +148,14 @@ class PhpInfoService
                 'copyright' => Imagick::getCopyright(),
                 'package' => Imagick::getPackageName(),
                 'releaseDate' => Imagick::getReleaseDate(),
+            ];
+        }
+
+        if ($lowerExt === 'intl') {
+            return [
+                'type' => 'intl',
+                'enabled' => true,
+                'ids' => implode(', ', Transliterator::listIDs() ?: []),
             ];
         }
 
