@@ -1,8 +1,3 @@
----
-title: Jinya CMS Docs
-nav_order: 0
-permalink: /index.html
----
 # [Jinya CMS](https://jinya.de)
 
 The Jinya CMS is a content management system specifically designed and developed for the needs of artists and designers.
