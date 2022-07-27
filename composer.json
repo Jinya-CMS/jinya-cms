@@ -18,7 +18,7 @@
     "phpmailer/phpmailer": "v6.6.3",
     "phpmyadmin/sql-parser": "5.5.0",
     "league/climate": "3.8.2",
-    "scssphp/scssphp": "v1.10.3",
+    "scssphp/scssphp": "v1.10.4",
     "nyholm/psr7": "1.5.1",
     "nyholm/psr7-server": "1.0.2",
     "slim/slim": "4.10.0",
