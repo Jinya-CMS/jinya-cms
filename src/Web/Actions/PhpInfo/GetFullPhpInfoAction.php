@@ -89,6 +89,10 @@ class GetFullPhpInfoAction extends Action
                     $iniValues[preg_replace("/$groupKey\./", '', $key)] = $cleanedValue;
                 } elseif ($groupKey === 'Zend OPcache' && str_starts_with($key, 'opcache.')) {
                     $iniValues[preg_replace('/opcache./', '', $key)] = $cleanedValue;
+                } elseif ($groupKey === 'apcu' && str_starts_with($key, 'apc.')) {
+                    $iniValues[preg_replace('/apc./', '', $key)] = $cleanedValue;
+                } elseif ($groupKey === 'cgi-fcgi' && str_starts_with($key, 'cgi.')) {
+                    $iniValues[preg_replace('/cgi./', '', $key)] = $cleanedValue;
                 } else {
                     $configuration[$key] = $cleanedValue;
                 }
