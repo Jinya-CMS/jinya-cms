@@ -1,0 +1,65 @@
+.cosmo-circular-button {
+    border-radius: 100%;
+    border: 2px solid var(--control-border-color);
+    height: 32px;
+    width: 32px;
+    background: var(--white);
+    color: var(--primary-color);
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: normal;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.cosmo-circular-button:disabled {
+    cursor: not-allowed;
+    border: 1px solid var(--control-border-color);
+    background: var(--white);
+    color: var(--disabled-color);
+}
+
+.cosmo-circular-button:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--white);
+    outline: none;
+    box-shadow: none;
+}
+
+.cosmo-circular-button:disabled:hover {
+    background: var(--white);
+    color: var(--control-border-color);
+    outline: none;
+    box-shadow: none;
+}
+
+.cosmo-circular-button:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: none;
+}
+
+.cosmo-circular-button .mdi::before {
+    font-size: 24px;
+}
+
+.cosmo-circular-button--small {
+    height: 24px;
+    width: 24px;
+}
+
+.cosmo-circular-button--small .mdi::before {
+    font-size: 16px;
+}
+
+.cosmo-circular-button--large {
+    height: 48px;
+    width: 48px;
+}
+
+.cosmo-circular-button--large .mdi::before {
+    font-size: 32px;
+}

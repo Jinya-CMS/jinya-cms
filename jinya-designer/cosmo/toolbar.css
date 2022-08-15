@@ -1,0 +1,8 @@
+.cosmo-toolbar {
+    display: flex;
+    gap: 16px;
+}
+
+.cosmo-toolbar__group {
+    display: flex;
+}

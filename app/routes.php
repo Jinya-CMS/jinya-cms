@@ -86,7 +86,9 @@ use App\Web\Actions\Version\GetVersionInfo;
 use App\Web\Middleware\AuthorizationMiddleware;
 use App\Web\Middleware\CheckRequiredFieldsMiddleware;
 use App\Web\Middleware\CheckRouteInCurrentThemeMiddleware;
+use GuzzleHttp\Psr7\MimeType;
 use Nyholm\Psr7\Response;
+use Nyholm\Psr7\Stream;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -352,6 +354,19 @@ return function (App $app) {
     });
     $app->any('/api/{entity}[/{id}]', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
         return JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, $args);
+    });
+
+    $app->get('/jinya-designer[/{file:.*}]', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
+        if (array_key_exists('file', $args)) {
+            $mime = MimeType::fromFilename(__ROOT__ . '/jinya-designer/' . $args['file']);
+            return $response
+                ->withAddedHeader('Content-Type', $mime)
+                ->withBody(Stream::create(fopen(__ROOT__ . '/jinya-designer/' . $args['file'], 'rb')));
+        }
+
+        return $response
+            ->withAddedHeader('Content-Type', 'text/html')
+            ->withBody(Stream::create(fopen(__ROOT__ . '/jinya-designer/index.html', 'rb')));
     });
 
     // Frontend

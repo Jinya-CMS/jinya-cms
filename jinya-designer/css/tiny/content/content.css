@@ -1,0 +1,93 @@
+/**
+* Copyright (c) Tiny Technologies, Inc. All rights reserved.
+* Licensed under the LGPL or a commercial license.
+* For LGPL see License.txt in the project root for license information.
+* For commercial licenses see https://www.tiny.cloud/
+*/
+body {
+    font-family: Lato, sans-serif;
+    line-height: 1.4;
+    margin: 1rem;
+    background: var(--white);
+    color: var(--black);
+}
+
+/* firefox scroll bars */
+* {
+    scrollbar-width: normal;
+    scrollbar-color: var(--primary-color) transparent;
+}
+
+/* webkit scrollbars */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 0 6px var(--primary-color);
+    border: 2px solid transparent;
+    border-radius: 5px !important;
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+    box-shadow: inset 0 0 0 6px var(--primary-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    box-shadow: inset 0 0 0 6px var(--primary-color);
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+a {
+    color: var(--primary-color);
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+    border: 1px solid var(--control-border-color);
+    padding: 0.4rem;
+}
+
+figure {
+    display: table;
+    margin: 1rem auto;
+}
+
+figure figcaption {
+    color: var(--black);
+    display: block;
+    margin-top: 0.25rem;
+    text-align: center;
+}
+
+hr {
+    border-color: var(--control-border-color);
+    border-style: solid;
+    border-width: 1px 0 0 0;
+}
+
+code {
+    background-color: var(--white);
+    border-radius: 3px;
+    padding: 0.1rem 0.2rem;
+}
+
+.mce-content-body:not([dir=rtl]) blockquote {
+    border-left: 2px solid var(--control-border-color);
+    margin-left: 1.5rem;
+    padding-left: 1rem;
+}
+
+.mce-content-body[dir=rtl] blockquote {
+    border-right: 2px solid var(--control-border-color);
+    margin-right: 1.5rem;
+    padding-right: 1rem;
+}
