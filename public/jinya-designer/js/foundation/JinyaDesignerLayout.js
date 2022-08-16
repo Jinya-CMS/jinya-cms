@@ -23,6 +23,7 @@ export default class JinyaDesignerLayout {
     document.getElementById('mainPage').innerHTML = await this.toString();
     this.bindEvents();
     if (this.child !== null) {
+      await this.child.displayed();
       this.child.bindEvents();
     }
   }

@@ -1,5 +1,5 @@
 import html from '../../lib/jinya-html.js';
-import { get } from '../foundation/http/request.js';
+import { get, put } from '../foundation/http/request.js';
 import JinyaDesignerLayout from '../foundation/JinyaDesignerLayout.js';
 import localize from '../foundation/localize.js';
 import urlSplitter from '../foundation/navigation/urlSplitter.js';
@@ -12,6 +12,17 @@ export default class FrontstageLayout extends JinyaDesignerLayout {
     const splitUrl = urlSplitter();
     this.activeSection = splitUrl.section;
     this.activePage = splitUrl.page;
+  }
+
+  getThemeMode() {
+    switch (this.artist.colorScheme) {
+      case 'light':
+        return 'mdi-weather-sunny';
+      case 'dark':
+        return 'mdi-weather-night';
+      default:
+        return 'mdi-theme-light-dark';
+    }
   }
 
   async getTemplate() {
@@ -78,12 +89,12 @@ export default class FrontstageLayout extends JinyaDesignerLayout {
             </nav>
         </div>
         <div class="cosmo-page-body jinya-page-body--app">
-            <div class="cosmo-page-body__content"></div>
+            <div class="cosmo-page-body__content">%%%child%%%</div>
         </div>
         <div class="cosmo-bottom-bar cosmo-bottom-bar--three-column">
             <div class="cosmo-bottom-bar__item cosmo-bottom-bar__item--right">
-                <button class="cosmo-circular-button cosmo-circular-button--large">
-                    <span class="mdi mdi-weather-night"></span>
+                <button id="toggle-theme-button" class="cosmo-circular-button cosmo-circular-button--large">
+                    <span class="mdi ${this.getThemeMode()}"></span>
                 </button>
             </div>
         </div>`;
@@ -102,6 +113,31 @@ export default class FrontstageLayout extends JinyaDesignerLayout {
       if (window.history.length === 0) {
         e.target.setAttribute('disabled', 'disabled');
       }
+    });
+    document.getElementById('toggle-theme-button').addEventListener('click', async () => {
+      let colorScheme = '';
+      if (document.body.classList.contains('cosmo--light-theme')) {
+        document.body.classList.replace('cosmo--light-theme', 'cosmo--dark-theme');
+        colorScheme = 'auto';
+        document.querySelector('#toggle-theme-button .mdi')
+          .classList
+          .replace('mdi-weather-sunny', 'mdi-weather-night');
+      } else if (document.body.classList.contains('cosmo--dark-theme')) {
+        document.body.classList.replace('cosmo--dark-theme', 'cosmo--auto-theme');
+        colorScheme = 'light';
+        document.querySelector('#toggle-theme-button .mdi')
+          .classList
+          .replace('mdi-weather-night', 'mdi-theme-light-dark');
+      } else {
+        document.body.classList.remove('cosmo--auto-theme');
+        document.body.classList.add('cosmo--light-theme');
+        colorScheme = 'dark';
+        document.querySelector('#toggle-theme-button .mdi')
+          .classList
+          .replace('mdi-theme-light-dark', 'mdi-weather-sunny');
+      }
+
+      await put('/api/me/colorscheme', { colorScheme });
     });
   }
 }

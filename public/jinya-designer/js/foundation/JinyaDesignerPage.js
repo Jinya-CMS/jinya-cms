@@ -26,6 +26,14 @@ export default class JinyaDesignerPage {
   }
 
   /**
+   * Gets executed when the current page is rendered into the DOM
+   * @return Promise<void>
+   */
+  // eslint-disable-next-line no-empty-function,class-methods-use-this
+  async displayed() {
+  }
+
+  /**
    * Method to bind the events needed
    * @return void
    */

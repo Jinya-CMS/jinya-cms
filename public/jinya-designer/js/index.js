@@ -24,10 +24,10 @@ async function renderLogin() {
  */
 async function hashChanged() {
   if (window.location.hash === '#login') {
-    document.querySelector('.cosmo-menu-bar__back-button').setAttribute('disabled', 'disabled');
+    document.querySelector('.cosmo-menu-bar__back-button')?.setAttribute('disabled', 'disabled');
     await renderLogin();
   } else {
-    document.querySelector('.cosmo-menu-bar__back-button').removeAttribute('disabled');
+    document.querySelector('.cosmo-menu-bar__back-button')?.removeAttribute('disabled');
     const split = urlSplitter();
     if (split.stage === 'front') {
       const { default: FrontstageLayout } = await import('./front/FrontstageLayout.js');
