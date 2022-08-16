@@ -1,30 +1,23 @@
 import html from '../../lib/jinya-html.js';
-import JinyaDesignerPage from '../foundation/JinyaDesignerPage.js';
+import JinyaDesignerLayout from '../foundation/JinyaDesignerLayout.js';
 import localize from '../foundation/localize.js';
 
-export default class LoginLayout extends JinyaDesignerPage {
+export default class LoginLayout extends JinyaDesignerLayout {
   /**
-   * @param childPage {JinyaDesignerPage}
    * @param isLogin {boolean}
    * @param isTwoFa {boolean}
    */
-  constructor({ childPage, isLogin, isTwoFa }) {
+  constructor({ isLogin, isTwoFa }) {
     super();
-    this.childPage = childPage;
     this.isLogin = isLogin;
     this.isTwoFa = isTwoFa;
   }
 
   bindEvents() {
     super.bindEvents();
-    this.childPage.bindEvents();
   }
 
-  /**
-   * Renders the login page layout used for login and two factor verification
-   * @return {string}
-   */
-  renderToString() {
+  getTemplate() {
     return html`
         <div class="cosmo-top-bar">
             <div class="cosmo-profile-picture"></div>
@@ -43,7 +36,7 @@ export default class LoginLayout extends JinyaDesignerPage {
             </nav>
         </div>
         <div class="cosmo-page-body jinya-page-content--login">
-            ${this.childPage.renderToString()}
+            %%%child%%%
         </div>`;
   }
 }

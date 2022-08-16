@@ -7,11 +7,14 @@ import alert from '../foundation/ui/alert.js';
 
 export default class TwoFactorPage extends JinyaDesignerPage {
   /**
+   * @param loginLayout {JinyaDesignerLayout}
    * @param username {string}
    * @param password {string}
    */
-  constructor({ username, password }) {
-    super();
+  constructor({ loginLayout, username, password }) {
+    super({ layout: loginLayout });
+    this.layout.isTwoFa = false;
+    this.layout.isLogin = true;
     this.username = username;
     this.password = password;
   }
@@ -41,7 +44,7 @@ export default class TwoFactorPage extends JinyaDesignerPage {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  renderToString() {
+  toString() {
     return html`
         <form id="jinya-2fa-form">
             <div class="cosmo-input__group">

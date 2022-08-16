@@ -4,17 +4,16 @@ import { deleteJinyaApiKey, getDeviceCode } from './foundation/storage.js';
 async function renderLogin() {
   const deviceCode = getDeviceCode();
   const { default: LoginLayoutPage } = await import('./login/LoginLayout.js');
+  const loginLayout = new LoginLayoutPage({ isLogin: true, isTwoFa: false });
   try {
     await head(`/api/known_device/${deviceCode}`);
     const { default: LoginPage } = await import('./login/LoginPage.js');
-    const login = new LoginPage({ isTwoFa: false });
-    const layout = new LoginLayoutPage({ childPage: login, isLogin: true, isTwoFa: false });
-    layout.renderToScreen();
+    const login = new LoginPage({ loginLayout, isTwoFa: false });
+    login.display();
   } catch (e) {
     const { default: LoginPage } = await import('./login/LoginPage.js');
-    const login = new LoginPage({ isTwoFa: true });
-    const layout = new LoginLayoutPage({ childPage: login, isLogin: false, isTwoFa: true });
-    layout.renderToScreen();
+    const login = new LoginPage({ loginLayout, isTwoFa: true });
+    login.display();
   }
 }
 

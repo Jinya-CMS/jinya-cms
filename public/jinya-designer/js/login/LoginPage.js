@@ -4,14 +4,16 @@ import JinyaDesignerPage from '../foundation/JinyaDesignerPage.js';
 import localize from '../foundation/localize.js';
 import { setDeviceCode, setJinyaApiKey, setRoles } from '../foundation/storage.js';
 import alert from '../foundation/ui/alert.js';
-import LoginLayout from './LoginLayout.js';
 
 export default class LoginPage extends JinyaDesignerPage {
   /**
+   * @param loginLayout {JinyaDesignerLayout}
    * @param isTwoFa {boolean}
    */
-  constructor({ isTwoFa }) {
-    super();
+  constructor({ loginLayout, isTwoFa }) {
+    super({ layout: loginLayout });
+    this.layout.isTwoFa = isTwoFa;
+    this.layout.isLogin = !isTwoFa;
     this.isTwoFa = isTwoFa;
   }
 
@@ -28,9 +30,8 @@ export default class LoginPage extends JinyaDesignerPage {
           const response = await post(this.isTwoFa ? '/api/2fa' : '/api/login', payload);
           if (this.isTwoFa) {
             const { default: TwoFactorPage } = await import('./TwoFactorPage.js');
-            const page = new TwoFactorPage(payload);
-            const layout = new LoginLayout({ childPage: page, isLogin: true, isTwoFa: false });
-            layout.renderToScreen();
+            const page = new TwoFactorPage({ loginLayout: this.layout, ...payload });
+            page.display();
           } else {
             setDeviceCode(response.deviceCode);
             setJinyaApiKey(response.apiKey);
@@ -46,7 +47,7 @@ export default class LoginPage extends JinyaDesignerPage {
     });
   }
 
-  renderToString() {
+  toString() {
     return html`
         <form id="jinya-login-form">
             <div class="cosmo-input__group">
