@@ -36,6 +36,7 @@ export default class LoginPage extends JinyaDesignerPage {
             setDeviceCode(response.deviceCode);
             setJinyaApiKey(response.apiKey);
             setRoles(response.roles);
+            window.location.hash = 'front/statistics/index';
           }
         } catch (err) {
           await alert({

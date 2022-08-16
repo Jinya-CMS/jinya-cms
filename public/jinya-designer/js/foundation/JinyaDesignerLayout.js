@@ -11,16 +11,16 @@ export default class JinyaDesignerLayout {
    * @return string
    */
   // eslint-disable-next-line class-methods-use-this
-  toString() {
-    return this.getTemplate().replace('%%%child%%%', this.child === null ? '' : this.child.toString());
+  async toString() {
+    return (await this.getTemplate()).replace('%%%child%%%', this.child === null ? '' : this.child.toString());
   }
 
   /**
    * Renders the current page into the main tag
    * @return void
    */
-  display() {
-    document.getElementById('mainPage').innerHTML = this.toString();
+  async display() {
+    document.getElementById('mainPage').innerHTML = await this.toString();
     this.bindEvents();
     if (this.child !== null) {
       this.child.bindEvents();
@@ -37,9 +37,9 @@ export default class JinyaDesignerLayout {
 
   /**
    * Returns the template of the layout
-   * @return string
+   * @return Promise<string>
    */
-  // eslint-disable-next-line class-methods-use-this
-  getTemplate() {
+  // eslint-disable-next-line class-methods-use-this,no-empty-function
+  async getTemplate() {
   }
 }

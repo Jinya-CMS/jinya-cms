@@ -17,7 +17,7 @@ export default class LoginLayout extends JinyaDesignerLayout {
     super.bindEvents();
   }
 
-  getTemplate() {
+  async getTemplate() {
     return html`
         <div class="cosmo-top-bar">
             <div class="cosmo-profile-picture"></div>

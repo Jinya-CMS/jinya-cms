@@ -1,4 +1,6 @@
 import { head } from './foundation/http/request.js';
+import { navigateFrontstage } from './foundation/navigation/navigator.js';
+import urlSplitter from './foundation/navigation/urlSplitter.js';
 import { deleteJinyaApiKey, getDeviceCode } from './foundation/storage.js';
 
 async function renderLogin() {
@@ -17,11 +19,34 @@ async function renderLogin() {
   }
 }
 
+/**
+ * @return {Promise<void>}
+ */
+async function hashChanged() {
+  if (window.location.hash === '#login') {
+    document.querySelector('.cosmo-menu-bar__back-button').setAttribute('disabled', 'disabled');
+    await renderLogin();
+  } else {
+    document.querySelector('.cosmo-menu-bar__back-button').removeAttribute('disabled');
+    const split = urlSplitter();
+    if (split.stage === 'front') {
+      const { default: FrontstageLayout } = await import('./front/FrontstageLayout.js');
+      const layout = new FrontstageLayout();
+      await navigateFrontstage({ layout, ...split });
+    }
+  }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     await head('/api/login');
+    window.addEventListener('hashchange', hashChanged);
+
+    await hashChanged();
   } catch (e) {
+    window.location.hash = '';
     deleteJinyaApiKey();
+    window.addEventListener('hashchange', hashChanged);
     await renderLogin();
   }
 });
