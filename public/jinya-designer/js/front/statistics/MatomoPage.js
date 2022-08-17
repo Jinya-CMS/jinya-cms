@@ -1,15 +1,15 @@
-import JinyaDesignerPage from '../../foundation/JinyaDesignerPage.js';
-import html from '../../../lib/jinya-html.js';
-import localize from '../../foundation/localize.js';
 import ApexCharts from '../../../lib/apexcharts.esm.js';
+import html from '../../../lib/jinya-html.js';
 import { get } from '../../foundation/http/request.js';
+import JinyaDesignerPage from '../../foundation/JinyaDesignerPage.js';
+import localize from '../../foundation/localize.js';
 
 export default class MatomoPage extends JinyaDesignerPage {
   constructor({ layout }) {
     super({ layout });
-    this.from = new Date(Date.now());
     this.to = new Date(Date.now());
-    this.to.setMonth(this.from.getMonth() - 1);
+    this.from = new Date(Date.now());
+    this.from.setMonth(this.to.getMonth() - 1);
     this.totalVisits = 0;
   }
 

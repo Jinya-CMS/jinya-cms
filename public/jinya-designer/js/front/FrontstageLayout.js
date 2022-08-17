@@ -30,6 +30,17 @@ export default class FrontstageLayout extends JinyaDesignerLayout {
       this.artist = await get('/api/me');
     }
 
+    switch (this.artist.colorScheme) {
+      case 'light':
+        document.body.classList.add('cosmo--light-theme');
+        break;
+      case 'dark':
+        document.body.classList.add('cosmo--dark-theme');
+        break;
+      default:
+        document.body.classList.add('cosmo--auto-theme');
+        break;
+    }
     const roles = getRoles();
 
     return html`
@@ -118,20 +129,20 @@ export default class FrontstageLayout extends JinyaDesignerLayout {
       let colorScheme = '';
       if (document.body.classList.contains('cosmo--light-theme')) {
         document.body.classList.replace('cosmo--light-theme', 'cosmo--dark-theme');
-        colorScheme = 'auto';
+        colorScheme = 'dark';
         document.querySelector('#toggle-theme-button .mdi')
           .classList
           .replace('mdi-weather-sunny', 'mdi-weather-night');
       } else if (document.body.classList.contains('cosmo--dark-theme')) {
         document.body.classList.replace('cosmo--dark-theme', 'cosmo--auto-theme');
-        colorScheme = 'light';
+        colorScheme = 'auto';
         document.querySelector('#toggle-theme-button .mdi')
           .classList
           .replace('mdi-weather-night', 'mdi-theme-light-dark');
       } else {
         document.body.classList.remove('cosmo--auto-theme');
         document.body.classList.add('cosmo--light-theme');
-        colorScheme = 'dark';
+        colorScheme = 'light';
         document.querySelector('#toggle-theme-button .mdi')
           .classList
           .replace('mdi-theme-light-dark', 'mdi-weather-sunny');
