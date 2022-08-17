@@ -15,26 +15,26 @@ export default class MatomoPage extends JinyaDesignerPage {
 
   toString() {
     return html`
-      <div>
+        <div>
         <span
             class="cosmo-title">${localize({ key: 'statistics.access.title' })} | ${this.from.toLocaleDateString(window.navigator.language, {
-      year: 'numeric', month: '2-digit', day: '2-digit',
-    })}
+            year: 'numeric', month: '2-digit', day: '2-digit',
+        })}
       – ${this.to.toLocaleDateString(window.navigator.language, { year: 'numeric', month: '2-digit', day: '2-digit' })}
       | <span id="stats-total-visits">${this.totalVisits}</span> ${localize({ key: 'statistics.access.total_visits' })}</span>
-        <div class="jinya-stats__row jinya-stats__row--one">
-            <div id="country-chart"></div>
-        </div>
-        <div class="jinya-stats__row jinya-stats__row--third">
-            <div id="language-chart"></div>
-            <div id="device-brand-chart"></div>
-            <div id="device-type-chart"></div>
-        </div>
-        <div class="jinya-stats__row jinya-stats__row--half">
-            <div id="browser-chart"></div>
-            <div id="os-chart"></div>
-        </div>
-      </div>`;
+            <div class="jinya-stats__row jinya-stats__row--one">
+                <div id="country-chart"></div>
+            </div>
+            <div class="jinya-stats__row jinya-stats__row--third">
+                <div id="language-chart"></div>
+                <div id="device-brand-chart"></div>
+                <div id="device-type-chart"></div>
+            </div>
+            <div class="jinya-stats__row jinya-stats__row--half">
+                <div id="browser-chart"></div>
+                <div id="os-chart"></div>
+            </div>
+        </div>`;
   }
 
   async displayed() {
@@ -99,11 +99,7 @@ export default class MatomoPage extends JinyaDesignerPage {
               ,
             },
         });
-        try {
-          await countryStatsChart.render();
-        } catch (e) {
-          console.error(e);
-        }
+        await countryStatsChart.render();
         document.getElementById('stats-total-visits').textContent = this.totalVisits;
       })(),
       (async () => {
@@ -136,11 +132,7 @@ export default class MatomoPage extends JinyaDesignerPage {
             },
           },
         });
-        try {
-          await languageStatsChart.render();
-        } catch (e) {
-          console.error(e);
-        }
+        await languageStatsChart.render();
       })(),
       (async () => {
         const deviceBrandStats = await get('/api/statistics/visits/brand');
@@ -172,11 +164,7 @@ export default class MatomoPage extends JinyaDesignerPage {
             },
           },
         });
-        try {
-          await deviceBrandStatsChart.render();
-        } catch (e) {
-          console.error(e);
-        }
+        await deviceBrandStatsChart.render();
       })(),
       (async () => {
         const deviceTypeStats = await get('/api/statistics/visits/type');
@@ -203,11 +191,7 @@ export default class MatomoPage extends JinyaDesignerPage {
             },
           },
         });
-        try {
-          await deviceTypeStatsChart.render();
-        } catch (e) {
-          console.error(e);
-        }
+        await deviceTypeStatsChart.render();
       })(),
       (async () => {
         const browserStats = await get('/api/statistics/visits/browser');
@@ -239,11 +223,7 @@ export default class MatomoPage extends JinyaDesignerPage {
             },
           },
         });
-        try {
-          await browserStatsChart.render();
-        } catch (e) {
-          console.error(e);
-        }
+        await browserStatsChart.render();
       })(),
       (async () => {
         const operatingSystemStats = await get('/api/statistics/visits/os');
@@ -275,11 +255,7 @@ export default class MatomoPage extends JinyaDesignerPage {
             },
           },
         });
-        try {
-          await operatingSystemStatsChart.render();
-        } catch (e) {
-          console.error(e);
-        }
+        await operatingSystemStatsChart.render();
       })(),
     ]);
   }
