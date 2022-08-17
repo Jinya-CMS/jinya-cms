@@ -48,6 +48,11 @@ export default {
         message: 'Do you really want to delete file {name}?',
         approve: 'Delete file',
         decline: 'Keep file',
+        error: {
+          title: 'Delete failed',
+          conflict: 'The file {name} could not be deleted, because it is used.',
+          generic: 'An unknown error occurred, please contact your administrator',
+        },
       },
       upload_single_file: {
         title: 'Upload file',

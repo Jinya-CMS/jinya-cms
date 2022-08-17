@@ -87,6 +87,13 @@ export default class FrontstageLayout extends JinyaDesignerLayout {
                 <div class="cosmo-menu-bar__sub-menu">
                     ${() => {
                         switch (this.activeSection) {
+                            case 'media':
+                                return html`<a href="#front/media/files"
+                                               class="cosmo-menu-bar__sub-item ${this.activePage === 'files' ? 'cosmo-menu-bar__sub-item--active' : ''}">
+                                    ${localize({ key: 'media.menu.files' })}
+                                </a>
+                                <a href="#front/media/galleries"
+                                   class="cosmo-menu-bar__sub-item ${this.activePage === 'database' ? 'cosmo-menu-bar__sub-item--active' : ''}">${localize({ key: 'media.menu.galleries' })}</a>`;
                             default:
                                 return html`<a href="#front/statistics/matomo"
                                                class="cosmo-menu-bar__sub-item ${this.activePage === 'index' || this.activePage === 'matomo' ? 'cosmo-menu-bar__sub-item--active' : ''}">

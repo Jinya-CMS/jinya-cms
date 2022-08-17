@@ -24,12 +24,21 @@ function getByPath({ obj, path = '', def = '' }) {
 /**
  * Localizes the given key and returns the matching string
  * @param key {string}
+ * @param values {Object}
  * @return string
  */
-export default function localize({ key }) {
+export default function localize({ key, values = {} }) {
+  let localized = key;
   if (navigator.language.startsWith('de')) {
-    return getByPath({ obj: de, path: key, def: key });
+    localized = getByPath({ obj: de, path: key, def: key });
+  } else {
+    localized = getByPath({ obj: en, path: key, def: key });
   }
 
-  return getByPath({ obj: en, path: key, def: key });
+  let transformed = localized;
+  for (const valueKey of Object.keys(values)) {
+    transformed = transformed.replaceAll(`{${valueKey}}`, values[valueKey]);
+  }
+
+  return transformed;
 }

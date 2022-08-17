@@ -48,6 +48,11 @@ export default {
         message: 'Willst du die Datei {name} wirklich löschen?',
         approve: 'Datei löschen',
         decline: 'Datei behalten',
+        error: {
+          title: 'Löschen fehlgeschlagen',
+          conflict: 'Die Datei {name} konnte nicht gelöscht werden, da sie benutzt wird.',
+          generic: 'Ein unbekannter Fehler ist aufgetreten, bitte kontaktiere deinen Administrator',
+        },
       },
       upload_single_file: {
         title: 'Datei hochladen',

@@ -22,6 +22,7 @@
       "warn",
       120
     ],
+    "no-restricted-syntax": "off",
     "indent": "off"
   }
 }
