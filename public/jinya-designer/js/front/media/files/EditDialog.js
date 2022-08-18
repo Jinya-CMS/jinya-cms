@@ -67,13 +67,13 @@ export default class EditDialog {
       } catch (err) {
         if (err.status === 409) {
           await alert({
-            title: localize({ key: 'media.files.delete.error.title' }),
-            message: localize({ key: 'media.files.delete.error.conflict' }),
+            title: localize({ key: 'media.files.edit.error.title' }),
+            message: localize({ key: 'media.files.edit.error.conflict' }),
           });
         } else {
           await alert({
-            title: localize({ key: 'media.files.delete.error.title' }),
-            message: localize({ key: 'media.files.delete.error.generic' }),
+            title: localize({ key: 'media.files.edit.error.title' }),
+            message: localize({ key: 'media.files.edit.error.generic' }),
           });
         }
       }

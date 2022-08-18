@@ -4,7 +4,7 @@ import localize from '../../foundation/localize.js';
 import { get, httpDelete } from '../../foundation/http/request.js';
 import confirm from '../../foundation/ui/confirm.js';
 import alert from '../../foundation/ui/alert.js';
-import EditDialog from './files/EditDialog.js';
+import FilesSelectedEvent from './files/FilesSelectedEvent.js';
 
 export default class FilePage extends JinyaDesignerPage {
   /**
@@ -15,6 +15,15 @@ export default class FilePage extends JinyaDesignerPage {
     this.files = [];
     this.loading = true;
     this.selectedFile = null;
+    document.addEventListener('fileUploaded', ({ file: { id, name, path } }) => {
+      const newTile = document.createElement('div');
+      newTile.setAttribute('data-id', id.toString(10));
+      newTile.setAttribute('data-title', `${id} ${name}`);
+      newTile.classList.add('jinya-media-tile');
+      newTile.innerHTML = `<img class="jinya-media-tile__img" src="${path}" alt="${name}">`;
+      document.querySelector('.jinya-media-tile__container').append(newTile);
+      newTile.addEventListener('click', this.tileClicked(newTile));
+    });
   }
 
   toString() {
@@ -63,16 +72,7 @@ export default class FilePage extends JinyaDesignerPage {
     super.bindEvents();
     if (!this.loading) {
       document.querySelectorAll('.jinya-media-tile').forEach((tile) => {
-        tile.addEventListener('click', () => {
-          const id = parseInt(tile.getAttribute('data-id'), 10);
-          this.selectedFile = this.files.find((file) => file.id === id);
-          document
-            .querySelectorAll('.jinya-media-tile--selected')
-            .forEach((selectedTile) => selectedTile.classList.remove('jinya-media-tile--selected'));
-          tile.classList.add('jinya-media-tile--selected');
-          document.getElementById('edit-file').removeAttribute('disabled');
-          document.getElementById('delete-file').removeAttribute('disabled');
-        });
+        tile.addEventListener('click', this.tileClicked(tile));
       });
       document.getElementById('delete-file').addEventListener('click', async () => {
         const selectedTile = document.querySelector(`[data-id="${this.selectedFile.id}"].jinya-media-tile`);
@@ -110,6 +110,7 @@ export default class FilePage extends JinyaDesignerPage {
         }
       });
       document.getElementById('edit-file').addEventListener('click', async () => {
+        const { default: EditDialog } = await import('./files/EditDialog.js');
         const editDialog = new EditDialog({
           onHide: ({ id, name, path }) => {
             const selectedTile = document.querySelector(`[data-id="${id}"].jinya-media-tile`);
@@ -124,7 +125,44 @@ export default class FilePage extends JinyaDesignerPage {
         });
         editDialog.show();
       });
+      document.getElementById('upload-single-file').addEventListener('click', async () => {
+        const { default: UploadSingleFileDialog } = await import('./files/UploadSingleFileDialog.js');
+        const uploadSingleFileDialog = new UploadSingleFileDialog({
+          onHide: ({ id, name, path }) => {
+            const newTile = document.createElement('div');
+            newTile.setAttribute('data-id', id.toString(10));
+            newTile.setAttribute('data-title', `${id} ${name}`);
+            newTile.classList.add('jinya-media-tile');
+            newTile.innerHTML = `<img class="jinya-media-tile__img" src="${path}" alt="${name}">`;
+            document.querySelector('.jinya-media-tile__container').append(newTile);
+            newTile.addEventListener('click', this.tileClicked(newTile));
+          },
+        });
+        uploadSingleFileDialog.show();
+      });
+      document.getElementById('upload-multiple-files').addEventListener('click', async () => {
+        const { default: UploadMultipleFilesDialog } = await import('./files/UploadMultipleFilesDialog.js');
+        const dialog = new UploadMultipleFilesDialog({
+          onHide: ({ files }) => {
+            document.dispatchEvent(new FilesSelectedEvent({ files }));
+          },
+        });
+        dialog.show();
+      });
     }
+  }
+
+  tileClicked(tile) {
+    return () => {
+      const id = parseInt(tile.getAttribute('data-id'), 10);
+      this.selectedFile = this.files.find((file) => file.id === id);
+      document
+        .querySelectorAll('.jinya-media-tile--selected')
+        .forEach((selectedTile) => selectedTile.classList.remove('jinya-media-tile--selected'));
+      tile.classList.add('jinya-media-tile--selected');
+      document.getElementById('edit-file').removeAttribute('disabled');
+      document.getElementById('delete-file').removeAttribute('disabled');
+    };
   }
 
   async displayed() {

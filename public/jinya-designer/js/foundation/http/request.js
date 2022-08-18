@@ -100,7 +100,3 @@ export function upload(url, file) {
 export function uploadPost(url, file) {
   return send('post', url, file, file.type);
 }
-
-export function getHost() {
-  return '';
-}

@@ -1,6 +1,6 @@
 /**
  * Splits the current hash to match parse the section and page
- * @return {{section: string, page: string}}
+ * @return {{section: string, page: string, stage: string}}
  */
 export default function urlSplitter() {
   const url = window.location.hash;

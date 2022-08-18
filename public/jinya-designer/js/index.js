@@ -1,7 +1,10 @@
 import { head } from './foundation/http/request.js';
-import { navigateFrontstage } from './foundation/navigation/navigator.js';
+import { navigate } from './foundation/navigation/navigator.js';
 import urlSplitter from './foundation/navigation/urlSplitter.js';
 import { deleteJinyaApiKey, getDeviceCode } from './foundation/storage.js';
+import JinyaLayout from './foundation/JinyaLayout.js';
+
+const layout = new JinyaLayout();
 
 async function renderLogin() {
   const deviceCode = getDeviceCode();
@@ -29,11 +32,7 @@ async function hashChanged() {
   } else {
     document.querySelector('.cosmo-menu-bar__back-button')?.removeAttribute('disabled');
     const split = urlSplitter();
-    if (split.stage === 'front') {
-      const { default: FrontstageLayout } = await import('./front/FrontstageLayout.js');
-      const layout = new FrontstageLayout();
-      await navigateFrontstage({ layout, ...split });
-    }
+    await navigate({ layout, ...split });
   }
 }
 
