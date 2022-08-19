@@ -70,16 +70,15 @@ export default class JinyaLayout extends JinyaDesignerLayout {
 
     return html`
         <div class="cosmo-top-bar">
-            ${this.activeStage === 'front' ? html`
-                ${roles.includes('ROLE_ADMIN') ? html`
-                    <div class="cosmo-top-bar__menu">
-                        <a href="#back/maintenance/update"
-                           class="cosmo-top-bar__menu-item">${localize({ key: 'maintenance.menu.title' })}</a>
-                        <a href="#back/database/mysql-info"
-                           class="cosmo-top-bar__menu-item">${localize({ key: 'database.menu.title' })}</a>
-                        <a href="#back/artists/index"
-                           class="cosmo-top-bar__menu-item">${localize({ key: 'artists.menu.title' })}</a>
-                    </div>` : ''}` : ''}
+            ${roles.includes('ROLE_ADMIN') ? html`
+                <div class="cosmo-top-bar__menu" data-stage="front">
+                    <a href="#back/maintenance/update"
+                       class="cosmo-top-bar__menu-item">${localize({ key: 'maintenance.menu.title' })}</a>
+                    <a href="#back/database/mysql-info"
+                       class="cosmo-top-bar__menu-item">${localize({ key: 'database.menu.title' })}</a>
+                    <a href="#back/artists/index"
+                       class="cosmo-top-bar__menu-item">${localize({ key: 'artists.menu.title' })}</a>
+                </div>` : ''}
             <img src="${this.artist.profilePicture}" class="cosmo-profile-picture" alt="Imanuel Ulbricht">
             <a class="cosmo-top-bar__menu-item jinya-top-bar__menu-item--logout" id="jinya-logout">
                 ${localize({ key: 'top_menu.logout' })}
@@ -88,54 +87,53 @@ export default class JinyaLayout extends JinyaDesignerLayout {
         <div class="cosmo-menu-bar">
             <div class="cosmo-menu-bar__touch"></div>
             <button type="button" class="cosmo-menu-bar__back-button"></button>
-            ${this.activeStage === 'front' ? html`
-                <nav class="cosmo-menu-bar__menu-collection">
-                    <div class="cosmo-menu-bar__main-menu">
-                        <a href="#front/statistics/matomo"
-                           class="cosmo-menu-bar__main-item cosmo-menu-bar__main-item--active">
-                            ${localize({ key: 'statistics.menu.title' })}
-                        </a>
-                        <a href="#front/media/files" class="cosmo-menu-bar__main-item">
-                            ${localize({ key: 'media.menu.title' })}
-                        </a>
-                        <a href="#front/pages-and-forms/simple-pages" class="cosmo-menu-bar__main-item">
-                            ${localize({ key: 'pages_and_forms.menu.title' })}
-                        </a>
-                        <a href="#front/blog/categories" class="cosmo-menu-bar__main-item">
-                            ${localize({ key: 'blog.menu.title' })}
-                        </a>
-                        <a href="#front/design/menus" class="cosmo-menu-bar__main-item">
-                            ${localize({ key: 'design.menu.title' })}
-                        </a>
-                        <a href="#front/my-jinya/my-profile" class="cosmo-menu-bar__main-item">
-                            ${localize({ key: 'my_jinya.menu.title' })}
-                        </a>
-                    </div>
-                    <div class="cosmo-menu-bar__sub-menu">
-                        ${() => {
-                            switch (this.activeSection) {
-                                case 'media':
-                                    return html`<a href="#front/media/files"
-                                                   class="cosmo-menu-bar__sub-item ${this.activePage === 'files' ? 'cosmo-menu-bar__sub-item--active' : ''}">
-                                        ${localize({ key: 'media.menu.files' })}
-                                    </a>
-                                    <a href="#front/media/galleries"
-                                       class="cosmo-menu-bar__sub-item ${this.activePage === 'database' ? 'cosmo-menu-bar__sub-item--active' : ''}">
-                                        ${localize({ key: 'media.menu.galleries' })}
-                                    </a>`;
-                                default:
-                                    return html`<a href="#front/statistics/matomo"
-                                                   class="cosmo-menu-bar__sub-item ${this.activePage === 'index' || this.activePage === 'matomo' ? 'cosmo-menu-bar__sub-item--active' : ''}">
-                                        ${localize({ key: 'statistics.menu.matomo' })}
-                                    </a>
-                                    <a href="#front/statistics/database"
-                                       class="cosmo-menu-bar__sub-item ${this.activePage === 'database' ? 'cosmo-menu-bar__sub-item--active' : ''}">
-                                        ${localize({ key: 'statistics.menu.database' })}
-                                    </a>`;
-                            }
-                        }}
-                    </div>
-                </nav>` : ''}
+            <nav class="cosmo-menu-bar__menu-collection" data-stage="front">
+                <div class="cosmo-menu-bar__main-menu">
+                    <a href="#front/statistics/matomo-stats" data-section="statistics" data-stage="front"
+                       class="cosmo-menu-bar__main-item">
+                        ${localize({ key: 'statistics.menu.title' })}
+                    </a>
+                    <a href="#front/media/files" data-section="media" data-stage="front"
+                       class="cosmo-menu-bar__main-item">
+                        ${localize({ key: 'media.menu.title' })}
+                    </a>
+                    <a href="#front/pages-and-forms/simple-pages" class="cosmo-menu-bar__main-item"
+                       data-section="pages-and-forms" data-stage="front">
+                        ${localize({ key: 'pages_and_forms.menu.title' })}
+                    </a>
+                    <a href="#front/blog/categories" class="cosmo-menu-bar__main-item" data-section="blog"
+                       data-stage="front">
+                        ${localize({ key: 'blog.menu.title' })}
+                    </a>
+                    <a href="#front/design/menus" class="cosmo-menu-bar__main-item" data-section="menus"
+                       data-stage="front">
+                        ${localize({ key: 'design.menu.title' })}
+                    </a>
+                    <a href="#front/my-jinya/my-profile" class="cosmo-menu-bar__main-item"
+                       data-section="my-jinya" data-stage="front">
+                        ${localize({ key: 'my_jinya.menu.title' })}
+                    </a>
+                </div>
+                <div class="cosmo-menu-bar__sub-menu">
+                    <a href="#front/media/files" data-section="media" data-stage="front" hidden
+                       data-page="files" class="cosmo-menu-bar__sub-item">
+                        ${localize({ key: 'media.menu.files' })}
+                    </a>
+                    <a href="#front/media/galleries" data-section="media" data-stage="front" hidden
+                       data-page="galleries" class="cosmo-menu-bar__sub-item">
+                        ${localize({ key: 'media.menu.galleries' })}
+                    </a>
+                    <a href="#front/statistics/matomo-stats" data-section="statistics" hidden
+                       data-stage="front" data-page="matomo-stats" class="cosmo-menu-bar__sub-item">
+                        ${localize({ key: 'statistics.menu.matomo' })}
+                    </a>
+                    <a href="#front/statistics/database" data-section="statistics" data-stage="front" hidden
+                       data-page="database"
+                       class="cosmo-menu-bar__sub-item ${this.activePage === 'database' ? 'cosmo-menu-bar__sub-item--active' : ''}">
+                        ${localize({ key: 'statistics.menu.database' })}
+                    </a>
+                </div>
+            </nav>
         </div>
         <div class="cosmo-page-body jinya-page-body--app">
             <div class="cosmo-page-body__content">%%%child%%%</div>
@@ -213,5 +211,30 @@ export default class JinyaLayout extends JinyaDesignerLayout {
 
       await put('/api/me/colorscheme', { colorScheme });
     });
+  }
+
+  async afterRender() {
+    await super.afterRender();
+    const { stage, section, page } = urlSplitter();
+    document
+      .querySelectorAll('.cosmo-menu-bar__main-item--active')
+      .forEach((item) => item.classList.remove('cosmo-menu-bar__main-item--active'));
+    document
+      .querySelector(`.cosmo-menu-bar__main-item[data-stage="${stage}"][data-section="${section}"]`)?.classList
+      .add('cosmo-menu-bar__main-item--active');
+
+    document
+      .querySelectorAll('.cosmo-menu-bar__sub-item')
+      .forEach((item) => item.setAttribute('hidden', 'hidden'));
+    document
+      .querySelectorAll(`.cosmo-menu-bar__sub-item[data-stage="${stage}"][data-section="${section}"]`)
+      .forEach((item) => item.removeAttribute('hidden', 'hidden'));
+
+    document
+      .querySelectorAll('.cosmo-menu-bar__sub-item--active')
+      .forEach((item) => item.classList.remove('cosmo-menu-bar__sub-item--active'));
+    document
+      .querySelector(`[data-stage="${stage}"][data-section="${section}"][data-page=${page}]`)?.classList
+      .add('cosmo-menu-bar__sub-item--active');
   }
 }

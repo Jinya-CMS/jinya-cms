@@ -36,7 +36,7 @@ export default class LoginPage extends JinyaDesignerPage {
             setDeviceCode(response.deviceCode);
             setJinyaApiKey(response.apiKey);
             setRoles(response.roles);
-            window.location.hash = 'front/statistics/index';
+            window.location.hash = 'front/statistics/matomo-stats';
           }
         } catch (err) {
           await alert({

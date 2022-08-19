@@ -33,7 +33,7 @@ export default class TwoFactorPage extends JinyaDesignerPage {
           setDeviceCode(response.deviceCode);
           setJinyaApiKey(response.apiKey);
           setRoles(response.roles);
-          window.location.hash = 'front/statistics/index';
+          window.location.hash = 'front/statistics/matomo-stats';
         } catch (err) {
           await alert({
             title: localize({ key: 'login.error.2fa_failed.title' }),

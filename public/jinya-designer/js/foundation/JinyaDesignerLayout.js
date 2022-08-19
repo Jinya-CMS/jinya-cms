@@ -7,6 +7,13 @@ export default class JinyaDesignerLayout {
   }
 
   /**
+   * Gets executed immediately after the rendering occured
+   * @returns {Promise<void>}
+   */
+  async afterRender() {
+  }
+
+  /**
    * Method to render the subclass and return the rendered HTML
    * @return string
    */
@@ -21,6 +28,7 @@ export default class JinyaDesignerLayout {
    */
   async display() {
     document.getElementById('mainPage').innerHTML = await this.toString();
+    await this.afterRender();
     this.bindEvents();
     if (this.child !== null) {
       await this.child.displayed();

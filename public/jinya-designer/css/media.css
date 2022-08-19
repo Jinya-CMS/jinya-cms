@@ -99,3 +99,8 @@
 .jinya-input--multiple-picker {
     width: unset;
 }
+
+.jinya-media-tile--chosen {
+    width: 208px;
+    height: 208px;
+}

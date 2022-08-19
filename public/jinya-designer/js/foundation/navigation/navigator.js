@@ -1,5 +1,10 @@
-export async function navigate({ layout, section, page }) {
-  const { default: DisplayPage } = await import(`/jinya-designer/js/front/${section}/${page}.js`);
+export async function navigate({
+                                 layout,
+                                 stage,
+                                 section,
+                                 page,
+                               }) {
+  const { default: DisplayPage } = await import(`/jinya-designer/js/${stage}/${section}/${page}.js`);
   const displayPage = new DisplayPage({ layout });
   displayPage.display();
 }

@@ -25,11 +25,16 @@
 }
 
 .jinya-designer__content--key-value-list {
-    align-items: start;
+  align-items: start;
 }
 
 .jinya-progress {
-    display: flex;
-    align-items: center;
-    flex-flow: column;
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+}
+
+.jinya-page-body--app .cosmo-list .cosmo-button.cosmo-button--full-width {
+  position: sticky;
+  bottom: 0;
 }
