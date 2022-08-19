@@ -115,14 +115,6 @@ export default class JinyaLayout extends JinyaDesignerLayout {
                     </a>
                 </div>
                 <div class="cosmo-menu-bar__sub-menu">
-                    <a href="#front/media/files" data-section="media" data-stage="front" hidden
-                       data-page="files" class="cosmo-menu-bar__sub-item">
-                        ${localize({ key: 'media.menu.files' })}
-                    </a>
-                    <a href="#front/media/galleries" data-section="media" data-stage="front" hidden
-                       data-page="galleries" class="cosmo-menu-bar__sub-item">
-                        ${localize({ key: 'media.menu.galleries' })}
-                    </a>
                     <a href="#front/statistics/matomo-stats" data-section="statistics" hidden
                        data-stage="front" data-page="matomo-stats" class="cosmo-menu-bar__sub-item">
                         ${localize({ key: 'statistics.menu.matomo' })}
@@ -131,6 +123,19 @@ export default class JinyaLayout extends JinyaDesignerLayout {
                        data-page="database"
                        class="cosmo-menu-bar__sub-item ${this.activePage === 'database' ? 'cosmo-menu-bar__sub-item--active' : ''}">
                         ${localize({ key: 'statistics.menu.database' })}
+                    </a>
+                    <a href="#front/media/files" data-section="media" data-stage="front" hidden
+                       data-page="files" class="cosmo-menu-bar__sub-item">
+                        ${localize({ key: 'media.menu.files' })}
+                    </a>
+                    <a href="#front/media/galleries" data-section="media" data-stage="front" hidden
+                       data-page="galleries" class="cosmo-menu-bar__sub-item">
+                        ${localize({ key: 'media.menu.galleries' })}
+                    </a>
+                    <a href="#front/pages-and-forms/simple-pages" data-section="pages-and-forms" data-stage="front"
+                       hidden
+                       data-page="simple-pages" class="cosmo-menu-bar__sub-item">
+                        ${localize({ key: 'pages_and_forms.menu.simple_pages' })}
                     </a>
                 </div>
             </nav>

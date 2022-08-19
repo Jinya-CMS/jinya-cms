@@ -33,7 +33,7 @@ export default class EditDialog {
                     </div>
                 </div>
                 <div class="cosmo-modal__button-bar">
-                    <button class="cosmo-button" id="cancel-edit-dialog">
+                    <button type="button" class="cosmo-button" id="cancel-edit-dialog">
                         ${localize({ key: 'media.files.edit.cancel' })}
                     </button>
                     <button type="submit" class="cosmo-button" id="save-edit-dialog">
