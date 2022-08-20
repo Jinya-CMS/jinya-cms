@@ -1,10 +1,11 @@
-import JinyaDesignerPage from '../../foundation/JinyaDesignerPage.js';
 import html from '../../../lib/jinya-html.js';
-import localize from '../../foundation/localize.js';
+import Sortable from '../../../lib/sortable.js';
+import clearChildren from '../../foundation/html/clearChildren.js';
 import {
   get, httpDelete, post, put,
 } from '../../foundation/http/request.js';
-import Sortable from '../../../lib/sortable.js';
+import JinyaDesignerPage from '../../foundation/JinyaDesignerPage.js';
+import localize from '../../foundation/localize.js';
 import confirm from '../../foundation/ui/confirm.js';
 
 export default class GalleryPage extends JinyaDesignerPage {
@@ -44,8 +45,8 @@ export default class GalleryPage extends JinyaDesignerPage {
 
     const toolbox = document.getElementById('designer-toolbox');
     const result = document.getElementById('designer-result');
-    toolbox.innerHTML = '';
-    result.innerHTML = '';
+    clearChildren({ parent: toolbox });
+    clearChildren({ parent: result });
 
     const positions = await get(`/api/media/gallery/${id}/file`);
     for (const position of positions) {
@@ -126,6 +127,7 @@ export default class GalleryPage extends JinyaDesignerPage {
     for (const gallery of this.galleries) {
       list += `<a class="cosmo-list__item" data-id="${gallery.id}">${gallery.name}</a>`;
     }
+    clearChildren({ parent: document.getElementById('gallery-list') });
     document.getElementById('gallery-list').innerHTML = `${list}
                 <button id="new-gallery-button" class="cosmo-button cosmo-button--full-width">
                     ${localize({ key: 'media.galleries.action.new' })}

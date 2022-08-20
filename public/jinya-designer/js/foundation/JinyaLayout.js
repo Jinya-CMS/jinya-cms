@@ -1,19 +1,15 @@
 import html from '../../lib/jinya-html.js';
+import FileUploadedEvent from '../front/media/files/FileUploadedEvent.js';
 import { get, put } from './http/request.js';
 import JinyaDesignerLayout from './JinyaDesignerLayout.js';
 import localize from './localize.js';
 import urlSplitter from './navigation/urlSplitter.js';
 import { deleteJinyaApiKey, getJinyaApiKey, getRoles } from './storage.js';
-import FileUploadedEvent from '../front/media/files/FileUploadedEvent.js';
 
 export default class JinyaLayout extends JinyaDesignerLayout {
   constructor() {
     super();
     this.artist = null;
-    const splitUrl = urlSplitter();
-    this.activeSection = splitUrl.section;
-    this.activePage = splitUrl.page;
-    this.activeStage = splitUrl.stage;
     this.filesToUpload = 0;
     this.filesUploaded = 0;
     this.fileUploadWorker = new Worker('./js/front/media/files/UploadWorker.js');
@@ -71,14 +67,17 @@ export default class JinyaLayout extends JinyaDesignerLayout {
     return html`
         <div class="cosmo-top-bar">
             ${roles.includes('ROLE_ADMIN') ? html`
-                <div class="cosmo-top-bar__menu" data-stage="front">
-                    <a href="#back/maintenance/update"
-                       class="cosmo-top-bar__menu-item">${localize({ key: 'maintenance.menu.title' })}</a>
-                    <a href="#back/database/mysql-info"
-                       class="cosmo-top-bar__menu-item">${localize({ key: 'database.menu.title' })}</a>
-                    <a href="#back/artists/index"
-                       class="cosmo-top-bar__menu-item">${localize({ key: 'artists.menu.title' })}</a>
-                </div>` : ''}
+        <div class="cosmo-top-bar__menu" data-stage="front">
+            <a href="#back/maintenance/update" class="cosmo-top-bar__menu-item">
+                ${localize({ key: 'maintenance.menu.title' })}
+            </a>
+            <a href="#back/database/mysql-info" class="cosmo-top-bar__menu-item">
+                ${localize({ key: 'database.menu.title' })}
+            </a>
+            <a href="#back/artists/index" class="cosmo-top-bar__menu-item">
+                ${localize({ key: 'artists.menu.title' })}
+            </a>
+        </div>` : ''}
             <img src="${this.artist.profilePicture}" class="cosmo-profile-picture" alt="Imanuel Ulbricht">
             <a class="cosmo-top-bar__menu-item jinya-top-bar__menu-item--logout" id="jinya-logout">
                 ${localize({ key: 'top_menu.logout' })}
@@ -120,8 +119,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
                         ${localize({ key: 'statistics.menu.matomo' })}
                     </a>
                     <a href="#front/statistics/database" data-section="statistics" data-stage="front" hidden
-                       data-page="database"
-                       class="cosmo-menu-bar__sub-item ${this.activePage === 'database' ? 'cosmo-menu-bar__sub-item--active' : ''}">
+                       data-page="database" class="cosmo-menu-bar__sub-item">
                         ${localize({ key: 'statistics.menu.database' })}
                     </a>
                     <a href="#front/media/files" data-section="media" data-stage="front" hidden
@@ -133,9 +131,12 @@ export default class JinyaLayout extends JinyaDesignerLayout {
                         ${localize({ key: 'media.menu.galleries' })}
                     </a>
                     <a href="#front/pages-and-forms/simple-pages" data-section="pages-and-forms" data-stage="front"
-                       hidden
-                       data-page="simple-pages" class="cosmo-menu-bar__sub-item">
+                       hidden data-page="simple-pages" class="cosmo-menu-bar__sub-item">
                         ${localize({ key: 'pages_and_forms.menu.simple_pages' })}
+                    </a>
+                    <a href="#front/pages-and-forms/segment-pages" data-section="pages-and-forms" data-stage="front"
+                       hidden data-page="segment-pages" class="cosmo-menu-bar__sub-item">
+                        ${localize({ key: 'pages_and_forms.menu.segment_pages' })}
                     </a>
                 </div>
             </nav>

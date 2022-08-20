@@ -1,7 +1,7 @@
+import ConflictError from '../http/Error/ConflictError.js';
 import {
   get, post, put, upload,
 } from '../http/request.js';
-import ConflictError from '../http/Error/ConflictError.js';
 
 let tinyInitialized = false;
 
@@ -9,6 +9,42 @@ async function wait({ time }) {
   return new Promise((resolve) => {
     setTimeout(resolve, time);
   });
+}
+
+function getThemeMode() {
+  if (document.querySelector('.cosmo--dark-theme')) {
+    return 'dark';
+  }
+
+  if (document.querySelector('.cosmo--light-theme')) {
+    return 'light';
+  }
+
+  return 'auto';
+}
+
+function getSkin() {
+  const themeMode = getThemeMode();
+  switch (themeMode) {
+    case 'dark':
+      return 'oxide-dark';
+    case 'light':
+      return 'oxide';
+    default:
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'oxide-dark' : 'oxide';
+  }
+}
+
+function getContentCss() {
+  const themeMode = getThemeMode();
+  switch (themeMode) {
+    case 'dark':
+      return 'dark';
+    case 'light':
+      return 'default';
+    default:
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default';
+  }
 }
 
 export default async function getEditor({ element, height = '500px' }) {
@@ -27,8 +63,8 @@ export default async function getEditor({ element, height = '500px' }) {
     image_advtab: true,
     remove_script_host: false,
     convert_urls: true,
-    skin: (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'oxide-dark' : 'oxide'),
-    content_css: (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default'),
+    skin: getSkin(),
+    content_css: getContentCss(),
     height,
     width: '100%',
     async image_list(success) {

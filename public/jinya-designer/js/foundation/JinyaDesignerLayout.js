@@ -1,3 +1,5 @@
+import clearChildren from './html/clearChildren.js';
+
 export default class JinyaDesignerLayout {
   /**
    * Creates a new layout with the given layout template
@@ -27,6 +29,7 @@ export default class JinyaDesignerLayout {
    * @return void
    */
   async display() {
+    clearChildren({ parent: document.getElementById('mainPage') });
     document.getElementById('mainPage').innerHTML = await this.toString();
     await this.afterRender();
     this.bindEvents();

@@ -17,7 +17,7 @@ export default class MatomoPage extends JinyaDesignerPage {
     return html`
         <div>
         <span
-            class="cosmo-title">${localize({ key: 'statistics.access.title' })} | ${this.from.toLocaleDateString(window.navigator.language, {
+                class="cosmo-title">${localize({ key: 'statistics.access.title' })} | ${this.from.toLocaleDateString(window.navigator.language, {
             year: 'numeric', month: '2-digit', day: '2-digit',
         })}
       – ${this.to.toLocaleDateString(window.navigator.language, { year: 'numeric', month: '2-digit', day: '2-digit' })}
