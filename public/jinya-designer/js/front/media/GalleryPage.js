@@ -6,6 +6,7 @@ import {
 } from '../../foundation/http/request.js';
 import JinyaDesignerPage from '../../foundation/JinyaDesignerPage.js';
 import localize from '../../foundation/localize.js';
+import alert from '../../foundation/ui/alert.js';
 import confirm from '../../foundation/ui/confirm.js';
 
 export default class GalleryPage extends JinyaDesignerPage {
@@ -215,12 +216,26 @@ export default class GalleryPage extends JinyaDesignerPage {
         approveLabel: localize({ key: 'media.galleries.delete.delete' }),
       });
       if (confirmation) {
-        await httpDelete(`/api/media/gallery/${this.selectedGallery.id}`);
-        this.galleries = this.galleries
-          .filter((gallery) => gallery.id !== this.selectedGallery.id);
-        this.displayGalleries();
-        this.selectGallery({ id: this.galleries[0].id });
-        await this.displaySelectedGallery();
+        try {
+          await httpDelete(`/api/media/gallery/${this.selectedGallery.id}`);
+          this.galleries = this.galleries
+            .filter((gallery) => gallery.id !== this.selectedGallery.id);
+          this.displayGalleries();
+          this.selectGallery({ id: this.galleries[0].id });
+          await this.displaySelectedGallery();
+        } catch (e) {
+          if (e.status === 409) {
+            await alert({
+              title: localize({ key: 'media.galleries.delete.error.title' }),
+              message: localize({ key: 'media.galleries.delete.error.conflict' }),
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'media.galleries.delete.error.title' }),
+              message: localize({ key: 'media.galleries.delete.error.generic' }),
+            });
+          }
+        }
       }
     });
     document.getElementById('edit-gallery-button').addEventListener('click', async () => {

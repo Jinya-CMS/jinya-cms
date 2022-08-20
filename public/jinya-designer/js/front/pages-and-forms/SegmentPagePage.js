@@ -1,8 +1,10 @@
 import html from '../../../lib/jinya-html.js';
+import Sortable from '../../../lib/sortable.js';
 import clearChildren from '../../foundation/html/clearChildren.js';
-import { get, httpDelete } from '../../foundation/http/request.js';
+import { get, httpDelete, put } from '../../foundation/http/request.js';
 import JinyaDesignerPage from '../../foundation/JinyaDesignerPage.js';
 import localize from '../../foundation/localize.js';
+import alert from '../../foundation/ui/alert.js';
 import confirm from '../../foundation/ui/confirm.js';
 
 export default class SegmentPagePage extends JinyaDesignerPage {
@@ -12,6 +14,8 @@ export default class SegmentPagePage extends JinyaDesignerPage {
     this.selectedPage = {};
     this.selectedSegment = {};
     this.segments = [];
+    this.resultSortable = null;
+    this.toolboxSortable = null;
   }
 
   selectPage({ id }) {
@@ -59,8 +63,15 @@ export default class SegmentPagePage extends JinyaDesignerPage {
   }
 
   async displaySelectedPage() {
-    document.getElementById('page-title').innerText = `#${this.selectedPage.id} ${this.selectedPage.name}`;
     this.segments = await get(`/api/segment-page/${this.selectedPage.id}/segment`);
+    this.displaySegments();
+  }
+
+  displaySegments() {
+    if (this.resultSortable) {
+      this.resultSortable.destroy();
+    }
+    document.getElementById('page-title').innerText = `#${this.selectedPage.id} ${this.selectedPage.name}`;
     const segmentList = document.getElementById('segment-list');
     clearChildren({ parent: segmentList });
     for (const segment of this.segments) {
@@ -76,6 +87,31 @@ export default class SegmentPagePage extends JinyaDesignerPage {
       item.addEventListener('click', () => {
         this.selectSegment({ segmentPosition: item.getAttribute('data-position') });
       });
+    });
+    this.resultSortable = new Sortable(document.getElementById('segment-list'), {
+      group: { name: 'segment_page', put: true, pull: false },
+      sort: true,
+      onAdd: async (e) => {
+        const dropIdx = e.newIndex;
+        let createPosition = 0;
+        if (this.segments.length === 0) {
+          createPosition = 0;
+        } else if (this.segments.length === dropIdx) {
+          createPosition = this.segments[this.segments.length - 1].position + 2;
+        } else {
+          createPosition = this.segments[dropIdx].position;
+        }
+        const createNewSegmentType = e.item.getAttribute('data-type');
+        await this.openSegmentEditorCreate({ position: createPosition, type: createNewSegmentType });
+      },
+      onUpdate: async (e) => {
+        const oldPosition = e.item.getAttribute('data-position');
+        const position = e.newIndex;
+        this.resetPositions();
+        await put(`/api/segment-page/${this.selectedPage.id}/segment/${oldPosition}`, {
+          newPosition: position > oldPosition ? position + 1 : position,
+        });
+      },
     });
   }
 
@@ -109,21 +145,25 @@ export default class SegmentPagePage extends JinyaDesignerPage {
     segmentElem.setAttribute('data-id', segment.id.toString(10));
     segmentElem.setAttribute('data-is-file', 'true');
     segmentElem.innerHTML = html`
-        <img class="jinya-segment__image" src="${segment.file.path}"
-             alt={segment.file.name}>
-        <div class="jinya-designer-item__details jinya-designer-item__details--file"
-        <span class="jinya-designer-item__title">${localize({ key: 'pages_and_forms.segment.designer.file' })}</span>
-        <dl class="jinya-segment__action">
-            <dt class="jinya-segment__label">${localize({ key: 'pages_and_forms.segment.designer.action' })}</dt>
-            <dd class="jinya-segment__content">
-                ${localize({ key: `pages_and_forms.segment.designer.action_${segment.action}` })}
-            </dd>
-            ${segment.action === 'link' ? html`
-                <dt class="jinya-segment__label">
+        <img class="jinya-segment__image" src="${segment.file.path}" alt="${segment.file.name}">
+        <div class="jinya-designer-item__details jinya-designer-item__details--file">
+            <span class="jinya-designer-item__title">
+                ${localize({ key: 'pages_and_forms.segment.designer.file' })}
+            </span>
+            <dl class="jinya-segment__action">
+                <dt class="jinya-segment__label">${localize({ key: 'pages_and_forms.segment.designer.action' })}</dt>
+                <dd class="jinya-segment__content" data-type="action-label">
+                    ${localize({ key: `pages_and_forms.segment.designer.action_${segment.action}` })}
+                </dd>
+                <dt class="jinya-segment__label" data-type="target"
+                    ${segment.action !== 'link' ? 'style="display: none;"' : ''}>
                     ${localize({ key: 'pages_and_forms.segment.designer.link' })}
                 </dt>
-                <dd class="jinya-segment__content">${segment.target}</dd>` : ''}
-        </dl>
+                <dd class="jinya-segment__content" data-type="target" data-action="target"
+                    ${segment.action !== 'link' ? 'style="display: none;"' : ''}>
+                    ${segment.target}
+                </dd>
+            </dl>
         </div>`;
     segmentList.appendChild(segmentElem);
   }
@@ -137,7 +177,6 @@ export default class SegmentPagePage extends JinyaDesignerPage {
     const segmentElem = document.createElement('div');
     segmentElem.classList.add('jinya-designer-item', 'jinya-designer-item--gallery');
     segmentElem.setAttribute('data-position', segment.position.toString(10));
-    segmentElem.setAttribute('data-id', segment.id.toString(10));
     segmentElem.innerHTML = html`
         <span class="jinya-designer-item__title">
             ${localize({ key: 'pages_and_forms.segment.designer.gallery' })}
@@ -216,6 +255,16 @@ export default class SegmentPagePage extends JinyaDesignerPage {
       });
     });
     document.getElementById('new-page-button').addEventListener('click', async () => {
+      const { default: AddSegmentPageDialog } = await import('./segment-pages/AddSegmentPageDialog.js');
+      const dialog = new AddSegmentPageDialog({
+        onHide: async (page) => {
+          this.pages.push(page);
+          this.displayPages();
+          this.selectPage({ id: page.id });
+          await this.displaySelectedPage();
+        },
+      });
+      dialog.show();
     });
   }
 
@@ -224,18 +273,185 @@ export default class SegmentPagePage extends JinyaDesignerPage {
     const { items } = await get('/api/segment-page');
     this.pages = items;
 
+    this.toolboxSortable = new Sortable(document.getElementById('segment-toolbox'), {
+      group: { name: 'segment_page', put: false, pull: 'clone' },
+      sort: false,
+      handle: '.jinya-designer__drag-handle',
+      onEnd(e) {
+        if (!e.to.classList.contains('jinya-designer__toolbox')) {
+          e.item.remove();
+        }
+      },
+    });
+
     this.displayPages();
     this.selectPage({ id: this.pages[0].id });
     await this.displaySelectedPage();
   }
 
+  async openSegmentEditorUpdate() {
+    if (this.selectedSegment.gallery) {
+      const { default: EditGallerySegmentDialog } = await import('./segment-pages/EditGallerySegmentDialog.js');
+      const dialog = new EditGallerySegmentDialog({
+        id: this.selectedPage.id,
+        galleryId: this.selectedSegment.gallery.id,
+        position: this.selectedSegment.position,
+        newSegment: false,
+        onHide: async ({ gallery }) => {
+          this.selectedSegment.gallery = gallery;
+          this.segments.find((s) => s.position === this.selectedSegment.position).gallery = gallery;
+          document.querySelector(`[data-position="${this.selectedSegment.position}"] .jinya-designer-item__details--gallery`).innerText = gallery.name;
+        },
+      });
+      await dialog.show();
+    } else if (this.selectedSegment.file) {
+      const { default: EditFileSegmentDialog } = await import('./segment-pages/EditFileSegmentDialog.js');
+      const dialog = new EditFileSegmentDialog({
+        id: this.selectedPage.id,
+        fileId: this.selectedSegment.file.id,
+        target: this.selectedSegment.target,
+        position: this.selectedSegment.position,
+        newSegment: false,
+        onHide: async ({ file, target }) => {
+          this.selectedSegment.file = file;
+          this.selectedSegment.target = target;
+          this.segments.find((s) => s.position === this.selectedSegment.position).file = file;
+          this.segments.find((s) => s.position === this.selectedSegment.position).target = target;
+          let action = '';
+          if (!target) {
+            document
+              .querySelectorAll(`[data-position="${this.selectedSegment.position}"] [data-type="target"]`)
+              .forEach((item) => item.setAttribute('style', 'display: none;'));
+            action = 'none';
+          } else {
+            action = 'link';
+            document
+              .querySelectorAll(`[data-position="${this.selectedSegment.position}"] [data-type="target"]`)
+              .forEach((item) => item.removeAttribute('style'));
+            document
+              .querySelector(`[data-position="${this.selectedSegment.position}"] [data-action="target"]`)
+              .innerText = target;
+            document
+              .querySelector(`[data-position="${this.selectedSegment.position}"] .jinya-segment__image`)
+              .src = file.path;
+          }
+          document
+            .querySelector(`[data-position="${this.selectedSegment.position}"] [data-type="action-label"]`)
+            .innerText = localize({ key: `pages_and_forms.segment.designer.action_${action}` });
+        },
+      });
+      await dialog.show();
+    } else if (this.selectedSegment.html) {
+      const { default: EditHtmlSegmentDialog } = await import('./segment-pages/EditHtmlSegmentDialog.js');
+      const dialog = new EditHtmlSegmentDialog({
+        id: this.selectedPage.id,
+        html: this.selectedSegment.html,
+        position: this.selectedSegment.position,
+        newSegment: false,
+        onHide: async ({ html: content }) => {
+          this.selectedSegment.html = content;
+          this.segments.find((s) => s.position === this.selectedSegment.position).html = content;
+          document
+            .querySelector(`[data-position="${this.selectedSegment.position}"] .jinya-designer-item__details--html`)
+            .innerHTML = content;
+        },
+      });
+      await dialog.show();
+    }
+  }
+
+  async openSegmentEditorCreate({ position, type }) {
+    if (type === 'gallery') {
+      const { default: EditGallerySegmentDialog } = await import('./segment-pages/EditGallerySegmentDialog.js');
+      const dialog = new EditGallerySegmentDialog({
+        id: this.selectedPage.id,
+        galleryId: -1,
+        position,
+        newSegment: true,
+        onHide: ({ segment }) => {
+          this.segments.splice(segment.position, 0, segment);
+          this.displaySegments();
+        },
+      });
+      await dialog.show();
+    } else if (type === 'file') {
+      const { default: EditFileSegmentDialog } = await import('./segment-pages/EditFileSegmentDialog.js');
+      const dialog = new EditFileSegmentDialog({
+        id: this.selectedPage.id,
+        fileId: -1,
+        target: '',
+        position,
+        newSegment: true,
+        onHide: ({ segment }) => {
+          this.segments.splice(segment.position, 0, segment);
+          this.displaySegments();
+        },
+      });
+      await dialog.show();
+    } else if (type === 'html') {
+      const { default: EditHtmlSegmentDialog } = await import('./segment-pages/EditHtmlSegmentDialog.js');
+      const dialog = new EditHtmlSegmentDialog({
+        id: this.selectedPage.id,
+        html: '',
+        position,
+        newSegment: true,
+        onHide: ({ segment }) => {
+          this.segments.splice(segment.position, 0, segment);
+          this.displaySegments();
+        },
+      });
+      await dialog.show();
+    }
+  }
+
   bindEvents() {
     super.bindEvents();
-    document.getElementById('edit-page').addEventListener('click', () => {
+    document.getElementById('edit-page').addEventListener('click', async () => {
+      const { default: EditSegmentPageDialog } = await import('./segment-pages/EditSegmentPageDialog.js');
+      const dialog = new EditSegmentPageDialog({
+        onHide: async ({ id, name }) => {
+          this.pages.find((p) => p.id === id).name = name;
+          this.displayPages();
+          this.selectPage({ id });
+          await this.displaySelectedPage();
+        },
+        name: this.selectedPage.name,
+        id: this.selectedPage.id,
+      });
+      dialog.show();
     });
-    document.getElementById('delete-page').addEventListener('click', () => {
+    document.getElementById('delete-page').addEventListener('click', async () => {
+      const confirmation = await confirm({
+        title: localize({ key: 'pages_and_forms.segment.delete.title' }),
+        message: localize({ key: 'pages_and_forms.segment.delete.message', values: this.selectedPage }),
+        approveLabel: localize({ key: 'pages_and_forms.segment.delete.delete' }),
+        declineLabel: localize({ key: 'pages_and_forms.segment.delete.keep' }),
+      });
+      if (confirmation) {
+        try {
+          await httpDelete(`/api/segment-page/${this.selectedPage.id}`);
+          this.pages = this.pages.filter((page) => page.id !== this.selectedPage.id);
+          this.displayPages();
+          this.selectPage({ id: this.pages[0].id });
+          document.getElementById('edit-segment').setAttribute('disabled', 'disabled');
+          document.getElementById('delete-segment').setAttribute('disabled', 'disabled');
+        } catch (e) {
+          if (e.status === 409) {
+            await alert({
+              title: localize({ key: 'pages_and_forms.segment.delete.error.title' }),
+              message: localize({ key: 'pages_and_forms.segment.delete.error.conflict' }),
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'pages_and_forms.segment.delete.error.title' }),
+              message: localize({ key: 'pages_and_forms.segment.delete.error.generic' }),
+            });
+          }
+        }
+      }
     });
-    document.getElementById('edit-segment').addEventListener('click', () => {
+    document.getElementById('edit-segment').addEventListener('click', async () => {
+      await this.openSegmentEditorUpdate();
     });
     document.getElementById('delete-segment').addEventListener('click', async () => {
       const confirmation = await confirm({

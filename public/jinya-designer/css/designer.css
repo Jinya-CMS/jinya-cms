@@ -97,6 +97,7 @@
     border: 4px solid var(--primary-color);
     padding: 13px;
     position: relative;
+    box-sizing: border-box;
 }
 
 .jinya-designer-item--selected::after {

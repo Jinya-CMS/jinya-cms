@@ -133,6 +133,11 @@ export default {
         message: 'Do you really want to delete the gallery {name}?',
         keep: 'Keep gallery',
         delete: 'Delete gallery',
+        error: {
+          title: 'Delete failed',
+          conflict: 'The gallery is used in a theme or menu and cannot be deleted.',
+          generic: 'An unknown error occurred, please contact your administrator',
+        },
       },
       designer: {
         title: {
@@ -186,6 +191,11 @@ export default {
         message: 'Do you really want to delete the page {title}?',
         keep: 'Keep page',
         delete: 'Delete page',
+        error: {
+          title: 'Delete failed',
+          conflict: 'The page is used in a theme or menu and cannot be deleted.',
+          generic: 'An unknown error occurred, please contact your administrator',
+        },
       },
     },
     segment: {
@@ -223,6 +233,11 @@ export default {
         message: 'Do you really want to delete the page {name}?',
         keep: 'Keep page',
         delete: 'Delete page',
+        error: {
+          title: 'Delete failed',
+          conflict: 'The page is used in a theme or menu and cannot be deleted.',
+          generic: 'An unknown error occurred, please contact your administrator',
+        },
       },
       delete_segment: {
         title: 'Delete segment',
@@ -246,6 +261,10 @@ export default {
           gallery: 'Gallery',
           update: 'Update segment',
           cancel: 'Discard changes',
+          error: {
+            title: 'Update failed',
+            generic: 'An unknown error occurred, please contact your administrator',
+          },
         },
       },
     },

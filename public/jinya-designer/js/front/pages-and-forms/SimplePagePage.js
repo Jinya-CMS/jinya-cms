@@ -1,10 +1,11 @@
-import JinyaDesignerPage from '../../foundation/JinyaDesignerPage.js';
-import getEditor from '../../foundation/ui/tiny.js';
 import html from '../../../lib/jinya-html.js';
-import localize from '../../foundation/localize.js';
+import clearChildren from '../../foundation/html/clearChildren.js';
 import { get, httpDelete, put } from '../../foundation/http/request.js';
-import confirm from '../../foundation/ui/confirm.js';
+import JinyaDesignerPage from '../../foundation/JinyaDesignerPage.js';
+import localize from '../../foundation/localize.js';
 import alert from '../../foundation/ui/alert.js';
+import confirm from '../../foundation/ui/confirm.js';
+import getEditor from '../../foundation/ui/tiny.js';
 
 export default class SimplePagePage extends JinyaDesignerPage {
   constructor({ layout }) {
@@ -32,6 +33,7 @@ export default class SimplePagePage extends JinyaDesignerPage {
     for (const page of this.pages) {
       list += `<a class="cosmo-list__item" data-id="${page.id}">${page.title}</a>`;
     }
+    clearChildren({ parent: document.getElementById('page-list') });
     document.getElementById('page-list').innerHTML = `${list}
                 <button id="new-page-button" class="cosmo-button cosmo-button--full-width">
                     ${localize({ key: 'pages_and_forms.simple.action.new' })}
@@ -142,11 +144,25 @@ export default class SimplePagePage extends JinyaDesignerPage {
         approveLabel: localize({ key: 'pages_and_forms.simple.delete.delete' }),
       });
       if (confirmation) {
-        await httpDelete(`/api/media/gallery/${this.selectedPage.id}`);
-        this.pages = this.pages.filter((page) => page.id !== this.selectedPage.id);
-        this.displayPages();
-        this.selectPage({ id: this.pages[0].id });
-        await this.displaySelectedPage();
+        try {
+          await httpDelete(`/api/simple-page/${this.selectedPage.id}`);
+          this.pages = this.pages.filter((page) => page.id !== this.selectedPage.id);
+          this.displayPages();
+          this.selectPage({ id: this.pages[0].id });
+          await this.displaySelectedPage();
+        } catch (e) {
+          if (e.status === 409) {
+            await alert({
+              title: localize({ key: 'pages_and_forms.simple.delete.error.title' }),
+              message: localize({ key: 'pages_and_forms.simple.delete.error.conflict' }),
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'pages_and_forms.simple.delete.error.title' }),
+              message: localize({ key: 'pages_and_forms.simple.delete.error.generic' }),
+            });
+          }
+        }
       }
     });
   }

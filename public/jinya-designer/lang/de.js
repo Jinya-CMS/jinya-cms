@@ -133,6 +133,11 @@ export default {
         message: 'Soll die Galerie {name} wirklich gelöscht werden?',
         keep: 'Galerie behalten',
         delete: 'Galerie löschen',
+        error: {
+          title: 'Löschen fehlgeschlagen',
+          conflict: 'Die Galerie konnte nicht gelöscht werden, da sie benutzt wird.',
+          generic: 'Ein unbekannter Fehler ist aufgetreten, bitte kontaktiere deinen Administrator',
+        },
       },
       designer: {
         title: {
@@ -186,6 +191,11 @@ export default {
         message: 'Soll die Seite {title} wirklich gelöscht werden?',
         keep: 'Seite behalten',
         delete: 'Seite löschen',
+        error: {
+          title: 'Löschen fehlgeschlagen',
+          conflict: 'Die Seite konnte nicht gelöscht werden, da sie benutzt wird.',
+          generic: 'Ein unbekannter Fehler ist aufgetreten, bitte kontaktiere deinen Administrator',
+        },
       },
     },
     segment: {
@@ -223,6 +233,11 @@ export default {
         message: 'Soll die Seite {name} wirklich gelöscht werden?',
         keep: 'Seite behalten',
         delete: 'Seite löschen',
+        error: {
+          title: 'Löschen fehlgeschlagen',
+          conflict: 'Die Seite konnte nicht gelöscht werden, da sie benutzt wird.',
+          generic: 'Ein unbekannter Fehler ist aufgetreten, bitte kontaktiere deinen Administrator',
+        },
       },
       delete_segment: {
         title: 'Segment löschen',
@@ -246,6 +261,10 @@ export default {
           gallery: 'Galerie',
           update: 'Segment speichern',
           cancel: 'Änderungen verwerfen',
+          error: {
+            title: 'Speichern fehlgeschalgen',
+            generic: 'Ein unbekannter Fehler ist aufgetreten, bitte kontaktiere deinen Administrator',
+          },
         },
       },
     },

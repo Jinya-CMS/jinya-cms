@@ -12,6 +12,10 @@
     max-height: 144px;
 }
 
+.jinya-segment__image--file-selected {
+    max-height: calc(144px - 8px);
+}
+
 .jinya-segment__action {
     display: grid;
     grid-template-columns: [title] auto [data] 1fr;
