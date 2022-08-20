@@ -8,7 +8,7 @@ export default function urlSplitter() {
     return {
       stage: 'front',
       section: 'statistics',
-      page: 'matomo',
+      page: 'matomo-stats',
     };
   }
   const split = url.split('/');

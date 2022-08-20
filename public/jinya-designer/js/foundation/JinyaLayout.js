@@ -67,17 +67,17 @@ export default class JinyaLayout extends JinyaDesignerLayout {
     return html`
         <div class="cosmo-top-bar">
             ${roles.includes('ROLE_ADMIN') ? html`
-        <div class="cosmo-top-bar__menu" data-stage="front">
-            <a href="#back/maintenance/update" class="cosmo-top-bar__menu-item">
-                ${localize({ key: 'maintenance.menu.title' })}
-            </a>
-            <a href="#back/database/mysql-info" class="cosmo-top-bar__menu-item">
-                ${localize({ key: 'database.menu.title' })}
-            </a>
-            <a href="#back/artists/index" class="cosmo-top-bar__menu-item">
-                ${localize({ key: 'artists.menu.title' })}
-            </a>
-        </div>` : ''}
+                <div class="cosmo-top-bar__menu" data-stage="front">
+                    <a href="#back/maintenance/update" class="cosmo-top-bar__menu-item">
+                        ${localize({ key: 'maintenance.menu.title' })}
+                    </a>
+                    <a href="#back/database/mysql-info" class="cosmo-top-bar__menu-item">
+                        ${localize({ key: 'database.menu.title' })}
+                    </a>
+                    <a href="#back/artists/index" class="cosmo-top-bar__menu-item">
+                        ${localize({ key: 'artists.menu.title' })}
+                    </a>
+                </div>` : ''}
             <img src="${this.artist.profilePicture}" class="cosmo-profile-picture" alt="Imanuel Ulbricht">
             <a class="cosmo-top-bar__menu-item jinya-top-bar__menu-item--logout" id="jinya-logout">
                 ${localize({ key: 'top_menu.logout' })}
@@ -137,6 +137,10 @@ export default class JinyaLayout extends JinyaDesignerLayout {
                     <a href="#front/pages-and-forms/segment-pages" data-section="pages-and-forms" data-stage="front"
                        hidden data-page="segment-pages" class="cosmo-menu-bar__sub-item">
                         ${localize({ key: 'pages_and_forms.menu.segment_pages' })}
+                    </a>
+                    <a href="#front/pages-and-forms/forms" data-section="pages-and-forms" data-stage="front" hidden
+                       data-page="forms" class="cosmo-menu-bar__sub-item">
+                        ${localize({ key: 'pages_and_forms.menu.forms' })}
                     </a>
                 </div>
             </nav>

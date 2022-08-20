@@ -10,6 +10,9 @@
     "es6": true,
     "browser": true
   },
+  "globals": {
+    "tinymce": "readonly"
+  },
   "rules": {
     "import/extensions": [
       "error",

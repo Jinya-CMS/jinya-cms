@@ -221,8 +221,14 @@ export default class GalleryPage extends JinyaDesignerPage {
           this.galleries = this.galleries
             .filter((gallery) => gallery.id !== this.selectedGallery.id);
           this.displayGalleries();
-          this.selectGallery({ id: this.galleries[0].id });
-          await this.displaySelectedGallery();
+          if (this.galleries.length > 0) {
+            this.selectGallery({ id: this.galleries[0].id });
+            await this.displaySelectedGallery();
+          } else {
+            this.selectedGallery = null;
+            document.getElementById('id-and-name').innerText = '';
+            document.getElementById('type-and-orientation').innerText = '';
+          }
         } catch (e) {
           if (e.status === 409) {
             await alert({

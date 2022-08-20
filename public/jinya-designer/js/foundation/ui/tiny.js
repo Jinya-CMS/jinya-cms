@@ -47,6 +47,12 @@ function getContentCss() {
   }
 }
 
+/**
+ *
+ * @param element
+ * @param height
+ * @return {Promise<Editor>}
+ */
 export default async function getEditor({ element, height = '500px' }) {
   if (!tinyInitialized) {
     const scriptTag = document.createElement('script');

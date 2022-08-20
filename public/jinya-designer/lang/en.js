@@ -307,6 +307,11 @@ export default {
         message: 'Do you really want to delete the form {title}?',
         keep: 'Keep form',
         delete: 'Delete form',
+        error: {
+          title: 'Delete failed',
+          conflict: 'The form is used in a theme or menu and cannot be deleted.',
+          generic: 'An unknown error occurred, please contact your administrator',
+        },
       },
       delete_item: {
         title: 'Delete item',

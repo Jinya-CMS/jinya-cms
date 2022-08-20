@@ -70,6 +70,7 @@ export default class EditFileSegmentDialog {
             position: this.position, html: tiny.getContent(),
           });
         }
+        tinymce.remove();
         container.remove();
       } catch (err) {
         await alert({

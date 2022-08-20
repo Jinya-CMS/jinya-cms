@@ -307,6 +307,11 @@ export default {
         message: 'Soll das Formular {title} wirklich gelöscht werden?',
         keep: 'Formular behalten',
         delete: 'Formular löschen',
+        error: {
+          title: 'Löschen fehlgeschlagen',
+          conflict: 'Das Formular konnte nicht gelöscht werden, da es benutzt wird.',
+          generic: 'Ein unbekannter Fehler ist aufgetreten, bitte kontaktiere deinen Administrator',
+        },
       },
       delete_item: {
         title: 'Element löschen',

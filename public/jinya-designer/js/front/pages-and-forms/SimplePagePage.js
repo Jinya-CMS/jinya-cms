@@ -148,8 +148,14 @@ export default class SimplePagePage extends JinyaDesignerPage {
           await httpDelete(`/api/simple-page/${this.selectedPage.id}`);
           this.pages = this.pages.filter((page) => page.id !== this.selectedPage.id);
           this.displayPages();
-          this.selectPage({ id: this.pages[0].id });
-          await this.displaySelectedPage();
+          if (this.pages.length > 0) {
+            this.selectPage({ id: this.pages[0].id });
+            await this.displaySelectedPage();
+          } else {
+            this.selectedPage = null;
+            await this.displaySegments();
+            document.getElementById('page-title').innerText = '';
+          }
         } catch (e) {
           if (e.status === 409) {
             await alert({

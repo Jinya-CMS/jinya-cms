@@ -28,6 +28,11 @@ export default class SegmentPagePage extends JinyaDesignerPage {
     document.getElementById('delete-segment').setAttribute('disabled', 'disabled');
   }
 
+  async displaySelectedPage() {
+    this.segments = await get(`/api/segment-page/${this.selectedPage.id}/segment`);
+    this.displaySegments();
+  }
+
   // eslint-disable-next-line class-methods-use-this
   resetPositions() {
     document.getElementById('segment-list')
@@ -60,11 +65,6 @@ export default class SegmentPagePage extends JinyaDesignerPage {
     document.getElementById('edit-segment').removeAttribute('disabled');
     document.getElementById('delete-segment').removeAttribute('disabled');
     this.selectedSegment = this.segments.find((s) => s.position === parseInt(segmentPosition, 10));
-  }
-
-  async displaySelectedPage() {
-    this.segments = await get(`/api/segment-page/${this.selectedPage.id}/segment`);
-    this.displaySegments();
   }
 
   displaySegments() {
@@ -246,7 +246,7 @@ export default class SegmentPagePage extends JinyaDesignerPage {
     clearChildren({ parent: document.getElementById('page-list') });
     document.getElementById('page-list').innerHTML = `${list}
                 <button id="new-page-button" class="cosmo-button cosmo-button--full-width">
-                    ${localize({ key: 'pages_and_forms.simple.action.new' })}
+                    ${localize({ key: 'pages_and_forms.segment.action.new' })}
                 </button>`;
     document.querySelectorAll('.cosmo-list__item').forEach((item) => {
       item.addEventListener('click', async () => {
@@ -432,7 +432,14 @@ export default class SegmentPagePage extends JinyaDesignerPage {
           await httpDelete(`/api/segment-page/${this.selectedPage.id}`);
           this.pages = this.pages.filter((page) => page.id !== this.selectedPage.id);
           this.displayPages();
-          this.selectPage({ id: this.pages[0].id });
+          if (this.pages.length > 0) {
+            this.selectPage({ id: this.pages[0].id });
+          } else {
+            this.selectedPage = null;
+            this.segments = [];
+            await this.displaySegments();
+            document.getElementById('page-title').innerText = '';
+          }
           document.getElementById('edit-segment').setAttribute('disabled', 'disabled');
           document.getElementById('delete-segment').setAttribute('disabled', 'disabled');
         } catch (e) {
