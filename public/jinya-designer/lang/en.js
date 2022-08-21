@@ -412,6 +412,7 @@ export default {
           new: 'New post',
           delete: 'Delete post',
           edit: 'Edit post',
+          designer: 'Postdesigner',
         },
         delete: {
           title: 'Delete post',
@@ -421,8 +422,7 @@ export default {
         },
       },
       edit: {
-        title_new: 'New post',
-        title_edit: 'Edit post {title}',
+        title: 'Edit post',
         tabs: {
           settings: 'Settings',
           segments: 'Segments',
@@ -430,15 +430,12 @@ export default {
         category: 'Category',
         no_category: 'No Category',
         slug: 'Slug',
-        title: 'Title',
+        post_title: 'Title',
         public: 'Public',
+        no_header_image: 'No post image',
         header_image: 'Post image',
-        action: {
-          save_new: 'Create post',
-          discard_new: 'Discard post',
-          save_edit: 'Save post',
-          discard_edit: 'Discard changes',
-        },
+        update: 'Save post',
+        cancel: 'Discard changes',
         error: {
           title: 'Error while saving',
           slug_exists: 'The chosen slug already exists',
@@ -459,6 +456,32 @@ export default {
           file: {
             name: 'Name',
           },
+        },
+      },
+      create: {
+        title: 'New post',
+        tabs: {
+          settings: 'Settings',
+          segments: 'Segments',
+        },
+        category: 'Category',
+        no_category: 'No Category',
+        slug: 'Slug',
+        post_title: 'Title',
+        public: 'Public',
+        no_header_image: 'No post image',
+        header_image: 'Post image',
+        create: 'Create post',
+        cancel: 'Discard post',
+        error: {
+          title: 'Error while saving',
+          slug_exists: 'The chosen slug already exists',
+          title_exists: 'The chosen title already exists',
+          generic: 'An unknown error occurred saving the post',
+        },
+        success: {
+          title: 'Post was saved',
+          message: 'Your post was saved successfully',
         },
       },
     },

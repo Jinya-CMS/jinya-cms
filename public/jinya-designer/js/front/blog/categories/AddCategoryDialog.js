@@ -5,7 +5,7 @@ import alert from '../../../foundation/ui/alert.js';
 
 export default class AddCategoryDialog {
   /**
-   Shows the create dialog
+   * Shows the create dialog
    * @param categories {{id: number, name: string}[]}
    * @param id {number}
    * @param onHide {function({id: number, name: string, description: string, webhookUrl: string, parent: {id: number, name: string}, webhookEnabled: boolean})}

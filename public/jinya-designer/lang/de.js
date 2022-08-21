@@ -412,6 +412,7 @@ export default {
           new: 'Neuer Artikel',
           delete: 'Artikel löschen',
           edit: 'Artikel bearbeiten',
+          designer: 'Artikeldesigner',
         },
         delete: {
           title: 'Artikel löschen',
@@ -421,8 +422,7 @@ export default {
         },
       },
       edit: {
-        title_new: 'Neuer Artikel',
-        title_edit: 'Artikel {title} bearbeiten',
+        title: 'Artikel bearbeiten',
         tabs: {
           settings: 'Einstellungen',
           segments: 'Segmente',
@@ -430,15 +430,49 @@ export default {
         category: 'Kategorie',
         no_category: 'Keine Kategorie',
         slug: 'Slug',
-        title: 'Titel',
+        post_title: 'Titel',
         public: 'Öffentlich',
+        no_header_image: 'Kein Artikelbild',
         header_image: 'Artikelbild',
-        action: {
-          save_new: 'Artikel erstellen',
-          discard_new: 'Artikel verwerfen',
-          save_edit: 'Artikel speichern',
-          discard_edit: 'Änderungen verwerfen',
+        update: 'Artikel speichern',
+        cancel: 'Änderungen verwerfen',
+        error: {
+          title: 'Fehler beim Speichern',
+          slug_exists: 'Der gewählte Slug ist bereits vergeben',
+          title_exists: 'Der gewählte Titel ist bereits vergeben',
+          generic: 'Ein unbekannter Fehler ist aufgetreten',
         },
+        success: {
+          title: 'Artikel gespeichert',
+          message: 'Der Artikel wurde erfolgreich gespeichert',
+        },
+        segment: {
+          delete_segment: {
+            title: 'Segment entfernen',
+            message: 'Soll das gewählte Segment wirklich entfernt werden?',
+            delete: 'Segment entfernen',
+            keep: 'Segment behalten',
+          },
+          file: {
+            name: 'Name',
+          },
+        },
+      },
+      create: {
+        title: 'Neuer Artikel',
+        tabs: {
+          settings: 'Einstellungen',
+          segments: 'Segmente',
+        },
+        category: 'Kategorie',
+        no_category: 'Keine Kategorie',
+        slug: 'Slug',
+        post_title: 'Titel',
+        public: 'Öffentlich',
+        no_header_image: 'Kein Artikelbild',
+        header_image: 'Artikelbild',
+        create: 'Artikel erstellen',
+        cancel: 'Artikel verwerfen',
         error: {
           title: 'Fehler beim Speichern',
           slug_exists: 'Der gewählte Slug ist bereits vergeben',
