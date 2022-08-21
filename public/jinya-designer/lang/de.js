@@ -398,6 +398,11 @@ export default {
         message: 'Soll die Kategorie {name} wirklich gelöscht werden?',
         keep: 'Kategorie behalten',
         delete: 'Kategorie löschen',
+        error: {
+          title: 'Löschen fehlgeschlagen',
+          conflict: 'Die Kategorie konnte nicht gelöscht werden, da sie benutzt wird.',
+          generic: 'Ein unbekannter Fehler ist aufgetreten, bitte kontaktiere deinen Administrator',
+        },
       },
     },
     posts: {

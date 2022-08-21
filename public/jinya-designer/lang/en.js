@@ -398,6 +398,11 @@ export default {
         message: 'Do you really want to delete the category {name}?',
         keep: 'Keep category',
         delete: 'Delete category',
+        error: {
+          title: 'Delete failed',
+          conflict: 'The category is used in a theme or menu and cannot be deleted.',
+          generic: 'An unknown error occurred, please contact your administrator',
+        },
       },
     },
     posts: {
