@@ -168,6 +168,15 @@ export default class PostOverviewPage extends JinyaDesignerPage {
       });
       await dialog.show();
     });
+    document.getElementById('designer-post').addEventListener('click', async () => {
+      const segments = await get(`/api/blog/post/${this.selectedPost.id}/segment`);
+      const { default: PostDesignerDialog } = await import('./posts/PostDesignerDialog.js');
+      const dialog = new PostDesignerDialog({
+        post: this.selectedPost,
+        segments,
+      });
+      await dialog.show();
+    });
   }
 
   selectPost(post) {

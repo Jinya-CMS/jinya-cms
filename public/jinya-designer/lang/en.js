@@ -423,10 +423,6 @@ export default {
       },
       edit: {
         title: 'Edit post',
-        tabs: {
-          settings: 'Settings',
-          segments: 'Segments',
-        },
         category: 'Category',
         no_category: 'No Category',
         slug: 'Slug',
@@ -446,24 +442,38 @@ export default {
           title: 'Post was saved',
           message: 'Your post was saved successfully',
         },
-        segment: {
+      },
+      designer: {
+        file: 'File',
+        gallery: 'Gallery',
+        html: 'Formatted text',
+        link: 'Link',
+        name: 'Name',
+        action: {
+          delete_segment: 'Delete segment',
+          edit_segment: 'Edit segment',
+        },
+        edit: {
+          title: 'Edit segment',
+          file: 'File',
+          has_link: 'Has link',
+          link: 'Link',
+          gallery: 'Gallery',
+          update: 'Update segment',
+          cancel: 'Discard changes',
           delete_segment: {
             title: 'Remove segment',
             message: 'Do you really want to remove the selected segment?',
             delete: 'Remove segment',
             keep: 'Keep segment',
           },
-          file: {
-            name: 'Name',
-          },
         },
+        title: 'Post designer',
+        cancel: 'Discard changes',
+        save: 'Save changes',
       },
       create: {
         title: 'New post',
-        tabs: {
-          settings: 'Settings',
-          segments: 'Segments',
-        },
         category: 'Category',
         no_category: 'No Category',
         slug: 'Slug',

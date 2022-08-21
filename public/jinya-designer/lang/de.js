@@ -423,10 +423,6 @@ export default {
       },
       edit: {
         title: 'Artikel bearbeiten',
-        tabs: {
-          settings: 'Einstellungen',
-          segments: 'Segmente',
-        },
         category: 'Kategorie',
         no_category: 'Keine Kategorie',
         slug: 'Slug',
@@ -446,24 +442,9 @@ export default {
           title: 'Artikel gespeichert',
           message: 'Der Artikel wurde erfolgreich gespeichert',
         },
-        segment: {
-          delete_segment: {
-            title: 'Segment entfernen',
-            message: 'Soll das gewählte Segment wirklich entfernt werden?',
-            delete: 'Segment entfernen',
-            keep: 'Segment behalten',
-          },
-          file: {
-            name: 'Name',
-          },
-        },
       },
       create: {
         title: 'Neuer Artikel',
-        tabs: {
-          settings: 'Einstellungen',
-          segments: 'Segmente',
-        },
         category: 'Kategorie',
         no_category: 'Keine Kategorie',
         slug: 'Slug',
@@ -483,17 +464,35 @@ export default {
           title: 'Artikel gespeichert',
           message: 'Der Artikel wurde erfolgreich gespeichert',
         },
-        segment: {
+      },
+      designer: {
+        file: 'Datei',
+        gallery: 'Galerie',
+        html: 'Formatierter Text',
+        link: 'Link',
+        name: 'Name',
+        action: {
+          delete_segment: 'Segment löschen',
+          edit_segment: 'Segment bearbeiten',
+        },
+        edit: {
+          title: 'Segment bearbeiten',
+          file: 'Datei',
+          has_link: 'Mit link',
+          link: 'Link',
+          gallery: 'Galerie',
+          update: 'Segment speichern',
+          cancel: 'Änderungen verwerfen',
           delete_segment: {
-            title: 'Segment entfernen',
-            message: 'Soll das gewählte Segment wirklich entfernt werden?',
-            delete: 'Segment entfernen',
+            title: 'Segment löschen',
+            message: 'Soll das Segment wirklich gelöscht werden?',
+            delete: 'Segment löschen',
             keep: 'Segment behalten',
           },
-          file: {
-            name: 'Name',
-          },
         },
+        title: 'Artikeldesigner',
+        cancel: 'Änderungen verwerfen',
+        save: 'Artikel speichern',
       },
     },
   },
