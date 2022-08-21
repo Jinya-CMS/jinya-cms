@@ -55,6 +55,8 @@ export default class CategoriesPage extends JinyaDesignerPage {
   }
 
   displayCategories() {
+    document.getElementById('edit-category').disabled = true;
+    document.getElementById('delete-category').disabled = true;
     let list = '';
     for (const category of this.categories) {
       list += `<a class="cosmo-list__item" data-id="${category.id}">#${category.id} ${category.name}</a>`;
@@ -99,6 +101,8 @@ export default class CategoriesPage extends JinyaDesignerPage {
   }
 
   selectCategory({ id }) {
+    document.getElementById('edit-category').disabled = false;
+    document.getElementById('delete-category').disabled = false;
     this.selectedCategory = this.categories.find((f) => f.id === parseInt(id, 10));
     document
       .querySelectorAll('.cosmo-list__item--active')
@@ -112,8 +116,10 @@ export default class CategoriesPage extends JinyaDesignerPage {
     this.categories = items;
 
     this.displayCategories();
-    this.selectCategory({ id: this.categories[0].id });
-    this.displaySelectedCategory();
+    if (this.categories.length > 0) {
+      this.selectCategory({ id: this.categories[0].id });
+      this.displaySelectedCategory();
+    }
   }
 
   bindEvents() {

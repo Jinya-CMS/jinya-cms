@@ -19,6 +19,8 @@ export default class SegmentPagePage extends JinyaDesignerPage {
   }
 
   selectPage({ id }) {
+    document.getElementById('edit-page').disabled = false;
+    document.getElementById('delete-page').disabled = false;
     this.selectedPage = this.pages.find((p) => p.id === parseInt(id, 10));
     document
       .querySelectorAll('.cosmo-list__item--active')
@@ -239,6 +241,8 @@ export default class SegmentPagePage extends JinyaDesignerPage {
   }
 
   displayPages() {
+    document.getElementById('edit-page').disabled = true;
+    document.getElementById('delete-page').disabled = true;
     let list = '';
     for (const page of this.pages) {
       list += `<a class="cosmo-list__item" data-id="${page.id}">${page.name}</a>`;

@@ -104,7 +104,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
                        data-stage="front">
                         ${localize({ key: 'blog.menu.title' })}
                     </a>
-                    <a href="#front/design/menus" class="cosmo-menu-bar__main-item" data-section="menus"
+                    <a href="#front/design/menus" class="cosmo-menu-bar__main-item" data-section="design"
                        data-stage="front">
                         ${localize({ key: 'design.menu.title' })}
                     </a>
@@ -145,10 +145,15 @@ export default class JinyaLayout extends JinyaDesignerLayout {
                     <a href="#front/blog/categories" data-section="blog" data-stage="front" hidden
                        data-page="categories" class="cosmo-menu-bar__sub-item">
                         ${localize({ key: 'blog.menu.categories' })}
-                        <a href="#front/blog/posts-overview" data-section="blog" data-stage="front" hidden
-                           data-page="posts-overview" class="cosmo-menu-bar__sub-item">
-                            ${localize({ key: 'blog.menu.posts' })}
-                        </a>
+                    </a>
+                    <a href="#front/blog/posts-overview" data-section="blog" data-stage="front" hidden
+                       data-page="posts-overview" class="cosmo-menu-bar__sub-item">
+                        ${localize({ key: 'blog.menu.posts' })}
+                    </a>
+                    <a href="#front/design/menus" data-section="design" data-stage="front" hidden data-page="menus"
+                       class="cosmo-menu-bar__sub-item">
+                        ${localize({ key: 'design.menu.menus' })}
+                    </a>
                 </div>
             </nav>
         </div>

@@ -543,6 +543,11 @@ export default {
         message: 'Do you really want to delete the menu {name}?',
         keep: 'Keep menu',
         delete: 'Delete menu',
+        error: {
+          title: 'Delete failed',
+          conflict: 'The menu could not be deleted, because it is used in a theme.',
+          generic: 'An unknown error occurred, please contact your administrator',
+        },
       },
       delete_item: {
         title: 'Delete item',

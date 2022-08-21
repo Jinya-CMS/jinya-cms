@@ -20,6 +20,8 @@ export default class GalleryPage extends JinyaDesignerPage {
   }
 
   selectGallery({ id }) {
+    document.getElementById('edit-gallery').disabled = false;
+    document.getElementById('delete-gallery').disabled = false;
     this.selectedGallery = this.galleries.find((f) => f.id === parseInt(id, 10));
     document
       .querySelectorAll('.cosmo-list__item--active')
@@ -124,6 +126,8 @@ export default class GalleryPage extends JinyaDesignerPage {
   }
 
   displayGalleries() {
+    document.getElementById('edit-gallery').disabled = true;
+    document.getElementById('delete-gallery').disabled = true;
     let list = '';
     for (const gallery of this.galleries) {
       list += `<a class="cosmo-list__item" data-id="${gallery.id}">${gallery.name}</a>`;

@@ -16,6 +16,8 @@ export default class SimplePagePage extends JinyaDesignerPage {
   }
 
   selectPage({ id }) {
+    document.getElementById('edit-page').disabled = false;
+    document.getElementById('delete-page').disabled = false;
     this.selectedPage = this.pages.find((f) => f.id === parseInt(id, 10));
     document
       .querySelectorAll('.cosmo-list__item--active')
@@ -29,6 +31,8 @@ export default class SimplePagePage extends JinyaDesignerPage {
   }
 
   displayPages() {
+    document.getElementById('edit-page').disabled = true;
+    document.getElementById('delete-page').disabled = true;
     let list = '';
     for (const page of this.pages) {
       list += `<a class="cosmo-list__item" data-id="${page.id}">${page.title}</a>`;
@@ -183,7 +187,9 @@ export default class SimplePagePage extends JinyaDesignerPage {
     this.pages = items;
 
     this.displayPages();
-    this.selectPage({ id: this.pages[0].id });
-    this.displaySelectedPage();
+    if (this.pages.length > 0) {
+      this.selectPage({ id: this.pages[0].id });
+      this.displaySelectedPage();
+    }
   }
 }

@@ -543,6 +543,11 @@ export default {
         message: 'Soll das Menü {name} wirklich gelöscht werden?',
         keep: 'Menü behalten',
         delete: 'Menü löschen',
+        error: {
+          title: 'Löschen fehlgeschlagen',
+          conflict: 'Das Menü konnte nicht gelöscht werden, da es verwendet wird.',
+          generic: 'Ein unbekannter Fehler ist aufgetreten, bitte kontaktiere deinen Administrator',
+        },
       },
       delete_item: {
         title: 'Element löschen',
