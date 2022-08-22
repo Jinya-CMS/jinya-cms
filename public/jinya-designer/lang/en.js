@@ -691,9 +691,13 @@ export default {
         save_profile: 'Save profile',
         discard_profile: 'Discard changes',
       },
+      edit: {
+        title: 'Update profile',
+      },
       email: 'Email',
       artist_name: 'Artist name',
       profile_picture: 'Profile picture',
+      about_me: 'About me',
       change_password: {
         title: 'Change password',
         new_password_repeat: 'Repeat password',

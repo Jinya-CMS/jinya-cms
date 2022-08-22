@@ -691,8 +691,12 @@ export default {
         save_profile: 'Profil speichern',
         discard_profile: 'Änderungen verwerfen',
       },
+      edit: {
+        title: 'Profil bearbeiten',
+      },
       email: 'Email',
       artist_name: 'Künstlername',
+      about_me: 'Über mich',
       profile_picture: 'Profilbild',
       change_password: {
         title: 'Passwort ändern',

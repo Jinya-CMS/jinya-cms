@@ -3,8 +3,6 @@ import {
   get, post, put, upload,
 } from '../http/request.js';
 
-let tinyInitialized = false;
-
 async function wait({ time }) {
   return new Promise((resolve) => {
     setTimeout(resolve, time);
@@ -54,13 +52,6 @@ function getContentCss() {
  * @return {Promise<Editor>}
  */
 export default async function getEditor({ element, height = '500px' }) {
-  if (!tinyInitialized) {
-    const scriptTag = document.createElement('script');
-    scriptTag.src = '/jinya-designer/lib/tinymce/tinymce.min.js';
-    document.head.append(scriptTag);
-    await wait({ time: 1000 });
-  }
-  tinyInitialized = true;
   // eslint-disable-next-line no-undef
   return (await tinymce.init({
     target: element,
@@ -136,7 +127,5 @@ export default async function getEditor({ element, height = '500px' }) {
 }
 
 export function destroyTiny() {
-  if (tinyInitialized) {
     tinymce.remove();
-  }
 }

@@ -1,3 +1,3 @@
-import ProfilePage from './ProfilePage.js';
+import MyProfilePage from './MyProfilePage.js';
 
-export default ProfilePage;
+export default MyProfilePage;
