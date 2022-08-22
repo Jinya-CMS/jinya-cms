@@ -14,11 +14,24 @@ export default class EditMenuItemDialog {
    * @param type {string}
    * @param route {string}
    * @param highlighted {boolean}
-   * @param title {title}
+   * @param title {string}
+   * @param parentId {string}
+   * @param menuId {string}
    * @param newItem {boolean}
    */
   constructor({
-                onHide, id: menuItemId, position, items, selectedItem, type, route, title, highlighted, newItem = false,
+                onHide,
+                id: menuItemId,
+                position,
+                items,
+                selectedItem,
+                type,
+                route,
+                title,
+                highlighted,
+                parentId = null,
+                menuId = null,
+                newItem = false,
               }) {
     this.onHide = onHide;
     this.position = position;
@@ -30,6 +43,8 @@ export default class EditMenuItemDialog {
     this.route = route;
     this.title = title;
     this.highlighted = highlighted;
+    this.parentId = parentId;
+    this.menuId = menuId;
   }
 
   async show() {
@@ -43,13 +58,14 @@ export default class EditMenuItemDialog {
                         <label for="editMenuItemTitle" class="cosmo-label">
                             ${localize({ key: 'design.menus.designer.edit.item_title' })}
                         </label>
-                        <input value="${this.title}" required type="text" id="editMenuItemTitle" class="cosmo-input">
+                        <input value="${this.title ?? ''}" required type="text" id="editMenuItemTitle"
+                               class="cosmo-input">
                         ${this.type === 'group' || this.type === 'blog_home_page' ? '' : html`
                             <label for="editMenuItemRoute" class="cosmo-label">
                                 ${localize({ key: 'design.menus.designer.edit.route' })}
                             </label>
-                            <input value="${this.route}" type="text" id="editMenuItemRoute" class="cosmo-input">`}
-                        ${this.type !== 'group' || this.type !== 'blog_home_page' ? html`
+                            <input value="${this.route ?? ''}" type="text" id="editMenuItemRoute" class="cosmo-input">`}
+                        ${this.type !== 'group' && this.type !== 'blog_home_page' && this.type !== 'external_link' ? html`
                             <label for="editMenuElement" class="cosmo-label">
                                 ${localize({ key: `design.menus.designer.type_${this.type}` })}
                             </label>
@@ -86,7 +102,7 @@ export default class EditMenuItemDialog {
     document.getElementById('edit-dialog-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const title = document.getElementById('editMenuItemTitle').value;
-      const route = document.getElementById('editMenuItemRoute').value;
+      const route = document.getElementById('editMenuItemRoute')?.value;
       const selectedItem = parseInt(document.getElementById('editMenuElement')?.value ?? '-1', 10);
       const highlighted = document.getElementById('editMenuItemIsHighlighted').checked;
       const data = {
@@ -125,11 +141,17 @@ export default class EditMenuItemDialog {
       }
       try {
         if (this.newItem) {
-          const segment = await post(`/api/segment-page/${this.id}/segment/gallery`, {
-            gallery: galleryId,
+          let url = '';
+          if (Number.isInteger(this.parentId)) {
+            url = `/api/menu-item/${this.parentId}/item`;
+          } else {
+            url = `/api/menu/${this.menuId}/item`;
+          }
+          const item = await post(url, {
+            ...data,
             position: this.position,
           });
-          this.onHide({ segment });
+          this.onHide(item);
         } else {
           await put(`/api/menu-item/${this.menuItemId}`, data);
           const result = {

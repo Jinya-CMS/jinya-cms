@@ -1,7 +1,7 @@
 import html from '../../../lib/jinya-html.js';
 import Sortable from '../../../lib/sortable.js';
 import clearChildren from '../../foundation/html/clearChildren.js';
-import { get, httpDelete } from '../../foundation/http/request.js';
+import { get, httpDelete, put } from '../../foundation/http/request.js';
 import JinyaDesignerPage from '../../foundation/JinyaDesignerPage.js';
 import localize from '../../foundation/localize.js';
 import alert from '../../foundation/ui/alert.js';
@@ -110,6 +110,22 @@ export default class MenusPage extends JinyaDesignerPage {
     document.getElementById('edit-item').removeAttribute('disabled');
     document.getElementById('delete-item').removeAttribute('disabled');
 
+    const decreaseAllowed = item.menuItem && item.menuItem.nestingIndex !== 0;
+    let increaseAllowed = false;
+    if (item.menuItem) {
+      const current = this.items.indexOf(item.menuItem);
+      if (current !== 0) {
+        const previous = this.items[current - 1];
+
+        if (item.menuItem?.items[0]?.position !== item.menuItem?.position) {
+          increaseAllowed = !(item.menuItem?.parent && item.menuItem?.parent === previous);
+        }
+      }
+    }
+
+    document.getElementById('increase-nesting').disabled = !increaseAllowed;
+    document.getElementById('decrease-nesting').disabled = !decreaseAllowed;
+
     this.selectedItem = item.menuItem;
     this.selectedItem.parent = item.parentItem;
   }
@@ -118,8 +134,7 @@ export default class MenusPage extends JinyaDesignerPage {
     document.getElementById('edit-menu').disabled = false;
     document.getElementById('delete-menu').disabled = false;
     this.selectedMenu = this.menus.find((p) => p.id === parseInt(id, 10));
-    document
-      .querySelectorAll('.cosmo-list__item--active')
+    document.querySelectorAll('.cosmo-list__item--active')
       .forEach((item) => item.classList.remove('cosmo-list__item--active'));
     document.querySelector(`[data-id="${id}"]`).classList.add('cosmo-list__item--active');
     document.getElementById('edit-item').setAttribute('disabled', 'disabled');
@@ -166,25 +181,128 @@ export default class MenusPage extends JinyaDesignerPage {
     const itemList = document.getElementById('item-list');
     clearChildren({ parent: itemList });
     this.displayMenuItems({ items: this.items, itemList });
-    this.resultSortable = new Sortable(document.getElementById('item-list'));
+    this.resultSortable = new Sortable(document.getElementById('item-list'), {
+      group: { name: 'menu_items', put: true, pull: false },
+      sort: true,
+      onAdd: async (e) => {
+        const dropIdx = e.newIndex;
+        let position = -1;
+        let createMenuItemParent = null;
+        if (this.items.length === 0) {
+          position = 0;
+          createMenuItemParent = null;
+        } else if (this.items.length === dropIdx) {
+          position = this.items[this.items.length - 1].position + 2;
+          if (this.items[this.items.length - 1].parent) {
+            createMenuItemParent = this.items[this.items.length - 1].parent.id;
+          } else {
+            createMenuItemParent = null;
+          }
+        } else {
+          position = this.items[dropIdx].position;
+          if (this.items[dropIdx].parent) {
+            createMenuItemParent = this.items[dropIdx].parent.id;
+          } else {
+            createMenuItemParent = null;
+          }
+        }
+        const { default: EditMenuItemDialog } = await import('./menus/EditMenuItemDialog.js');
+        const type = e.item.getAttribute('data-type');
+        const data = {
+          newItem: true,
+          type,
+          position,
+        };
+        if (createMenuItemParent !== null && createMenuItemParent !== undefined) {
+          data.parentId = createMenuItemParent;
+        } else {
+          data.menuId = this.selectedMenu.id;
+        }
+
+        // eslint-disable-next-line default-case
+        switch (type) {
+          case 'gallery':
+            data.items = (await get('/api/media/gallery')).items;
+            break;
+          case 'page':
+            data.items = (await get('/api/page')).items;
+            break;
+          case 'segment_page':
+            data.items = (await get('/api/segment-page')).items;
+            break;
+          case 'form':
+            data.items = (await get('/api/form')).items;
+            break;
+          case 'artist':
+            data.items = (await get('/api/artist')).items;
+            break;
+          case 'blog_category':
+            data.items = (await get('/api/blog/category')).items;
+            break;
+        }
+
+        const dialog = new EditMenuItemDialog({
+          ...data,
+          onHide: async (item) => {
+            await this.displaySelectedMenu();
+            this.selectItem({ id: item.id });
+          },
+        });
+        await dialog.show();
+      },
+      onUpdate: async (e) => {
+        const dropIdx = e.newIndex > e.oldIndex ? e.newIndex + 1 : e.newIndex;
+        const menuItemId = parseInt(e.item.getAttribute('data-item-id'), 10);
+        const item = this.items[e.oldIndex];
+        const targetItem = dropIdx === this.items.length ? this.items[e.newIndex] : this.items[dropIdx];
+        const position = dropIdx === this.items.length ? this.items[e.newIndex].position + 1 : targetItem.position;
+        const newParent = targetItem?.parent?.id;
+        const dataParentId = item.parent?.id;
+        let currentParent = this.items.find((i) => i.id === dataParentId);
+        if (newParent) {
+          let allowMove = true;
+          while (currentParent) {
+            if (currentParent?.id === menuItemId) {
+              allowMove = false;
+              break;
+            }
+
+            currentParent = currentParent.parent;
+          }
+
+          if (allowMove) {
+            await put(`/api/menu-item/${menuItemId}/move/parent/to/item/${newParent}`);
+            await put(`/api/menu-item/${menuItemId}`, {
+              position,
+            });
+          }
+        } else {
+          await put(`/api/menu/${menuItemId}/move/parent/to/menu/${this.selectedMenu.id}`);
+          await put(`/api/menu-item/${menuItemId}`, {
+            position,
+          });
+        }
+        await this.displaySelectedMenu();
+        if (this.selectedItem) {
+          this.selectItem({ id: this.selectedItem.id });
+        }
+      },
+    });
   }
 
-  displayMenuItems({
-                     items, itemList, appendToParent = false, nestingIndex = 0, parent = null,
-                   }) {
+  displayMenuItems({ items, itemList, appendToParent = false }) {
     for (const item of items) {
       const type = this.getType(item);
       const itemElem = document.createElement('div');
       itemElem.classList.add('jinya-designer-item', 'jinya-designer-item--menu');
       itemElem.setAttribute('data-position', item.position.toString(10));
       itemElem.setAttribute('data-item-id', item.id.toString(10));
-      itemElem.setAttribute('data-parent-id', parent?.id.toString(10) ?? '-1');
-      itemElem.setAttribute('data-nesting-index', nestingIndex.toString(10));
-      itemElem.style.marginLeft = `${nestingIndex * 16}px`;
-      itemElem.style.width = `calc(100% - ${nestingIndex * 16}px)`;
+      itemElem.setAttribute('data-parent-id', item.parent?.id.toString(10) ?? '-1');
+      itemElem.setAttribute('data-nesting-index', item.nestingIndex.toString(10));
+      itemElem.style.marginLeft = `${item.nestingIndex * 16}px`;
+      itemElem.style.width = `calc(100% - ${item.nestingIndex * 16}px)`;
       itemElem.menuItem = item;
-      item.parent = parent;
-      itemElem.parentItem = parent;
+      itemElem.parentItem = item.parent;
       itemElem.innerHTML = html`
           <span class="jinya-designer-item__title">
               ${localize({ key: `design.menus.designer.type_${type}` })}
@@ -202,14 +320,6 @@ export default class MenusPage extends JinyaDesignerPage {
       itemElem.addEventListener('click', () => {
         this.selectItem({ id: item.id });
       });
-
-      this.displayMenuItems({
-        items: item.items ?? [],
-        itemList: itemElem,
-        appendToParent: true,
-        nestingIndex: nestingIndex + 1,
-        parent: item,
-      });
     }
   }
 
@@ -226,14 +336,29 @@ export default class MenusPage extends JinyaDesignerPage {
       type = 'form';
     } else if (item.gallery) {
       type = 'gallery';
-    } else if (item.target) {
-      type = 'external_link';
     } else if (item.category) {
       type = 'blog_category';
     } else if (item.blogHomePage) {
       type = 'blog_home_page';
+    } else if (item.route) {
+      type = 'external_link';
     }
     return type;
+  }
+
+  flattenMenuItems({ parent, nestingIndex, items }) {
+    const result = [];
+    for (const item of items) {
+      item.parent = parent;
+      item.nestingIndex = nestingIndex;
+      item.type = this.getType(item);
+      result.push(item);
+      if (items.length > 0) {
+        result.push(...this.flattenMenuItems({ parent: item, nestingIndex: nestingIndex + 1, items: item.items }));
+      }
+    }
+
+    return result;
   }
 
   async displayed() {
@@ -242,7 +367,7 @@ export default class MenusPage extends JinyaDesignerPage {
     this.menus = items;
 
     this.toolboxSortable = new Sortable(document.getElementById('item-toolbox'), {
-      group: { name: 'menu_item', put: false, pull: 'clone' },
+      group: { name: 'menu_items', put: false, pull: 'clone' },
       sort: false,
       handle: '.jinya-designer__drag-handle',
       onEnd(e) {
@@ -370,6 +495,21 @@ export default class MenusPage extends JinyaDesignerPage {
       });
       await dialog.show();
     });
+    document.getElementById('decrease-nesting').addEventListener('click', async () => {
+      await put(`/api/menu/${this.selectedMenu.id}/item/${this.selectedItem.id}/move/parent/one/level/up`);
+      await this.displaySelectedMenu();
+      this.selectItem(this.selectedItem);
+    });
+    document.getElementById('increase-nesting').addEventListener('click', async () => {
+      const previous = this.items[this.items.indexOf(this.selectedItem) - 1];
+      if (previous.nestingIndex > 0 && this.selectedItem.nestingIndex === previous.nestingIndex) {
+        await put(`/api/menu-item/${this.selectedItem.id}/move/parent/to/item/${previous.id}`);
+      } else {
+        await put(`/api/menu-item/${this.selectedItem.id}/move/parent/to/item/${previous.parent?.id ?? previous.id}`);
+      }
+      await this.displaySelectedMenu();
+      this.selectItem(this.selectedItem);
+    });
   }
 
   setMenuItem({ item, items }) {
@@ -388,7 +528,8 @@ export default class MenusPage extends JinyaDesignerPage {
   }
 
   async displaySelectedMenu() {
-    this.items = await get(`/api/menu/${this.selectedMenu.id}/item`);
+    const items = await get(`/api/menu/${this.selectedMenu.id}/item`);
+    this.items = this.flattenMenuItems({ parent: null, nestingIndex: 0, items });
     this.displayItems();
   }
 }

@@ -426,7 +426,7 @@ class MenuItemTest extends TestCase
         $menuItem->position = 1;
         $menuItem->create();
 
-        $found = MenuItem::findByMenuItemAndPosition($parent->getIdAsInt(), 1);
+        $found = MenuItem::findByMenuItemAndPosition($parent->getIdAsInt(), 0);
         $this->assertEquals($menuItem, $found);
     }
 
