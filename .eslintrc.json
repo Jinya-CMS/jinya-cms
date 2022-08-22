@@ -11,7 +11,8 @@
     "browser": true
   },
   "globals": {
-    "tinymce": "readonly"
+    "tinymce": "readonly",
+    "UAParser": "readonly"
   },
   "rules": {
     "import/extensions": [

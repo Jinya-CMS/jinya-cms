@@ -158,6 +158,18 @@ export default class JinyaLayout extends JinyaDesignerLayout {
                        class="cosmo-menu-bar__sub-item">
                         ${localize({ key: 'design.menu.themes' })}
                     </a>
+                    <a href="#front/my-jinya/my-profile" data-section="my-jinya" data-stage="front" hidden
+                       data-page="my-profile" class="cosmo-menu-bar__sub-item">
+                        ${localize({ key: 'my_jinya.menu.my_profile' })}
+                    </a>
+                    <a href="#front/my-jinya/active-sessions" data-section="my-jinya" data-stage="front" hidden
+                       data-page="active-sessions" class="cosmo-menu-bar__sub-item">
+                        ${localize({ key: 'my_jinya.menu.active_sessions' })}
+                    </a>
+                    <a href="#front/my-jinya/active-devices" data-section="my-jinya" data-stage="front" hidden
+                       data-page="active-devices" class="cosmo-menu-bar__sub-item">
+                        ${localize({ key: 'my_jinya.menu.active_devices' })}
+                    </a>
                 </div>
             </nav>
         </div>

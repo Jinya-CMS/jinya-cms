@@ -680,7 +680,7 @@ export default {
   my_jinya: {
     menu: {
       title: 'Mein Jinya',
-      my_profile: 'Mein profile',
+      my_profile: 'Mein Profil',
       active_sessions: 'Aktive Anmeldungen',
       active_devices: 'Gemerkte Geräte',
     },
