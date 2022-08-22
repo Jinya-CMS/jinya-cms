@@ -154,6 +154,10 @@ export default class JinyaLayout extends JinyaDesignerLayout {
                        class="cosmo-menu-bar__sub-item">
                         ${localize({ key: 'design.menu.menus' })}
                     </a>
+                    <a href="#front/design/themes" data-section="design" data-stage="front" hidden data-page="themes"
+                       class="cosmo-menu-bar__sub-item">
+                        ${localize({ key: 'design.menu.themes' })}
+                    </a>
                 </div>
             </nav>
         </div>

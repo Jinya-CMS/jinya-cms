@@ -580,7 +580,7 @@ export default {
         activate: 'Activate theme',
         compile_assets: 'Generate assets',
         update: 'Update theme',
-        create: 'Theme hochladen',
+        create: 'Upload theme',
       },
       activate: {
         title: 'Activate theme',

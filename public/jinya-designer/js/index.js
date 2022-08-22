@@ -1,8 +1,9 @@
 import { head } from './foundation/http/request.js';
+import JinyaLayout from './foundation/JinyaLayout.js';
 import { navigate } from './foundation/navigation/navigator.js';
 import urlSplitter from './foundation/navigation/urlSplitter.js';
 import { deleteJinyaApiKey, getDeviceCode } from './foundation/storage.js';
-import JinyaLayout from './foundation/JinyaLayout.js';
+import { destroyTiny } from './foundation/ui/tiny.js';
 
 const layout = new JinyaLayout();
 
@@ -26,6 +27,7 @@ async function renderLogin() {
  * @return {Promise<void>}
  */
 async function hashChanged() {
+  destroyTiny();
   if (window.location.hash === '#login') {
     document.querySelector('.cosmo-menu-bar__back-button')?.setAttribute('disabled', 'disabled');
     await renderLogin();

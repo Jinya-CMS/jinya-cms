@@ -134,3 +134,9 @@ export default async function getEditor({ element, height = '500px' }) {
     },
   }))[0];
 }
+
+export function destroyTiny() {
+  if (tinyInitialized) {
+    tinymce.remove();
+  }
+}
