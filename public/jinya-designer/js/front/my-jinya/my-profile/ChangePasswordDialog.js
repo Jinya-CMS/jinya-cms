@@ -57,7 +57,7 @@ export default class ChangePasswordDialog {
         try {
           await post('/api/account/password', { oldPassword, password: newPassword });
           container.remove();
-          window.location.hash = '#login';
+          document.dispatchEvent(new CustomEvent('logout'));
         } catch (e) {
           if (e.status === 403) {
             await alert({

@@ -10,13 +10,17 @@ export default class TwoFactorPage extends JinyaDesignerPage {
    * @param loginLayout {JinyaDesignerLayout}
    * @param username {string}
    * @param password {string}
+   * @param redirect {string}
    */
-  constructor({ loginLayout, username, password }) {
+  constructor({
+                loginLayout, username, password, redirect,
+              }) {
     super({ layout: loginLayout });
     this.layout.isTwoFa = false;
     this.layout.isLogin = true;
     this.username = username;
     this.password = password;
+    this.redirect = redirect;
   }
 
   bindEvents() {
@@ -33,7 +37,7 @@ export default class TwoFactorPage extends JinyaDesignerPage {
           setDeviceCode(response.deviceCode);
           setJinyaApiKey(response.apiKey);
           setRoles(response.roles);
-          window.location.hash = 'front/statistics/matomo-stats';
+          window.location.hash = this.redirect;
         } catch (err) {
           await alert({
             title: localize({ key: 'login.error.2fa_failed.title' }),

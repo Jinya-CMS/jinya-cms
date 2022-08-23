@@ -12,6 +12,7 @@ export default class JinyaDesignerLayout {
    * Gets executed immediately after the rendering occured
    * @returns {Promise<void>}
    */
+  // eslint-disable-next-line class-methods-use-this,no-empty-function
   async afterRender() {
   }
 

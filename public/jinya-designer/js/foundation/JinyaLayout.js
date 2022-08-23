@@ -283,7 +283,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
     document.getElementById('jinya-logout').addEventListener('click', (e) => {
       e.preventDefault();
       deleteJinyaApiKey();
-      window.location.hash = 'login';
+      document.dispatchEvent(new CustomEvent('logout'));
     });
     document.querySelector('.cosmo-menu-bar__back-button').addEventListener('click', (e) => {
       e.preventDefault();

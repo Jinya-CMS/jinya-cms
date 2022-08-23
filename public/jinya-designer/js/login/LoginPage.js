@@ -9,12 +9,14 @@ export default class LoginPage extends JinyaDesignerPage {
   /**
    * @param loginLayout {JinyaDesignerLayout}
    * @param isTwoFa {boolean}
+   * @param redirect {string}
    */
-  constructor({ loginLayout, isTwoFa }) {
+  constructor({ loginLayout, isTwoFa, redirect }) {
     super({ layout: loginLayout });
     this.layout.isTwoFa = isTwoFa;
     this.layout.isLogin = !isTwoFa;
     this.isTwoFa = isTwoFa;
+    this.redirect = redirect;
   }
 
   bindEvents() {
@@ -30,13 +32,13 @@ export default class LoginPage extends JinyaDesignerPage {
           const response = await post(this.isTwoFa ? '/api/2fa' : '/api/login', payload);
           if (this.isTwoFa) {
             const { default: TwoFactorPage } = await import('./TwoFactorPage.js');
-            const page = new TwoFactorPage({ loginLayout: this.layout, ...payload });
+            const page = new TwoFactorPage({ loginLayout: this.layout, redirect: this.redirect, ...payload });
             page.display();
           } else {
             setDeviceCode(response.deviceCode);
             setJinyaApiKey(response.apiKey);
             setRoles(response.roles);
-            window.location.hash = 'front/statistics/matomo-stats';
+            window.location.hash = this.redirect;
           }
         } catch (err) {
           await alert({
