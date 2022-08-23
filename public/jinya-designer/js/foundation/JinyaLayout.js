@@ -214,6 +214,10 @@ export default class JinyaLayout extends JinyaDesignerLayout {
                        data-page="updates" class="cosmo-menu-bar__sub-item">
                         ${localize({ key: 'maintenance.menu.update' })}
                     </a>
+                    <a href="#back/maintenance/environment" data-section="maintenance" data-stage="back" hidden
+                       data-page="environment" class="cosmo-menu-bar__sub-item">
+                        ${localize({ key: 'maintenance.menu.app_config' })}
+                    </a>
                 </div>
             </nav>
         </div>
