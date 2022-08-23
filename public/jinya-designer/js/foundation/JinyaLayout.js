@@ -68,7 +68,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
         <div class="cosmo-top-bar">
             ${roles.includes('ROLE_ADMIN') ? html`
                 <div class="cosmo-top-bar__menu" data-stage="front">
-                    <a href="#back/maintenance/update" class="cosmo-top-bar__menu-item">
+                    <a href="#back/maintenance/updates" class="cosmo-top-bar__menu-item">
                         ${localize({ key: 'maintenance.menu.title' })}
                     </a>
                     <a href="#back/database/mysql-info" class="cosmo-top-bar__menu-item">
@@ -76,6 +76,32 @@ export default class JinyaLayout extends JinyaDesignerLayout {
                     </a>
                     <a href="#back/artists/index" class="cosmo-top-bar__menu-item">
                         ${localize({ key: 'artists.menu.title' })}
+                    </a>
+                </div>
+                <div class="cosmo-top-bar__menu" data-stage="back">
+                    <a href="#front/statistics/matomo-stats" data-section="statistics" data-stage="front"
+                       class="cosmo-top-bar__menu-item">
+                        ${localize({ key: 'statistics.menu.title' })}
+                    </a>
+                    <a href="#front/media/files" data-section="media" data-stage="front"
+                       class="cosmo-top-bar__menu-item">
+                        ${localize({ key: 'media.menu.title' })}
+                    </a>
+                    <a href="#front/pages-and-forms/simple-pages" class="cosmo-top-bar__menu-item" data-stage="front"
+                       data-section="pages-and-forms">
+                        ${localize({ key: 'pages_and_forms.menu.title' })}
+                    </a>
+                    <a href="#front/blog/categories" class="cosmo-top-bar__menu-item" data-section="blog"
+                       data-stage="front">
+                        ${localize({ key: 'blog.menu.title' })}
+                    </a>
+                    <a href="#front/design/menus" class="cosmo-top-bar__menu-item" data-section="design"
+                       data-stage="front">
+                        ${localize({ key: 'design.menu.title' })}
+                    </a>
+                    <a href="#front/my-jinya/my-profile" class="cosmo-top-bar__menu-item" data-section="my-jinya"
+                       data-stage="front">
+                        ${localize({ key: 'my_jinya.menu.title' })}
                     </a>
                 </div>` : ''}
             <img src="${this.artist.profilePicture}" class="cosmo-profile-picture" alt="Imanuel Ulbricht">
@@ -87,7 +113,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
             <div class="cosmo-menu-bar__touch"></div>
             <button type="button" class="cosmo-menu-bar__back-button"></button>
             <nav class="cosmo-menu-bar__menu-collection" data-stage="front">
-                <div class="cosmo-menu-bar__main-menu">
+                <div class="cosmo-menu-bar__main-menu" data-stage="front">
                     <a href="#front/statistics/matomo-stats" data-section="statistics" data-stage="front"
                        class="cosmo-menu-bar__main-item">
                         ${localize({ key: 'statistics.menu.title' })}
@@ -111,6 +137,20 @@ export default class JinyaLayout extends JinyaDesignerLayout {
                     <a href="#front/my-jinya/my-profile" class="cosmo-menu-bar__main-item"
                        data-section="my-jinya" data-stage="front">
                         ${localize({ key: 'my_jinya.menu.title' })}
+                    </a>
+                </div>
+                <div class="cosmo-menu-bar__main-menu" data-stage="back">
+                    <a href="#back/maintenance/updates" class="cosmo-menu-bar__main-item" data-stage="back"
+                       data-section="maintenance">
+                        ${localize({ key: 'maintenance.menu.title' })}
+                    </a>
+                    <a href="#back/database/mysql-info" class="cosmo-menu-bar__main-item" data-stage="back"
+                       data-section="database">
+                        ${localize({ key: 'database.menu.title' })}
+                    </a>
+                    <a href="#back/artists/index" class="cosmo-menu-bar__main-item" data-stage="back"
+                       data-section="artists">
+                        ${localize({ key: 'artists.menu.title' })}
                     </a>
                 </div>
                 <div class="cosmo-menu-bar__sub-menu">
@@ -169,6 +209,10 @@ export default class JinyaLayout extends JinyaDesignerLayout {
                     <a href="#front/my-jinya/active-devices" data-section="my-jinya" data-stage="front" hidden
                        data-page="active-devices" class="cosmo-menu-bar__sub-item">
                         ${localize({ key: 'my_jinya.menu.active_devices' })}
+                    </a>
+                    <a href="#back/maintenance/updates" data-section="maintenance" data-stage="back" hidden
+                       data-page="updates" class="cosmo-menu-bar__sub-item">
+                        ${localize({ key: 'maintenance.menu.update' })}
                     </a>
                 </div>
             </nav>
@@ -254,6 +298,22 @@ export default class JinyaLayout extends JinyaDesignerLayout {
   async afterRender() {
     await super.afterRender();
     const { stage, section, page } = urlSplitter();
+    document
+      .querySelectorAll('.cosmo-top-bar__menu')
+      .forEach((item) => {
+        // eslint-disable-next-line no-param-reassign
+        item.style.display = 'none';
+      });
+    document
+      .querySelectorAll('.cosmo-menu-bar__main-menu')
+      .forEach((item) => {
+        // eslint-disable-next-line no-param-reassign
+        item.style.display = 'none';
+      });
+    const topBarMenu = document.querySelector(`.cosmo-menu-bar__main-menu[data-stage="${stage}"]`);
+    if (topBarMenu) {
+      topBarMenu.style.display = 'flex';
+    }
     document
       .querySelectorAll('.cosmo-menu-bar__main-item--active')
       .forEach((item) => item.classList.remove('cosmo-menu-bar__main-item--active'));
