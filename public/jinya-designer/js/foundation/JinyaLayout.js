@@ -222,6 +222,10 @@ export default class JinyaLayout extends JinyaDesignerLayout {
                        data-page="php-info" class="cosmo-menu-bar__sub-item">
                         ${localize({ key: 'maintenance.menu.php_info' })}
                     </a>
+                    <a href="#back/database/mysql-info" data-section="database" data-stage="back" hidden
+                       data-page="mysql-info" class="cosmo-menu-bar__sub-item">
+                        ${localize({ key: 'database.menu.mysql_info' })}
+                    </a>
                 </div>
             </nav>
         </div>
