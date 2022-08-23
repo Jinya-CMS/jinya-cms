@@ -33,6 +33,7 @@
     <link href="/jinya-designer/css/loader.css" rel="stylesheet">
     <link href="/jinya-designer/css/helper.css" rel="stylesheet">
     <link href="/jinya-designer/css/tiny.css" rel="stylesheet">
+    <link href="/jinya-designer/vs/editor/editor.main.css" rel="stylesheet">
     <link href="/jinya-designer/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
     <link href="/jinya-designer/favicon-512x512.png" rel="icon" sizes="512x512" type="image/png">
     <link href="/jinya-designer/favicon-192x192.png" rel="icon" sizes="192x192" type="image/png">
@@ -50,7 +51,22 @@
         <div class="jinya-loader"></div>
     </div>
 </main>
-<script src="/jinya-designer/lib/monaco/loader.js"></script>
+<script>
+  let require = {
+    paths: { vs: './vs' }, config: {
+      'vs/nls': {
+        availableLanguages: {
+          '*': 'de'
+        }
+      }
+    }
+  };
+</script>
+<script src="/jinya-designer/vs/loader.js"></script>
+<script>
+</script>
+<script src="/jinya-designer/vs/editor/editor.main.nls.js"></script>
+<script src="/jinya-designer/vs/editor/editor.main.js"></script>
 <script src="/jinya-designer/lib/uaparser.js"></script>
 <script src="/jinya-designer/lib/tinymce/tinymce.min.js"></script>
 <script src="/jinya-designer/js/index.js" type="module"></script>

@@ -230,6 +230,10 @@ export default class JinyaLayout extends JinyaDesignerLayout {
                        data-page="tables" class="cosmo-menu-bar__sub-item">
                         ${localize({ key: 'database.menu.tables' })}
                     </a>
+                    <a href="#back/database/query-tool" data-section="database" data-stage="back" hidden
+                       data-page="query-tool" class="cosmo-menu-bar__sub-item">
+                        ${localize({ key: 'database.menu.query_tool' })}
+                    </a>
                 </div>
             </nav>
         </div>
@@ -320,6 +324,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
         // eslint-disable-next-line no-param-reassign
         item.style.display = 'none';
       });
+    document.querySelector(`.cosmo-top-bar__menu[data-stage="${stage}"]`).style.display = 'flex';
     document
       .querySelectorAll('.cosmo-menu-bar__main-menu')
       .forEach((item) => {

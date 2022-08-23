@@ -12,7 +12,8 @@
   },
   "globals": {
     "tinymce": "readonly",
-    "UAParser": "readonly"
+    "UAParser": "readonly",
+    "monaco": "readonly"
   },
   "rules": {
     "import/extensions": [
