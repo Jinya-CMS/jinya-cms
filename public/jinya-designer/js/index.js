@@ -49,9 +49,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
   try {
     await head('/api/login');
-    window.addEventListener('hashchange', hashChanged);
+    window.addEventListener('hashchange', () => hashChanged({ redirect: '' }));
 
-    await hashChanged();
+    await hashChanged({ redirect: 'front/statistics/matomo-stats' });
   } catch (e) {
     let redirect = window.location.hash;
     if (window.location.hash === '#login' || window.location.hash === '') {
