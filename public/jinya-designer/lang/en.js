@@ -770,75 +770,12 @@ export default {
     },
     php: {
       configuration: 'Configuration',
+      about: 'About the PHP installation',
       system_and_server: 'System and server',
-      operating_system: 'Operating system',
-      zend_engine: 'Zend Engine version',
-      apache: 'Apache Version',
-      php: 'PHP Version',
+      apache: 'Apache configuration',
       extension: {
-        version: 'Version',
         more_info: 'More informations',
         ini_values: 'Settings',
-        apcu: {
-          enabled: 'Activated',
-          numberSlots: 'Number slots',
-          numberEntries: 'Number entries',
-          memorySize: 'Memory size (in MB)',
-          memoryType: 'Memory type',
-        },
-        date: {
-          enabled: 'Activated',
-          database_version: '"Olson" Timezone Database Version',
-          default_timezone: 'Default timezone',
-        },
-        hash: {
-          enabled: 'Activated',
-          algos: 'Hash algorithms',
-        },
-        imagick: {
-          enabled: 'Activated',
-          version: 'Version',
-          copyright: 'Copyright',
-          package: 'Package',
-          release_date: 'Release date',
-        },
-        intl: {
-          enabled: 'Activated',
-          ids: 'Transliterator IDs',
-        },
-        mbstring: {
-          enabled: 'Activated',
-          encodings: 'Supported encodings',
-        },
-        opcache: {
-          enabled: 'Activated',
-          full: 'Cache full',
-          usedMemory: 'Used memory (in MB)',
-          freeMemory: 'Free memory (in MB)',
-          wastedMemory: 'Wasted memory (in MB)',
-          currentWastedMemoryPercentage: 'Wasted memory (in percent)',
-          jitEnabled: 'JIT enabled',
-        },
-        pcre: {
-          enabled: 'Activated',
-          version: 'Version',
-        },
-        pdo: {
-          enabled: 'Activated',
-          available_drivers: 'Available database drivers',
-          server_version: 'Server version',
-          server_info: 'Server info',
-          driver_name: 'Current driver',
-        },
-        pdo_mysql: {
-          client_version: 'Client version',
-        },
-        phar: {
-          enabled: 'Activated',
-          compressions: 'Supported compressions algorithms',
-          api_version: 'API version',
-          signatures: 'Supported signature algorithms',
-        },
       },
       ini: {
         name: 'Name',

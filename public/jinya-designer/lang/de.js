@@ -770,75 +770,12 @@ export default {
     },
     php: {
       configuration: 'Konfiguration',
+      about: 'Über die PHP Installation',
       system_and_server: 'System und Server',
-      operating_system: 'Betriebssystem',
-      zend_engine: 'Zend Engine Version',
-      apache: 'Apache Version',
-      php: 'PHP Version',
+      apache: 'Apache Konfiguration',
       extension: {
-        version: 'Version',
         more_info: 'Mehr Informationen',
         ini_values: 'Einstellungen',
-        apcu: {
-          enabled: 'Aktiviert',
-          numberSlots: 'Anzahl Slots',
-          numberEntries: 'Anzahl Einträge',
-          memorySize: 'Speichergröße (in MB)',
-          memoryType: 'Speichertyp',
-        },
-        date: {
-          enabled: 'Aktiviert',
-          database_version: '"Olson" Zeitzonen Datenbank Version',
-          default_timezone: 'Standardzeitzone',
-        },
-        hash: {
-          enabled: 'Aktiviert',
-          algos: 'Hashalgorithmen',
-        },
-        imagick: {
-          enabled: 'Aktiviert',
-          version: 'Version',
-          copyright: 'Copyright',
-          package: 'Paket',
-          release_date: 'Releasedatum',
-        },
-        intl: {
-          enabled: 'Aktiviert',
-          ids: 'Transliterator IDs',
-        },
-        mbstring: {
-          enabled: 'Aktiviert',
-          encodings: 'Unterstützte Encodings',
-        },
-        opcache: {
-          enabled: 'Aktiviert',
-          full: 'Cache voll',
-          usedMemory: 'Belegter Speicher (in MB)',
-          freeMemory: 'Freier Speicher (in MB)',
-          wastedMemory: 'Verschwendeter Speicher (in MB)',
-          currentWastedMemoryPercentage: 'Verschwendeter Speicher (Prozent)',
-          jitEnabled: 'JIT aktiviert',
-        },
-        pcre: {
-          enabled: 'Aktiviert',
-          version: 'Version',
-        },
-        pdo: {
-          enabled: 'Aktiviert',
-          available_drivers: 'Verfügbare Datenbanktreiber',
-          server_version: 'Server Version',
-          server_info: 'Server Info',
-          driver_name: 'Aktueller Treiber',
-        },
-        pdo_mysql: {
-          client_version: 'Client Version',
-        },
-        phar: {
-          enabled: 'Aktiviert',
-          compressions: 'Unterstützte Kompressionsalgorithmen',
-          api_version: 'API Version',
-          signatures: 'Unterstützte Signaturalgorithmen',
-        },
       },
       ini: {
         name: 'Name',
