@@ -226,13 +226,17 @@ export default class JinyaLayout extends JinyaDesignerLayout {
                        data-page="mysql-info" class="cosmo-menu-bar__sub-item">
                         ${localize({ key: 'database.menu.mysql_info' })}
                     </a>
-                    <a href="#back/database/tables" data-section="database" data-stage="back" hidden
-                       data-page="tables" class="cosmo-menu-bar__sub-item">
+                    <a href="#back/database/tables" data-section="database" data-stage="back" hidden data-page="tables"
+                       class="cosmo-menu-bar__sub-item">
                         ${localize({ key: 'database.menu.tables' })}
                     </a>
                     <a href="#back/database/query-tool" data-section="database" data-stage="back" hidden
                        data-page="query-tool" class="cosmo-menu-bar__sub-item">
                         ${localize({ key: 'database.menu.query_tool' })}
+                    </a>
+                    <a href="#back/artist/index" data-section="artist" data-stage="back" hidden data-page="index"
+                       class="cosmo-menu-bar__sub-item">
+                        ${localize({ key: 'artists.menu.artists' })}
                     </a>
                 </div>
             </nav>
