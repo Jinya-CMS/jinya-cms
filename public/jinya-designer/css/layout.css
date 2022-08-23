@@ -25,16 +25,34 @@
 }
 
 .jinya-designer__content--key-value-list {
-  align-items: start;
+    align-items: start;
 }
 
 .jinya-progress {
-  display: flex;
-  align-items: center;
-  flex-flow: column;
+    display: flex;
+    align-items: center;
+    flex-flow: column;
 }
 
 .jinya-page-body--app .cosmo-list .cosmo-button.cosmo-button--full-width {
-  position: sticky;
-  bottom: 0;
+    position: sticky;
+    bottom: 0;
+}
+
+:root {
+    --background: url("/jinya-designer/background.webp");
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    :root {
+        --background: url("/jinya-designer/background-dark.webp");
+    }
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    background: var(--background);
+    background-size: cover;
+    background-position-y: bottom;
 }
