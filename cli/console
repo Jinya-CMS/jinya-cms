@@ -9,11 +9,18 @@ require __ROOT__ . '/vendor/autoload.php';
 use App\Console\AbstractCommand;
 use App\Console\JinyaCommand;
 use App\Utils\AppSettingsInitializer;
+use Dotenv\Exception\ValidationException;
 use League\CLImate\CLImate;
 
 $climate = new CLImate();
 
-AppSettingsInitializer::loadDotEnv();
+try {
+    AppSettingsInitializer::loadDotEnv();
+} catch (ValidationException $exception) {
+    $climate->to('error')->error($exception->getMessage());
+    $climate->to('error')->error("Failed to load and verify dotenv");
+    exit(1);
+}
 
 $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__ROOT__ . '/src/Console'));
 $classesWithFullPath = [];

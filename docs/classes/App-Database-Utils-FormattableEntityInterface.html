@@ -2,360 +2,359 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-            <title>Jinya CMS</title>
-    
+    <title>Jinya CMS</title>
+
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <base href="../">
     <link href="images/favicon.ico" rel="icon"/>
     <link href="css/normalize.css" rel="stylesheet">
     <link href="css/base.css" rel="stylesheet">
-            <link href="https://fonts.gstatic.com" rel="preconnect">
-        <link href="https://fonts.jinya.de/css2?family=Lato:wght@400;600;700" rel="stylesheet" type="text/css">
-        <link href="https://fonts.jinya.de/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet"
-              type="text/css">
-        <link href="css/template.css" rel="stylesheet">
-        <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css"
-              integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" rel="stylesheet"/>
-        <link href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css"
-              rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css"
-              rel="stylesheet">
-                <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
-        <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
-        <script src="js/search.js"></script>
-        <script defer src="js/searchIndex.js"></script>
-    </head>
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.jinya.de/css2?family=Lato:wght@400;600;700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.jinya.de/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet"
+          type="text/css">
+    <link href="css/template.css" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css"
+          integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css"
+          rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+    <script src="js/search.js"></script>
+    <script defer src="js/searchIndex.js"></script>
+</head>
 <body id="top">
 <header class="phpdocumentor-header phpdocumentor-section">
     <h1 class="phpdocumentor-title"><a class="phpdocumentor-title__link" href="">Jinya CMS</a></h1>
-    <input class="phpdocumentor-header__menu-button" id="menu-button" name="menu-button" type="checkbox" />
+    <input class="phpdocumentor-header__menu-button" id="menu-button" name="menu-button" type="checkbox"/>
     <label class="phpdocumentor-header__menu-icon" for="menu-button">
         <i class="fas fa-bars"></i>
     </label>
     <section class="phpdocumentor-search" data-search-form>
-    <label>
-        <span class="visually-hidden">Search for</span>
-        <svg class="phpdocumentor-search__icon" fill="none" height="20" viewBox="0 0 21 20" width="21" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
-            <line stroke="currentColor" stroke-width="3" x1="12.4892" x2="19.1559" y1="12.2727" y2="18.9393"/>
-        </svg>
-        <input class="phpdocumentor-field phpdocumentor-search__field" disabled placeholder="Loading .." type="search" />
-    </label>
-</section>
+        <label>
+            <span class="visually-hidden">Search for</span>
+            <svg class="phpdocumentor-search__icon" fill="none" height="20" viewBox="0 0 21 20" width="21"
+                 xmlns="http://www.w3.org/2000/svg">
+                <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+                <line stroke="currentColor" stroke-width="3" x1="12.4892" x2="19.1559" y1="12.2727" y2="18.9393"/>
+            </svg>
+            <input class="phpdocumentor-field phpdocumentor-search__field" disabled placeholder="Loading .."
+                   type="search"/>
+        </label>
+    </section>
 
     <nav class="phpdocumentor-topnav">
-    <ul class="phpdocumentor-topnav__menu">
+        <ul class="phpdocumentor-topnav__menu">
         </ul>
-</nav>
+    </nav>
 </header>
 
 <main class="phpdocumentor">
     <div class="phpdocumentor-section">
-        <input class="phpdocumentor-sidebar__menu-button" id="sidebar-button" name="sidebar-button" type="checkbox" />
-<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
-    Menu
-</label>
-<aside class="phpdocumentor-column -four phpdocumentor-sidebar">
-                    <section class="phpdocumentor-sidebar__category">
-            <h2 class="phpdocumentor-sidebar__category-header">Documentation</h2>
-                                    <h4 class="phpdocumentor-sidebar__root-namespace">
-    <a class="" href="guide/theme/index.html">Theming</a>
-</h4>
-    <ul class="phpdocumentor-list">
+        <input class="phpdocumentor-sidebar__menu-button" id="sidebar-button" name="sidebar-button" type="checkbox"/>
+        <label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
+            Menu
+        </label>
+        <aside class="phpdocumentor-column -four phpdocumentor-sidebar">
+            <section class="phpdocumentor-sidebar__category">
+                <h2 class="phpdocumentor-sidebar__category-header">Documentation</h2>
+                <h4 class="phpdocumentor-sidebar__root-namespace">
+                    <a class="" href="guide/theme/index.html">Theming</a>
+                </h4>
+                <ul class="phpdocumentor-list">
                     <li>
-                <a class="" href="guide/theme/create.html">Creating a theme</a>
-                
-            </li>
-                    <li>
-                <a class="" href="guide/theme/configure.html">Configuration with theme.php</a>
-                
-            </li>
-                    <li>
-                <a class="" href="guide/theme/access-links.html">Access theme links</a>
-                
-            </li>
-                    <li>
-                <a class="" href="guide/theme/access-configuration.html">Access theme configuration</a>
-                
-            </li>
-                    <li>
-                <a class="" href="guide/theme/theme-extensions.html">Theme extensions</a>
-                
-            </li>
-            </ul>
+                        <a class="" href="guide/theme/create.html">Creating a theme</a>
 
-                        </section>
-                <section class="phpdocumentor-sidebar__category">
-            <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                                    <h4 class="phpdocumentor-sidebar__root-namespace">
-    <a class="" href="namespaces/app.html">App</a>
-</h4>
-    <ul class="phpdocumentor-list">
+                    </li>
                     <li>
-                <a class="" href="namespaces/app-authentication.html">Authentication</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-console.html">Console</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-database.html">Database</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-logging.html">Logging</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-mailing.html">Mailing</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-maintenance.html">Maintenance</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-messaging.html">Messaging</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-routing.html">Routing</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-statistics.html">Statistics</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-storage.html">Storage</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-tests.html">Tests</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-theming.html">Theming</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-utils.html">Utils</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-web.html">Web</a>
-                
-            </li>
-            </ul>
+                        <a class="" href="guide/theme/configure.html">Configuration with theme.php</a>
 
-                        </section>
-                <section class="phpdocumentor-sidebar__category">
-            <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
-                                    <h4 class="phpdocumentor-sidebar__root-namespace">
-    <a class="" href="packages/Application.html">Application</a>
-</h4>
+                    </li>
+                    <li>
+                        <a class="" href="guide/theme/access-links.html">Access theme links</a>
 
-                        </section>
-            
-    <section class="phpdocumentor-sidebar__category">
-        <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
+                    </li>
+                    <li>
+                        <a class="" href="guide/theme/access-configuration.html">Access theme configuration</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="guide/theme/theme-extensions.html">Theme extensions</a>
+
+                    </li>
+                </ul>
+
+            </section>
+            <section class="phpdocumentor-sidebar__category">
+                <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                <h4 class="phpdocumentor-sidebar__root-namespace">
+                    <a class="" href="namespaces/app.html">App</a>
+                </h4>
+                <ul class="phpdocumentor-list">
+                    <li>
+                        <a class="" href="namespaces/app-authentication.html">Authentication</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-console.html">Console</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-database.html">Database</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-logging.html">Logging</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-mailing.html">Mailing</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-maintenance.html">Maintenance</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-messaging.html">Messaging</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-routing.html">Routing</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-statistics.html">Statistics</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-storage.html">Storage</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-tests.html">Tests</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-theming.html">Theming</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-utils.html">Utils</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-web.html">Web</a>
+
+                    </li>
+                </ul>
+
+            </section>
+            <section class="phpdocumentor-sidebar__category">
+                <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
+                <h4 class="phpdocumentor-sidebar__root-namespace">
+                    <a class="" href="packages/Application.html">Application</a>
+                </h4>
+
+            </section>
+
+            <section class="phpdocumentor-sidebar__category">
+                <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
                 <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
-        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
-        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
-    </section>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
+            </section>
 
-    <section class="phpdocumentor-sidebar__category">
-        <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
-        <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
-    </section>
-</aside>
+            <section class="phpdocumentor-sidebar__category">
+                <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
+            </section>
+        </aside>
 
         <div class="phpdocumentor-column -eight phpdocumentor-content">
-                <ul class="phpdocumentor-breadcrumbs">
-            <li class="phpdocumentor-breadcrumb"><a href="namespaces/app.html">App</a></li>
-            <li class="phpdocumentor-breadcrumb"><a href="namespaces/app-database.html">Database</a></li>
-            <li class="phpdocumentor-breadcrumb"><a href="namespaces/app-database-utils.html">Utils</a></li>
-    </ul>
-
-    <article class="phpdocumentor-element -interface">
-        <h2 class="phpdocumentor-content__title">
-    FormattableEntityInterface
-                <div class="phpdocumentor-element__package">
-            in
             <ul class="phpdocumentor-breadcrumbs">
-                                    <li><a href="packages/Application.html">Application</a></li>
-                            </ul>
-        </div>
-    </h2>
+                <li class="phpdocumentor-breadcrumb"><a href="namespaces/app.html">App</a></li>
+                <li class="phpdocumentor-breadcrumb"><a href="namespaces/app-database.html">Database</a></li>
+                <li class="phpdocumentor-breadcrumb"><a href="namespaces/app-database-utils.html">Utils</a></li>
+            </ul>
 
-        <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Utils/FormattableEntityInterface.php"><a href="files/src-database-utils-formattableentityinterface.html"><abbr title="src/Database/Utils/FormattableEntityInterface.php">FormattableEntityInterface.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">8</span>
+            <article class="phpdocumentor-element -interface">
+                <h2 class="phpdocumentor-content__title">
+                    FormattableEntityInterface
+                    <div class="phpdocumentor-element__package">
+                        in
+                        <ul class="phpdocumentor-breadcrumbs">
+                            <li><a href="packages/Application.html">Application</a></li>
+                        </ul>
+                    </div>
+                </h2>
 
-    </aside>
+                <aside class="phpdocumentor-element-found-in">
+                    <abbr class="phpdocumentor-element-found-in__file"
+                          title="src/Database/Utils/FormattableEntityInterface.php"><a
+                            href="files/src-database-utils-formattableentityinterface.html"><abbr
+                            title="src/Database/Utils/FormattableEntityInterface.php">FormattableEntityInterface.php</abbr></a></abbr>
+                    :
+                    <span class="phpdocumentor-element-found-in__line">8</span>
 
-            <p class="phpdocumentor-summary">Common interface for all entities that implement the format method</p>
+                </aside>
+
+                <p class="phpdocumentor-summary">Common interface for all entities that implement the format method</p>
 
 
+                <h3 id="toc">
+                    Table of Contents
+                    <a class="headerlink" href="#toc"><i class="fas fa-link"></i></a>
+                </h3>
 
-
-
-
-
-
-
-<h3 id="toc">
-    Table of Contents
-    <a class="headerlink" href="#toc"><i class="fas fa-link"></i></a>
-</h3>
-
-<dl class="phpdocumentor-table-of-contents">
-                        <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/App-Database-Utils-FormattableEntityInterface.html#method_format">format()</a>
-    <span>
+                <dl class="phpdocumentor-table-of-contents">
+                    <dt class="phpdocumentor-table-of-contents__entry -method -public">
+                        <a href="classes/App-Database-Utils-FormattableEntityInterface.html#method_format">format()</a>
+                        <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
-</dt>
-<dd>Formats the entity into an array</dd>
+                    </dt>
+                    <dd>Formats the entity into an array</dd>
 
-        </dl>
+                </dl>
 
 
-
-        
-
-            <section class="phpdocumentor-methods">
-        <h3 class="phpdocumentor-elements__header" id="methods">
-            Methods
-            <a class="headerlink" href="classes/App-Database-Utils-FormattableEntityInterface.html#methods"><i class="fas fa-link"></i></a>
-        </h3>
+                <section class="phpdocumentor-methods">
+                    <h3 class="phpdocumentor-elements__header" id="methods">
+                        Methods
+                        <a class="headerlink" href="classes/App-Database-Utils-FormattableEntityInterface.html#methods"><i
+                                class="fas fa-link"></i></a>
+                    </h3>
                     <article
-        class="phpdocumentor-element
+                            class="phpdocumentor-element
             -method
             -public
                                                         "
->
-    <h4 class="phpdocumentor-element__name" id="method_format">
-        format()
-        <a class="headerlink" href="classes/App-Database-Utils-FormattableEntityInterface.html#method_format"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Database/Utils/FormattableEntityInterface.php"><a href="files/src-database-utils-formattableentityinterface.html"><abbr title="src/Database/Utils/FormattableEntityInterface.php">FormattableEntityInterface.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">14</span>
+                    >
+                        <h4 class="phpdocumentor-element__name" id="method_format">
+                            format()
+                            <a class="headerlink"
+                               href="classes/App-Database-Utils-FormattableEntityInterface.html#method_format"><i
+                                    class="fas fa-link"></i></a>
+                        </h4>
+                        <aside class="phpdocumentor-element-found-in">
+                            <abbr class="phpdocumentor-element-found-in__file"
+                                  title="src/Database/Utils/FormattableEntityInterface.php"><a
+                                    href="files/src-database-utils-formattableentityinterface.html"><abbr
+                                    title="src/Database/Utils/FormattableEntityInterface.php">FormattableEntityInterface.php</abbr></a></abbr>
+                            :
+                            <span class="phpdocumentor-element-found-in__line">14</span>
 
-    </aside>
+                        </aside>
 
-        <p class="phpdocumentor-summary">Formats the entity into an array</p>
+                        <p class="phpdocumentor-summary">Formats the entity into an array</p>
 
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">format</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                        <code class="phpdocumentor-code phpdocumentor-signature ">
+                            <span class="phpdocumentor-signature__visibility">public</span>
+                            <span class="phpdocumentor-signature__name">format</span><span>(</span><span>)</span><span> : </span><span
+                                class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
-    
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a class="headerlink" href="#tags"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">phpstan-ignore-next-line</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
+
+                        <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                            Tags
+                            <a class="headerlink" href="#tags"><i class="fas fa-link"></i></a>
+                        </h5>
+                        <dl class="phpdocumentor-tag-list">
+                            <dt class="phpdocumentor-tag-list__entry">
+                                <span class="phpdocumentor-tag__name">phpstan-ignore-next-line</span>
+                            </dt>
+                            <dd class="phpdocumentor-tag-list__definition">
+
+
+                            </dd>
                         </dl>
 
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
-            &mdash;
-        
-    
-</article>
-            </section>
+                        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+                        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                        &mdash;
 
-        
-    <script type="text/javascript">
-        function loadExternalCodeSnippets(line) {
-            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach((pre) => {
-                var src = pre.getAttribute('data-src').replace( /\\/g, '/');
-                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
-                var language = 'php';
 
-                var code = document.createElement('code');
-                code.className = 'language-' + language;
+                    </article>
+                </section>
 
-                pre.textContent = '';
 
-                pre.setAttribute('data-line', line)
-                code.textContent = 'Loading…';
+                <script type="text/javascript">
+                  function loadExternalCodeSnippets(line) {
+                    Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach((pre) => {
+                      var src = pre.getAttribute('data-src').replace(/\\/g, '/');
+                      var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+                      var language = 'php';
 
-                pre.appendChild(code);
+                      var code = document.createElement('code');
+                      code.className = 'language-' + language;
 
-                var xhr = new XMLHttpRequest();
+                      pre.textContent = '';
 
-                xhr.open('GET', src, true);
+                      pre.setAttribute('data-line', line)
+                      code.textContent = 'Loading…';
 
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState == 4) {
+                      pre.appendChild(code);
 
-                        if (xhr.status < 400 && xhr.responseText) {
+                      var xhr = new XMLHttpRequest();
+
+                      xhr.open('GET', src, true);
+
+                      xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 4) {
+
+                          if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
 
                             Prism.highlightElement(code);
-                        }
-                        else if (xhr.status >= 400) {
+                          } else if (xhr.status >= 400) {
                             code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
-                        }
-                        else {
+                          } else {
                             code.textContent = '✖ Error: File does not exist, is empty or trying to view from localhost';
+                          }
                         }
-                    }
-                };
+                      };
 
-                xhr.send(null);
-            });
-        }
-
-        var modals = document.querySelectorAll("[data-modal]");
-
-        modals.forEach(function (trigger) {
-            trigger.addEventListener("click", function (event) {
-                //event.preventDefault();
-                const modal = document.getElementById(trigger.dataset.modal);
-                modal.classList.add("phpdocumentor-modal__open");
-                loadExternalCodeSnippets(trigger.dataset.line)
-                const exits = modal.querySelectorAll("[data-exit-button]");
-                exits.forEach(function (exit) {
-                    exit.addEventListener("click", function (event) {
-                        event.preventDefault();
-                        modal.classList.remove("phpdocumentor-modal__open");
+                      xhr.send(null);
                     });
-                });
-            });
-        });
-    </script>
+                  }
 
-    </article>
+                  var modals = document.querySelectorAll("[data-modal]");
+
+                  modals.forEach(function (trigger) {
+                    trigger.addEventListener("click", function (event) {
+                      //event.preventDefault();
+                      const modal = document.getElementById(trigger.dataset.modal);
+                      modal.classList.add("phpdocumentor-modal__open");
+                      loadExternalCodeSnippets(trigger.dataset.line)
+                      const exits = modal.querySelectorAll("[data-exit-button]");
+                      exits.forEach(function (exit) {
+                        exit.addEventListener("click", function (event) {
+                          event.preventDefault();
+                          modal.classList.remove("phpdocumentor-modal__open");
+                        });
+                      });
+                    });
+                  });
+                </script>
+
+            </article>
             <section class="phpdocumentor-search-results phpdocumentor-search-results--hidden" data-search-results>
-    <section class="phpdocumentor-search-results__dialog">
-        <header class="phpdocumentor-search-results__header">
-            <h2 class="phpdocumentor-search-results__title">Search results</h2>
-            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
-        </header>
-        <section class="phpdocumentor-search-results__body">
-            <ul class="phpdocumentor-search-results__entries"></ul>
-        </section>
-    </section>
-</section>
+                <section class="phpdocumentor-search-results__dialog">
+                    <header class="phpdocumentor-search-results__header">
+                        <h2 class="phpdocumentor-search-results__title">Search results</h2>
+                        <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+                    </header>
+                    <section class="phpdocumentor-search-results__body">
+                        <ul class="phpdocumentor-search-results__entries"></ul>
+                    </section>
+                </section>
+            </section>
         </div>
     </div>
-    <a class="phpdocumentor-back-to-top" href="classes/App-Database-Utils-FormattableEntityInterface.html#top"><i class="fas fa-chevron-circle-up"></i></a>
+    <a class="phpdocumentor-back-to-top" href="classes/App-Database-Utils-FormattableEntityInterface.html#top"><i
+            class="fas fa-chevron-circle-up"></i></a>
 
 </main>
 
