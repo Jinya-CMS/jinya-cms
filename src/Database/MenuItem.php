@@ -216,6 +216,9 @@ class MenuItem extends Utils\RearrangableEntity
             throw new LogicException('No parent provided');
         }
 
+        /**
+         * @phpstan-ignore-next-line
+         */
         $this->position = self::fetchColumn('SELECT position FROM menu_item WHERE id = ' . $this->id);
     }
 
