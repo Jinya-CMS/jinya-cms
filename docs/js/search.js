@@ -26,148 +26,152 @@
 // be called and the form will receive the class 'phpdocumentor-search--active', indicating search is ready. At this
 // point, the input field will also have it's 'disabled' attribute removed.
 var Search = (function () {
-    var fuse;
-    var index = [];
-    var options = {
-        shouldSort: true,
-        threshold: 0.6,
-        location: 0,
-        distance: 100,
-        maxPatternLength: 32,
-        minMatchCharLength: 1,
-        keys: [
-            "fqsen",
-            "name",
-            "summary",
-            "url"
-        ]
+  var fuse;
+  var index = [];
+  var options = {
+    shouldSort: true,
+    threshold: 0.6,
+    location: 0,
+    distance: 100,
+    maxPatternLength: 32,
+    minMatchCharLength: 1,
+    keys: [
+      "fqsen",
+      "name",
+      "summary",
+      "url"
+    ]
+  };
+
+  // Credit David Walsh (https://davidwalsh.name/javascript-debounce-function)
+  // Returns a function, that, as long as it continues to be invoked, will not
+  // be triggered. The function will be called after it stops being called for
+  // N milliseconds. If `immediate` is passed, trigger the function on the
+  // leading edge, instead of the trailing.
+  function debounce(func, wait, immediate) {
+    var timeout;
+
+    return function executedFunction() {
+      var context = this;
+      var args = arguments;
+
+      var later = function () {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
     };
+  }
 
-    // Credit David Walsh (https://davidwalsh.name/javascript-debounce-function)
-    // Returns a function, that, as long as it continues to be invoked, will not
-    // be triggered. The function will be called after it stops being called for
-    // N milliseconds. If `immediate` is passed, trigger the function on the
-    // leading edge, instead of the trailing.
-    function debounce(func, wait, immediate) {
-        var timeout;
+  function close() {
+    // Start scroll prevention: https://css-tricks.com/prevent-page-scrolling-when-a-modal-is-open/
+    const scrollY = document.body.style.top;
+    document.body.style.position = '';
+    document.body.style.top = '';
+    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    // End scroll prevention
 
-        return function executedFunction() {
-            var context = this;
-            var args = arguments;
+    var form = document.querySelector('[data-search-form]');
+    var searchResults = document.querySelector('[data-search-results]');
 
-            var later = function () {
-                timeout = null;
-                if (!immediate) func.apply(context, args);
-            };
+    form.classList.toggle('phpdocumentor-search--has-results', false);
+    searchResults.classList.add('phpdocumentor-search-results--hidden');
+    var searchField = document.querySelector('[data-search-form] input[type="search"]');
+    searchField.blur();
+  }
 
-            var callNow = immediate && !timeout;
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-            if (callNow) func.apply(context, args);
-        };
+  function search(event) {
+    // Start scroll prevention: https://css-tricks.com/prevent-page-scrolling-when-a-modal-is-open/
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${window.scrollY}px`;
+    // End scroll prevention
+
+    // prevent enter's from autosubmitting
+    event.stopPropagation();
+
+    var form = document.querySelector('[data-search-form]');
+    var searchResults = document.querySelector('[data-search-results]');
+    var searchResultEntries = document.querySelector('[data-search-results] .phpdocumentor-search-results__entries');
+
+    searchResultEntries.innerHTML = '';
+
+    if (!event.target.value) {
+      close();
+      return;
     }
 
-    function close() {
-        // Start scroll prevention: https://css-tricks.com/prevent-page-scrolling-when-a-modal-is-open/
-        const scrollY = document.body.style.top;
-        document.body.style.position = '';
-        document.body.style.top = '';
-        window.scrollTo(0, parseInt(scrollY || '0') * -1);
-        // End scroll prevention
+    form.classList.toggle('phpdocumentor-search--has-results', true);
+    searchResults.classList.remove('phpdocumentor-search-results--hidden');
+    var results = fuse.search(event.target.value, {limit: 25});
 
-        var form = document.querySelector('[data-search-form]');
-        var searchResults = document.querySelector('[data-search-results]');
+    results.forEach(function (result) {
+      var entry = document.createElement("li");
+      entry.classList.add("phpdocumentor-search-results__entry");
+      entry.innerHTML += '<h3><a href="' + document.baseURI + result.url + '">' + result.name + "</a></h3>\n";
+      entry.innerHTML += '<small>' + result.fqsen + "</small>\n";
+      entry.innerHTML += '<div class="phpdocumentor-summary">' + result.summary + '</div>';
+      searchResultEntries.appendChild(entry)
+    });
+  }
 
-        form.classList.toggle('phpdocumentor-search--has-results', false);
-        searchResults.classList.add('phpdocumentor-search-results--hidden');
-        var searchField = document.querySelector('[data-search-form] input[type="search"]');
-        searchField.blur();
+  function appendIndex(added) {
+    index = index.concat(added);
+
+    // re-initialize search engine when appending an index after initialisation
+    if (typeof fuse !== 'undefined') {
+      fuse = new Fuse(index, options);
     }
+  }
 
-    function search(event) {
-        // Start scroll prevention: https://css-tricks.com/prevent-page-scrolling-when-a-modal-is-open/
-        document.body.style.position = 'fixed';
-        document.body.style.top = `-${window.scrollY}px`;
-        // End scroll prevention
+  function init() {
+    fuse = new Fuse(index, options);
 
-        // prevent enter's from autosubmitting
-        event.stopPropagation();
+    var form = document.querySelector('[data-search-form]');
+    var searchField = document.querySelector('[data-search-form] input[type="search"]');
 
-        var form = document.querySelector('[data-search-form]');
-        var searchResults = document.querySelector('[data-search-results]');
-        var searchResultEntries = document.querySelector('[data-search-results] .phpdocumentor-search-results__entries');
+    var closeButton = document.querySelector('.phpdocumentor-search-results__close');
+    closeButton.addEventListener('click', function () {
+      close()
+    }.bind(this));
 
-        searchResultEntries.innerHTML = '';
+    var searchResults = document.querySelector('[data-search-results]');
+    searchResults.addEventListener('click', function () {
+      close()
+    }.bind(this));
 
-        if (!event.target.value) {
-            close();
-            return;
-        }
+    form.classList.add('phpdocumentor-search--active');
 
-        form.classList.toggle('phpdocumentor-search--has-results', true);
-        searchResults.classList.remove('phpdocumentor-search-results--hidden');
-        var results = fuse.search(event.target.value, {limit: 25});
+    searchField.setAttribute('placeholder', 'Search (Press "/" to focus)');
+    searchField.removeAttribute('disabled');
+    searchField.addEventListener('keyup', debounce(search, 300));
 
-        results.forEach(function (result) {
-            var entry = document.createElement("li");
-            entry.classList.add("phpdocumentor-search-results__entry");
-            entry.innerHTML += '<h3><a href="' + document.baseURI + result.url + '">' + result.name + "</a></h3>\n";
-            entry.innerHTML += '<small>' + result.fqsen + "</small>\n";
-            entry.innerHTML += '<div class="phpdocumentor-summary">' + result.summary + '</div>';
-            searchResultEntries.appendChild(entry)
-        });
-    }
+    window.addEventListener('keyup', function (event) {
+      if (event.key === '/') {
+        searchField.focus();
+      }
+      if (event.code === 'Escape') {
+        close();
+      }
+    }.bind(this));
+  }
 
-    function appendIndex(added) {
-        index = index.concat(added);
-
-        // re-initialize search engine when appending an index after initialisation
-        if (typeof fuse !== 'undefined') {
-            fuse = new Fuse(index, options);
-        }
-    }
-
-    function init() {
-        fuse = new Fuse(index, options);
-
-        var form = document.querySelector('[data-search-form]');
-        var searchField = document.querySelector('[data-search-form] input[type="search"]');
-
-        var closeButton = document.querySelector('.phpdocumentor-search-results__close');
-        closeButton.addEventListener('click', function() { close() }.bind(this));
-
-        var searchResults = document.querySelector('[data-search-results]');
-        searchResults.addEventListener('click', function() { close() }.bind(this));
-
-        form.classList.add('phpdocumentor-search--active');
-
-        searchField.setAttribute('placeholder', 'Search (Press "/" to focus)');
-        searchField.removeAttribute('disabled');
-        searchField.addEventListener('keyup', debounce(search, 300));
-
-        window.addEventListener('keyup', function (event) {
-            if (event.key === '/') {
-                searchField.focus();
-            }
-            if (event.code === 'Escape') {
-                close();
-            }
-        }.bind(this));
-    }
-
-    return {
-        appendIndex,
-        init
-    }
+  return {
+    appendIndex,
+    init
+  }
 })();
 
 window.addEventListener('DOMContentLoaded', function () {
-    var form = document.querySelector('[data-search-form]');
+  var form = document.querySelector('[data-search-form]');
 
-    // When JS is supported; show search box. Must be before including the search for it to take effect immediately
-    form.classList.add('phpdocumentor-search--enabled');
+  // When JS is supported; show search box. Must be before including the search for it to take effect immediately
+  form.classList.add('phpdocumentor-search--enabled');
 });
 
 window.addEventListener('load', function () {
-    Search.init();
+  Search.init();
 });

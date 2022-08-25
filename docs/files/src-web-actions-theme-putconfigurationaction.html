@@ -2,226 +2,221 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-            <title>Jinya CMS</title>
-    
+    <title>Jinya CMS</title>
+
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <base href="../">
     <link href="images/favicon.ico" rel="icon"/>
     <link href="css/normalize.css" rel="stylesheet">
     <link href="css/base.css" rel="stylesheet">
-            <link href="https://fonts.gstatic.com" rel="preconnect">
-        <link href="https://fonts.jinya.de/css2?family=Lato:wght@400;600;700" rel="stylesheet" type="text/css">
-        <link href="https://fonts.jinya.de/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet"
-              type="text/css">
-        <link href="css/template.css" rel="stylesheet">
-        <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css"
-              integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" rel="stylesheet"/>
-        <link href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css"
-              rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css"
-              rel="stylesheet">
-                <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
-        <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
-        <script src="js/search.js"></script>
-        <script defer src="js/searchIndex.js"></script>
-    </head>
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.jinya.de/css2?family=Lato:wght@400;600;700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.jinya.de/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet"
+          type="text/css">
+    <link href="css/template.css" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css"
+          integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css"
+          rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+    <script src="js/search.js"></script>
+    <script defer src="js/searchIndex.js"></script>
+</head>
 <body id="top">
 <header class="phpdocumentor-header phpdocumentor-section">
     <h1 class="phpdocumentor-title"><a class="phpdocumentor-title__link" href="">Jinya CMS</a></h1>
-    <input class="phpdocumentor-header__menu-button" id="menu-button" name="menu-button" type="checkbox" />
+    <input class="phpdocumentor-header__menu-button" id="menu-button" name="menu-button" type="checkbox"/>
     <label class="phpdocumentor-header__menu-icon" for="menu-button">
         <i class="fas fa-bars"></i>
     </label>
     <section class="phpdocumentor-search" data-search-form>
-    <label>
-        <span class="visually-hidden">Search for</span>
-        <svg class="phpdocumentor-search__icon" fill="none" height="20" viewBox="0 0 21 20" width="21" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
-            <line stroke="currentColor" stroke-width="3" x1="12.4892" x2="19.1559" y1="12.2727" y2="18.9393"/>
-        </svg>
-        <input class="phpdocumentor-field phpdocumentor-search__field" disabled placeholder="Loading .." type="search" />
-    </label>
-</section>
+        <label>
+            <span class="visually-hidden">Search for</span>
+            <svg class="phpdocumentor-search__icon" fill="none" height="20" viewBox="0 0 21 20" width="21"
+                 xmlns="http://www.w3.org/2000/svg">
+                <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+                <line stroke="currentColor" stroke-width="3" x1="12.4892" x2="19.1559" y1="12.2727" y2="18.9393"/>
+            </svg>
+            <input class="phpdocumentor-field phpdocumentor-search__field" disabled placeholder="Loading .."
+                   type="search"/>
+        </label>
+    </section>
 
     <nav class="phpdocumentor-topnav">
-    <ul class="phpdocumentor-topnav__menu">
+        <ul class="phpdocumentor-topnav__menu">
         </ul>
-</nav>
+    </nav>
 </header>
 
 <main class="phpdocumentor">
     <div class="phpdocumentor-section">
-        <input class="phpdocumentor-sidebar__menu-button" id="sidebar-button" name="sidebar-button" type="checkbox" />
-<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
-    Menu
-</label>
-<aside class="phpdocumentor-column -four phpdocumentor-sidebar">
-                    <section class="phpdocumentor-sidebar__category">
-            <h2 class="phpdocumentor-sidebar__category-header">Documentation</h2>
-                                    <h4 class="phpdocumentor-sidebar__root-namespace">
-    <a class="" href="guide/theme/index.html">Theming</a>
-</h4>
-    <ul class="phpdocumentor-list">
+        <input class="phpdocumentor-sidebar__menu-button" id="sidebar-button" name="sidebar-button" type="checkbox"/>
+        <label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
+            Menu
+        </label>
+        <aside class="phpdocumentor-column -four phpdocumentor-sidebar">
+            <section class="phpdocumentor-sidebar__category">
+                <h2 class="phpdocumentor-sidebar__category-header">Documentation</h2>
+                <h4 class="phpdocumentor-sidebar__root-namespace">
+                    <a class="" href="guide/theme/index.html">Theming</a>
+                </h4>
+                <ul class="phpdocumentor-list">
                     <li>
-                <a class="" href="guide/theme/create.html">Creating a theme</a>
-                
-            </li>
-                    <li>
-                <a class="" href="guide/theme/configure.html">Configuration with theme.php</a>
-                
-            </li>
-                    <li>
-                <a class="" href="guide/theme/access-links.html">Access theme links</a>
-                
-            </li>
-                    <li>
-                <a class="" href="guide/theme/access-configuration.html">Access theme configuration</a>
-                
-            </li>
-                    <li>
-                <a class="" href="guide/theme/theme-extensions.html">Theme extensions</a>
-                
-            </li>
-            </ul>
+                        <a class="" href="guide/theme/create.html">Creating a theme</a>
 
-                        </section>
-                <section class="phpdocumentor-sidebar__category">
-            <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                                    <h4 class="phpdocumentor-sidebar__root-namespace">
-    <a class="" href="namespaces/app.html">App</a>
-</h4>
-    <ul class="phpdocumentor-list">
+                    </li>
                     <li>
-                <a class="" href="namespaces/app-authentication.html">Authentication</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-console.html">Console</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-database.html">Database</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-logging.html">Logging</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-mailing.html">Mailing</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-maintenance.html">Maintenance</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-messaging.html">Messaging</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-routing.html">Routing</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-statistics.html">Statistics</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-storage.html">Storage</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-tests.html">Tests</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-theming.html">Theming</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-utils.html">Utils</a>
-                
-            </li>
-                    <li>
-                <a class="" href="namespaces/app-web.html">Web</a>
-                
-            </li>
-            </ul>
+                        <a class="" href="guide/theme/configure.html">Configuration with theme.php</a>
 
-                        </section>
-                <section class="phpdocumentor-sidebar__category">
-            <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
-                                    <h4 class="phpdocumentor-sidebar__root-namespace">
-    <a class="" href="packages/Application.html">Application</a>
-</h4>
+                    </li>
+                    <li>
+                        <a class="" href="guide/theme/access-links.html">Access theme links</a>
 
-                        </section>
-            
-    <section class="phpdocumentor-sidebar__category">
-        <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
+                    </li>
+                    <li>
+                        <a class="" href="guide/theme/access-configuration.html">Access theme configuration</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="guide/theme/theme-extensions.html">Theme extensions</a>
+
+                    </li>
+                </ul>
+
+            </section>
+            <section class="phpdocumentor-sidebar__category">
+                <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                <h4 class="phpdocumentor-sidebar__root-namespace">
+                    <a class="" href="namespaces/app.html">App</a>
+                </h4>
+                <ul class="phpdocumentor-list">
+                    <li>
+                        <a class="" href="namespaces/app-authentication.html">Authentication</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-console.html">Console</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-database.html">Database</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-logging.html">Logging</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-mailing.html">Mailing</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-maintenance.html">Maintenance</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-messaging.html">Messaging</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-routing.html">Routing</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-statistics.html">Statistics</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-storage.html">Storage</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-tests.html">Tests</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-theming.html">Theming</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-utils.html">Utils</a>
+
+                    </li>
+                    <li>
+                        <a class="" href="namespaces/app-web.html">Web</a>
+
+                    </li>
+                </ul>
+
+            </section>
+            <section class="phpdocumentor-sidebar__category">
+                <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
+                <h4 class="phpdocumentor-sidebar__root-namespace">
+                    <a class="" href="packages/Application.html">Application</a>
+                </h4>
+
+            </section>
+
+            <section class="phpdocumentor-sidebar__category">
+                <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
                 <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
-        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
-        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
-    </section>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
+            </section>
 
-    <section class="phpdocumentor-sidebar__category">
-        <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
-        <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
-    </section>
-</aside>
+            <section class="phpdocumentor-sidebar__category">
+                <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
+            </section>
+        </aside>
 
         <div class="phpdocumentor-column -eight phpdocumentor-content">
-                <ul class="phpdocumentor-breadcrumbs">
-    </ul>
+            <ul class="phpdocumentor-breadcrumbs">
+            </ul>
 
-    <article class="phpdocumentor-element -file">
-        <h2 class="phpdocumentor-content__title">PutConfigurationAction.php</h2>
-
-        
-    <section class="phpdocumentor-description"></section>
+            <article class="phpdocumentor-element -file">
+                <h2 class="phpdocumentor-content__title">PutConfigurationAction.php</h2>
 
 
+                <section class="phpdocumentor-description"></section>
 
 
+                <h3 id="interfaces_class_traits">
+                    Interfaces, Classes, Traits and Enums
+                    <a class="headerlink" href="#interfaces_class_traits"><i class="fas fa-link"></i></a>
+                </h3>
+
+                <dl class="phpdocumentor-table-of-contents">
+
+                    <dt class="phpdocumentor-table-of-contents__entry -class"><a
+                            href="classes/App-Web-Actions-Theme-PutConfigurationAction.html"><abbr
+                            title="\App\Web\Actions\Theme\PutConfigurationAction">PutConfigurationAction</abbr></a></dt>
+                    <dd>Action to update the configuration</dd>
 
 
-<h3 id="interfaces_class_traits">
-    Interfaces, Classes, Traits and Enums
-    <a class="headerlink" href="#interfaces_class_traits"><i class="fas fa-link"></i></a>
-</h3>
-
-<dl class="phpdocumentor-table-of-contents">
-    
-            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/App-Web-Actions-Theme-PutConfigurationAction.html"><abbr title="\App\Web\Actions\Theme\PutConfigurationAction">PutConfigurationAction</abbr></a></dt>
-        <dd>Action to update the configuration</dd>
-    
-    
-    </dl>
+                </dl>
 
 
-
-
-
-        
-
-        
-    </article>
+            </article>
             <section class="phpdocumentor-search-results phpdocumentor-search-results--hidden" data-search-results>
-    <section class="phpdocumentor-search-results__dialog">
-        <header class="phpdocumentor-search-results__header">
-            <h2 class="phpdocumentor-search-results__title">Search results</h2>
-            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
-        </header>
-        <section class="phpdocumentor-search-results__body">
-            <ul class="phpdocumentor-search-results__entries"></ul>
-        </section>
-    </section>
-</section>
+                <section class="phpdocumentor-search-results__dialog">
+                    <header class="phpdocumentor-search-results__header">
+                        <h2 class="phpdocumentor-search-results__title">Search results</h2>
+                        <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+                    </header>
+                    <section class="phpdocumentor-search-results__body">
+                        <ul class="phpdocumentor-search-results__entries"></ul>
+                    </section>
+                </section>
+            </section>
         </div>
     </div>
-    <a class="phpdocumentor-back-to-top" href="files/src-web-actions-theme-putconfigurationaction.html#top"><i class="fas fa-chevron-circle-up"></i></a>
+    <a class="phpdocumentor-back-to-top" href="files/src-web-actions-theme-putconfigurationaction.html#top"><i
+            class="fas fa-chevron-circle-up"></i></a>
 
 </main>
 

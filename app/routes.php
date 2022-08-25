@@ -49,6 +49,7 @@ use App\Web\Actions\Menu\Items\UpdateMenuItemAction;
 use App\Web\Actions\MyJinya\GetArtistInfoAction;
 use App\Web\Actions\MyJinya\UpdateAboutMeAction;
 use App\Web\Actions\MyJinya\UpdateColorSchemeAction;
+use App\Web\Actions\PhpInfo\GetFullPhpInfoAction;
 use App\Web\Actions\PhpInfo\GetPhpInfoAction;
 use App\Web\Actions\SegmentPage\Segments\CreateFileSegmentAction;
 use App\Web\Actions\SegmentPage\Segments\CreateFormSegmentAction;
@@ -265,6 +266,8 @@ return function (App $app) {
             ->add(AuthorizationMiddleware::class);
 
         // PHP Info
+        $proxy->get('/phpinfo/full', GetFullPhpInfoAction::class)
+            ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_ADMIN));
         $proxy->get('/phpinfo', GetPhpInfoAction::class)
             ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_ADMIN));
 
