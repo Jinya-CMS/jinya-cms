@@ -111,23 +111,16 @@ spec:
                 sh "mkdir -p /usr/share/man/man1"
                 sh "apt-get update"
                 sh "apt-get install -y apt-utils"
-                sh 'curl -sL https://deb.nodesource.com/setup_current.x -o nodesource_setup.sh'
-                sh 'bash nodesource_setup.sh'
                 sh "apt-get install -y libzip-dev git wget unzip zip nodejs libicu-dev libmagickwand-dev libcurl4-openssl-dev"
                 sh 'pecl install imagick pcov apcu'
                 sh 'docker-php-ext-enable imagick pcov apcu'
                 sh 'echo "apc.enable_cli=1" >> /usr/local/etc/php/php.ini'
-                sh 'npm install -g yarn'
                 sh "docker-php-ext-install pdo pdo_mysql zip intl curl"
                 sh "php --version"
                 sh '''php -r "copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');"'''
                 sh "php composer-setup.php"
                 sh '''php -r "unlink(\'composer-setup.php\');"'''
                 sh 'php composer.phar install'
-                dir('designer') {
-                    sh 'yarn'
-                    sh 'yarn build:prod'
-                }
             }
         }
         stage('Quality assurance') {
