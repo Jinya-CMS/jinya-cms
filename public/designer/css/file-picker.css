@@ -1,0 +1,16 @@
+.jinya-picker__name {
+    display: flex;
+    overflow-x: clip;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+
+.jinya-file-picker__modal {
+    max-width: 1000px;
+}
+
+.jinya-picker__selected-file {
+    grid-column: 2/3;
+    width: 320px;
+    object-fit: scale-down;
+}

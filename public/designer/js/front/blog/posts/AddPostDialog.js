@@ -2,6 +2,7 @@ import html from '../../../../lib/jinya-html.js';
 import { get, post } from '../../../foundation/http/request.js';
 import localize from '../../../foundation/localize.js';
 import alert from '../../../foundation/ui/alert.js';
+import filePicker from '../../../foundation/ui/filePicker.js';
 
 export default class AddPostDialog {
   /**
@@ -42,12 +43,16 @@ export default class AddPostDialog {
                         <label for="createPostHeaderImage" class="cosmo-label">
                             ${localize({ key: 'blog.posts.create.header_image' })}
                         </label>
-                        <select required id="createPostHeaderImage" class="cosmo-select">
-                            <option selected value="-1">
+                        <div class="cosmo-input cosmo-input--picker" id="createPostHeaderImagePicker">
+                            <label class="cosmo-picker__name jinya-picker__name" for="createPostHeaderImage">
                                 ${localize({ key: 'blog.posts.create.no_header_image' })}
-                            </option>
-                            ${files.map((file) => `<option value="${file.id}">#${file.id} ${file.name}</option>`)}
-                        </select>
+                            </label>
+                            <label class="cosmo-picker__button" for="createPostHeaderImage">
+                                <span class="mdi mdi-image-search mdi-24px"></span>
+                            </label>
+                            <input type="hidden" id="createPostHeaderImage">
+                        </div>
+                        <img src="" alt="" id="selectedFile" class="jinya-picker__selected-file" hidden>
                         <div class="cosmo-checkbox__group">
                             <input class="cosmo-checkbox" type="checkbox" id="createPostPublic">
                             <label for="createPostPublic">${localize({ key: 'blog.posts.create.public' })}</label>
@@ -67,6 +72,25 @@ export default class AddPostDialog {
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
+    document.querySelectorAll('#createPostHeaderImagePicker label').forEach((item) => {
+      item.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const selectedFileId = parseInt(document.getElementById('createPostHeaderImage').value, 10);
+        const fileResult = await filePicker({
+          title: localize({ key: 'blog.posts.create.header_image' }),
+          selectedFileId,
+        });
+        if (fileResult) {
+          document.getElementById('selectedFile').src = fileResult.path;
+          document.getElementById('selectedFile').alt = fileResult.name;
+          document.getElementById('selectedFile').hidden = false;
+
+          document.getElementById('createPostHeaderImage').value = fileResult.id;
+          document.querySelector('#createPostHeaderImagePicker .cosmo-picker__name').innerText = fileResult.name;
+        }
+      });
+    });
+
     document.getElementById('cancel-create-dialog').addEventListener('click', () => {
       container.remove();
     });

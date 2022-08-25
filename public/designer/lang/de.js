@@ -2,6 +2,10 @@ export default {
   alert: {
     dismiss: 'Ausblenden',
   },
+  file_picker: {
+    dismiss: 'Dialog schließen',
+    pick: 'Datei auswählen',
+  },
   login: {
     menu: {
       title: 'Anmelden',
