@@ -1,0 +1,4 @@
+.tox .tox-menu,
+.tox-tinymce-aux {
+    z-index: 999999 !important;
+}

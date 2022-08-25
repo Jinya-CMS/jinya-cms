@@ -1,0 +1,18 @@
+.jinya-stats__row {
+    display: grid;
+    width: 99%;
+}
+
+.jinya-stats__row--half {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+}
+
+.jinya-stats__row--third {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1rem;
+}
+
+.jinya-stats__row--one {
+    grid-template-columns: 1fr;
+}

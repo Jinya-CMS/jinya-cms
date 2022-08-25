@@ -197,8 +197,26 @@ class MenuItem extends Utils\RearrangableEntity
      */
     public function create(): void
     {
-        $this->rearrange($this->position);
+        if ($this->menuId !== null) {
+            $this->internalRearrange('menu_item', 'menu_id', $this->menuId, $this->position);
+            $this->update(false);
+        } elseif ($this->parentId !== null) {
+            $this->internalRearrange('menu_item', 'parent_id', $this->parentId, $this->position);
+            $this->update(false);
+        } else {
+            throw new LogicException('No parent provided');
+        }
         $this->internalCreate('menu_item', ['highlighted' => new BooleanStrategy(1, 0), 'blogHomePage' => new BooleanStrategy(1, 0)]);
+
+        if ($this->menuId !== null) {
+            $this->resetOrder('menu_item', 'menu_id', $this->menuId);
+        } elseif ($this->parentId !== null) {
+            $this->resetOrder('menu_item', 'parent_id', $this->parentId);
+        } else {
+            throw new LogicException('No parent provided');
+        }
+
+        $this->position = self::fetchColumn('SELECT position FROM menu_item WHERE id = ' . $this->id);
     }
 
     /**

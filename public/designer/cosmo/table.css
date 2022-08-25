@@ -1,0 +1,15 @@
+.cosmo-table {
+    border-collapse: collapse;
+}
+
+.cosmo-table thead tr th {
+    font-weight: var(--font-weight-bold);
+    padding: 0 8px 8px;
+    text-transform: capitalize;
+}
+
+.cosmo-table tbody tr td {
+    border-bottom: 1px solid var(--control-border-color);
+    font-weight: var(--font-weight-light);
+    padding: 2px 8px;
+}

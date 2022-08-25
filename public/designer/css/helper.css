@@ -1,0 +1,5 @@
+.jinya-sticky--bottom {
+    position: sticky;
+    bottom: 0;
+    background: var(--white);
+}

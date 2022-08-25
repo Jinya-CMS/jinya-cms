@@ -1,0 +1,35 @@
+.jinya-profile__container {
+    grid-row: content;
+    display: grid;
+    grid-template-columns: [sidebar] 3fr [content] 7fr;
+    gap: 16px;
+    box-sizing: border-box;
+}
+
+.jinya-profile__sidebar {
+    grid-column: sidebar;
+}
+
+.jinya-profile__about-me {
+    grid-column: content;
+}
+
+.jinya-profile__picture {
+    width: 100%;
+    height: auto;
+}
+
+.jinya-profile__label {
+    display: block;
+    width: 100%;
+    font-weight: var(--font-weight-bold);
+}
+
+.jinya-profile__detail {
+    display: block;
+    width: 100%;
+}
+
+.cosmo-button__container--profile {
+    grid-column: span 2;
+}

@@ -1,0 +1,62 @@
+.cosmo-title {
+    font-weight: var(--font-weight-light);
+    margin: 0;
+    vertical-align: text-top;
+    font-size: 36px;
+}
+
+.cosmo-title + .cosmo-title {
+    margin-left: 16px;
+    border-left: 1px solid var(--black);
+    padding-left: 16px;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-weight: var(--font-weight-light);
+    font-size: 32px;
+}
+
+h2 {
+    font-weight: var(--font-weight-light);
+    font-size: 28px;
+}
+
+h3 {
+    font-weight: var(--font-weight-light);
+    font-size: 24px;
+}
+
+h4 {
+    font-weight: var(--font-weight-light);
+    font-size: 22px;
+}
+
+h5 {
+    font-weight: var(--font-weight-light);
+    font-size: 20px;
+}
+
+h6 {
+    font-weight: var(--font-weight-light);
+    font-size: 16px;
+}
+
+p {
+    font-family: var(--font-family);
+    font-size: 16px;
+}
+
+a {
+    color: var(--primary-color);
+}
+
+code,
+pre {
+    color: var(--code-color);
+}
+
+*::selection {
+    background: var(--primary-color);
+    color: var(--white);
+}

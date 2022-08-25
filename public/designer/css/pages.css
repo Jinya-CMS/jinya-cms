@@ -1,0 +1,7 @@
+.jinya-designer__content--simple-pages {
+    grid-template-columns: unset;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: flex-end;
+}
