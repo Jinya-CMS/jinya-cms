@@ -142,7 +142,7 @@ spec:
                         sh './vendor/bin/phpunit --log-junit=report.percona.xml --configuration ./phpunit.jenkins.percona.xml'
 
                         print 'Cleanup'
-                        sh 'rm -r designer@tmp docs guides phpdoc screenshots public/jinya-content/* public/*.webp public/*.png public/*.jpg nodesource_setup.sh installed.lock tmp/*'
+                        sh 'rm -rf docs guides phpdoc screenshots public/jinya-content/* public/*.webp public/*.png public/*.jpg installed.lock tmp/*'
                         dir('public') {
                             sh 'find . -type f -maxdepth 1 -name "*-*" -exec rm {} +'
                         }
