@@ -1,49 +1,74 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Jinya CMS Designer</title>
-    <link rel="stylesheet" href="/static/mdi/mdi.css">
-    <link rel="stylesheet" href="/static/cosmo/variables.css">
-    <link rel="stylesheet" href="/static/cosmo/lato.css">
-    <link rel="stylesheet" href="/static/cosmo/scrollbars.css">
-    <link rel="stylesheet" href="/static/cosmo/layout.css">
-    <link rel="stylesheet" href="/static/cosmo/form.css">
-    <link rel="stylesheet" href="/static/cosmo/modal.css">
-    <link rel="stylesheet" href="/static/cosmo/progress.css">
-    <link rel="stylesheet" href="/static/cosmo/list.css">
-    <link rel="stylesheet" href="/static/cosmo/toolbar.css">
-    <link rel="stylesheet" href="/static/cosmo/typography.css">
-    <link rel="stylesheet" href="/static/cosmo/tab.css">
-    <link rel="stylesheet" href="/static/cosmo/table.css">
-    <link rel="stylesheet" href="/static/cosmo/key-value-list.css">
-    <link href="/static/cosmo/buttons.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/body.css">
-    <link rel="stylesheet" href="/static/css/layout.css">
-    <link rel="stylesheet" href="/static/css/media.css">
-    <link rel="stylesheet" href="/static/css/designer.css">
-    <link rel="stylesheet" href="/static/css/designer-addons.css">
-    <link rel="stylesheet" href="/static/css/pages.css">
-    <link rel="stylesheet" href="/static/css/theme.css">
-    <link rel="stylesheet" href="/static/css/profile.css">
-    <link rel="stylesheet" href="/static/css/update.css">
-    <link rel="stylesheet" href="/static/css/query-tool.css">
-    <link rel="stylesheet" href="/static/css/stats.css">
-    <link href="/static/css/blog.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/loader.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="/static/favicon-512x512.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/static/favicon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
-    <link rel="shortcut icon" href="/static/favicon.ico">
-    <meta name="apple-mobile-web-app-title" content="Jinya CMS Designer">
-    <meta name="application-name" content="Jinya CMS Designer">
-    <meta name="msapplication-TileColor" content="#514b57">
-    <meta name="theme-color" content="#514b57">
+    <link href="/designer/mdi/mdi.css" rel="stylesheet">
+    <link href="/designer/cosmo/variables.css" rel="stylesheet">
+    <link href="/designer/cosmo/lato.css" rel="stylesheet">
+    <link href="/designer/cosmo/scrollbars.css" rel="stylesheet">
+    <link href="/designer/cosmo/layout.css" rel="stylesheet">
+    <link href="/designer/cosmo/form.css" rel="stylesheet">
+    <link href="/designer/cosmo/modal.css" rel="stylesheet">
+    <link href="/designer/cosmo/progress.css" rel="stylesheet">
+    <link href="/designer/cosmo/list.css" rel="stylesheet">
+    <link href="/designer/cosmo/toolbar.css" rel="stylesheet">
+    <link href="/designer/cosmo/typography.css" rel="stylesheet">
+    <link href="/designer/cosmo/tab.css" rel="stylesheet">
+    <link href="/designer/cosmo/table.css" rel="stylesheet">
+    <link href="/designer/cosmo/key-value-list.css" rel="stylesheet">
+    <link href="/designer/cosmo/buttons.css" rel="stylesheet">
+    <link href="/designer/css/body.css" rel="stylesheet">
+    <link href="/designer/css/layout.css" rel="stylesheet">
+    <link href="/designer/css/media.css" rel="stylesheet">
+    <link href="/designer/css/designer.css" rel="stylesheet">
+    <link href="/designer/css/designer-addons.css" rel="stylesheet">
+    <link href="/designer/css/pages.css" rel="stylesheet">
+    <link href="/designer/css/theme.css" rel="stylesheet">
+    <link href="/designer/css/profile.css" rel="stylesheet">
+    <link href="/designer/css/update.css" rel="stylesheet">
+    <link href="/designer/css/query-tool.css" rel="stylesheet">
+    <link href="/designer/css/stats.css" rel="stylesheet">
+    <link href="/designer/css/blog.css" rel="stylesheet">
+    <link href="/designer/css/loader.css" rel="stylesheet">
+    <link href="/designer/css/helper.css" rel="stylesheet">
+    <link href="/designer/css/tiny.css" rel="stylesheet">
+    <link href="/designer/vs/editor/editor.main.css" rel="stylesheet">
+    <link href="/designer/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+    <link href="/designer/favicon-512x512.png" rel="icon" sizes="512x512" type="image/png">
+    <link href="/designer/favicon-192x192.png" rel="icon" sizes="192x192" type="image/png">
+    <link href="/designer/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+    <link href="/designer/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+    <link href="/designer/favicon.ico" rel="shortcut icon">
+    <meta content="Jinya CMS Designer" name="apple-mobile-web-app-title">
+    <meta content="Jinya CMS Designer" name="application-name">
+    <meta content="#514b57" name="msapplication-TileColor">
+    <meta content="#514b57" name="theme-color">
 </head>
 <body>
-<div id="app"></div>
-<script type="module" src="/designer/build/bundle.js"></script>
+<main class="cosmo-page-layout" id="mainPage">
+    <div class="jinya-loader__container" style="min-height: 100vh">
+        <div class="jinya-loader"></div>
+    </div>
+</main>
+<script>
+  let require = {
+    paths: { vs: './vs' }, config: {
+      'vs/nls': {
+        availableLanguages: {
+          '*': 'de'
+        }
+      }
+    }
+  };
+</script>
+<script src="/designer/vs/loader.js"></script>
+<script>
+</script>
+<script src="/designer/vs/editor/editor.main.nls.js"></script>
+<script src="/designer/vs/editor/editor.main.js"></script>
+<script src="/designer/lib/uaparser.js"></script>
+<script src="/designer/lib/tinymce/tinymce.min.js"></script>
+<script src="/designer/js/index.js" type="module"></script>
 </body>
 </html>
