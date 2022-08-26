@@ -85,6 +85,12 @@ export default class PhpInfoPage extends JinyaDesignerPage {
 
     clearChildren({ parent: document.getElementById('php-info-content') });
     document.getElementById('php-info-content').innerHTML = content;
+    document
+      .querySelectorAll('.cosmo-list__item--active')
+      .forEach((item) => item.classList.remove('cosmo-list__item--active'));
+    document
+      .querySelector(`.cosmo-list__item[data-name="${this.selectedExtensionName}"]`)
+      .classList.add('cosmo-list__item--active');
   }
 
   displayExtensions() {
@@ -95,13 +101,10 @@ export default class PhpInfoPage extends JinyaDesignerPage {
       list += `<a class="cosmo-list__item" data-name="${extension}">${extension}</a>`;
     }
     clearChildren({ parent: document.getElementById('extension-list') });
-    document.getElementById('extension-list').innerHTML = `${list}
-                <button id="upload-theme-button" class="cosmo-button cosmo-button--full-width">
-                    ${localize({ key: 'design.themes.action.create' })}
-                </button>`;
+    document.getElementById('extension-list').innerHTML = list;
     document.querySelectorAll('.cosmo-list__item').forEach((item) => {
       item.addEventListener('click', async () => {
-        this.selectExtension({ id: item.getAttribute('data-name') });
+        this.selectExtension({ name: item.getAttribute('data-name') });
         this.displaySelectedExtension();
       });
     });
