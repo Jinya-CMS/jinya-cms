@@ -342,6 +342,9 @@ export default class SegmentPagePage extends JinyaDesignerPage {
           document
             .querySelector(`[data-position="${this.selectedSegment.position}"] [data-type="action-label"]`)
             .innerText = localize({ key: `pages_and_forms.segment.designer.action_${action}` });
+          document
+            .querySelector(`[data-position="${this.selectedSegment.position}"] img`)
+            .src = file.path;
         },
       });
       await dialog.show();

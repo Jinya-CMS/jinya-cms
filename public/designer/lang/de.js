@@ -260,6 +260,7 @@ export default {
         edit: {
           title: 'Segment bearbeiten',
           file: 'Datei',
+          please_select: 'Bitte eine Datei wählen',
           has_link: 'Hat Link',
           target: 'Ziel-URL',
           gallery: 'Galerie',

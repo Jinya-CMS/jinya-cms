@@ -260,6 +260,7 @@ export default {
         edit: {
           title: 'Edit segment',
           file: 'File',
+          please_select: 'Please select a file',
           has_link: 'Has link',
           target: 'Target',
           gallery: 'Gallery',
