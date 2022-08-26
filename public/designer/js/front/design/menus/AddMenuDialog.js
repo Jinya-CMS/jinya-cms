@@ -2,6 +2,7 @@ import html from '../../../../lib/jinya-html.js';
 import { get, post } from '../../../foundation/http/request.js';
 import localize from '../../../foundation/localize.js';
 import alert from '../../../foundation/ui/alert.js';
+import filePicker from '../../../foundation/ui/filePicker.js';
 
 export default class AddMenuDialog {
   /**
@@ -28,11 +29,16 @@ export default class AddMenuDialog {
                         <label for="createMenuLogo" class="cosmo-label">
                             ${localize({ key: 'design.menus.create.logo' })}
                         </label>
-                        <select required type="text" id="createMenuLogo" class="cosmo-select">
-                            <option value="-1">${localize({ key: 'design.menus.create.logo_none' })}</option>
-                            ${files.map((item) => html`
-                                <option value="${item.id}">${item.name}</option>`)}
-                        </select>
+                        <div class="cosmo-input cosmo-input--picker" id="createMenuLogoPicker">
+                            <label class="cosmo-picker__name jinya-picker__name" for="createMenuLogo">
+                                ${localize({ key: 'design.menus.create.logo_none' })}
+                            </label>
+                            <label class="cosmo-picker__button" for="createMenuLogo">
+                                <span class="mdi mdi-image-search mdi-24px"></span>
+                            </label>
+                            <input type="hidden" id="createMenuLogo">
+                        </div>
+                        <img src="" alt="" id="selectedFile" class="jinya-picker__selected-file" hidden>
                     </div>
                 </div>
                 <div class="cosmo-modal__button-bar">
@@ -48,6 +54,25 @@ export default class AddMenuDialog {
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
+    document.querySelectorAll('#createMenuLogoPicker label').forEach((item) => {
+      item.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const selectedFileId = parseInt(document.getElementById('createMenuLogo').value, 10);
+        const fileResult = await filePicker({
+          title: localize({ key: 'design.menus.create.logo' }),
+          selectedFileId,
+        });
+        if (fileResult) {
+          document.getElementById('selectedFile').src = fileResult.path;
+          document.getElementById('selectedFile').alt = fileResult.name;
+          document.getElementById('selectedFile').hidden = false;
+
+          document.getElementById('createMenuLogo').value = fileResult.id;
+          document.querySelector('#createMenuLogoPicker .cosmo-picker__name').innerText = fileResult.name;
+        }
+      });
+    });
+
     document.getElementById('cancel-add-dialog').addEventListener('click', () => {
       container.remove();
     });
