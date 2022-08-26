@@ -769,6 +769,17 @@ export default {
       version_text: 'You currently have version {openB}{currentVersion}{closeB} installed, there is an update available to {openB}{mostRecentVersion}{closeB}.',
       version_text_no_update: 'You currently have version {openB}{currentVersion}{closeB} installed, this is the most recent version.',
       update_now: 'Update now',
+      perform_update: {
+        title: 'Update Jinya CMS',
+        message: 'Are you sure to update Jinya CMS? This Update cannot be cancelled once started.',
+        decline: 'Cancel update',
+        approve: 'Update now',
+        updating: 'Update is being installed',
+        failed: {
+          title: 'Error',
+          message: 'The update failed, please try again later.',
+        },
+      },
     },
     configuration: {
       key: 'Key',

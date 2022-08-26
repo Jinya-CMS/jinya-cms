@@ -769,6 +769,17 @@ export default {
       version_text: 'Aktuell ist Version {openB}{currentVersion}{closeB} installiert. Es gibt ein Update auf Version {openB}{mostRecentVersion}{closeB}.',
       version_text_no_update: 'Aktuell ist Version {openB}{currentVersion}{closeB} installiert, dies ist die aktuellste Version.',
       update_now: 'Jetzt updaten',
+      perform_update: {
+        title: 'Update durchführen',
+        message: 'Soll das Update für Jinya CMS jetzt installiert werden? Ein Abbruch ist nicht möglich.',
+        decline: 'Update abbrechen',
+        approve: 'Jetzt updaten',
+        updating: 'Jinya CMS wird aktualisiert',
+        failed: {
+          title: 'Fehler',
+          message: 'Das Update ist fehlgeschlagen, bitte versuch es später erneut.',
+        },
+      },
     },
     configuration: {
       key: 'Schlüssel',

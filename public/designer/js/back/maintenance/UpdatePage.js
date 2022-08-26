@@ -1,7 +1,8 @@
 import html from '../../../lib/jinya-html.js';
-import { get, put } from '../../foundation/http/request.js';
+import { get, post } from '../../foundation/http/request.js';
 import JinyaDesignerPage from '../../foundation/JinyaDesignerPage.js';
 import localize from '../../foundation/localize.js';
+import confirm from '../../foundation/ui/confirm.js';
 
 export default class UpdatePage extends JinyaDesignerPage {
   constructor({ layout }) {
@@ -32,8 +33,35 @@ export default class UpdatePage extends JinyaDesignerPage {
               ${localize({ key: 'maintenance.update.update_now' })}
           </button>`;
       document.getElementById('update-button').addEventListener('click', async () => {
-        await put('/api/update');
-        window.location.href = '/update';
+        if (await confirm({
+          title: localize({ key: 'maintenance.update.perform_update.title' }),
+          message: localize({ key: 'maintenance.update.perform_update.message' }),
+          declineLabel: localize({ key: 'maintenance.update.perform_update.decline' }),
+          approveLabel: localize({ key: 'maintenance.update.perform_update.approve' }),
+        })) {
+          const loadingContainer = document.createElement('div');
+          loadingContainer.innerHTML = html`
+              <div class="cosmo-modal__backdrop"></div>
+              <div class="cosmo-modal__container">
+                  <div class="cosmo-modal">
+                      <h1 class="cosmo-modal__title">
+                          ${localize({ key: 'maintenance.update.perform_update.updating' })}</h1>
+                      <p class="cosmo-modal__content">
+                      <div class="jinya-loader__container" style="min-height: 300px">
+                          <div class="jinya-loader"></div>
+                      </div>
+                      </p>
+                  </div>
+              </div>`;
+          document.body.append(loadingContainer);
+          try {
+            await post('/api/update');
+            // eslint-disable-next-line no-empty
+          } catch (e) {
+          }
+          window.location.reload();
+          loadingContainer.remove();
+        }
       });
     } else {
       contentView.innerHTML = html`
