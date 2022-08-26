@@ -464,6 +464,7 @@ export default {
           link: 'Link',
           gallery: 'Gallery',
           update: 'Update segment',
+          please_select: 'Please select a file',
           cancel: 'Discard changes',
           delete_segment: {
             title: 'Remove segment',

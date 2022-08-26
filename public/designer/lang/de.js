@@ -485,6 +485,7 @@ export default {
           has_link: 'Mit link',
           link: 'Link',
           gallery: 'Galerie',
+          please_select: 'Bitte eine Datei wählen',
           update: 'Segment speichern',
           cancel: 'Änderungen verwerfen',
           delete_segment: {

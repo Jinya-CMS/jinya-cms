@@ -174,6 +174,8 @@ export default class PostDesignerDialog {
       const { default: EditGallerySegmentDialog } = await import('./EditGallerySegmentDialog.js');
       const dialog = new EditGallerySegmentDialog({
         position,
+        ...this.selectedSegment,
+        galleryId: this.selectedSegment?.gallery?.id ?? -1,
         onHide: ({ gallery }) => {
           if (this.newSegment) {
             this.segments.splice(position, 0, { position, gallery });
@@ -189,6 +191,7 @@ export default class PostDesignerDialog {
       const { default: EditFileSegmentDialog } = await import('./EditFileSegmentDialog.js');
       const dialog = new EditFileSegmentDialog({
         ...this.selectedSegment,
+        fileId: this.selectedSegment?.file?.id ?? -1,
         onHide: ({ file, link }) => {
           if (this.newSegment) {
             this.segments.splice(position, 0, { position, file, link });
