@@ -23,5 +23,7 @@ class ApiUpdateAction extends UpdateAction
         $zipStream->extractTo(__ROOT__);
         $zipStream->close();
         Migrator::migrate();
+
+        return $this->noContent();
     }
 }
