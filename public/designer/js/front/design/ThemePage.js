@@ -425,25 +425,25 @@ export default class ThemePage extends JinyaDesignerPage {
     });
     document.getElementById('compile-assets').addEventListener('click', async () => {
       if (await confirm({
-        title: localize({ key: 'design.themes.activate.title' }),
-        message: localize({ key: 'design.themes.activate.message', values: this.selectedTheme }),
-        approveLabel: localize({ key: 'design.themes.activate.approve' }),
-        declineLabel: localize({ key: 'design.themes.activate.decline' }),
+        title: localize({ key: 'design.themes.assets.title' }),
+        message: localize({ key: 'design.themes.assets.message', values: this.selectedTheme }),
+        approveLabel: localize({ key: 'design.themes.assets.approve' }),
+        declineLabel: localize({ key: 'design.themes.assets.decline' }),
       })) {
         try {
-          await put(`/api/theme/${this.selectedTheme.id}/active`);
+          await put(`/api/theme/${this.selectedTheme.id}/assets`);
           await alert({
-            title: localize({ key: 'design.themes.activate.success.title' }),
+            title: localize({ key: 'design.themes.assets.success.title' }),
             message: localize({
-              key: 'design.themes.activate.success.message',
+              key: 'design.themes.assets.success.message',
               values: this.selectedTheme,
             }),
           });
         } catch (e) {
           await alert({
-            title: localize({ key: 'design.themes.activate.error.title' }),
+            title: localize({ key: 'design.themes.assets.error.title' }),
             message: localize({
-              key: 'design.themes.activate.error.message',
+              key: 'design.themes.assets.error.message',
               values: this.selectedTheme,
             }),
           });
