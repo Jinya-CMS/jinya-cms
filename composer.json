@@ -37,7 +37,7 @@
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
-    "phpunit/phpunit": "9.5.23",
+    "phpunit/phpunit": "9.5.24",
     "phpstan/phpstan": "1.8.2",
     "fakerphp/faker": "v1.20.0",
     "symfony/filesystem": "v6.1.4"
