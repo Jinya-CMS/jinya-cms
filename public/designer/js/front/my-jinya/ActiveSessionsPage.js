@@ -1,4 +1,5 @@
 import html from '../../../lib/jinya-html.js';
+import UAParser from '../../../lib/uaparser.js';
 import clearChildren from '../../foundation/html/clearChildren.js';
 import { get, httpDelete } from '../../foundation/http/request.js';
 import JinyaDesignerPage from '../../foundation/JinyaDesignerPage.js';

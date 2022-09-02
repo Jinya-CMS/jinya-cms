@@ -13,7 +13,6 @@
   },
   "homepage": "https://github.com/Jinya-CMS/jinya-cms#readme",
   "devDependencies": {
-    "@types/ua-parser-js": "^0.7.36",
     "eslint": "^8.22.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.26.0",
