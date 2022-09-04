@@ -126,8 +126,8 @@ export default class GalleryPage extends JinyaDesignerPage {
   }
 
   displayGalleries() {
-    document.getElementById('edit-gallery').disabled = true;
-    document.getElementById('delete-gallery').disabled = true;
+    document.getElementById('edit-gallery-button').disabled = true;
+    document.getElementById('delete-gallery-button').disabled = true;
     let list = '';
     for (const gallery of this.galleries) {
       list += `<a class="cosmo-list__item" data-id="${gallery.id}">${gallery.name}</a>`;
