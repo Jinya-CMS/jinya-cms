@@ -20,13 +20,13 @@ export default class GalleryPage extends JinyaDesignerPage {
   }
 
   selectGallery({ id }) {
-    document.getElementById('edit-gallery').disabled = false;
-    document.getElementById('delete-gallery').disabled = false;
     this.selectedGallery = this.galleries.find((f) => f.id === parseInt(id, 10));
     document
       .querySelectorAll('.cosmo-list__item--active')
       .forEach((item) => item.classList.remove('cosmo-list__item--active'));
     document.querySelector(`[data-id="${id}"]`).classList.add('cosmo-list__item--active');
+    document.getElementById('edit-gallery-button').disabled = false;
+    document.getElementById('delete-gallery-button').disabled = false;
   }
 
   async displaySelectedGallery() {
