@@ -18,7 +18,7 @@
     "phpmailer/phpmailer": "v6.6.4",
     "phpmyadmin/sql-parser": "5.5.0",
     "league/climate": "3.8.2",
-    "scssphp/scssphp": "v1.10.5",
+    "scssphp/scssphp": "v1.11.0",
     "nyholm/psr7": "1.5.1",
     "nyholm/psr7-server": "1.0.2",
     "slim/slim": "4.10.0",
@@ -38,7 +38,7 @@
   "require-dev": {
     "roave/security-advisories": "dev-latest",
     "phpunit/phpunit": "9.5.24",
-    "phpstan/phpstan": "1.8.3",
+    "phpstan/phpstan": "1.8.4",
     "fakerphp/faker": "v1.20.0",
     "symfony/filesystem": "v6.1.4"
   },
