@@ -101,9 +101,6 @@ class GetFullPhpInfoAction extends Action
                 }
             }
 
-            /**
-             * @phpstan-ignore-next-line
-             */
             $cleanedGroupKey = match (strtolower($groupKey)) {
                 'apache environment' => 'apache',
                 'environment' => 'environment',
