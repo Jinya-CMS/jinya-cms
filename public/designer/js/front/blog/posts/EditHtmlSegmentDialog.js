@@ -14,7 +14,7 @@ export default class EditFileSegmentDialog {
               }) {
     this.onHide = onHide;
     this.position = position;
-    this.html = content;
+    this.html = content ?? '';
   }
 
   async show() {

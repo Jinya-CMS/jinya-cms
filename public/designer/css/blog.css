@@ -71,11 +71,16 @@
 
 .jinya-designer__content--blog,
 .jinya-designer__result--blog {
-    --height: calc(100vh - 36px - 10px - 18px - 27px - 10px - 78px);
+    --height: calc(100vh - 36px - 10px - 18px - 27px - 10px - 78px - 24px);
     max-height: var(--height);
     min-height: var(--height);
 }
 
 .cosmo-toolbar--blog {
     margin-bottom: 10px;
+}
+
+.jinya-designer__modal--blog {
+    width: 99vw;
+    height: 99vh;
 }

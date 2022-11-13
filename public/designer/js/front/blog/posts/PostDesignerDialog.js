@@ -104,7 +104,6 @@ export default class PostDesignerDialog {
     const segmentElem = document.createElement('div');
     segmentElem.classList.add('jinya-designer-item', 'jinya-designer-item--html');
     segmentElem.setAttribute('data-position', segment.position.toString(10));
-    segmentElem.setAttribute('data-id', segment.id.toString(10));
     segmentElem.innerHTML = html`
         <span class="jinya-designer-item__title">
             ${localize({ key: 'pages_and_forms.segment.designer.html' })}
@@ -211,7 +210,7 @@ export default class PostDesignerDialog {
       const dialog = new EditHtmlSegmentDialog({
         ...this.selectedSegment,
         position,
-        onHide: ({ newHtml }) => {
+        onHide: ({ html: newHtml }) => {
           if (this.newSegment) {
             this.segments.splice(position, 0, { position, html: newHtml });
           } else {
@@ -229,7 +228,7 @@ export default class PostDesignerDialog {
     const content = html`
         <div class="cosmo-modal__backdrop"></div>
         <form class="cosmo-modal__container" id="post-designer-dialog">
-            <div class="cosmo-modal">
+            <div class="cosmo-modal jinya-designer__modal--blog">
                 <h1 class="cosmo-modal__title">${localize({ key: 'blog.posts.designer.title' })}</h1>
                 <div class="cosmo-modal__content">
                     <div class="cosmo-toolbar cosmo-toolbar--blog">
