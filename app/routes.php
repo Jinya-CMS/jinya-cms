@@ -6,10 +6,12 @@ use App\Web\Actions\Action;
 use App\Web\Actions\ApiKey\DeleteApiKeyAction;
 use App\Web\Actions\ApiKey\ListAllApiKeysAction;
 use App\Web\Actions\Artist\ActivateArtistAction;
+use App\Web\Actions\Artist\CreateArtistAction;
 use App\Web\Actions\Artist\DeactivateArtistAction;
 use App\Web\Actions\Artist\ProfilePicture\DeleteProfilePictureAction;
 use App\Web\Actions\Artist\ProfilePicture\GetProfilePictureAction;
 use App\Web\Actions\Artist\ProfilePicture\UploadProfilePictureAction;
+use App\Web\Actions\Artist\UpdateArtistAction;
 use App\Web\Actions\Authentication\ChangePasswordAction;
 use App\Web\Actions\Authentication\LoginAction;
 use App\Web\Actions\Authentication\TwoFactorAction;
@@ -144,6 +146,8 @@ return function (App $app) {
         })->add(AuthorizationMiddleware::class);
 
         // Artists
+        $proxy->post('/artist', CreateArtistAction::class)->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_ADMIN));
+        $proxy->put('/artist/{id}', UpdateArtistAction::class)->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_ADMIN));
         $proxy->group('/artist/{id}/profilepicture', function (RouteCollectorProxy $proxy) {
             $proxy->get('', GetProfilePictureAction::class)
                 ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_READER));

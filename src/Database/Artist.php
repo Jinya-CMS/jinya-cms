@@ -26,7 +26,7 @@ use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 /**
  * This class contains all information relevant for an artist. Artists are the users of Jinya CMS
  */
-#[JinyaApi(createRole: AuthenticationChecker::ROLE_ADMIN, readRole: AuthenticationChecker::ROLE_READER, updateRole: AuthenticationChecker::ROLE_ADMIN, deleteRole: AuthenticationChecker::ROLE_ADMIN)]
+#[JinyaApi(createEnabled: false, readRole: AuthenticationChecker::ROLE_READER, updateEnabled: false, deleteRole: AuthenticationChecker::ROLE_ADMIN)]
 class Artist extends LoadableEntity
 {
     /** @var string The email address of the artist */
