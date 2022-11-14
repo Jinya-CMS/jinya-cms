@@ -1,5 +1,23 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 25.0.0
+
+### User Stories
+
+* [TG-146](https://taiga.imanuel.dev/project/jinya-cms/us/146) Rewrite Jinya Designer in plain ES6 with as few libs as
+  possible
+* [TG-166](https://taiga.imanuel.dev/project/jinya-cms/us/166) Generate PHP Info backstage page from phpinfo method
+* [TG-167](https://taiga.imanuel.dev/project/jinya-cms/us/167) Allow choice for files with image picker
+* [TG-168](https://taiga.imanuel.dev/project/jinya-cms/us/168) Update via designer
+
+### Fixed issues
+
+* [TG-169](https://taiga.imanuel.dev/project/jinya-cms/issue/169) PHP Info not selecting sidebar items
+* [TG-170](https://taiga.imanuel.dev/project/jinya-cms/issue/170) Generate Assets uses wrong text
+* [TG-171](https://taiga.imanuel.dev/project/jinya-cms/issue/171) UAParser not found
+* [TG-172](https://taiga.imanuel.dev/project/jinya-cms/issue/172) Galleries page throws error
+* [TG-173](https://taiga.imanuel.dev/project/jinya-cms/issue/173) Blog post designer doesn't accept HTML segments
+
 ## Release notes - Jinya Gallery CMS - Version 24.1.0
 
 ### User Stories
