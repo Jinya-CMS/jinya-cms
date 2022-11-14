@@ -1,5 +1,11 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 25.0.2
+
+### Fixed issues
+
+Unit tests failed after 25.0.1
+
 ## Release notes - Jinya CMS - Version 25.0.1
 
 ### Fixed issues

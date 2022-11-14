@@ -5,6 +5,7 @@ namespace Jinya\Tests\Routing;
 use App\Authentication\CurrentUser;
 use App\Database\ApiKey;
 use App\Database\Artist;
+use App\Database\File;
 use App\Database\Utils\LoadableEntity;
 use App\Routing\JinyaModelToRouteResolver;
 use App\Web\Exceptions\MissingFieldsException;
@@ -35,9 +36,11 @@ class JinyaModelToRouteResolverTest extends TestCase
         $apiKey->userAgent = Factory::create()->userAgent();
         $apiKey->create();
 
+        $this->createFile('Testfile');
+
         $request = new ServerRequest('GET', '', ['JinyaApiKey' => $apiKey->apiKey]);
         $response = new Response();
-        JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'artist']);
+        JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'file']);
     }
 
     public function testResolveActionWithClassAndIdEntityNotFound(): void
@@ -53,22 +56,23 @@ class JinyaModelToRouteResolverTest extends TestCase
         $this->expectException(HttpMethodNotAllowedException::class);
         $request = new ServerRequest('PATCH', '', ['JinyaApiKey' => $this->apiKey->apiKey]);
         $response = new Response();
-        JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'artist']);
+        JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'file']);
     }
 
     public function testResolveActionWithClassAndIdDelete(): void
     {
-        $artists = Artist::findAll();
+        $this->createFile('Testfile');
+        $files = File::findAll();
 
         $request = new ServerRequest('DELETE', '', ['JinyaApiKey' => $this->apiKey->apiKey]);
         $response = new Response();
-        $result = JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'artist', 'id' => $artists->current()->getIdAsInt()]);
+        $result = JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'file', 'id' => $files->current()->getIdAsInt()]);
         $result->getBody()->rewind();
         self::assertEquals(204, $result->getStatusCode());
         self::assertEmpty($result->getBody()->getContents());
-        $artists->rewind();
+        $files->rewind();
 
-        self::assertNotEquals(iterator_count($artists), iterator_count(Artist::findAll()));
+        self::assertNotEquals(iterator_count($files), iterator_count(File::findAll()));
     }
 
     public function testResolveActionWithClassAndIdDeleteNoId(): void
@@ -77,7 +81,7 @@ class JinyaModelToRouteResolverTest extends TestCase
 
         $request = new ServerRequest('DELETE', '', ['JinyaApiKey' => $this->apiKey->apiKey]);
         $response = new Response();
-        JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'artist']);
+        JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'file']);
     }
 
     public function testResolveActionWithClassAndIdInvalidEntity(): void
@@ -91,108 +95,107 @@ class JinyaModelToRouteResolverTest extends TestCase
 
     public function testResolveActionWithClassAndIdGetById(): void
     {
+        $file = $this->createFile('Testfile');
+
         $request = new ServerRequest('GET', '', ['JinyaApiKey' => $this->apiKey->apiKey]);
         $response = new Response();
-        $result = JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'artist', 'id' => CurrentUser::$currentUser->getIdAsInt()]);
+        $result = JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'file', 'id' => $file->getIdAsInt()]);
         $result->getBody()->rewind();
         self::assertEquals(200, $result->getStatusCode());
-        self::assertJsonStringEqualsJsonString(json_encode(CurrentUser::$currentUser->format()), $result->getBody()->getContents());
+        self::assertJsonStringEqualsJsonString(json_encode($file->format()), $result->getBody()->getContents());
     }
 
     public function testResolveActionWithClassAndIdGetListAll(): void
     {
-        $artists = Artist::findAll();
+        $this->createFile('Testfile');
+        $files = file::findAll();
 
         $request = new ServerRequest('GET', '', ['JinyaApiKey' => $this->apiKey->apiKey]);
         $response = new Response();
-        $result = JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'artist']);
+        $result = JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'file']);
         $result->getBody()->rewind();
         self::assertEquals(200, $result->getStatusCode());
 
-        $data = iterator_to_array($artists);
+        $data = iterator_to_array($files);
         $count = count($data);
         self::assertJsonStringEqualsJsonString(json_encode([
             'offset' => 0,
             'itemsCount' => $count,
             'totalCount' => $count,
-            'items' => array_map(static fn(Artist $item) => $item->format(), $data),
+            'items' => array_map(static fn(File $item) => $item->format(), $data),
         ], JSON_THROW_ON_ERROR), $result->getBody()->getContents());
     }
 
     public function testResolveActionWithClassAndIdGetListKeyword(): void
     {
-        $allArtists = Artist::findAll();
-        $artists = Artist::findByKeyword($allArtists->current()->artistName);
+        $file = $this->createFile('Testfile');
+        $allFiles = File::findAll();
+        $files = File::findByKeyword($file->name);
 
         $request = new ServerRequest('GET', '', ['JinyaApiKey' => $this->apiKey->apiKey]);
         $response = new Response();
-        $result = JinyaModelToRouteResolver::resolveActionWithClassAndId($request->withQueryParams(['keyword' => $allArtists->current()->artistName]), $response, ['entity' => 'artist']);
+        $result = JinyaModelToRouteResolver::resolveActionWithClassAndId($request->withQueryParams(['keyword' => $allFiles->current()->name]), $response, ['entity' => 'file']);
         $result->getBody()->rewind();
         self::assertEquals(200, $result->getStatusCode());
 
-        $data = iterator_to_array($artists);
+        $data = iterator_to_array($files);
         $count = count($data);
         self::assertJsonStringEqualsJsonString(json_encode([
             'offset' => 0,
             'itemsCount' => $count,
             'totalCount' => $count,
-            'items' => array_map(static fn(Artist $item) => $item->format(), $data),
+            'items' => array_map(static fn(File $item) => $item->format(), $data),
         ], JSON_THROW_ON_ERROR), $result->getBody()->getContents());
     }
 
     public function testResolveActionWithClassAndIdPut(): void
     {
-        $firstArtist = Artist::findAll()->current()->getIdAsInt();
-        $newArtistName = Factory::create()->name();
+        $this->createFile('Testfile');
+        $firstFile = File::findAll()->current()->getIdAsInt();
+        $newFileName = Factory::create()->name();
         $body = (new Psr17Factory())->createStream(json_encode([
-            'artistName' => $newArtistName,
+            'name' => $newFileName,
         ], JSON_THROW_ON_ERROR));
         $body->rewind();
         $request = new ServerRequest('PUT', '', ['JinyaApiKey' => $this->apiKey->apiKey], $body);
         $response = new Response();
-        $result = JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'artist', 'id' => $firstArtist]);
+        $result = JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'file', 'id' => $firstFile]);
         $result->getBody()->rewind();
         self::assertEquals(204, $result->getStatusCode());
         self::assertEmpty($result->getBody()->getContents());
 
-        $artist = Artist::findById($firstArtist);
-        self::assertEquals($newArtistName, $artist->artistName);
+        $file = File::findById($firstFile);
+        self::assertEquals($newFileName, $file->name);
     }
 
     public function testResolveActionWithClassAndIdPutNoId(): void
     {
         $this->expectException(HttpNotFoundException::class);
-        $newArtistName = Factory::create()->name();
+        $newFileName = Factory::create()->name();
         $body = (new Psr17Factory())->createStream(json_encode([
-            'artistName' => $newArtistName,
+            'name' => $newFileName,
         ], JSON_THROW_ON_ERROR));
         $body->rewind();
         $request = new ServerRequest('PUT', '', ['JinyaApiKey' => $this->apiKey->apiKey], $body);
         $response = new Response();
-        JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'artist']);
+        JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'file']);
     }
 
     public function testResolveActionWithClassAndIdPost(): void
     {
         $faker = Factory::create();
         $data = [
-            'artistName' => $faker->name(),
-            'email' => $faker->email(),
-            'aboutMe' => $faker->uuid(),
-            'profilePicture' => $faker->filePath(),
-            'enabled' => $faker->boolean(),
-            'roles' => ['ROLE_READER'],
+            'name' => $faker->name(),
         ];
         $body = (new Psr17Factory())->createStream(json_encode($data, JSON_THROW_ON_ERROR));
         $body->rewind();
         $request = new ServerRequest('POST', '', ['JinyaApiKey' => $this->apiKey->apiKey], $body);
         $response = new Response();
-        $result = JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'artist']);
+        $result = JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'file']);
         $result->getBody()->rewind();
         $resultBody = $result->getBody()->getContents();
         self::assertEquals(201, $result->getStatusCode());
-        $artist = Artist::findByEmail($data['email']);
-        self::assertJsonStringEqualsJsonString($resultBody, json_encode($artist->format()));
+        self::assertEquals($data['name'], json_decode($resultBody, true, 512, JSON_THROW_ON_ERROR)['name']);
     }
 
     public function testResolveActionWithClassAndIdPostMissingField(): void
@@ -200,17 +203,12 @@ class JinyaModelToRouteResolverTest extends TestCase
         $this->expectException(MissingFieldsException::class);
         $faker = Factory::create();
         $data = [
-            'artistName' => $faker->name(),
-            'aboutMe' => $faker->uuid(),
-            'profilePicture' => $faker->filePath(),
-            'enabled' => $faker->boolean(),
-            'roles' => ['ROLE_READER'],
         ];
         $body = (new Psr17Factory())->createStream(json_encode($data, JSON_THROW_ON_ERROR));
         $body->rewind();
         $request = new ServerRequest('POST', '', ['JinyaApiKey' => $this->apiKey->apiKey], $body);
         $response = new Response();
-        JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'artist']);
+        JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'file']);
     }
 
     protected function setUp(): void
@@ -242,6 +240,15 @@ class JinyaModelToRouteResolverTest extends TestCase
         $this->apiKey->validSince = new DateTime();
         $this->apiKey->userAgent = Factory::create()->userAgent();
         $this->apiKey->create();
+    }
+
+    private function createFile(string $name): File
+    {
+        $file = new File();
+        $file->name = $name;
+        $file->create();
+
+        return $file;
     }
 
     private function createArtist(bool $isAdmin = true, bool $isWriter = true, bool $isReader = true, bool $enabled = true, string $password = 'test1234'): Artist
