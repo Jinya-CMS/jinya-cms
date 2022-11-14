@@ -1,5 +1,11 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 25.0.1
+
+### Fixed issues
+
+* [TG-174](https://taiga.imanuel.dev/project/jinya-cms/issue/174) User creation doesn't set password
+
 ## Release notes - Jinya CMS - Version 25.0.0
 
 ### User Stories
