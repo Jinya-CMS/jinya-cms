@@ -119,13 +119,19 @@ return [
                     [
                         'name' => 'brand',
                         'type' => 'string',
-                        'label' => 'Branding',
+                        'label' => [
+                            'de' => 'Branding',
+                            'en' => 'Branding',
+                        ],
                     ],
                 ],
             ],
             [
                 'name' => 'input',
-                'title' => 'Input field options',
+                'title' => [
+                    'en' => 'Input field options',
+                    'de' => 'Eingabefelderoptionen'
+                ],
                 'fields' => [
                     [
                         'name' => 'optional',
@@ -156,7 +162,10 @@ return [
             ],
             [
                 'name' => 'dropdowns',
-                'title' => 'Dropdowns',
+                'title' => [
+                    'de' => 'Dropdowns',
+                    'en' => 'Dropdowns',
+                ],
                 'fields' => [
                     [
                         'name' => 'placeholder',
@@ -212,7 +221,10 @@ return [
             ],
             [
                 'name' => 'blog',
-                'title' => 'Blog',
+                'title' => [
+                    'de' => 'Blog',
+                    'en' => 'Blog',
+                ],
                 'fields' => [
                     [
                         'name' => 'title',
