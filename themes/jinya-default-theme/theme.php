@@ -73,7 +73,10 @@ return [
             ],
             [
                 'name' => 'footer',
-                'title' => 'Footer',
+                'title' => [
+                    'en' => 'Footer',
+                    'de' => 'Fußzeile',
+                ],
                 'fields' => [
                     [
                         'name' => 'copyright',
