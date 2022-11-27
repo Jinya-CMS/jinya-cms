@@ -1,5 +1,16 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 25.0.3
+
+### User Stories
+
+* [TG-175](https://taiga.imanuel.dev/project/jinya-cms/us/175) Update default theme and testing theme for new label and
+  title properties
+
+### Fixed issues
+
+* [TG-176](https://taiga.imanuel.dev/project/jinya-cms/issue/176) Blog categories missing in theme links
+
 ## Release notes - Jinya CMS - Version 25.0.2
 
 ### Fixed issues
