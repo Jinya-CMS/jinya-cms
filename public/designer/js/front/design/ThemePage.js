@@ -315,11 +315,12 @@ export default class ThemePage extends JinyaDesignerPage {
             ${this.galleries.map((gallery) => `<option ${gallery.id === this.themeGalleries[link] ? 'selected' : ''} value="${gallery.id}">${gallery.name}</option>`)}
         </select>`).join('\n');
     const getCategoryLinks = () => html`
-        <span class="cosmo-input__header">${localize({ key: 'design.themes.links.categories' })}</span>` + Object.keys(this.configurationStructure.links.categories).map((link) => html`
+        <span
+            class="cosmo-input__header">${localize({ key: 'design.themes.links.categories' })}</span>` + Object.keys(this.configurationStructure.links.blog_categories).map((link) => html`
         <label for="categories_${link}"
-               class="cosmo-label">${this.getValueForCurrentLanguage(this.configurationStructure.links.categories[link])}</label>
+               class="cosmo-label">${this.getValueForCurrentLanguage(this.configurationStructure.links.blog_categories[link])}</label>
         <select required id="categories_${link}" name="category__%__${link}" class="cosmo-select">
-            ${this.categories.map((category) => `<option ${category.id === this.themeCategories[link] ? 'selected' : ''} value="${category.id}">${category.name}</option>`)}
+            ${this.blog_categories.map((category) => `<option ${category.id === this.themeCategories[link] ? 'selected' : ''} value="${category.id}">${category.name}</option>`)}
         </select>`).join('\n');
 
     let links = '';
@@ -335,7 +336,7 @@ export default class ThemePage extends JinyaDesignerPage {
     if (this.configurationStructure.links.galleries) {
       links += getGalleryLinks();
     }
-    if (this.configurationStructure.links.categories) {
+    if (this.configurationStructure.links.blog_categories) {
       links += getCategoryLinks();
     }
     if (this.configurationStructure.links.segment_pages) {

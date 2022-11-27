@@ -159,8 +159,23 @@ return function (App $app) {
         $proxy->group('/artist/{id}/activation', function (RouteCollectorProxy $proxy) {
             $proxy->put('', ActivateArtistAction::class);
             $proxy->delete('', DeactivateArtistAction::class);
-        });
-        $proxy->put('/me/profilepicture', fn(ServerRequestInterface $request, ResponseInterface $response, array $args) => (new UploadProfilePictureAction())($request, $response, ['id' => $request->getAttribute(AuthorizationMiddleware::LOGGED_IN_ARTIST)->id]))
+        })->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_ADMIN));
+        $proxy->put(
+            '/me/profilepicture',
+            fn(
+                ServerRequestInterface $request,
+                ResponseInterface $response,
+                array $args
+            ) => (new UploadProfilePictureAction())(
+                $request,
+                $response,
+                [
+                    'id' => $request->getAttribute(
+                        AuthorizationMiddleware::LOGGED_IN_ARTIST
+                    )->id
+                ]
+            )
+        )
             ->add(AuthorizationMiddleware::class);
 
         // Authentication
