@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ee6d41be4a13fd76e725852dd85bab0a",
+    "content-hash": "1dc00f799ea9852f23a4721101e96691",
     "packages": [
         {
             "name": "graham-campbell/result-type",
@@ -570,16 +570,16 @@
         },
         {
             "name": "laminas/laminas-hydrator",
-            "version": "4.8.0",
+            "version": "4.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-hydrator.git",
-                "reference": "eae638f4912769b7336daf32fccb03c89e243ed6"
+                "reference": "49ab61ee0f2352cc147569544bffe4671ca8e4de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-hydrator/zipball/eae638f4912769b7336daf32fccb03c89e243ed6",
-                "reference": "eae638f4912769b7336daf32fccb03c89e243ed6",
+                "url": "https://api.github.com/repos/laminas/laminas-hydrator/zipball/49ab61ee0f2352cc147569544bffe4671ca8e4de",
+                "reference": "49ab61ee0f2352cc147569544bffe4671ca8e4de",
                 "shasum": ""
             },
             "require": {
@@ -594,13 +594,13 @@
             "require-dev": {
                 "laminas/laminas-coding-standard": "~2.4.0",
                 "laminas/laminas-eventmanager": "^3.6",
-                "laminas/laminas-modulemanager": "^2.12",
-                "laminas/laminas-serializer": "^2.13.0",
+                "laminas/laminas-modulemanager": "^2.14.0",
+                "laminas/laminas-serializer": "^2.14.0",
                 "laminas/laminas-servicemanager": "^3.19",
-                "phpbench/phpbench": "^1.2.6",
-                "phpunit/phpunit": "^9.5.25",
-                "psalm/plugin-phpunit": "^0.17.0",
-                "vimeo/psalm": "^4.29"
+                "phpbench/phpbench": "^1.2.7",
+                "phpunit/phpunit": "^9.5.26",
+                "psalm/plugin-phpunit": "^0.18.0",
+                "vimeo/psalm": "^5.0"
             },
             "suggest": {
                 "laminas/laminas-eventmanager": "^3.2, to support aggregate hydrator usage",
@@ -643,20 +643,20 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-10-24T15:56:12+00:00"
+            "time": "2022-12-03T22:20:37+00:00"
         },
         {
             "name": "laminas/laminas-stdlib",
-            "version": "3.15.0",
+            "version": "3.16.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-stdlib.git",
-                "reference": "63b66bd4b696f024f42616b9d95cdb10e5109c27"
+                "reference": "f4f773641807c7ccee59b758bfe4ac4ba33ecb17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-stdlib/zipball/63b66bd4b696f024f42616b9d95cdb10e5109c27",
-                "reference": "63b66bd4b696f024f42616b9d95cdb10e5109c27",
+                "url": "https://api.github.com/repos/laminas/laminas-stdlib/zipball/f4f773641807c7ccee59b758bfe4ac4ba33ecb17",
+                "reference": "f4f773641807c7ccee59b758bfe4ac4ba33ecb17",
                 "shasum": ""
             },
             "require": {
@@ -667,10 +667,10 @@
             },
             "require-dev": {
                 "laminas/laminas-coding-standard": "^2.4.0",
-                "phpbench/phpbench": "^1.2.6",
-                "phpunit/phpunit": "^9.5.25",
-                "psalm/plugin-phpunit": "^0.17.0",
-                "vimeo/psalm": "^4.28"
+                "phpbench/phpbench": "^1.2.7",
+                "phpunit/phpunit": "^9.5.26",
+                "psalm/plugin-phpunit": "^0.18.0",
+                "vimeo/psalm": "^5.0.0"
             },
             "type": "library",
             "autoload": {
@@ -702,7 +702,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-10-10T19:10:24+00:00"
+            "time": "2022-12-03T18:48:01+00:00"
         },
         {
             "name": "league/climate",
