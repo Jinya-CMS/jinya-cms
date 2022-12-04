@@ -40,7 +40,7 @@
     "phpunit/phpunit": "9.5.26",
     "phpstan/phpstan": "1.9.2",
     "fakerphp/faker": "v1.20.0",
-    "symfony/filesystem": "v6.1.5"
+    "symfony/filesystem": "v6.2.0"
   },
   "config": {
     "process-timeout": 0,
