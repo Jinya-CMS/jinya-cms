@@ -16,7 +16,7 @@
     "jinya/plates": "4.0.0",
     "monolog/monolog": "3.2.0",
     "phpmailer/phpmailer": "v6.7.1",
-    "phpmyadmin/sql-parser": "5.5.0",
+    "phpmyadmin/sql-parser": "5.6.0",
     "league/climate": "3.8.2",
     "scssphp/scssphp": "v1.11.0",
     "nyholm/psr7": "1.5.1",
@@ -38,7 +38,7 @@
   "require-dev": {
     "roave/security-advisories": "dev-latest",
     "phpunit/phpunit": "9.5.27",
-    "phpstan/phpstan": "1.9.7",
+    "phpstan/phpstan": "1.9.9",
     "fakerphp/faker": "v1.21.0",
     "symfony/filesystem": "v6.2.0"
   },
