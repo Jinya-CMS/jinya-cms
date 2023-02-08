@@ -14,7 +14,7 @@
     "ext-zip": "*",
     "jetbrains/phpstorm-attributes": "1.0",
     "jinya/plates": "4.0.0",
-    "monolog/monolog": "3.2.0",
+    "monolog/monolog": "3.3.1",
     "phpmailer/phpmailer": "v6.7.1",
     "phpmyadmin/sql-parser": "5.7.0",
     "league/climate": "3.8.2",
@@ -25,7 +25,7 @@
     "tedivm/jshrink": "v1.4.0",
     "vlucas/phpdotenv": "v5.5.0",
     "jenssegers/agent": "v2.6.4",
-    "melbahja/semver": "1.0.1",
+    "melbahja/semver": "v1.0.1",
     "league/uri": "6.8.0",
     "jinya/pdox": "0.9.0",
     "laminas/laminas-hydrator": "4.12.0",
@@ -37,8 +37,8 @@
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
-    "phpunit/phpunit": "9.5.28",
-    "phpstan/phpstan": "1.9.14",
+    "phpunit/phpunit": "9.6.3",
+    "phpstan/phpstan": "1.9.17",
     "fakerphp/faker": "v1.21.0",
     "symfony/filesystem": "v6.2.5"
   },
