@@ -16,7 +16,7 @@ class FileCacheCommandTest extends TestCase
     public function testRun(): void
     {
         $tmpPath = StorageBaseService::BASE_PATH . '/public/' . $this->tmpFileName;
-        copy('https://via.placeholder.com/4320x2160.png', $tmpPath);
+        copy('https://picsum.photos/4320/2160', $tmpPath);
         $file = new File();
         $file->path = $this->tmpFileName;
         $file->name = 'Testimage';
