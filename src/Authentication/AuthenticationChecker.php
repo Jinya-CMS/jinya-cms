@@ -47,7 +47,7 @@ class AuthenticationChecker
 
         $validSince = $apiKey->validSince;
         $expireAfterSeconds = getenv('JINYA_API_KEY_EXPIRY') ?: '86400';
-        $validTimeSpan = new DateInterval("PT${expireAfterSeconds}S");
+        $validTimeSpan = new DateInterval("PT{$expireAfterSeconds}S");
 
         if ($validSince->add($validTimeSpan)->getTimestamp() < time()) {
             $apiKey->delete();

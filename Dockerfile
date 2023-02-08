@@ -1,4 +1,4 @@
-FROM quay.imanuel.dev/dockerhub/library---php:8.1-apache
+FROM quay.imanuel.dev/dockerhub/library---php:8.2-apache
 
 COPY ./docker/conf/memory-limit.ini /usr/local/etc/php/conf.d/memory-limit.ini
 COPY ./docker/conf/opcache.ini /usr/local/etc/php/conf.d/opcache-recommended.ini
