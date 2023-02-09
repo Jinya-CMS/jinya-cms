@@ -1,5 +1,11 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 25.1.0
+
+### User Stories
+
+* [TG-178](https://taiga.imanuel.dev/project/jinya-cms/us/178) Check readiness for PHP 8.2
+
 ## Release notes - Jinya CMS - Version 25.0.3
 
 ### User Stories
