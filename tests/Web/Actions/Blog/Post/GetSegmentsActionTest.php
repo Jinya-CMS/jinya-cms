@@ -4,13 +4,13 @@ namespace Jinya\Tests\Web\Actions\Blog\Post;
 
 use App\Database\BlogPost;
 use App\Database\BlogPostSegment;
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\Blog\Post\GetSegmentsAction;
 use App\Web\Exceptions\NoResultException;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 
-class GetSegmentsActionTest extends TestCase
+class GetSegmentsActionTest extends DatabaseAwareTestCase
 {
 
     public function test__invoke(): void

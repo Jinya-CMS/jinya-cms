@@ -8,6 +8,7 @@ use App\Database\Artist;
 use App\Database\File;
 use App\Database\Utils\LoadableEntity;
 use App\Routing\JinyaModelToRouteResolver;
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Exceptions\MissingFieldsException;
 use DateTime;
 use Faker\Factory;
@@ -15,12 +16,11 @@ use Faker\Provider\Uuid;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 use Slim\Exception\HttpForbiddenException;
 use Slim\Exception\HttpMethodNotAllowedException;
 use Slim\Exception\HttpNotFoundException;
 
-class JinyaModelToRouteResolverTest extends TestCase
+class JinyaModelToRouteResolverTest extends DatabaseAwareTestCase
 {
     private ApiKey $apiKey;
 

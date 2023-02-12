@@ -7,10 +7,10 @@ use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Database\Gallery;
 use App\Database\GalleryFilePosition;
+use App\Tests\DatabaseAwareTestCase;
 use App\Utils\UuidGenerator;
-use PHPUnit\Framework\TestCase;
 
-class GalleryTest extends TestCase
+class GalleryTest extends DatabaseAwareTestCase
 {
 
     private function createGallery(string $name = 'Gallery', string $description = '', bool $execute = true): Gallery
@@ -49,14 +49,14 @@ class GalleryTest extends TestCase
         $this->createPosition(4, $gallery->getIdAsInt());
         $this->createPosition(5, $gallery->getIdAsInt());
 
-        $this->assertCount(5, $gallery->getFiles());
+        $this->assertCount(5, iterator_to_array($gallery->getFiles()));
     }
 
     public function testGetFilesNone(): void
     {
         $gallery = $this->createGallery();
 
-        $this->assertCount(0, $gallery->getFiles());
+        $this->assertCount(0, iterator_to_array($gallery->getFiles()));
     }
 
     public function testGetCreator(): void
@@ -133,7 +133,7 @@ class GalleryTest extends TestCase
         $this->createGallery('Tes2t');
         $found = Gallery::findByKeyword('test');
 
-        $this->assertCount(2, $found);
+        $this->assertCount(2, iterator_to_array($found));
     }
 
     public function testFindByKeywordInDescription(): void
@@ -143,7 +143,7 @@ class GalleryTest extends TestCase
         $this->createGallery('Tes2t', description: 'Testgallery 2');
         $found = Gallery::findByKeyword('Testgallery 1');
 
-        $this->assertCount(2, $found);
+        $this->assertCount(2, iterator_to_array($found));
     }
 
     public function testGetUpdatedBy(): void
@@ -188,7 +188,7 @@ class GalleryTest extends TestCase
         $this->createGallery(UuidGenerator::generateV4());
 
         $all = Gallery::findAll();
-        $this->assertCount(3, $all);
+        $this->assertCount(3, iterator_to_array($all));
     }
 
     public function testFindById(): void

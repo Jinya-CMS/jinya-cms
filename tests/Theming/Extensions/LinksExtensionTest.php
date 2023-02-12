@@ -17,12 +17,12 @@ use App\Database\ThemeGallery;
 use App\Database\ThemeMenu;
 use App\Database\ThemePage;
 use App\Database\ThemeSegmentPage;
+use App\Tests\DatabaseAwareTestCase;
 use App\Theming\Engine;
 use App\Theming\Extensions\LinksExtension;
 use Faker\Factory;
-use PHPUnit\Framework\TestCase;
 
-class LinksExtensionTest extends TestCase
+class LinksExtensionTest extends DatabaseAwareTestCase
 {
     private Theme $theme;
     private LinksExtension $extension;

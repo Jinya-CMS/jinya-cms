@@ -1,37 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
          bootstrap="vendor/autoload.php"
          cacheResultFile=".phpunit.cache/test-results"
          executionOrder="depends,defects"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTodoAnnotatedTests="true"
-         failOnRisky="true"
-         failOnWarning="false"
-         verbose="true">
+         failOnRisky="true">
     <testsuites>
         <testsuite name="default">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
 
-    <coverage cacheDirectory=".phpunit.cache/code-coverage"
-              processUncoveredFiles="true">
+    <coverage cacheDirectory=".phpunit.cache/code-coverage">
         <include>
             <directory suffix=".php">src</directory>
         </include>
     </coverage>
 
     <extensions>
-        <extension class="App\Tests\Extensions\PrepareIniValuesHook"/>
-        <extension class="App\Tests\Extensions\MigrationHook"/>
-        <extension class="App\Tests\Extensions\DefinesHook"/>
-        <extension class="App\Tests\Extensions\CleanDatabaseAfterTestHook"/>
-        <extension class="App\Tests\Extensions\CreateArtistHook"/>
-        <extension class="App\Tests\Extensions\DropAllTablesHook"/>
+        <bootstrap class="App\Tests\Extensions\Extension">
+        </bootstrap>
     </extensions>
 
     <php>
+        <ini name="user_agent" value="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/109.0"/>
         <env name="EXECUTE_IN" value="jenkins"/>
         <env name="APP_ENV" value="dev"/>
         <env name="MYSQL_PASSWORD" value="jinya"/>

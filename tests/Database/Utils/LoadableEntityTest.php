@@ -3,11 +3,11 @@
 namespace Jinya\Tests\Database\Utils;
 
 use App\Database\Utils\LoadableEntity;
+use App\Tests\DatabaseAwareTestCase;
 use App\Utils\AppSettingsInitializer;
 use PDOException;
-use PHPUnit\Framework\TestCase;
 
-class LoadableEntityTest extends TestCase
+class LoadableEntityTest extends DatabaseAwareTestCase
 {
 
     protected function setUp(): void

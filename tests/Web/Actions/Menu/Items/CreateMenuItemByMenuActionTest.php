@@ -9,14 +9,14 @@ use App\Database\Gallery;
 use App\Database\Menu;
 use App\Database\SegmentPage;
 use App\Database\SimplePage;
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\Menu\Items\CreateMenuItemByMenuAction;
 use App\Web\Exceptions\NoResultException;
 use Faker\Provider\Uuid;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 
-class CreateMenuItemByMenuActionTest extends TestCase
+class CreateMenuItemByMenuActionTest extends DatabaseAwareTestCase
 {
 
     public function test__invokeWithArtist(): void

@@ -3,14 +3,14 @@
 namespace Jinya\Tests\Web\Actions\Form\Items;
 
 use App\Database\Form;
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\Form\Items\CreateFormItemAction;
 use App\Web\Exceptions\NoResultException;
 use Faker\Provider\Uuid;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 
-class CreateFormItemActionTest extends TestCase
+class CreateFormItemActionTest extends DatabaseAwareTestCase
 {
 
     public function test__invoke(): void

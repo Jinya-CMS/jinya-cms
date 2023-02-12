@@ -6,6 +6,7 @@ use App\Database\BlogCategory;
 use App\Database\BlogPost;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\Blog\Post\ListPostsByCategoryAction;
 use App\Web\Exceptions\NoResultException;
 use Faker\Factory;
@@ -14,10 +15,9 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use JsonException;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 use Slim\Exception\HttpBadRequestException;
 
-class ListPostsByCategoryActionTest extends TestCase
+class ListPostsByCategoryActionTest extends DatabaseAwareTestCase
 {
     private BlogCategory $category;
     private int $withCategory = 0;
@@ -26,6 +26,7 @@ class ListPostsByCategoryActionTest extends TestCase
 
     public function setUp(): void
     {
+        parent::setUp();
         $this->category = new BlogCategory();
         $this->category->name = Uuid::uuid();
         $this->category->create();

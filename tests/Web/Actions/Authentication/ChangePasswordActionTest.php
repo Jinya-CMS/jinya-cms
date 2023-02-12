@@ -4,14 +4,14 @@ namespace Jinya\Tests\Web\Actions\Authentication;
 
 use App\Authentication\CurrentUser;
 use App\Database\Artist;
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\Authentication\ChangePasswordAction;
 use App\Web\Middleware\AuthorizationMiddleware;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 use Slim\Exception\HttpForbiddenException;
 
-class ChangePasswordActionTest extends TestCase
+class ChangePasswordActionTest extends DatabaseAwareTestCase
 {
 
     public function test__invoke(): void

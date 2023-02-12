@@ -8,9 +8,8 @@ use App\Database\Theme;
 use App\Theming\ThemeSyncer;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
-use PHPUnit\Framework\TestCase;
 
-class ThemeActionTestCase extends TestCase
+class ThemeActionTestCase extends DatabaseAwareTestCase
 {
     /**
      * @return Theme|null

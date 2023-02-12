@@ -6,9 +6,9 @@ use App\Authentication\CurrentUser;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Form;
 use App\Database\FormItem;
-use PHPUnit\Framework\TestCase;
+use App\Tests\DatabaseAwareTestCase;
 
-class FormTest extends TestCase
+class FormTest extends DatabaseAwareTestCase
 {
     private function createForm(string $title = 'Testform', bool $execute = true): Form
     {
@@ -45,13 +45,13 @@ class FormTest extends TestCase
         $this->createForm(title: 'Test');
         $this->createForm(title: 'Test32');
 
-        $this->assertCount(3, Form::findAll());
+        $this->assertCount(3, iterator_to_array(Form::findAll()));
     }
 
     public function testFindAllNoneFound(): void
     {
         $forms = Form::findAll();
-        $this->assertCount(0, $forms);
+        $this->assertCount(0, iterator_to_array($forms));
     }
 
     public function testGetUpdatedBy(): void
@@ -160,7 +160,7 @@ class FormTest extends TestCase
         $this->createForm(title: 'Formular');
         $this->createForm(title: 'Test32');
 
-        $this->assertCount(2, Form::findByKeyword('Form'));
+        $this->assertCount(2, iterator_to_array(Form::findByKeyword('Form')));
     }
 
     public function testGetItems(): void
@@ -174,7 +174,7 @@ class FormTest extends TestCase
         $item->create();
 
         $items = $form->getItems();
-        $this->assertCount(1, $items);
+        $this->assertCount(1, iterator_to_array($items));
     }
 
     public function testGetItemsMultipleForms(): void
@@ -196,7 +196,7 @@ class FormTest extends TestCase
         $item2->create();
 
         $items = $form->getItems();
-        $this->assertCount(1, $items);
+        $this->assertCount(1, iterator_to_array($items));
     }
 
     public function testCreate(): void

@@ -4,9 +4,9 @@ namespace Jinya\Tests\Database;
 
 use App\Authentication\CurrentUser;
 use App\Database\SimplePage;
-use PHPUnit\Framework\TestCase;
+use App\Tests\DatabaseAwareTestCase;
 
-class SimplePageTest extends TestCase
+class SimplePageTest extends DatabaseAwareTestCase
 {
 
     public function testGetCreator(): void
@@ -68,11 +68,11 @@ class SimplePageTest extends TestCase
     {
         $page = $this->createPage();
         $all = SimplePage::findAll();
-        self::assertNotEmpty($all);
+        self::assertNotEmpty(iterator_to_array($all));
 
         $page->delete();
         $all = SimplePage::findAll();
-        self::assertCount(0, $all);
+        self::assertCount(0, iterator_to_array($all));
     }
 
     public function testFindById(): void
@@ -97,7 +97,7 @@ class SimplePageTest extends TestCase
         $this->createPage('Test 4');
 
         $all = SimplePage::findAll();
-        self::assertCount(4, $all);
+        self::assertCount(4, iterator_to_array($all));
     }
 
     public function testCreate(): void
@@ -117,13 +117,13 @@ class SimplePageTest extends TestCase
         $this->createPage('Test 4');
 
         $all = SimplePage::findByKeyword('Test');
-        self::assertCount(4, $all);
+        self::assertCount(4, iterator_to_array($all));
 
         $all = SimplePage::findByKeyword('Test 1');
-        self::assertCount(1, $all);
+        self::assertCount(1, iterator_to_array($all));
 
         $all = SimplePage::findByKeyword('Test 15');
-        self::assertCount(0, $all);
+        self::assertCount(0, iterator_to_array($all));
     }
 
     public function testGetUpdatedBy(): void

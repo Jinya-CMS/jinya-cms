@@ -8,10 +8,9 @@ use App\Database\ThemeMenu;
 use App\Database\Utils\LoadableEntity;
 use App\Theming\ThemeSyncer;
 use Faker\Provider\Uuid;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 
-abstract class FrontTestCase extends TestCase
+abstract class FrontTestCase extends DatabaseAwareTestCase
 {
     private static string $name;
     private static Filesystem $fs;

@@ -146,16 +146,16 @@ class ThemeTest extends ThemeTestCase
         $theme->create();
 
         $foundThemes = Theme::findByKeyword($theme->displayName);
-        self::assertCount(1, $foundThemes);
+        self::assertCount(1, iterator_to_array($foundThemes));
 
         $foundThemes = Theme::findByKeyword(Uuid::uuid());
-        self::assertCount(0, $foundThemes);
+        self::assertCount(0, iterator_to_array($foundThemes));
     }
 
     public function testFindAll(): void
     {
         $themes = Theme::findAll();
-        self::assertCount(1, $themes);
+        self::assertCount(1, iterator_to_array($themes));
 
         $theme = new Theme();
         $theme->name = Uuid::uuid();
@@ -166,7 +166,7 @@ class ThemeTest extends ThemeTestCase
         $theme->create();
 
         $themes = Theme::findAll();
-        self::assertCount(2, $themes);
+        self::assertCount(2, iterator_to_array($themes));
     }
 
     public function testGetAssets(): void

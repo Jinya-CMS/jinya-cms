@@ -2,12 +2,12 @@
 
 namespace Jinya\Tests\Web\Actions\Version;
 
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\Version\GetVersionInfo;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 
-class GetVersionInfoTest extends TestCase
+class GetVersionInfoTest extends DatabaseAwareTestCase
 {
 
     public function test__invoke(): void

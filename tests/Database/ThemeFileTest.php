@@ -14,7 +14,7 @@ class ThemeFileTest extends ThemeTestCase
     public function testFindByThemeNoFile(): void
     {
         $themeFiles = ThemeFile::findByTheme($this->theme->getIdAsInt());
-        self::assertCount(0, $themeFiles);
+        self::assertCount(0, iterator_to_array($themeFiles));
     }
 
     public function testFindByTheme(): void
@@ -26,7 +26,7 @@ class ThemeFileTest extends ThemeTestCase
         $themeFile->create();
 
         $themeFiles = ThemeFile::findByTheme($this->theme->getIdAsInt());
-        self::assertCount(1, $themeFiles);
+        self::assertCount(1, iterator_to_array($themeFiles));
     }
 
     public function testFindByThemeAndNameNotFound(): void

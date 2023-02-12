@@ -9,16 +9,16 @@ use App\Database\MenuItem;
 use App\Database\Theme;
 use App\Database\ThemeMenu;
 use App\Database\Utils\LoadableEntity;
+use App\Tests\DatabaseAwareTestCase;
 use App\Tests\TestRequestHandler;
 use App\Theming\ThemeSyncer;
 use App\Web\Middleware\CheckRouteInCurrentThemeMiddleware;
 use Faker\Provider\Uuid;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 
-class CheckRouteInCurrentThemeMiddlewareTest extends TestCase
+class CheckRouteInCurrentThemeMiddlewareTest extends DatabaseAwareTestCase
 {
     private string $name;
 

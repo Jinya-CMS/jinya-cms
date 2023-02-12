@@ -5,11 +5,11 @@ namespace Jinya\Tests\Database;
 use App\Authentication\CurrentUser;
 use App\Database\Artist;
 use App\Database\KnownDevice;
+use App\Tests\DatabaseAwareTestCase;
 use App\Utils\UuidGenerator;
-use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-class KnownDeviceTest extends TestCase
+class KnownDeviceTest extends DatabaseAwareTestCase
 {
 
     private function createKnownDevice(bool $execute = true): KnownDevice
@@ -80,7 +80,7 @@ class KnownDeviceTest extends TestCase
         $this->createKnownDevice();
 
         $found = KnownDevice::findByArtist(CurrentUser::$currentUser->getIdAsInt());
-        $this->assertCount(3, $found);
+        $this->assertCount(3, iterator_to_array($found));
     }
 
     public function testFindByArtistNotExists(): void
@@ -90,7 +90,7 @@ class KnownDeviceTest extends TestCase
         $this->createKnownDevice();
 
         $found = KnownDevice::findByArtist(CurrentUser::$currentUser->getIdAsInt());
-        $this->assertCount(3, $found);
+        $this->assertCount(3, iterator_to_array($found));
     }
 
     public function testCreate(): void
@@ -112,7 +112,7 @@ class KnownDeviceTest extends TestCase
         $this->createKnownDevice();
 
         $found = KnownDevice::findByArtist($artist->getIdAsInt());
-        $this->assertCount(0, $found);
+        $this->assertCount(0, iterator_to_array($found));
     }
 
     public function testSetDeviceKey(): void

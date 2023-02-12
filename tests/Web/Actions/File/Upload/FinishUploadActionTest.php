@@ -3,14 +3,14 @@
 namespace Jinya\Tests\Web\Actions\File\Upload;
 
 use App\Database\File;
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\File\Upload\FinishUploadAction;
 use App\Web\Actions\File\Upload\StartUploadAction;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 use Slim\Exception\HttpNotFoundException;
 
-class FinishUploadActionTest extends TestCase
+class FinishUploadActionTest extends DatabaseAwareTestCase
 {
 
     public function test__invoke(): void

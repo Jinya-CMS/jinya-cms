@@ -7,11 +7,11 @@ use App\Database\File;
 use App\Database\UploadingFile;
 use App\Storage\FileUploadService;
 use App\Storage\StorageBaseService;
+use App\Tests\DatabaseAwareTestCase;
 use Jinya\PDOx\Exceptions\NoResultException;
-use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-class FileUploadServiceTest extends TestCase
+class FileUploadServiceTest extends DatabaseAwareTestCase
 {
     private FileUploadService $service;
     private File $file;
@@ -23,7 +23,7 @@ class FileUploadServiceTest extends TestCase
         $this->service->saveChunk($this->file->getIdAsInt(), 2, 'Bar');
         $this->service->saveChunk($this->file->getIdAsInt(), 1, 'Foo\n');
 
-        self::assertCount(3, $this->uploadingFile->getChunks());
+        self::assertCount(3, iterator_to_array($this->uploadingFile->getChunks()));
 
         /** @var File $file */
         $file = $this->service->finishUpload($this->file->getIdAsInt());

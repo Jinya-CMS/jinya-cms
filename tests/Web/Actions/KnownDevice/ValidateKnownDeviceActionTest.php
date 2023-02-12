@@ -4,13 +4,13 @@ namespace Jinya\Tests\Web\Actions\KnownDevice;
 
 use App\Authentication\CurrentUser;
 use App\Database\KnownDevice;
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\KnownDevice\ValidateKnownDeviceAction;
 use App\Web\Exceptions\BadCredentialsException;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 
-class ValidateKnownDeviceActionTest extends TestCase
+class ValidateKnownDeviceActionTest extends DatabaseAwareTestCase
 {
 
     public function test__invoke(): void

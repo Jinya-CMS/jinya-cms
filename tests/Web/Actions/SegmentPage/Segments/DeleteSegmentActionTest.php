@@ -4,14 +4,14 @@ namespace Jinya\Tests\Web\Actions\SegmentPage\Segments;
 
 use App\Database\Segment;
 use App\Database\SegmentPage;
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\SegmentPage\Segments\DeleteSegmentAction;
 use Faker\Provider\Uuid;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 use Slim\Exception\HttpNotFoundException;
 
-class DeleteSegmentActionTest extends TestCase
+class DeleteSegmentActionTest extends DatabaseAwareTestCase
 {
 
     public function test__invoke(): void

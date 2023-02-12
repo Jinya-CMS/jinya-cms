@@ -9,10 +9,10 @@ use App\Database\Form;
 use App\Database\Gallery;
 use App\Database\Segment;
 use App\Database\SegmentPage;
+use App\Tests\DatabaseAwareTestCase;
 use Faker\Provider\Uuid;
-use PHPUnit\Framework\TestCase;
 
-class SegmentPageTest extends TestCase
+class SegmentPageTest extends DatabaseAwareTestCase
 {
 
     public function testCreate(): void
@@ -91,13 +91,13 @@ class SegmentPageTest extends TestCase
         $this->createSegmentPage(title: 'Test 3');
         $this->createSegmentPage(title: 'Test 4');
         $found = SegmentPage::findAll();
-        $this->assertCount(4, $found);
+        $this->assertCount(4, iterator_to_array($found));
     }
 
     public function testFindAllNoneCreated(): void
     {
         $found = SegmentPage::findAll();
-        $this->assertCount(0, $found);
+        $this->assertCount(0, iterator_to_array($found));
     }
 
     public function testFindById(): void
@@ -133,13 +133,13 @@ class SegmentPageTest extends TestCase
         $this->createSegmentPage(title: 'Test 3');
         $this->createSegmentPage(title: 'Test 4');
         $found = SegmentPage::findByKeyword('test');
-        $this->assertCount(4, $found);
+        $this->assertCount(4, iterator_to_array($found));
 
         $found = SegmentPage::findByKeyword('Test 1');
-        $this->assertCount(1, $found);
+        $this->assertCount(1, iterator_to_array($found));
 
         $found = SegmentPage::findByKeyword('Test 15');
-        $this->assertCount(0, $found);
+        $this->assertCount(0, iterator_to_array($found));
     }
 
     public function testGetSegments(): void
@@ -151,7 +151,7 @@ class SegmentPageTest extends TestCase
         $this->createSegment($page->getIdAsInt());
 
         $segments = $page->getSegments();
-        $this->assertCount(4, $segments);
+        $this->assertCount(4, iterator_to_array($segments));
     }
 
     private function createSegment(int $segmentPageId, int $position = 0): Segment
@@ -169,7 +169,7 @@ class SegmentPageTest extends TestCase
         $page = $this->createSegmentPage();
 
         $segments = $page->getSegments();
-        $this->assertCount(0, $segments);
+        $this->assertCount(0, iterator_to_array($segments));
     }
 
     public function testGetCreator(): void
@@ -188,7 +188,7 @@ class SegmentPageTest extends TestCase
         $gallerySegment = $this->createSegment($page->getIdAsInt(), 3);
         $formSegment = $this->createSegment($page->getIdAsInt(), 4);
 
-        $this->assertCount(5, $page->getSegments());
+        $this->assertCount(5, iterator_to_array($page->getSegments()));
 
         $file = $this->createFile();
         $gallery = $this->createGallery();

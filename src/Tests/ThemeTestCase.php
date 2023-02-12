@@ -4,14 +4,14 @@ namespace App\Tests;
 
 use App\Database\Theme;
 use Faker\Provider\Uuid;
-use PHPUnit\Framework\TestCase;
 
-abstract class ThemeTestCase extends TestCase
+abstract class ThemeTestCase extends DatabaseAwareTestCase
 {
     protected Theme $theme;
 
     protected function setUp(): void
     {
+        parent::setUp();
         $theme = new Theme();
         $theme->name = Uuid::uuid();
         $theme->displayName = Uuid::uuid();

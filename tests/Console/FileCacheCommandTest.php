@@ -5,11 +5,11 @@ namespace Jinya\Tests\Console;
 use App\Console\FileCacheCommand;
 use App\Database\File;
 use App\Storage\StorageBaseService;
+use App\Tests\DatabaseAwareTestCase;
 use App\Utils\UuidGenerator;
-use PHPUnit\Framework\TestCase;
 use Throwable;
 
-class FileCacheCommandTest extends TestCase
+class FileCacheCommandTest extends DatabaseAwareTestCase
 {
     private string $tmpFileName;
 

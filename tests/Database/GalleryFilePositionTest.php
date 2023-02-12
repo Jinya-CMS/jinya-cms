@@ -6,11 +6,11 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\File;
 use App\Database\Gallery;
 use App\Database\GalleryFilePosition;
+use App\Tests\DatabaseAwareTestCase;
 use App\Utils\UuidGenerator;
-use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-class GalleryFilePositionTest extends TestCase
+class GalleryFilePositionTest extends DatabaseAwareTestCase
 {
 
     private Gallery $gallery;

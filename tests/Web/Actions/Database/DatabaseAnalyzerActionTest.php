@@ -2,12 +2,12 @@
 
 namespace Jinya\Tests\Web\Actions\Database;
 
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\Database\DatabaseAnalyzerAction;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 
-class DatabaseAnalyzerActionTest extends TestCase
+class DatabaseAnalyzerActionTest extends DatabaseAwareTestCase
 {
 
     public function test__invoke(): void

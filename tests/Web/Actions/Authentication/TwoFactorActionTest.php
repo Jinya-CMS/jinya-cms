@@ -3,12 +3,12 @@
 namespace Jinya\Tests\Web\Actions\Authentication;
 
 use App\Authentication\CurrentUser;
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\Authentication\TwoFactorAction;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 
-class TwoFactorActionTest extends TestCase
+class TwoFactorActionTest extends DatabaseAwareTestCase
 {
 
     public function test__invoke(): void

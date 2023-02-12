@@ -5,13 +5,13 @@ namespace Jinya\Tests\Web\Actions\Gallery\Positions;
 use App\Database\File;
 use App\Database\Gallery;
 use App\Database\GalleryFilePosition;
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\Gallery\Positions\DeletePositionAction;
 use App\Web\Exceptions\NoResultException;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 
-class DeletePositionActionTest extends TestCase
+class DeletePositionActionTest extends DatabaseAwareTestCase
 {
 
     public function test__invoke(): void
@@ -40,7 +40,6 @@ class DeletePositionActionTest extends TestCase
     public function test__invokePositionNotFound(): void
     {
         $this->expectException(NoResultException::class);
-        $this->expectDeprecationMessage('Gallery file position not found');
         $request = new ServerRequest('', '');
         $response = new Response();
         $action = new DeletePositionAction();

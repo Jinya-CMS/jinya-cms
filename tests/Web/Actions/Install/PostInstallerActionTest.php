@@ -2,12 +2,12 @@
 
 namespace Jinya\Tests\Web\Actions\Install;
 
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\Install\PostInstallerAction;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 
-class PostInstallerActionTest extends TestCase
+class PostInstallerActionTest extends DatabaseAwareTestCase
 {
     public static function tearDownAfterClass(): void
     {
@@ -28,11 +28,11 @@ class PostInstallerActionTest extends TestCase
         $request = new ServerRequest('', '');
         $response = new Response();
         $request = $request->withParsedBody([
-                                                'email' => 'test@example.com',
-                                                'password' => 'start1234',
-                                                'artistname' => 'Theo Test',
-                                                'action' => true,
-                                            ]);
+            'email' => 'test@example.com',
+            'password' => 'start1234',
+            'artistname' => 'Theo Test',
+            'action' => true,
+        ]);
         $action = new PostInstallerAction();
         $result = $action($request, $response, []);
         self::assertEquals(301, $result->getStatusCode());
@@ -47,10 +47,10 @@ class PostInstallerActionTest extends TestCase
             $request = new ServerRequest('', '');
             $response = new Response();
             $request->withParsedBody([
-                                         'email' => 'test@example.com',
-                                         'password' => 'start1234',
-                                         'artistname' => 'Theo Test',
-                                     ]);
+                'email' => 'test@example.com',
+                'password' => 'start1234',
+                'artistname' => 'Theo Test',
+            ]);
             $action = new PostInstallerAction();
             $result = $action($request, $response, []);
             self::assertEquals(200, $result->getStatusCode());

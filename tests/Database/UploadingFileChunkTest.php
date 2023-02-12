@@ -5,11 +5,11 @@ namespace Jinya\Tests\Database;
 use App\Database\File;
 use App\Database\UploadingFile;
 use App\Database\UploadingFileChunk;
+use App\Tests\DatabaseAwareTestCase;
 use Faker\Provider\Uuid;
-use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-class UploadingFileChunkTest extends TestCase
+class UploadingFileChunkTest extends DatabaseAwareTestCase
 {
 
     private File $testFile;
@@ -56,7 +56,7 @@ class UploadingFileChunkTest extends TestCase
         $chunk->delete();
 
         $chunks = UploadingFileChunk::findByFile($this->testFile->getIdAsInt());
-        self::assertCount(0, $chunks);
+        self::assertCount(0, iterator_to_array($chunks));
     }
 
     public function testCreate(): void
@@ -68,7 +68,7 @@ class UploadingFileChunkTest extends TestCase
         $chunk->create();
 
         $chunks = UploadingFileChunk::findByFile($this->testFile->getIdAsInt());
-        self::assertCount(1, $chunks);
+        self::assertCount(1, iterator_to_array($chunks));
     }
 
     public function testFindByFile(): void
@@ -80,13 +80,13 @@ class UploadingFileChunkTest extends TestCase
         $chunk->create();
 
         $chunks = UploadingFileChunk::findByFile($this->testFile->getIdAsInt());
-        self::assertCount(1, $chunks);
+        self::assertCount(1, iterator_to_array($chunks));
     }
 
     public function testFindByFileNonExistent(): void
     {
         $chunks = UploadingFileChunk::findByFile(-1);
-        self::assertCount(0, $chunks);
+        self::assertCount(0, iterator_to_array($chunks));
     }
 
     public function testFormat(): void

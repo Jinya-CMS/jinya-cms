@@ -3,13 +3,13 @@
 namespace Jinya\Tests\Web\Actions\Blog\Post;
 
 use App\Database\BlogPost;
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\Blog\Post\BatchSegmentsAction;
 use App\Web\Exceptions\NoResultException;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 
-class BatchSegmentsActionTest extends TestCase
+class BatchSegmentsActionTest extends DatabaseAwareTestCase
 {
 
     public function test__invoke(): void

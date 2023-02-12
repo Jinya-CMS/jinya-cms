@@ -2,12 +2,12 @@
 
 namespace Jinya\Tests\Web\Actions\Environment;
 
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\Environment\GetEnvironmentAction;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 
-class GetEnvironmentActionTest extends TestCase
+class GetEnvironmentActionTest extends DatabaseAwareTestCase
 {
 
     public function test__invoke(): void

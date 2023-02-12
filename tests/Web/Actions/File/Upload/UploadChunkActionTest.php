@@ -3,15 +3,15 @@
 namespace Jinya\Tests\Web\Actions\File\Upload;
 
 use App\Database\File;
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\File\Upload\StartUploadAction;
 use App\Web\Actions\File\Upload\UploadChunkAction;
 use App\Web\Exceptions\NoResultException;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
 use Nyholm\Psr7\Stream;
-use PHPUnit\Framework\TestCase;
 
-class UploadChunkActionTest extends TestCase
+class UploadChunkActionTest extends DatabaseAwareTestCase
 {
 
     public function test__invoke(): void

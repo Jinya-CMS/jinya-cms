@@ -4,13 +4,13 @@ namespace Jinya\Tests\Web\Actions\KnownDevice;
 
 use App\Authentication\CurrentUser;
 use App\Database\KnownDevice;
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\KnownDevice\ListAllKnownDevicesAction;
 use App\Web\Middleware\AuthorizationMiddleware;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 
-class ListAllKnownDevicesActionTest extends TestCase
+class ListAllKnownDevicesActionTest extends DatabaseAwareTestCase
 {
 
     public function test__invoke(): void

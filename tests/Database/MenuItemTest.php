@@ -12,12 +12,12 @@ use App\Database\Menu;
 use App\Database\MenuItem;
 use App\Database\SegmentPage;
 use App\Database\SimplePage;
+use App\Tests\DatabaseAwareTestCase;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use LogicException;
-use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-class MenuItemTest extends TestCase
+class MenuItemTest extends DatabaseAwareTestCase
 {
 
     private function createMenuItem(string $route = '#', string $title = 'Testtitle', int $position = 1): MenuItem
@@ -364,7 +364,7 @@ class MenuItemTest extends TestCase
 
         $foundItems = iterator_to_array(MenuItem::findById($parent->getIdAsInt())->getItems());
         $this->assertCount(2, $foundItems);
-        $this->assertCount(1, $foundItems[0]->getItems());
+        $this->assertCount(1, iterator_to_array($foundItems[0]->getItems()));
     }
 
     public function testFindByKeyword(): void
@@ -393,7 +393,7 @@ class MenuItemTest extends TestCase
         $menuItem2->parentId = $menuItem->getIdAsInt();
         $menuItem2->create();
 
-        $this->assertCount(2, $parent->getItems());
+        $this->assertCount(2, iterator_to_array($parent->getItems()));
     }
 
     public function testUpdate(): void

@@ -3,9 +3,9 @@
 namespace Jinya\Tests\Database\Strategies;
 
 use App\Database\Strategies\PhpSerializeStrategy;
-use PHPUnit\Framework\TestCase;
+use App\Tests\DatabaseAwareTestCase;
 
-class PhpSerializeStrategyTest extends TestCase
+class PhpSerializeStrategyTest extends DatabaseAwareTestCase
 {
 
     private PhpSerializeStrategy $phpSerializeStrategy;
@@ -21,12 +21,6 @@ class PhpSerializeStrategyTest extends TestCase
         $result = $this->phpSerializeStrategy->hydrate($input, null);
         $this->assertEquals(unserialize($input, ['allowed_classes' => []]), $result);
         $this->assertCount(3, $result);
-    }
-
-    public function testHydrateInvalidSerializeFormat(): void
-    {
-        $this->expectError();
-        $this->phpSerializeStrategy->hydrate('a:3:{i:0;s:16:"ROLE_SUPER_ADMIN";i:1;s:10:"ROLE_ADMIN";i:2;s:1asd1:"ROLE_WRITER";}', null);
     }
 
     public function testExtract(): void

@@ -5,9 +5,9 @@ namespace Jinya\Tests\Database;
 use App\Authentication\CurrentUser;
 use App\Database\BlogCategory;
 use App\Database\BlogPost;
-use PHPUnit\Framework\TestCase;
+use App\Tests\DatabaseAwareTestCase;
 
-class BlogCategoryTest extends TestCase
+class BlogCategoryTest extends DatabaseAwareTestCase
 {
 
     public function testFindById(): void
@@ -45,7 +45,7 @@ class BlogCategoryTest extends TestCase
         $this->createBlogCategory(name: 'Test title 4', description: 'Test decription 4');
 
         $found = BlogCategory::findByKeyword('title');
-        $this->assertCount(4, $found);
+        $this->assertCount(4, iterator_to_array($found));
     }
 
     public function testFindByKeywordOneResult(): void
@@ -127,7 +127,7 @@ class BlogCategoryTest extends TestCase
         $this->createBlogCategory(name: 'Test title 4', description: 'Test decription 4');
 
         $all = BlogCategory::findAll();
-        self::assertCount(4, $all);
+        self::assertCount(4, iterator_to_array($all));
     }
 
     public function testGetParent(): void
@@ -176,14 +176,14 @@ class BlogCategoryTest extends TestCase
     {
         $cat = $this->createBlogCategory();
         $posts = $cat->getBlogPosts(true);
-        self::assertCount(0, $posts);
+        self::assertCount(0, iterator_to_array($posts));
     }
 
     public function testGetBlogPostsNoPostsDontIncludeChildren(): void
     {
         $cat = $this->createBlogCategory();
         $posts = $cat->getBlogPosts(false);
-        self::assertCount(0, $posts);
+        self::assertCount(0, iterator_to_array($posts));
     }
 
     public function testGetBlogPostsPostsIncludeChildren(): void
@@ -202,7 +202,7 @@ class BlogCategoryTest extends TestCase
         $this->createBlogPost('Test 3', 'test-3', $catWithParent2->getIdAsInt());
 
         $posts = $cat->getBlogPosts(true);
-        self::assertCount(3, $posts);
+        self::assertCount(3, iterator_to_array($posts));
     }
 
     public function createBlogPost(string $title, string $slug, int $categoryId, bool $public = true): BlogPost
@@ -235,7 +235,7 @@ class BlogCategoryTest extends TestCase
         $this->createBlogPost('Test 3', 'test-3', $catWithParent2->getIdAsInt());
 
         $posts = $cat->getBlogPosts(false);
-        self::assertCount(1, $posts);
+        self::assertCount(1, iterator_to_array($posts));
     }
 
     public function testGetBlogPostsPostsDontIncludeChildrenOnlyPublic(): void
@@ -247,6 +247,6 @@ class BlogCategoryTest extends TestCase
         $this->createBlogPost('Test 3', 'test-3', $cat->getIdAsInt(), true);
 
         $posts = $cat->getBlogPosts(false, true);
-        self::assertCount(2, $posts);
+        self::assertCount(2, iterator_to_array($posts));
     }
 }

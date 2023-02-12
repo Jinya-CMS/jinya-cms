@@ -5,14 +5,14 @@ namespace Jinya\Tests\Web\Actions\Artist\ProfilePicture;
 use App\Authentication\CurrentUser;
 use App\Database\Artist;
 use App\Storage\StorageBaseService;
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\Artist\ProfilePicture\UploadProfilePictureAction;
 use App\Web\Exceptions\NoResultException;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
 use Nyholm\Psr7\Stream;
-use PHPUnit\Framework\TestCase;
 
-class UploadProfilePictureActionTest extends TestCase
+class UploadProfilePictureActionTest extends DatabaseAwareTestCase
 {
 
     public function test__invoke(): void

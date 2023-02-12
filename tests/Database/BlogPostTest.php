@@ -9,10 +9,10 @@ use App\Database\BlogPostSegment;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Database\Gallery;
+use App\Tests\DatabaseAwareTestCase;
 use Faker\Provider\Uuid;
-use PHPUnit\Framework\TestCase;
 
-class BlogPostTest extends TestCase
+class BlogPostTest extends DatabaseAwareTestCase
 {
 
     public function testCreate(): void
@@ -220,7 +220,7 @@ class BlogPostTest extends TestCase
         $this->createBlogPost(title: 'Test 3', slug: 'test-3');
         $this->createBlogPost(title: 'Test 4', slug: 'test-4');
         $found = BlogPost::findAll();
-        $this->assertCount(4, $found);
+        $this->assertCount(4, iterator_to_array($found));
     }
 
     public function testFindPublic(): void
@@ -232,13 +232,13 @@ class BlogPostTest extends TestCase
         $public->public = true;
         $public->create();
         $found = BlogPost::findPublicPosts();
-        $this->assertCount(1, $found);
+        $this->assertCount(1, iterator_to_array($found));
     }
 
     public function testFindAllNoneCreated(): void
     {
         $found = BlogPost::findAll();
-        $this->assertCount(0, $found);
+        $this->assertCount(0, iterator_to_array($found));
     }
 
     public function testFindById(): void
@@ -274,16 +274,16 @@ class BlogPostTest extends TestCase
         $this->createBlogPost(title: 'Test 3', slug: 'test-3');
         $this->createBlogPost(title: 'Test 4', slug: 'test-4');
         $found = BlogPost::findByKeyword('test');
-        $this->assertCount(4, $found);
+        $this->assertCount(4, iterator_to_array($found));
 
         $found = BlogPost::findByKeyword('test-1');
-        $this->assertCount(1, $found);
+        $this->assertCount(1, iterator_to_array($found));
 
         $found = BlogPost::findByKeyword('Test 1');
-        $this->assertCount(1, $found);
+        $this->assertCount(1, iterator_to_array($found));
 
         $found = BlogPost::findByKeyword('Test 15');
-        $this->assertCount(0, $found);
+        $this->assertCount(0, iterator_to_array($found));
     }
 
     public function testGetSegments(): void
@@ -295,7 +295,7 @@ class BlogPostTest extends TestCase
         $this->createBlogPostSegment($post->getIdAsInt());
 
         $segments = $post->getSegments();
-        $this->assertCount(4, $segments);
+        $this->assertCount(4, iterator_to_array($segments));
     }
 
     private function createBlogPostSegment(int $blogPostId): void
@@ -311,7 +311,7 @@ class BlogPostTest extends TestCase
         $post = $this->createBlogPost();
 
         $segments = $post->getSegments();
-        $this->assertCount(0, $segments);
+        $this->assertCount(0, iterator_to_array($segments));
     }
 
     public function testGetCreator(): void
@@ -330,10 +330,10 @@ class BlogPostTest extends TestCase
         $this->createBlogPostSegment($post->getIdAsInt());
         $this->createBlogPostSegment($post->getIdAsInt());
 
-        $this->assertCount(5, $post->getSegments());
+        $this->assertCount(5, iterator_to_array($post->getSegments()));
 
         $post->batchReplaceSegments([]);
-        $this->assertCount(0, $post->getSegments());
+        $this->assertCount(0, iterator_to_array($post->getSegments()));
     }
 
     private function createGallery(): Gallery
@@ -355,7 +355,7 @@ class BlogPostTest extends TestCase
         $this->createBlogPostSegment($post->getIdAsInt());
         $this->createBlogPostSegment($post->getIdAsInt());
 
-        $this->assertCount(5, $post->getSegments());
+        $this->assertCount(5, iterator_to_array($post->getSegments()));
 
         $file = $this->createFile();
         $gallery = $this->createGallery();
@@ -367,7 +367,7 @@ class BlogPostTest extends TestCase
         ]);
 
         $segments = $post->getSegments();
-        $this->assertCount(4, $segments);
+        $this->assertCount(4, iterator_to_array($segments));
 
         $segments = $post->getSegments();
 

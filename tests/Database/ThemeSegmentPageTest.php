@@ -14,7 +14,7 @@ class ThemeSegmentPageTest extends ThemeTestCase
     public function testFindByThemeNoSegmentPage(): void
     {
         $themeSegmentPages = ThemeSegmentPage::findByTheme($this->theme->getIdAsInt());
-        self::assertCount(0, $themeSegmentPages);
+        self::assertCount(0, iterator_to_array($themeSegmentPages));
     }
 
     public function testFindByTheme(): void
@@ -26,7 +26,7 @@ class ThemeSegmentPageTest extends ThemeTestCase
         $themeSegmentPage->create();
 
         $themeSegmentPages = ThemeSegmentPage::findByTheme($this->theme->getIdAsInt());
-        self::assertCount(1, $themeSegmentPages);
+        self::assertCount(1, iterator_to_array($themeSegmentPages));
     }
 
     public function testFindByThemeAndNameNotFound(): void

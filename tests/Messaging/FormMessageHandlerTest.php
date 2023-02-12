@@ -5,13 +5,13 @@ namespace Jinya\Tests\Messaging;
 use App\Database\Form;
 use App\Database\FormItem;
 use App\Messaging\FormMessageHandler;
+use App\Tests\DatabaseAwareTestCase;
 use App\Theming\Engine;
 use App\Web\Exceptions\MissingFieldsException;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 
-class FormMessageHandlerTest extends TestCase
+class FormMessageHandlerTest extends DatabaseAwareTestCase
 {
     private FormMessageHandler $handler;
     private Form $form;

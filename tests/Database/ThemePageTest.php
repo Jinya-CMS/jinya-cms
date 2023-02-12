@@ -14,7 +14,7 @@ class ThemePageTest extends ThemeTestCase
     public function testFindByThemeNoSimplePage(): void
     {
         $themePages = ThemePage::findByTheme($this->theme->getIdAsInt());
-        self::assertCount(0, $themePages);
+        self::assertCount(0, iterator_to_array($themePages));
     }
 
     public function testFindByTheme(): void
@@ -26,7 +26,7 @@ class ThemePageTest extends ThemeTestCase
         $themePage->create();
 
         $themePages = ThemePage::findByTheme($this->theme->getIdAsInt());
-        self::assertCount(1, $themePages);
+        self::assertCount(1, iterator_to_array($themePages));
     }
 
     public function testFindByThemeAndNameNotFound(): void

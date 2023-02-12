@@ -4,14 +4,14 @@ namespace Jinya\Tests\Web\Actions\SegmentPage\Segments;
 
 use App\Database\Segment;
 use App\Database\SegmentPage;
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\SegmentPage\Segments\GetSegmentsAction;
 use App\Web\Exceptions\NoResultException;
 use Faker\Provider\Uuid;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 
-class GetSegmentsActionTest extends TestCase
+class GetSegmentsActionTest extends DatabaseAwareTestCase
 {
 
     public function test__invoke(): void

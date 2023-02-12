@@ -5,13 +5,13 @@ namespace Jinya\Tests\Theming\Extensions;
 use App\Console\FileCacheCommand;
 use App\Database\File;
 use App\Storage\StorageBaseService;
+use App\Tests\DatabaseAwareTestCase;
 use App\Theming\Engine;
 use App\Theming\Extensions\FileExtension;
 use App\Utils\ImageType;
 use Faker\Provider\Uuid;
-use PHPUnit\Framework\TestCase;
 
-class FileExtensionTest extends TestCase
+class FileExtensionTest extends DatabaseAwareTestCase
 {
 
     private FileExtension $extension;

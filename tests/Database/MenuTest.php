@@ -5,16 +5,17 @@ namespace Jinya\Tests\Database;
 use App\Database\File;
 use App\Database\Menu;
 use App\Database\MenuItem;
+use App\Tests\DatabaseAwareTestCase;
 use App\Utils\UuidGenerator;
-use PHPUnit\Framework\TestCase;
 
-class MenuTest extends TestCase
+class MenuTest extends DatabaseAwareTestCase
 {
 
     private File $file;
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->file = new File();
         $this->file->name = UuidGenerator::generateV4();
         $this->file->path = UuidGenerator::generateV4();
@@ -91,13 +92,13 @@ class MenuTest extends TestCase
         $menuItem->route = '#';
         $menuItem->create();
 
-        $this->assertCount(2, $menu->getItems());
+        $this->assertCount(2, iterator_to_array($menu->getItems()));
     }
 
     public function testGetItemsEmpty(): void
     {
         $menu = $this->createMenu();
-        $this->assertCount(0, $menu->getItems());
+        $this->assertCount(0, iterator_to_array($menu->getItems()));
     }
 
     public function testDelete(): void
@@ -127,7 +128,7 @@ class MenuTest extends TestCase
         $this->createMenu('Testmenu4');
 
         $found = Menu::findByKeyword('3');
-        $this->assertCount(1, $found);
+        $this->assertCount(1, iterator_to_array($found));
     }
 
     public function testFindById(): void
@@ -167,6 +168,6 @@ class MenuTest extends TestCase
         $this->createMenu('Testmenu4');
 
         $all = Menu::findAll();
-        $this->assertCount(4, $all);
+        $this->assertCount(4, iterator_to_array($all));
     }
 }

@@ -5,10 +5,10 @@ namespace Jinya\Tests\Database;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Form;
 use App\Database\FormItem;
-use PHPUnit\Framework\TestCase;
+use App\Tests\DatabaseAwareTestCase;
 use RuntimeException;
 
-class FormItemTest extends TestCase
+class FormItemTest extends DatabaseAwareTestCase
 {
 
     private Form $form;

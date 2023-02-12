@@ -10,7 +10,7 @@ class ThemeAssetTest extends ThemeTestCase
     public function testFindByThemeNoAsset(): void
     {
         $assets = ThemeAsset::findByTheme($this->theme->getIdAsInt());
-        self::assertCount(0, $assets);
+        self::assertCount(0, iterator_to_array($assets));
     }
 
     public function testFindByTheme(): void
@@ -22,7 +22,7 @@ class ThemeAssetTest extends ThemeTestCase
         $asset->create();
 
         $assets = ThemeAsset::findByTheme($this->theme->getIdAsInt());
-        self::assertCount(1, $assets);
+        self::assertCount(1, iterator_to_array($assets));
     }
 
     public function testFindByThemeAndNameNotFound(): void

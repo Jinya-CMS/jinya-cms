@@ -4,14 +4,14 @@ namespace Jinya\Tests\Web\Actions\Authentication;
 
 use App\Authentication\CurrentUser;
 use App\Database\KnownDevice;
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\Authentication\LoginAction;
 use App\Web\Exceptions\BadCredentialsException;
 use App\Web\Exceptions\UnknownDeviceException;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 
-class LoginActionTest extends TestCase
+class LoginActionTest extends DatabaseAwareTestCase
 {
     public function test__invokeTwoFactorCode(): void
     {

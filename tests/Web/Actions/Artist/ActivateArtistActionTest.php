@@ -4,13 +4,13 @@ namespace Jinya\Tests\Web\Actions\Artist;
 
 use App\Authentication\CurrentUser;
 use App\Database\Artist;
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\Artist\ActivateArtistAction;
 use App\Web\Exceptions\NoResultException;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 
-class ActivateArtistActionTest extends TestCase
+class ActivateArtistActionTest extends DatabaseAwareTestCase
 {
 
     public function test__invoke(): void

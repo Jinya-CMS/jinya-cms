@@ -2,11 +2,11 @@
 
 namespace Jinya\Tests\Web\Exceptions;
 
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Exceptions\MissingFieldsException;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 
-class MissingFieldsExceptionTest extends TestCase
+class MissingFieldsExceptionTest extends DatabaseAwareTestCase
 {
 
     public function testJsonSerialize(): void

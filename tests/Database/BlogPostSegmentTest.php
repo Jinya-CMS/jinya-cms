@@ -7,11 +7,11 @@ use App\Database\BlogPost;
 use App\Database\BlogPostSegment;
 use App\Database\File;
 use App\Database\Gallery;
+use App\Tests\DatabaseAwareTestCase;
 use Faker\Provider\Uuid;
-use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-class BlogPostSegmentTest extends TestCase
+class BlogPostSegmentTest extends DatabaseAwareTestCase
 {
 
     public function testGetBlogPost(): void

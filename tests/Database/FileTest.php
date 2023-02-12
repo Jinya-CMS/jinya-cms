@@ -7,9 +7,9 @@ use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Database\UploadingFile;
 use App\Database\UploadingFileChunk;
-use PHPUnit\Framework\TestCase;
+use App\Tests\DatabaseAwareTestCase;
 
-class FileTest extends TestCase
+class FileTest extends DatabaseAwareTestCase
 {
     private function createFile(bool $execute = true, string $name = 'Testfile'): File
     {
@@ -53,7 +53,7 @@ class FileTest extends TestCase
         $uploadFileChunk2->create();
 
         $chunks = $file->getUploadChunks();
-        $this->assertCount(2, $chunks);
+        $this->assertCount(2, iterator_to_array($chunks));
     }
 
     public function testGetUploadChunksShouldGetNone(): void
@@ -76,7 +76,7 @@ class FileTest extends TestCase
 
         $file2 = $this->createFile(name: 'Test2');
         $chunks = $file2->getUploadChunks();
-        $this->assertCount(0, $chunks);
+        $this->assertCount(0, iterator_to_array($chunks));
     }
 
     public function testFormat(): void
@@ -134,13 +134,13 @@ class FileTest extends TestCase
         $this->createFile(name: 'Testfile3');
 
         $files = File::findAll();
-        $this->assertCount(3, $files);
+        $this->assertCount(3, iterator_to_array($files));
     }
 
     public function testFindAllNoneFound(): void
     {
         $files = File::findAll();
-        $this->assertCount(0, $files);
+        $this->assertCount(0, iterator_to_array($files));
     }
 
     public function testGetCreator(): void

@@ -7,11 +7,11 @@ use App\Database\Artist;
 use App\Database\Exceptions\DeleteLastAdminException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\KnownDevice;
+use App\Tests\DatabaseAwareTestCase;
 use DateTime;
 use InvalidArgumentException;
-use PHPUnit\Framework\TestCase;
 
-class ArtistTest extends TestCase
+class ArtistTest extends DatabaseAwareTestCase
 {
     private function createArtist(bool $isAdmin = true, bool $isWriter = true, bool $isReader = true, bool $enabled = true, string $email = 'test@example.com', string $password = 'test1234', bool $execute = true): Artist
     {
@@ -191,7 +191,7 @@ class ArtistTest extends TestCase
 
         $this->assertTrue($artist->changePassword('test1234', 'start1234'));
         $this->assertTrue($artist->validatePassword('start1234'));
-        $this->assertCount(0, ApiKey::findByArtist($artist->getIdAsInt()));
+        $this->assertCount(0, iterator_to_array(ApiKey::findByArtist($artist->getIdAsInt())));
     }
 
     public function testChangePasswordInvalidOldPassword(): void
@@ -203,7 +203,7 @@ class ArtistTest extends TestCase
     public function testChangePasswordEmptyNewPassword(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectErrorMessage('Password cannot be empty');
+        $this->expectExceptionMessage('Password cannot be empty');
         $artist = $this->createArtist();
         $artist->changePassword('test1234', '');
     }
@@ -218,7 +218,7 @@ class ArtistTest extends TestCase
     public function testSetPasswordEmptyPassword(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectErrorMessage('Password cannot be empty');
+        $this->expectExceptionMessage('Password cannot be empty');
         $artist = $this->createArtist();
         $artist->setPassword('');
     }
@@ -371,7 +371,7 @@ class ArtistTest extends TestCase
         $this->createArtist();
         $this->createArtist(isAdmin: false, email: 'test2@example.com');
         $artists = Artist::findByKeyword('test@');
-        $this->assertCount(1, $artists);
+        $this->assertCount(1, iterator_to_array($artists));
     }
 
     public function testFindByKeywordArtistName(): void
@@ -379,7 +379,7 @@ class ArtistTest extends TestCase
         $this->createArtist();
         $this->createArtist(isAdmin: false, email: 'test2@example.com');
         $artists = Artist::findByKeyword('Artist');
-        $this->assertCount(2, $artists);
+        $this->assertCount(2, iterator_to_array($artists));
     }
 
     public function testCountAdmins(): void

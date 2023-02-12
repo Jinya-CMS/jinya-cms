@@ -4,13 +4,13 @@ namespace Jinya\Tests\Web\Actions\ApiKey;
 
 use App\Authentication\CurrentUser;
 use App\Database\ApiKey;
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\ApiKey\DeleteApiKeyAction;
 use App\Web\Exceptions\NoResultException;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 
-class DeleteApiKeyActionTest extends TestCase
+class DeleteApiKeyActionTest extends DatabaseAwareTestCase
 {
 
     public function test__invokeApiKeyFound(): void

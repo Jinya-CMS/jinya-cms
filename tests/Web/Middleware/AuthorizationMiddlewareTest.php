@@ -4,16 +4,16 @@ namespace Jinya\Tests\Web\Middleware;
 
 use App\Authentication\CurrentUser;
 use App\Database\ApiKey;
+use App\Tests\DatabaseAwareTestCase;
 use App\Tests\TestRequestHandler;
 use App\Web\Middleware\AuthorizationMiddleware;
 use DateInterval;
 use DateTime;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 use Slim\Exception\HttpForbiddenException;
 
-class AuthorizationMiddlewareTest extends TestCase
+class AuthorizationMiddlewareTest extends DatabaseAwareTestCase
 {
 
     public function testProcess(): void

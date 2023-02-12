@@ -2,12 +2,12 @@
 
 namespace Jinya\Tests\Web\Actions\LocateIp;
 
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\LocateIp\LocatorAction;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 
-class LocatorActionTest extends TestCase
+class LocatorActionTest extends DatabaseAwareTestCase
 {
 
     public function test__invoke(): void

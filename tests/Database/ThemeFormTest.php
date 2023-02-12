@@ -14,7 +14,7 @@ class ThemeFormTest extends ThemeTestCase
     public function testFindByThemeNoForm(): void
     {
         $themeForms = ThemeForm::findByTheme($this->theme->getIdAsInt());
-        self::assertCount(0, $themeForms);
+        self::assertCount(0, iterator_to_array($themeForms));
     }
 
     public function testFindByTheme(): void
@@ -26,7 +26,7 @@ class ThemeFormTest extends ThemeTestCase
         $themeForm->create();
 
         $themeForms = ThemeForm::findByTheme($this->theme->getIdAsInt());
-        self::assertCount(1, $themeForms);
+        self::assertCount(1, iterator_to_array($themeForms));
     }
 
     public function testFindByThemeAndNameNotFound(): void

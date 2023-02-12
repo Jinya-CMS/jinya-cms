@@ -1,17 +1,14 @@
 <?php
 
-namespace App\Tests\Extensions;
+namespace App\Tests\Extensions\Subscriber;
 
 use App\Database\Utils\LoadableEntity;
-use PHPUnit\Runner\AfterLastTestHook;
+use PHPUnit\Event\Test\AfterLastTestMethodFinished;
+use PHPUnit\Event\Test\AfterLastTestMethodFinishedSubscriber;
 
-/**
- *
- */
-class DropAllTablesHook implements AfterLastTestHook
+class DropAllTablesSubscriber implements AfterLastTestMethodFinishedSubscriber
 {
-
-    public function executeAfterLastTest(): void
+    public function notify(AfterLastTestMethodFinished $event): void
     {
         LoadableEntity::executeSqlString('drop table if exists api_key');
         LoadableEntity::executeSqlString('drop table if exists blog_post_segment');

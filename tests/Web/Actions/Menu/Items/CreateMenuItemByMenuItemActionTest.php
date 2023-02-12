@@ -10,14 +10,14 @@ use App\Database\Menu;
 use App\Database\MenuItem;
 use App\Database\SegmentPage;
 use App\Database\SimplePage;
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\Menu\Items\CreateMenuItemByMenuItemAction;
 use App\Web\Exceptions\NoResultException;
 use Faker\Provider\Uuid;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 
-class CreateMenuItemByMenuItemActionTest extends TestCase
+class CreateMenuItemByMenuItemActionTest extends DatabaseAwareTestCase
 {
 
     private Menu $menu;

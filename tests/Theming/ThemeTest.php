@@ -3,14 +3,14 @@
 namespace Jinya\Tests\Theming;
 
 use App\Database;
+use App\Tests\DatabaseAwareTestCase;
 use App\Theming;
 use App\Theming\ThemeSyncer;
 use Faker\Provider\Uuid;
-use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use Symfony\Component\Filesystem\Filesystem;
 
-class ThemeTest extends TestCase
+class ThemeTest extends DatabaseAwareTestCase
 {
     private static string $name;
     private static Filesystem $fs;

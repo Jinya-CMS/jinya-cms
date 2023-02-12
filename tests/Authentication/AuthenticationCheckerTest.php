@@ -5,13 +5,13 @@ namespace Jinya\Tests\Authentication;
 use App\Authentication\AuthenticationChecker;
 use App\Authentication\CurrentUser;
 use App\Database\ApiKey;
+use App\Tests\DatabaseAwareTestCase;
 use DateInterval;
 use DateTime;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 use Slim\Exception\HttpForbiddenException;
 
-class AuthenticationCheckerTest extends TestCase
+class AuthenticationCheckerTest extends DatabaseAwareTestCase
 {
 
     public function testCheckRequestForUserSuccessfulLogin(): void

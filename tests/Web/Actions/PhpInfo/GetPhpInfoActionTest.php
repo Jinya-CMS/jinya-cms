@@ -2,12 +2,12 @@
 
 namespace Jinya\Tests\Web\Actions\PhpInfo;
 
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\PhpInfo\GetPhpInfoAction;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 
-class GetPhpInfoActionTest extends TestCase
+class GetPhpInfoActionTest extends DatabaseAwareTestCase
 {
 
     public function test__invoke(): void

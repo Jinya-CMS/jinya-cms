@@ -5,13 +5,13 @@ namespace Jinya\Tests\Web\Actions\Gallery\Positions;
 use App\Database\File;
 use App\Database\Gallery;
 use App\Database\GalleryFilePosition;
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\Gallery\Positions\UpdatePositionAction;
 use App\Web\Exceptions\NoResultException;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 
-class UpdatePositionActionTest extends TestCase
+class UpdatePositionActionTest extends DatabaseAwareTestCase
 {
 
     private GalleryFilePosition $position;
@@ -38,7 +38,6 @@ class UpdatePositionActionTest extends TestCase
     public function test__invokeFileNotFound(): void
     {
         $this->expectException(NoResultException::class);
-        $this->expectDeprecationMessage('File not found');
         $request = new ServerRequest('', '');
         $response = new Response();
         $action = new UpdatePositionAction();
@@ -59,7 +58,6 @@ class UpdatePositionActionTest extends TestCase
     public function test__invokePositionNotFound(): void
     {
         $this->expectException(NoResultException::class);
-        $this->expectDeprecationMessage('Position not found');
         $request = new ServerRequest('', '');
         $response = new Response();
         $action = new UpdatePositionAction();

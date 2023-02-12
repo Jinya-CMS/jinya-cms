@@ -106,6 +106,6 @@ class ThemeBlogCategoryTest extends ThemeTestCase
         $this->createThemeBlogCategory(name: Uuid::uuid());
 
         $found = ThemeBlogCategory::findByTheme($this->theme->getIdAsInt());
-        $this->assertCount(2, $found);
+        $this->assertCount(2, iterator_to_array($found));
     }
 }

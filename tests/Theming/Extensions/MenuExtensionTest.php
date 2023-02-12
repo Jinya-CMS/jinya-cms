@@ -4,12 +4,12 @@ namespace Jinya\Tests\Theming\Extensions;
 
 use App\Database\Menu;
 use App\Database\MenuItem;
+use App\Tests\DatabaseAwareTestCase;
 use App\Theming\Engine;
 use App\Theming\Extensions\MenuExtension;
 use Faker\Provider\Uuid;
-use PHPUnit\Framework\TestCase;
 
-class MenuExtensionTest extends TestCase
+class MenuExtensionTest extends DatabaseAwareTestCase
 {
 
     private MenuExtension $extension;

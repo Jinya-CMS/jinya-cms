@@ -14,7 +14,7 @@ class ThemeGalleryTest extends ThemeTestCase
     public function testFindByThemeNoGallery(): void
     {
         $themeGalleries = ThemeGallery::findByTheme($this->theme->getIdAsInt());
-        self::assertCount(0, $themeGalleries);
+        self::assertCount(0, iterator_to_array($themeGalleries));
     }
 
     public function testFindByTheme(): void
@@ -26,7 +26,7 @@ class ThemeGalleryTest extends ThemeTestCase
         $themeGallery->create();
 
         $themeGalleries = ThemeGallery::findByTheme($this->theme->getIdAsInt());
-        self::assertCount(1, $themeGalleries);
+        self::assertCount(1, iterator_to_array($themeGalleries));
     }
 
     public function testFindByThemeAndNameNotFound(): void

@@ -14,7 +14,7 @@ class ThemeMenuTest extends ThemeTestCase
     public function testFindByThemeNoMenu(): void
     {
         $themeMenus = ThemeMenu::findByTheme($this->theme->getIdAsInt());
-        self::assertCount(0, $themeMenus);
+        self::assertCount(0, iterator_to_array($themeMenus));
     }
 
     public function testFindByTheme(): void
@@ -26,7 +26,7 @@ class ThemeMenuTest extends ThemeTestCase
         $themeMenu->create();
 
         $themeMenus = ThemeMenu::findByTheme($this->theme->getIdAsInt());
-        self::assertCount(1, $themeMenus);
+        self::assertCount(1, iterator_to_array($themeMenus));
     }
 
     public function testFindByThemeAndNameNotFound(): void

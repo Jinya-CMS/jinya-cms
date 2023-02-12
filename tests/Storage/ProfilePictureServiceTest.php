@@ -6,12 +6,12 @@ use App\Database\Artist;
 use App\Database\Exceptions\EmptyResultException;
 use App\Storage\ProfilePictureService;
 use App\Storage\StorageBaseService;
+use App\Tests\DatabaseAwareTestCase;
 use Faker\Factory;
 use Faker\Provider\Uuid;
-use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-class ProfilePictureServiceTest extends TestCase
+class ProfilePictureServiceTest extends DatabaseAwareTestCase
 {
     private ProfilePictureService $service;
     private Artist $artist;

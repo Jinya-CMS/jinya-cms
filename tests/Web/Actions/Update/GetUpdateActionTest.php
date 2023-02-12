@@ -2,12 +2,12 @@
 
 namespace Jinya\Tests\Web\Actions\Update;
 
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\Update\GetUpdateAction;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 
-class GetUpdateActionTest extends TestCase
+class GetUpdateActionTest extends DatabaseAwareTestCase
 {
 
     public function test__invoke(): void

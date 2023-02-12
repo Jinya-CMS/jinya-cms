@@ -4,9 +4,9 @@ namespace Jinya\Tests\Console;
 
 use App\Console\MigrationCommand;
 use App\Database\Utils\LoadableEntity;
-use PHPUnit\Framework\TestCase;
+use App\Tests\DatabaseAwareTestCase;
 
-class MigrationCommandTest extends TestCase
+class MigrationCommandTest extends DatabaseAwareTestCase
 {
 
     public function testRun(): void

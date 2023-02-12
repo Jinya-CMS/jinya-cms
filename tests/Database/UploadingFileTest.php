@@ -6,11 +6,11 @@ use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Database\UploadingFile;
 use App\Database\UploadingFileChunk;
+use App\Tests\DatabaseAwareTestCase;
 use Faker\Provider\Uuid;
-use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-class UploadingFileTest extends TestCase
+class UploadingFileTest extends DatabaseAwareTestCase
 {
 
     private File $testFile;
@@ -138,7 +138,7 @@ class UploadingFileTest extends TestCase
         $uploadingFileChunk->create();
 
         $chunks = $uploadingFile->getChunks();
-        self::assertCount(1, $chunks);
+        self::assertCount(1, iterator_to_array($chunks));
 
         $chunks = $uploadingFile->getChunks();
         self::assertEquals($uploadingFileChunk->format(), $chunks->current()->format());

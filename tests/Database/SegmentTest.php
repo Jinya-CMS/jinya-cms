@@ -7,11 +7,11 @@ use App\Database\Form;
 use App\Database\Gallery;
 use App\Database\Segment;
 use App\Database\SegmentPage;
+use App\Tests\DatabaseAwareTestCase;
 use Faker\Provider\Uuid;
-use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-class SegmentTest extends TestCase
+class SegmentTest extends DatabaseAwareTestCase
 {
 
     public function testGetSegmentPage(): void

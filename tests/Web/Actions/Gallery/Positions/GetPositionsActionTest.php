@@ -5,13 +5,13 @@ namespace Jinya\Tests\Web\Actions\Gallery\Positions;
 use App\Database\File;
 use App\Database\Gallery;
 use App\Database\GalleryFilePosition;
+use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\Gallery\Positions\GetPositionsAction;
 use App\Web\Exceptions\NoResultException;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase;
 
-class GetPositionsActionTest extends TestCase
+class GetPositionsActionTest extends DatabaseAwareTestCase
 {
 
     public function test__invoke(): void
@@ -43,7 +43,6 @@ class GetPositionsActionTest extends TestCase
     public function test__invokeGalleryNotFound(): void
     {
         $this->expectException(NoResultException::class);
-        $this->expectDeprecationMessage('Gallery not found');
 
         $request = new ServerRequest('', '');
         $response = new Response();

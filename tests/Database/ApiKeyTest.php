@@ -7,12 +7,12 @@ use App\Database\Artist;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Utils\LoadableEntity;
+use App\Tests\DatabaseAwareTestCase;
 use DateTime;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
-use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-class ApiKeyTest extends TestCase
+class ApiKeyTest extends DatabaseAwareTestCase
 {
 
     private ApiKey $testApiKey;
