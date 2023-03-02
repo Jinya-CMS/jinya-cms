@@ -37,10 +37,10 @@
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
-    "phpunit/phpunit": "10.0.8",
+    "phpunit/phpunit": "10.0.14",
     "phpstan/phpstan": "1.9.18",
     "fakerphp/faker": "v1.21.0",
-    "symfony/filesystem": "v6.2.5"
+    "symfony/filesystem": "v6.2.7"
   },
   "config": {
     "process-timeout": 0,
