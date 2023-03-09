@@ -9,12 +9,12 @@ use JetBrains\PhpStorm\Pure;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use League\Plates\Engine;
-use League\Plates\Extension\ExtensionInterface;
+use League\Plates\Extension\BaseExtension;
 
 /**
  * Provides extensions to the Plates engine, adding helper methods for menus
  */
-class MenuExtension implements ExtensionInterface
+class MenuExtension extends BaseExtension
 {
 
     /**

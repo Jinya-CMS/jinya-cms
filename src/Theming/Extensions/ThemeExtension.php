@@ -7,12 +7,12 @@ use App\Theming;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use League\Plates\Engine;
-use League\Plates\Extension\ExtensionInterface;
+use League\Plates\Extension\BaseExtension;
 
 /**
  * Provides extensions to the Plates engine, adding helper methods for themes
  */
-class ThemeExtension implements ExtensionInterface
+class ThemeExtension extends BaseExtension
 {
 
     /** @var Theming\Theme The currently active theming theme */

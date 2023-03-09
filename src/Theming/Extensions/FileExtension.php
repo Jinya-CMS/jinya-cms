@@ -6,13 +6,13 @@ use App\Database\File;
 use App\Storage\StorageBaseService;
 use App\Utils\ImageType;
 use League\Plates\Engine;
-use League\Plates\Extension\ExtensionInterface;
+use League\Plates\Extension\BaseExtension;
 use RuntimeException;
 
 /**
  * Provides extensions to the Plates engine, adding helper methods for image handling of files
  */
-class FileExtension implements ExtensionInterface
+class FileExtension extends BaseExtension
 {
     /** @var int[] The default resolutions supported by Jinya CMS */
     public const RESOLUTIONS_FOR_SOURCE = [480, 720, 1080, 2160, 4320];
