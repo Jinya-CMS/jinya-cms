@@ -78,7 +78,7 @@ class Theme implements ExtensionInterface
         $assets = $this->dbTheme->getAssets();
         $assetName = $this->scssCompiler->getStringText($args[0]);
         if (array_key_exists($assetName, $assets)) {
-            return ValueConverter::fromPhp('url("' . $assets[$assetName]->publicPath . '")');
+            return ValueConverter::parseValue('url("' . $assets[$assetName]->publicPath . '")');
         }
 
         throw new RuntimeException("Asset with name $assetName not found");
