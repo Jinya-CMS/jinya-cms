@@ -75,22 +75,22 @@ export default class EditMenuItemDialog {
                                             #${item.id} ${item.name ?? item.title ?? item.artistName}
                                     </option>`)}
                             </select>` : ''}
-                        <div class="cosmo-checkbox__group">
-                            <input ${this.highlighted ? 'checked' : ''} type="checkbox" id="editMenuItemIsHighlighted"
-                                   class="cosmo-checkbox">
-                            <label for="editMenuItemIsHighlighted">
-                                ${localize({ key: 'design.menus.designer.edit.is_highlighted' })}
-                            </label>
-                        </div>
+                      <div class="cosmo-checkbox__group">
+                        <input ${this.highlighted ? 'checked' : ''} type="checkbox" id="editMenuItemIsHighlighted"
+                               class="cosmo-checkbox">
+                        <label for="editMenuItemIsHighlighted">
+                          ${localize({ key: 'design.menus.designer.edit.is_highlighted' })}
+                        </label>
+                      </div>
                     </div>
-                    <div class="cosmo-modal__button-bar">
-                        <button type="button" class="cosmo-button" id="cancel-edit-dialog">
-                            ${localize({ key: 'pages_and_forms.segment.designer.edit.cancel' })}
-                        </button>
-                        <button type="submit" class="cosmo-button" id="save-edit-dialog">
-                            ${localize({ key: 'pages_and_forms.segment.designer.edit.update' })}
-                        </button>
-                    </div>
+                  <div class="cosmo-modal__button-bar">
+                    <button type="button" class="cosmo-button" id="cancel-edit-dialog">
+                      ${localize({ key: 'design.menus.designer.edit.cancel' })}
+                    </button>
+                    <button type="submit" class="cosmo-button" id="save-edit-dialog">
+                      ${localize({ key: 'design.menus.designer.edit.update' })}
+                    </button>
+                  </div>
                 </div>
         </form>`;
     const container = document.createElement('div');

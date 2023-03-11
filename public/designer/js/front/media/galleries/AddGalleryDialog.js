@@ -62,10 +62,10 @@ export default class AddGalleryDialog {
                 </div>
                 <div class="cosmo-modal__button-bar">
                     <button type="button" class="cosmo-button" id="cancel-add-dialog">
-                        ${localize({ key: 'media.galleries.edit.cancel' })}
+                        ${localize({ key: 'media.galleries.create.cancel' })}
                     </button>
                     <button type="submit" class="cosmo-button" id="save-add-dialog">
-                        ${localize({ key: 'media.galleries.edit.create' })}
+                        ${localize({ key: 'media.galleries.create.create' })}
                     </button>
                 </div>
             </div>

@@ -2,6 +2,7 @@
 
 namespace App\Database;
 
+use App\Database\Strategies\NullableBooleanStrategy;
 use Iterator;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
@@ -261,7 +262,7 @@ class MenuItem extends Utils\RearrangableEntity
             $this->rearrange($this->position);
         }
 
-        $this->internalUpdate('menu_item', ['highlighted' => new BooleanStrategy(1, 0), 'blogHomePage' => new BooleanStrategy(1, 0)]);
+        $this->internalUpdate('menu_item', ['highlighted' => new NullableBooleanStrategy(), 'blogHomePage' => new NullableBooleanStrategy()]);
     }
 
     /**
