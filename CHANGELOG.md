@@ -1,5 +1,9 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 25.1.3
+
+25.1.1 didn't build
+
 ## Release notes - Jinya CMS - Version 25.1.2
 
 ### Issues
