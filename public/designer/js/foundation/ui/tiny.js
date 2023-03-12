@@ -1,6 +1,6 @@
 import ConflictError from '../http/Error/ConflictError.js';
 import {
-  get, post, put, upload,
+ get, post, put, upload,
 } from '../http/request.js';
 
 async function wait({ time }) {

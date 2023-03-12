@@ -1,6 +1,6 @@
 import html from '../../../../lib/jinya-html.js';
 import {
-  get, post, put, upload,
+ get, post, put, upload,
 } from '../../../foundation/http/request.js';
 import localize from '../../../foundation/localize.js';
 import alert from '../../../foundation/ui/alert.js';

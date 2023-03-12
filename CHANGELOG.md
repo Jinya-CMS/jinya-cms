@@ -1,5 +1,17 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 25.1.2
+
+### Issues
+
+* [TG-180](https://taiga.imanuel.dev/project/jinya-cms/us/180) Test Jinya Designer
+
+## Release notes - Jinya CMS - Version 25.1.1
+
+### Issues
+
+* [TG-179](https://taiga.imanuel.dev/project/jinya-cms/issue/179) jinya-asset works as string not function
+
 ## Release notes - Jinya CMS - Version 25.1.0
 
 ### User Stories

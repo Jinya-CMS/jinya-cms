@@ -2,7 +2,7 @@ import html from '../../../lib/jinya-html.js';
 import Sortable from '../../../lib/sortable.js';
 import clearChildren from '../../foundation/html/clearChildren.js';
 import {
-  get, httpDelete, post, put,
+ get, httpDelete, post, put,
 } from '../../foundation/http/request.js';
 import JinyaDesignerPage from '../../foundation/JinyaDesignerPage.js';
 import localize from '../../foundation/localize.js';
