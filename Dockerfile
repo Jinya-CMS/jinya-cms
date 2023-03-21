@@ -8,7 +8,7 @@ COPY --chown=www-data ./ /var/www/jinya/
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
 RUN apt-get update
-RUN apt-get install libzip-dev libicu-dev libmagickwand-dev -y
+RUN apt-get install libzip-dev libicu-dev libmagickwand-dev git -y
 RUN docker-php-ext-install pdo pdo_mysql zip opcache intl
 RUN pecl install imagick
 RUN docker-php-ext-enable imagick

@@ -7,7 +7,7 @@ COPY ./docker/entrypoint.sh /entrypoint.sh
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
 RUN apt-get update
-RUN apt-get install libzip-dev libicu-dev libcurl4-openssl-dev -y
+RUN apt-get install libzip-dev libicu-dev libcurl4-openssl-dev git -y
 RUN apt-get install libmagickwand-dev -y # Imagick
 RUN docker-php-ext-install pdo pdo_mysql zip opcache intl curl
 RUN pecl install xdebug pcov apcu imagick

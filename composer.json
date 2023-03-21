@@ -22,13 +22,13 @@
     "nyholm/psr7": "1.5.1",
     "nyholm/psr7-server": "1.0.2",
     "slim/slim": "4.11.0",
-    "tedivm/jshrink": "v1.6.2",
+    "tedivm/jshrink": "v1.6.5",
     "vlucas/phpdotenv": "v5.5.0",
     "jenssegers/agent": "v2.6.4",
     "melbahja/semver": "v1.0.1",
     "league/uri": "6.8.0",
     "jinya/pdox": "0.9.0",
-    "laminas/laminas-hydrator": "4.12.0",
+    "laminas/laminas-hydrator": "4.13.0",
     "intervention/image": "2.7.2"
   },
   "suggest": {
