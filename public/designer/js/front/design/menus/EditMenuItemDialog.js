@@ -52,7 +52,7 @@ export default class EditMenuItemDialog {
         <div class="cosmo-modal__backdrop"></div>
         <form class="cosmo-modal__container" id="edit-dialog-form">
             <div class="cosmo-modal">
-                <h1 class="cosmo-modal__title">${localize({ key: 'pages_and_forms.segment.designer.edit.title' })}</h1>
+                <h1 class="cosmo-modal__title">${localize({ key: 'design.menus.designer.edit.title' })}</h1>
                 <div class="cosmo-modal__content">
                     <div class="cosmo-input__group">
                         <label for="editMenuItemTitle" class="cosmo-label">

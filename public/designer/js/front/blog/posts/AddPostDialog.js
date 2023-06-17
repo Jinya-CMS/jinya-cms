@@ -19,6 +19,7 @@ export default class AddPostDialog {
 
   async show() {
     const { items: files } = await get('/api/file');
+    let slugManuallyEdited = false;
     const content = html`
         <div class="cosmo-modal__backdrop"></div>
         <form class="cosmo-modal__container" id="create-dialog-form">
@@ -125,6 +126,18 @@ export default class AddPostDialog {
           title: localize({ key: 'blog.posts.edit.error.title' }),
           message: localize({ key: `blog.posts.edit.error.${msg}` }),
         });
+      }
+    });
+    document.getElementById('createPostSlug').addEventListener('input', () => {
+      slugManuallyEdited = true;
+    });
+    document.getElementById('createPostTitle').addEventListener('input', (e) => {
+      if (!slugManuallyEdited) {
+        document.getElementById('createPostSlug').value = e.currentTarget.value.toLowerCase()
+          .trim()
+          .replace(/[^\w\s-]/g, '')
+          .replace(/[\s_-]+/g, '-')
+          .replace(/^-+|-+$/g, '');
       }
     });
   }
