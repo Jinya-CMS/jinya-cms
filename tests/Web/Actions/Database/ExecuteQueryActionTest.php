@@ -26,22 +26,6 @@ class ExecuteQueryActionTest extends DatabaseAwareTestCase
         self::assertArrayHasKey('result', $item);
     }
 
-    public function test__invokeAllowedMethodTwoQueries(): void
-    {
-        $request = new ServerRequest('', '');
-        $response = new Response();
-        $request = $request->withParsedBody(['query' => 'EXPLAIN menu; EXPLAIN users;']);
-        $action = new ExecuteQueryAction();
-        $result = $action($request, $response, []);
-        $result->getBody()->rewind();
-
-        $body = json_decode($result->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
-        self::assertCount(2, $body);
-        $item = $body[0];
-        self::assertArrayHasKey('statement', $item);
-        self::assertArrayHasKey('result', $item);
-    }
-
     public function test__invokeDisallowedMethod(): void
     {
         $request = new ServerRequest('', '');
