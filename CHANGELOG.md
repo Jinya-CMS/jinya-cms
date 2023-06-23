@@ -1,19 +1,27 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 25.1.4
+
+### User Stories
+
+* [TG-179](https://taiga.imanuel.dev/project/jinya-cms/us/179) jinya-asset works as string not function
+* [TG-181](https://taiga.imanuel.dev/project/jinya-cms/us/181) Theme helper commands
+* [TG-182](https://taiga.imanuel.dev/project/jinya-cms/us/182) Autofill blog post slug with slugified title
+
 ## Release notes - Jinya CMS - Version 25.1.3
 
-25.1.1 didn't build
+25.1.2 didn't build
 
 ## Release notes - Jinya CMS - Version 25.1.2
 
-### Issues
+### User Stories
 
 * [TG-180](https://taiga.imanuel.dev/project/jinya-cms/us/180) Test Jinya Designer
 
 ## Release notes - Jinya CMS - Version 25.1.1
 
 ### Issues
-
+ 
 * [TG-179](https://taiga.imanuel.dev/project/jinya-cms/issue/179) jinya-asset works as string not function
 
 ## Release notes - Jinya CMS - Version 25.1.0
