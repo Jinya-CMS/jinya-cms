@@ -32,6 +32,7 @@ class ProfilePictureServiceTest extends DatabaseAwareTestCase
         $path = __ROOT__ . '/tmp/' . Uuid::uuid();
         copy('https://picsum.photos/200/300', $path);
 
+        /** @phpstan-ignore-next-line */
         $this->service->saveProfilePicture($this->artist->getIdAsInt(), fopen($path, 'rb+'));
         $loadedArtist = Artist::findByEmail($this->artist->email);
         self::assertFileExists(StorageBaseService::BASE_PATH . '/public/' . $loadedArtist->profilePicture);

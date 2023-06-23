@@ -18,6 +18,7 @@ class CreateThemeActionTest extends ThemeActionTestCase
     {
         $request = new ServerRequest('', '');
         $request = $request
+            /** @phpstan-ignore-next-line */
             ->withBody(Stream::create(fopen(__ROOT__ . '/tests/files/unit-test-theme.zip', 'rb+')))
             ->withQueryParams(['name' => $this->name]);
         $response = new Response();

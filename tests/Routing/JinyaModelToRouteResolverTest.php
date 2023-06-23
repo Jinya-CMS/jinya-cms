@@ -66,6 +66,7 @@ class JinyaModelToRouteResolverTest extends DatabaseAwareTestCase
 
         $request = new ServerRequest('DELETE', '', ['JinyaApiKey' => $this->apiKey->apiKey]);
         $response = new Response();
+        /** @phpstan-ignore-next-line */
         $result = JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'file', 'id' => $files->current()->getIdAsInt()]);
         $result->getBody()->rewind();
         self::assertEquals(204, $result->getStatusCode());
@@ -90,6 +91,7 @@ class JinyaModelToRouteResolverTest extends DatabaseAwareTestCase
 
         $request = new ServerRequest('GET', '', ['JinyaApiKey' => $this->apiKey->apiKey]);
         $response = new Response();
+        /** @phpstan-ignore-next-line */
         JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'api-key', 'id' => CurrentUser::$currentUser->getIdAsInt()]);
     }
 
@@ -99,10 +101,11 @@ class JinyaModelToRouteResolverTest extends DatabaseAwareTestCase
 
         $request = new ServerRequest('GET', '', ['JinyaApiKey' => $this->apiKey->apiKey]);
         $response = new Response();
+        /** @phpstan-ignore-next-line */
         $result = JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'file', 'id' => $file->getIdAsInt()]);
         $result->getBody()->rewind();
         self::assertEquals(200, $result->getStatusCode());
-        self::assertJsonStringEqualsJsonString(json_encode($file->format()), $result->getBody()->getContents());
+        self::assertJsonStringEqualsJsonString((string)json_encode($file->format(), JSON_THROW_ON_ERROR), $result->getBody()->getContents());
     }
 
     public function testResolveActionWithClassAndIdGetListAll(): void
@@ -159,6 +162,7 @@ class JinyaModelToRouteResolverTest extends DatabaseAwareTestCase
         $body->rewind();
         $request = new ServerRequest('PUT', '', ['JinyaApiKey' => $this->apiKey->apiKey], $body);
         $response = new Response();
+        /** @phpstan-ignore-next-line */
         $result = JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'file', 'id' => $firstFile]);
         $result->getBody()->rewind();
         self::assertEquals(204, $result->getStatusCode());

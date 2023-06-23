@@ -35,7 +35,7 @@ class ThemeCompileCommand extends AbstractCommand
 
             $this->climate->info('Compiled themes');
         } elseif ($this->climate->arguments->get('theme')) {
-            $dbTheme = Theme::findByName($this->climate->arguments->get('theme'));
+            $dbTheme = Theme::findByName((string)$this->climate->arguments->get('theme'));
             if (!$dbTheme) {
                 $this->climate->error('Theme not found');
                 return;

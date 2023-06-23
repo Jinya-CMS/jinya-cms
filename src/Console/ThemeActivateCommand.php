@@ -18,7 +18,7 @@ class ThemeActivateCommand extends AbstractCommand
         ]);
         (new ThemeSyncer())->syncThemes();
         $this->climate->arguments->parse();
-        $dbTheme = Theme::findByName($this->climate->arguments->get('theme'));
+        $dbTheme = Theme::findByName((string)$this->climate->arguments->get('theme'));
         if (!$dbTheme) {
             $this->climate->error('Theme not found');
             return;

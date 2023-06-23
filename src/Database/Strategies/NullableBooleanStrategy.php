@@ -32,7 +32,7 @@ class NullableBooleanStrategy implements StrategyInterface
     /**
      * Converts the given value so that it can be hydrated by the hydrator.
      *
-     * @param bool|int|string $value The original value.
+     * @param bool|int|string|null $value The original value.
      * @param array<string>|null $data
      * @return bool|null Returns the value that should be hydrated.
      */

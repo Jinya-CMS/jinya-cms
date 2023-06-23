@@ -2,12 +2,15 @@
 
 namespace Jinya\Tests\Messaging;
 
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Form;
 use App\Database\FormItem;
 use App\Messaging\FormMessageHandler;
 use App\Tests\DatabaseAwareTestCase;
 use App\Theming\Engine;
 use App\Web\Exceptions\MissingFieldsException;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Nyholm\Psr7\ServerRequest;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -58,6 +61,7 @@ class FormMessageHandlerTest extends DatabaseAwareTestCase
                     break;
             }
         }
+        /** @phpstan-ignore-next-line */
         $this->handler->handleFormPost($this->form, $data, $this->request);
         self::assertTrue(true);
     }
@@ -79,6 +83,7 @@ class FormMessageHandlerTest extends DatabaseAwareTestCase
                     break;
             }
         }
+        /** @phpstan-ignore-next-line */
         $this->handler->handleFormPost($this->form, $data, $this->request);
     }
 
@@ -101,6 +106,7 @@ class FormMessageHandlerTest extends DatabaseAwareTestCase
                     break;
             }
         }
+        /** @phpstan-ignore-next-line */
         $this->handler->handleFormPost($this->form, $data, $this->request);
         self::assertTrue(true);
     }
@@ -140,6 +146,17 @@ class FormMessageHandlerTest extends DatabaseAwareTestCase
         $this->request = new ServerRequest('POST', '', []);
     }
 
+    /**
+     * @param string $label
+     * @param string $type
+     * @param bool $isRequired
+     * @param bool $isFromAddress
+     * @param string[] $spamFilter
+     * @return FormItem
+     * @throws ForeignKeyFailedException
+     * @throws UniqueFailedException
+     * @throws InvalidQueryException
+     */
     private function createFormItem(string $label, string $type, bool $isRequired, bool $isFromAddress, array $spamFilter = []): FormItem
     {
         $formItem = new FormItem();

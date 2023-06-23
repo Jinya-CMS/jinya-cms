@@ -20,7 +20,7 @@ class FileCacheCommandTest extends DatabaseAwareTestCase
         $file = new File();
         $file->path = $this->tmpFileName;
         $file->name = 'Testimage';
-        $file->type = mime_content_type($tmpPath);
+        $file->type = (string)mime_content_type($tmpPath);
         $file->create();
 
         $command = new FileCacheCommand();
