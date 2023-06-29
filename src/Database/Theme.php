@@ -10,6 +10,7 @@ use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
+use Laminas\Hydrator\Strategy\BooleanStrategy;
 use stdClass;
 
 /**
@@ -28,6 +29,8 @@ class Theme extends Utils\LoadableEntity
     public string $displayName;
     /** @var array<string, string> A key-value store of SCSS variables changed by an artist */
     public array $scssVariables;
+    /** @var bool Specifies whether the theme contains an API theme */
+    public bool $hasApiTheme = false;
 
     /**
      * Gets the currently active theme
@@ -41,13 +44,14 @@ class Theme extends Utils\LoadableEntity
      */
     public static function getActiveTheme(): ?Theme
     {
-        $sql = 'SELECT t.id AS id, configuration, description, name, display_name, scss_variables FROM theme t JOIN configuration c on t.id = c.current_frontend_theme_id';
+        $sql = 'SELECT t.id AS id, configuration, description, name, display_name, scss_variables, has_api_theme FROM theme t JOIN configuration c on t.id = c.current_frontend_theme_id';
 
         try {
             return self::getPdo()->fetchObject($sql, new self(), null, [
                 'scssVariables' => new JsonStrategy(),
                 'configuration' => new JsonStrategy(),
                 'description' => new ThemeDescriptionStrategy(),
+                'hasApiTheme' => new BooleanStrategy(1, 0),
             ]);
         } catch (InvalidQueryException$exception) {
             throw self::convertInvalidQueryExceptionToException($exception);
@@ -74,6 +78,7 @@ class Theme extends Utils\LoadableEntity
                 'scssVariables' => new JsonStrategy(),
                 'configuration' => new JsonStrategy(),
                 'description' => new ThemeDescriptionStrategy(),
+                'hasApiTheme' => new BooleanStrategy(1, 0),
             ]
         );
     }
@@ -89,13 +94,14 @@ class Theme extends Utils\LoadableEntity
      */
     public static function findByKeyword(string $keyword): Iterator
     {
-        $sql = 'SELECT id, configuration, description, name, display_name, scss_variables FROM theme WHERE display_name LIKE :nameKeyword OR description LIKE :descKeyword';
+        $sql = 'SELECT id, configuration, description, name, display_name, scss_variables, has_api_theme FROM theme WHERE display_name LIKE :nameKeyword OR description LIKE :descKeyword';
 
         try {
             return self::getPdo()->fetchIterator($sql, new self(), ['descKeyword' => "%$keyword%", 'nameKeyword' => "%$keyword%"], [
                 'scssVariables' => new JsonStrategy(),
                 'configuration' => new JsonStrategy(),
                 'description' => new ThemeDescriptionStrategy(),
+                'hasApiTheme' => new BooleanStrategy(1, 0),
             ]);
         } catch (InvalidQueryException$exception) {
             throw self::convertInvalidQueryExceptionToException($exception);
@@ -119,6 +125,7 @@ class Theme extends Utils\LoadableEntity
                 'scssVariables' => new JsonStrategy(),
                 'configuration' => new JsonStrategy(),
                 'description' => new ThemeDescriptionStrategy(),
+                'hasApiTheme' => new BooleanStrategy(1, 0),
             ]
         );
     }
@@ -136,7 +143,7 @@ class Theme extends Utils\LoadableEntity
      */
     public static function findByName(string $name): ?Theme
     {
-        $sql = 'SELECT id, configuration, description, name, display_name, scss_variables FROM theme WHERE name = :name';
+        $sql = 'SELECT id, configuration, description, name, display_name, scss_variables, has_api_theme FROM theme WHERE name = :name';
 
         try {
             return self::getPdo()->fetchObject($sql, new self(), ['name' => $name],
@@ -144,6 +151,7 @@ class Theme extends Utils\LoadableEntity
                     'scssVariables' => new JsonStrategy(),
                     'configuration' => new JsonStrategy(),
                     'description' => new ThemeDescriptionStrategy(),
+                    'hasApiTheme' => new BooleanStrategy(1, 0),
                 ]);
         } catch (InvalidQueryException$exception) {
             throw self::convertInvalidQueryExceptionToException($exception);
@@ -347,6 +355,7 @@ class Theme extends Utils\LoadableEntity
                 'scssVariables' => new JsonStrategy(),
                 'configuration' => new JsonStrategy(),
                 'description' => new ThemeDescriptionStrategy(),
+                'hasApiTheme' => new BooleanStrategy(1, 0),
             ]
         );
     }
@@ -380,6 +389,7 @@ class Theme extends Utils\LoadableEntity
                 'scssVariables' => new JsonStrategy(),
                 'configuration' => new JsonStrategy(),
                 'description' => new ThemeDescriptionStrategy(),
+                'hasApiTheme' => new BooleanStrategy(1, 0),
             ]
         );
     }
@@ -387,7 +397,7 @@ class Theme extends Utils\LoadableEntity
     /**
      * Formats the theme into an array
      *
-     * @return array<string, array<string, mixed>|int|stdClass|string>
+     * @return array<string, array<string, mixed>|int|stdClass|string|bool>
      */
     #[Pure]
     #[ArrayShape([
@@ -396,7 +406,8 @@ class Theme extends Utils\LoadableEntity
         'name' => 'string',
         'displayName' => 'string',
         'scssVariables' => 'array|\stdClass',
-        'id' => 'int'
+        'id' => 'int',
+        'hasApi' => 'bool'
     ])] public function format(): array
     {
         $scssVariables = $this->scssVariables;
@@ -407,6 +418,7 @@ class Theme extends Utils\LoadableEntity
         if (empty($configuration)) {
             $configuration = new stdClass();
         }
+
         return [
             'configuration' => $configuration,
             'description' => $this->description,
@@ -414,6 +426,7 @@ class Theme extends Utils\LoadableEntity
             'displayName' => $this->displayName,
             'scssVariables' => $scssVariables,
             'id' => $this->getIdAsInt(),
+            'hasApi' => $this->hasApiTheme,
         ];
     }
 }

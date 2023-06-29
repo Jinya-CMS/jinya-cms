@@ -21,7 +21,6 @@ class ThemeSyncer
      * @throws InvalidQueryException
      * @throws Database\Exceptions\UniqueFailedException
      * @throws NoResultException
-     * @throws NoResultException
      */
     public function syncThemes(): void
     {
@@ -35,7 +34,6 @@ class ThemeSyncer
         foreach ($themes as $dir) {
             $name = $dir;
             $dir = self::THEME_BASE_PATH . $dir;
-            /** @noinspection PhpIncludeInspection */
             $config = require "$dir/theme.php";
             if (count(array_filter($allThemes, static fn(Database\Theme $theme) => $theme->name === $name)) === 0) {
                 $dbTheme = new Database\Theme();
@@ -44,11 +42,13 @@ class ThemeSyncer
                 $dbTheme->name = $name;
                 $dbTheme->displayName = $config['displayName'] ?? $name;
                 $dbTheme->description = is_array($config['description']) ? $config['description'] : ['en' => $config['description']];
+                $dbTheme->hasApiTheme = $config['hasApi'] ?? false;
                 $dbTheme->create();
             } else {
                 $dbTheme = Database\Theme::findByName($name);
                 $dbTheme->displayName = $config['displayName'] ?? $name;
                 $dbTheme->description = is_array($config['description']) ? $config['description'] : ['en' => $config['description']];
+                $dbTheme->hasApiTheme = $config['hasApi'] ?? false;
                 $dbTheme->update();
             }
         }

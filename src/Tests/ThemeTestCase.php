@@ -18,6 +18,7 @@ abstract class ThemeTestCase extends DatabaseAwareTestCase
         $theme->description = ['en' => Uuid::uuid()];
         $theme->scssVariables = [];
         $theme->configuration = [];
+        $theme->hasApiTheme = true;
         $theme->create();
 
         $this->theme = $theme;

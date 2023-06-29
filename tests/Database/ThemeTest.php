@@ -47,6 +47,7 @@ class ThemeTest extends ThemeTestCase
             'displayName' => $this->theme->displayName,
             'scssVariables' => new stdClass(),
             'id' => $this->theme->getIdAsInt(),
+            'hasApi' => $this->theme->hasApiTheme,
         ];
         self::assertEquals($configuration, $this->theme->format());
     }
@@ -63,6 +64,7 @@ class ThemeTest extends ThemeTestCase
             'displayName' => $this->theme->displayName,
             'scssVariables' => $this->theme->scssVariables,
             'id' => $this->theme->getIdAsInt(),
+            'hasApi' => $this->theme->hasApiTheme,
         ];
         self::assertEquals($configuration, $this->theme->format());
     }
@@ -86,6 +88,7 @@ class ThemeTest extends ThemeTestCase
         $this->theme->configuration = ['test' => Uuid::uuid()];
         $this->theme->scssVariables = ['test' => Uuid::uuid()];
         $this->theme->description = ['en' => 'Test'];
+        $this->theme->hasApiTheme = !$this->theme->hasApiTheme;
         $this->theme->update();
 
         $changedTheme = Theme::findById($this->theme->getIdAsInt());
@@ -112,6 +115,7 @@ class ThemeTest extends ThemeTestCase
         $theme->description = ['en' => Uuid::uuid()];
         $theme->scssVariables = [];
         $theme->configuration = [];
+        $theme->hasApiTheme = true;
         $theme->create();
 
         $created = Theme::findByName($theme->name);
