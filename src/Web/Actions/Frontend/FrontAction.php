@@ -3,6 +3,7 @@
 namespace App\Web\Actions\Frontend;
 
 use App\Database;
+use App\Database\Theme;
 use App\Theming;
 use App\Web\Actions\Action;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
@@ -64,6 +65,10 @@ abstract class FrontAction extends Action
                 $statusCode = self::HTTP_INTERNAL_SERVER_ERROR;
             }
             try {
+                if ($this->checkForApiRequest()) {
+                    return $this->sendApiJson("api::$statusCode", ['exception' => $exception], $statusCode);
+                }
+
                 return $this->render("theme::$statusCode", ['exception' => $exception], $statusCode);
             } catch (Throwable $exception) {
                 $renderResult = $this->engine->render('emergency::500', ['exception' => $exception]);
@@ -84,6 +89,22 @@ abstract class FrontAction extends Action
      * @throws HttpException
      */
     abstract protected function protectedAction(): Response;
+
+    protected function checkForApiRequest(): bool
+    {
+
+        $currentThemeHasApi = Theme::getActiveTheme()->hasApiTheme;
+        if ($currentThemeHasApi) {
+            $acceptHeader = strtolower($this->request->getHeaderLine('Accept'));
+            $acceptMimeType = [];
+            preg_match_all('/(?!\s)(?:"(?:[^"\\\\]|\\\\.)*(?:"|\\\\|$)|[^", ]+)+(?<!\s)|\s*(?<separator>[, ])\s*/x', $acceptHeader, $acceptMimeType, PREG_SET_ORDER);
+            if ($acceptMimeType && $acceptHeader[0] === 'application/json') {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     /**
      * Renders the given template with the given data
@@ -116,6 +137,35 @@ abstract class FrontAction extends Action
     }
 
     /**
+     * Sends the given data as json response
+     * @param string $template
+     * @param array<mixed> $data
+     * @param int $statusCode
+     * @return Response
+     * @throws Throwable
+     */
+    protected function sendApiJson(string $template, array $data, int $statusCode = self::HTTP_OK): Response
+    {
+        $parsedBody = $this->request->getParsedBody();
+        $queryParams = $this->request->getQueryParams();
+        $this->engine->addData(['body' => $parsedBody, 'queryParams' => $queryParams]);
+        $this->engine->loadExtension($this->activeTheme);
+        $currentDbTheme = Database\Theme::getActiveTheme();
+        $this->engine->loadExtension(new Theming\Extensions\MenuExtension());
+        $this->engine->loadExtension(new Theming\Extensions\LinksExtension($currentDbTheme));
+        $this->engine->loadExtension(new Theming\Extensions\ThemeExtension($this->activeTheme, $currentDbTheme));
+        $this->engine->loadExtension(new URI($this->request->getUri()->getPath()));
+
+        $renderResult = $this->engine
+            ->render(strncasecmp($template, 'api::', 5) === 0 ? $template : "api::$template", $data);
+        $this->response->getBody()->write($renderResult);
+
+        return $this->response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus($statusCode);
+    }
+
+    /**
      * @param Database\MenuItem $menuItem
      * @return Response
      * @throws Database\Exceptions\ForeignKeyFailedException
@@ -128,12 +178,22 @@ abstract class FrontAction extends Action
     {
         if ($menuItem->segmentPageId !== null) {
             $segmentPage = $menuItem->getSegmentPage();
+            if ($this->checkForApiRequest()) {
+                return $this->sendApiJson('api::segment-page', ['page' => $segmentPage]);
+            }
 
             return $this->render('theme::segment-page', ['page' => $segmentPage]);
         }
 
         if ($menuItem->formId !== null) {
             $form = $menuItem->getForm();
+            if ($this->checkForApiRequest()) {
+                return $this->sendApiJson('api::form', [
+                    'form' => $form,
+                    'success' => false,
+                    'missingFields' => [],
+                ]);
+            }
 
             return $this->render('theme::form', [
                 'form' => $form,
@@ -144,29 +204,45 @@ abstract class FrontAction extends Action
 
         if ($menuItem->artistId !== null) {
             $artist = $menuItem->getArtist();
+            if ($this->checkForApiRequest()) {
+                return $this->sendApiJson('api::profile', ['artist' => $artist]);
+            }
 
             return $this->render('theme::profile', ['artist' => $artist]);
         }
 
         if ($menuItem->galleryId !== null) {
             $gallery = $menuItem->getGallery();
+            if ($this->checkForApiRequest()) {
+                return $this->sendApiJson('api::gallery', ['gallery' => $gallery]);
+            }
 
             return $this->render('theme::gallery', ['gallery' => $gallery]);
         }
 
         if ($menuItem->pageId !== null) {
             $page = $menuItem->getPage();
+            if ($this->checkForApiRequest()) {
+                return $this->sendApiJson('api::simple-page', ['page' => $page]);
+            }
 
             return $this->render('theme::simple-page', ['page' => $page]);
         }
 
         if ($menuItem->categoryId !== null) {
             $category = $menuItem->getBlogCategory();
+            if ($this->checkForApiRequest()) {
+                return $this->sendApiJson('api::blog-category', ['category' => $category, 'posts' => $category?->getBlogPosts(true, true)]);
+            }
 
             return $this->render('theme::blog-category', ['category' => $category, 'posts' => $category?->getBlogPosts(true, true)]);
         }
 
         if ($menuItem->blogHomePage) {
+            if ($this->checkForApiRequest()) {
+                return $this->sendApiJson('api::blog-home-page', ['posts' => Database\BlogPost::findPublicPosts()]);
+            }
+
             return $this->render('theme::blog-home-page', ['posts' => Database\BlogPost::findPublicPosts()]);
         }
 
@@ -174,6 +250,9 @@ abstract class FrontAction extends Action
             return $this->response
                 ->withHeader('Location', '/')
                 ->withStatus(302);
+        }
+        if ($this->checkForApiRequest()) {
+            return $this->sendApiJson('api::404', [], self::HTTP_NOT_FOUND);
         }
 
         return $this->render('theme::404', [], self::HTTP_NOT_FOUND);

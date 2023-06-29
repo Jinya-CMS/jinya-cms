@@ -101,6 +101,9 @@ class Theme implements ExtensionInterface
     public function register(Engine $engine): void
     {
         $engine->addFolder('theme', ThemeSyncer::THEME_BASE_PATH . $this->dbTheme->name);
+        if ($this->dbTheme->hasApiTheme) {
+            $engine->addFolder('api', ThemeSyncer::THEME_BASE_PATH . $this->dbTheme->name . '/api');
+        }
     }
 
     /**
