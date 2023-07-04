@@ -1,0 +1,8 @@
+<?php
+/** @var \App\Database\SimplePage $page */
+$data = [
+    'title' => $page->title,
+    'content' => $page->content,
+];
+
+echo json_encode($data, JSON_THROW_ON_ERROR);

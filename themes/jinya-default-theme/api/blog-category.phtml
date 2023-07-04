@@ -1,0 +1,29 @@
+<?php
+/** @var array $configuration */
+/** @var BlogCategory $category */
+
+/** @var Iterator<BlogPost> $posts */
+
+use App\Database\BlogCategory;
+use App\Database\BlogPost;
+
+$data = [
+    'category' => [
+        'name' => $category->name,
+        'description' => $category->description,
+    ],
+    'posts' => array_map(static function (BlogPost $post): array {
+        $headerImage = $post->getHeaderImage();
+        return [
+            'title' => $post->title,
+            'url' => '/' . $post->createdAt->format('Y/m/d') . '/' . $post->slug,
+            'createdAt' => $post->createdAt->format(DATE_ATOM),
+            'headerImage' => $headerImage ? [
+                'name' => $headerImage->name,
+                'path' => $headerImage->path,
+            ] : null,
+        ];
+    }, iterator_to_array($posts)),
+];
+
+echo json_encode($data, JSON_THROW_ON_ERROR);

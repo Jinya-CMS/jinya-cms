@@ -30,6 +30,7 @@ use App\Web\Actions\Form\Items\GetFormItemsAction;
 use App\Web\Actions\Form\Items\UpdateFormItemAction;
 use App\Web\Actions\Frontend\GetBlogFrontAction;
 use App\Web\Actions\Frontend\GetFrontAction;
+use App\Web\Actions\Frontend\GetFrontLinksAction;
 use App\Web\Actions\Frontend\PostFrontAction;
 use App\Web\Actions\Gallery\Positions\CreatePositionAction;
 use App\Web\Actions\Gallery\Positions\DeletePositionAction;
@@ -164,8 +165,8 @@ return function (App $app) {
             '/me/profilepicture',
             fn(
                 ServerRequestInterface $request,
-                ResponseInterface $response,
-                array $args
+                ResponseInterface      $response,
+                array                  $args
             ) => (new UploadProfilePictureAction())(
                 $request,
                 $response,
@@ -361,6 +362,14 @@ return function (App $app) {
             ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_ADMIN));
     })->add(new BodyParsingMiddleware());
 
+    // Frontend API
+    try {
+        if (\App\Database\Theme::getActiveTheme()?->hasApiTheme) {
+            $app->get('/api/frontend/links', GetFrontLinksAction::class);
+        }
+    } catch (\Throwable) {
+    }
+
     // Reflection based
     $app->any('/api/media/{entity}[/{id}]', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
         return JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, $args);
@@ -384,6 +393,6 @@ return function (App $app) {
     $app->get('/', GetFrontAction::class);
     $app->group('/{route:.*}', function (RouteCollectorProxy $frontend) {
         $frontend->get('', GetFrontAction::class);
-        $frontend->post('', PostFrontAction::class);
+        $frontend->post('', PostFrontAction::class)->add(new BodyParsingMiddleware());
     })->add(CheckRouteInCurrentThemeMiddleware::class);
 };

@@ -31,7 +31,15 @@ class GetBlogFrontAction extends FrontAction
         $slug = $this->args['slug'];
         $blogPost = BlogPost::findBySlug($slug);
         if ($blogPost !== null && $blogPost->public) {
+            if ($this->checkForApiRequest()) {
+                return $this->sendApiJson('api::blog-post', ['post' => $blogPost]);
+            }
+
             return $this->render('theme::blog-post', ['post' => $blogPost]);
+        }
+
+        if ($this->checkForApiRequest()) {
+            return $this->sendApiJson('api::404', [], self::HTTP_NOT_FOUND);
         }
 
         return $this->render('theme::404', [], self::HTTP_NOT_FOUND);

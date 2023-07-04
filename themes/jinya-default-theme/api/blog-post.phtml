@@ -1,0 +1,54 @@
+<?php
+/** @var \App\Database\BlogPost $post */
+
+use App\Database\BlogPostSegment;
+use App\Database\File;
+use App\Database\Gallery;
+use App\Database\GalleryFilePosition;
+
+$headerImage = $post->getHeaderImage();
+$data = [
+    'title' => $post->title,
+    'createdAt' => $post->createdAt->format(DATE_ATOM),
+    'headerImage' => $headerImage ? [
+        'name' => $headerImage->name,
+        'path' => $headerImage->path,
+    ] : null,
+    'segments' => array_map(static function (BlogPostSegment $segment): array {
+        $data = [
+            'position' => $segment->position,
+        ];
+        if (isset($segment->galleryId)) {
+            $gallery = Gallery::findById($segment->galleryId);
+            $data['gallery'] = [
+                'name' => $gallery?->name,
+                'description' => $gallery?->description,
+                'type' => $gallery?->type,
+                'orientation' => $gallery?->orientation,
+                'images' => array_map(static function (GalleryFilePosition $file): array {
+                    $f = $file->getFile();
+                    return [
+                        'position' => $file->position,
+                        'path' => $f->path,
+                        'name' => $f->name,
+                        'type' => $f->type,
+                    ];
+                }, iterator_to_array($gallery->getFiles())),
+            ];
+        } elseif (isset($segment->fileId)) {
+            $file = File::findById($segment->fileId);
+            $data['file'] = [
+                'name' => $file?->name,
+                'type' => $file?->type,
+                'path' => $file?->path,
+            ];
+            $data['link'] = $segment->link;
+        } else {
+            $data['html'] = $segment->html;
+        }
+
+        return $data;
+    }, iterator_to_array($post->getSegments())),
+];
+
+echo json_encode($data, JSON_THROW_ON_ERROR);

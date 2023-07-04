@@ -2,6 +2,7 @@
 
 return [
     'displayName' => 'Jinya Default Theme',
+    'hasApi' => true,
     'description' => [
         'en' => 'The default theme of the jinya cms is modern and provides a good looking user interface.',
         'de' => 'Das Standardtheme vom Jinya CMS. Es bietet eine modern und optisch ansprechende Oberfläche.'

@@ -92,13 +92,12 @@ abstract class FrontAction extends Action
 
     protected function checkForApiRequest(): bool
     {
-
         $currentThemeHasApi = Theme::getActiveTheme()->hasApiTheme;
         if ($currentThemeHasApi) {
             $acceptHeader = strtolower($this->request->getHeaderLine('Accept'));
             $acceptMimeType = [];
             preg_match_all('/(?!\s)(?:"(?:[^"\\\\]|\\\\.)*(?:"|\\\\|$)|[^", ]+)+(?<!\s)|\s*(?<separator>[, ])\s*/x', $acceptHeader, $acceptMimeType, PREG_SET_ORDER);
-            if ($acceptMimeType && $acceptHeader[0] === 'application/json') {
+            if ($acceptMimeType && $acceptMimeType[0][0] === 'application/json') {
                 return true;
             }
         }

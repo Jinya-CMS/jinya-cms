@@ -1,0 +1,19 @@
+<?php
+/** @var \App\Database\BlogPost[] $posts */
+
+use App\Database\BlogPost;
+
+$data = array_map(static function (BlogPost $post): array {
+    $headerImage = $post->getHeaderImage();
+    return [
+        'title' => $post->title,
+        'url' => '/' . $post->createdAt->format('Y/m/d') . '/' . $post->slug,
+        'createdAt' => $post->createdAt->format(DATE_ATOM),
+        'headerImage' => $headerImage ? [
+            'name' => $headerImage->name,
+            'path' => $headerImage->path,
+        ] : null,
+    ];
+}, iterator_to_array($posts));
+
+echo json_encode($data, JSON_THROW_ON_ERROR);

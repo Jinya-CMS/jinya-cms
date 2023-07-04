@@ -1,0 +1,29 @@
+<?php
+/** @var \App\Database\Form $form */
+/** @var bool $success */
+/** @var array $missingFields */
+
+if ($success) {
+    echo json_encode(['success' => true], JSON_THROW_ON_ERROR);
+} elseif (!$success && !empty($missingFields)) {
+    echo json_encode(['missingFields' => $missingFields, 'success' => false], JSON_THROW_ON_ERROR);
+} else {
+    $data = [
+        'title' => $form->title,
+        'description' => $form->description,
+        'items' => array_map(static function (\App\Database\FormItem $item): array {
+            return [
+                'postKey' => (string)$item->id,
+                'type' => $item->type,
+                'options' => $item->options,
+                'label' => $item->label,
+                'placeholder' => $item->placeholder,
+                'helpText' => $item->helpText,
+                'position' => $item->position,
+                'isRequired' => $item->isRequired,
+            ];
+        }, iterator_to_array($form->getItems())),
+    ];
+
+    echo json_encode($data, JSON_THROW_ON_ERROR);
+}

@@ -60,7 +60,7 @@ export default class EditMenuItemDialog {
                         </label>
                         <input value="${this.title ?? ''}" required type="text" id="editMenuItemTitle"
                                class="cosmo-input">
-                        ${this.type === 'group' || this.type === 'blog_home_page' ? '' : html`
+                        ${this.type === 'group' ? '' : html`
                             <label for="editMenuItemRoute" class="cosmo-label">
                                 ${localize({ key: 'design.menus.designer.edit.route' })}
                             </label>

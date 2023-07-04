@@ -4,6 +4,7 @@ namespace App\Web\Middleware;
 
 use App\Database;
 use App\Database\MenuItem;
+use App\Database\Theme;
 use App\Theming;
 use App\Web\Actions\Action;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
@@ -97,10 +98,25 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
             $this->engine->loadExtension(new Theming\Extensions\MenuExtension());
             $this->engine->loadExtension(new URI($request->getUri()->getPath()));
 
-            $renderResult = $this->engine->render('theme::404');
+            $currentThemeHasApi = Theme::getActiveTheme()->hasApiTheme;
+            $isApiRequest = false;
+            if ($currentThemeHasApi) {
+                $acceptHeader = strtolower($request->getHeaderLine('Accept'));
+                $acceptMimeType = [];
+                preg_match_all('/(?!\s)(?:"(?:[^"\\\\]|\\\\.)*(?:"|\\\\|$)|[^", ]+)+(?<!\s)|\s*(?<separator>[, ])\s*/x', $acceptHeader, $acceptMimeType, PREG_SET_ORDER);
+                if ($acceptMimeType && $acceptHeader[0] === 'application/json') {
+                    $isApiRequest = true;
+                }
+            }
+
+            if ($isApiRequest) {
+                $renderResult = $this->engine->render('api::404');
+            } else {
+                $renderResult = $this->engine->render('theme::404');
+            }
 
             return $response
-                ->withHeader('Content-Type', 'text/html')
+                ->withHeader('Content-Type', $isApiRequest ? 'application/json' : 'text/html')
                 ->withStatus(Action::HTTP_NOT_FOUND)
                 ->withBody(Stream::create($renderResult));
         } catch (Throwable $exception) {

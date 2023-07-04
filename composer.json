@@ -14,7 +14,7 @@
     "ext-zip": "*",
     "jetbrains/phpstorm-attributes": "1.0",
     "jinya/plates": "4.1.1",
-    "monolog/monolog": "3.3.1",
+    "monolog/monolog": "3.4.0",
     "phpmailer/phpmailer": "v6.8.0",
     "phpmyadmin/sql-parser": "5.8.0",
     "league/climate": "3.8.2",
@@ -37,8 +37,8 @@
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
-    "phpunit/phpunit": "10.2.1",
-    "phpstan/phpstan": "1.10.18",
+    "phpunit/phpunit": "10.2.3",
+    "phpstan/phpstan": "1.10.22",
     "fakerphp/faker": "v1.22.0",
     "symfony/filesystem": "v6.3.0"
   },

@@ -1,0 +1,22 @@
+<?php
+/** @var \App\Database\Gallery $gallery */
+
+use App\Database\GalleryFilePosition;
+
+$data = [
+    'name' => $gallery->name,
+    'description' => $gallery->description,
+    'type' => $gallery->type,
+    'orientation' => $gallery->orientation,
+    'images' => array_map(static function (GalleryFilePosition $file): array {
+        $f = $file->getFile();
+        return [
+            'position' => $file->position,
+            'path' => $f->path,
+            'name' => $f->name,
+            'type' => $f->type,
+        ];
+    }, iterator_to_array($gallery->getFiles())),
+];
+
+echo json_encode($data, JSON_THROW_ON_ERROR);

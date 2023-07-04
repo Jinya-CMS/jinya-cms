@@ -1,0 +1,49 @@
+<?php
+/** @var \App\Database\SegmentPage $page */
+
+use App\Database\File;
+use App\Database\Gallery;
+use App\Database\GalleryFilePosition;
+
+$data = [
+    'title' => $page->name,
+    'segments' => array_map(static function (\App\Database\Segment $segment): array {
+        $data = [
+            'position' => $segment->position,
+        ];
+        if (isset($segment->galleryId)) {
+            $gallery = Gallery::findById($segment->galleryId);
+            $data['gallery'] = [
+                'name' => $gallery?->name,
+                'description' => $gallery?->description,
+                'type' => $gallery?->type,
+                'orientation' => $gallery?->orientation,
+                'images' => array_map(static function (GalleryFilePosition $file): array {
+                    $f = $file->getFile();
+                    return [
+                        'position' => $file->position,
+                        'path' => $f->path,
+                        'name' => $f->name,
+                        'type' => $f->type,
+                    ];
+                }, iterator_to_array($gallery?->getFiles())),
+            ];
+        } elseif (isset($segment->fileId)) {
+            $file = File::findById($segment->fileId);
+            $data['file'] = [
+                'name' => $file?->name,
+                'type' => $file?->type,
+                'path' => $file?->path,
+            ];
+            if ($segment->action === 'link') {
+                $data['link'] = $segment->target;
+            }
+        } else {
+            $data['html'] = $segment->html;
+        }
+
+        return $data;
+    }, iterator_to_array($page->getSegments())),
+];
+
+echo json_encode($data, JSON_THROW_ON_ERROR);

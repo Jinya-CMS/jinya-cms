@@ -42,8 +42,20 @@ class PostFrontAction extends FrontAction
                         $formHandler->handleFormPost($form, $this->body, $this->request);
                     }
 
+                    if ($this->checkForApiRequest()) {
+                        return $this->sendApiJson('api::form', ['form' => $form, 'success' => true], self::HTTP_FOUND);
+                    }
+
                     return $this->render('theme::form', ['form' => $form, 'success' => true], self::HTTP_FOUND);
                 } catch (MissingFieldsException $exception) {
+                    if ($this->checkForApiRequest()) {
+                        return $this->sendApiJson('api::form', [
+                            'form' => $form,
+                            'success' => false,
+                            'missingFields' => $exception->fields,
+                        ], self::HTTP_BAD_REQUEST);
+                    }
+
                     return $this->render('theme::form', [
                         'form' => $form,
                         'success' => false,
@@ -53,6 +65,10 @@ class PostFrontAction extends FrontAction
             }
 
             return $this->renderMenuItem($menuItem);
+        }
+
+        if ($this->checkForApiRequest()) {
+            return $this->sendApiJson('api::404', [], self::HTTP_NOT_FOUND);
         }
 
         return $this->render('theme::404', [], self::HTTP_NOT_FOUND);
