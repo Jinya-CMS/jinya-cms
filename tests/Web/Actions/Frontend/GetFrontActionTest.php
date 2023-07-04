@@ -34,6 +34,15 @@ class GetFrontActionTest extends FrontTestCase
         $result = $action($request, $response, ['route' => '/']);
 
         self::assertEquals(200, $result->getStatusCode());
+
+        $request = new ServerRequest('', '', ['Accept' => 'application/json']);
+        $result = $action($request, $response, ['route' => '']);
+
+        self::assertEquals(200, $result->getStatusCode());
+
+        $result = $action($request, $response, ['route' => '/']);
+
+        self::assertEquals(200, $result->getStatusCode());
     }
 
     public function test__invokeNotFound(): void
@@ -43,6 +52,11 @@ class GetFrontActionTest extends FrontTestCase
         $response = new Response();
 
         $action = new GetFrontAction();
+        $result = $action($request, $response, ['route' => 'test']);
+
+        self::assertEquals(404, $result->getStatusCode());
+
+        $request = new ServerRequest('', '', ['Accept' => 'application/json']);
         $result = $action($request, $response, ['route' => 'test']);
 
         self::assertEquals(404, $result->getStatusCode());
@@ -67,6 +81,11 @@ class GetFrontActionTest extends FrontTestCase
         $response = new Response();
 
         $action = new GetFrontAction();
+        $result = $action($request, $response, ['route' => 'test']);
+
+        self::assertEquals(200, $result->getStatusCode());
+
+        $request = new ServerRequest('', '', ['Accept' => 'application/json']);
         $result = $action($request, $response, ['route' => 'test']);
 
         self::assertEquals(200, $result->getStatusCode());
@@ -95,6 +114,11 @@ class GetFrontActionTest extends FrontTestCase
         $result = $action($request, $response, ['route' => 'test']);
 
         self::assertEquals(200, $result->getStatusCode());
+
+        $request = new ServerRequest('', '', ['Accept' => 'application/json']);
+        $result = $action($request, $response, ['route' => 'test']);
+
+        self::assertEquals(200, $result->getStatusCode());
     }
 
     public function test__invokeForm(): void
@@ -117,6 +141,11 @@ class GetFrontActionTest extends FrontTestCase
         $response = new Response();
 
         $action = new GetFrontAction();
+        $result = $action($request, $response, ['route' => 'test']);
+
+        self::assertEquals(200, $result->getStatusCode());
+
+        $request = new ServerRequest('', '', ['Accept' => 'application/json']);
         $result = $action($request, $response, ['route' => 'test']);
 
         self::assertEquals(200, $result->getStatusCode());
@@ -144,6 +173,11 @@ class GetFrontActionTest extends FrontTestCase
         $result = $action($request, $response, ['route' => 'test']);
 
         self::assertEquals(200, $result->getStatusCode());
+
+        $request = new ServerRequest('', '', ['Accept' => 'application/json']);
+        $result = $action($request, $response, ['route' => 'test']);
+
+        self::assertEquals(200, $result->getStatusCode());
     }
 
     public function test__invokeArtist(): void
@@ -161,6 +195,11 @@ class GetFrontActionTest extends FrontTestCase
         $response = new Response();
 
         $action = new GetFrontAction();
+        $result = $action($request, $response, ['route' => 'test']);
+
+        self::assertEquals(200, $result->getStatusCode());
+
+        $request = new ServerRequest('', '', ['Accept' => 'application/json']);
         $result = $action($request, $response, ['route' => 'test']);
 
         self::assertEquals(200, $result->getStatusCode());
@@ -188,6 +227,11 @@ class GetFrontActionTest extends FrontTestCase
         $result = $action($request, $response, ['route' => 'test']);
 
         self::assertEquals(200, $result->getStatusCode());
+
+        $request = new ServerRequest('', '', ['Accept' => 'application/json']);
+        $result = $action($request, $response, ['route' => 'test']);
+
+        self::assertEquals(200, $result->getStatusCode());
     }
 
     public function test__invokeBlogHomePage(): void
@@ -205,6 +249,11 @@ class GetFrontActionTest extends FrontTestCase
         $response = new Response();
 
         $action = new GetFrontAction();
+        $result = $action($request, $response, ['route' => 'test']);
+
+        self::assertEquals(200, $result->getStatusCode());
+
+        $request = new ServerRequest('', '', ['Accept' => 'application/json']);
         $result = $action($request, $response, ['route' => 'test']);
 
         self::assertEquals(200, $result->getStatusCode());
@@ -227,6 +276,11 @@ class GetFrontActionTest extends FrontTestCase
         $result = $action($request, $response, ['route' => 'test']);
 
         self::assertEquals(404, $result->getStatusCode());
+
+        $request = new ServerRequest('', '', ['Accept' => 'application/json']);
+        $result = $action($request, $response, ['route' => 'test']);
+
+        self::assertEquals(404, $result->getStatusCode());
     }
 
     public function test__invokeBlogPost(): void
@@ -242,6 +296,11 @@ class GetFrontActionTest extends FrontTestCase
         $response = new Response();
 
         $action = new GetFrontAction();
+        $result = $action($request, $response, ['route' => $post->slug]);
+
+        self::assertEquals(200, $result->getStatusCode());
+
+        $request = new ServerRequest('', '', ['Accept' => 'application/json']);
         $result = $action($request, $response, ['route' => $post->slug]);
 
         self::assertEquals(200, $result->getStatusCode());

@@ -6,6 +6,7 @@ use App\Database\Utils\LoadableEntity;
 use PHPUnit\Event\Test\AfterLastTestMethodFinished;
 use PHPUnit\Event\Test\AfterLastTestMethodFinishedSubscriber;
 
+/** @codeCoverageIgnore */
 class DropAllTablesSubscriber implements AfterLastTestMethodFinishedSubscriber
 {
     public function notify(AfterLastTestMethodFinished $event): void

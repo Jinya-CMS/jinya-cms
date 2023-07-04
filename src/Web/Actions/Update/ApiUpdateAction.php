@@ -6,6 +6,7 @@ use App\Database\Migrations\Migrator;
 use Psr\Http\Message\ResponseInterface as Response;
 use ZipArchive;
 
+/** @codeCoverageIgnore */
 class ApiUpdateAction extends UpdateAction
 {
 

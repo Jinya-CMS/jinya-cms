@@ -28,6 +28,12 @@ class GetBlogFrontActionTest extends FrontTestCase
         $result = $action($request, $response, ['slug' => $post->slug]);
 
         self::assertEquals(200, $result->getStatusCode());
+
+        $request = new ServerRequest('', '', ['Accept' => 'application/json']);
+        $response = new Response();
+        $result = $action($request, $response, ['slug' => $post->slug]);
+
+        self::assertEquals(200, $result->getStatusCode());
     }
 
     public function test__invokePostNotFound(): void
@@ -37,6 +43,13 @@ class GetBlogFrontActionTest extends FrontTestCase
         $response = new Response();
 
         $action = new GetBlogFrontAction();
+        $response = new Response();
+        $result = $action($request, $response, ['slug' => Uuid::uuid()]);
+
+        self::assertEquals(404, $result->getStatusCode());
+
+        $request = new ServerRequest('', '', ['Accept' => 'application/json']);
+        $response = new Response();
         $result = $action($request, $response, ['slug' => Uuid::uuid()]);
 
         self::assertEquals(404, $result->getStatusCode());

@@ -1,0 +1,11 @@
+<?php
+/** @var \App\Database\Artist $artist */
+
+$data = [
+    'name' => $artist->artistName,
+    'email' => $artist->email,
+    'profilePicture' => $artist->profilePicture,
+    'about' => $artist->aboutMe,
+];
+
+echo json_encode($data, JSON_THROW_ON_ERROR);

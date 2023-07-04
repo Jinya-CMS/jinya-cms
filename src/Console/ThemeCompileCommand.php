@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Database\Theme;
 
+/** @codeCoverageIgnore */
 #[JinyaCommand('theme-compile')]
 class ThemeCompileCommand extends AbstractCommand
 {

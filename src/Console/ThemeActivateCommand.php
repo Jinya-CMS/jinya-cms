@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Database\Theme;
 use App\Theming\ThemeSyncer;
 
+/** @codeCoverageIgnore */
 #[JinyaCommand('theme-activate')]
 class ThemeActivateCommand extends AbstractCommand
 {

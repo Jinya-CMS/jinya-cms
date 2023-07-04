@@ -8,7 +8,6 @@ use App\Theming;
 use App\Web\Actions\Action;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
-use League\Plates\Engine;
 use League\Plates\Extension\URI;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpException;
@@ -19,9 +18,6 @@ use Throwable;
  */
 abstract class FrontAction extends Action
 {
-    /** @var Engine The Plates engine */
-    protected Engine $engine;
-
     /** @var Theming\Theme The active theming theme */
     protected Theming\Theme $activeTheme;
 
@@ -35,7 +31,6 @@ abstract class FrontAction extends Action
     public function __construct()
     {
         parent::__construct();
-        $this->engine = Theming\Engine::getPlatesEngine();
         $this->activeTheme = new Theming\Theme(Database\Theme::getActiveTheme());
     }
 
@@ -71,7 +66,8 @@ abstract class FrontAction extends Action
 
                 return $this->render("theme::$statusCode", ['exception' => $exception], $statusCode);
             } catch (Throwable $exception) {
-                $renderResult = $this->engine->render('emergency::500', ['exception' => $exception]);
+                $engine = Theming\Engine::getPlatesEngine();
+                $renderResult = $engine->render('emergency::500', ['exception' => $exception]);
                 $this->response->getBody()->write($renderResult);
                 $this->logger->error($exception->getMessage());
                 $this->logger->error($exception->getTraceAsString());
@@ -115,18 +111,19 @@ abstract class FrontAction extends Action
      */
     protected function render(string $template, array $data, int $statusCode = self::HTTP_OK): Response
     {
+        $engine = Theming\Engine::getPlatesEngine();
         $parsedBody = $this->request->getParsedBody();
         $queryParams = $this->request->getQueryParams();
-        $this->engine->addData(['body' => $parsedBody, 'queryParams' => $queryParams]);
-        $this->engine->loadExtension($this->activeTheme);
+        $engine->addData(['body' => $parsedBody, 'queryParams' => $queryParams]);
+        $engine->loadExtension($this->activeTheme);
         $currentDbTheme = Database\Theme::getActiveTheme();
-        $this->engine->loadExtension(new Theming\Extensions\MenuExtension());
-        $this->engine->loadExtension(new Theming\Extensions\FileExtension());
-        $this->engine->loadExtension(new Theming\Extensions\LinksExtension($currentDbTheme));
-        $this->engine->loadExtension(new Theming\Extensions\ThemeExtension($this->activeTheme, $currentDbTheme));
-        $this->engine->loadExtension(new URI($this->request->getUri()->getPath()));
+        $engine->loadExtension(new Theming\Extensions\MenuExtension());
+        $engine->loadExtension(new Theming\Extensions\FileExtension());
+        $engine->loadExtension(new Theming\Extensions\LinksExtension($currentDbTheme));
+        $engine->loadExtension(new Theming\Extensions\ThemeExtension($this->activeTheme, $currentDbTheme));
+        $engine->loadExtension(new URI($this->request->getUri()->getPath()));
 
-        $renderResult = $this->engine
+        $renderResult = $engine
             ->render(strncasecmp($template, 'theme::', 7) === 0 ? $template : "theme::$template", $data);
         $this->response->getBody()->write($renderResult);
 
@@ -145,17 +142,18 @@ abstract class FrontAction extends Action
      */
     protected function sendApiJson(string $template, array $data, int $statusCode = self::HTTP_OK): Response
     {
+        $engine = Theming\Engine::getPlatesEngine();
         $parsedBody = $this->request->getParsedBody();
         $queryParams = $this->request->getQueryParams();
-        $this->engine->addData(['body' => $parsedBody, 'queryParams' => $queryParams]);
-        $this->engine->loadExtension($this->activeTheme);
+        $engine->addData(['body' => $parsedBody, 'queryParams' => $queryParams]);
+        $engine->loadExtension($this->activeTheme);
         $currentDbTheme = Database\Theme::getActiveTheme();
-        $this->engine->loadExtension(new Theming\Extensions\MenuExtension());
-        $this->engine->loadExtension(new Theming\Extensions\LinksExtension($currentDbTheme));
-        $this->engine->loadExtension(new Theming\Extensions\ThemeExtension($this->activeTheme, $currentDbTheme));
-        $this->engine->loadExtension(new URI($this->request->getUri()->getPath()));
+        $engine->loadExtension(new Theming\Extensions\MenuExtension());
+        $engine->loadExtension(new Theming\Extensions\LinksExtension($currentDbTheme));
+        $engine->loadExtension(new Theming\Extensions\ThemeExtension($this->activeTheme, $currentDbTheme));
+        $engine->loadExtension(new URI($this->request->getUri()->getPath()));
 
-        $renderResult = $this->engine
+        $renderResult = $engine
             ->render(strncasecmp($template, 'api::', 5) === 0 ? $template : "api::$template", $data);
         $this->response->getBody()->write($renderResult);
 
