@@ -65,14 +65,14 @@ export default class EditPostDialog {
                         </label>
                         <div class="cosmo-input cosmo-input--picker" id="editPostHeaderImagePicker">
                             <label class="cosmo-picker__name jinya-picker__name" for="editPostHeaderImage">
-                                ${header.name ?? localize({ key: 'blog.posts.create.no_header_image' })}
+                                ${header?.name ?? localize({ key: 'blog.posts.create.no_header_image' })}
                             </label>
                             <label class="cosmo-picker__button" for="editPostHeaderImage">
                                 <span class="mdi mdi-image-search mdi-24px"></span>
                             </label>
-                            <input type="hidden" value="${header.id}" id="editPostHeaderImage">
+                            <input type="hidden" value="${header?.id}" id="editPostHeaderImage">
                         </div>
-                        <img src="${header.path}" alt="${header.name}" id="selectedFile"
+                        <img src="${header?.path}" alt="${header?.name}" id="selectedFile"
                              class="jinya-picker__selected-file">
                         <div class="cosmo-checkbox__group">
                             <input ${this.postPublic ? 'checked' : ''} class="cosmo-checkbox" type="checkbox"
