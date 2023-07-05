@@ -51,6 +51,7 @@ class HttpErrorHandler extends SlimErrorHandler
             $this->logger->error($exception->getTraceAsString());
         } elseif ($exception instanceof InvalidQueryException) {
             $code = 409;
+            /** @phpstan-ignore-next-line */
             $data['error']['message'] = $exception->errorInfo[2] ?? $exception->getMessage();
         }
 
