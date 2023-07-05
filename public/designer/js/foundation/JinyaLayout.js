@@ -328,16 +328,19 @@ export default class JinyaLayout extends JinyaDesignerLayout {
         // eslint-disable-next-line no-param-reassign
         item.style.display = 'none';
       });
-    document.querySelector(`.cosmo-top-bar__menu[data-stage="${stage}"]`).style.display = 'flex';
+    const topBarMenu = document.querySelector(`.cosmo-top-bar__menu[data-stage="${stage}"]`);
+    if (topBarMenu) {
+      topBarMenu.style.display = 'flex';
+    }
     document
       .querySelectorAll('.cosmo-menu-bar__main-menu')
       .forEach((item) => {
         // eslint-disable-next-line no-param-reassign
         item.style.display = 'none';
       });
-    const topBarMenu = document.querySelector(`.cosmo-menu-bar__main-menu[data-stage="${stage}"]`);
-    if (topBarMenu) {
-      topBarMenu.style.display = 'flex';
+    const mainMenu = document.querySelector(`.cosmo-menu-bar__main-menu[data-stage="${stage}"]`);
+    if (mainMenu) {
+      mainMenu.style.display = 'flex';
     }
     document
       .querySelectorAll('.cosmo-menu-bar__main-item--active')

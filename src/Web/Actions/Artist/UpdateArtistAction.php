@@ -28,16 +28,16 @@ class UpdateArtistAction extends Action
         if ($artist === null) {
             throw new NoResultException($this->request, 'Artist not found');
         }
-        if ($this->body['password']) {
+        if (array_key_exists('password', $this->body)) {
             $artist->setPassword($this->body['password']);
         }
-        if ($this->body['artistName']) {
+        if (array_key_exists('artistName', $this->body)) {
             $artist->artistName = $this->body['artistName'];
         }
-        if ($this->body['email']) {
+        if (array_key_exists('email', $this->body)) {
             $artist->email = $this->body['email'];
         }
-        if ($this->body['roles']) {
+        if (array_key_exists('roles', $this->body)) {
             $artist->roles = $this->body['roles'];
         }
         $artist->update();
