@@ -5,6 +5,7 @@ import JinyaDesignerPage from '../../foundation/JinyaDesignerPage.js';
 import localize from '../../foundation/localize.js';
 
 export default class DatabasePage extends JinyaDesignerPage {
+  // eslint-disable-next-line class-methods-use-this
   toString() {
     return html`
         <div class="jinya-stats__row">

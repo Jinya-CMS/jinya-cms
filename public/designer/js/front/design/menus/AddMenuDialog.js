@@ -1,5 +1,5 @@
 import html from '../../../../lib/jinya-html.js';
-import { get, post } from '../../../foundation/http/request.js';
+import { post } from '../../../foundation/http/request.js';
 import localize from '../../../foundation/localize.js';
 import alert from '../../../foundation/ui/alert.js';
 import filePicker from '../../../foundation/ui/filePicker.js';
@@ -14,7 +14,6 @@ export default class AddMenuDialog {
   }
 
   async show() {
-    const { items: files } = await get('/api/media/file');
     const content = html`
         <div class="cosmo-modal__backdrop"></div>
         <form class="cosmo-modal__container" id="create-dialog-form">
