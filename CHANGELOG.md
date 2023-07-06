@@ -1,5 +1,16 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 25.2.0
+
+### User Stories
+
+* [TG-133](https://taiga.imanuel.dev/project/jinya-cms/us/133) Public theme based API
+
+### Issues
+
+* [TG-183](https://taiga.imanuel.dev/project/jinya-cms/issue/184) Edit blog article not working
+* [TG-183](https://taiga.imanuel.dev/project/jinya-cms/issue/183) JinyaLayout.js tries to hide stage that doesn't exist
+
 ## Release notes - Jinya CMS - Version 25.1.4
 
 ### User Stories
