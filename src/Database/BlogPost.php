@@ -232,12 +232,14 @@ class BlogPost extends Utils\LoadableEntity
                 $scheme = $url->getScheme() === 'https' ? 'ssl://' : '';
                 $host = $scheme . $url->getHost();
                 $port = $url->getPort() ?: $this->getDefaultPort($url->getScheme());
+                $requestUrl = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
                 $request = 'POST ' . $category?->webhookUrl . " HTTP/1.1\r\n";
                 $request .= 'Host: ' . $url->getHost() . "\r\n";
                 $request .= "Content-Type: application/json\r\n";
                 $request .= 'Content-Length: ' . strlen($postBody) . "\r\n";
                 $request .= "Connection: Close\r\n";
+                $request .= 'Referer: ' . $requestUrl . "\r\n";
                 $request .= "\r\n";
                 $request .= $postBody;
 
