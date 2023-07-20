@@ -20,7 +20,8 @@ uses [a fork](https://plates.jinya.dev/) of the [Plates](https://platesphp.com/)
 called designer, is written using plain JavaScript.
 
 ## Design
-The Jinya default theme uses a very simple design, which focuses on your content and not on itself. You can preview the Jinya default theme [here](https://imanuel.ulbricht.design). Here are screenshots of the default theme.
+The Jinya default theme uses a very simple design, which focuses on your content and not on itself. You can preview the
+Jinya default theme [here](https://design.imanuel.dev). Here are screenshots of the default theme.
 
 ![](screenshots/frontend/1e1b438ab8c064ef94ec82a3e4bb2b0e0f4fd5a1ae686592e30f43106e7145e2)
 ![](screenshots/frontend/3f878cbdf9f5ec2909c085b3f8e82e94da00a9bbe403c6a1995c0a6d77ec1c42)

@@ -1,5 +1,11 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 25.2.1
+
+### Issues
+
+* [TG-187](https://taiga.imanuel.dev/project/jinya-cms/issue/187) Add referer header to blog post webhook
+
 ## Release notes - Jinya CMS - Version 25.2.0
 
 ### User Stories
