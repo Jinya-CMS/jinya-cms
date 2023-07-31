@@ -3,6 +3,49 @@
   before_script:
     - php /usr/local/bin/composer.phar install
 
+.build-package:
+  script:
+    - apt-get install golang -y
+    - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
+    - zip -r ./jinya-cms.zip ./*
+    - go run ./main.go
+  artifacts:
+    name: "jinya-cms-${PACKAGE_VERSION}.zip"
+    paths:
+      - jinya-cms.zip
+
+.build-image:
+  image: quay.imanuel.dev/dockerhub/library---docker:stable
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u "$QUAY_USER" -p "$QUAY_PASSWORD" quay.imanuel.dev
+    - docker login -u "$DOCKERHUB_USER" -p "$DOCKERHUB_PASSWORD"
+  script:
+    - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
+    - docker build --pull -t "quay.imanuel.dev/jinya/jinya-cms:${PACKAGE_VERSION}" -f ./Dockerfile .
+    - docker tag "quay.imanuel.dev/jinya/jinya-cms:${PACKAGE_VERSION}" "quay.imanuel.dev/jinya/jinya-cms:latest"
+    - docker tag "quay.imanuel.dev/jinya/jinya-cms:${PACKAGE_VERSION}" "jinyacms/jinya-cms:${PACKAGE_VERSION}"
+    - docker tag "quay.imanuel.dev/jinya/jinya-cms:${PACKAGE_VERSION}" jinyacms/jinya-cms:latest
+    - docker push "quay.imanuel.dev/jinya/jinya-cms:${PACKAGE_VERSION}"
+    - docker push "quay.imanuel.dev/jinya/jinya-cms:latest"
+    - docker push "jinyacms/jinya-cms:${PACKAGE_VERSION}"
+    - docker push "jinyacms/jinya-cms:latest"
+
+.run-tests:
+  script:
+    - ./vendor/bin/phpunit --no-progress --log-junit report.xml --configuration ./phpunit.ci.xml --coverage-text --coverage-cobertura=build/coverage.cobertura.xml
+  artifacts:
+    when: always
+    paths:
+      - report.xml
+    reports:
+      junit:
+        - report.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: build/coverage.cobertura.xml
+
 stages:
   - lint
   - test
@@ -32,97 +75,46 @@ phpstan:
 phpunit-mysql:
   extends:
     - .install-dependencies
+    - .run-tests
   services:
     - name: quay.imanuel.dev/dockerhub/library---mysql:8
       alias: database
   stage: test
-  script:
-    - ./vendor/bin/phpunit --log-junit report.xml --configuration ./phpunit.ci.xml --coverage-text --coverage-cobertura=build/coverage.cobertura.xml
-  artifacts:
-    when: always
-    paths:
-      - report.xml
-    reports:
-      junit:
-        - report.xml
-      coverage_report:
-        coverage_format: cobertura
-        path: build/coverage.cobertura.xml
 
 phpunit-mariadb:
   extends:
     - .install-dependencies
+    - .run-tests
   services:
     - name: quay.imanuel.dev/dockerhub/library---mariadb:10
       alias: database
   stage: test
-  script:
-    - ./vendor/bin/phpunit --log-junit report.xml --configuration ./phpunit.ci.xml --coverage-text --coverage-cobertura=build/coverage.cobertura.xml
-  artifacts:
-    when: always
-    paths:
-      - report.xml
-    reports:
-      junit:
-        - report.xml
-      coverage_report:
-        coverage_format: cobertura
-        path: build/coverage.cobertura.xml
 
 phpunit-percona:
   extends:
     - .install-dependencies
+    - .run-tests
   services:
     - name: quay.imanuel.dev/dockerhub/percona---percona-server:8.0
       alias: database
   stage: test
-  script:
-    - ./vendor/bin/phpunit --log-junit report.xml --configuration ./phpunit.ci.xml --coverage-text --coverage-cobertura=build/coverage.cobertura.xml
-  artifacts:
-    when: always
-    paths:
-      - report.xml
-    reports:
-      junit:
-        - report.xml
-      coverage_report:
-        coverage_format: cobertura
-        path: build/coverage.cobertura.xml
 
 deploy-tag-package:
   extends:
     - .install-dependencies
+    - .build-package
   stage: deploy
-  script:
-    - apt-get install golang -y
-    - sed -i "s/%VERSION%/${CI_COMMIT_TAG}/g" ./defines.php
-    - zip -r ./jinya-cms.zip ./*
-    - go run ./main.go
-  artifacts:
-    name: "jinya-cms-${CI_COMMIT_TAG}.zip"
-    paths:
-      - jinya-cms.zip
+  variables:
+    PACKAGE_VERSION: $CI_COMMIT_TAG
   rules:
     - if: $CI_COMMIT_TAG
 
 deploy-tag-image:
-  image: quay.imanuel.dev/dockerhub/library---docker:stable
   stage: deploy
-  services:
-    - docker:dind
-  before_script:
-    - docker login -u "$QUAY_USER" -p "$QUAY_PASSWORD" quay.imanuel.dev
-    - docker login -u "$DOCKERHUB_USER" -p "$DOCKERHUB_PASSWORD"
-  script:
-    - sed -i "s/%VERSION%/${CI_COMMIT_TAG}/g" ./defines.php
-    - docker build --pull -t "quay.imanuel.dev/jinya/jinya-cms:${CI_COMMIT_TAG}" -f ./Dockerfile .
-    - docker tag "quay.imanuel.dev/jinya/jinya-cms:${CI_COMMIT_TAG}" "quay.imanuel.dev/jinya/jinya-cms:latest"
-    - docker tag "quay.imanuel.dev/jinya/jinya-cms:${CI_COMMIT_TAG}" "jinyacms/jinya-cms:${CI_COMMIT_TAG}"
-    - docker tag "quay.imanuel.dev/jinya/jinya-cms:${CI_COMMIT_TAG}" jinyacms/jinya-cms:latest
-    - docker push "quay.imanuel.dev/jinya/jinya-cms:${CI_COMMIT_TAG}"
-    - docker push "quay.imanuel.dev/jinya/jinya-cms:latest"
-    - docker push "jinyacms/jinya-cms:${CI_COMMIT_TAG}"
-    - docker push "jinyacms/jinya-cms:latest"
+  extends:
+    - .build-image
+  variables:
+    PACKAGE_VERSION: ${CI_COMMIT_TAG}
   rules:
     - if: $CI_COMMIT_TAG
       exists:
@@ -131,37 +123,19 @@ deploy-tag-image:
 deploy-main-package:
   extends:
     - .install-dependencies
+    - .build-package
   stage: deploy
-  script:
-    - apt-get install golang -y
-    - sed -i "s/%VERSION%/26.0.${CI_PIPELINE_IID}-unstable/g" ./defines.php
-    - zip -r ./jinya-cms.zip ./*
-    - go run ./main.go -unstable
-  artifacts:
-    name: "jinya-cms-26.0.${CI_PIPELINE_IID}-unstable.zip"
-    paths:
-      - jinya-cms.zip
+  variables:
+    PACKAGE_VERSION: 26.0.${CI_PIPELINE_IID}-unstable
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
 
 deploy-main-image:
-  image: quay.imanuel.dev/dockerhub/library---docker:stable
   stage: deploy
-  services:
-    - docker:dind
-  before_script:
-    - docker login -u "$QUAY_USER" -p "$QUAY_PASSWORD" quay.imanuel.dev
-    - docker login -u "$DOCKERHUB_USER" -p "$DOCKERHUB_PASSWORD"
-  script:
-    - sed -i "s/%VERSION%/26.0.${CI_PIPELINE_IID}-unstable/g" ./defines.php
-    - docker build --pull -t "quay.imanuel.dev/jinya/jinya-cms:26.0.${CI_PIPELINE_IID}-unstable" -f ./Dockerfile .
-    - docker tag "quay.imanuel.dev/jinya/jinya-cms:26.0.${CI_PIPELINE_IID}-unstable" "quay.imanuel.dev/jinya/jinya-cms:latest"
-    - docker tag "quay.imanuel.dev/jinya/jinya-cms:26.0.${CI_PIPELINE_IID}-unstable" "jinyacms/jinya-cms:26.0.${CI_PIPELINE_IID}-unstable"
-    - docker tag "quay.imanuel.dev/jinya/jinya-cms:26.0.${CI_PIPELINE_IID}-unstable" jinyacms/jinya-cms:latest
-    - docker push "quay.imanuel.dev/jinya/jinya-cms:26.0.${CI_PIPELINE_IID}-unstable"
-    - docker push "quay.imanuel.dev/jinya/jinya-cms:latest"
-    - docker push "jinyacms/jinya-cms:26.0.${CI_PIPELINE_IID}-unstable"
-    - docker push "jinyacms/jinya-cms:latest"
+  extends:
+    - .build-image
+  variables:
+    PACKAGE_VERSION: 26.0.${CI_PIPELINE_IID}-unstable
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
       exists:
