@@ -1,0 +1,202 @@
+.install-dependencies:
+  before_script:
+    - mkdir -p /usr/share/man/man1
+    - apt-get update
+    - apt-get install -y apt-utils
+    - apt-get install -y libzip-dev git wget unzip zip nodejs libicu-dev libmagickwand-dev libcurl4-openssl-dev
+    - pecl install imagick pcov apcu
+    - docker-php-ext-enable imagick pcov apcu
+    - echo "apc.enable_cli=1" >> /usr/local/etc/php/php.ini
+    - docker-php-ext-install pdo pdo_mysql zip intl curl
+    - php --version
+    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    - php composer-setup.php
+    - php -r "unlink('composer-setup.php');"
+    - php composer.phar install
+
+stages:
+  - lint
+  - test
+  - build
+  - deploy
+
+services:
+  - name: quay.imanuel.dev/dockerhub/mailhog---mailhog:latest
+    alias: mailer
+
+variables:
+  MYSQL_DATABASE: jinya
+  MYSQL_PASSWORD: jinya
+  MYSQL_ROOT_PASSWORD: jinya
+  MYSQL_USER: jinya
+  PHP_MEMORY_LIMIT: 2048M
+
+phpstan:
+  extends:
+    - .install-dependencies
+  image: quay.imanuel.dev/dockerhub/library---php:8.1-cli
+  stage: lint
+  services:
+    - docker:dind
+  script:
+    - ./vendor/bin/phpstan --no-progress analyze ./src ./tests
+
+phpunit-mysql:
+  extends:
+    - .install-dependencies
+  image: quay.imanuel.dev/dockerhub/library---php:8.1-cli
+  services:
+    - name: quay.imanuel.dev/dockerhub/library---mysql:8
+      alias: database
+  stage: test
+  script:
+    - ./vendor/bin/phpunit --log-junit report.xml --configuration ./phpunit.ci.xml --coverage-text --coverage-cobertura=build/coverage.cobertura.xml
+  artifacts:
+    when: always
+    paths:
+      - report.xml
+    reports:
+      junit:
+        - report.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: build/coverage.cobertura.xml
+
+phpunit-mariadb:
+  extends:
+    - .install-dependencies
+  image: quay.imanuel.dev/dockerhub/library---php:8.1-cli
+  services:
+    - name: quay.imanuel.dev/dockerhub/library---mariadb:10
+      alias: database
+  stage: test
+  script:
+    - ./vendor/bin/phpunit --log-junit report.xml --configuration ./phpunit.ci.xml --coverage-text --coverage-cobertura=build/coverage.cobertura.xml
+  artifacts:
+    when: always
+    paths:
+      - report.xml
+    reports:
+      junit:
+        - report.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: build/coverage.cobertura.xml
+
+phpunit-percona:
+  extends:
+    - .install-dependencies
+  image: quay.imanuel.dev/dockerhub/library---php:8.1-cli
+  services:
+    - name: quay.imanuel.dev/dockerhub/percona---percona-server:8.0
+      alias: database
+  stage: test
+  script:
+    - ./vendor/bin/phpunit --log-junit report.xml --configuration ./phpunit.ci.xml --coverage-text --coverage-cobertura=build/coverage.cobertura.xml
+  artifacts:
+    when: always
+    paths:
+      - report.xml
+    reports:
+      junit:
+        - report.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: build/coverage.cobertura.xml
+
+deploy-tag-package:
+  extends:
+    - .install-dependencies
+  image: quay.imanuel.dev/dockerhub/library---php:8.1-cli
+  stage: deploy
+  script:
+    - apt-get install golang -y
+    - sed -i "s/%VERSION%/${CI_COMMIT_TAG}/g" ./defines.php
+    - zip -r ./jinya-cms.zip ./*
+    - go run ./main.go
+  artifacts:
+    name: "jinya-cms-${CI_COMMIT_TAG}.zip"
+    paths:
+      - jinya-cms.zip
+  rules:
+    - if: $CI_COMMIT_TAG
+
+deploy-tag-image:
+  image: quay.imanuel.dev/dockerhub/library---docker:stable
+  stage: deploy
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u "$QUAY_USER" -p "$QUAY_PASSWORD" quay.imanuel.dev
+    - docker login -u "$DOCKERHUB_USER" -p "$DOCKERHUB_PASSWORD"
+  script:
+    - sed -i "s/%VERSION%/${CI_COMMIT_TAG}/g" ./defines.php
+    - docker build --pull -t "quay.imanuel.dev/jinya/jinya-cms:${CI_COMMIT_TAG}" -f ./Dockerfile .
+    - docker tag "quay.imanuel.dev/jinya/jinya-cms:${CI_COMMIT_TAG}" "quay.imanuel.dev/jinya/jinya-cms:latest"
+    - docker tag "quay.imanuel.dev/jinya/jinya-cms:${CI_COMMIT_TAG}" "jinyacms/jinya-cms:${CI_COMMIT_TAG}"
+    - docker tag "quay.imanuel.dev/jinya/jinya-cms:${CI_COMMIT_TAG}" jinyacms/jinya-cms:latest
+    - docker push "jinya/jinya-cms:${CI_COMMIT_TAG}"
+    - docker push "jinya/jinya-cms:latest"
+    - docker push "jinyacms/jinya-cms:${CI_COMMIT_TAG}"
+    - docker push "jinyacms/jinya-cms:latest"
+  rules:
+    - if: $CI_COMMIT_TAG
+      exists:
+        - Dockerfile
+
+deploy-main-package:
+  extends:
+    - .install-dependencies
+  image: quay.imanuel.dev/dockerhub/library---php:8.1-cli
+  stage: deploy
+  script:
+    - apt-get install golang -y
+    - sed -i "s/%VERSION%/26.0.${CI_PIPELINE_IID}-unstable/g" ./defines.php
+    - zip -r ./jinya-cms.zip ./*
+    - go run ./main.go -unstable
+  artifacts:
+    name: "jinya-cms-26.0.${CI_PIPELINE_IID}-unstable.zip"
+    paths:
+      - jinya-cms.zip
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+deploy-main-image:
+  image: quay.imanuel.dev/dockerhub/library---docker:stable
+  stage: deploy
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u "$QUAY_USER" -p "$QUAY_PASSWORD" quay.imanuel.dev
+    - docker login -u "$DOCKERHUB_USER" -p "$DOCKERHUB_PASSWORD"
+  script:
+    - sed -i "s/%VERSION%/26.0.${CI_PIPELINE_IID}-unstable/g" ./defines.php
+    - docker build --pull -t "quay.imanuel.dev/jinya/jinya-cms:26.0.${CI_PIPELINE_IID}-unstable" -f ./Dockerfile .
+    - docker tag "quay.imanuel.dev/jinya/jinya-cms:26.0.${CI_PIPELINE_IID}-unstable" "quay.imanuel.dev/jinya/jinya-cms:latest"
+    - docker tag "quay.imanuel.dev/jinya/jinya-cms:26.0.${CI_PIPELINE_IID}-unstable" "jinyacms/jinya-cms:26.0.${CI_PIPELINE_IID}-unstable"
+    - docker tag "quay.imanuel.dev/jinya/jinya-cms:26.0.${CI_PIPELINE_IID}-unstable" jinyacms/jinya-cms:latest
+    - docker push "jinya/jinya-cms:26.0.${CI_PIPELINE_IID}-unstable"
+    - docker push "jinya/jinya-cms:latest"
+    - docker push "jinyacms/jinya-cms:26.0.${CI_PIPELINE_IID}-unstable"
+    - docker push "jinyacms/jinya-cms:latest"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      exists:
+        - Dockerfile
+
+pages:
+  extends:
+    - .install-dependencies
+  stage: deploy
+  image: quay.imanuel.dev/dockerhub/library---php:8.1-cli
+  script:
+    - rm -rf public/
+    - wget https://phpdoc.org/phpDocumentor.phar
+    - chmod +x phpDocumentor.phar
+    - ./phpDocumentor.phar
+    - mv docs/ public/
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_TAG

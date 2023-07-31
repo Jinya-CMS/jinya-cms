@@ -9,13 +9,13 @@
     <paths>
         <output>docs</output>
     </paths>
-    <version number="24.0.0">
+    <version number="25.2.1">
         <api>
             <source dsn=".">
                 <path>src</path>
             </source>
         </api>
-        <guide format="rst">
+        <guide>
             <source dsn=".">
                 <path>guides</path>
             </source>

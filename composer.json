@@ -21,8 +21,8 @@
     "scssphp/scssphp": "v1.11.0",
     "nyholm/psr7": "1.8.0",
     "nyholm/psr7-server": "1.0.2",
-    "slim/slim": "4.11.0",
-    "tedivm/jshrink": "v1.6.6",
+    "slim/slim": "4.12.0",
+    "tedivm/jshrink": "v1.6.8",
     "vlucas/phpdotenv": "v5.5.0",
     "jenssegers/agent": "v2.6.4",
     "melbahja/semver": "v1.0.1",
@@ -37,10 +37,10 @@
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
-    "phpunit/phpunit": "10.2.3",
-    "phpstan/phpstan": "1.10.24",
-    "fakerphp/faker": "v1.22.0",
-    "symfony/filesystem": "v6.3.0"
+    "phpunit/phpunit": "10.2.6",
+    "phpstan/phpstan": "1.10.26",
+    "fakerphp/faker": "v1.23.0",
+    "symfony/filesystem": "v6.3.1"
   },
   "config": {
     "process-timeout": 0,
