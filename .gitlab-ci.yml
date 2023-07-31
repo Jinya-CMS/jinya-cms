@@ -1,18 +1,7 @@
 .install-dependencies:
+  image: quay.imanuel.dev/jinya/jinya-cms-php-base-test-image:latest
   before_script:
-    - mkdir -p /usr/share/man/man1
-    - apt-get update
-    - apt-get install -y apt-utils
-    - apt-get install -y libzip-dev git wget unzip zip nodejs libicu-dev libmagickwand-dev libcurl4-openssl-dev
-    - pecl install imagick pcov apcu
-    - docker-php-ext-enable imagick pcov apcu
-    - echo "apc.enable_cli=1" >> /usr/local/etc/php/php.ini
-    - docker-php-ext-install pdo pdo_mysql zip intl curl
-    - php --version
-    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-    - php composer-setup.php
-    - php -r "unlink('composer-setup.php');"
-    - php composer.phar install
+    - composer install
 
 stages:
   - lint
@@ -34,17 +23,15 @@ variables:
 phpstan:
   extends:
     - .install-dependencies
-  image: quay.imanuel.dev/dockerhub/library---php:8.1-cli
   stage: lint
   services:
     - docker:dind
   script:
-    - ./vendor/bin/phpstan --no-progress analyze ./src ./tests
+    - ./vendor/bin/phpstan --no-progress analyze ./src ./app ./cli ./public --memory-limit 1G
 
 phpunit-mysql:
   extends:
     - .install-dependencies
-  image: quay.imanuel.dev/dockerhub/library---php:8.1-cli
   services:
     - name: quay.imanuel.dev/dockerhub/library---mysql:8
       alias: database
@@ -65,7 +52,6 @@ phpunit-mysql:
 phpunit-mariadb:
   extends:
     - .install-dependencies
-  image: quay.imanuel.dev/dockerhub/library---php:8.1-cli
   services:
     - name: quay.imanuel.dev/dockerhub/library---mariadb:10
       alias: database
@@ -86,7 +72,6 @@ phpunit-mariadb:
 phpunit-percona:
   extends:
     - .install-dependencies
-  image: quay.imanuel.dev/dockerhub/library---php:8.1-cli
   services:
     - name: quay.imanuel.dev/dockerhub/percona---percona-server:8.0
       alias: database
@@ -107,7 +92,6 @@ phpunit-percona:
 deploy-tag-package:
   extends:
     - .install-dependencies
-  image: quay.imanuel.dev/dockerhub/library---php:8.1-cli
   stage: deploy
   script:
     - apt-get install golang -y
@@ -135,8 +119,8 @@ deploy-tag-image:
     - docker tag "quay.imanuel.dev/jinya/jinya-cms:${CI_COMMIT_TAG}" "quay.imanuel.dev/jinya/jinya-cms:latest"
     - docker tag "quay.imanuel.dev/jinya/jinya-cms:${CI_COMMIT_TAG}" "jinyacms/jinya-cms:${CI_COMMIT_TAG}"
     - docker tag "quay.imanuel.dev/jinya/jinya-cms:${CI_COMMIT_TAG}" jinyacms/jinya-cms:latest
-    - docker push "jinya/jinya-cms:${CI_COMMIT_TAG}"
-    - docker push "jinya/jinya-cms:latest"
+    - docker push "quay.imanuel.dev/jinya/jinya-cms:${CI_COMMIT_TAG}"
+    - docker push "quay.imanuel.dev/jinya/jinya-cms:latest"
     - docker push "jinyacms/jinya-cms:${CI_COMMIT_TAG}"
     - docker push "jinyacms/jinya-cms:latest"
   rules:
@@ -147,7 +131,6 @@ deploy-tag-image:
 deploy-main-package:
   extends:
     - .install-dependencies
-  image: quay.imanuel.dev/dockerhub/library---php:8.1-cli
   stage: deploy
   script:
     - apt-get install golang -y
@@ -175,8 +158,8 @@ deploy-main-image:
     - docker tag "quay.imanuel.dev/jinya/jinya-cms:26.0.${CI_PIPELINE_IID}-unstable" "quay.imanuel.dev/jinya/jinya-cms:latest"
     - docker tag "quay.imanuel.dev/jinya/jinya-cms:26.0.${CI_PIPELINE_IID}-unstable" "jinyacms/jinya-cms:26.0.${CI_PIPELINE_IID}-unstable"
     - docker tag "quay.imanuel.dev/jinya/jinya-cms:26.0.${CI_PIPELINE_IID}-unstable" jinyacms/jinya-cms:latest
-    - docker push "jinya/jinya-cms:26.0.${CI_PIPELINE_IID}-unstable"
-    - docker push "jinya/jinya-cms:latest"
+    - docker push "quay.imanuel.dev/jinya/jinya-cms:26.0.${CI_PIPELINE_IID}-unstable"
+    - docker push "quay.imanuel.dev/jinya/jinya-cms:latest"
     - docker push "jinyacms/jinya-cms:26.0.${CI_PIPELINE_IID}-unstable"
     - docker push "jinyacms/jinya-cms:latest"
   rules:
@@ -188,7 +171,6 @@ pages:
   extends:
     - .install-dependencies
   stage: deploy
-  image: quay.imanuel.dev/dockerhub/library---php:8.1-cli
   script:
     - rm -rf public/
     - wget https://phpdoc.org/phpDocumentor.phar
