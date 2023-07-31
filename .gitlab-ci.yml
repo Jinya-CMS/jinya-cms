@@ -1,7 +1,7 @@
 .install-dependencies:
   image: quay.imanuel.dev/jinya/jinya-cms-php-base-test-image:latest
   before_script:
-    - composer install
+    - php /usr/local/bin/composer.phar install
 
 stages:
   - lint
