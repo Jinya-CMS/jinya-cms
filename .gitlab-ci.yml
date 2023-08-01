@@ -57,24 +57,32 @@ phpstan:
     - ./vendor/bin/phpstan --no-progress analyze ./src ./app ./cli ./public --memory-limit 1G
 
 phpunit:
+  variables:
+    EXECUTE_IN: "ci"
+    APP_ENV: "dev"
+    MYSQL_PASSWORD: "jinya"
+    MYSQL_USER: "jinya"
+    MYSQL_DATABASE: "jinya"
+    MYSQL_HOST: "mysql"
+    MYSQL_PORT: "3306"
+    MYSQL_CHARSET: "utf8mb4"
+    MAILER_HOST: "mailer"
+    MAILER_PORT: "1025"
+    MAILER_USERNAME: "test@example.com"
+    MAILER_PASSWORD: "start1234"
+    MAILER_ENCRYPTION: "tls"
+    MAILER_SMTP_AUTH: "true"
+    MAILER_FROM: "jinya@example.com"
+    JINYA_API_KEY_EXPIRY: "315360000"
+    JINYA_UPDATE_SERVER: "https://releases.jinya.de/cms"
+    INSTALLED_VERSION: "phpunit"
   extends:
     - .install-dependencies
   services:
     - name: quay.imanuel.dev/dockerhub/mailhog---mailhog:latest
       alias: mailer
     - name: quay.imanuel.dev/dockerhub/library---mysql:8
-      alias: database
-      command:
-        - --transaction-isolation=READ-COMMITTED
-        - --binlog-format=ROW
-        - --max-connections=1000
-        - --bind-address=0.0.0.0
-        - --port=3306
-      variables:
-        MYSQL_DATABASE: "jinya"
-        MYSQL_PASSWORD: "jinya"
-        MYSQL_ROOT_PASSWORD: "jinya"
-        MYSQL_USER: "jinya"
+      alias: mysql
   script:
     - ./vendor/bin/phpunit --no-progress --log-junit report.xml --configuration phpunit.ci.mysql.xml --coverage-cobertura=coverage.cobertura.xml
   artifacts:
