@@ -72,9 +72,11 @@
         path: coverage.cobertura.xml
 
 stages:
+  - lint
   - test
-  - build
-  - deploy
+  - deploy-package
+  - deploy-docker
+  - deploy-pages
 
 services:
   - name: quay.imanuel.dev/dockerhub/mailhog---mailhog:latest
@@ -83,7 +85,7 @@ services:
 phpstan:
   extends:
     - .install-dependencies
-  stage: test
+  stage: lint
   script:
     - ./vendor/bin/phpstan --no-progress analyze ./src ./app ./cli ./public --memory-limit 1G
 
@@ -102,7 +104,7 @@ phpunit-mysql:
         MYSQL_ROOT_PASSWORD: "jinya"
         MYSQL_USER: "jinya"
   stage: test
-  dependencies:
+  needs:
     - phpstan
 
 phpunit-mariadb:
@@ -120,7 +122,7 @@ phpunit-mariadb:
         MYSQL_ROOT_PASSWORD: "jinya"
         MYSQL_USER: "jinya"
   stage: test
-  dependencies:
+  needs:
     - phpunit-mysql
 
 phpunit-percona:
@@ -138,21 +140,26 @@ phpunit-percona:
         MYSQL_ROOT_PASSWORD: "jinya"
         MYSQL_USER: "jinya"
   stage: test
-  dependencies:
+  needs:
     - phpunit-mariadb
 
 deploy-tag-package:
   extends:
     - .install-dependencies
     - .build-package
-  stage: deploy
+  stage: deploy-package
   variables:
     PACKAGE_VERSION: $CI_COMMIT_TAG
   rules:
     - if: $CI_COMMIT_TAG
+  needs:
+    - job: phpunit-mysql
+    - job: phpunit-mariadb
+    - job: phpunit-percona
+    - job: phpstan
 
 deploy-tag-image:
-  stage: deploy
+  stage: deploy-docker
   extends:
     - .build-image
   variables:
@@ -161,19 +168,29 @@ deploy-tag-image:
     - if: $CI_COMMIT_TAG
       exists:
         - Dockerfile
+  needs:
+    - job: phpunit-mysql
+    - job: phpunit-mariadb
+    - job: phpunit-percona
+    - job: phpstan
 
 deploy-main-package:
   extends:
     - .install-dependencies
     - .build-package
-  stage: deploy
+  stage: deploy-package
   variables:
     PACKAGE_VERSION: 26.0.${CI_PIPELINE_IID}-unstable
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
+  needs:
+    - job: phpunit-mysql
+    - job: phpunit-mariadb
+    - job: phpunit-percona
+    - job: phpstan
 
 deploy-main-image:
-  stage: deploy
+  stage: deploy-docker
   extends:
     - .build-image
   variables:
@@ -182,11 +199,16 @@ deploy-main-image:
     - if: $CI_COMMIT_BRANCH == "main"
       exists:
         - Dockerfile
+  needs:
+    - job: phpunit-mysql
+    - job: phpunit-mariadb
+    - job: phpunit-percona
+    - job: phpstan
 
 pages:
   extends:
     - .install-dependencies
-  stage: deploy
+  stage: deploy-pages
   script:
     - rm -rf public/
     - wget https://phpdoc.org/phpDocumentor.phar
