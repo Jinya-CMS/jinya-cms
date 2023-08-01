@@ -1,11 +1,15 @@
 .install-dependencies:
-  image: quay.imanuel.dev/jinya/jinya-cms-php-base-test-image:latest
+  variables:
+    PHP_MEMORY_LIMIT: 2048M
+  image:
+    name: quay.imanuel.dev/jinya/jinya-cms-php-base-test-image:latest
+    pull_policy: always
   before_script:
     - php /usr/local/bin/composer.phar install
 
 .build-package:
   script:
-    - apt-get install golang -y
+    - apk add go
     - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
     - zip -r ./jinya-cms.zip ./*
     - go run ./main.go
@@ -15,7 +19,9 @@
       - jinya-cms.zip
 
 .build-image:
-  image: quay.imanuel.dev/dockerhub/library---docker:stable
+  image:
+    name: quay.imanuel.dev/dockerhub/library---docker:stable
+    pull_policy: always
   services:
     - docker:dind
   before_script:
@@ -33,8 +39,27 @@
     - docker push "jinyacms/jinya-cms:latest"
 
 .run-tests:
+  variables:
+    EXECUTE_IN: ci
+    APP_ENV: dev
+    MYSQL_PASSWORD: jinya
+    MYSQL_USER: jinya
+    MYSQL_DATABASE: jinya
+    MYSQL_HOST: database
+    MYSQL_PORT: 3306
+    MYSQL_CHARSET: utf8mb4
+    MAILER_HOST: mailer
+    MAILER_PORT: 1025
+    MAILER_USERNAME: test@example.com
+    MAILER_PASSWORD: start1234
+    MAILER_ENCRYPTION: tls
+    MAILER_SMTP_AUTH: true
+    MAILER_FROM: jinya@example.com
+    JINYA_API_KEY_EXPIRY: 315360000
+    JINYA_UPDATE_SERVER: https://releases.jinya.de/cms
+    INSTALLED_VERSION: phpunit
   script:
-    - ./vendor/bin/phpunit --no-progress --log-junit report.xml --configuration ./phpunit.ci.xml --coverage-text --coverage-cobertura=build/coverage.cobertura.xml
+    - ./vendor/bin/phpunit --no-progress --log-junit report.xml --configuration phpunit.ci.xml --coverage-cobertura=coverage.cobertura.xml
   artifacts:
     when: always
     paths:
@@ -44,7 +69,7 @@
         - report.xml
       coverage_report:
         coverage_format: cobertura
-        path: build/coverage.cobertura.xml
+        path: coverage.cobertura.xml
 
 stages:
   - lint
@@ -55,13 +80,6 @@ stages:
 services:
   - name: quay.imanuel.dev/dockerhub/mailhog---mailhog:latest
     alias: mailer
-
-variables:
-  MYSQL_DATABASE: jinya
-  MYSQL_PASSWORD: jinya
-  MYSQL_ROOT_PASSWORD: jinya
-  MYSQL_USER: jinya
-  PHP_MEMORY_LIMIT: 2048M
 
 phpstan:
   extends:
@@ -79,6 +97,11 @@ phpunit-mysql:
   services:
     - name: quay.imanuel.dev/dockerhub/library---mysql:8
       alias: database
+      variables:
+        MYSQL_DATABASE: jinya
+        MYSQL_PASSWORD: jinya
+        MYSQL_ROOT_PASSWORD: jinya
+        MYSQL_USER: jinya
   stage: test
 
 phpunit-mariadb:
@@ -88,6 +111,11 @@ phpunit-mariadb:
   services:
     - name: quay.imanuel.dev/dockerhub/library---mariadb:10
       alias: database
+      variables:
+        MYSQL_DATABASE: jinya
+        MYSQL_PASSWORD: jinya
+        MYSQL_ROOT_PASSWORD: jinya
+        MYSQL_USER: jinya
   stage: test
 
 phpunit-percona:
@@ -97,6 +125,11 @@ phpunit-percona:
   services:
     - name: quay.imanuel.dev/dockerhub/percona---percona-server:8.0
       alias: database
+      variables:
+        MYSQL_DATABASE: jinya
+        MYSQL_PASSWORD: jinya
+        MYSQL_ROOT_PASSWORD: jinya
+        MYSQL_USER: jinya
   stage: test
 
 deploy-tag-package:
