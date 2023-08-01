@@ -101,9 +101,7 @@ deploy-tag-package:
   rules:
     - if: $CI_COMMIT_TAG
   needs:
-    - job: phpunit-mysql
-    - job: phpunit-mariadb
-    - job: phpunit-percona
+    - job: phpunit
     - job: phpstan
 
 deploy-tag-image:
@@ -117,9 +115,7 @@ deploy-tag-image:
       exists:
         - Dockerfile
   needs:
-    - job: phpunit-mysql
-    - job: phpunit-mariadb
-    - job: phpunit-percona
+    - job: phpunit
     - job: phpstan
 
 deploy-main-package:
@@ -132,9 +128,7 @@ deploy-main-package:
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
   needs:
-    - job: phpunit-mysql
-    - job: phpunit-mariadb
-    - job: phpunit-percona
+    - job: phpunit
     - job: phpstan
 
 deploy-main-image:
@@ -148,9 +142,7 @@ deploy-main-image:
       exists:
         - Dockerfile
   needs:
-    - job: phpunit-mysql
-    - job: phpunit-mariadb
-    - job: phpunit-percona
+    - job: phpunit
     - job: phpstan
 
 pages:
