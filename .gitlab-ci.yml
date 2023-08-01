@@ -63,7 +63,7 @@ phpunit:
     MYSQL_PASSWORD: "jinya"
     MYSQL_USER: "jinya"
     MYSQL_DATABASE: "jinya"
-    MYSQL_HOST: "mariadb"
+    MYSQL_HOST: "mysql"
     MYSQL_PORT: "3306"
     MYSQL_CHARSET: "utf8mb4"
     MAILER_HOST: "mailer"
@@ -81,9 +81,10 @@ phpunit:
   services:
     - name: quay.imanuel.dev/dockerhub/mailhog---mailhog:latest
       alias: mailer
-    - name: quay.imanuel.dev/dockerhub/library---mariadb:10
-      alias: mariadb
+    - name: quay.imanuel.dev/dockerhub/library---mysql:8
+      alias: mysql
   script:
+    - sleep 60
     - ./vendor/bin/phpunit --no-progress --log-junit report.xml --configuration phpunit.ci.xml --coverage-cobertura=coverage.cobertura.xml
   artifacts:
     when: always
