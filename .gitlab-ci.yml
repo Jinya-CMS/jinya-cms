@@ -56,7 +56,7 @@ phpstan:
   script:
     - ./vendor/bin/phpstan --no-progress analyze ./src ./app ./cli ./public --memory-limit 1G
 
-phpunit:
+phpunit-mysql:
   variables:
     EXECUTE_IN: "ci"
     APP_ENV: "dev"
@@ -101,6 +101,96 @@ phpunit:
   needs:
     - phpstan
 
+phpunit-mariadb:
+  variables:
+    EXECUTE_IN: "ci"
+    APP_ENV: "dev"
+    MYSQL_RANDOM_ROOT_PASSWORD: "true"
+    MYSQL_PASSWORD: "jinya"
+    MYSQL_USER: "jinya"
+    MYSQL_DATABASE: "jinya"
+    MYSQL_HOST: "mariadb"
+    MYSQL_PORT: "3306"
+    MYSQL_CHARSET: "utf8mb4"
+    MAILER_HOST: "mailer"
+    MAILER_PORT: "1025"
+    MAILER_USERNAME: "test@example.com"
+    MAILER_PASSWORD: "start1234"
+    MAILER_ENCRYPTION: "tls"
+    MAILER_SMTP_AUTH: "true"
+    MAILER_FROM: "jinya@example.com"
+    JINYA_API_KEY_EXPIRY: "315360000"
+    JINYA_UPDATE_SERVER: "https://releases.jinya.de/cms"
+    INSTALLED_VERSION: "phpunit"
+  extends:
+    - .install-dependencies
+  services:
+    - name: quay.imanuel.dev/dockerhub/mailhog---mailhog:latest
+      alias: mailer
+    - name: quay.imanuel.dev/dockerhub/library---mariadb:10
+      alias: mariadb
+  script:
+    - sleep 60
+    - ./vendor/bin/phpunit --no-progress --log-junit report.xml --configuration phpunit.ci.xml --coverage-cobertura=coverage.cobertura.xml
+  artifacts:
+    when: always
+    paths:
+      - report.xml
+    reports:
+      junit:
+        - report.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.cobertura.xml
+  stage: test
+  needs:
+    - phpstan
+
+phpunit-percona:
+  variables:
+    EXECUTE_IN: "ci"
+    APP_ENV: "dev"
+    MYSQL_RANDOM_ROOT_PASSWORD: "true"
+    MYSQL_PASSWORD: "jinya"
+    MYSQL_USER: "jinya"
+    MYSQL_DATABASE: "jinya"
+    MYSQL_HOST: "percona"
+    MYSQL_PORT: "3306"
+    MYSQL_CHARSET: "utf8mb4"
+    MAILER_HOST: "mailer"
+    MAILER_PORT: "1025"
+    MAILER_USERNAME: "test@example.com"
+    MAILER_PASSWORD: "start1234"
+    MAILER_ENCRYPTION: "tls"
+    MAILER_SMTP_AUTH: "true"
+    MAILER_FROM: "jinya@example.com"
+    JINYA_API_KEY_EXPIRY: "315360000"
+    JINYA_UPDATE_SERVER: "https://releases.jinya.de/cms"
+    INSTALLED_VERSION: "phpunit"
+  extends:
+    - .install-dependencies
+  services:
+    - name: quay.imanuel.dev/dockerhub/mailhog---mailhog:latest
+      alias: mailer
+    - name: quay.imanuel.dev/dockerhub/percona---percona-server:8.0
+      alias: percona
+  script:
+    - sleep 60
+    - ./vendor/bin/phpunit --no-progress --log-junit report.xml --configuration phpunit.ci.xml --coverage-cobertura=coverage.cobertura.xml
+  artifacts:
+    when: always
+    paths:
+      - report.xml
+    reports:
+      junit:
+        - report.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.cobertura.xml
+  stage: test
+  needs:
+    - phpstan
+
 deploy-tag-package:
   extends:
     - .install-dependencies
@@ -111,7 +201,9 @@ deploy-tag-package:
   rules:
     - if: $CI_COMMIT_TAG
   needs:
-    - job: phpunit
+    - job: phpunit-mysql
+    - job: phpunit-mariadb
+    - job: phpunit-percona
     - job: phpstan
 
 deploy-tag-image:
@@ -125,7 +217,9 @@ deploy-tag-image:
       exists:
         - Dockerfile
   needs:
-    - job: phpunit
+    - job: phpunit-mysql
+    - job: phpunit-mariadb
+    - job: phpunit-percona
     - job: phpstan
 
 deploy-main-package:
@@ -138,7 +232,9 @@ deploy-main-package:
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
   needs:
-    - job: phpunit
+    - job: phpunit-mysql
+    - job: phpunit-mariadb
+    - job: phpunit-percona
     - job: phpstan
 
 deploy-main-image:
@@ -152,7 +248,9 @@ deploy-main-image:
       exists:
         - Dockerfile
   needs:
-    - job: phpunit
+    - job: phpunit-mysql
+    - job: phpunit-mariadb
+    - job: phpunit-percona
     - job: phpstan
 
 pages:
