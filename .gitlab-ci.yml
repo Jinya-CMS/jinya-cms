@@ -60,6 +60,7 @@ phpunit:
   variables:
     EXECUTE_IN: "ci"
     APP_ENV: "dev"
+    MYSQL_RANDOM_ROOT_PASSWORD: "true"
     MYSQL_PASSWORD: "jinya"
     MYSQL_USER: "jinya"
     MYSQL_DATABASE: "jinya"
