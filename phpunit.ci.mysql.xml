@@ -34,5 +34,23 @@
 
     <php>
         <ini name="user_agent" value="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/109.0"/>
+        <env name="EXECUTE_IN" value="ci"/>
+        <env name="APP_ENV" value="dev"/>
+        <env name="MYSQL_PASSWORD" value="jinya"/>
+        <env name="MYSQL_USER" value="jinya"/>
+        <env name="MYSQL_DATABASE" value="jinya"/>
+        <env name="MYSQL_HOST" value="database"/>
+        <env name="MYSQL_PORT" value="3306"/>
+        <env name="MYSQL_CHARSET" value="utf8mb4"/>
+        <env name="MAILER_HOST" value="mailer"/>
+        <env name="MAILER_PORT" value="1025"/>
+        <env name="MAILER_USERNAME" value="test@example.com"/>
+        <env name="MAILER_PASSWORD" value="start1234"/>
+        <env name="MAILER_ENCRYPTION" value="tls"/>
+        <env name="MAILER_SMTP_AUTH" value="true"/>
+        <env name="MAILER_FROM" value="jinya@example.com"/>
+        <env name="JINYA_API_KEY_EXPIRY" value="315360000"/>
+        <env name="JINYA_UPDATE_SERVER" value="https://releases.jinya.de/cms"/>
+        <env name="INSTALLED_VERSION" value="phpunit"/>
     </php>
 </phpunit>
