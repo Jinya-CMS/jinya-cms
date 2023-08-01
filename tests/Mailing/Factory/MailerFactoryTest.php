@@ -13,7 +13,7 @@ class MailerFactoryTest extends TestCase
         $mailer = MailerFactory::getMailer();
         self::assertNotNull($mailer);
         if (getenv('EXECUTE_IN') === 'ci') {
-            self::assertEquals('127.0.0.1', $mailer->Host);
+            self::assertEquals('mailer', $mailer->Host);
         } else {
             self::assertEquals('jinya-mailhog', $mailer->Host);
         }
