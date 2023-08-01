@@ -72,7 +72,6 @@
         path: coverage.cobertura.xml
 
 stages:
-  - lint
   - test
   - build
   - deploy
@@ -84,9 +83,7 @@ services:
 phpstan:
   extends:
     - .install-dependencies
-  stage: lint
-  services:
-    - docker:dind
+  stage: test
   script:
     - ./vendor/bin/phpstan --no-progress analyze ./src ./app ./cli ./public --memory-limit 1G
 
@@ -105,6 +102,8 @@ phpunit-mysql:
         MYSQL_ROOT_PASSWORD: "jinya"
         MYSQL_USER: "jinya"
   stage: test
+  dependencies:
+    - phpstan
 
 phpunit-mariadb:
   extends:
@@ -121,6 +120,8 @@ phpunit-mariadb:
         MYSQL_ROOT_PASSWORD: "jinya"
         MYSQL_USER: "jinya"
   stage: test
+  dependencies:
+    - phpunit-mysql
 
 phpunit-percona:
   extends:
@@ -137,6 +138,8 @@ phpunit-percona:
         MYSQL_ROOT_PASSWORD: "jinya"
         MYSQL_USER: "jinya"
   stage: test
+  dependencies:
+    - phpunit-mariadb
 
 deploy-tag-package:
   extends:
