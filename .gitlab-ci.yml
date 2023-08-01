@@ -39,11 +39,11 @@
     - docker push "jinyacms/jinya-cms:latest"
 
 stages:
+  - deploy-pages
   - lint
   - test
   - deploy-package
   - deploy-docker
-  - deploy-pages
 
 services:
   - name: quay.imanuel.dev/dockerhub/mailhog---mailhog:latest
@@ -200,11 +200,6 @@ deploy-tag-package:
     PACKAGE_VERSION: $CI_COMMIT_TAG
   rules:
     - if: $CI_COMMIT_TAG
-  needs:
-    - job: phpunit-mysql
-    - job: phpunit-mariadb
-    - job: phpunit-percona
-    - job: phpstan
 
 deploy-tag-image:
   stage: deploy-docker
@@ -216,11 +211,6 @@ deploy-tag-image:
     - if: $CI_COMMIT_TAG
       exists:
         - Dockerfile
-  needs:
-    - job: phpunit-mysql
-    - job: phpunit-mariadb
-    - job: phpunit-percona
-    - job: phpstan
 
 deploy-main-package:
   extends:
@@ -231,11 +221,6 @@ deploy-main-package:
     PACKAGE_VERSION: 26.0.${CI_PIPELINE_IID}-unstable
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
-  needs:
-    - job: phpunit-mysql
-    - job: phpunit-mariadb
-    - job: phpunit-percona
-    - job: phpstan
 
 deploy-main-image:
   stage: deploy-docker
@@ -247,11 +232,6 @@ deploy-main-image:
     - if: $CI_COMMIT_BRANCH == "main"
       exists:
         - Dockerfile
-  needs:
-    - job: phpunit-mysql
-    - job: phpunit-mariadb
-    - job: phpunit-percona
-    - job: phpstan
 
 pages:
   extends:
@@ -266,5 +246,3 @@ pages:
   artifacts:
     paths:
       - public
-  rules:
-    - if: $CI_COMMIT_TAG

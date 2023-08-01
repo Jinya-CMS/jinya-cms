@@ -152,3 +152,4 @@ $RECYCLE.BIN/
 /composer_2.phar
 /.phpdoc/
 !/build/docs/
+installed.lock
