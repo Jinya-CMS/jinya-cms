@@ -8,6 +8,7 @@
     - php /usr/local/bin/composer.phar install
 
 .build-package:
+  stage: deploy-package
   script:
     - apk add go
     - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
@@ -19,6 +20,7 @@
       - jinya-cms.zip
 
 .build-image:
+  stage: deploy-docker
   image:
     name: quay.imanuel.dev/dockerhub/library---docker:stable
     pull_policy: always
@@ -46,8 +48,11 @@ stages:
   - deploy-docker
 
 services:
-  - name: quay.imanuel.dev/dockerhub/mailhog---mailhog:latest
+  - name: quay.imanuel.dev/dockerhub/axllent---mailpit:latest
     alias: mailer
+    variables:
+      MP_SMTP_AUTH_ACCEPT_ANY: "true"
+      MP_SMTP_AUTH_ALLOW_INSECURE: "true"
 
 phpstan:
   extends:
@@ -56,7 +61,10 @@ phpstan:
   script:
     - ./vendor/bin/phpstan --no-progress analyze ./src ./app ./cli ./public --memory-limit 1G
 
-phpunit-mysql:
+phpunit:
+  stage: test
+  extends:
+    - .install-dependencies
   variables:
     EXECUTE_IN: "ci"
     APP_ENV: "dev"
@@ -64,7 +72,6 @@ phpunit-mysql:
     MYSQL_PASSWORD: "jinya"
     MYSQL_USER: "jinya"
     MYSQL_DATABASE: "jinya"
-    MYSQL_HOST: "mysql"
     MYSQL_PORT: "3306"
     MYSQL_CHARSET: "utf8mb4"
     MAILER_HOST: "mailer"
@@ -77,13 +84,6 @@ phpunit-mysql:
     JINYA_API_KEY_EXPIRY: "315360000"
     JINYA_UPDATE_SERVER: "https://releases.jinya.de/cms"
     INSTALLED_VERSION: "phpunit"
-  extends:
-    - .install-dependencies
-  services:
-    - name: quay.imanuel.dev/dockerhub/mailhog---mailhog:latest
-      alias: mailer
-    - name: quay.imanuel.dev/dockerhub/library---mysql:8
-      alias: mysql
   script:
     - sleep 60
     - ./vendor/bin/phpunit --no-progress --log-junit report.xml --configuration phpunit.ci.xml --coverage-cobertura=coverage.cobertura.xml
@@ -97,112 +97,37 @@ phpunit-mysql:
       coverage_report:
         coverage_format: cobertura
         path: coverage.cobertura.xml
-  stage: test
   needs:
     - phpstan
-
-phpunit-mariadb:
-  variables:
-    EXECUTE_IN: "ci"
-    APP_ENV: "dev"
-    MYSQL_RANDOM_ROOT_PASSWORD: "true"
-    MYSQL_PASSWORD: "jinya"
-    MYSQL_USER: "jinya"
-    MYSQL_DATABASE: "jinya"
-    MYSQL_HOST: "mariadb"
-    MYSQL_PORT: "3306"
-    MYSQL_CHARSET: "utf8mb4"
-    MAILER_HOST: "mailer"
-    MAILER_PORT: "1025"
-    MAILER_USERNAME: "test@example.com"
-    MAILER_PASSWORD: "start1234"
-    MAILER_ENCRYPTION: "tls"
-    MAILER_SMTP_AUTH: "true"
-    MAILER_FROM: "jinya@example.com"
-    JINYA_API_KEY_EXPIRY: "315360000"
-    JINYA_UPDATE_SERVER: "https://releases.jinya.de/cms"
-    INSTALLED_VERSION: "phpunit"
-  extends:
-    - .install-dependencies
   services:
-    - name: quay.imanuel.dev/dockerhub/mailhog---mailhog:latest
-      alias: mailer
+    - name: quay.imanuel.dev/dockerhub/library---mysql:8.0
+      alias: mysql-8-0
+    - name: quay.imanuel.dev/dockerhub/library---mysql:8.1
+      alias: mysql-8-1
     - name: quay.imanuel.dev/dockerhub/library---mariadb:10
-      alias: mariadb
-  script:
-    - sleep 60
-    - ./vendor/bin/phpunit --no-progress --log-junit report.xml --configuration phpunit.ci.xml --coverage-cobertura=coverage.cobertura.xml
-  artifacts:
-    when: always
-    paths:
-      - report.xml
-    reports:
-      junit:
-        - report.xml
-      coverage_report:
-        coverage_format: cobertura
-        path: coverage.cobertura.xml
-  stage: test
-  needs:
-    - phpstan
-
-phpunit-percona:
-  variables:
-    EXECUTE_IN: "ci"
-    APP_ENV: "dev"
-    MYSQL_RANDOM_ROOT_PASSWORD: "true"
-    MYSQL_PASSWORD: "jinya"
-    MYSQL_USER: "jinya"
-    MYSQL_DATABASE: "jinya"
-    MYSQL_HOST: "percona"
-    MYSQL_PORT: "3306"
-    MYSQL_CHARSET: "utf8mb4"
-    MAILER_HOST: "mailer"
-    MAILER_PORT: "1025"
-    MAILER_USERNAME: "test@example.com"
-    MAILER_PASSWORD: "start1234"
-    MAILER_ENCRYPTION: "tls"
-    MAILER_SMTP_AUTH: "true"
-    MAILER_FROM: "jinya@example.com"
-    JINYA_API_KEY_EXPIRY: "315360000"
-    JINYA_UPDATE_SERVER: "https://releases.jinya.de/cms"
-    INSTALLED_VERSION: "phpunit"
-  extends:
-    - .install-dependencies
-  services:
-    - name: quay.imanuel.dev/dockerhub/mailhog---mailhog:latest
-      alias: mailer
+      alias: mariadb-10
+    - name: quay.imanuel.dev/dockerhub/library---mariadb:11
+      alias: mariadb-11
     - name: quay.imanuel.dev/dockerhub/percona---percona-server:8.0
-      alias: percona
-  script:
-    - sleep 60
-    - ./vendor/bin/phpunit --no-progress --log-junit report.xml --configuration phpunit.ci.xml --coverage-cobertura=coverage.cobertura.xml
-  artifacts:
-    when: always
-    paths:
-      - report.xml
-    reports:
-      junit:
-        - report.xml
-      coverage_report:
-        coverage_format: cobertura
-        path: coverage.cobertura.xml
-  stage: test
-  needs:
-    - phpstan
+      alias: percona-8-0
+  parallel:
+    matrix:
+      - MYSQL_HOST: "mysql-8-0"
+      - MYSQL_HOST: "mysql-8-1"
+      - MYSQL_HOST: "mariadb-10"
+      - MYSQL_HOST: "mariadb-11"
+      - MYSQL_HOST: "percona-8-0"
 
 deploy-tag-package:
   extends:
     - .install-dependencies
     - .build-package
-  stage: deploy-package
   variables:
     PACKAGE_VERSION: $CI_COMMIT_TAG
   rules:
     - if: $CI_COMMIT_TAG
 
 deploy-tag-image:
-  stage: deploy-docker
   extends:
     - .build-image
   variables:
@@ -216,14 +141,12 @@ deploy-main-package:
   extends:
     - .install-dependencies
     - .build-package
-  stage: deploy-package
   variables:
     PACKAGE_VERSION: 26.0.${CI_PIPELINE_IID}-unstable
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
 
 deploy-main-image:
-  stage: deploy-docker
   extends:
     - .build-image
   variables:

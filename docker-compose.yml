@@ -6,7 +6,7 @@ volumes:
 
 services:
   jinya-mysql-database:
-    image: library/mariadb:10
+    image: quay.imanuel.dev/dockerhub/library---mariadb:11
     environment:
       MYSQL_DATABASE: jinya
       MYSQL_PASSWORD: jinya
@@ -15,7 +15,7 @@ services:
     ports:
       - 3336:3306
   jinya-mysql-additional-database:
-    image: library/mariadb:10
+    image: quay.imanuel.dev/dockerhub/library---mariadb:11
     environment:
       MYSQL_DATABASE: jinya
       MYSQL_PASSWORD: jinya
@@ -24,7 +24,7 @@ services:
     ports:
       - 3356:3306
   jinya-mysql-test-database:
-    image: library/mariadb:10
+    image: quay.imanuel.dev/dockerhub/library---mariadb:11
     environment:
       MYSQL_DATABASE: jinya
       MYSQL_PASSWORD: jinya
@@ -32,17 +32,14 @@ services:
       MYSQL_USER: jinya
     ports:
       - 3346:3306
-  jinya-mailhog:
-    image: mailhog/mailhog
+  jinya-mailer:
+    image: quay.imanuel.dev/dockerhub/axllent---mailpit:latest
+    environment:
+      MP_SMTP_AUTH_ACCEPT_ANY: "true"
+      MP_SMTP_AUTH_ALLOW_INSECURE: "true"
     ports:
       - 8525:8025
       - 1525:1025
-  jinya-webgrind:
-    image: jokkedk/webgrind:latest
-    ports:
-      - 8088:80
-    volumes:
-      - ./profile:/tmp
   jinya-backend:
     build:
       context: .
@@ -52,6 +49,6 @@ services:
     volumes:
       - .:/var/www/html
     links:
-      - jinya-mailhog
+      - jinya-mailer
       - jinya-mysql-database
       - jinya-mysql-test-database

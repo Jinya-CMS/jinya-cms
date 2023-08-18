@@ -42,7 +42,7 @@
         <env name="MYSQL_HOST" value="jinya-mysql-test-database"/>
         <env name="MYSQL_PORT" value="3306"/>
         <env name="MYSQL_CHARSET" value="utf8mb4"/>
-        <env name="MAILER_HOST" value="jinya-mailhog"/>
+        <env name="MAILER_HOST" value="jinya-mailer"/>
         <env name="MAILER_PORT" value="1025"/>
         <env name="MAILER_USERNAME" value="test@example.com"/>
         <env name="MAILER_PASSWORD" value="start1234"/>
