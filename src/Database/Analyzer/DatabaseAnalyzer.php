@@ -6,6 +6,7 @@ use App\Database\Utils\LoadableEntity;
 use Error;
 use JetBrains\PhpStorm\ArrayShape;
 use LogicException;
+use PDOException;
 
 /**
  * This class analyzes the database and allows to retrieve several database information
@@ -73,11 +74,15 @@ class DatabaseAnalyzer
             VariablesType::Global => 'GLOBAL',
             VariablesType::Local => 'LOCAL',
             VariablesType::Session => 'SESSION',
-
         };
-        $variables = LoadableEntity::executeSqlString("SHOW $stringType VARIABLES");
-        if (!is_array($variables)) {
-            throw new LogicException('Query must return array');
+
+        try {
+            $variables = LoadableEntity::executeSqlString("SHOW $stringType VARIABLES");
+            if (!is_array($variables)) {
+                throw new LogicException('Query must return array');
+            }
+        } catch (PDOException) {
+            $variables = [];
         }
 
         $returnVal = [];

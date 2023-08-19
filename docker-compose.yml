@@ -52,3 +52,16 @@ services:
       - jinya-mailer
       - jinya-mysql-database
       - jinya-mysql-test-database
+      - jinya-tidb
+
+  jinya-tidb:
+    image: quay.imanuel.dev/dockerhub/pingcap---tidb:v7.3.0
+    ports:
+      - "4000:4000"
+      - "10080:10080"
+    command:
+      - --store=unistore
+      - --path=""
+      - --log-file=/logs/tidb.log
+      - --advertise-address=jinya-tidb
+    restart: on-failure
