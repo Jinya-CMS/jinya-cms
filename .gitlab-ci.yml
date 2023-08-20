@@ -5,7 +5,7 @@
     name: harbor.ulbricht.casa/jinya/jinya-cms-php-base-test-image:latest
     pull_policy: always
   before_script:
-    - php /usr/local/bin/composer.phar install
+    - composer install
 
 .build-package:
   stage: deploy-package
@@ -22,10 +22,8 @@
 .build-image:
   stage: deploy-docker
   image:
-    name: harbor.ulbricht.casa/proxy/library/docker:stable
+    name: harbor.ulbricht.casa/proxy/library/docker:dind
     pull_policy: always
-  services:
-    - docker:dind
   before_script:
     - docker login -u "$HARBOR_USER" -p "$HARBOR_PASSWORD" harbor.ulbricht.casa
     - docker login -u "$DOCKERHUB_USER" -p "$DOCKERHUB_PASSWORD"

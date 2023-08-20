@@ -2,7 +2,7 @@ FROM harbor.ulbricht.casa/proxy/library/php:8.2-apache
 
 EXPOSE 80
 
-COPY --from=quay.imanuel.dev/dockerhub/mlocati---php-extension-installer:latest /usr/bin/install-php-extensions /usr/local/bin/install-php-extensions
+COPY --from=harbor.ulbricht.cloud/proxy/mlocati/php-extension-installer:latest /usr/bin/install-php-extensions /usr/local/bin/install-php-extensions
 
 COPY ./docker/conf/memory-limit.ini /usr/local/etc/php/conf.d/memory-limit.ini
 COPY ./docker/conf/opcache.ini /usr/local/etc/php/conf.d/opcache-recommended.ini
