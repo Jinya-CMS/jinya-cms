@@ -9,8 +9,9 @@
 
 .build-package:
   stage: deploy-package
+  before_script:
+    - apk add zip go
   script:
-    - apk add go
     - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
     - zip -r ./jinya-cms.zip ./*
     - go run ./main.go
