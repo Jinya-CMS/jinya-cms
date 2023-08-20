@@ -2,7 +2,7 @@
   variables:
     PHP_MEMORY_LIMIT: "2048M"
   image:
-    name: quay.imanuel.dev/jinya/jinya-cms-php-base-test-image:latest
+    name: harbor.ulbricht.casa/jinya/jinya-cms-php-base-test-image:latest
     pull_policy: always
   before_script:
     - php /usr/local/bin/composer.phar install
@@ -22,21 +22,21 @@
 .build-image:
   stage: deploy-docker
   image:
-    name: quay.imanuel.dev/dockerhub/library---docker:stable
+    name: harbor.ulbricht.casa/proxy/library/docker:stable
     pull_policy: always
   services:
     - docker:dind
   before_script:
-    - docker login -u "$QUAY_USER" -p "$QUAY_PASSWORD" quay.imanuel.dev
+    - docker login -u "$HARBOR_USER" -p "$HARBOR_PASSWORD" harbor.ulbricht.casa
     - docker login -u "$DOCKERHUB_USER" -p "$DOCKERHUB_PASSWORD"
   script:
     - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
-    - docker build --pull -t "quay.imanuel.dev/jinya/jinya-cms:${PACKAGE_VERSION}" -f ./Dockerfile .
-    - docker tag "quay.imanuel.dev/jinya/jinya-cms:${PACKAGE_VERSION}" "quay.imanuel.dev/jinya/jinya-cms:latest"
-    - docker tag "quay.imanuel.dev/jinya/jinya-cms:${PACKAGE_VERSION}" "jinyacms/jinya-cms:${PACKAGE_VERSION}"
-    - docker tag "quay.imanuel.dev/jinya/jinya-cms:${PACKAGE_VERSION}" jinyacms/jinya-cms:latest
-    - docker push "quay.imanuel.dev/jinya/jinya-cms:${PACKAGE_VERSION}"
-    - docker push "quay.imanuel.dev/jinya/jinya-cms:latest"
+    - docker build --pull -t "harbor.ulbricht.casa/jinya/jinya-cms:${PACKAGE_VERSION}" -f ./Dockerfile .
+    - docker tag "harbor.ulbricht.casa/jinya/jinya-cms:${PACKAGE_VERSION}" "harbor.ulbricht.casa/jinya/jinya-cms:latest"
+    - docker tag "harbor.ulbricht.casa/jinya/jinya-cms:${PACKAGE_VERSION}" "jinyacms/jinya-cms:${PACKAGE_VERSION}"
+    - docker tag "harbor.ulbricht.casa/jinya/jinya-cms:${PACKAGE_VERSION}" jinyacms/jinya-cms:latest
+    - docker push "harbor.ulbricht.casa/jinya/jinya-cms:${PACKAGE_VERSION}"
+    - docker push "harbor.ulbricht.casa/jinya/jinya-cms:latest"
     - docker push "jinyacms/jinya-cms:${PACKAGE_VERSION}"
     - docker push "jinyacms/jinya-cms:latest"
 
@@ -48,7 +48,7 @@ stages:
   - deploy-docker
 
 services:
-  - name: quay.imanuel.dev/dockerhub/axllent---mailpit:latest
+  - name: harbor.ulbricht.casa/proxy/axllent/mailpit:latest
     alias: mailer
     variables:
       MP_SMTP_AUTH_ACCEPT_ANY: "true"
@@ -100,17 +100,17 @@ phpunit:
   needs:
     - phpstan
   services:
-    - name: quay.imanuel.dev/dockerhub/library---mysql:8.0
+    - name: harbor.ulbricht.casa/proxy/library/mysql:8.0
       alias: mysql-8-0
-    - name: quay.imanuel.dev/dockerhub/library---mysql:8.1
+    - name: harbor.ulbricht.casa/proxy/library/mysql:8.1
       alias: mysql-8-1
-    - name: quay.imanuel.dev/dockerhub/library---mariadb:10
+    - name: harbor.ulbricht.casa/proxy/library/mariadb:10
       alias: mariadb-10
-    - name: quay.imanuel.dev/dockerhub/library---mariadb:11
+    - name: harbor.ulbricht.casa/proxy/library/mariadb:11
       alias: mariadb-11
-    - name: quay.imanuel.dev/dockerhub/percona---percona-server:8.0
+    - name: harbor.ulbricht.casa/proxy/percona/percona-server:8.0
       alias: percona-8-0
-    - name: quay.imanuel.dev/dockerhub/pingcap---tidb:v7.3.0
+    - name: harbor.ulbricht.casa/proxy/pingcap/tidb:v7.3.0
       alias: tidb-7-3
       command:
         - --store=unistore

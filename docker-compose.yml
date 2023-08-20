@@ -6,7 +6,7 @@ volumes:
 
 services:
   jinya-mysql-database:
-    image: quay.imanuel.dev/dockerhub/library---mariadb:11
+    image: harbor.ulbricht.casa/proxy/library/mariadb:11
     environment:
       MYSQL_DATABASE: jinya
       MYSQL_PASSWORD: jinya
@@ -15,7 +15,7 @@ services:
     ports:
       - 3336:3306
   jinya-mysql-additional-database:
-    image: quay.imanuel.dev/dockerhub/library---mariadb:11
+    image: harbor.ulbricht.casa/proxy/library/mariadb:11
     environment:
       MYSQL_DATABASE: jinya
       MYSQL_PASSWORD: jinya
@@ -24,7 +24,7 @@ services:
     ports:
       - 3356:3306
   jinya-mysql-test-database:
-    image: quay.imanuel.dev/dockerhub/library---mariadb:11
+    image: harbor.ulbricht.casa/proxy/library/mariadb:11
     environment:
       MYSQL_DATABASE: jinya
       MYSQL_PASSWORD: jinya
@@ -33,7 +33,7 @@ services:
     ports:
       - 3346:3306
   jinya-mailer:
-    image: quay.imanuel.dev/dockerhub/axllent---mailpit:latest
+    image: harbor.ulbricht.casa/proxy/axllent/mailpit:latest
     environment:
       MP_SMTP_AUTH_ACCEPT_ANY: "true"
       MP_SMTP_AUTH_ALLOW_INSECURE: "true"
@@ -55,7 +55,7 @@ services:
       - jinya-tidb
 
   jinya-tidb:
-    image: quay.imanuel.dev/dockerhub/pingcap---tidb:v7.3.0
+    image: harbor.ulbricht.casa/proxy/pingcap/tidb:v7.3.0
     ports:
       - "4000:4000"
       - "10080:10080"

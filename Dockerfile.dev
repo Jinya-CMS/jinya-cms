@@ -1,4 +1,4 @@
-FROM quay.imanuel.dev/dockerhub/library---php:8.2-apache
+FROM harbor.ulbricht.casa/proxy/library/php:8.2-apache
 
 EXPOSE 80
 
