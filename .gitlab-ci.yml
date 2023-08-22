@@ -23,21 +23,20 @@
 .build-image:
   stage: deploy-docker
   image:
-    name: harbor.ulbricht.casa/proxy/library/docker:dind
+    name: gcr.io/kaniko-project/executor:debug
     pull_policy: always
+    entrypoint: [""]
   before_script:
-    - docker login -u "$HARBOR_USER" -p "$HARBOR_PASSWORD" harbor.ulbricht.casa
-    - docker login -u "$DOCKERHUB_USER" -p "$DOCKERHUB_PASSWORD"
+    - echo $KANIKO_DOCKERHUB_AND_HARBOR > /kaniko/.docker/config.json
   script:
     - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
-    - docker build --pull -t "harbor.ulbricht.casa/jinya/jinya-cms:${PACKAGE_VERSION}" -f ./Dockerfile .
-    - docker tag "harbor.ulbricht.casa/jinya/jinya-cms:${PACKAGE_VERSION}" "harbor.ulbricht.casa/jinya/jinya-cms:latest"
-    - docker tag "harbor.ulbricht.casa/jinya/jinya-cms:${PACKAGE_VERSION}" "jinyacms/jinya-cms:${PACKAGE_VERSION}"
-    - docker tag "harbor.ulbricht.casa/jinya/jinya-cms:${PACKAGE_VERSION}" jinyacms/jinya-cms:latest
-    - docker push "harbor.ulbricht.casa/jinya/jinya-cms:${PACKAGE_VERSION}"
-    - docker push "harbor.ulbricht.casa/jinya/jinya-cms:latest"
-    - docker push "jinyacms/jinya-cms:${PACKAGE_VERSION}"
-    - docker push "jinyacms/jinya-cms:latest"
+    - /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination "harbor.ulbricht.casa/jinya/jinya-cms:${PACKAGE_VERSION}"
+      --destination "harbor.ulbricht.casa/jinya/jinya-cms:latest"
+      --destination "jinyacms/jinya-cms:${PACKAGE_VERSION}"
+      --destination "jinyacms/jinya-cms:latest"
 
 stages:
   - deploy-pages
