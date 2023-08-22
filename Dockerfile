@@ -12,7 +12,7 @@ COPY --chown=www-data ./ /var/www/jinya/
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
-RUN install-php-extensions pdo pdo_mysql zip opcache intl curl xdebug pcov apcu imagick
+RUN install-php-extensions pdo pdo_mysql zip opcache intl curl apcu imagick
 
 RUN a2enmod rewrite
 RUN a2enmod headers
