@@ -38,8 +38,8 @@
 }
 
 .cosmo-button,
-.cosmo-input[type=file]::file-selector-button,
-.cosmo-input[type=file]::-webkit-file-upload-button {
+.cosmo-input[type='file']::file-selector-button,
+.cosmo-input[type='file']::-webkit-file-upload-button {
     cursor: pointer;
     font-family: var(--font-family);
     font-size: 16px;
@@ -54,8 +54,8 @@
 }
 
 .cosmo-button:disabled,
-.cosmo-input[type=file]:disabled::file-selector-button,
-.cosmo-input[type=file]:disabled::-webkit-file-upload-button {
+.cosmo-input[type='file']:disabled::file-selector-button,
+.cosmo-input[type='file']:disabled::-webkit-file-upload-button {
     cursor: not-allowed;
     border: 1px solid var(--control-border-color);
     background: var(--white);
@@ -69,8 +69,8 @@
 }
 
 .cosmo-button:hover,
-.cosmo-input[type=file]:hover::file-selector-button,
-.cosmo-input[type=file]:hover::-webkit-file-upload-button {
+.cosmo-input[type='file']:hover::file-selector-button,
+.cosmo-input[type='file']:hover::-webkit-file-upload-button {
     background: var(--primary-color);
     color: var(--white);
     outline: none;
@@ -78,8 +78,8 @@
 }
 
 .cosmo-button:disabled:hover,
-.cosmo-input[type=file]:disabled:hover::file-selector-button,
-.cosmo-input[type=file]:disabled:hover::-webkit-file-upload-button {
+.cosmo-input[type='file']:disabled:hover::file-selector-button,
+.cosmo-input[type='file']:disabled:hover::-webkit-file-upload-button {
     background: var(--white);
     color: var(--control-border-color);
     outline: none;
@@ -87,8 +87,8 @@
 }
 
 .cosmo-button:focus,
-.cosmo-input[type=file]:focus::file-selector-button,
-.cosmo-input[type=file]:focus::-webkit-file-upload-button {
+.cosmo-input[type='file']:focus::file-selector-button,
+.cosmo-input[type='file']:focus::-webkit-file-upload-button {
     border-color: var(--primary-color);
     outline: none;
     box-shadow: none;
@@ -140,12 +140,12 @@
     color: var(--white);
 }
 
-.cosmo-input[type=file] {
+.cosmo-input[type='file'] {
     padding: 0;
 }
 
-.cosmo-input[type=file]::file-selector-button,
-.cosmo-input[type=file]::-webkit-file-upload-button {
+.cosmo-input[type='file']::file-selector-button,
+.cosmo-input[type='file']::-webkit-file-upload-button {
     border-top: 0;
     border-left: 0;
     border-bottom: 0;
@@ -230,7 +230,7 @@
 }
 
 .cosmo-checkbox:checked + label::after {
-    content: "";
+    content: '';
     position: absolute;
     display: block;
     height: 2px;
@@ -257,16 +257,10 @@
     appearance: none;
     color: var(--black);
     position: relative;
-    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSI2IiB2aWV3Qm94PSIwIDAgMC4wMDAzMiA2ZS0wNSIgdmVyc2lvbj0iMS4xIj4KICAgIDxnPgogICAgICAgIDxwYXRoIHN0eWxlPSJvcGFjaXR5OjE7ZmlsbDojMDAwMDAwO2ZpbGwtb3BhY2l0eToxO3N0cm9rZS13aWR0aDowLjI2NDk5OTtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIKICAgICAgICAgICAgICBkPSJtIDQuODg5MDY2MSw0LjIzNDA1NTQgLTIuNDQ0NTMzLDFlLTcgTCA3Ljg1NTk1NjZlLTgsNC4yMzQwNTU0IDEuMjIyMjY2NSwyLjExNzAyNzcgMi40NDQ1MzMxLDAgMy42NjY3OTk3LDIuMTE3MDI3NiBaIgogICAgICAgICAgICAgIHRyYW5zZm9ybT0ibWF0cml4KDIuNDU0NDU2NWUtNSwwLDAsLTEuNDE3MDgxMWUtNSw5Ljk5OTk5OThlLTUsNi4wMDAwMDAxZS01KSIvPgogICAgPC9nPgo8L3N2Zz4=');
+    background-image: var(--dropdown-background);
     background-repeat: no-repeat;
     background-position-x: right;
     background-position-y: center;
-}
-
-@media screen and (prefers-color-scheme: dark) {
-    .cosmo-select {
-        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSI2IiB2aWV3Qm94PSIwIDAgMC4wMDAzMiA2ZS0wNSIgdmVyc2lvbj0iMS4xIj4KICAgIDxnPgogICAgICAgIDxwYXRoIHN0eWxlPSJvcGFjaXR5OjE7ZmlsbDojY2NjY2NjO2ZpbGwtb3BhY2l0eToxO3N0cm9rZS13aWR0aDowLjI2NDk5OTtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIKICAgICAgICAgICAgICBkPSJtIDQuODg5MDY2MSw0LjIzNDA1NTQgLTIuNDQ0NTMzLDFlLTcgTCA3Ljg1NTk1NjZlLTgsNC4yMzQwNTU0IDEuMjIyMjY2NSwyLjExNzAyNzcgMi40NDQ1MzMxLDAgMy42NjY3OTk3LDIuMTE3MDI3NiBaIgogICAgICAgICAgICAgIHRyYW5zZm9ybT0ibWF0cml4KDIuNDU0NDU2NWUtNSwwLDAsLTEuNDE3MDgxMWUtNSw5Ljk5OTk5OThlLTUsNi4wMDAwMDAxZS01KSIvPgogICAgPC9nPgo8L3N2Zz4=');
-    }
 }
 
 .cosmo-select:focus {
@@ -282,4 +276,106 @@
     text-transform: uppercase;
     grid-column: span 2;
     margin-top: 10px;
+}
+
+.cosmo-input[type='range'] {
+    --range-border-color: #cccccc;
+    --range-thumb-color: #cccccc;
+    padding: 0;
+    border: none;
+    margin: 0;
+    box-sizing: border-box;
+    height: auto;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    min-width: 240px;
+    background: transparent;
+}
+
+.cosmo-input[type='range']::-moz-range-track {
+    min-width: 100%;
+    height: 4px;
+    background-color: var(--range-border-color);
+}
+
+.cosmo-input[type='range']::-webkit-slider-runnable-track {
+    min-width: 100%;
+    height: 4px;
+    background-color: var(--range-border-color);
+}
+
+.cosmo-input[type='range']::-moz-range-thumb {
+    -webkit-appearance: none;
+    width: 6px;
+    height: 24px;
+    border: 1px solid var(--primary-color);
+    border-radius: 0;
+    background-color: var(--range-thumb-color);
+    cursor: pointer;
+}
+
+.cosmo-input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 6px;
+    height: 24px;
+    border: 1px solid var(--primary-color);
+    border-radius: 0;
+    background-color: var(--range-thumb-color);
+    cursor: pointer;
+    margin-top: -10px;
+}
+
+.cosmo-input[type='range']:hover,
+.cosmo-input[type='range']:focus,
+.cosmo-input[type='range']:active {
+    --range-thumb-color: var(--primary-color);
+}
+
+.cosmo-switch__group {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    grid-column: 2/3;
+}
+
+.cosmo-switch {
+    appearance: none;
+    margin: 0;
+}
+
+.cosmo-switch + label {
+    display: flex;
+    position: relative;
+}
+
+.cosmo-switch + label::after {
+    content: '';
+    position: absolute;
+    display: inline-block;
+    height: 14px;
+    width: 14px;
+    background: var(--primary-color);
+    margin-top: 2px;
+    margin-left: 2px;
+    transition: all 0.1s;
+}
+
+.cosmo-switch + label::before {
+    content: '';
+    display: inline-block;
+    transition: all 0.1s;
+    border: 1px solid var(--control-border-color);
+    height: 16px;
+    width: 32px;
+    margin-right: 8px;
+}
+
+.cosmo-switch:checked + label::after {
+    margin-left: 18px;
+    background: var(--white);
+}
+
+.cosmo-switch:checked + label::before {
+    background: var(--primary-color);
 }

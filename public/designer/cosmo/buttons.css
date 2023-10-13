@@ -13,7 +13,6 @@
     align-items: center;
 }
 
-
 .cosmo-circular-button:disabled {
     cursor: not-allowed;
     border: 1px solid var(--control-border-color);

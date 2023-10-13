@@ -30,7 +30,11 @@ hr {
     display: grid;
     grid-template-columns: [left-column] 164px [content] 1fr [profilepicture] 64px [right-column] 164px;
     grid-row: top-menu;
-    background: linear-gradient(to top, var(--gradient-bottom-color) 0%, var(--gradient-top-color) 100%);
+    background: linear-gradient(
+            to top,
+            var(--gradient-bottom-color) 0%,
+            var(--gradient-top-color) 100%
+    );
 }
 
 .cosmo-menu-bar {

@@ -18,7 +18,12 @@
 
 .cosmo-modal {
     border: 1px solid var(--primary-color);
-    background: linear-gradient(to top, var(--white) 0%, var(--white) 80%, var(--gradient-top-color) 100%);
+    background: linear-gradient(
+            to top,
+            var(--white) 0%,
+            var(--white) 80%,
+            var(--gradient-top-color) 100%
+    );
     padding: 24px 32px;
     min-width: 274px;
     box-sizing: border-box;
