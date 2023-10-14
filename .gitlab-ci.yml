@@ -46,7 +46,7 @@ stages:
   - deploy-docker
 
 services:
-  - name: harbor.ulbricht.casa/proxy/axllent/mailpit:latest
+  - name: axllent/mailpit:latest
     alias: mailer
     variables:
       MP_SMTP_AUTH_ACCEPT_ANY: "true"
@@ -98,17 +98,17 @@ phpunit:
   needs:
     - phpstan
   services:
-    - name: harbor.ulbricht.casa/proxy/library/mysql:8.0
+    - name: library/mysql:8.0
       alias: mysql-8-0
-    - name: harbor.ulbricht.casa/proxy/library/mysql:8.1
+    - name: library/mysql:8.1
       alias: mysql-8-1
-    - name: harbor.ulbricht.casa/proxy/library/mariadb:10
+    - name: library/mariadb:10
       alias: mariadb-10
-    - name: harbor.ulbricht.casa/proxy/library/mariadb:11
+    - name: library/mariadb:11
       alias: mariadb-11
-    - name: harbor.ulbricht.casa/proxy/percona/percona-server:8.0
+    - name: percona/percona-server:8.0
       alias: percona-8-0
-    - name: harbor.ulbricht.casa/proxy/pingcap/tidb:v7.3.0
+    - name: pingcap/tidb:v7.3.0
       alias: tidb-7-3
       command:
         - --store=unistore
