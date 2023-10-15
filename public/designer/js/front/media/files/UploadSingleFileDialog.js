@@ -72,7 +72,7 @@ export default class UploadDialog {
         await upload(`/api/media/file/${createdFile.id}/content/0`, files[0]);
         await put(`/api/media/file/${createdFile.id}/content/finish`);
         const saved = await get(`/api/media/file/${createdFile.id}`);
-        this.onHide(saved);
+        await this.onHide(saved);
         container.remove();
       } catch (err) {
         if (err.status === 409) {

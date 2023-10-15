@@ -46,8 +46,11 @@
     flex-flow: row wrap;
     gap: 22px;
     height: calc(100vh - 64px - 32px - 80px - 28px - 68px - 31px - 30px);
-    grid-row: content;
     overflow-y: auto;
+    grid-column: file-list;
+    border-right: 1px solid var(--primary-color);
+    box-sizing: border-box;
+    padding-right: 16px;
 }
 
 .jinya-media-tile__img {
@@ -103,4 +106,27 @@
 .jinya-media-tile--chosen {
     width: 208px;
     height: 208px;
+}
+
+.jinya-media-view__container {
+    display: grid;
+    grid-template-columns: [file-list] 1fr 16px [details] 20%;
+    grid-row: content;
+}
+
+.jinya-media-view__details {
+    grid-column: details;
+    height: calc(100vh - 64px - 32px - 80px - 28px - 68px - 31px - 30px);
+    overflow-y: auto;
+}
+
+.jinya-media-details__title {
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: pre;
+}
+
+.jinya-media-details__image {
+    width: 100%;
+    object-fit: scale-down;
 }

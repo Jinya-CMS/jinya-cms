@@ -5,6 +5,7 @@ import localize from '../../foundation/localize.js';
 import alert from '../../foundation/ui/alert.js';
 import confirm from '../../foundation/ui/confirm.js';
 import FilesSelectedEvent from './files/FilesSelectedEvent.js';
+import MimeTypes from '../../../lib/mime/types.js';
 
 export default class FilePage extends JinyaDesignerPage {
   /**
@@ -15,7 +16,7 @@ export default class FilePage extends JinyaDesignerPage {
     this.files = [];
     this.loading = true;
     this.selectedFile = null;
-    document.addEventListener('fileUploaded', ({ file: { id, name, path } }) => {
+    document.addEventListener('fileUploaded', async ({ file: { id, name, path } }) => {
       const newTile = document.createElement('div');
       newTile.setAttribute('data-id', id.toString(10));
       newTile.setAttribute('data-title', `${id} ${name}`);
@@ -23,7 +24,21 @@ export default class FilePage extends JinyaDesignerPage {
       newTile.innerHTML = `<img class="jinya-media-tile__img" src="${path}" alt="${name}">`;
       document.querySelector('.jinya-media-tile__container').append(newTile);
       newTile.addEventListener('click', this.tileClicked(newTile));
+      this.files.push(await get(`/api/media/file/${id}`));
     });
+  }
+
+  static mapType(type) {
+    if (type.startsWith('font')) {
+      return localize({ key: 'media.files.details.types.font' });
+    }
+
+    const localizedType = localize({ key: `media.files.details.types.${type}` });
+    if (localizedType === `media.files.details.types.${type}`) {
+      return type;
+    }
+
+    return localizedType;
   }
 
   toString() {
@@ -35,11 +50,14 @@ export default class FilePage extends JinyaDesignerPage {
           </div>`;
     } else {
       view = html`
-          <div class="jinya-media-tile__container">
-              ${this.files.map((file) => html`
-                  <div data-id="${file.id}" data-title="${file.id} ${file.name}" class="jinya-media-tile">
-                      <img class="jinya-media-tile__img" src="${file.path}" alt="${file.name}">
-                  </div>`)}
+          <div class="jinya-media-view__container">
+              <div class="jinya-media-tile__container">
+                  ${this.files.map((file) => html`
+                      <div data-id="${file.id}" data-title="${file.id} ${file.name}" class="jinya-media-tile">
+                          <img class="jinya-media-tile__img" src="${file.path}" alt="${file.name}">
+                      </div>`)}
+              </div>
+              <div class="jinya-media-view__details"></div>
           </div>`;
     }
 
@@ -112,7 +130,7 @@ export default class FilePage extends JinyaDesignerPage {
       document.getElementById('edit-file').addEventListener('click', async () => {
         const { default: EditDialog } = await import('./files/EditDialog.js');
         const editDialog = new EditDialog({
-          onHide: ({ id, name, path }) => {
+          onHide: async ({ id, name, path }) => {
             const selectedTile = document.querySelector(`[data-id="${id}"].jinya-media-tile`);
             selectedTile.setAttribute('data-title', `${id} ${name}`);
             const tileImage = document.querySelector(`[data-id="${id}"].jinya-media-tile .jinya-media-tile__img`);
@@ -120,6 +138,13 @@ export default class FilePage extends JinyaDesignerPage {
             tileImage.src = path;
             this.selectedFile.name = name;
             this.selectedFile.path = path;
+
+            const changedFile = await get(`/api/media/file/${id}`);
+            this.selectedFile.type = changedFile.type;
+            this.selectedFile.created = changedFile.created;
+            this.selectedFile.updated = changedFile.updated;
+
+            this.showDetails();
           },
           file: this.selectedFile,
         });
@@ -128,7 +153,7 @@ export default class FilePage extends JinyaDesignerPage {
       document.getElementById('upload-single-file').addEventListener('click', async () => {
         const { default: UploadSingleFileDialog } = await import('./files/UploadSingleFileDialog.js');
         const uploadSingleFileDialog = new UploadSingleFileDialog({
-          onHide: ({ id, name, path }) => {
+          onHide: async ({ id, name, path }) => {
             const newTile = document.createElement('div');
             newTile.setAttribute('data-id', id.toString(10));
             newTile.setAttribute('data-title', `${id} ${name}`);
@@ -136,6 +161,7 @@ export default class FilePage extends JinyaDesignerPage {
             newTile.innerHTML = `<img class="jinya-media-tile__img" src="${path}" alt="${name}">`;
             document.querySelector('.jinya-media-tile__container').append(newTile);
             newTile.addEventListener('click', this.tileClicked(newTile));
+            this.files.push(await get(`/api/media/file/${id}`));
           },
         });
         uploadSingleFileDialog.show();
@@ -162,7 +188,60 @@ export default class FilePage extends JinyaDesignerPage {
       tile.classList.add('jinya-media-tile--selected');
       document.getElementById('edit-file').removeAttribute('disabled');
       document.getElementById('delete-file').removeAttribute('disabled');
+
+      this.showDetails();
     };
+  }
+
+  showDetails() {
+    document.querySelector('.jinya-media-view__details').innerHTML = html`
+        <span class="cosmo-title">${this.selectedFile.name}</span>
+        ${() => {
+            if (this.selectedFile.type.startsWith('image')) {
+                return `<img 
+                            alt="${this.selectedFile.name}" 
+                            src="${this.selectedFile.path}" class="jinya-media-details__image">`;
+            }
+            if (this.selectedFile.type.startsWith('video')) {
+                return html`
+                    <video controls class="jinya-media-details__image">
+                        <source src="${this.selectedFile.path}" type="${this.selectedFile.type}"/>
+                    </video>
+                `;
+            }
+            if (this.selectedFile.type.startsWith('audio')) {
+                return html`
+                    <audio controls class="jinya-media-details__image">
+                        <source src="${this.selectedFile.path}" type="${this.selectedFile.type}"/>
+                    </audio>
+                `;
+            }
+
+            return '';
+        }}
+        <dl class="cosmo-key-value-list">
+            <dt class="cosmo-key-value-list__key">${localize({ key: 'media.files.details.type' })}</dt>
+            <dd class="cosmo-key-value-list__value" title="${this.selectedFile.type}">
+                ${FilePage.mapType(this.selectedFile.type)}
+            </dd>
+            <dt class="cosmo-key-value-list__key">${localize({ key: 'media.files.details.uploadedBy' })}</dt>
+            <dd class="cosmo-key-value-list__value">
+                ${this.selectedFile.created.by.artistName} <small>
+                <a href="mailto:${this.selectedFile.created.by.email}">${this.selectedFile.created.by.email}</a>
+            </small>
+            </dd>
+            <dt class="cosmo-key-value-list__key">${localize({ key: 'media.files.details.lastChangedBy' })}</dt>
+            <dd class="cosmo-key-value-list__value">
+                ${this.selectedFile.updated.by.artistName} <small>
+                <a href="mailto:${this.selectedFile.updated.by.email}">${this.selectedFile.updated.by.email}</a>
+            </small>
+            </dd>
+        </dl>
+        <a class="cosmo-button" download="${this.selectedFile.name}"
+           href="${this.selectedFile.path}.${MimeTypes[this.selectedFile.type]?.extensions[0] ?? ''}">
+            ${localize({ key: 'media.files.details.downloadFile' })}
+        </a>
+    `;
   }
 
   async displayed() {
