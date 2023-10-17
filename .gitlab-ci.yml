@@ -5,7 +5,7 @@
     name: harbor.ulbricht.casa/jinya/jinya-cms-php-base-test-image:latest
     pull_policy: always
   before_script:
-    - phive --no-progress install --trust-gpg-keys 4AA394086372C20A,51C67305FFC2E5C0,CA7C2C7A30C8E8E1274A847651C67305FFC2E5C0
+    - phive --no-progress install --trust-gpg-keys 4AA394086372C20A,D8406D0D82947747293778314AA394086372C20A,CA7C2C7A30C8E8E1274A847651C67305FFC2E5C0
     - composer install
 
 .build-package:
