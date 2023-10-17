@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phive xmlns="https://phar.io/phive">
+    <phar name="phpstan" version="^1.10.34" installed="1.10.34" location="./tools/phpstan" copy="true"/>
+    <phar name="phpunit" version="^10.4.1" installed="10.4.1" location="./tools/phpunit" copy="true"/>
+    <phar name="phpdocumentor" version="^3.4.1" installed="3.4.1" location="./tools/phpdocumentor" copy="true"/>
+</phive>

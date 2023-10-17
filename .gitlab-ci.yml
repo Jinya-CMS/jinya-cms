@@ -5,6 +5,7 @@
     name: harbor.ulbricht.casa/jinya/jinya-cms-php-base-test-image:latest
     pull_policy: always
   before_script:
+    - phive --no-progress install --trust-gpg-keys 4AA394086372C20A,51C67305FFC2E5C0
     - composer install
 
 .build-package:
@@ -57,7 +58,7 @@ phpstan:
     - .install-dependencies
   stage: lint
   script:
-    - ./vendor/bin/phpstan --no-progress analyze ./src ./app ./cli ./public --memory-limit 1G
+    - ./tools/phpstan --no-progress analyze ./src ./app ./cli ./public --memory-limit 1G
 
 phpunit:
   stage: test
@@ -84,7 +85,7 @@ phpunit:
     INSTALLED_VERSION: "phpunit"
   script:
     - sleep 60
-    - ./vendor/bin/phpunit --no-progress --log-junit report.xml --configuration phpunit.ci.xml --coverage-cobertura=coverage.cobertura.xml
+    - ./tools/phpunit --no-progress --log-junit report.xml --configuration phpunit.ci.xml --coverage-cobertura=coverage.cobertura.xml
   artifacts:
     when: always
     paths:
@@ -168,9 +169,7 @@ pages:
   stage: deploy-pages
   script:
     - rm -rf public/
-    - wget https://phpdoc.org/phpDocumentor.phar
-    - chmod +x phpDocumentor.phar
-    - ./phpDocumentor.phar
+    - ./tools/phpdocumentor
     - mv docs/ public/
   artifacts:
     paths:

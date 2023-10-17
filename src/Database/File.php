@@ -3,6 +3,8 @@
 namespace App\Database;
 
 use App\Authentication\CurrentUser;
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Utils\LoadableEntity;
 use App\Routing\Attributes\JinyaApi;
 use App\Routing\Attributes\JinyaApiField;
@@ -19,7 +21,7 @@ use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 #[JinyaApi]
 class File extends LoadableEntity
 {
-    /** @var int The ID of the creator of the file */
+    /** @var int The ID of the files creator */
     #[JinyaApiField(ignore: true)]
     public int $creatorId;
     /** @var int The ID of the artist who last touched the file */
@@ -40,6 +42,9 @@ class File extends LoadableEntity
     /** @var string The type of the file */
     #[JinyaApiField(ignore: true)]
     public string $type = '';
+    /** @var string[] The tags of the file */
+    #[JinyaApiField(ignore: false)]
+    public array $tags = [];
 
     /**
      * Finds all files matching the given keyword
@@ -118,8 +123,18 @@ class File extends LoadableEntity
             [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                 'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            ],
+            [
+                'tags',
             ]
         );
+
+        foreach ($this->tags as $tag) {
+            $tag = FileTag::findByName($tag);
+            if ($tag) {
+                self::executeStatement('INSERT INTO file_tag_file (file_id, file_tag_id) VALUES (:file_id, :tag_id)', ['file_id' => $this->id, 'tag_id' => $tag->id]);
+            }
+        }
     }
 
     /**
@@ -152,14 +167,25 @@ class File extends LoadableEntity
             [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                 'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            ],
+            [
+                'tags',
             ]
         );
+
+        self::executeStatement('DELETE FROM file_tag_file WHERE file_id = :file_id', ['file_id' => $this->id]);
+        foreach ($this->tags as $tag) {
+            $tag = FileTag::findByName($tag);
+            if ($tag) {
+                self::executeStatement('INSERT INTO file_tag_file (file_id, file_tag_id) VALUES (:file_id, :tag_id)', ['file_id' => $this->id, 'tag_id' => $tag->id]);
+            }
+        }
     }
 
     /**
      * Formats the file into an array
      *
-     * @return array<string, array<string, array<string, string|null>|string>|int|string>
+     * @return array{id: int, name: string, type: string, path: string, tags: array<array{name: string, color: string|null, emoji: string|null}>, created: array{by: array{artistName: string|null, email: string|null, profilePicture: string|null}, at: non-falsy-string}, updated: array{by: array{artistName: string|null, email: string|null, profilePicture: string|null}, at: non-falsy-string}}
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -170,6 +196,7 @@ class File extends LoadableEntity
         'name' => 'string',
         'type' => 'string',
         'path' => 'string',
+        'tags' => 'array',
         'created' => 'array',
         'updated' => 'array'
     ])] public function format(): array
@@ -182,6 +209,7 @@ class File extends LoadableEntity
             'name' => $this->name,
             'type' => $this->type,
             'path' => $this->path,
+            'tags' => array_map(static fn(FileTag $tag) => $tag->format(), iterator_to_array($this->getTags())),
             'created' => [
                 'by' => [
                     'artistName' => $creator?->artistName,
@@ -252,5 +280,35 @@ class File extends LoadableEntity
     public function getUpdatedBy(): ?Artist
     {
         return Artist::findById($this->updatedById);
+    }
+
+    /**
+     * Gets all tags for the given file
+     *
+     * @return Iterator<FileTag>
+     * @throws ForeignKeyFailedException
+     * @throws UniqueFailedException
+     * @throws InvalidQueryException
+     */
+    public function getTags(): Iterator
+    {
+        $sql = <<<'SQL'
+SELECT 
+    id, name, color, emoji 
+FROM 
+    file_tag ft
+INNER JOIN 
+    file_tag_file ftf
+ON
+    ft.id = ftf.file_tag_id
+WHERE
+    ftf.file_id = :file_id
+SQL;
+
+        try {
+            return self::getPdo()->fetchIterator($sql, new FileTag(), ['file_id' => $this->id]);
+        } catch (InvalidQueryException $exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
+        }
     }
 }

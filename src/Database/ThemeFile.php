@@ -53,7 +53,7 @@ class ThemeFile extends ThemeHelperEntity
     /**
      * Formats the theme file into an array
      *
-     * @return array<string, array<string, array<string, array<string, string|null>|string>|int|string>|string|null>
+     * @return array{'name': string, 'file': array<string, mixed>|null}
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException

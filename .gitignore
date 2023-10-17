@@ -154,3 +154,4 @@ $RECYCLE.BIN/
 !/build/docs/
 installed.lock
 tmp/*
+/tools/

@@ -5,6 +5,7 @@ namespace Jinya\Tests\Database;
 use App\Authentication\CurrentUser;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
+use App\Database\FileTag;
 use App\Database\UploadingFile;
 use App\Database\UploadingFileChunk;
 use App\Tests\DatabaseAwareTestCase;
@@ -88,6 +89,28 @@ class FileTest extends DatabaseAwareTestCase
         $this->assertArrayHasKey('type', $formattedFile);
         $this->assertArrayHasKey('path', $formattedFile);
         $this->assertArrayHasKey('created', $formattedFile);
+        $this->assertArrayHasKey('tags', $formattedFile);
+    }
+
+    public function testFormatWithTags(): void
+    {
+        $tag = new FileTag();
+        $tag->name = 'Testtag';
+        $tag->create();
+
+        $file = $this->createFile();
+        $file->tags = [$tag->name];
+        $file->update();
+
+        $formattedFile = $file->format();
+        $this->assertArrayHasKey('id', $formattedFile);
+        $this->assertArrayHasKey('name', $formattedFile);
+        $this->assertArrayHasKey('type', $formattedFile);
+        $this->assertArrayHasKey('path', $formattedFile);
+        $this->assertArrayHasKey('created', $formattedFile);
+        $this->assertArrayHasKey('tags', $formattedFile);
+
+        $this->assertEquals($tag->format(), $formattedFile['tags'][0]);
     }
 
     public function testUpdate(): void
@@ -179,6 +202,27 @@ class FileTest extends DatabaseAwareTestCase
 
         $this->assertEquals($file->id, $foundFile->id);
         $this->assertEquals($file->name, $foundFile->name);
+    }
+
+    public function testCreateWithTags(): void
+    {
+        $tag = new FileTag();
+        $tag->name = 'Test';
+        $tag->create();
+
+        $file = $this->createFile(execute: false);
+        $file->tags = [$tag->name, 'Not existing'];
+        $file->create();
+
+        $foundFile = File::findById($file->getIdAsInt());
+
+        $this->assertEquals($file->id, $foundFile->id);
+        $this->assertEquals($file->name, $foundFile->name);
+
+        $tags = iterator_to_array($file->getTags());
+        $this->assertNotEmpty($tags);
+        $this->assertCount(1, $tags);
+        $this->assertEquals($tag->name, $tags[0]->name);
     }
 
     public function testCreateUniqueFailed(): void

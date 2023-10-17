@@ -83,6 +83,8 @@ class DatabaseAwareTestCase extends TestCase
         LoadableEntity::executeSqlString('DELETE FROM theme');
         LoadableEntity::executeSqlString('DELETE FROM uploading_file_chunk');
         LoadableEntity::executeSqlString('DELETE FROM uploading_file');
+        LoadableEntity::executeSqlString('DELETE FROM file_tag_file');
+        LoadableEntity::executeSqlString('DELETE FROM file_tag');
         LoadableEntity::executeSqlString('DELETE FROM file');
         LoadableEntity::executeSqlString('DELETE FROM users');
     }

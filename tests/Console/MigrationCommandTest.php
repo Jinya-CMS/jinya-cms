@@ -39,6 +39,8 @@ class MigrationCommandTest extends DatabaseAwareTestCase
         LoadableEntity::executeSqlString('drop table if exists theme');
         LoadableEntity::executeSqlString('drop table if exists uploading_file_chunk');
         LoadableEntity::executeSqlString('drop table if exists uploading_file');
+        LoadableEntity::executeSqlString('drop table if exists file_tag_file');
+        LoadableEntity::executeSqlString('drop table if exists file_tag');
         LoadableEntity::executeSqlString('drop table if exists file');
         LoadableEntity::executeSqlString('drop table if exists users');
         $command = new MigrationCommand();
