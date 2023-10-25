@@ -26,7 +26,7 @@ export default {
     error: {
       login_failed: {
         title: 'Login failed',
-        message: 'Your email and password don\'t match, please use a different combination.',
+        message: "Your email and password don't match, please use a different combination.",
       },
       '2fa_failed': {
         title: 'Login failed',
@@ -46,6 +46,7 @@ export default {
         upload_multiple_file: 'Upload multiple files',
         delete_file: 'Delete file',
         edit_file: 'Edit file',
+        manage_tags: 'Manage tags',
       },
       delete: {
         title: 'Delete file',
@@ -87,6 +88,50 @@ export default {
           title: 'Edit failed',
           conflict: 'A file with the chosen name already exists.',
           generic: 'An unknown error occurred, please contact your administrator',
+        },
+      },
+      tags: {
+        manage: {
+          title: 'Manage tags',
+          close: 'Finish',
+        },
+        popup: {
+          name: 'Name',
+          emoji: 'Symbol',
+          color: 'Color',
+        },
+        new: {
+          title: 'New tag',
+          save: 'Create tag',
+          cancel: 'Discard',
+          error: {
+            title: 'Error',
+            exists: 'A tag with the given name already exists',
+            generic: 'An unknown error occurred, please try again later',
+            close: 'Close',
+          },
+        },
+        edit: {
+          title: 'Edit tag',
+          save: 'Save tag',
+          cancel: 'Discard changes',
+          error: {
+            title: 'Error',
+            exists: 'A tag with the given name already exists',
+            generic: 'An unknown error occurred, please try again later',
+            close: 'Close',
+          },
+        },
+        delete: {
+          title: 'Delete tag',
+          message: 'Do you really want to delete the tag {name}?',
+          approve: 'Delete tag',
+          decline: 'Keep tag',
+          error: {
+            title: 'Error',
+            generic: 'An unknown error occurred, please try again later',
+            close: 'Close',
+          },
         },
       },
       details: {
@@ -619,7 +664,7 @@ export default {
         title: 'Activate theme',
         message: 'Do you want to activate the theme {displayName}?',
         approve: 'Activate theme',
-        decline: 'Don\'t activate theme',
+        decline: "Don't activate theme",
         success: {
           title: 'Activate theme',
           message: 'The theme {displayName} was activated successfully',
@@ -740,11 +785,11 @@ export default {
         change: 'Change password',
         error: {
           forbidden: 'The old password is wrong',
-          generic: 'Changing the password didn\'t work, please contact your administrator',
+          generic: "Changing the password didn't work, please contact your administrator",
           title: 'Error changing password',
         },
         not_match: {
-          title: 'Passwords don\'t match',
+          title: "Passwords don't match",
           message: 'The new passwords need to match, please correct.',
         },
       },
@@ -793,8 +838,10 @@ export default {
       php_info: 'PHP info',
     },
     update: {
-      version_text: 'You currently have version {openB}{currentVersion}{closeB} installed, there is an update available to {openB}{mostRecentVersion}{closeB}.',
-      version_text_no_update: 'You currently have version {openB}{currentVersion}{closeB} installed, this is the most recent version.',
+      version_text:
+        'You currently have version {openB}{currentVersion}{closeB} installed, there is an update available to {openB}{mostRecentVersion}{closeB}.',
+      version_text_no_update:
+        'You currently have version {openB}{currentVersion}{closeB} installed, this is the most recent version.',
       update_now: 'Update now',
       perform_update: {
         title: 'Update Jinya CMS',

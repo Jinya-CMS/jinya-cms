@@ -130,3 +130,14 @@
     width: 100%;
     object-fit: scale-down;
 }
+
+.jinya-tags {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-flow: row wrap;
+}
+
+.cosmo-modal--tags {
+    max-width: 640px;
+}

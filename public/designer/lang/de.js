@@ -46,6 +46,7 @@ export default {
         upload_multiple_file: 'Mehrere Dateien hochladen',
         delete_file: 'Datei löschen',
         edit_file: 'Datei bearbeiten',
+        manage_tags: 'Tags verwalten',
       },
       delete: {
         title: 'Datei löschen',
@@ -87,6 +88,50 @@ export default {
           title: 'Speichern fehlgeschlagen',
           conflict: 'Eine Datei mit dem gewählten Namen existiert bereits.',
           generic: 'Ein unbekannter Fehler ist aufgetreten, bitte kontaktiere deinen Administrator',
+        },
+      },
+      tags: {
+        manage: {
+          title: 'Tags verwalten',
+          close: 'Fertig',
+        },
+        popup: {
+          name: 'Name',
+          emoji: 'Symbol',
+          color: 'Color',
+        },
+        new: {
+          title: 'New tag',
+          save: 'Create tag',
+          cancel: 'Discard',
+          error: {
+            title: 'Error',
+            exists: 'A tag with the given name already exists',
+            generic: 'An unknown error occurred, please try again later',
+            close: 'Close',
+          },
+        },
+        edit: {
+          title: 'Edit tag',
+          save: 'Save tag',
+          cancel: 'Discard changes',
+          error: {
+            title: 'Error',
+            exists: 'A tag with the given name already exists',
+            generic: 'An unknown error occurred, please try again later',
+            close: 'Close',
+          },
+        },
+        delete: {
+          title: 'Delete tag',
+          message: 'Do you really want to delete the tag {name}?',
+          approve: 'Delete tag',
+          decline: 'Keep tag',
+          error: {
+            title: 'Error',
+            generic: 'An unknown error occurred, please try again later',
+            close: 'Close',
+          },
         },
       },
       details: {
@@ -640,7 +685,8 @@ export default {
         },
         error: {
           title: 'Themedateien erzeugen und kopieren fehlgeschlagen',
-          message: 'Die Themedateien {displayName} konnten nicht erzeugt und kopiert werden, bitte kontaktiere deinen Administrator',
+          message:
+            'Die Themedateien {displayName} konnten nicht erzeugt und kopiert werden, bitte kontaktiere deinen Administrator',
         },
       },
       tabs: {
@@ -793,8 +839,10 @@ export default {
       php_info: 'PHP Info',
     },
     update: {
-      version_text: 'Aktuell ist Version {openB}{currentVersion}{closeB} installiert. Es gibt ein Update auf Version {openB}{mostRecentVersion}{closeB}.',
-      version_text_no_update: 'Aktuell ist Version {openB}{currentVersion}{closeB} installiert, dies ist die aktuellste Version.',
+      version_text:
+        'Aktuell ist Version {openB}{currentVersion}{closeB} installiert. Es gibt ein Update auf Version {openB}{mostRecentVersion}{closeB}.',
+      version_text_no_update:
+        'Aktuell ist Version {openB}{currentVersion}{closeB} installiert, dies ist die aktuellste Version.',
       update_now: 'Jetzt updaten',
       perform_update: {
         title: 'Update durchführen',

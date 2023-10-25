@@ -91,6 +91,7 @@ class FileTag extends LoadableEntity
     public function format(): array
     {
         return [
+            'id' => $this->getIdAsInt(),
             'name' => $this->name,
             'color' => $this->color,
             'emoji' => $this->emoji,

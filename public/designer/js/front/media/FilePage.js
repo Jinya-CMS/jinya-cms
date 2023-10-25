@@ -6,6 +6,7 @@ import alert from '../../foundation/ui/alert.js';
 import confirm from '../../foundation/ui/confirm.js';
 import FilesSelectedEvent from './files/FilesSelectedEvent.js';
 import MimeTypes from '../../../lib/mime/types.js';
+import ManageTagsDialog from './files/ManageTagsDialog.js';
 
 export default class FilePage extends JinyaDesignerPage {
   /**
@@ -44,45 +45,50 @@ export default class FilePage extends JinyaDesignerPage {
   toString() {
     let view = '';
     if (this.loading) {
-      view = html`
-          <div class="jinya-media-view__loader jinya-loader__container">
-              <div class="jinya-loader"></div>
-          </div>`;
+      view = html` <div class="jinya-media-view__loader jinya-loader__container">
+        <div class="jinya-loader"></div>
+      </div>`;
     } else {
-      view = html`
-          <div class="jinya-media-view__container">
-              <div class="jinya-media-tile__container">
-                  ${this.files.map((file) => html`
-                      <div data-id="${file.id}" data-title="${file.id} ${file.name}" class="jinya-media-tile">
-                          <img class="jinya-media-tile__img" src="${file.path}" alt="${file.name}">
-                      </div>`)}
-              </div>
-              <div class="jinya-media-view__details"></div>
-          </div>`;
+      view = html` <div class="jinya-media-view__container">
+        <div class="jinya-media-tile__container">
+          ${this.files.map(
+            (file) =>
+              html` <div data-id="${file.id}" data-title="${file.id} ${file.name}" class="jinya-media-tile">
+                <img class="jinya-media-tile__img" src="${file.path}" alt="${file.name}" />
+              </div>`,
+          )}
+        </div>
+        <div class="jinya-media-view__details"></div>
+      </div>`;
     }
 
     return html`
-        <div class="jinya-media-view">
-            <div class="cosmo-toolbar jinya-toolbar--media">
-                <div class="cosmo-toolbar__group">
-                    <button class="cosmo-button" id="upload-single-file" type="button">
-                        ${localize({ key: 'media.files.action.upload_single_file' })}
-                    </button>
-                    <button class="cosmo-button" id="upload-multiple-files" type="button">
-                        ${localize({ key: 'media.files.action.upload_multiple_file' })}
-                    </button>
-                </div>
-                <div class="cosmo-toolbar__group">
-                    <button disabled class="cosmo-button" id="edit-file" type="button">
-                        ${localize({ key: 'media.files.action.edit_file' })}
-                    </button>
-                    <button disabled class="cosmo-button" id="delete-file" type="button">
-                        ${localize({ key: 'media.files.action.delete_file' })}
-                    </button>
-                </div>
-            </div>
-            ${view}
+      <div class="jinya-media-view">
+        <div class="cosmo-toolbar jinya-toolbar--media">
+          <div class="cosmo-toolbar__group">
+            <button class="cosmo-button" id="upload-single-file" type="button">
+              ${localize({ key: 'media.files.action.upload_single_file' })}
+            </button>
+            <button class="cosmo-button" id="upload-multiple-files" type="button">
+              ${localize({ key: 'media.files.action.upload_multiple_file' })}
+            </button>
+          </div>
+          <div class="cosmo-toolbar__group">
+            <button disabled class="cosmo-button" id="edit-file" type="button">
+              ${localize({ key: 'media.files.action.edit_file' })}
+            </button>
+            <button disabled class="cosmo-button" id="delete-file" type="button">
+              ${localize({ key: 'media.files.action.delete_file' })}
+            </button>
+          </div>
+          <div class="cosmo-toolbar__group">
+            <button class="cosmo-button" id="manage-tags" type="button">
+              ${localize({ key: 'media.files.action.manage_tags' })}
+            </button>
+          </div>
         </div>
+        ${view}
+      </div>
     `;
   }
 
@@ -175,6 +181,9 @@ export default class FilePage extends JinyaDesignerPage {
         });
         dialog.show();
       });
+      document.getElementById('manage-tags').addEventListener('click', async () => {
+        await this.showTagManagementDialog();
+      });
     }
   }
 
@@ -195,53 +204,63 @@ export default class FilePage extends JinyaDesignerPage {
 
   showDetails() {
     document.querySelector('.jinya-media-view__details').innerHTML = html`
-        <span class="cosmo-title">${this.selectedFile.name}</span>
-        ${() => {
-            if (this.selectedFile.type.startsWith('image')) {
-                return `<img 
-                            alt="${this.selectedFile.name}" 
-                            src="${this.selectedFile.path}" class="jinya-media-details__image">`;
-            }
-            if (this.selectedFile.type.startsWith('video')) {
-                return html`
-                    <video controls class="jinya-media-details__image">
-                        <source src="${this.selectedFile.path}" type="${this.selectedFile.type}"/>
-                    </video>
-                `;
-            }
-            if (this.selectedFile.type.startsWith('audio')) {
-                return html`
-                    <audio controls class="jinya-media-details__image">
-                        <source src="${this.selectedFile.path}" type="${this.selectedFile.type}"/>
-                    </audio>
-                `;
-            }
+      <span class="cosmo-title">${this.selectedFile.name}</span>
+      ${() => {
+        if (this.selectedFile.type.startsWith('image')) {
+          return `<img 
+                        alt="${this.selectedFile.name}" 
+                        src="${this.selectedFile.path}" class="jinya-media-details__image">`;
+        }
+        if (this.selectedFile.type.startsWith('video')) {
+          return html`
+            <video controls class="jinya-media-details__image">
+              <source src="${this.selectedFile.path}" type="${this.selectedFile.type}" />
+            </video>
+          `;
+        }
+        if (this.selectedFile.type.startsWith('audio')) {
+          return html`
+            <audio controls class="jinya-media-details__image">
+              <source src="${this.selectedFile.path}" type="${this.selectedFile.type}" />
+            </audio>
+          `;
+        }
 
-            return '';
-        }}
-        <dl class="cosmo-key-value-list">
-            <dt class="cosmo-key-value-list__key">${localize({ key: 'media.files.details.type' })}</dt>
-            <dd class="cosmo-key-value-list__value" title="${this.selectedFile.type}">
-                ${FilePage.mapType(this.selectedFile.type)}
-            </dd>
-            <dt class="cosmo-key-value-list__key">${localize({ key: 'media.files.details.uploadedBy' })}</dt>
-            <dd class="cosmo-key-value-list__value">
-                ${this.selectedFile.created.by.artistName} <small>
-                <a href="mailto:${this.selectedFile.created.by.email}">${this.selectedFile.created.by.email}</a>
-            </small>
-            </dd>
-            <dt class="cosmo-key-value-list__key">${localize({ key: 'media.files.details.lastChangedBy' })}</dt>
-            <dd class="cosmo-key-value-list__value">
-                ${this.selectedFile.updated.by.artistName} <small>
-                <a href="mailto:${this.selectedFile.updated.by.email}">${this.selectedFile.updated.by.email}</a>
-            </small>
-            </dd>
-        </dl>
-        <a class="cosmo-button" download="${this.selectedFile.name}"
-           href="${this.selectedFile.path}.${MimeTypes[this.selectedFile.type]?.extensions[0] ?? ''}">
-            ${localize({ key: 'media.files.details.downloadFile' })}
-        </a>
+        return '';
+      }}
+      <dl class="cosmo-key-value-list">
+        <dt class="cosmo-key-value-list__key">${localize({ key: 'media.files.details.type' })}</dt>
+        <dd class="cosmo-key-value-list__value" title="${this.selectedFile.type}">
+          ${FilePage.mapType(this.selectedFile.type)}
+        </dd>
+        <dt class="cosmo-key-value-list__key">${localize({ key: 'media.files.details.uploadedBy' })}</dt>
+        <dd class="cosmo-key-value-list__value">
+          ${this.selectedFile.created.by.artistName}
+          <small>
+            <a href="mailto:${this.selectedFile.created.by.email}">${this.selectedFile.created.by.email}</a>
+          </small>
+        </dd>
+        <dt class="cosmo-key-value-list__key">${localize({ key: 'media.files.details.lastChangedBy' })}</dt>
+        <dd class="cosmo-key-value-list__value">
+          ${this.selectedFile.updated.by.artistName}
+          <small>
+            <a href="mailto:${this.selectedFile.updated.by.email}">${this.selectedFile.updated.by.email}</a>
+          </small>
+        </dd>
+      </dl>
+      <a
+        class="cosmo-button"
+        download="${this.selectedFile.name}"
+        href="${this.selectedFile.path}.${MimeTypes[this.selectedFile.type]?.extensions[0] ?? ''}"
+      >
+        ${localize({ key: 'media.files.details.downloadFile' })}
+      </a>
     `;
+  }
+
+  showTagManagementDialog() {
+    const manageTags = new ManageTagsDialog();
+    manageTags.show();
   }
 
   async displayed() {

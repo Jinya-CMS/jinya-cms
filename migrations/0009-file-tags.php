@@ -7,8 +7,8 @@ create table file_tag (
     id int primary key auto_increment,
     name varchar(255) unique not null,
     color varchar(255) null,
-    emoji nchar(1) null
-);
+    emoji varchar(255) null
+) character set utf8mb4 collate utf8mb4_bin;
 
 create table file_tag_file (
     file_tag_id int not null,
