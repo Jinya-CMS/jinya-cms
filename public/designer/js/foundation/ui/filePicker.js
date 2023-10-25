@@ -11,11 +11,11 @@ import localize from '../localize.js';
  * @return {Promise<boolean>}
  */
 export default async function filePicker({
-                                           title = window.location.href,
-                                           selectedFileId = -1,
-                                           cancelLabel,
-                                           pickLabel,
-                                         }) {
+  title = window.location.href,
+  selectedFileId = -1,
+  cancelLabel,
+  pickLabel,
+}) {
   const { items: files } = await get('/api/file');
 
   return new Promise((resolve) => {
@@ -30,27 +30,36 @@ export default async function filePicker({
       pickLabel = localize({ key: 'file_picker.pick' });
     }
 
-    container.innerHTML = html`
-        <div class="cosmo-modal__backdrop"></div>
-        <div class="cosmo-modal__container">
-            <div class="cosmo-modal jinya-file-picker__modal">
-                <h1 class="cosmo-modal__title">${title}</h1>
-                <div class="cosmo-modal__content">
-                    <div class="jinya-media-tile__container--modal">
-                        ${files.map((file) => html`
-                            <div class="jinya-media-tile jinya-media-tile--medium ${selectedFileId === file.id ? 'jinya-media-tile--selected' : ''}"
-                                 data-id="${file.id}">
-                                <img class="jinya-media-tile__img jinya-media-tile__img--small" data-id="${file.id}"
-                                     src="${file.path}" alt="${file.name}">
-                            </div>`)}
-                    </div>
-                </div>
-                <div class="cosmo-modal__button-bar">
-                    <button id="${modalId}CancelButton" class="cosmo-button">${cancelLabel}</button>
-                    <button id="${modalId}PickButton" class="cosmo-button">${pickLabel}</button>
-                </div>
+    container.innerHTML = html` <div class="cosmo-modal__backdrop"></div>
+      <div class="cosmo-modal__container">
+        <div class="cosmo-modal jinya-file-picker__modal">
+          <h1 class="cosmo-modal__title">${title}</h1>
+          <div class="cosmo-modal__content">
+            <div class="jinya-media-tile__container--modal">
+              ${files.map(
+                (file) =>
+                  html` <div
+                    class="jinya-media-tile jinya-media-tile--medium ${selectedFileId === file.id
+                      ? 'jinya-media-tile--selected'
+                      : ''}"
+                    data-id="${file.id}"
+                  >
+                    <img
+                      class="jinya-media-tile__img jinya-media-tile__img--small"
+                      data-id="${file.id}"
+                      src="${file.path}"
+                      alt="${file.name}"
+                    />
+                  </div>`,
+              )}
             </div>
-        </div>`;
+          </div>
+          <div class="cosmo-modal__button-bar">
+            <button id="${modalId}CancelButton" class="cosmo-button">${cancelLabel}</button>
+            <button id="${modalId}PickButton" class="cosmo-button">${pickLabel}</button>
+          </div>
+        </div>
+      </div>`;
 
     document.body.appendChild(container);
 
@@ -70,10 +79,10 @@ export default async function filePicker({
     });
     document.getElementById(`${modalId}PickButton`).addEventListener('click', (e) => {
       e.preventDefault();
-      const selectedFile = files
-        .find((file) => parseInt(document
-          .querySelector('.jinya-media-tile--selected')
-          .getAttribute('data-id'), 10) === file.id);
+      const selectedFile = files.find(
+        (file) =>
+          parseInt(document.querySelector('.jinya-media-tile--selected').getAttribute('data-id'), 10) === file.id,
+      );
       container.remove();
       resolve(selectedFile);
     });

@@ -17,29 +17,28 @@ export default class EditSimplePageDialog {
   }
 
   show() {
-    const content = html`
-        <div class="cosmo-modal__backdrop"></div>
-        <form class="cosmo-modal__container" id="edit-dialog-form">
-            <div class="cosmo-modal">
-                <h1 class="cosmo-modal__title">${localize({ key: 'pages_and_forms.simple.edit.title' })}</h1>
-                <div class="cosmo-modal__content">
-                    <div class="cosmo-input__group">
-                        <label for="editPageTitle" class="cosmo-label">
-                            ${localize({ key: 'pages_and_forms.simple.edit.page_title' })}
-                        </label>
-                        <input required type="text" id="editPageTitle" class="cosmo-input" value="${this.title}">
-                    </div>
-                </div>
-                <div class="cosmo-modal__button-bar">
-                    <button type="button" class="cosmo-button" id="cancel-edit-dialog">
-                        ${localize({ key: 'pages_and_forms.simple.edit.cancel' })}
-                    </button>
-                    <button type="submit" class="cosmo-button" id="save-edit-dialog">
-                        ${localize({ key: 'pages_and_forms.simple.edit.update' })}
-                    </button>
-                </div>
+    const content = html` <div class="cosmo-modal__backdrop"></div>
+      <form class="cosmo-modal__container" id="edit-dialog-form">
+        <div class="cosmo-modal">
+          <h1 class="cosmo-modal__title">${localize({ key: 'pages_and_forms.simple.edit.title' })}</h1>
+          <div class="cosmo-modal__content">
+            <div class="cosmo-input__group">
+              <label for="editPageTitle" class="cosmo-label">
+                ${localize({ key: 'pages_and_forms.simple.edit.page_title' })}
+              </label>
+              <input required type="text" id="editPageTitle" class="cosmo-input" value="${this.title}" />
             </div>
-        </form>`;
+          </div>
+          <div class="cosmo-modal__button-bar">
+            <button type="button" class="cosmo-button" id="cancel-edit-dialog">
+              ${localize({ key: 'pages_and_forms.simple.edit.cancel' })}
+            </button>
+            <button type="submit" class="cosmo-button" id="save-edit-dialog">
+              ${localize({ key: 'pages_and_forms.simple.edit.update' })}
+            </button>
+          </div>
+        </div>
+      </form>`;
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);

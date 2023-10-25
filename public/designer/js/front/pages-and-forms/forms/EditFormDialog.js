@@ -13,9 +13,7 @@ export default class AddFormDialog {
    * @param toAddress {string}
    * @param description {string}
    */
-  constructor({
-                onHide, id, title, toAddress, description,
-              }) {
+  constructor({ onHide, id, title, toAddress, description }) {
     this.onHide = onHide;
     this.id = id;
     this.title = title;
@@ -24,38 +22,36 @@ export default class AddFormDialog {
   }
 
   async show() {
-    const content = html`
-        <div class="cosmo-modal__backdrop"></div>
-        <form class="cosmo-modal__container" id="edit-dialog-form">
-            <div class="cosmo-modal">
-                <h1 class="cosmo-modal__title">${localize({ key: 'pages_and_forms.form.edit.title' })}</h1>
-                <div class="cosmo-modal__content">
-                    <div class="cosmo-input__group">
-                        <label for="editFormTitle" class="cosmo-label">
-                            ${localize({ key: 'pages_and_forms.form.edit.form_title' })}
-                        </label>
-                        <input required type="text" id="editFormTitle" class="cosmo-input" value="${this.title}">
-                        <label for="editToAddress" class="cosmo-label">
-                            ${localize({ key: 'pages_and_forms.form.edit.to_address' })}
-                        </label>
-                        <input required type="email" id="editFormToAddress" class="cosmo-input"
-                               value="${this.toAddress}">
-                        <label for="editDescription" class="cosmo-label cosmo-label--textarea">
-                            ${localize({ key: 'pages_and_forms.form.edit.description' })}
-                        </label>
-                        <textarea id="editDescription" hidden></textarea>
-                    </div>
-                </div>
-                <div class="cosmo-modal__button-bar">
-                    <button type="button" class="cosmo-button" id="cancel-edit-dialog">
-                        ${localize({ key: 'pages_and_forms.form.edit.cancel' })}
-                    </button>
-                    <button type="submit" class="cosmo-button" id="save-edit-dialog">
-                        ${localize({ key: 'pages_and_forms.form.edit.update' })}
-                    </button>
-                </div>
+    const content = html` <div class="cosmo-modal__backdrop"></div>
+      <form class="cosmo-modal__container" id="edit-dialog-form">
+        <div class="cosmo-modal">
+          <h1 class="cosmo-modal__title">${localize({ key: 'pages_and_forms.form.edit.title' })}</h1>
+          <div class="cosmo-modal__content">
+            <div class="cosmo-input__group">
+              <label for="editFormTitle" class="cosmo-label">
+                ${localize({ key: 'pages_and_forms.form.edit.form_title' })}
+              </label>
+              <input required type="text" id="editFormTitle" class="cosmo-input" value="${this.title}" />
+              <label for="editToAddress" class="cosmo-label">
+                ${localize({ key: 'pages_and_forms.form.edit.to_address' })}
+              </label>
+              <input required type="email" id="editFormToAddress" class="cosmo-input" value="${this.toAddress}" />
+              <label for="editDescription" class="cosmo-label cosmo-label--textarea">
+                ${localize({ key: 'pages_and_forms.form.edit.description' })}
+              </label>
+              <textarea id="editDescription" hidden></textarea>
             </div>
-        </form>`;
+          </div>
+          <div class="cosmo-modal__button-bar">
+            <button type="button" class="cosmo-button" id="cancel-edit-dialog">
+              ${localize({ key: 'pages_and_forms.form.edit.cancel' })}
+            </button>
+            <button type="submit" class="cosmo-button" id="save-edit-dialog">
+              ${localize({ key: 'pages_and_forms.form.edit.update' })}
+            </button>
+          </div>
+        </div>
+      </form>`;
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
@@ -77,7 +73,10 @@ export default class AddFormDialog {
           description,
         });
         this.onHide({
-          id: this.id, title, description, toAddress,
+          id: this.id,
+          title,
+          description,
+          toAddress,
         });
         tinymce.remove();
         tiny.destroy();

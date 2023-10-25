@@ -17,7 +17,8 @@ export default class PostDesignerDialog {
 
   // eslint-disable-next-line class-methods-use-this
   resetPositions() {
-    document.getElementById('segment-list')
+    document
+      .getElementById('segment-list')
       .querySelectorAll('[data-position]')
       .forEach((elem, key) => {
         // eslint-disable-next-line no-param-reassign
@@ -42,8 +43,7 @@ export default class PostDesignerDialog {
     item.classList.add('jinya-designer-item--selected');
     if (item.getAttribute('data-is-file') === 'true') {
       item.classList.add('jinya-designer-item--file-selected');
-      item.querySelector('.jinya-designer-item__details')
-        .classList.add('jinya-designer-item__details--file-selected');
+      item.querySelector('.jinya-designer-item__details').classList.add('jinya-designer-item__details--file-selected');
       item.querySelector('.jinya-segment__image').classList.add('jinya-segment__image--file-selected');
     }
 
@@ -104,11 +104,10 @@ export default class PostDesignerDialog {
     const segmentElem = document.createElement('div');
     segmentElem.classList.add('jinya-designer-item', 'jinya-designer-item--html');
     segmentElem.setAttribute('data-position', segment.position.toString(10));
-    segmentElem.innerHTML = html`
-        <span class="jinya-designer-item__title">
-            ${localize({ key: 'pages_and_forms.segment.designer.html' })}
-        </span>
-        <div class="jinya-designer-item__details jinya-designer-item__details--html">${segment.html}</div>`;
+    segmentElem.innerHTML = html` <span class="jinya-designer-item__title">
+        ${localize({ key: 'pages_and_forms.segment.designer.html' })}
+      </span>
+      <div class="jinya-designer-item__details jinya-designer-item__details--html">${segment.html}</div>`;
     segmentElem.segment = segment;
     segmentList.appendChild(segmentElem);
   }
@@ -123,27 +122,29 @@ export default class PostDesignerDialog {
     segmentElem.classList.add('jinya-designer-item', 'jinya-designer-item--file');
     segmentElem.setAttribute('data-position', segment.position.toString(10));
     segmentElem.setAttribute('data-is-file', 'true');
-    segmentElem.innerHTML = html`
-        <img class="jinya-segment__image" src="${segment.file.path}" alt="${segment.file.name}">
-        <div class="jinya-designer-item__details jinya-designer-item__details--file">
-            <span class="jinya-designer-item__title">
-                ${localize({ key: 'pages_and_forms.segment.designer.file' })}
-            </span>
-            <dl class="jinya-segment__action">
-                <dt class="jinya-segment__label">${localize({ key: 'blog.posts.designer.name' })}</dt>
-                <dd class="jinya-segment__content" data-type="action-label">
-                    ${segment.file.name}
-                </dd>
-                <dt class="jinya-segment__label" data-type="link"
-                    ${segment.link === '' ? 'style="display: none;"' : ''}>
-                    ${localize({ key: 'blog.posts.designer.link' })}
-                </dt>
-                <dd class="jinya-segment__content" data-type="link" data-action="link"
-                    ${segment.link === '' ? 'style="display: none;"' : ''}>
-                    ${segment.link}
-                </dd>
-            </dl>
-        </div>`;
+    segmentElem.innerHTML = html` <img
+        class="jinya-segment__image"
+        src="${segment.file.path}"
+        alt="${segment.file.name}"
+      />
+      <div class="jinya-designer-item__details jinya-designer-item__details--file">
+        <span class="jinya-designer-item__title"> ${localize({ key: 'pages_and_forms.segment.designer.file' })} </span>
+        <dl class="jinya-segment__action">
+          <dt class="jinya-segment__label">${localize({ key: 'blog.posts.designer.name' })}</dt>
+          <dd class="jinya-segment__content" data-type="action-label">${segment.file.name}</dd>
+          <dt class="jinya-segment__label" data-type="link" ${segment.link === '' ? 'style="display: none;"' : ''}>
+            ${localize({ key: 'blog.posts.designer.link' })}
+          </dt>
+          <dd
+            class="jinya-segment__content"
+            data-type="link"
+            data-action="link"
+            ${segment.link === '' ? 'style="display: none;"' : ''}
+          >
+            ${segment.link}
+          </dd>
+        </dl>
+      </div>`;
     segmentElem.segment = segment;
     segmentList.appendChild(segmentElem);
   }
@@ -157,13 +158,12 @@ export default class PostDesignerDialog {
     const segmentElem = document.createElement('div');
     segmentElem.classList.add('jinya-designer-item', 'jinya-designer-item--gallery');
     segmentElem.setAttribute('data-position', segment.position.toString(10));
-    segmentElem.innerHTML = html`
-        <span class="jinya-designer-item__title">
-            ${localize({ key: 'pages_and_forms.segment.designer.gallery' })}
-        </span>
-        <span class="jinya-designer-item__details jinya-designer-item__details--gallery">
-            ${segment.gallery.name}
-        </span>`;
+    segmentElem.innerHTML = html` <span class="jinya-designer-item__title">
+        ${localize({ key: 'pages_and_forms.segment.designer.gallery' })}
+      </span>
+      <span class="jinya-designer-item__details jinya-designer-item__details--gallery">
+        ${segment.gallery.name}
+      </span>`;
     segmentElem.segment = segment;
     segmentList.appendChild(segmentElem);
   }
@@ -225,52 +225,52 @@ export default class PostDesignerDialog {
   }
 
   show() {
-    const content = html`
-        <div class="cosmo-modal__backdrop"></div>
-        <form class="cosmo-modal__container" id="post-designer-dialog">
-            <div class="cosmo-modal jinya-designer__modal--blog">
-                <h1 class="cosmo-modal__title">${localize({ key: 'blog.posts.designer.title' })}</h1>
-                <div class="cosmo-modal__content">
-                    <div class="cosmo-toolbar cosmo-toolbar--blog">
-                        <div class="cosmo-toolbar__group">
-                            <button type="button" id="edit-segment" class="cosmo-button" disabled>
-                                ${localize({ key: 'blog.posts.designer.action.edit_segment' })}
-                            </button>
-                            <button type="button" id="delete-segment" class="cosmo-button" disabled>
-                                ${localize({ key: 'blog.posts.designer.action.delete_segment' })}
-                            </button>
-                        </div>
-                    </div>
-                    <div class="jinya-designer__content jinya-designer__content--blog">
-                        <div id="segment-list"
-                             class="jinya-designer__result jinya-designer__result--blog jinya-designer__result--horizontal">
-                        </div>
-                        <div id="segment-toolbox" class="jinya-designer__toolbox">
-                            <div data-type="gallery" class="jinya-designer-item__template">
-                                <span class="jinya-designer__drag-handle"></span>
-                                <span>${localize({ key: 'blog.posts.designer.gallery' })}</span>
-                            </div>
-                            <div data-type="file" class="jinya-designer-item__template">
-                                <span class="jinya-designer__drag-handle"></span>
-                                <span>${localize({ key: 'blog.posts.designer.file' })}</span>
-                            </div>
-                            <div data-type="html" class="jinya-designer-item__template">
-                                <span class="jinya-designer__drag-handle"></span>
-                                <span>${localize({ key: 'blog.posts.designer.html' })}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="cosmo-modal__button-bar">
-                    <button type="button" class="cosmo-button" id="cancel-post-dialog">
-                        ${localize({ key: 'blog.posts.designer.cancel' })}
-                    </button>
-                    <button type="submit" class="cosmo-button" id="close-dialog">
-                        ${localize({ key: 'blog.posts.designer.save' })}
-                    </button>
-                </div>
+    const content = html` <div class="cosmo-modal__backdrop"></div>
+      <form class="cosmo-modal__container" id="post-designer-dialog">
+        <div class="cosmo-modal jinya-designer__modal--blog">
+          <h1 class="cosmo-modal__title">${localize({ key: 'blog.posts.designer.title' })}</h1>
+          <div class="cosmo-modal__content">
+            <div class="cosmo-toolbar cosmo-toolbar--blog">
+              <div class="cosmo-toolbar__group">
+                <button type="button" id="edit-segment" class="cosmo-button" disabled>
+                  ${localize({ key: 'blog.posts.designer.action.edit_segment' })}
+                </button>
+                <button type="button" id="delete-segment" class="cosmo-button" disabled>
+                  ${localize({ key: 'blog.posts.designer.action.delete_segment' })}
+                </button>
+              </div>
             </div>
-        </form>`;
+            <div class="jinya-designer__content jinya-designer__content--blog">
+              <div
+                id="segment-list"
+                class="jinya-designer__result jinya-designer__result--blog jinya-designer__result--horizontal"
+              ></div>
+              <div id="segment-toolbox" class="jinya-designer__toolbox">
+                <div data-type="gallery" class="jinya-designer-item__template">
+                  <span class="jinya-designer__drag-handle"></span>
+                  <span>${localize({ key: 'blog.posts.designer.gallery' })}</span>
+                </div>
+                <div data-type="file" class="jinya-designer-item__template">
+                  <span class="jinya-designer__drag-handle"></span>
+                  <span>${localize({ key: 'blog.posts.designer.file' })}</span>
+                </div>
+                <div data-type="html" class="jinya-designer-item__template">
+                  <span class="jinya-designer__drag-handle"></span>
+                  <span>${localize({ key: 'blog.posts.designer.html' })}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cosmo-modal__button-bar">
+            <button type="button" class="cosmo-button" id="cancel-post-dialog">
+              ${localize({ key: 'blog.posts.designer.cancel' })}
+            </button>
+            <button type="submit" class="cosmo-button" id="close-dialog">
+              ${localize({ key: 'blog.posts.designer.save' })}
+            </button>
+          </div>
+        </div>
+      </form>`;
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
@@ -295,21 +295,23 @@ export default class PostDesignerDialog {
     document.getElementById('post-designer-dialog').addEventListener('submit', async (e) => {
       e.preventDefault();
       await put(`/api/blog/post/${this.post.id}/segment`, {
-        segments: this.segments.map((segment) => {
-          const data = {
-            position: segment.position,
-          };
-          if (segment.file) {
-            data.file = segment.file.id;
-            data.link = segment.link;
-          } else if (segment.gallery) {
-            data.gallery = segment.gallery.id;
-          } else if (segment.html) {
-            data.html = segment.html;
-          }
+        segments: this.segments
+          .map((segment) => {
+            const data = {
+              position: segment.position,
+            };
+            if (segment.file) {
+              data.file = segment.file.id;
+              data.link = segment.link;
+            } else if (segment.gallery) {
+              data.gallery = segment.gallery.id;
+            } else if (segment.html) {
+              data.html = segment.html;
+            }
 
-          return data;
-        }).sort((a, b) => a.position - b.position),
+            return data;
+          })
+          .sort((a, b) => a.position - b.position),
       });
       container.remove();
     });
@@ -328,7 +330,10 @@ export default class PostDesignerDialog {
     document.getElementById('delete-segment').addEventListener('click', async () => {
       const confirmation = await confirm({
         title: localize({ key: 'blog.posts.designer.edit.delete_segment.title' }),
-        message: localize({ key: 'blog.posts.designer.edit.delete_segment.message', values: this.selectedPage }),
+        message: localize({
+          key: 'blog.posts.designer.edit.delete_segment.message',
+          values: this.selectedPage,
+        }),
         approveLabel: localize({ key: 'blog.posts.designer.edit.delete_segment.delete' }),
         declineLabel: localize({ key: 'blog.posts.designer.edit.delete_segment.keep' }),
       });

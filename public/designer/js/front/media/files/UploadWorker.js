@@ -9,12 +9,7 @@ class HttpError extends Error {
 
 let apiKey = '';
 
-async function sendRequest({
-                             url,
-                             verb,
-                             data,
-                             contentType,
-                           }) {
+async function sendRequest({ url, verb, data, contentType }) {
   const headers = { JinyaApiKey: apiKey, ContentType: contentType };
 
   const request = {
@@ -75,13 +70,7 @@ onmessage = async (e) => {
         verb: 'POST',
         url: '/api/media/file',
         data: {
-          name: file
-            .name
-            .split('.')
-            .reverse()
-            .slice(1)
-            .reverse()
-            .join('.'),
+          name: file.name.split('.').reverse().slice(1).reverse().join('.'),
         },
       });
       // eslint-disable-next-line no-await-in-loop

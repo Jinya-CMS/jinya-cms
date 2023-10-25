@@ -11,9 +11,7 @@ export default class EditFileSegmentDialog {
    * @param link {string}
    * @param position {number}
    */
-  constructor({
-                onHide, fileId, position, link,
-              }) {
+  constructor({ onHide, fileId, position, link }) {
     this.onHide = onHide;
     this.position = position;
     this.fileId = fileId;
@@ -23,51 +21,57 @@ export default class EditFileSegmentDialog {
   async show() {
     const { items: files } = await get('/api/file');
     const file = files.find((f) => f.id === this.fileId);
-    const content = html`
-        <div class="cosmo-modal__backdrop"></div>
-        <form class="cosmo-modal__container" id="edit-dialog-form">
-            <div class="cosmo-modal">
-                <h1 class="cosmo-modal__title">${localize({ key: 'blog.posts.designer.edit.title' })}</h1>
-                <div class="cosmo-modal__content">
-                    <div class="cosmo-input__group">
-                        <label for="editSegmentFile" class="cosmo-label">
-                            ${localize({ key: 'blog.posts.designer.edit.file' })}
-                        </label>
-                        <div class="cosmo-input cosmo-input--picker" id="editSegmentFilePicker">
-                            <label class="cosmo-picker__name jinya-picker__name" for="editSegmentFile">
-                                ${file ? file.name : localize({ key: 'blog.posts.designer.edit.please_select' })}
-                            </label>
-                            <label class="cosmo-picker__button" for="editSegmentFile">
-                                <span class="mdi mdi-image-search mdi-24px"></span>
-                            </label>
-                            <input type="hidden" id="editSegmentFile" value="${file?.id}">
-                        </div>
-                        <img alt="" id="selectedFile" class="jinya-picker__selected-file" src="${file?.path}"
-                             ${file ? '' : 'hidden'}>
-                        <div class="cosmo-checkbox__group">
-                            <input class="cosmo-checkbox" type="checkbox" id="editSegmentHasLink"
-                                   ${this.link ? 'checked' : ''}>
-                            <label for="editSegmentHasLink">
-                                ${localize({ key: 'blog.posts.designer.edit.has_link' })}
-                            </label>
-                        </div>
-                        <label for="editSegmentLink" class="cosmo-label" ${!this.link ? 'hidden' : ''}>
-                            ${localize({ key: 'blog.posts.designer.edit.link' })}
-                        </label>
-                        <input type="text" id="editSegmentLink" class="cosmo-input" value="${this.link ?? ''}"
-                               ${!this.link ? 'hidden' : ''}>
-                    </div>
-                </div>
-                <div class="cosmo-modal__button-bar">
-                    <button type="button" class="cosmo-button" id="cancel-edit-dialog">
-                        ${localize({ key: 'blog.posts.designer.edit.cancel' })}
-                    </button>
-                    <button type="submit" class="cosmo-button" id="save-edit-dialog">
-                        ${localize({ key: 'blog.posts.designer.edit.update' })}
-                    </button>
-                </div>
+    const content = html` <div class="cosmo-modal__backdrop"></div>
+      <form class="cosmo-modal__container" id="edit-dialog-form">
+        <div class="cosmo-modal">
+          <h1 class="cosmo-modal__title">${localize({ key: 'blog.posts.designer.edit.title' })}</h1>
+          <div class="cosmo-modal__content">
+            <div class="cosmo-input__group">
+              <label for="editSegmentFile" class="cosmo-label">
+                ${localize({ key: 'blog.posts.designer.edit.file' })}
+              </label>
+              <div class="cosmo-input cosmo-input--picker" id="editSegmentFilePicker">
+                <label class="cosmo-picker__name jinya-picker__name" for="editSegmentFile">
+                  ${file ? file.name : localize({ key: 'blog.posts.designer.edit.please_select' })}
+                </label>
+                <label class="cosmo-picker__button" for="editSegmentFile">
+                  <span class="mdi mdi-image-search mdi-24px"></span>
+                </label>
+                <input type="hidden" id="editSegmentFile" value="${file?.id}" />
+              </div>
+              <img
+                alt=""
+                id="selectedFile"
+                class="jinya-picker__selected-file"
+                src="${file?.path}"
+                ${file ? '' : 'hidden'}
+              />
+              <div class="cosmo-checkbox__group">
+                <input class="cosmo-checkbox" type="checkbox" id="editSegmentHasLink" ${this.link ? 'checked' : ''} />
+                <label for="editSegmentHasLink"> ${localize({ key: 'blog.posts.designer.edit.has_link' })} </label>
+              </div>
+              <label for="editSegmentLink" class="cosmo-label" ${!this.link ? 'hidden' : ''}>
+                ${localize({ key: 'blog.posts.designer.edit.link' })}
+              </label>
+              <input
+                type="text"
+                id="editSegmentLink"
+                class="cosmo-input"
+                value="${this.link ?? ''}"
+                ${!this.link ? 'hidden' : ''}
+              />
             </div>
-        </form>`;
+          </div>
+          <div class="cosmo-modal__button-bar">
+            <button type="button" class="cosmo-button" id="cancel-edit-dialog">
+              ${localize({ key: 'blog.posts.designer.edit.cancel' })}
+            </button>
+            <button type="submit" class="cosmo-button" id="save-edit-dialog">
+              ${localize({ key: 'blog.posts.designer.edit.update' })}
+            </button>
+          </div>
+        </div>
+      </form>`;
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
@@ -102,7 +106,9 @@ export default class EditFileSegmentDialog {
       const fileId = parseInt(document.getElementById('editSegmentFile').value, 10);
       const link = document.getElementById('editSegmentLink').value;
       this.onHide({
-        position: this.position, file: files.find((g) => g.id === fileId), link,
+        position: this.position,
+        file: files.find((g) => g.id === fileId),
+        link,
       });
       container.remove();
     });

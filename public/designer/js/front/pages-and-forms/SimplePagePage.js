@@ -68,37 +68,35 @@ export default class SimplePagePage extends JinyaDesignerPage {
 
   // eslint-disable-next-line class-methods-use-this
   toString() {
-    return html`
-        <div class="cosmo-list">
-            <nav class="cosmo-list__items" id="page-list">
-            </nav>
-            <div class="cosmo-list__content jinya-designer">
-                <div class="jinya-designer__title">
-                    <span class="cosmo-title" id="page-title"></span>
-                </div>
-                <div class="cosmo-toolbar cosmo-toolbar--designer">
-                    <div class="cosmo-toolbar__group">
-                        <button class="cosmo-button" id="edit-page">
-                            ${localize({ key: 'pages_and_forms.simple.action.edit' })}
-                        </button>
-                        <button class="cosmo-button" id="delete-page">
-                            ${localize({ key: 'pages_and_forms.simple.action.delete' })}
-                        </button>
-                    </div>
-                </div>
-                <div class="jinya-designer__content jinya-designer__content--simple-pages">
-                    <div id="page-editor"></div>
-                    <div class="cosmo-button__container">
-                        <button id="discard-changes" class="cosmo-button">
-                            ${localize({ key: 'pages_and_forms.simple.action.discard_content' })}
-                        </button>
-                        <button id="save-changes" class="cosmo-button">
-                            ${localize({ key: 'pages_and_forms.simple.action.save_content' })}
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>`;
+    return html` <div class="cosmo-list">
+      <nav class="cosmo-list__items" id="page-list"></nav>
+      <div class="cosmo-list__content jinya-designer">
+        <div class="jinya-designer__title">
+          <span class="cosmo-title" id="page-title"></span>
+        </div>
+        <div class="cosmo-toolbar cosmo-toolbar--designer">
+          <div class="cosmo-toolbar__group">
+            <button class="cosmo-button" id="edit-page">
+              ${localize({ key: 'pages_and_forms.simple.action.edit' })}
+            </button>
+            <button class="cosmo-button" id="delete-page">
+              ${localize({ key: 'pages_and_forms.simple.action.delete' })}
+            </button>
+          </div>
+        </div>
+        <div class="jinya-designer__content jinya-designer__content--simple-pages">
+          <div id="page-editor"></div>
+          <div class="cosmo-button__container">
+            <button id="discard-changes" class="cosmo-button">
+              ${localize({ key: 'pages_and_forms.simple.action.discard_content' })}
+            </button>
+            <button id="save-changes" class="cosmo-button">
+              ${localize({ key: 'pages_and_forms.simple.action.save_content' })}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>`;
   }
 
   bindEvents() {

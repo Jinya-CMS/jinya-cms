@@ -5,19 +5,17 @@ import alert from '../../../foundation/ui/alert.js';
 
 export default class EditCategoryDialog {
   /**
-   Shows the edit dialog
-   * @param categories {{id: number, name: string}[]}
-   * @param id {number}
-   * @param name {string}
-   * @param description {string}
-   * @param webhookUrl {string}
-   * @param parent {{id: number, name: string}}
-   * @param webhookEnabled {boolean}
-   * @param onHide {function({id: number, name: string, description: string, webhookUrl: string, parent: {id: number, name: string}, webhookEnabled: boolean})}
-   */
-  constructor({
-                categories, id, name, description, webhookUrl, parent, webhookEnabled, onHide,
-              }) {
+     Shows the edit dialog
+     * @param categories {{id: number, name: string}[]}
+     * @param id {number}
+     * @param name {string}
+     * @param description {string}
+     * @param webhookUrl {string}
+     * @param parent {{id: number, name: string}}
+     * @param webhookEnabled {boolean}
+     * @param onHide {function({id: number, name: string, description: string, webhookUrl: string, parent: {id: number, name: string}, webhookEnabled: boolean})}
+     */
+  constructor({ categories, id, name, description, webhookUrl, parent, webhookEnabled, onHide }) {
     this.onHide = onHide;
     this.categories = categories;
     this.id = id;
@@ -29,58 +27,64 @@ export default class EditCategoryDialog {
   }
 
   show() {
-    const content = html`
-        <div class="cosmo-modal__backdrop"></div>
-        <form class="cosmo-modal__container" id="edit-dialog-form">
-            <div class="cosmo-modal">
-                <h1 class="cosmo-modal__title">${localize({ key: 'blog.categories.edit.title' })}</h1>
-                <div class="cosmo-modal__content">
-                    <div class="cosmo-input__group">
-                        <label for="editCategoryName" class="cosmo-label">
-                            ${localize({ key: 'blog.categories.edit.name' })}
-                        </label>
-                        <input required type="text" id="editCategoryName" class="cosmo-input" value="${this.name}">
-                        <label for="editCategoryParent" class="cosmo-label">
-                            ${localize({ key: 'blog.categories.edit.parent' })}
-                        </label>
-                        <select required id="editCategoryParent" class="cosmo-select">
-                            <option ${this.parent ? '' : 'selected'} value="null">
-                                ${localize({ key: 'blog.categories.edit.parent_none' })}
-                            </option>
-                            ${this.categories.map((category) => html`
-                                <option ${this.parent && this.parent?.id === category.id ? 'selected' : ''}
-                                        value=${category.id}>
-                                        #${category.id} ${category.name}
-                                </option>`)}
-                        </select>
-                        <label for="editCategoryDescription" class="cosmo-label cosmo-label--textarea">
-                            ${localize({ key: 'blog.categories.edit.description' })}
-                        </label>
-                        <textarea rows="5" id="editCategoryDescription"
-                                  class="cosmo-textarea">${this.description}</textarea>
-                        <label for="editCategoryWebhookUrl" class="cosmo-label">
-                            ${localize({ key: 'blog.categories.edit.webhook_url' })}
-                        </label>
-                        <input type="text" id="editCategoryWebhookUrl" class="cosmo-input" value="${this.webhookUrl}">
-                        <div class="cosmo-checkbox__group">
-                            <input class="cosmo-checkbox" type="checkbox" id="editCategoryWebhookEnabled"
-                                   ${this.webhookEnabled ? 'checked' : ''}>
-                            <label for="editCategoryWebhookEnabled">
-                                ${localize({ key: 'blog.categories.edit.webhook_enabled' })}
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="cosmo-modal__button-bar">
-                    <button type="button" class="cosmo-button" id="cancel-edit-dialog">
-                        ${localize({ key: 'blog.categories.edit.cancel' })}
-                    </button>
-                    <button type="submit" class="cosmo-button" id="save-edit-dialog">
-                        ${localize({ key: 'blog.categories.edit.edit' })}
-                    </button>
-                </div>
+    const content = html` <div class="cosmo-modal__backdrop"></div>
+      <form class="cosmo-modal__container" id="edit-dialog-form">
+        <div class="cosmo-modal">
+          <h1 class="cosmo-modal__title">${localize({ key: 'blog.categories.edit.title' })}</h1>
+          <div class="cosmo-modal__content">
+            <div class="cosmo-input__group">
+              <label for="editCategoryName" class="cosmo-label">
+                ${localize({ key: 'blog.categories.edit.name' })}
+              </label>
+              <input required type="text" id="editCategoryName" class="cosmo-input" value="${this.name}" />
+              <label for="editCategoryParent" class="cosmo-label">
+                ${localize({ key: 'blog.categories.edit.parent' })}
+              </label>
+              <select required id="editCategoryParent" class="cosmo-select">
+                <option ${this.parent ? '' : 'selected'} value="null">
+                  ${localize({ key: 'blog.categories.edit.parent_none' })}
+                </option>
+                ${this.categories.map(
+                  (category) =>
+                    html` <option
+                      ${this.parent && this.parent?.id === category.id ? 'selected' : ''}
+                      value=${category.id}
+                    >
+                      #${category.id} ${category.name}
+                    </option>`,
+                )}
+              </select>
+              <label for="editCategoryDescription" class="cosmo-label cosmo-label--textarea">
+                ${localize({ key: 'blog.categories.edit.description' })}
+              </label>
+              <textarea rows="5" id="editCategoryDescription" class="cosmo-textarea">${this.description}</textarea>
+              <label for="editCategoryWebhookUrl" class="cosmo-label">
+                ${localize({ key: 'blog.categories.edit.webhook_url' })}
+              </label>
+              <input type="text" id="editCategoryWebhookUrl" class="cosmo-input" value="${this.webhookUrl}" />
+              <div class="cosmo-checkbox__group">
+                <input
+                  class="cosmo-checkbox"
+                  type="checkbox"
+                  id="editCategoryWebhookEnabled"
+                  ${this.webhookEnabled ? 'checked' : ''}
+                />
+                <label for="editCategoryWebhookEnabled">
+                  ${localize({ key: 'blog.categories.edit.webhook_enabled' })}
+                </label>
+              </div>
             </div>
-        </form>`;
+          </div>
+          <div class="cosmo-modal__button-bar">
+            <button type="button" class="cosmo-button" id="cancel-edit-dialog">
+              ${localize({ key: 'blog.categories.edit.cancel' })}
+            </button>
+            <button type="submit" class="cosmo-button" id="save-edit-dialog">
+              ${localize({ key: 'blog.categories.edit.edit' })}
+            </button>
+          </div>
+        </div>
+      </form>`;
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);

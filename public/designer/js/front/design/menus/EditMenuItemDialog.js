@@ -20,19 +20,19 @@ export default class EditMenuItemDialog {
    * @param newItem {boolean}
    */
   constructor({
-                onHide,
-                id: menuItemId,
-                position,
-                items,
-                selectedItem,
-                type,
-                route,
-                title,
-                highlighted,
-                parentId = null,
-                menuId = null,
-                newItem = false,
-              }) {
+    onHide,
+    id: menuItemId,
+    position,
+    items,
+    selectedItem,
+    type,
+    route,
+    title,
+    highlighted,
+    parentId = null,
+    menuId = null,
+    newItem = false,
+  }) {
     this.onHide = onHide;
     this.position = position;
     this.newItem = newItem;
@@ -60,21 +60,37 @@ export default class EditMenuItemDialog {
                         </label>
                         <input value="${this.title ?? ''}" required type="text" id="editMenuItemTitle"
                                class="cosmo-input">
-                        ${this.type === 'group' ? '' : html`
-                            <label for="editMenuItemRoute" class="cosmo-label">
-                                ${localize({ key: 'design.menus.designer.edit.route' })}
-                            </label>
-                            <input value="${this.route ?? ''}" type="text" id="editMenuItemRoute" class="cosmo-input">`}
-                        ${this.type !== 'group' && this.type !== 'blog_home_page' && this.type !== 'external_link' ? html`
-                            <label for="editMenuElement" class="cosmo-label">
-                                ${localize({ key: `design.menus.designer.type_${this.type}` })}
-                            </label>
-                            <select required id="editMenuElement" class="cosmo-select">
-                                ${this.items.map((item) => html`
-                                    <option ${this.selectedItem === item.id ? 'selected' : ''} value="${item.id}">
-                                            #${item.id} ${item.name ?? item.title ?? item.artistName}
-                                    </option>`)}
-                            </select>` : ''}
+                        ${
+                          this.type === 'group'
+                            ? ''
+                            : html` <label for="editMenuItemRoute" class="cosmo-label">
+                                  ${localize({ key: 'design.menus.designer.edit.route' })}
+                                </label>
+                                <input
+                                  value="${this.route ?? ''}"
+                                  type="text"
+                                  id="editMenuItemRoute"
+                                  class="cosmo-input"
+                                />`
+                        }
+                        ${
+                          this.type !== 'group' && this.type !== 'blog_home_page' && this.type !== 'external_link'
+                            ? html` <label for="editMenuElement" class="cosmo-label">
+                                  ${localize({ key: `design.menus.designer.type_${this.type}` })}
+                                </label>
+                                <select required id="editMenuElement" class="cosmo-select">
+                                  ${this.items.map(
+                                    (item) =>
+                                      html` <option
+                                        ${this.selectedItem === item.id ? 'selected' : ''}
+                                        value="${item.id}"
+                                      >
+                                        #${item.id} ${item.name ?? item.title ?? item.artistName}
+                                      </option>`,
+                                  )}
+                                </select>`
+                            : ''
+                        }
                       <div class="cosmo-checkbox__group">
                         <input ${this.highlighted ? 'checked' : ''} type="checkbox" id="editMenuItemIsHighlighted"
                                class="cosmo-checkbox">

@@ -50,20 +50,23 @@ export default class ActiveSessionsPage extends JinyaDesignerPage {
     clearChildren({ parent: table });
     for (const session of this.sessions) {
       const tr = document.createElement('tr');
-      tr.innerHTML = html`
-          <tr>
-              <td>${session.validSince.toLocaleString()}</td>
-              <td>${session.browser}</td>
-              <td>${session.device}</td>
-              <td>${session.location}</td>
-              <td>${session.remoteAddress}</td>
-              <td>
-                  <button ${session.key === getJinyaApiKey() ? 'disabled' : ''} class="cosmo-button"
-                          data-action="logout" data-apikey="${session.key}">
-                      ${localize({ key: 'my_jinya.sessions.action.logout' })}
-                  </button>
-              </td>
-          </tr>`;
+      tr.innerHTML = html` <tr>
+        <td>${session.validSince.toLocaleString()}</td>
+        <td>${session.browser}</td>
+        <td>${session.device}</td>
+        <td>${session.location}</td>
+        <td>${session.remoteAddress}</td>
+        <td>
+          <button
+            ${session.key === getJinyaApiKey() ? 'disabled' : ''}
+            class="cosmo-button"
+            data-action="logout"
+            data-apikey="${session.key}"
+          >
+            ${localize({ key: 'my_jinya.sessions.action.logout' })}
+          </button>
+        </td>
+      </tr>`;
       table.append(tr);
     }
     document.querySelectorAll('[data-action="logout"]').forEach((button) => {
@@ -79,21 +82,19 @@ export default class ActiveSessionsPage extends JinyaDesignerPage {
 
   // eslint-disable-next-line class-methods-use-this
   toString() {
-    return html`
-        <table class="cosmo-table">
-            <thead>
-            <tr>
-                <th>${localize({ key: 'my_jinya.sessions.table.valid_since' })}</th>
-                <th>${localize({ key: 'my_jinya.sessions.table.browser' })}</th>
-                <th>${localize({ key: 'my_jinya.sessions.table.device' })}</th>
-                <th>${localize({ key: 'my_jinya.sessions.table.place' })}</th>
-                <th>${localize({ key: 'my_jinya.sessions.table.ip' })}</th>
-                <th>${localize({ key: 'my_jinya.sessions.table.actions' })}</th>
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>`;
+    return html` <table class="cosmo-table">
+      <thead>
+        <tr>
+          <th>${localize({ key: 'my_jinya.sessions.table.valid_since' })}</th>
+          <th>${localize({ key: 'my_jinya.sessions.table.browser' })}</th>
+          <th>${localize({ key: 'my_jinya.sessions.table.device' })}</th>
+          <th>${localize({ key: 'my_jinya.sessions.table.place' })}</th>
+          <th>${localize({ key: 'my_jinya.sessions.table.ip' })}</th>
+          <th>${localize({ key: 'my_jinya.sessions.table.actions' })}</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>`;
   }
 
   async displayed() {
@@ -107,14 +108,16 @@ export default class ActiveSessionsPage extends JinyaDesignerPage {
     }));
     const promises = [];
     for (const session of this.sessions) {
-      promises.push((async () => {
-        const location = await this.locateIp(session.remoteAddress);
-        if (location?.city) {
-          session.location = `${location.city} ${location.region} ${location.country}`;
-        } else {
-          session.location = localize({ key: 'my_jinya.sessions.unknown' });
-        }
-      })());
+      promises.push(
+        (async () => {
+          const location = await this.locateIp(session.remoteAddress);
+          if (location?.city) {
+            session.location = `${location.city} ${location.region} ${location.country}`;
+          } else {
+            session.location = localize({ key: 'my_jinya.sessions.unknown' });
+          }
+        })(),
+      );
     }
 
     await Promise.all(promises);

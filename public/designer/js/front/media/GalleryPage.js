@@ -1,9 +1,7 @@
 import html from '../../../lib/jinya-html.js';
 import Sortable from '../../../lib/sortable.js';
 import clearChildren from '../../foundation/html/clearChildren.js';
-import {
- get, httpDelete, post, put,
-} from '../../foundation/http/request.js';
+import { get, httpDelete, post, put } from '../../foundation/http/request.js';
 import JinyaDesignerPage from '../../foundation/JinyaDesignerPage.js';
 import localize from '../../foundation/localize.js';
 import alert from '../../foundation/ui/alert.js';
@@ -37,14 +35,11 @@ export default class GalleryPage extends JinyaDesignerPage {
       this.toolboxSortable.destroy();
     }
 
-    const {
-      id,
-      name,
-      type,
-      orientation,
-    } = this.selectedGallery;
+    const { id, name, type, orientation } = this.selectedGallery;
     document.getElementById('id-and-name').innerText = `#${id} ${name}`;
-    document.getElementById('type-and-orientation').innerText = localize({ key: `media.galleries.designer.title.${orientation.toLowerCase()}_${type.toLowerCase()}` });
+    document.getElementById('type-and-orientation').innerText = localize({
+      key: `media.galleries.designer.title.${orientation.toLowerCase()}_${type.toLowerCase()}`,
+    });
 
     const toolbox = document.getElementById('designer-toolbox');
     const result = document.getElementById('designer-result');
@@ -118,7 +113,8 @@ export default class GalleryPage extends JinyaDesignerPage {
 
   // eslint-disable-next-line class-methods-use-this
   resetPositions() {
-    document.getElementById('designer-result')
+    document
+      .getElementById('designer-result')
       .querySelectorAll('[data-position]')
       .forEach((elem, key) => {
         elem.setAttribute('data-position', key.toString(10));
@@ -159,36 +155,33 @@ export default class GalleryPage extends JinyaDesignerPage {
 
   // eslint-disable-next-line class-methods-use-this
   toString() {
-    return html`
-        <div class="cosmo-list">
-            <nav class="cosmo-list__items" id="gallery-list">
-                <button class="cosmo-button cosmo-button--full-width">
-                    ${localize({ key: 'media.galleries.action.new' })}
-                </button>
-            </nav>
-            <div class="cosmo-list__content jinya-designer" id="gallery-designer">
-                <div class="jinya-designer__title">
-                    <span class="cosmo-title" id="id-and-name"></span>
-                    <span class="cosmo-title" id="type-and-orientation"></span>
-                </div>
-                <div class="cosmo-toolbar cosmo-toolbar--designer">
-                    <div class="cosmo-toolbar__group">
-                        <button id="edit-gallery-button" class="cosmo-button">
-                            ${localize({ key: 'media.galleries.action.edit' })}
-                        </button>
-                        <button id="delete-gallery-button" class="cosmo-button">
-                            ${localize({ key: 'media.galleries.action.delete' })}
-                        </button>
-                    </div>
-                </div>
-                <div class="jinya-designer__content">
-                    <div class="jinya-designer__result" id="designer-result">
-                    </div>
-                    <div class="jinya-designer__toolbox" id="designer-toolbox">
-                    </div>
-                </div>
-            </div>
-        </div>`;
+    return html` <div class="cosmo-list">
+      <nav class="cosmo-list__items" id="gallery-list">
+        <button class="cosmo-button cosmo-button--full-width">
+          ${localize({ key: 'media.galleries.action.new' })}
+        </button>
+      </nav>
+      <div class="cosmo-list__content jinya-designer" id="gallery-designer">
+        <div class="jinya-designer__title">
+          <span class="cosmo-title" id="id-and-name"></span>
+          <span class="cosmo-title" id="type-and-orientation"></span>
+        </div>
+        <div class="cosmo-toolbar cosmo-toolbar--designer">
+          <div class="cosmo-toolbar__group">
+            <button id="edit-gallery-button" class="cosmo-button">
+              ${localize({ key: 'media.galleries.action.edit' })}
+            </button>
+            <button id="delete-gallery-button" class="cosmo-button">
+              ${localize({ key: 'media.galleries.action.delete' })}
+            </button>
+          </div>
+        </div>
+        <div class="jinya-designer__content">
+          <div class="jinya-designer__result" id="designer-result"></div>
+          <div class="jinya-designer__toolbox" id="designer-toolbox"></div>
+        </div>
+      </div>
+    </div>`;
   }
 
   async displayed() {
@@ -222,8 +215,7 @@ export default class GalleryPage extends JinyaDesignerPage {
       if (confirmation) {
         try {
           await httpDelete(`/api/media/gallery/${this.selectedGallery.id}`);
-          this.galleries = this.galleries
-            .filter((gallery) => gallery.id !== this.selectedGallery.id);
+          this.galleries = this.galleries.filter((gallery) => gallery.id !== this.selectedGallery.id);
           this.displayGalleries();
           if (this.galleries.length > 0) {
             this.selectGallery({ id: this.galleries[0].id });

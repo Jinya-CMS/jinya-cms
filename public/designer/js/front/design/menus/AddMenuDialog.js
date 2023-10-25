@@ -14,42 +14,37 @@ export default class AddMenuDialog {
   }
 
   async show() {
-    const content = html`
-        <div class="cosmo-modal__backdrop"></div>
-        <form class="cosmo-modal__container" id="create-dialog-form">
-            <div class="cosmo-modal">
-                <h1 class="cosmo-modal__title">${localize({ key: 'design.menus.create.title' })}</h1>
-                <div class="cosmo-modal__content">
-                    <div class="cosmo-input__group">
-                        <label for="createMenuName" class="cosmo-label">
-                            ${localize({ key: 'design.menus.create.name' })}
-                        </label>
-                        <input required type="text" id="createMenuName" class="cosmo-input">
-                        <label for="createMenuLogo" class="cosmo-label">
-                            ${localize({ key: 'design.menus.create.logo' })}
-                        </label>
-                        <div class="cosmo-input cosmo-input--picker" id="createMenuLogoPicker">
-                            <label class="cosmo-picker__name jinya-picker__name" for="createMenuLogo">
-                                ${localize({ key: 'design.menus.create.logo_none' })}
-                            </label>
-                            <label class="cosmo-picker__button" for="createMenuLogo">
-                                <span class="mdi mdi-image-search mdi-24px"></span>
-                            </label>
-                            <input type="hidden" id="createMenuLogo">
-                        </div>
-                        <img src="" alt="" id="selectedFile" class="jinya-picker__selected-file" hidden>
-                    </div>
-                </div>
-                <div class="cosmo-modal__button-bar">
-                    <button type="button" class="cosmo-button" id="cancel-add-dialog">
-                        ${localize({ key: 'design.menus.create.cancel' })}
-                    </button>
-                    <button type="submit" class="cosmo-button" id="save-add-dialog">
-                        ${localize({ key: 'design.menus.create.create' })}
-                    </button>
-                </div>
+    const content = html` <div class="cosmo-modal__backdrop"></div>
+      <form class="cosmo-modal__container" id="create-dialog-form">
+        <div class="cosmo-modal">
+          <h1 class="cosmo-modal__title">${localize({ key: 'design.menus.create.title' })}</h1>
+          <div class="cosmo-modal__content">
+            <div class="cosmo-input__group">
+              <label for="createMenuName" class="cosmo-label"> ${localize({ key: 'design.menus.create.name' })} </label>
+              <input required type="text" id="createMenuName" class="cosmo-input" />
+              <label for="createMenuLogo" class="cosmo-label"> ${localize({ key: 'design.menus.create.logo' })} </label>
+              <div class="cosmo-input cosmo-input--picker" id="createMenuLogoPicker">
+                <label class="cosmo-picker__name jinya-picker__name" for="createMenuLogo">
+                  ${localize({ key: 'design.menus.create.logo_none' })}
+                </label>
+                <label class="cosmo-picker__button" for="createMenuLogo">
+                  <span class="mdi mdi-image-search mdi-24px"></span>
+                </label>
+                <input type="hidden" id="createMenuLogo" />
+              </div>
+              <img src="" alt="" id="selectedFile" class="jinya-picker__selected-file" hidden />
             </div>
-        </form>`;
+          </div>
+          <div class="cosmo-modal__button-bar">
+            <button type="button" class="cosmo-button" id="cancel-add-dialog">
+              ${localize({ key: 'design.menus.create.cancel' })}
+            </button>
+            <button type="submit" class="cosmo-button" id="save-add-dialog">
+              ${localize({ key: 'design.menus.create.create' })}
+            </button>
+          </div>
+        </div>
+      </form>`;
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);

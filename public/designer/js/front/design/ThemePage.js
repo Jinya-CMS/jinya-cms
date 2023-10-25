@@ -35,91 +35,108 @@ export default class ThemePage extends JinyaDesignerPage {
   // eslint-disable-next-line class-methods-use-this
   toString() {
     return html`
-        <div class="cosmo-list">
-            <nav class="cosmo-list__items" id="theme-list">
-            </nav>
-            <div class="cosmo-list__content jinya-designer">
-                <div class="jinya-designer__title">
-                    <span class="cosmo-title" id="theme-title"></span>
-                </div>
-                <div class="cosmo-toolbar cosmo-toolbar--designer">
-                    <div class="cosmo-toolbar__group">
-                        <button id="activate-theme" class="cosmo-button">
-                            ${localize({ key: 'design.themes.action.activate' })}
-                        </button>
-                        <button id="compile-assets" class="cosmo-button">
-                            ${localize({ key: 'design.themes.action.compile_assets' })}
-                        </button>
-                        <button id="update-theme" class="cosmo-button">
-                            ${localize({ key: 'design.themes.action.update' })}
-                        </button>
-                    </div>
-                </div>
-                <div class="jinya-designer__content jinya-designer__content--theme">
-                    <div class="cosmo-tab-control cosmo-tab-control--theme">
-                        <div class="cosmo-tab-control__tabs">
-                            <a id="details-tab-link" data-type="tab" data-target="details-tab"
-                               class="cosmo-tab-control__tab-link cosmo-tab-control__tab-link--active">
-                                ${localize({ key: 'design.themes.tabs.details' })}
-                            </a>
-                            <a id="configuration-tab-link" data-type="tab" data-target="configuration-tab"
-                               class="cosmo-tab-control__tab-link">
-                                ${localize({ key: 'design.themes.tabs.configuration' })}
-                            </a>
-                            <a id="links-tab-link" data-type="tab" data-target="links-tab"
-                               class="cosmo-tab-control__tab-link">
-                                ${localize({ key: 'design.themes.tabs.links' })}
-                            </a>
-                            <a id="variables-tab-link" data-type="tab" data-target="variables-tab"
-                               class="cosmo-tab-control__tab-link">
-                                ${localize({ key: 'design.themes.tabs.variables' })}
-                            </a>
-                        </div>
-                        <div id="details-tab"
-                             class="cosmo-tab-control__content cosmo-tab-control__content--details cosmo-tab-control__content--theme">
-                            <img class="jinya-theme-details__preview" alt="" src="">
-                            <div class="jinya-theme-details__description"></div>
-                        </div>
-                        <form class="cosmo-tab-control__content cosmo-tab-control__content--theme"
-                              style="display: none;" id="configuration-tab">
-                            <div class="cosmo-input__group"></div>
-                            <div class="cosmo-button__container jinya-sticky--bottom">
-                                <button type="reset" class="cosmo-button">
-                                    ${localize({ key: 'design.themes.configuration.discard' })}
-                                </button>
-                                <button type="submit" class="cosmo-button">
-                                    ${localize({ key: 'design.themes.configuration.save' })}
-                                </button>
-                            </div>
-                        </form>
-                        <form class="cosmo-tab-control__content cosmo-tab-control__content--theme"
-                              style="display: none;" id="links-tab">
-                            <div class="cosmo-input__group"></div>
-                            <div class="cosmo-button__container jinya-sticky--bottom">
-                                <button type="reset" class="cosmo-button">
-                                    ${localize({ key: 'design.themes.links.discard' })}
-                                </button>
-                                <button type="submit" class="cosmo-button">
-                                    ${localize({ key: 'design.themes.links.save' })}
-                                </button>
-                            </div>
-                        </form>
-                        <form class="cosmo-tab-control__content cosmo-tab-control__content--theme"
-                              style="display: none;" id="variables-tab">
-                            <div class="cosmo-input__group"></div>
-                            <div class="cosmo-button__container jinya-sticky--bottom">
-                                <button type="reset" class="cosmo-button">
-                                    ${localize({ key: 'design.themes.variables.discard' })}
-                                </button>
-                                <button type="submit" class="cosmo-button">
-                                    ${localize({ key: 'design.themes.variables.save' })}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+      <div class="cosmo-list">
+        <nav class="cosmo-list__items" id="theme-list"></nav>
+        <div class="cosmo-list__content jinya-designer">
+          <div class="jinya-designer__title">
+            <span class="cosmo-title" id="theme-title"></span>
+          </div>
+          <div class="cosmo-toolbar cosmo-toolbar--designer">
+            <div class="cosmo-toolbar__group">
+              <button id="activate-theme" class="cosmo-button">
+                ${localize({ key: 'design.themes.action.activate' })}
+              </button>
+              <button id="compile-assets" class="cosmo-button">
+                ${localize({ key: 'design.themes.action.compile_assets' })}
+              </button>
+              <button id="update-theme" class="cosmo-button">
+                ${localize({ key: 'design.themes.action.update' })}
+              </button>
             </div>
+          </div>
+          <div class="jinya-designer__content jinya-designer__content--theme">
+            <div class="cosmo-tab-control cosmo-tab-control--theme">
+              <div class="cosmo-tab-control__tabs">
+                <a
+                  id="details-tab-link"
+                  data-type="tab"
+                  data-target="details-tab"
+                  class="cosmo-tab-control__tab-link cosmo-tab-control__tab-link--active"
+                >
+                  ${localize({ key: 'design.themes.tabs.details' })}
+                </a>
+                <a
+                  id="configuration-tab-link"
+                  data-type="tab"
+                  data-target="configuration-tab"
+                  class="cosmo-tab-control__tab-link"
+                >
+                  ${localize({ key: 'design.themes.tabs.configuration' })}
+                </a>
+                <a id="links-tab-link" data-type="tab" data-target="links-tab" class="cosmo-tab-control__tab-link">
+                  ${localize({ key: 'design.themes.tabs.links' })}
+                </a>
+                <a
+                  id="variables-tab-link"
+                  data-type="tab"
+                  data-target="variables-tab"
+                  class="cosmo-tab-control__tab-link"
+                >
+                  ${localize({ key: 'design.themes.tabs.variables' })}
+                </a>
+              </div>
+              <div
+                id="details-tab"
+                class="cosmo-tab-control__content cosmo-tab-control__content--details cosmo-tab-control__content--theme"
+              >
+                <img class="jinya-theme-details__preview" alt="" src="" />
+                <div class="jinya-theme-details__description"></div>
+              </div>
+              <form
+                class="cosmo-tab-control__content cosmo-tab-control__content--theme"
+                style="display: none;"
+                id="configuration-tab"
+              >
+                <div class="cosmo-input__group"></div>
+                <div class="cosmo-button__container jinya-sticky--bottom">
+                  <button type="reset" class="cosmo-button">
+                    ${localize({ key: 'design.themes.configuration.discard' })}
+                  </button>
+                  <button type="submit" class="cosmo-button">
+                    ${localize({ key: 'design.themes.configuration.save' })}
+                  </button>
+                </div>
+              </form>
+              <form
+                class="cosmo-tab-control__content cosmo-tab-control__content--theme"
+                style="display: none;"
+                id="links-tab"
+              >
+                <div class="cosmo-input__group"></div>
+                <div class="cosmo-button__container jinya-sticky--bottom">
+                  <button type="reset" class="cosmo-button">${localize({ key: 'design.themes.links.discard' })}</button>
+                  <button type="submit" class="cosmo-button">${localize({ key: 'design.themes.links.save' })}</button>
+                </div>
+              </form>
+              <form
+                class="cosmo-tab-control__content cosmo-tab-control__content--theme"
+                style="display: none;"
+                id="variables-tab"
+              >
+                <div class="cosmo-input__group"></div>
+                <div class="cosmo-button__container jinya-sticky--bottom">
+                  <button type="reset" class="cosmo-button">
+                    ${localize({ key: 'design.themes.variables.discard' })}
+                  </button>
+                  <button type="submit" class="cosmo-button">
+                    ${localize({ key: 'design.themes.variables.save' })}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
+      </div>
     `;
   }
 
@@ -157,7 +174,8 @@ export default class ThemePage extends JinyaDesignerPage {
 
   selectTheme({ id }) {
     this.selectedTheme = this.themes.find((p) => p.id === parseInt(id, 10));
-    document.querySelectorAll('.cosmo-list__item--active')
+    document
+      .querySelectorAll('.cosmo-list__item--active')
       .forEach((item) => item.classList.remove('cosmo-list__item--active'));
     document.querySelector(`[data-id="${id}"]`).classList.add('cosmo-list__item--active');
   }
@@ -237,91 +255,169 @@ export default class ThemePage extends JinyaDesignerPage {
       configuration[item] = configuration[item] ?? {};
     });
 
-    const getGroupHeader = (group) => html`<span class="cosmo-input__header">
-        ${this.getValueForCurrentLanguage(group.title)}
-    </span>`;
+    const getGroupHeader = (group) =>
+      html`<span class="cosmo-input__header"> ${this.getValueForCurrentLanguage(group.title)} </span>`;
     const getField = (group, field) => {
       switch (field.type) {
         case 'boolean':
-          return html`
-              <div class="cosmo-checkbox__group">
-                  <input ${configuration[group.name][field.name] ? 'checked' : ''} type="checkbox"
-                         class="cosmo-checkbox"
-                         id="${group.name}__%__${field.name}" name="${group.name}__%__${field.name}">
-                  <label for="${group.name}__%__${field.name}">${this.getValueForCurrentLanguage(field.label)}</label>
-              </div>`;
+          return html` <div class="cosmo-checkbox__group">
+            <input
+              ${configuration[group.name][field.name] ? 'checked' : ''}
+              type="checkbox"
+              class="cosmo-checkbox"
+              id="${group.name}__%__${field.name}"
+              name="${group.name}__%__${field.name}"
+            />
+            <label for="${group.name}__%__${field.name}">${this.getValueForCurrentLanguage(field.label)}</label>
+          </div>`;
         default:
-          return html`
-              <label class="cosmo-label" for="${group.name}__%__${field.name}">
-                  ${this.getValueForCurrentLanguage(field.label)}
-              </label>
-              <input id="${group.name}__%__${field.name}" name="${group.name}__%__${field.name}" class="cosmo-input"
-                     type="text" placeholder="${defaultConfiguration[group.name][field.name]}"
-                     value="${configuration[group.name][field.name] ?? ''}">`;
+          return html` <label class="cosmo-label" for="${group.name}__%__${field.name}">
+              ${this.getValueForCurrentLanguage(field.label)}
+            </label>
+            <input
+              id="${group.name}__%__${field.name}"
+              name="${group.name}__%__${field.name}"
+              class="cosmo-input"
+              type="text"
+              placeholder="${defaultConfiguration[group.name][field.name]}"
+              value="${configuration[group.name][field.name] ?? ''}"
+            />`;
       }
     };
-    const getGroups = () => this.configurationStructure
-      .groups
-      .map((group) => getGroupHeader(group)
-        + group
-          .fields
-          .map((field) => getField(group, field))
-          .join('\n'))
-      .join('\n');
+    const getGroups = () =>
+      this.configurationStructure.groups
+        .map((group) => getGroupHeader(group) + group.fields.map((field) => getField(group, field)).join('\n'))
+        .join('\n');
     const configurationElement = document.querySelector('#configuration-tab .cosmo-input__group');
     clearChildren({ parent: configurationElement });
     configurationElement.innerHTML = getGroups();
 
-    const getFileLinks = () => html`
-        <span class="cosmo-input__header">${localize({ key: 'design.themes.links.files' })}</span>` + Object.keys(this.configurationStructure.links.files).map((link) => html`
-        <label for="files_${link}"
-               class="cosmo-label">${this.getValueForCurrentLanguage(this.configurationStructure.links.files[link])}</label>
-        <select required id="files_${link}" name="file__%__${link}" class="cosmo-select">
-            ${this.files.map((file) => `<option ${file.id === this.themeFiles[link] ? 'selected' : ''} value="${file.id}">"${file.name}"</option>`)}
-        </select>`).join('\n');
-    const getSegmentPageLinks = () => html`
-        <span class="cosmo-input__header">${localize({ key: 'design.themes.links.segment_pages' })}</span>` + Object.keys(this.configurationStructure.links.segment_pages).map((link) => html`
-        <label for="segment_pages_${link}"
-               class="cosmo-label">${this.getValueForCurrentLanguage(this.configurationStructure.links.segment_pages[link])}</label>
-        <select required id="segment_pages_${link}" name="segment-page__%__${link}" class="cosmo-select">
-            ${this.segmentPages.map((segmentPage) => `<option ${segmentPage.id === this.themeSegmentPages[link] ? 'selected' : ''} value="${segmentPage.id}">${segmentPage.name}</option>`)}
-        </select>`).join('\n');
-    const getPageLinks = () => html`
-        <span class="cosmo-input__header">${localize({ key: 'design.themes.links.pages' })}</span>` + Object.keys(this.configurationStructure.links.pages).map((link) => html`
-        <label for="pages_${link}"
-               class="cosmo-label">${this.getValueForCurrentLanguage(this.configurationStructure.links.pages[link])}</label>
-        <select required id="pages_${link}" name="page__%__${link}" class="cosmo-select">
-            ${this.pages.map((page) => `<option ${page.id === this.themePages[link] ? 'selected' : ''} value="${page.id}">${page.title}</option>`)}
-        </select>`).join('\n');
-    const getFormLinks = () => html`
-        <span class="cosmo-input__header">${localize({ key: 'design.themes.links.forms' })}</span>` + Object.keys(this.configurationStructure.links.forms).map((link) => html`
-        <label for="forms_${link}"
-               class="cosmo-label">${this.getValueForCurrentLanguage(this.configurationStructure.links.forms[link])}</label>
-        <select required id="forms_${link}" name="form__%__${link}" class="cosmo-select">
-            ${this.forms.map((form) => `<option ${form.id === this.themeForms[link] ? 'selected' : ''} value="${form.id}">${form.title}</option>`)}
-        </select>`).join('\n');
-    const getMenuLinks = () => html`
-        <span class="cosmo-input__header">${localize({ key: 'design.themes.links.menus' })}</span>` + Object.keys(this.configurationStructure.links.menus).map((link) => html`
-        <label for="menus_${link}"
-               class="cosmo-label">${this.getValueForCurrentLanguage(this.configurationStructure.links.menus[link])}</label>
-        <select required id="menus_${link}" name="menu__%__${link}" class="cosmo-select">
-            ${this.menus.map((menu) => `<option ${menu.id === this.themeMenus[link] ? 'selected' : ''} value="${menu.id}">${menu.name}</option>`)}
-        </select>`).join('\n');
-    const getGalleryLinks = () => html`
-        <span class="cosmo-input__header">${localize({ key: 'design.themes.links.galleries' })}</span>` + Object.keys(this.configurationStructure.links.galleries).map((link) => html`
-        <label for="galleries_${link}"
-               class="cosmo-label">${this.getValueForCurrentLanguage(this.configurationStructure.links.galleries[link])}</label>
-        <select required id="galleries_${link}" name="gallery__%__${link}" class="cosmo-select">
-            ${this.galleries.map((gallery) => `<option ${gallery.id === this.themeGalleries[link] ? 'selected' : ''} value="${gallery.id}">${gallery.name}</option>`)}
-        </select>`).join('\n');
-    const getCategoryLinks = () => html`
-        <span
-            class="cosmo-input__header">${localize({ key: 'design.themes.links.categories' })}</span>` + Object.keys(this.configurationStructure.links.blog_categories).map((link) => html`
-        <label for="categories_${link}"
-               class="cosmo-label">${this.getValueForCurrentLanguage(this.configurationStructure.links.blog_categories[link])}</label>
-        <select required id="categories_${link}" name="category__%__${link}" class="cosmo-select">
-            ${this.blog_categories.map((category) => `<option ${category.id === this.themeCategories[link] ? 'selected' : ''} value="${category.id}">${category.name}</option>`)}
-        </select>`).join('\n');
+    const getFileLinks = () =>
+      html` <span class="cosmo-input__header">${localize({ key: 'design.themes.links.files' })}</span>` +
+      Object.keys(this.configurationStructure.links.files)
+        .map(
+          (link) =>
+            html` <label for="files_${link}" class="cosmo-label"
+                >${this.getValueForCurrentLanguage(this.configurationStructure.links.files[link])}</label
+              >
+              <select required id="files_${link}" name="file__%__${link}" class="cosmo-select">
+                ${this.files.map(
+                  (file) =>
+                    `<option ${file.id === this.themeFiles[link] ? 'selected' : ''} value="${file.id}">"${
+                      file.name
+                    }"</option>`,
+                )}
+              </select>`,
+        )
+        .join('\n');
+    const getSegmentPageLinks = () =>
+      html` <span class="cosmo-input__header">${localize({ key: 'design.themes.links.segment_pages' })}</span>` +
+      Object.keys(this.configurationStructure.links.segment_pages)
+        .map(
+          (link) =>
+            html` <label for="segment_pages_${link}" class="cosmo-label"
+                >${this.getValueForCurrentLanguage(this.configurationStructure.links.segment_pages[link])}</label
+              >
+              <select required id="segment_pages_${link}" name="segment-page__%__${link}" class="cosmo-select">
+                ${this.segmentPages.map(
+                  (segmentPage) =>
+                    `<option ${segmentPage.id === this.themeSegmentPages[link] ? 'selected' : ''} value="${
+                      segmentPage.id
+                    }">${segmentPage.name}</option>`,
+                )}
+              </select>`,
+        )
+        .join('\n');
+    const getPageLinks = () =>
+      html` <span class="cosmo-input__header">${localize({ key: 'design.themes.links.pages' })}</span>` +
+      Object.keys(this.configurationStructure.links.pages)
+        .map(
+          (link) =>
+            html` <label for="pages_${link}" class="cosmo-label"
+                >${this.getValueForCurrentLanguage(this.configurationStructure.links.pages[link])}</label
+              >
+              <select required id="pages_${link}" name="page__%__${link}" class="cosmo-select">
+                ${this.pages.map(
+                  (page) =>
+                    `<option ${page.id === this.themePages[link] ? 'selected' : ''} value="${page.id}">${
+                      page.title
+                    }</option>`,
+                )}
+              </select>`,
+        )
+        .join('\n');
+    const getFormLinks = () =>
+      html` <span class="cosmo-input__header">${localize({ key: 'design.themes.links.forms' })}</span>` +
+      Object.keys(this.configurationStructure.links.forms)
+        .map(
+          (link) =>
+            html` <label for="forms_${link}" class="cosmo-label"
+                >${this.getValueForCurrentLanguage(this.configurationStructure.links.forms[link])}</label
+              >
+              <select required id="forms_${link}" name="form__%__${link}" class="cosmo-select">
+                ${this.forms.map(
+                  (form) =>
+                    `<option ${form.id === this.themeForms[link] ? 'selected' : ''} value="${form.id}">${
+                      form.title
+                    }</option>`,
+                )}
+              </select>`,
+        )
+        .join('\n');
+    const getMenuLinks = () =>
+      html` <span class="cosmo-input__header">${localize({ key: 'design.themes.links.menus' })}</span>` +
+      Object.keys(this.configurationStructure.links.menus)
+        .map(
+          (link) =>
+            html` <label for="menus_${link}" class="cosmo-label"
+                >${this.getValueForCurrentLanguage(this.configurationStructure.links.menus[link])}</label
+              >
+              <select required id="menus_${link}" name="menu__%__${link}" class="cosmo-select">
+                ${this.menus.map(
+                  (menu) =>
+                    `<option ${menu.id === this.themeMenus[link] ? 'selected' : ''} value="${menu.id}">${
+                      menu.name
+                    }</option>`,
+                )}
+              </select>`,
+        )
+        .join('\n');
+    const getGalleryLinks = () =>
+      html` <span class="cosmo-input__header">${localize({ key: 'design.themes.links.galleries' })}</span>` +
+      Object.keys(this.configurationStructure.links.galleries)
+        .map(
+          (link) =>
+            html` <label for="galleries_${link}" class="cosmo-label"
+                >${this.getValueForCurrentLanguage(this.configurationStructure.links.galleries[link])}</label
+              >
+              <select required id="galleries_${link}" name="gallery__%__${link}" class="cosmo-select">
+                ${this.galleries.map(
+                  (gallery) =>
+                    `<option ${gallery.id === this.themeGalleries[link] ? 'selected' : ''} value="${gallery.id}">${
+                      gallery.name
+                    }</option>`,
+                )}
+              </select>`,
+        )
+        .join('\n');
+    const getCategoryLinks = () =>
+      html` <span class="cosmo-input__header">${localize({ key: 'design.themes.links.categories' })}</span>` +
+      Object.keys(this.configurationStructure.links.blog_categories)
+        .map(
+          (link) =>
+            html` <label for="categories_${link}" class="cosmo-label"
+                >${this.getValueForCurrentLanguage(this.configurationStructure.links.blog_categories[link])}</label
+              >
+              <select required id="categories_${link}" name="category__%__${link}" class="cosmo-select">
+                ${this.blog_categories.map(
+                  (category) =>
+                    `<option ${category.id === this.themeCategories[link] ? 'selected' : ''} value="${category.id}">${
+                      category.name
+                    }</option>`,
+                )}
+              </select>`,
+        )
+        .join('\n');
 
     let links = '';
     if (this.configurationStructure.links.files) {
@@ -350,10 +446,21 @@ export default class ThemePage extends JinyaDesignerPage {
     clearChildren({ parent: linkElement });
     linkElement.innerHTML = links;
 
-    const getVariables = () => Object.keys(this.defaultVariables).map((variable) => html`
-        <label for="${variable}">${variable}</label>
-        <input id="${variable}" name="${variable}" placeholder="${this.defaultVariables[variable]}" type="text"
-               class="cosmo-input" value="${scssVariables[variable] ?? ''}">`).join('\n');
+    const getVariables = () =>
+      Object.keys(this.defaultVariables)
+        .map(
+          (variable) =>
+            html` <label for="${variable}">${variable}</label>
+              <input
+                id="${variable}"
+                name="${variable}"
+                placeholder="${this.defaultVariables[variable]}"
+                type="text"
+                class="cosmo-input"
+                value="${scssVariables[variable] ?? ''}"
+              />`,
+        )
+        .join('\n');
     const varElement = document.querySelector('#variables-tab .cosmo-input__group');
     clearChildren({ parent: varElement });
     varElement.innerHTML = getVariables();
@@ -398,12 +505,14 @@ export default class ThemePage extends JinyaDesignerPage {
   bindEvents() {
     super.bindEvents();
     document.getElementById('activate-theme').addEventListener('click', async () => {
-      if (await confirm({
-        title: localize({ key: 'design.themes.activate.title' }),
-        message: localize({ key: 'design.themes.activate.message', values: this.selectedTheme }),
-        approveLabel: localize({ key: 'design.themes.activate.approve' }),
-        declineLabel: localize({ key: 'design.themes.activate.decline' }),
-      })) {
+      if (
+        await confirm({
+          title: localize({ key: 'design.themes.activate.title' }),
+          message: localize({ key: 'design.themes.activate.message', values: this.selectedTheme }),
+          approveLabel: localize({ key: 'design.themes.activate.approve' }),
+          declineLabel: localize({ key: 'design.themes.activate.decline' }),
+        })
+      ) {
         try {
           await put(`/api/theme/${this.selectedTheme.id}/active`);
           await alert({
@@ -425,12 +534,14 @@ export default class ThemePage extends JinyaDesignerPage {
       }
     });
     document.getElementById('compile-assets').addEventListener('click', async () => {
-      if (await confirm({
-        title: localize({ key: 'design.themes.assets.title' }),
-        message: localize({ key: 'design.themes.assets.message', values: this.selectedTheme }),
-        approveLabel: localize({ key: 'design.themes.assets.approve' }),
-        declineLabel: localize({ key: 'design.themes.assets.decline' }),
-      })) {
+      if (
+        await confirm({
+          title: localize({ key: 'design.themes.assets.title' }),
+          message: localize({ key: 'design.themes.assets.message', values: this.selectedTheme }),
+          approveLabel: localize({ key: 'design.themes.assets.approve' }),
+          declineLabel: localize({ key: 'design.themes.assets.decline' }),
+        })
+      ) {
         try {
           await put(`/api/theme/${this.selectedTheme.id}/assets`);
           await alert({
@@ -474,7 +585,10 @@ export default class ThemePage extends JinyaDesignerPage {
         const group = split[0];
         const field = split[1];
         configuration[group] = configuration[group] ?? {};
-        if (this.configurationStructure.groups.find((g) => g.name === group).fields.find((f) => f.name === field).type === 'boolean') {
+        if (
+          this.configurationStructure.groups.find((g) => g.name === group).fields.find((f) => f.name === field).type ===
+          'boolean'
+        ) {
           configuration[group][field] = value.toLowerCase() === 'on';
         } else {
           configuration[group][field] = value;
@@ -564,7 +678,9 @@ export default class ThemePage extends JinyaDesignerPage {
       tab.addEventListener('click', (e) => {
         e.preventDefault();
         const target = tab.getAttribute('data-target');
-        document.querySelectorAll('[data-type="tab"]').forEach((item) => item.classList.remove('cosmo-tab-control__tab-link--active'));
+        document
+          .querySelectorAll('[data-type="tab"]')
+          .forEach((item) => item.classList.remove('cosmo-tab-control__tab-link--active'));
         document.querySelectorAll('.cosmo-tab-control__content').forEach((item) => {
           // eslint-disable-next-line no-param-reassign
           item.style.display = 'none';

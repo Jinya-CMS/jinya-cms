@@ -14,19 +14,17 @@ export default class QueryToolPage extends JinyaDesignerPage {
 
   // eslint-disable-next-line class-methods-use-this
   toString() {
-    return html`
-        <div class="jinya-horizontal-split">
-            <div class="jinya-code-editor__container">
-                <div class="jinya-code-editor"></div>
-                <div class="cosmo-button__container jinya-code-editor__execute">
-                    <button class="cosmo-button" id="execute">${localize({ key: 'database.query_tool.execute' })}
-                    </button>
-                </div>
-            </div>
-            <div class="jinya-code-editor__result">
-                <div class="cosmo-tab-control cosmo-tab-control--query-tool"></div>
-            </div>
-        </div>`;
+    return html` <div class="jinya-horizontal-split">
+      <div class="jinya-code-editor__container">
+        <div class="jinya-code-editor"></div>
+        <div class="cosmo-button__container jinya-code-editor__execute">
+          <button class="cosmo-button" id="execute">${localize({ key: 'database.query_tool.execute' })}</button>
+        </div>
+      </div>
+      <div class="jinya-code-editor__result">
+        <div class="cosmo-tab-control cosmo-tab-control--query-tool"></div>
+      </div>
+    </div>`;
   }
 
   async displayed() {
@@ -56,12 +54,10 @@ export default class QueryToolPage extends JinyaDesignerPage {
         document
           .querySelectorAll('.cosmo-tab-control__tab-link--active')
           .forEach((item) => item.classList.remove('cosmo-tab-control__tab-link--active'));
-        document
-          .querySelectorAll('.cosmo-tab-control__content')
-          .forEach((item) => {
-            // eslint-disable-next-line no-param-reassign
-            item.style.display = 'none';
-          });
+        document.querySelectorAll('.cosmo-tab-control__content').forEach((item) => {
+          // eslint-disable-next-line no-param-reassign
+          item.style.display = 'none';
+        });
         tabElem.classList.add('cosmo-tab-control__tab-link--active');
         document.getElementById(result.statement).style.display = 'flex';
       });
@@ -80,16 +76,14 @@ export default class QueryToolPage extends JinyaDesignerPage {
         contentElem.innerText = localize({ key: 'database.query_tool.no_result' });
       } else if (result.result.length > 0) {
         const keys = Object.keys(result.result[0]);
-        contentElem.innerHTML = html`
-            <table class="cosmo-table">
-                <thead>
-                <tr>
-                    ${keys.map((key) => `<th>${key}</th>`)}
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>`;
+        contentElem.innerHTML = html` <table class="cosmo-table">
+          <thead>
+            <tr>
+              ${keys.map((key) => `<th>${key}</th>`)}
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>`;
         for (const row of result.result) {
           const tr = document.createElement('tr');
           for (const key of keys) {

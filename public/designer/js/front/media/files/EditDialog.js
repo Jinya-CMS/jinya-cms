@@ -15,33 +15,28 @@ export default class EditDialog {
   }
 
   show() {
-    const content = html`
-        <div class="cosmo-modal__backdrop"></div>
-        <form class="cosmo-modal__container" id="edit-dialog-form">
-            <div class="cosmo-modal">
-                <h1 class="cosmo-modal__title">${localize({ key: 'media.files.edit.title' })}</h1>
-                <div class="cosmo-modal__content">
-                    <div class="cosmo-input__group">
-                        <label for="editFileName" class="cosmo-label">
-                            ${localize({ key: 'media.files.edit.name' })}
-                        </label>
-                        <input required type="text" id="editFileName" class="cosmo-input" value="${this.file.name}">
-                        <label for="editFileName" class="cosmo-label">
-                            ${localize({ key: 'media.files.edit.file' })}
-                        </label>
-                        <input class="cosmo-input" type="file" id="editFileFile">
-                    </div>
-                </div>
-                <div class="cosmo-modal__button-bar">
-                    <button type="button" class="cosmo-button" id="cancel-edit-dialog">
-                        ${localize({ key: 'media.files.edit.cancel' })}
-                    </button>
-                    <button type="submit" class="cosmo-button" id="save-edit-dialog">
-                        ${localize({ key: 'media.files.edit.save' })}
-                    </button>
-                </div>
+    const content = html` <div class="cosmo-modal__backdrop"></div>
+      <form class="cosmo-modal__container" id="edit-dialog-form">
+        <div class="cosmo-modal">
+          <h1 class="cosmo-modal__title">${localize({ key: 'media.files.edit.title' })}</h1>
+          <div class="cosmo-modal__content">
+            <div class="cosmo-input__group">
+              <label for="editFileName" class="cosmo-label"> ${localize({ key: 'media.files.edit.name' })} </label>
+              <input required type="text" id="editFileName" class="cosmo-input" value="${this.file.name}" />
+              <label for="editFileName" class="cosmo-label"> ${localize({ key: 'media.files.edit.file' })} </label>
+              <input class="cosmo-input" type="file" id="editFileFile" />
             </div>
-        </form>`;
+          </div>
+          <div class="cosmo-modal__button-bar">
+            <button type="button" class="cosmo-button" id="cancel-edit-dialog">
+              ${localize({ key: 'media.files.edit.cancel' })}
+            </button>
+            <button type="submit" class="cosmo-button" id="save-edit-dialog">
+              ${localize({ key: 'media.files.edit.save' })}
+            </button>
+          </div>
+        </div>
+      </form>`;
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);

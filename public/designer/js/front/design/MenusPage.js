@@ -21,81 +21,75 @@ export default class MenusPage extends JinyaDesignerPage {
   // eslint-disable-next-line class-methods-use-this
   toString() {
     return html`
-        <div class="cosmo-list">
-            <nav class="cosmo-list__items" id="menu-list">
-            </nav>
-            <div class="cosmo-list__content jinya-designer">
-                <div class="jinya-designer__title">
-                    <span class="cosmo-title" id="menu-title"></span>
-                </div>
-                <div class="cosmo-toolbar cosmo-toolbar--designer">
-                    <div class="cosmo-toolbar__group">
-                        <button id="edit-menu" class="cosmo-button">
-                            ${localize({ key: 'design.menus.action.edit' })}
-                        </button>
-                        <button id="delete-menu" class="cosmo-button">
-                            ${localize({ key: 'design.menus.action.delete' })}
-                        </button>
-                    </div>
-                    <div class="cosmo-toolbar__group">
-                        <button disabled id="decrease-nesting" class="cosmo-button">
-                            ${localize({ key: 'design.menus.action.decrease_nesting' })}
-                        </button>
-                        <button disabled id="increase-nesting" class="cosmo-button">
-                            ${localize({ key: 'design.menus.action.increase_nesting' })}
-                        </button>
-                        <button disabled id="edit-item" class="cosmo-button">
-                            ${localize({ key: 'design.menus.action.edit_item' })}
-                        </button>
-                        <button disabled id="delete-item" class="cosmo-button">
-                            ${localize({ key: 'design.menus.action.delete_item' })}
-                        </button>
-                    </div>
-                </div>
-                <div class="jinya-designer__content">
-                    <div id="item-list" class="jinya-designer__result jinya-designer__result--horizontal">
-                    </div>
-                    <div id="item-toolbox" class="jinya-designer__toolbox">
-                        <div data-type="gallery" class="jinya-designer-item__template">
-                            <span class="jinya-designer__drag-handle"></span>
-                            <span>${localize({ key: 'design.menus.designer.type_gallery' })}</span>
-                        </div>
-                        <div data-type="page" class="jinya-designer-item__template">
-                            <span class="jinya-designer__drag-handle"></span>
-                            <span>${localize({ key: 'design.menus.designer.type_page' })}</span>
-                        </div>
-                        <div data-type="segment_page" class="jinya-designer-item__template">
-                            <span class="jinya-designer__drag-handle"></span>
-                            <span>${localize({ key: 'design.menus.designer.type_segment_page' })}</span>
-                        </div>
-                        <div data-type="form" class="jinya-designer-item__template">
-                            <span class="jinya-designer__drag-handle"></span>
-                            <span>${localize({ key: 'design.menus.designer.type_form' })}</span>
-                        </div>
-                        <div data-type="artist" class="jinya-designer-item__template">
-                            <span class="jinya-designer__drag-handle"></span>
-                            <span>${localize({ key: 'design.menus.designer.type_artist' })}</span>
-                        </div>
-                        <div data-type="blog_category" class="jinya-designer-item__template">
-                            <span class="jinya-designer__drag-handle"></span>
-                            <span>${localize({ key: 'design.menus.designer.type_blog_category' })}</span>
-                        </div>
-                        <div data-type="group" class="jinya-designer-item__template">
-                            <span class="jinya-designer__drag-handle"></span>
-                            <span>${localize({ key: 'design.menus.designer.type_group' })}</span>
-                        </div>
-                        <div data-type="external_link" class="jinya-designer-item__template">
-                            <span class="jinya-designer__drag-handle"></span>
-                            <span>${localize({ key: 'design.menus.designer.type_external_link' })}</span>
-                        </div>
-                        <div data-type="blog_home_page" class="jinya-designer-item__template">
-                            <span class="jinya-designer__drag-handle"></span>
-                            <span>${localize({ key: 'design.menus.designer.type_blog_home_page' })}</span>
-                        </div>
-                    </div>
-                </div>
+      <div class="cosmo-list">
+        <nav class="cosmo-list__items" id="menu-list"></nav>
+        <div class="cosmo-list__content jinya-designer">
+          <div class="jinya-designer__title">
+            <span class="cosmo-title" id="menu-title"></span>
+          </div>
+          <div class="cosmo-toolbar cosmo-toolbar--designer">
+            <div class="cosmo-toolbar__group">
+              <button id="edit-menu" class="cosmo-button">${localize({ key: 'design.menus.action.edit' })}</button>
+              <button id="delete-menu" class="cosmo-button">${localize({ key: 'design.menus.action.delete' })}</button>
             </div>
+            <div class="cosmo-toolbar__group">
+              <button disabled id="decrease-nesting" class="cosmo-button">
+                ${localize({ key: 'design.menus.action.decrease_nesting' })}
+              </button>
+              <button disabled id="increase-nesting" class="cosmo-button">
+                ${localize({ key: 'design.menus.action.increase_nesting' })}
+              </button>
+              <button disabled id="edit-item" class="cosmo-button">
+                ${localize({ key: 'design.menus.action.edit_item' })}
+              </button>
+              <button disabled id="delete-item" class="cosmo-button">
+                ${localize({ key: 'design.menus.action.delete_item' })}
+              </button>
+            </div>
+          </div>
+          <div class="jinya-designer__content">
+            <div id="item-list" class="jinya-designer__result jinya-designer__result--horizontal"></div>
+            <div id="item-toolbox" class="jinya-designer__toolbox">
+              <div data-type="gallery" class="jinya-designer-item__template">
+                <span class="jinya-designer__drag-handle"></span>
+                <span>${localize({ key: 'design.menus.designer.type_gallery' })}</span>
+              </div>
+              <div data-type="page" class="jinya-designer-item__template">
+                <span class="jinya-designer__drag-handle"></span>
+                <span>${localize({ key: 'design.menus.designer.type_page' })}</span>
+              </div>
+              <div data-type="segment_page" class="jinya-designer-item__template">
+                <span class="jinya-designer__drag-handle"></span>
+                <span>${localize({ key: 'design.menus.designer.type_segment_page' })}</span>
+              </div>
+              <div data-type="form" class="jinya-designer-item__template">
+                <span class="jinya-designer__drag-handle"></span>
+                <span>${localize({ key: 'design.menus.designer.type_form' })}</span>
+              </div>
+              <div data-type="artist" class="jinya-designer-item__template">
+                <span class="jinya-designer__drag-handle"></span>
+                <span>${localize({ key: 'design.menus.designer.type_artist' })}</span>
+              </div>
+              <div data-type="blog_category" class="jinya-designer-item__template">
+                <span class="jinya-designer__drag-handle"></span>
+                <span>${localize({ key: 'design.menus.designer.type_blog_category' })}</span>
+              </div>
+              <div data-type="group" class="jinya-designer-item__template">
+                <span class="jinya-designer__drag-handle"></span>
+                <span>${localize({ key: 'design.menus.designer.type_group' })}</span>
+              </div>
+              <div data-type="external_link" class="jinya-designer-item__template">
+                <span class="jinya-designer__drag-handle"></span>
+                <span>${localize({ key: 'design.menus.designer.type_external_link' })}</span>
+              </div>
+              <div data-type="blog_home_page" class="jinya-designer-item__template">
+                <span class="jinya-designer__drag-handle"></span>
+                <span>${localize({ key: 'design.menus.designer.type_blog_home_page' })}</span>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     `;
   }
 
@@ -134,7 +128,8 @@ export default class MenusPage extends JinyaDesignerPage {
     document.getElementById('edit-menu').disabled = false;
     document.getElementById('delete-menu').disabled = false;
     this.selectedMenu = this.menus.find((p) => p.id === parseInt(id, 10));
-    document.querySelectorAll('.cosmo-list__item--active')
+    document
+      .querySelectorAll('.cosmo-list__item--active')
       .forEach((item) => item.classList.remove('cosmo-list__item--active'));
     document.querySelector(`[data-id="${id}"]`).classList.add('cosmo-list__item--active');
     document.getElementById('edit-item').setAttribute('disabled', 'disabled');
@@ -303,14 +298,13 @@ export default class MenusPage extends JinyaDesignerPage {
       itemElem.style.width = `calc(100% - ${item.nestingIndex * 16}px)`;
       itemElem.menuItem = item;
       itemElem.parentItem = item.parent;
-      itemElem.innerHTML = html`
-          <span class="jinya-designer-item__title">
-              ${localize({ key: `design.menus.designer.type_${type}` })}
-          </span>
-          <span>
-              <span>${item.title}</span>
-              <span class="jinya-menu-item__route">${item.route ?? ''}</span>
-          </span>`;
+      itemElem.innerHTML = html` <span class="jinya-designer-item__title">
+          ${localize({ key: `design.menus.designer.type_${type}` })}
+        </span>
+        <span>
+          <span>${item.title}</span>
+          <span class="jinya-menu-item__route">${item.route ?? ''}</span>
+        </span>`;
       if (appendToParent) {
         itemList.parentElement.append(itemElem);
       } else {
@@ -354,7 +348,13 @@ export default class MenusPage extends JinyaDesignerPage {
       item.type = this.getType(item);
       result.push(item);
       if (items.length > 0) {
-        result.push(...this.flattenMenuItems({ parent: item, nestingIndex: nestingIndex + 1, items: item.items }));
+        result.push(
+          ...this.flattenMenuItems({
+            parent: item,
+            nestingIndex: nestingIndex + 1,
+            items: item.items,
+          }),
+        );
       }
     }
 

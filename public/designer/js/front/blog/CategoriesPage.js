@@ -15,43 +15,36 @@ export default class CategoriesPage extends JinyaDesignerPage {
 
   // eslint-disable-next-line class-methods-use-this
   toString() {
-    return html`
-        <div class="cosmo-list">
-            <nav class="cosmo-list__items" id="category-list">
-            </nav>
-            <div class="cosmo-list__content jinya-designer">
-                <div class="jinya-designer__title">
-                    <span class="cosmo-title" id="category-title"></span>
-                </div>
-                <div class="cosmo-toolbar cosmo-toolbar--designer">
-                    <div class="cosmo-toolbar__group">
-                        <button class="cosmo-button" id="edit-category">
-                            ${localize({ key: 'blog.categories.action.edit' })}
-                        </button>
-                        <button class="cosmo-button" id="delete-category">
-                            ${localize({ key: 'blog.categories.action.delete' })}
-                        </button>
-                    </div>
-                </div>
-                <div class="jinya-designer__content jinya-designer__content--key-value-list">
-                    <dl class="cosmo-key-value-list">
-                        <dt class="cosmo-key-value-list__key">${localize({ key: 'blog.categories.details.name' })}</dt>
-                        <dd class="cosmo-key-value-list__value" id="category-name"></dd>
-                        <dt class="cosmo-key-value-list__key">
-                            ${localize({ key: 'blog.categories.details.description' })}
-                        </dt>
-                        <dd class="cosmo-key-value-list__value" id="category-description"></dd>
-                        <dt class="cosmo-key-value-list__key">${localize({ key: 'blog.categories.details.parent' })}
-                        </dt>
-                        <dd class="cosmo-key-value-list__value" id="category-parent"></dd>
-                        <dt hidden class="cosmo-key-value-list__key" data-type="webhook">
-                            ${localize({ key: 'blog.categories.details.webhook' })}
-                        </dt>
-                        <dd hidden class="cosmo-key-value-list__value" data-type="webhook" id="category-webhook"></dd>
-                    </dl>
-                </div>
-            </div>
-        </div>`;
+    return html` <div class="cosmo-list">
+      <nav class="cosmo-list__items" id="category-list"></nav>
+      <div class="cosmo-list__content jinya-designer">
+        <div class="jinya-designer__title">
+          <span class="cosmo-title" id="category-title"></span>
+        </div>
+        <div class="cosmo-toolbar cosmo-toolbar--designer">
+          <div class="cosmo-toolbar__group">
+            <button class="cosmo-button" id="edit-category">${localize({ key: 'blog.categories.action.edit' })}</button>
+            <button class="cosmo-button" id="delete-category">
+              ${localize({ key: 'blog.categories.action.delete' })}
+            </button>
+          </div>
+        </div>
+        <div class="jinya-designer__content jinya-designer__content--key-value-list">
+          <dl class="cosmo-key-value-list">
+            <dt class="cosmo-key-value-list__key">${localize({ key: 'blog.categories.details.name' })}</dt>
+            <dd class="cosmo-key-value-list__value" id="category-name"></dd>
+            <dt class="cosmo-key-value-list__key">${localize({ key: 'blog.categories.details.description' })}</dt>
+            <dd class="cosmo-key-value-list__value" id="category-description"></dd>
+            <dt class="cosmo-key-value-list__key">${localize({ key: 'blog.categories.details.parent' })}</dt>
+            <dd class="cosmo-key-value-list__value" id="category-parent"></dd>
+            <dt hidden class="cosmo-key-value-list__key" data-type="webhook">
+              ${localize({ key: 'blog.categories.details.webhook' })}
+            </dt>
+            <dd hidden class="cosmo-key-value-list__value" data-type="webhook" id="category-webhook"></dd>
+          </dl>
+        </div>
+      </div>
+    </div>`;
   }
 
   displayCategories() {
@@ -90,8 +83,10 @@ export default class CategoriesPage extends JinyaDesignerPage {
   displaySelectedCategory() {
     document.getElementById('category-title').innerText = `#${this.selectedCategory.id} ${this.selectedCategory.name}`;
     document.getElementById('category-name').innerText = this.selectedCategory.name;
-    document.getElementById('category-description').innerText = this.selectedCategory.description ?? localize({ key: 'blog.categories.details.description_none' });
-    document.getElementById('category-parent').innerText = this.selectedCategory.parent?.name ?? localize({ key: 'blog.categories.details.parent_none' });
+    document.getElementById('category-description').innerText =
+      this.selectedCategory.description ?? localize({ key: 'blog.categories.details.description_none' });
+    document.getElementById('category-parent').innerText =
+      this.selectedCategory.parent?.name ?? localize({ key: 'blog.categories.details.parent_none' });
     if (this.selectedCategory.webhookEnabled) {
       document.getElementById('category-webhook').innerText = this.selectedCategory.webhookUrl;
       document.querySelectorAll('[data-type="webhook"]').forEach((item) => item.removeAttribute('hidden'));
@@ -161,9 +156,7 @@ export default class CategoriesPage extends JinyaDesignerPage {
     document.getElementById('edit-category').addEventListener('click', async () => {
       const { default: EditCategoryDialog } = await import('./categories/EditCategoryDialog.js');
       const dialog = new EditCategoryDialog({
-        onHide: async ({
-                         name, description, webhookUrl, parent, webhookEnabled,
-                       }) => {
+        onHide: async ({ name, description, webhookUrl, parent, webhookEnabled }) => {
           const category = this.categories.find((c) => c.id === this.selectedCategory.id);
           category.name = name;
           category.description = description;

@@ -30,14 +30,12 @@ export default class JinyaDesignerPage {
    * @return Promise<void>
    */
   // eslint-disable-next-line no-empty-function,class-methods-use-this
-  async displayed() {
-  }
+  async displayed() {}
 
   /**
    * Method to bind the events needed
    * @return void
    */
   // eslint-disable-next-line class-methods-use-this
-  bindEvents() {
-  }
+  bindEvents() {}
 }

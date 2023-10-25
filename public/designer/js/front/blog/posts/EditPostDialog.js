@@ -16,16 +16,7 @@ export default class EditPostDialog {
    * @param headerImage {number}
    * @param onHide {function()}
    */
-  constructor({
-                id,
-                category,
-                title,
-                slug,
-                postPublic,
-                categories,
-                headerImage,
-                onHide,
-              }) {
+  constructor({ id, category, title, slug, postPublic, categories, headerImage, onHide }) {
     this.category = category;
     this.categories = categories;
     this.onHide = onHide;
@@ -39,58 +30,58 @@ export default class EditPostDialog {
   async show() {
     const { items: files } = await get('/api/file');
     const header = files.find((file) => file.id === this.headerImage);
-    const content = html`
-        <div class="cosmo-modal__backdrop"></div>
-        <form class="cosmo-modal__container" id="edit-dialog-form">
-            <div class="cosmo-modal">
-                <h1 class="cosmo-modal__title">${localize({ key: 'blog.posts.edit.title' })}</h1>
-                <div class="cosmo-modal__content">
-                    <div class="cosmo-input__group">
-                        <label for="editPostTitle" class="cosmo-label">
-                            ${localize({ key: 'blog.posts.edit.post_title' })}
-                        </label>
-                        <input required type="text" id="editPostTitle" class="cosmo-input" value="${this.title}">
-                        <label for="editPostSlug" class="cosmo-label">
-                            ${localize({ key: 'blog.posts.edit.slug' })}
-                        </label>
-                        <input required type="text" id="editPostSlug" class="cosmo-input" value="${this.slug}">
-                        <label for="editPostCategory" class="cosmo-label">
-                            ${localize({ key: 'blog.posts.edit.category' })}
-                        </label>
-                        <select required id="editPostCategory" class="cosmo-select">
-                            ${this.categories.map((cat) => `<option ${cat.id === this.category ? 'selected' : ''} value="${cat.id}">#${cat.id} ${cat.name}</option>`)}
-                        </select>
-                        <label for="editPostHeaderImage" class="cosmo-label">
-                            ${localize({ key: 'blog.posts.edit.header_image' })}
-                        </label>
-                        <div class="cosmo-input cosmo-input--picker" id="editPostHeaderImagePicker">
-                            <label class="cosmo-picker__name jinya-picker__name" for="editPostHeaderImage">
-                                ${header?.name ?? localize({ key: 'blog.posts.create.no_header_image' })}
-                            </label>
-                            <label class="cosmo-picker__button" for="editPostHeaderImage">
-                                <span class="mdi mdi-image-search mdi-24px"></span>
-                            </label>
-                            <input type="hidden" value="${header?.id}" id="editPostHeaderImage">
-                        </div>
-                        <img src="${header?.path}" alt="${header?.name}" id="selectedFile"
-                             class="jinya-picker__selected-file">
-                        <div class="cosmo-checkbox__group">
-                            <input ${this.postPublic ? 'checked' : ''} class="cosmo-checkbox" type="checkbox"
-                                   id="editPostPublic">
-                            <label for="editPostPublic">${localize({ key: 'blog.posts.edit.public' })}</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="cosmo-modal__button-bar">
-                    <button type="button" class="cosmo-button" id="cancel-edit-dialog">
-                        ${localize({ key: 'blog.posts.edit.cancel' })}
-                    </button>
-                    <button type="submit" class="cosmo-button" id="save-edit-dialog">
-                        ${localize({ key: 'blog.posts.edit.update' })}
-                    </button>
-                </div>
+    const content = html` <div class="cosmo-modal__backdrop"></div>
+      <form class="cosmo-modal__container" id="edit-dialog-form">
+        <div class="cosmo-modal">
+          <h1 class="cosmo-modal__title">${localize({ key: 'blog.posts.edit.title' })}</h1>
+          <div class="cosmo-modal__content">
+            <div class="cosmo-input__group">
+              <label for="editPostTitle" class="cosmo-label">
+                ${localize({ key: 'blog.posts.edit.post_title' })}
+              </label>
+              <input required type="text" id="editPostTitle" class="cosmo-input" value="${this.title}" />
+              <label for="editPostSlug" class="cosmo-label"> ${localize({ key: 'blog.posts.edit.slug' })} </label>
+              <input required type="text" id="editPostSlug" class="cosmo-input" value="${this.slug}" />
+              <label for="editPostCategory" class="cosmo-label">
+                ${localize({ key: 'blog.posts.edit.category' })}
+              </label>
+              <select required id="editPostCategory" class="cosmo-select">
+                ${this.categories.map(
+                  (cat) =>
+                    `<option ${cat.id === this.category ? 'selected' : ''} value="${cat.id}">#${cat.id} ${
+                      cat.name
+                    }</option>`,
+                )}
+              </select>
+              <label for="editPostHeaderImage" class="cosmo-label">
+                ${localize({ key: 'blog.posts.edit.header_image' })}
+              </label>
+              <div class="cosmo-input cosmo-input--picker" id="editPostHeaderImagePicker">
+                <label class="cosmo-picker__name jinya-picker__name" for="editPostHeaderImage">
+                  ${header?.name ?? localize({ key: 'blog.posts.create.no_header_image' })}
+                </label>
+                <label class="cosmo-picker__button" for="editPostHeaderImage">
+                  <span class="mdi mdi-image-search mdi-24px"></span>
+                </label>
+                <input type="hidden" value="${header?.id}" id="editPostHeaderImage" />
+              </div>
+              <img src="${header?.path}" alt="${header?.name}" id="selectedFile" class="jinya-picker__selected-file" />
+              <div class="cosmo-checkbox__group">
+                <input ${this.postPublic ? 'checked' : ''} class="cosmo-checkbox" type="checkbox" id="editPostPublic" />
+                <label for="editPostPublic">${localize({ key: 'blog.posts.edit.public' })}</label>
+              </div>
             </div>
-        </form>`;
+          </div>
+          <div class="cosmo-modal__button-bar">
+            <button type="button" class="cosmo-button" id="cancel-edit-dialog">
+              ${localize({ key: 'blog.posts.edit.cancel' })}
+            </button>
+            <button type="submit" class="cosmo-button" id="save-edit-dialog">
+              ${localize({ key: 'blog.posts.edit.update' })}
+            </button>
+          </div>
+        </div>
+      </form>`;
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);

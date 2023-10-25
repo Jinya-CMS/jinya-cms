@@ -11,33 +11,32 @@ export default class MyProfilePage extends JinyaDesignerPage {
 
   // eslint-disable-next-line class-methods-use-this
   toString() {
-    return html`
-        <div class="jinya-profile-view">
-            <div class="cosmo-toolbar jinya-toolbar--media">
-                <div class="cosmo-toolbar__group">
-                    <button id="edit-profile" class="cosmo-button" type="button">
-                        ${localize({ key: 'my_jinya.my_profile.action.edit_profile' })}
-                    </button>
-                </div>
-                <div class="cosmo-toolbar__group">
-                    <button class="cosmo-button" id="change-password" type="button">
-                        ${localize({ key: 'my_jinya.my_profile.action.change_password' })}
-                    </button>
-                </div>
-            </div>
-            <div class="jinya-profile__container">
-                <div class="jinya-profile__sidebar">
-                    <img src="" id="artist-profile-picture" class="jinya-profile__picture" alt="">
-                </div>
-                <div class="jinya-profile__about-me">
-                    <div class="cosmo-title">
-                        <span id="artist-name"></span>
-                        (<span id="artist-email"></span>)
-                    </div>
-                    <div id="about-me"></div>
-                </div>
-            </div>
-        </div>`;
+    return html` <div class="jinya-profile-view">
+      <div class="cosmo-toolbar jinya-toolbar--media">
+        <div class="cosmo-toolbar__group">
+          <button id="edit-profile" class="cosmo-button" type="button">
+            ${localize({ key: 'my_jinya.my_profile.action.edit_profile' })}
+          </button>
+        </div>
+        <div class="cosmo-toolbar__group">
+          <button class="cosmo-button" id="change-password" type="button">
+            ${localize({ key: 'my_jinya.my_profile.action.change_password' })}
+          </button>
+        </div>
+      </div>
+      <div class="jinya-profile__container">
+        <div class="jinya-profile__sidebar">
+          <img src="" id="artist-profile-picture" class="jinya-profile__picture" alt="" />
+        </div>
+        <div class="jinya-profile__about-me">
+          <div class="cosmo-title">
+            <span id="artist-name"></span>
+            (<span id="artist-email"></span>)
+          </div>
+          <div id="about-me"></div>
+        </div>
+      </div>
+    </div>`;
   }
 
   displayProfile() {

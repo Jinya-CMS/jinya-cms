@@ -12,31 +12,29 @@ export default class UploadMultipleFilesDialog {
   }
 
   show() {
-    const content = html`
-        <div class="cosmo-modal__backdrop"></div>
-        <div class="cosmo-modal__container">
-            <div class="cosmo-modal jinya-modal--multiple-files">
-                <h1 class="cosmo-modal__title">${localize({ key: 'media.files.upload_multiple_files.title' })}</h1>
-                <div class="cosmo-modal__content">
-                    <div class="cosmo-input__group">
-                        <label for="uploadMultipleFilesPicker" class="cosmo-label">
-                            ${localize({ key: 'media.files.upload_multiple_files.files' })}
-                        </label>
-                        <input class="cosmo-input" multiple required type="file" id="uploadMultipleFilesPicker">
-                    </div>
-                    <div class="jinya-media-tile__container--modal">
-                    </div>
-                </div>
-                <div class="cosmo-modal__button-bar">
-                    <button class="cosmo-button" id="cancel-upload-dialog">
-                        ${localize({ key: 'media.files.upload_multiple_files.cancel' })}
-                    </button>
-                    <button class="cosmo-button" id="save-upload-dialog">
-                        ${localize({ key: 'media.files.upload_multiple_files.upload' })}
-                    </button>
-                </div>
+    const content = html` <div class="cosmo-modal__backdrop"></div>
+      <div class="cosmo-modal__container">
+        <div class="cosmo-modal jinya-modal--multiple-files">
+          <h1 class="cosmo-modal__title">${localize({ key: 'media.files.upload_multiple_files.title' })}</h1>
+          <div class="cosmo-modal__content">
+            <div class="cosmo-input__group">
+              <label for="uploadMultipleFilesPicker" class="cosmo-label">
+                ${localize({ key: 'media.files.upload_multiple_files.files' })}
+              </label>
+              <input class="cosmo-input" multiple required type="file" id="uploadMultipleFilesPicker" />
             </div>
-        </div>`;
+            <div class="jinya-media-tile__container--modal"></div>
+          </div>
+          <div class="cosmo-modal__button-bar">
+            <button class="cosmo-button" id="cancel-upload-dialog">
+              ${localize({ key: 'media.files.upload_multiple_files.cancel' })}
+            </button>
+            <button class="cosmo-button" id="save-upload-dialog">
+              ${localize({ key: 'media.files.upload_multiple_files.upload' })}
+            </button>
+          </div>
+        </div>
+      </div>`;
 
     const container = document.createElement('div');
     container.innerHTML = content;
