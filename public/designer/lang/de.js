@@ -47,6 +47,7 @@ export default {
         delete_file: 'Datei löschen',
         edit_file: 'Datei bearbeiten',
         manage_tags: 'Tags verwalten',
+        show_all_tags: 'Alle Tags',
       },
       delete: {
         title: 'Datei löschen',

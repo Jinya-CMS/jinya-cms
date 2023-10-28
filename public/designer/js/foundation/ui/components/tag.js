@@ -9,7 +9,7 @@ class TagElement extends HTMLElement {
   }
 
   get tagId() {
-    return this.getAttribute('tag-id');
+    return parseInt(this.getAttribute('tag-id'), 10);
   }
 
   set tagId(value) {
@@ -22,8 +22,8 @@ class TagElement extends HTMLElement {
 
   set emoji(value) {
     this.setAttribute('emoji', value);
-    if (this.root.getElementById('emoji')) {
-      this.root.getElementById('emoji').emoji = value;
+    if (this.root.getElementById('name')) {
+      this.root.getElementById('name').textContent = `${value} ${this.name}`;
     }
   }
 
@@ -34,7 +34,7 @@ class TagElement extends HTMLElement {
   set name(value) {
     this.setAttribute('name', value);
     if (this.root.getElementById('name')) {
-      this.root.getElementById('name').value = value;
+      this.root.getElementById('name').textContent = `${this.emoji} ${value}`;
     }
   }
 
@@ -44,33 +44,43 @@ class TagElement extends HTMLElement {
 
   set color(value) {
     this.setAttribute('color', value);
-    if (this.root.getElementById('color')) {
-      this.root.getElementById('color').value = value;
-    }
-
     this.style.setProperty('--primary-color', this.color);
     this.style.setProperty('--control-border-color', this.color);
   }
 
   get editable() {
-    return this.getAttribute('editable');
+    return this.hasAttribute('editable');
   }
 
   set editable(value) {
-    this.setAttribute('editable', value);
-    if (this.root.getElementById('editable')) {
-      this.root.getElementById('edit-button').hidden = !value;
+    if (value) {
+      this.setAttribute('editable', value);
+    } else {
+      this.removeAttribute('editable');
     }
   }
 
   get deletable() {
-    return this.getAttribute('deletable');
+    return this.hasAttribute('deletable');
   }
 
   set deletable(value) {
-    this.setAttribute('deletable', value);
-    if (this.root.getElementById('deletable')) {
-      this.root.getElementById('delete-button').hidden = !value;
+    if (value) {
+      this.setAttribute('deletable', value);
+    } else {
+      this.removeAttribute('deletable');
+    }
+  }
+
+  get active() {
+    return this.hasAttribute('active');
+  }
+
+  set active(value) {
+    if (value) {
+      this.setAttribute('active', value);
+    } else {
+      this.removeAttribute('active');
     }
   }
 
@@ -106,7 +116,7 @@ class TagElement extends HTMLElement {
 
         ::part(name) {
           border: 1px solid var(--control-border-color);
-          display: inline-flex;
+          display: flex;
           place-content: center;
           place-items: center;
           padding: 0 4px;
@@ -122,9 +132,22 @@ class TagElement extends HTMLElement {
           background: var(--primary-color);
           color: var(--white);
         }
+
+        :host(:not([deletable])) #delete-button {
+          display: none;
+        }
+
+        :host(:not([editable])) #edit-button {
+          display: none;
+        }
+
+        :host([active]) #name {
+          background: var(--primary-color);
+          color: #ffffff;
+        }
       </style>
       <span part="arrow"></span>
-      <span part="name">${this.emoji} ${this.name}</span>
+      <span part="name" id="name">${this.emoji} ${this.name}</span>
       <button id="edit-button">
         <svg
           width="16"

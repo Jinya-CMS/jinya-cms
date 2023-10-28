@@ -7,6 +7,7 @@ import confirm from '../../foundation/ui/confirm.js';
 import FilesSelectedEvent from './files/FilesSelectedEvent.js';
 import MimeTypes from '../../../lib/mime/types.js';
 import ManageTagsDialog from './files/ManageTagsDialog.js';
+import '../../foundation/ui/components/tag.js';
 
 export default class FilePage extends JinyaDesignerPage {
   /**
@@ -17,12 +18,14 @@ export default class FilePage extends JinyaDesignerPage {
     this.files = [];
     this.loading = true;
     this.selectedFile = null;
+    this.tags = [];
+    this.activeTags = [];
     document.addEventListener('fileUploaded', async ({ file: { id, name, path } }) => {
       const newTile = document.createElement('div');
       newTile.setAttribute('data-id', id.toString(10));
       newTile.setAttribute('data-title', `${id} ${name}`);
       newTile.classList.add('jinya-media-tile');
-      newTile.innerHTML = `<img class="jinya-media-tile__img" src="${path}" alt="${name}">`;
+      newTile.innerHTML = `<img class='jinya-media-tile__img' src='${path}' alt='${name}'>`;
       document.querySelector('.jinya-media-tile__container').append(newTile);
       newTile.addEventListener('click', this.tileClicked(newTile));
       this.files.push(await get(`/api/media/file/${id}`));
@@ -87,6 +90,7 @@ export default class FilePage extends JinyaDesignerPage {
             </button>
           </div>
         </div>
+        <div id="tag-list" class="jinya-tags jinya-tags--media"></div>
         ${view}
       </div>
     `;
@@ -164,7 +168,7 @@ export default class FilePage extends JinyaDesignerPage {
             newTile.setAttribute('data-id', id.toString(10));
             newTile.setAttribute('data-title', `${id} ${name}`);
             newTile.classList.add('jinya-media-tile');
-            newTile.innerHTML = `<img class="jinya-media-tile__img" src="${path}" alt="${name}">`;
+            newTile.innerHTML = `<img class='jinya-media-tile__img' src='${path}' alt='${name}'>`;
             document.querySelector('.jinya-media-tile__container').append(newTile);
             newTile.addEventListener('click', this.tileClicked(newTile));
             this.files.push(await get(`/api/media/file/${id}`));
@@ -208,8 +212,8 @@ export default class FilePage extends JinyaDesignerPage {
       ${() => {
         if (this.selectedFile.type.startsWith('image')) {
           return `<img 
-                        alt="${this.selectedFile.name}" 
-                        src="${this.selectedFile.path}" class="jinya-media-details__image">`;
+                        alt='${this.selectedFile.name}' 
+                        src='${this.selectedFile.path}' class='jinya-media-details__image'>`;
         }
         if (this.selectedFile.type.startsWith('video')) {
           return html`
@@ -258,9 +262,93 @@ export default class FilePage extends JinyaDesignerPage {
     `;
   }
 
-  showTagManagementDialog() {
-    const manageTags = new ManageTagsDialog();
-    manageTags.show();
+  async showTagManagementDialog() {
+    const manageTags = new ManageTagsDialog({
+      onHide: async () => {
+        await this.loadTags();
+        this.renderTags();
+      },
+    });
+    await manageTags.show();
+  }
+
+  async loadTags(activateAll = false) {
+    const { items } = await get('/api/file-tag');
+    this.tags = items;
+    if (activateAll || this.activeTags.length === 0) {
+      this.activeTags = this.tags.map((tag) => tag.id);
+    }
+  }
+
+  renderTags() {
+    document.getElementById('tag-list').innerHTML = html`
+      <cms-tag
+        class="jinya-tag--file"
+        emoji=""
+        name="${localize({ key: 'media.files.action.show_all_tags' })}"
+        color="#19324c"
+        tag-id="-1"
+        id="show-all-tags"
+        ${this.tags.length === this.activeTags.length ? 'active' : ''}
+      ></cms-tag>
+      ${this.tags.map(
+        (tag) =>
+          html` <cms-tag
+            class="jinya-tag--file"
+            emoji="${tag.emoji}"
+            name="${tag.name}"
+            color="${tag.color}"
+            tag-id="${tag.id}"
+            id="show-tag-${tag.id}"
+            ${this.activeTags.includes(tag.id) ? 'active' : ''}
+          ></cms-tag>`,
+      )}
+    `;
+    document.querySelectorAll('cms-tag').forEach((tag) =>
+      tag.addEventListener('click', (evt) => {
+        evt.stopPropagation();
+        // eslint-disable-next-line no-param-reassign
+        tag.active = !tag.active;
+        if (tag.id === 'show-all-tags') {
+          document
+            .querySelectorAll('.jinya-media-tile')
+            .forEach((tile) => tile.classList.remove('jinya-media-tile--hidden'));
+          document.querySelectorAll('cms-tag').forEach((t) => {
+            // eslint-disable-next-line no-param-reassign
+            t.active = true;
+          });
+        } else {
+          const allTags = document.getElementById('show-all-tags');
+          if (tag.active) {
+            this.activeTags.push(parseInt(tag.tagId, 10));
+            allTags.active = this.activeTags.length === this.tags.length;
+            document.querySelectorAll('.jinya-media-tile').forEach((tile) => {
+              const file = this.files.find((f) => f.id === parseInt(tile.getAttribute('data-id'), 10));
+              if (file.tags.find((t) => t.id === tag.tagId)) {
+                tile.classList.remove('jinya-media-tile--hidden');
+                tile.classList.remove('jinya-media-tile--selected');
+              }
+            });
+          } else {
+            this.activeTags = this.activeTags.filter((f) => f !== parseInt(tag.tagId, 10));
+            allTags.active = false;
+            document.querySelectorAll('.jinya-media-tile').forEach((tile) => {
+              const file = this.files.find((f) => f.id === parseInt(tile.getAttribute('data-id'), 10));
+              if (
+                file.tags.find((t) => t.id === tag.tagId) &&
+                file.tags.filter((f) => this.activeTags.includes(f.id)).length === 0
+              ) {
+                tile.classList.add('jinya-media-tile--hidden');
+                if (file.id === this.selectedFile?.id) {
+                  this.selectedFile = null;
+                  document.querySelector('.jinya-media-view__details').innerHTML = '';
+                }
+              }
+            });
+          }
+        }
+      }),
+    );
   }
 
   async displayed() {
@@ -268,8 +356,14 @@ export default class FilePage extends JinyaDesignerPage {
     if (this.loading) {
       const { items: files } = await get('/api/media/file');
       this.files = files;
+      await this.loadTags(true);
       this.loading = false;
       this.display();
     }
+  }
+
+  async display() {
+    await super.display();
+    this.renderTags();
   }
 }

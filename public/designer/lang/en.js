@@ -47,6 +47,7 @@ export default {
         delete_file: 'Delete file',
         edit_file: 'Edit file',
         manage_tags: 'Manage tags',
+        show_all_tags: 'All tags',
       },
       delete: {
         title: 'Delete file',

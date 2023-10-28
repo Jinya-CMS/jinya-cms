@@ -20,9 +20,9 @@ export default class JinyaDesignerPage {
    * Renders the current page into the main tag
    * @return void
    */
-  display() {
+  async display() {
     this.layout.child = this;
-    this.layout.display();
+    await this.layout.display();
   }
 
   /**

@@ -7,6 +7,10 @@
     object-fit: cover;
 }
 
+.jinya-media-tile--hidden {
+    display: none;
+}
+
 .jinya-media-tile--small {
     height: 72px;
     width: 72px;
@@ -45,7 +49,7 @@
     display: flex;
     flex-flow: row wrap;
     gap: 22px;
-    height: calc(100vh - 64px - 32px - 80px - 28px - 68px - 31px - 30px);
+    height: calc(100vh - 64px - 32px - 80px - 28px - 68px - 31px - 30px - 30px - 30px);
     overflow-y: auto;
     grid-column: file-list;
     border-right: 1px solid var(--primary-color);
@@ -116,7 +120,7 @@
 
 .jinya-media-view__details {
     grid-column: details;
-    height: calc(100vh - 64px - 32px - 80px - 28px - 68px - 31px - 30px);
+    height: calc(100vh - 64px - 32px - 80px - 28px - 68px - 31px - 30px - 30px - 30px);
     overflow-y: auto;
 }
 
@@ -138,6 +142,14 @@
     flex-flow: row wrap;
 }
 
+.jinya-tags--media {
+    grid-row: tags;
+}
+
 .cosmo-modal--tags {
     max-width: 640px;
+}
+
+.jinya-tag--file {
+    cursor: pointer;
 }
