@@ -54,7 +54,7 @@ export default class UploadMultipleFilesDialog {
   show() {
     const content = html` <div class="cosmo-modal__backdrop"></div>
       <div class="cosmo-modal__container">
-        <div class="cosmo-modal jinya-modal--multiple-files">
+        <div class="cosmo-modal cosmo-modal--files">
           <h1 class="cosmo-modal__title">${localize({ key: 'media.files.upload_multiple_files.title' })}</h1>
           <div class="cosmo-modal__content">
             <div class="cosmo-input__group">

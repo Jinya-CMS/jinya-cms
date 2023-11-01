@@ -85,6 +85,7 @@ export default {
         title: 'Edit file',
         file: 'File',
         name: 'Name',
+        tags: 'Tags',
         save: 'Save file',
         cancel: 'Discard changes',
         error: {

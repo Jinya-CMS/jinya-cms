@@ -173,7 +173,7 @@ class File extends LoadableEntity
             ]
         );
 
-        if ($this->tags) {
+        if (is_array($this->tags)) {
             self::executeStatement('DELETE FROM file_tag_file WHERE file_id = :file_id', ['file_id' => $this->id]);
             foreach ($this->tags as $tag) {
                 $tag = FileTag::findByName($tag);

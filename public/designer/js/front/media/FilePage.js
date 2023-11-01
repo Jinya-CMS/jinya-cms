@@ -9,6 +9,21 @@ import MimeTypes from '../../../lib/mime/types.js';
 import ManageTagsDialog from './files/ManageTagsDialog.js';
 import '../../foundation/ui/components/tag.js';
 
+function lightenDarkenColor(color, percentage) {
+  const col = parseInt(color.toString().replaceAll('#', ''), 16);
+  // eslint-disable-next-line no-bitwise
+  return (
+    // eslint-disable-next-line no-bitwise
+    (
+      ((col & 0x0000ff) + percentage) |
+      // eslint-disable-next-line no-bitwise
+      ((((col >> 8) & 0x00ff) + percentage) << 8) |
+      // eslint-disable-next-line no-bitwise
+      (((col >> 16) + percentage) << 16)
+    ).toString(16)
+  );
+}
+
 export default class FilePage extends JinyaDesignerPage {
   /**
    * @param layout {JinyaDesignerLayout}
@@ -21,7 +36,6 @@ export default class FilePage extends JinyaDesignerPage {
     this.tags = [];
     this.activeTags = new Set();
     this.fileTile = this.fileTile.bind(this);
-    this.lightenDarkenColor = this.lightenDarkenColor.bind(this);
     document.addEventListener('fileUploaded', async ({ file }) => {
       document.querySelector('.jinya-media-tile__container').insertAdjacentHTML('beforeend', this.fileTile(file));
       document
@@ -133,19 +147,30 @@ export default class FilePage extends JinyaDesignerPage {
       document.getElementById('edit-file').addEventListener('click', async () => {
         const { default: EditDialog } = await import('./files/EditDialog.js');
         const editDialog = new EditDialog({
-          onHide: async ({ id, name, path }) => {
+          tags: this.tags,
+          onHide: async ({ id, name, path, tags, updated, created, type }) => {
             const selectedTile = document.querySelector(`[data-id="${id}"].jinya-media-tile`);
             selectedTile.setAttribute('data-title', `${id} ${name}`);
+            selectedTile.querySelector('ul').innerHTML = html`${tags.map(
+              (tag) =>
+                html` <li
+                  style="--tag-color: ${tag.color}; --tag-after-color: #${lightenDarkenColor(tag.color, -20)}"
+                  class="jinya-tile__tag"
+                >
+                  <span class="jinya-tile__tag-arrow"></span>
+                  <span class="jinya-tile__tag-emoji">${tag.emoji}</span>
+                </li>`,
+            )}`;
+
             const tileImage = document.querySelector(`[data-id="${id}"].jinya-media-tile .jinya-media-tile__img`);
             tileImage.alt = name;
             tileImage.src = path;
             this.selectedFile.name = name;
             this.selectedFile.path = path;
-
-            const changedFile = await get(`/api/media/file/${id}`);
-            this.selectedFile.type = changedFile.type;
-            this.selectedFile.created = changedFile.created;
-            this.selectedFile.updated = changedFile.updated;
+            this.selectedFile.type = type;
+            this.selectedFile.created = created;
+            this.selectedFile.updated = updated;
+            this.selectedFile.tags = tags;
 
             this.showDetails();
           },
@@ -405,7 +430,7 @@ export default class FilePage extends JinyaDesignerPage {
         ${file.tags.map(
           (tag) =>
             html` <li
-              style="--tag-color: ${tag.color}; --tag-after-color: #${this.lightenDarkenColor(tag.color, -20)}"
+              style="--tag-color: ${tag.color}; --tag-after-color: #${lightenDarkenColor(tag.color, -20)}"
               class="jinya-tile__tag"
             >
               <span class="jinya-tile__tag-arrow"></span>
@@ -414,20 +439,5 @@ export default class FilePage extends JinyaDesignerPage {
         )}
       </ul>
     </div>`;
-  }
-
-  lightenDarkenColor(color, percentage) {
-    const col = parseInt(color.toString().replaceAll('#', ''), 16);
-    // eslint-disable-next-line no-bitwise
-    return (
-      // eslint-disable-next-line no-bitwise
-      (
-        ((col & 0x0000ff) + percentage) |
-        // eslint-disable-next-line no-bitwise
-        ((((col >> 8) & 0x00ff) + percentage) << 8) |
-        // eslint-disable-next-line no-bitwise
-        (((col >> 16) + percentage) << 16)
-      ).toString(16)
-    );
   }
 }
