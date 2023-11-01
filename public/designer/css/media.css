@@ -31,14 +31,12 @@
 
 .jinya-media-tile--selected::after {
     content: '';
-    width: 24px;
-    height: 24px;
-    background: var(--primary-color);
-    display: flex;
+    border: 12px solid transparent;
+    border-left-color: var(--primary-color);
+    border-top-color: var(--primary-color);
     position: absolute;
     top: 0;
     left: 0;
-    clip-path: polygon(0% 0%, 100% 0%, 0% 100%);
 }
 
 .jinya-media-tile__container {
@@ -51,6 +49,7 @@
     border-right: 1px solid var(--primary-color);
     box-sizing: border-box;
     padding-right: 16px;
+    align-content: start;
 }
 
 .jinya-media-tile__img {
@@ -67,13 +66,17 @@
 .jinya-media-tile:hover::before {
     content: attr(data-title);
     position: absolute;
-    left: 50%;
+    left: 0;
+    right: 0;
     bottom: 0;
-    transform: translateX(-50%);
     text-align: center;
     width: 100%;
     background: var(--primary-color);
     color: var(--white);
+}
+
+.jinya-media-tile--selected:hover::before {
+    bottom: -4px;
 }
 
 .jinya-toolbar--media {
@@ -173,6 +176,11 @@
     right: -10px;
     gap: 10px;
     font-size: 20px;
+}
+
+.jinya-media-tile--selected .jinya-tile__tags {
+    right: -14px;
+    top: 0;
 }
 
 .jinya-tile__tag {

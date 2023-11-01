@@ -66,6 +66,7 @@ export default {
         name: 'Name',
         upload: 'Upload file',
         cancel: 'Cancel upload',
+        tags: 'Tags',
         error: {
           title: 'Upload failed',
           conflict: 'A file with the chosen name already exists.',
@@ -75,6 +76,7 @@ export default {
       upload_multiple_files: {
         title: 'Upload files',
         files: 'Files',
+        tags: 'Tags',
         upload: 'Upload files',
         cancel: 'Cancel upload',
         n_files_selected: '{length} file(s) selected',

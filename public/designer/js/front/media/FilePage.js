@@ -19,18 +19,15 @@ export default class FilePage extends JinyaDesignerPage {
     this.loading = true;
     this.selectedFile = null;
     this.tags = [];
-    this.activeTags = [];
+    this.activeTags = new Set();
     this.fileTile = this.fileTile.bind(this);
     this.lightenDarkenColor = this.lightenDarkenColor.bind(this);
-    document.addEventListener('fileUploaded', async ({ file: { id, name, path } }) => {
-      const newTile = document.createElement('div');
-      newTile.setAttribute('data-id', id.toString(10));
-      newTile.setAttribute('data-title', `${id} ${name}`);
-      newTile.classList.add('jinya-media-tile');
-      newTile.innerHTML = `<img class='jinya-media-tile__img' src='${path}' alt='${name}'>`;
-      document.querySelector('.jinya-media-tile__container').append(newTile);
-      newTile.addEventListener('click', this.tileClicked(newTile));
-      this.files.push(await get(`/api/media/file/${id}`));
+    document.addEventListener('fileUploaded', async ({ file }) => {
+      document.querySelector('.jinya-media-tile__container').insertAdjacentHTML('beforeend', this.fileTile(file));
+      document
+        .getElementById(`tile-${file.id}`)
+        .addEventListener('click', this.tileClicked(document.getElementById(`tile-${file.id}`)));
+      this.files.push(file);
     });
   }
 
@@ -114,6 +111,7 @@ export default class FilePage extends JinyaDesignerPage {
             selectedTile.remove();
             this.files = this.files.filter((file) => file.id !== this.selectedFile.id);
             this.selectedFile = null;
+            document.querySelector('.jinya-media-view__details').innerHTML = '';
           } catch (e) {
             if (e.status === 409) {
               await alert({
@@ -158,13 +156,23 @@ export default class FilePage extends JinyaDesignerPage {
       document.getElementById('upload-single-file').addEventListener('click', async () => {
         const { default: UploadSingleFileDialog } = await import('./files/UploadSingleFileDialog.js');
         const uploadSingleFileDialog = new UploadSingleFileDialog({
-          onHide: async ({ id }) => {
-            const file = await get(`/api/media/file/${id}`);
-            document.querySelector('.jinya-media-tile__container').insertAdjacentHTML('afterend', this.fileTile(file));
-            document
-              .getElementById(`tile-${id}`)
-              .addEventListener('click', this.tileClicked(document.getElementById(`tile-${id}`)));
-            this.files.push(file);
+          tags: this.tags,
+          activeTagNames: this.tags.filter((f) => this.activeTags.has(f.id)).map((m) => m.name),
+          onHide: async (file) => {
+            if (file) {
+              document
+                .querySelector('.jinya-media-tile__container')
+                .insertAdjacentHTML('beforeend', this.fileTile(file));
+              document
+                .getElementById(`tile-${file.id}`)
+                .addEventListener('click', this.tileClicked(document.getElementById(`tile-${file.id}`)));
+              this.files.push(file);
+              this.selectedFile = file;
+              this.showDetails();
+            }
+            file.tags.forEach((t) => this.activeTags.add(t.id));
+            await this.loadTags(false);
+            this.renderTags();
           },
         });
         uploadSingleFileDialog.show();
@@ -172,8 +180,17 @@ export default class FilePage extends JinyaDesignerPage {
       document.getElementById('upload-multiple-files').addEventListener('click', async () => {
         const { default: UploadMultipleFilesDialog } = await import('./files/UploadMultipleFilesDialog.js');
         const dialog = new UploadMultipleFilesDialog({
-          onHide: ({ files }) => {
-            document.dispatchEvent(new FilesSelectedEvent({ files }));
+          tags: this.tags,
+          activeTagNames: this.tags.filter((f) => this.activeTags.has(f.id)).map((m) => m.name),
+          onHide: async ({ files, tags }) => {
+            document.dispatchEvent(new FilesSelectedEvent({ files, tags }));
+            await this.loadTags(false);
+            this.tags.forEach((tag) => {
+              if (tags.includes(tag.name)) {
+                this.activeTags.add(tag.id);
+              }
+            });
+            this.renderTags();
           },
         });
         dialog.show();
@@ -282,7 +299,7 @@ export default class FilePage extends JinyaDesignerPage {
     const { items } = await get('/api/file-tag');
     this.tags = items;
     if (activateAll) {
-      this.activeTags = [];
+      this.activeTags.clear();
     }
   }
 
@@ -295,7 +312,7 @@ export default class FilePage extends JinyaDesignerPage {
         color="#19324c"
         tag-id="-1"
         id="show-all-tags"
-        ${this.activeTags.length === 0 ? 'active' : ''}
+        ${this.activeTags.size === 0 ? 'active' : ''}
       ></cms-tag>
       ${this.tags.map(
         (tag) =>
@@ -306,7 +323,7 @@ export default class FilePage extends JinyaDesignerPage {
             color="${tag.color}"
             tag-id="${tag.id}"
             id="show-tag-${tag.id}"
-            ${this.activeTags.includes(tag.id) ? 'active' : ''}
+            ${this.activeTags.has(tag.id) ? 'active' : ''}
           ></cms-tag>`,
       )}
     `;
@@ -328,14 +345,14 @@ export default class FilePage extends JinyaDesignerPage {
         } else {
           const allTags = document.getElementById('show-all-tags');
           if (tag.active) {
-            this.activeTags.push(tag.tagId);
+            this.activeTags.add(tag.tagId);
           } else {
-            this.activeTags = this.activeTags.filter((f) => f !== tag.tagId);
+            this.activeTags.delete(tag.tagId);
           }
-          allTags.active = this.activeTags.length === 0 || this.activeTags.length === this.tags.length;
+          allTags.active = this.activeTags.size === 0 || this.activeTags.size === this.tags.length;
           document.querySelectorAll('.jinya-media-tile').forEach((tile) => {
             const file = this.files.find((f) => f.id === parseInt(tile.getAttribute('data-id'), 10));
-            if (file.tags.filter((f) => this.activeTags.includes(f.id)).length === 0) {
+            if (file.tags.filter((f) => this.activeTags.has(f.id)).length === 0) {
               tile.classList.add('jinya-media-tile--hidden');
               if (file.id === this.selectedFile?.id) {
                 this.selectedFile = null;
@@ -343,15 +360,11 @@ export default class FilePage extends JinyaDesignerPage {
               }
             } else {
               tile.classList.remove('jinya-media-tile--hidden');
-              if (file.id === this.selectedFile?.id) {
-                this.selectedFile = null;
-                document.querySelector('.jinya-media-view__details').innerHTML = '';
-              }
             }
           });
 
           if (allTags.active) {
-            this.activeTags = [];
+            this.activeTags.clear();
             document.querySelectorAll('.jinya-media-tile').forEach((tile) => {
               tile.classList.remove('jinya-media-tile--hidden');
             });
@@ -379,7 +392,14 @@ export default class FilePage extends JinyaDesignerPage {
   }
 
   fileTile(file) {
-    return html` <div data-id="${file.id}" data-title="${file.id} ${file.name}" class="jinya-media-tile">
+    return html` <div
+      data-id="${file.id}"
+      data-title="${file.id} ${file.name}"
+      id="tile-${file.id}"
+      class="jinya-media-tile ${this.activeTags.size > 0 && file.tags.filter((f) => this.activeTags.has(f.id)) === 0
+        ? 'jinya-media-tile--hidden'
+        : ''}"
+    >
       <img class="jinya-media-tile__img" src="${file.path}" alt="${file.name}" />
       <ul class="jinya-tile__tags">
         ${file.tags.map(

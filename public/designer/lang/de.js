@@ -64,6 +64,7 @@ export default {
         title: 'Datei hochladen',
         file: 'Datei',
         name: 'Name',
+        tags: 'Tags',
         upload: 'Datei hochladen',
         cancel: 'Hochladen abbrechen',
         error: {
@@ -75,6 +76,7 @@ export default {
       upload_multiple_files: {
         title: 'Dateien hochladen',
         files: 'Dateien',
+        tags: 'Tags',
         upload: 'Dateien hochladen',
         cancel: 'Hochladen abbrechen',
         n_files_selected: '{length} Datei(en) ausgewählt',

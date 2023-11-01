@@ -44,7 +44,7 @@ class File extends LoadableEntity
     public string $type = '';
     /** @var string[] The tags of the file */
     #[JinyaApiField(ignore: false)]
-    public array $tags = [];
+    public ?array $tags = null;
 
     /**
      * Finds all files matching the given keyword
@@ -173,11 +173,13 @@ class File extends LoadableEntity
             ]
         );
 
-        self::executeStatement('DELETE FROM file_tag_file WHERE file_id = :file_id', ['file_id' => $this->id]);
-        foreach ($this->tags as $tag) {
-            $tag = FileTag::findByName($tag);
-            if ($tag) {
-                self::executeStatement('INSERT INTO file_tag_file (file_id, file_tag_id) VALUES (:file_id, :tag_id)', ['file_id' => $this->id, 'tag_id' => $tag->id]);
+        if ($this->tags) {
+            self::executeStatement('DELETE FROM file_tag_file WHERE file_id = :file_id', ['file_id' => $this->id]);
+            foreach ($this->tags as $tag) {
+                $tag = FileTag::findByName($tag);
+                if ($tag) {
+                    self::executeStatement('INSERT INTO file_tag_file (file_id, file_tag_id) VALUES (:file_id, :tag_id)', ['file_id' => $this->id, 'tag_id' => $tag->id]);
+                }
             }
         }
     }

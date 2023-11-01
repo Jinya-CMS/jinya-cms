@@ -194,8 +194,8 @@ class TagPopupElement extends HTMLElement {
                         <cms-emoji-picker emoji="${this.emoji}" class="cosmo-input cosmo-input--emoji" id="emoji">
                     </div>
                     <div class="cosmo-button__container">
-                        <button id="save-button" class="cosmo-button" type="submit">${this.saveLabel}</button>
                         <button id="cancel-button" class="cosmo-button" type="button">${this.cancelLabel}</button>
+                        <button id="save-button" class="cosmo-button" type="submit">${this.saveLabel}</button>
                     </div>
                 </fieldset>
             </form>`;

@@ -3,9 +3,9 @@ import { get, httpDelete, post, put } from '../../../foundation/http/request.js'
 import localize from '../../../foundation/localize.js';
 import alert from '../../../foundation/ui/alert.js';
 import '../../../foundation/ui/components/tag-popup.js';
-import Emojis from '../../../../lib/emojis.js';
 import '../../../foundation/ui/components/tag.js';
 import confirm from '../../../foundation/ui/confirm.js';
+import { getRandomColor, getRandomEmoji } from './tagUtils.js';
 
 export default class ManageTagsDialog {
   /**
@@ -15,29 +15,6 @@ export default class ManageTagsDialog {
   constructor({ onHide }) {
     this.tags = { items: [] };
     this.onHide = onHide;
-  }
-
-  static getRandomColor() {
-    const red = Math.floor(Math.random() * 256)
-      .toString(16)
-      .padStart(2, '0');
-    const green = Math.floor(Math.random() * 256)
-      .toString(16)
-      .padStart(2, '0');
-    const blue = Math.floor(Math.random() * 256)
-      .toString(16)
-      .padStart(2, '0');
-
-    return `#${red}${green}${blue}`;
-  }
-
-  static getRandomEmoji() {
-    const emojis = Emojis.flatMap((m) => m.emojis).reduce(
-      (previousValue, currentValue) => previousValue.concat(currentValue),
-      [],
-    );
-
-    return emojis[Math.floor(Math.random() * emojis.length)];
   }
 
   renderTags() {
@@ -147,9 +124,9 @@ export default class ManageTagsDialog {
               popup-title="${localize({ key: 'media.files.tags.new.title' })}"
               save-label="${localize({ key: 'media.files.tags.new.save' })}"
               cancel-label="${localize({ key: 'media.files.tags.new.cancel' })}"
-              color="${ManageTagsDialog.getRandomColor()}"
+              color="${getRandomColor()}"
               target="#new-tag-open-button"
-              emoji="${ManageTagsDialog.getRandomEmoji()}"
+              emoji="${getRandomEmoji()}"
             >
             </cms-tag-popup>
           </div>
@@ -177,8 +154,8 @@ export default class ManageTagsDialog {
         this.bindTagsEvents();
 
         const popup = document.getElementById('new-tag');
-        popup.emoji = ManageTagsDialog.getRandomEmoji();
-        popup.color = ManageTagsDialog.getRandomColor();
+        popup.emoji = getRandomEmoji();
+        popup.color = getRandomColor();
         popup.name = '';
         popup.open = false;
       } catch (e) {

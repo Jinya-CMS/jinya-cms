@@ -20,7 +20,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
         document.dispatchEvent(new FileUploadedEvent({ file }));
       }
     });
-    document.addEventListener('filesSelected', ({ files }) => {
+    document.addEventListener('filesSelected', ({ files, tags }) => {
       this.filesToUpload += files.length;
       document.getElementById('file-upload-progress').max = this.filesToUpload;
       document.getElementById('file-upload-progress-bottom-label').innerText = localize({
@@ -30,7 +30,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
           filesUploaded: this.filesUploaded,
         },
       });
-      this.fileUploadWorker.postMessage({ files, apiKey: getJinyaApiKey() });
+      this.fileUploadWorker.postMessage({ files, tags, apiKey: getJinyaApiKey() });
       document.querySelector('.cosmo-bottom-bar__item--center.jinya-progress').removeAttribute('style');
     });
   }
