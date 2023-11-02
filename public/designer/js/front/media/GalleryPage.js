@@ -6,6 +6,7 @@ import JinyaDesignerPage from '../../foundation/JinyaDesignerPage.js';
 import localize from '../../foundation/localize.js';
 import alert from '../../foundation/ui/alert.js';
 import confirm from '../../foundation/ui/confirm.js';
+import '../../foundation/ui/components/tag.js';
 
 export default class GalleryPage extends JinyaDesignerPage {
   constructor({ layout }) {
@@ -15,6 +16,75 @@ export default class GalleryPage extends JinyaDesignerPage {
     this.files = [];
     this.resultSortable = null;
     this.toolboxSortable = null;
+    this.tags = [];
+    this.activeTags = new Set();
+  }
+
+  renderTags() {
+    document.getElementById('designer-tags').innerHTML = html`
+      <cms-tag
+        class="jinya-tag--file"
+        emoji=""
+        name="${localize({ key: 'media.galleries.action.show_all_tags' })}"
+        color="#19324c"
+        tag-id="-1"
+        id="show-all-tags"
+        ${this.activeTags.size === 0 ? 'active' : ''}
+      ></cms-tag>
+      ${this.tags.map(
+        (tag) =>
+          html` <cms-tag
+            class="jinya-tag--file"
+            emoji="${tag.emoji}"
+            name="${tag.name}"
+            color="${tag.color}"
+            tag-id="${tag.id}"
+            id="show-tag-${tag.id}"
+            ${this.activeTags.has(tag.id) ? 'active' : ''}
+          ></cms-tag>`,
+      )}
+    `;
+    document.querySelectorAll('cms-tag').forEach((tag) =>
+      tag.addEventListener('click', (evt) => {
+        evt.stopPropagation();
+        // eslint-disable-next-line no-param-reassign
+        tag.active = !tag.active;
+        if (tag.id === 'show-all-tags') {
+          document
+            .querySelectorAll('#designer-toolbox .jinya-media-tile')
+            .forEach((tile) => tile.classList.remove('jinya-media-tile--hidden'));
+          document.querySelectorAll('cms-tag').forEach((t) => {
+            // eslint-disable-next-line no-param-reassign
+            t.active = false;
+          });
+          // eslint-disable-next-line no-param-reassign
+          tag.active = true;
+        } else {
+          const allTags = document.getElementById('show-all-tags');
+          if (tag.active) {
+            this.activeTags.add(tag.tagId);
+          } else {
+            this.activeTags.delete(tag.tagId);
+          }
+          allTags.active = this.activeTags.size === 0 || this.activeTags.size === this.tags.length;
+          document.querySelectorAll('#designer-toolbox .jinya-media-tile').forEach((tile) => {
+            const file = this.files.find((f) => f.id === parseInt(tile.getAttribute('data-file-id'), 10));
+            if (file.tags.filter((f) => this.activeTags.has(f.id)).length === 0) {
+              tile.classList.add('jinya-media-tile--hidden');
+            } else {
+              tile.classList.remove('jinya-media-tile--hidden');
+            }
+          });
+
+          if (allTags.active) {
+            this.activeTags.clear();
+            document.querySelectorAll('#designer-toolbox .jinya-media-tile').forEach((tile) => {
+              tile.classList.remove('jinya-media-tile--hidden');
+            });
+          }
+        }
+      }),
+    );
   }
 
   selectGallery({ id }) {
@@ -25,6 +95,10 @@ export default class GalleryPage extends JinyaDesignerPage {
     document.querySelector(`[data-id="${id}"]`).classList.add('cosmo-list__item--active');
     document.getElementById('edit-gallery-button').disabled = false;
     document.getElementById('delete-gallery-button').disabled = false;
+    this.activeTags.clear();
+    document.querySelectorAll('#designer-toolbox .jinya-media-tile').forEach((tile) => {
+      tile.classList.remove('jinya-media-tile--hidden');
+    });
   }
 
   async displaySelectedGallery() {
@@ -109,6 +183,12 @@ export default class GalleryPage extends JinyaDesignerPage {
         await httpDelete(`/api/media/gallery/${this.selectedGallery.id}/file/${position}`);
       },
     });
+
+    document.querySelectorAll('cms-tag').forEach((tag) => {
+      // eslint-disable-next-line no-param-reassign
+      tag.active = false;
+    });
+    document.getElementById('show-all-tags').active = true;
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -178,7 +258,10 @@ export default class GalleryPage extends JinyaDesignerPage {
         </div>
         <div class="jinya-designer__content">
           <div class="jinya-designer__result" id="designer-result"></div>
-          <div class="jinya-designer__toolbox" id="designer-toolbox"></div>
+          <div class="jinya-designer__toolbox-container">
+            <div class="jinya-designer__tags" id="designer-tags"></div>
+            <div class="jinya-designer__toolbox" id="designer-toolbox"></div>
+          </div>
         </div>
       </div>
     </div>`;
@@ -195,8 +278,13 @@ export default class GalleryPage extends JinyaDesignerPage {
         const { items } = await get('/api/media/file');
         this.files = items;
       })(),
+      (async () => {
+        const { items } = await get('/api/file-tag');
+        this.tags = items;
+      })(),
     ]);
     this.displayGalleries();
+    this.renderTags();
     if (this.galleries.length !== 0) {
       this.selectGallery(this.galleries[0]);
       await this.displaySelectedGallery();

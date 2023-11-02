@@ -171,6 +171,7 @@ export default {
         new: 'Create gallery',
         edit: 'Edit gallery',
         delete: 'Delete gallery',
+        show_all_tags: 'All tags',
       },
       create: {
         title: 'Create gallery',

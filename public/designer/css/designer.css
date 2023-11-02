@@ -39,6 +39,18 @@
     align-content: flex-start;
 }
 
+.jinya-designer__toolbox-container {
+    grid-column: toolbox;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    max-height: calc(100vh - 64px - 80px - 32px - 36px - 20px - 28px - 30px - 28px - 68px);
+    gap: 16px;
+}
+
+.jinya-designer__toolbox-container .jinya-designer__toolbox {
+    grid-column: unset;
+}
+
 .jinya-designer__toolbox {
     grid-column: toolbox;
     overflow-y: auto;
@@ -47,6 +59,13 @@
     gap: 8px;
     max-height: 100%;
     align-content: flex-start;
+}
+
+.jinya-designer__tags {
+    display: flex;
+    margin-left: -10px;
+    flex-flow: row wrap;
+    row-gap: 8px;
 }
 
 .jinya-designer__drag-handle {

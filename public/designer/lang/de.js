@@ -171,6 +171,7 @@ export default {
         new: 'Galerie erstellen',
         edit: 'Galerie bearbeiten',
         delete: 'Galerie löschen',
+        show_all_tags: 'Alle Tags',
       },
       create: {
         title: 'Galerie erstellen',

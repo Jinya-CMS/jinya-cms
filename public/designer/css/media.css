@@ -59,7 +59,7 @@
     background: var(--control-border-color);
 }
 
-.jinya-media-tile__img:hover {
+.jinya-media-tile:hover .jinya-media-tile__img {
     object-fit: scale-down;
 }
 
