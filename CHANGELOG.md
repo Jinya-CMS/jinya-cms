@@ -1,5 +1,15 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 25.3.0
+
+### User Stories
+
+* [TG-188](https://taiga.imanuel.dev/project/jinya-cms/us/188) Update .gitlab-ci.yml testing for new db versions
+* [TG-190](https://taiga.imanuel.dev/project/jinya-cms/us/190) Make Jinya TiDB compatible
+* [TG-199](https://taiga.imanuel.dev/project/jinya-cms/us/199) Apply new branding
+* [TG-200](https://taiga.imanuel.dev/project/jinya-cms/us/200) Tags in files
+* [TG-203](https://taiga.imanuel.dev/project/jinya-cms/us/203) Detailview for files
+
 ## Release notes - Jinya CMS - Version 25.2.1
 
 ### Issues
