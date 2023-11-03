@@ -20,56 +20,58 @@ export default class AddPostDialog {
   async show() {
     const { items: files } = await get('/api/file');
     let slugManuallyEdited = false;
-    const content = html`
-        <div class="cosmo-modal__backdrop"></div>
-        <form class="cosmo-modal__container" id="create-dialog-form">
-            <div class="cosmo-modal">
-                <h1 class="cosmo-modal__title">${localize({ key: 'blog.posts.create.title' })}</h1>
-                <div class="cosmo-modal__content">
-                    <div class="cosmo-input__group">
-                        <label for="createPostTitle" class="cosmo-label">
-                            ${localize({ key: 'blog.posts.create.post_title' })}
-                        </label>
-                        <input required type="text" id="createPostTitle" class="cosmo-input">
-                        <label for="createPostSlug" class="cosmo-label">
-                            ${localize({ key: 'blog.posts.create.slug' })}
-                        </label>
-                        <input required type="text" id="createPostSlug" class="cosmo-input">
-                        <label for="createPostCategory" class="cosmo-label">
-                            ${localize({ key: 'blog.posts.create.category' })}
-                        </label>
-                        <select required id="createPostCategory" class="cosmo-select">
-                            ${this.categories.map((cat) => `<option ${cat.id === this.category ? 'selected' : ''} value="${cat.id}">#${cat.id} ${cat.name}</option>`)}
-                        </select>
-                        <label for="createPostHeaderImage" class="cosmo-label">
-                            ${localize({ key: 'blog.posts.create.header_image' })}
-                        </label>
-                        <div class="cosmo-input cosmo-input--picker" id="createPostHeaderImagePicker">
-                            <label class="cosmo-picker__name jinya-picker__name" for="createPostHeaderImage">
-                                ${localize({ key: 'blog.posts.create.no_header_image' })}
-                            </label>
-                            <label class="cosmo-picker__button" for="createPostHeaderImage">
-                                <span class="mdi mdi-image-search mdi-24px"></span>
-                            </label>
-                            <input type="hidden" id="createPostHeaderImage">
-                        </div>
-                        <img src="" alt="" id="selectedFile" class="jinya-picker__selected-file" hidden>
-                        <div class="cosmo-checkbox__group">
-                            <input class="cosmo-checkbox" type="checkbox" id="createPostPublic">
-                            <label for="createPostPublic">${localize({ key: 'blog.posts.create.public' })}</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="cosmo-modal__button-bar">
-                    <button type="button" class="cosmo-button" id="cancel-create-dialog">
-                        ${localize({ key: 'blog.posts.create.cancel' })}
-                    </button>
-                    <button type="submit" class="cosmo-button" id="save-create-dialog">
-                        ${localize({ key: 'blog.posts.create.create' })}
-                    </button>
-                </div>
+    const content = html` <div class="cosmo-modal__backdrop"></div>
+      <form class="cosmo-modal__container" id="create-dialog-form">
+        <div class="cosmo-modal">
+          <h1 class="cosmo-modal__title">${localize({ key: 'blog.posts.create.title' })}</h1>
+          <div class="cosmo-modal__content">
+            <div class="cosmo-input__group">
+              <label for="createPostTitle" class="cosmo-label">
+                ${localize({ key: 'blog.posts.create.post_title' })}
+              </label>
+              <input required type="text" id="createPostTitle" class="cosmo-input" />
+              <label for="createPostSlug" class="cosmo-label"> ${localize({ key: 'blog.posts.create.slug' })} </label>
+              <input required type="text" id="createPostSlug" class="cosmo-input" />
+              <label for="createPostCategory" class="cosmo-label">
+                ${localize({ key: 'blog.posts.create.category' })}
+              </label>
+              <select required id="createPostCategory" class="cosmo-select">
+                ${this.categories.map(
+                  (cat) =>
+                    `<option ${cat.id === this.category ? 'selected' : ''} value="${cat.id}">#${cat.id} ${
+                      cat.name
+                    }</option>`,
+                )}
+              </select>
+              <label for="createPostHeaderImage" class="cosmo-label">
+                ${localize({ key: 'blog.posts.create.header_image' })}
+              </label>
+              <div class="cosmo-input cosmo-input--picker" id="createPostHeaderImagePicker">
+                <label class="cosmo-picker__name jinya-picker__name" for="createPostHeaderImage">
+                  ${localize({ key: 'blog.posts.create.no_header_image' })}
+                </label>
+                <label class="cosmo-picker__button" for="createPostHeaderImage">
+                  <span class="mdi mdi-image-search mdi-24px"></span>
+                </label>
+                <input type="hidden" id="createPostHeaderImage" />
+              </div>
+              <img src="" alt="" id="selectedFile" class="jinya-picker__selected-file" hidden />
+              <div class="cosmo-checkbox__group">
+                <input class="cosmo-checkbox" type="checkbox" id="createPostPublic" />
+                <label for="createPostPublic">${localize({ key: 'blog.posts.create.public' })}</label>
+              </div>
             </div>
-        </form>`;
+          </div>
+          <div class="cosmo-modal__button-bar">
+            <button type="button" class="cosmo-button" id="cancel-create-dialog">
+              ${localize({ key: 'blog.posts.create.cancel' })}
+            </button>
+            <button type="submit" class="cosmo-button" id="save-create-dialog">
+              ${localize({ key: 'blog.posts.create.create' })}
+            </button>
+          </div>
+        </div>
+      </form>`;
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
@@ -133,7 +135,8 @@ export default class AddPostDialog {
     });
     document.getElementById('createPostTitle').addEventListener('input', (e) => {
       if (!slugManuallyEdited) {
-        document.getElementById('createPostSlug').value = e.currentTarget.value.toLowerCase()
+        document.getElementById('createPostSlug').value = e.currentTarget.value
+          .toLowerCase()
           .trim()
           .replace(/[^\w\s-]/g, '')
           .replace(/[\s_-]+/g, '-')

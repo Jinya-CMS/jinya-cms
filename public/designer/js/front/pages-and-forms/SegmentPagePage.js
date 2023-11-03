@@ -37,7 +37,8 @@ export default class SegmentPagePage extends JinyaDesignerPage {
 
   // eslint-disable-next-line class-methods-use-this
   resetPositions() {
-    document.getElementById('segment-list')
+    document
+      .getElementById('segment-list')
       .querySelectorAll('[data-position]')
       .forEach((elem, key) => {
         elem.setAttribute('data-position', key.toString(10));
@@ -59,8 +60,7 @@ export default class SegmentPagePage extends JinyaDesignerPage {
     item.classList.add('jinya-designer-item--selected');
     if (item.getAttribute('data-is-file') === 'true') {
       item.classList.add('jinya-designer-item--file-selected');
-      item.querySelector('.jinya-designer-item__details')
-        .classList.add('jinya-designer-item__details--file-selected');
+      item.querySelector('.jinya-designer-item__details').classList.add('jinya-designer-item__details--file-selected');
       item.querySelector('.jinya-segment__image').classList.add('jinya-segment__image--file-selected');
     }
 
@@ -127,11 +127,10 @@ export default class SegmentPagePage extends JinyaDesignerPage {
     segmentElem.classList.add('jinya-designer-item', 'jinya-designer-item--html');
     segmentElem.setAttribute('data-position', segment.position.toString(10));
     segmentElem.setAttribute('data-id', segment.id.toString(10));
-    segmentElem.innerHTML = html`
-        <span class="jinya-designer-item__title">
-            ${localize({ key: 'pages_and_forms.segment.designer.html' })}
-        </span>
-        <div class="jinya-designer-item__details jinya-designer-item__details--html">${segment.html}</div>`;
+    segmentElem.innerHTML = html` <span class="jinya-designer-item__title">
+        ${localize({ key: 'pages_and_forms.segment.designer.html' })}
+      </span>
+      <div class="jinya-designer-item__details jinya-designer-item__details--html">${segment.html}</div>`;
     segmentList.appendChild(segmentElem);
   }
 
@@ -146,27 +145,35 @@ export default class SegmentPagePage extends JinyaDesignerPage {
     segmentElem.setAttribute('data-position', segment.position.toString(10));
     segmentElem.setAttribute('data-id', segment.id.toString(10));
     segmentElem.setAttribute('data-is-file', 'true');
-    segmentElem.innerHTML = html`
-        <img class="jinya-segment__image" src="${segment.file.path}" alt="${segment.file.name}">
-        <div class="jinya-designer-item__details jinya-designer-item__details--file">
-            <span class="jinya-designer-item__title">
-                ${localize({ key: 'pages_and_forms.segment.designer.file' })}
-            </span>
-            <dl class="jinya-segment__action">
-                <dt class="jinya-segment__label">${localize({ key: 'pages_and_forms.segment.designer.action' })}</dt>
-                <dd class="jinya-segment__content" data-type="action-label">
-                    ${localize({ key: `pages_and_forms.segment.designer.action_${segment.action}` })}
-                </dd>
-                <dt class="jinya-segment__label" data-type="target"
-                    ${segment.action !== 'link' ? 'style="display: none;"' : ''}>
-                    ${localize({ key: 'pages_and_forms.segment.designer.link' })}
-                </dt>
-                <dd class="jinya-segment__content" data-type="target" data-action="target"
-                    ${segment.action !== 'link' ? 'style="display: none;"' : ''}>
-                    ${segment.target}
-                </dd>
-            </dl>
-        </div>`;
+    segmentElem.innerHTML = html` <img
+        class="jinya-segment__image"
+        src="${segment.file.path}"
+        alt="${segment.file.name}"
+      />
+      <div class="jinya-designer-item__details jinya-designer-item__details--file">
+        <span class="jinya-designer-item__title"> ${localize({ key: 'pages_and_forms.segment.designer.file' })} </span>
+        <dl class="jinya-segment__action">
+          <dt class="jinya-segment__label">${localize({ key: 'pages_and_forms.segment.designer.action' })}</dt>
+          <dd class="jinya-segment__content" data-type="action-label">
+            ${localize({ key: `pages_and_forms.segment.designer.action_${segment.action}` })}
+          </dd>
+          <dt
+            class="jinya-segment__label"
+            data-type="target"
+            ${segment.action !== 'link' ? 'style="display: none;"' : ''}
+          >
+            ${localize({ key: 'pages_and_forms.segment.designer.link' })}
+          </dt>
+          <dd
+            class="jinya-segment__content"
+            data-type="target"
+            data-action="target"
+            ${segment.action !== 'link' ? 'style="display: none;"' : ''}
+          >
+            ${segment.target}
+          </dd>
+        </dl>
+      </div>`;
     segmentList.appendChild(segmentElem);
   }
 
@@ -179,64 +186,61 @@ export default class SegmentPagePage extends JinyaDesignerPage {
     const segmentElem = document.createElement('div');
     segmentElem.classList.add('jinya-designer-item', 'jinya-designer-item--gallery');
     segmentElem.setAttribute('data-position', segment.position.toString(10));
-    segmentElem.innerHTML = html`
-        <span class="jinya-designer-item__title">
-            ${localize({ key: 'pages_and_forms.segment.designer.gallery' })}
-        </span>
-        <span class="jinya-designer-item__details jinya-designer-item__details--gallery">
-            ${segment.gallery.name}
-        </span>`;
+    segmentElem.innerHTML = html` <span class="jinya-designer-item__title">
+        ${localize({ key: 'pages_and_forms.segment.designer.gallery' })}
+      </span>
+      <span class="jinya-designer-item__details jinya-designer-item__details--gallery">
+        ${segment.gallery.name}
+      </span>`;
     segmentList.appendChild(segmentElem);
   }
 
   // eslint-disable-next-line class-methods-use-this
   toString() {
     return html`
-        <div class="cosmo-list">
-            <nav class="cosmo-list__items" id="page-list">
-            </nav>
-            <div class="cosmo-list__content jinya-designer">
-                <div class="jinya-designer__title">
-                    <span class="cosmo-title" id="page-title"></span>
-                </div>
-                <div class="cosmo-toolbar cosmo-toolbar--designer">
-                    <div class="cosmo-toolbar__group">
-                        <button id="edit-page" class="cosmo-button">
-                            ${localize({ key: 'pages_and_forms.segment.action.edit' })}
-                        </button>
-                        <button id="delete-page" class="cosmo-button">
-                            ${localize({ key: 'pages_and_forms.segment.action.delete' })}
-                        </button>
-                    </div>
-                    <div class="cosmo-toolbar__group">
-                        <button id="edit-segment" class="cosmo-button" disabled>
-                            ${localize({ key: 'pages_and_forms.segment.action.edit_segment' })}
-                        </button>
-                        <button id="delete-segment" class="cosmo-button" disabled>
-                            ${localize({ key: 'pages_and_forms.segment.action.delete_segment' })}
-                        </button>
-                    </div>
-                </div>
-                <div class="jinya-designer__content">
-                    <div id="segment-list" class="jinya-designer__result jinya-designer__result--horizontal">
-                    </div>
-                    <div id="segment-toolbox" class="jinya-designer__toolbox">
-                        <div data-type="gallery" class="jinya-designer-item__template">
-                            <span class="jinya-designer__drag-handle"></span>
-                            <span>${localize({ key: 'pages_and_forms.segment.designer.gallery' })}</span>
-                        </div>
-                        <div data-type="file" class="jinya-designer-item__template">
-                            <span class="jinya-designer__drag-handle"></span>
-                            <span>${localize({ key: 'pages_and_forms.segment.designer.file' })}</span>
-                        </div>
-                        <div data-type="html" class="jinya-designer-item__template">
-                            <span class="jinya-designer__drag-handle"></span>
-                            <span>${localize({ key: 'pages_and_forms.segment.designer.html' })}</span>
-                        </div>
-                    </div>
-                </div>
+      <div class="cosmo-list">
+        <nav class="cosmo-list__items" id="page-list"></nav>
+        <div class="cosmo-list__content jinya-designer">
+          <div class="jinya-designer__title">
+            <span class="cosmo-title" id="page-title"></span>
+          </div>
+          <div class="cosmo-toolbar cosmo-toolbar--designer">
+            <div class="cosmo-toolbar__group">
+              <button id="edit-page" class="cosmo-button">
+                ${localize({ key: 'pages_and_forms.segment.action.edit' })}
+              </button>
+              <button id="delete-page" class="cosmo-button">
+                ${localize({ key: 'pages_and_forms.segment.action.delete' })}
+              </button>
             </div>
+            <div class="cosmo-toolbar__group">
+              <button id="edit-segment" class="cosmo-button" disabled>
+                ${localize({ key: 'pages_and_forms.segment.action.edit_segment' })}
+              </button>
+              <button id="delete-segment" class="cosmo-button" disabled>
+                ${localize({ key: 'pages_and_forms.segment.action.delete_segment' })}
+              </button>
+            </div>
+          </div>
+          <div class="jinya-designer__content">
+            <div id="segment-list" class="jinya-designer__result jinya-designer__result--horizontal"></div>
+            <div id="segment-toolbox" class="jinya-designer__toolbox">
+              <div data-type="gallery" class="jinya-designer-item__template">
+                <span class="jinya-designer__drag-handle"></span>
+                <span>${localize({ key: 'pages_and_forms.segment.designer.gallery' })}</span>
+              </div>
+              <div data-type="file" class="jinya-designer-item__template">
+                <span class="jinya-designer__drag-handle"></span>
+                <span>${localize({ key: 'pages_and_forms.segment.designer.file' })}</span>
+              </div>
+              <div data-type="html" class="jinya-designer-item__template">
+                <span class="jinya-designer__drag-handle"></span>
+                <span>${localize({ key: 'pages_and_forms.segment.designer.html' })}</span>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     `;
   }
 
@@ -304,7 +308,9 @@ export default class SegmentPagePage extends JinyaDesignerPage {
         onHide: async ({ gallery }) => {
           this.selectedSegment.gallery = gallery;
           this.segments.find((s) => s.position === this.selectedSegment.position).gallery = gallery;
-          document.querySelector(`[data-position="${this.selectedSegment.position}"] .jinya-designer-item__details--gallery`).innerText = gallery.name;
+          document.querySelector(
+            `[data-position="${this.selectedSegment.position}"] .jinya-designer-item__details--gallery`,
+          ).innerText = gallery.name;
         },
       });
       await dialog.show();
@@ -332,19 +338,16 @@ export default class SegmentPagePage extends JinyaDesignerPage {
             document
               .querySelectorAll(`[data-position="${this.selectedSegment.position}"] [data-type="target"]`)
               .forEach((item) => item.removeAttribute('style'));
-            document
-              .querySelector(`[data-position="${this.selectedSegment.position}"] [data-action="target"]`)
-              .innerText = target;
-            document
-              .querySelector(`[data-position="${this.selectedSegment.position}"] .jinya-segment__image`)
-              .src = file.path;
+            document.querySelector(
+              `[data-position="${this.selectedSegment.position}"] [data-action="target"]`,
+            ).innerText = target;
+            document.querySelector(`[data-position="${this.selectedSegment.position}"] .jinya-segment__image`).src =
+              file.path;
           }
-          document
-            .querySelector(`[data-position="${this.selectedSegment.position}"] [data-type="action-label"]`)
-            .innerText = localize({ key: `pages_and_forms.segment.designer.action_${action}` });
-          document
-            .querySelector(`[data-position="${this.selectedSegment.position}"] img`)
-            .src = file.path;
+          document.querySelector(
+            `[data-position="${this.selectedSegment.position}"] [data-type="action-label"]`,
+          ).innerText = localize({ key: `pages_and_forms.segment.designer.action_${action}` });
+          document.querySelector(`[data-position="${this.selectedSegment.position}"] img`).src = file.path;
         },
       });
       await dialog.show();
@@ -358,9 +361,9 @@ export default class SegmentPagePage extends JinyaDesignerPage {
         onHide: async ({ html: content }) => {
           this.selectedSegment.html = content;
           this.segments.find((s) => s.position === this.selectedSegment.position).html = content;
-          document
-            .querySelector(`[data-position="${this.selectedSegment.position}"] .jinya-designer-item__details--html`)
-            .innerHTML = content;
+          document.querySelector(
+            `[data-position="${this.selectedSegment.position}"] .jinya-designer-item__details--html`,
+          ).innerHTML = content;
         },
       });
       await dialog.show();

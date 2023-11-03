@@ -1,56 +1,56 @@
 .cosmo-message {
-	width: 100%;
-	background: var(--message-background);
-	color: var(--black);
-	border-top: 4px solid var(--message-border);
-	padding: 8px 16px;
-	margin-bottom: 16px;
-	box-sizing: border-box;
+    width: 100%;
+    background: var(--message-background);
+    color: var(--black);
+    border-top: 4px solid var(--message-border);
+    padding: 8px 16px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
 }
 
 .cosmo-message::selection {
-	background: var(--message-border);
-	color: var(--white);
+    background: var(--message-border);
+    color: var(--white);
 }
 
 .cosmo-message__header {
-	margin: 0;
-	color: var(--black);
-	font-weight: var(--font-weight-light);
-	font-size: 24px;
-	display: block;
+    margin: 0;
+    color: var(--black);
+    font-weight: var(--font-weight-light);
+    font-size: 24px;
+    display: block;
 }
 
 .cosmo-message__header::selection {
-	background: var(--message-border);
-	color: var(--white);
+    background: var(--message-border);
+    color: var(--white);
 }
 
 .cosmo-message__message {
-	margin: 0;
+    margin: 0;
 }
 
 .cosmo-message__message::selection {
-	background: var(--message-border);
-	color: var(--white);
+    background: var(--message-border);
+    color: var(--white);
 }
 
 .cosmo-message--positive {
-	--message-border: var(--positive-color);
-	--message-background: var(--positive-light-color);
+    --message-border: var(--positive-color);
+    --message-background: var(--positive-light-color);
 }
 
 .cosmo-message--negative {
-	--message-border: var(--negative-color);
-	--message-background: var(--negative-light-color);
+    --message-border: var(--negative-color);
+    --message-background: var(--negative-light-color);
 }
 
 .cosmo-message--information {
-	--message-border: var(--information-color);
-	--message-background: var(--information-light-color);
+    --message-border: var(--information-color);
+    --message-background: var(--information-light-color);
 }
 
 .cosmo-message--warning {
-	--message-border: var(--warning-color);
-	--message-background: var(--warning-light-color);
+    --message-border: var(--warning-color);
+    --message-background: var(--warning-light-color);
 }

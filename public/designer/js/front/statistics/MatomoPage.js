@@ -14,27 +14,33 @@ export default class MatomoPage extends JinyaDesignerPage {
   }
 
   toString() {
-    return html`
-        <div>
-        <span
-                class="cosmo-title">${localize({ key: 'statistics.access.title' })} | ${this.from.toLocaleDateString(window.navigator.language, {
-            year: 'numeric', month: '2-digit', day: '2-digit',
+    return html` <div>
+      <span class="cosmo-title"
+        >${localize({ key: 'statistics.access.title' })} |
+        ${this.from.toLocaleDateString(window.navigator.language, {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
         })}
-      – ${this.to.toLocaleDateString(window.navigator.language, { year: 'numeric', month: '2-digit', day: '2-digit' })}
-      | <span id="stats-total-visits">${this.totalVisits}</span> ${localize({ key: 'statistics.access.total_visits' })}</span>
-            <div class="jinya-stats__row jinya-stats__row--one">
-                <div id="country-chart"></div>
-            </div>
-            <div class="jinya-stats__row jinya-stats__row--third">
-                <div id="language-chart"></div>
-                <div id="device-brand-chart"></div>
-                <div id="device-type-chart"></div>
-            </div>
-            <div class="jinya-stats__row jinya-stats__row--half">
-                <div id="browser-chart"></div>
-                <div id="os-chart"></div>
-            </div>
-        </div>`;
+        –
+        ${this.to.toLocaleDateString(window.navigator.language, { year: 'numeric', month: '2-digit', day: '2-digit' })}
+        | <span id="stats-total-visits">${this.totalVisits}</span> ${localize({
+          key: 'statistics.access.total_visits',
+        })}</span
+      >
+      <div class="jinya-stats__row jinya-stats__row--one">
+        <div id="country-chart"></div>
+      </div>
+      <div class="jinya-stats__row jinya-stats__row--third">
+        <div id="language-chart"></div>
+        <div id="device-brand-chart"></div>
+        <div id="device-type-chart"></div>
+      </div>
+      <div class="jinya-stats__row jinya-stats__row--half">
+        <div id="browser-chart"></div>
+        <div id="os-chart"></div>
+      </div>
+    </div>`;
   }
 
   async displayed() {
@@ -63,7 +69,9 @@ export default class MatomoPage extends JinyaDesignerPage {
     await Promise.all([
       (async () => {
         const countryStats = await get('/api/statistics/visits/country');
-        this.totalVisits = countryStats.map((m) => m.visitCount).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+        this.totalVisits = countryStats
+          .map((m) => m.visitCount)
+          .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
         const countryStatsChart = new ApexCharts(document.getElementById('country-chart'), {
           chart: { ...chart, type: 'treemap' },
           plotOptions: {
@@ -81,23 +89,22 @@ export default class MatomoPage extends JinyaDesignerPage {
           series: [
             {
               name: localize({ key: 'statistics.access.country' }),
-              data: countryStats.sort((a, b) => b.visitCount - a.visitCount).map((item) => ({
-                y: item.visitCount,
-                x: item.label,
-              })),
+              data: countryStats
+                .sort((a, b) => b.visitCount - a.visitCount)
+                .map((item) => ({
+                  y: item.visitCount,
+                  x: item.label,
+                })),
             },
           ],
-          title:
-            {
-              text: localize({ key: 'statistics.access.country' }),
-              align: 'left',
-              style:
-                {
-                  fontFamily: 'Lato, sans-serif',
-                  color: 'var(--black)',
-                }
-              ,
+          title: {
+            text: localize({ key: 'statistics.access.country' }),
+            align: 'left',
+            style: {
+              fontFamily: 'Lato, sans-serif',
+              color: 'var(--black)',
             },
+          },
         });
         await countryStatsChart.render();
         document.getElementById('stats-total-visits').textContent = this.totalVisits;

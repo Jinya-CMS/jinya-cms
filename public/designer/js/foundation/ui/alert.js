@@ -18,17 +18,16 @@ export default async function alert({ title = window.location.href, message, but
     document.body.appendChild(container);
     const modalId = crypto.randomUUID();
 
-    container.innerHTML = html`
-        <div class="cosmo-modal__backdrop"></div>
-        <div class="cosmo-modal__container">
-            <div class="cosmo-modal">
-                <h1 class="cosmo-modal__title">${title}</h1>
-                <p class="cosmo-modal__content">${message}</p>
-                <div class="cosmo-modal__button-bar">
-                    <button id="${modalId}DismissButton" class="cosmo-button">${buttonLabel}</button>
-                </div>
-            </div>
-        </div>`;
+    container.innerHTML = html` <div class="cosmo-modal__backdrop"></div>
+      <div class="cosmo-modal__container">
+        <div class="cosmo-modal">
+          <h1 class="cosmo-modal__title">${title}</h1>
+          <p class="cosmo-modal__content">${message}</p>
+          <div class="cosmo-modal__button-bar">
+            <button id="${modalId}DismissButton" class="cosmo-button">${buttonLabel}</button>
+          </div>
+        </div>
+      </div>`;
 
     document.body.appendChild(container);
 

@@ -32,7 +32,11 @@ export default class LoginPage extends JinyaDesignerPage {
           const response = await post(this.isTwoFa ? '/api/2fa' : '/api/login', payload);
           if (this.isTwoFa) {
             const { default: TwoFactorPage } = await import('./TwoFactorPage.js');
-            const page = new TwoFactorPage({ loginLayout: this.layout, redirect: this.redirect, ...payload });
+            const page = new TwoFactorPage({
+              loginLayout: this.layout,
+              redirect: this.redirect,
+              ...payload,
+            });
             page.display();
           } else {
             setDeviceCode(response.deviceCode);
@@ -51,19 +55,20 @@ export default class LoginPage extends JinyaDesignerPage {
   }
 
   toString() {
-    return html`
-        <form id="jinya-login-form">
-            <div class="cosmo-input__group">
-                <label for="email" class="cosmo-label">${localize({ key: 'login.page.label.email' })}</label>
-                <input required="" type="email" id="email" class="cosmo-input">
-                <label for="password" class="cosmo-label">${localize({ key: 'login.page.label.password' })}</label>
-                <input required="" type="password" id="password" class="cosmo-input">
-            </div>
-            <div class="cosmo-button__container">
-                <button class="cosmo-button" type="submit">
-                    ${!this.isTwoFa ? localize({ key: 'login.page.action.login' }) : localize({ key: 'login.page.action.request' })}
-                </button>
-            </div>
-        </form>`;
+    return html` <form id="jinya-login-form">
+      <div class="cosmo-input__group">
+        <label for="email" class="cosmo-label">${localize({ key: 'login.page.label.email' })}</label>
+        <input required="" type="email" id="email" class="cosmo-input" />
+        <label for="password" class="cosmo-label">${localize({ key: 'login.page.label.password' })}</label>
+        <input required="" type="password" id="password" class="cosmo-input" />
+      </div>
+      <div class="cosmo-button__container">
+        <button class="cosmo-button" type="submit">
+          ${!this.isTwoFa
+            ? localize({ key: 'login.page.action.login' })
+            : localize({ key: 'login.page.action.request' })}
+        </button>
+      </div>
+    </form>`;
   }
 }

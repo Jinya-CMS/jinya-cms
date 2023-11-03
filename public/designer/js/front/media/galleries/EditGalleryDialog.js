@@ -15,68 +15,83 @@ export default class EditGalleryDialog {
   }
 
   show() {
-    const content = html`
-        <div class="cosmo-modal__backdrop"></div>
-        <form class="cosmo-modal__container" id="edit-dialog-form">
-            <div class="cosmo-modal">
-                <h1 class="cosmo-modal__title">${localize({ key: 'media.galleries.edit.title' })}</h1>
-                <div class="cosmo-modal__content">
-                    <div class="cosmo-input__group">
-                        <label for="editGalleryName" class="cosmo-label">
-                            ${localize({ key: 'media.galleries.edit.name' })}
-                        </label>
-                        <input value="${this.gallery.name}" required type="text" id="editGalleryName"
-                               class="cosmo-input">
-                        <span class="cosmo-label cosmo-label--radio">
-                            ${localize({ key: 'media.galleries.edit.orientation' })}
-                        </span>
-                        <div class="cosmo-radio__group">
-                            <input name="orientation" class="cosmo-radio" type="radio"
-                                   ${this.gallery.orientation.toLowerCase() === 'horizontal' ? 'checked' : ''}
-                                   id="editGalleryOrientationHorizontal" value="horizontal">
-                            <label for="editGalleryOrientationHorizontal">
-                                ${localize({ key: 'media.galleries.edit.horizontal' })}
-                            </label>
-                            <input name="orientation" class="cosmo-radio" type="radio"
-                                   ${this.gallery.orientation.toLowerCase() === 'vertical' ? 'checked' : ''}
-                                   id="editGalleryOrientationVertical" value="vertical">
-                            <label for="editGalleryOrientationVertical">
-                                ${localize({ key: 'media.galleries.edit.vertical' })}
-                            </label>
-                        </div>
-                        <span class="cosmo-label cosmo-label--radio">
-                            ${localize({ key: 'media.galleries.edit.type' })}
-                        </span>
-                        <div class="cosmo-radio__group">
-                            <input name="type" class="cosmo-radio" type="radio" id="editGalleryTypeMasonry"
-                                   ${this.gallery.type.toLowerCase() === 'masonry' ? 'checked' : ''} value="masonry">
-                            <label for="editGalleryTypeMasonry">
-                                ${localize({ key: 'media.galleries.edit.masonry' })}
-                            </label>
-                            <input name="type" class="cosmo-radio" type="radio" id="editGalleryTypeSequence"
-                                   ${this.gallery.type.toLowerCase() === 'sequence' ? 'checked' : ''} value="sequence">
-                            <label for="editGalleryTypeSequence">
-                                ${localize({ key: 'media.galleries.edit.sequence' })}
-                            </label>
-                        </div>
-                        <label for="editGalleryDescription" class="cosmo-label cosmo-label--textarea">
-                            ${localize({ key: 'media.galleries.edit.description' })}
-                        </label>
-                        <textarea rows="5" id="editGalleryDescription" class="cosmo-textarea">
+    const content = html` <div class="cosmo-modal__backdrop"></div>
+      <form class="cosmo-modal__container" id="edit-dialog-form">
+        <div class="cosmo-modal">
+          <h1 class="cosmo-modal__title">${localize({ key: 'media.galleries.edit.title' })}</h1>
+          <div class="cosmo-modal__content">
+            <div class="cosmo-input__group">
+              <label for="editGalleryName" class="cosmo-label">
+                ${localize({ key: 'media.galleries.edit.name' })}
+              </label>
+              <input value="${this.gallery.name}" required type="text" id="editGalleryName" class="cosmo-input" />
+              <span class="cosmo-label cosmo-label--radio">
+                ${localize({ key: 'media.galleries.edit.orientation' })}
+              </span>
+              <div class="cosmo-radio__group">
+                <input
+                  name="orientation"
+                  class="cosmo-radio"
+                  type="radio"
+                  ${this.gallery.orientation.toLowerCase() === 'horizontal' ? 'checked' : ''}
+                  id="editGalleryOrientationHorizontal"
+                  value="horizontal"
+                />
+                <label for="editGalleryOrientationHorizontal">
+                  ${localize({ key: 'media.galleries.edit.horizontal' })}
+                </label>
+                <input
+                  name="orientation"
+                  class="cosmo-radio"
+                  type="radio"
+                  ${this.gallery.orientation.toLowerCase() === 'vertical' ? 'checked' : ''}
+                  id="editGalleryOrientationVertical"
+                  value="vertical"
+                />
+                <label for="editGalleryOrientationVertical">
+                  ${localize({ key: 'media.galleries.edit.vertical' })}
+                </label>
+              </div>
+              <span class="cosmo-label cosmo-label--radio"> ${localize({ key: 'media.galleries.edit.type' })} </span>
+              <div class="cosmo-radio__group">
+                <input
+                  name="type"
+                  class="cosmo-radio"
+                  type="radio"
+                  id="editGalleryTypeMasonry"
+                  ${this.gallery.type.toLowerCase() === 'masonry' ? 'checked' : ''}
+                  value="masonry"
+                />
+                <label for="editGalleryTypeMasonry"> ${localize({ key: 'media.galleries.edit.masonry' })} </label>
+                <input
+                  name="type"
+                  class="cosmo-radio"
+                  type="radio"
+                  id="editGalleryTypeSequence"
+                  ${this.gallery.type.toLowerCase() === 'sequence' ? 'checked' : ''}
+                  value="sequence"
+                />
+                <label for="editGalleryTypeSequence"> ${localize({ key: 'media.galleries.edit.sequence' })} </label>
+              </div>
+              <label for="editGalleryDescription" class="cosmo-label cosmo-label--textarea">
+                ${localize({ key: 'media.galleries.edit.description' })}
+              </label>
+              <textarea rows="5" id="editGalleryDescription" class="cosmo-textarea">
                             ${this.gallery.description}
-                        </textarea>
-                    </div>
-                </div>
-                <div class="cosmo-modal__button-bar">
-                    <button type="button" class="cosmo-button" id="cancel-add-dialog">
-                        ${localize({ key: 'media.galleries.edit.cancel' })}
-                    </button>
-                    <button type="submit" class="cosmo-button" id="save-add-dialog">
-                        ${localize({ key: 'media.galleries.edit.update' })}
-                    </button>
-                </div>
+                        </textarea
+              >
             </div>
-        </form>`;
+          </div>
+          <div class="cosmo-modal__button-bar">
+            <button type="button" class="cosmo-button" id="cancel-add-dialog">
+              ${localize({ key: 'media.galleries.edit.cancel' })}
+            </button>
+            <button type="submit" class="cosmo-button" id="save-add-dialog">
+              ${localize({ key: 'media.galleries.edit.update' })}
+            </button>
+          </div>
+        </div>
+      </form>`;
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);

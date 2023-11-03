@@ -7,12 +7,11 @@ import localize from '../../foundation/localize.js';
 export default class DatabasePage extends JinyaDesignerPage {
   // eslint-disable-next-line class-methods-use-this
   toString() {
-    return html`
-        <div class="jinya-stats__row">
-            <div id="entity-share-chart"></div>
-            <div id="system-stats-chart"></div>
-        </div>
-        <div id="file-history-chart"></div>`;
+    return html` <div class="jinya-stats__row">
+        <div id="entity-share-chart"></div>
+        <div id="system-stats-chart"></div>
+      </div>
+      <div id="file-history-chart"></div>`;
   }
 
   async displayed() {
@@ -47,27 +46,20 @@ export default class DatabasePage extends JinyaDesignerPage {
       })(),
       (async () => {
         const systemStatsData = await get('/api/statistics/system');
-        const
-          systemStatsChart = new ApexCharts(document.getElementById('system-stats-chart'), {
-            chart: {
-              type: 'pie',
-              height: 400,
-              width: 500,
+        const systemStatsChart = new ApexCharts(document.getElementById('system-stats-chart'), {
+          chart: {
+            type: 'pie',
+            height: 400,
+            width: 500,
+          },
+          dataLabels: {
+            formatter(val, { seriesIndex, w }) {
+              return `${(w.config.series[seriesIndex] / 1024 / 1024 / 1024).toFixed(2)} GB`;
             },
-            dataLabels: {
-              formatter(val, { seriesIndex, w }) {
-                return `${(w.config.series[seriesIndex] / 1024 / 1024 / 1024).toFixed(2)} GB`;
-              },
-            },
-            series: [
-              systemStatsData.total - systemStatsData.free,
-              systemStatsData.free,
-            ],
-            labels: [
-              localize({ key: 'statistics.system.used' }),
-              localize({ key: 'statistics.system.free' }),
-            ],
-          });
+          },
+          series: [systemStatsData.total - systemStatsData.free, systemStatsData.free],
+          labels: [localize({ key: 'statistics.system.used' }), localize({ key: 'statistics.system.free' })],
+        });
         await systemStatsChart.render();
       })(),
       (async () => {

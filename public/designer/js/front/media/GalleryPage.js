@@ -1,13 +1,12 @@
 import html from '../../../lib/jinya-html.js';
 import Sortable from '../../../lib/sortable.js';
 import clearChildren from '../../foundation/html/clearChildren.js';
-import {
- get, httpDelete, post, put,
-} from '../../foundation/http/request.js';
+import { get, httpDelete, post, put } from '../../foundation/http/request.js';
 import JinyaDesignerPage from '../../foundation/JinyaDesignerPage.js';
 import localize from '../../foundation/localize.js';
 import alert from '../../foundation/ui/alert.js';
 import confirm from '../../foundation/ui/confirm.js';
+import '../../foundation/ui/components/tag.js';
 
 export default class GalleryPage extends JinyaDesignerPage {
   constructor({ layout }) {
@@ -17,6 +16,75 @@ export default class GalleryPage extends JinyaDesignerPage {
     this.files = [];
     this.resultSortable = null;
     this.toolboxSortable = null;
+    this.tags = [];
+    this.activeTags = new Set();
+  }
+
+  renderTags() {
+    document.getElementById('designer-tags').innerHTML = html`
+      <cms-tag
+        class="jinya-tag--file"
+        emoji=""
+        name="${localize({ key: 'media.galleries.action.show_all_tags' })}"
+        color="#19324c"
+        tag-id="-1"
+        id="show-all-tags"
+        ${this.activeTags.size === 0 ? 'active' : ''}
+      ></cms-tag>
+      ${this.tags.map(
+        (tag) =>
+          html` <cms-tag
+            class="jinya-tag--file"
+            emoji="${tag.emoji}"
+            name="${tag.name}"
+            color="${tag.color}"
+            tag-id="${tag.id}"
+            id="show-tag-${tag.id}"
+            ${this.activeTags.has(tag.id) ? 'active' : ''}
+          ></cms-tag>`,
+      )}
+    `;
+    document.querySelectorAll('cms-tag').forEach((tag) =>
+      tag.addEventListener('click', (evt) => {
+        evt.stopPropagation();
+        // eslint-disable-next-line no-param-reassign
+        tag.active = !tag.active;
+        if (tag.id === 'show-all-tags') {
+          document
+            .querySelectorAll('#designer-toolbox .jinya-media-tile')
+            .forEach((tile) => tile.classList.remove('jinya-media-tile--hidden'));
+          document.querySelectorAll('cms-tag').forEach((t) => {
+            // eslint-disable-next-line no-param-reassign
+            t.active = false;
+          });
+          // eslint-disable-next-line no-param-reassign
+          tag.active = true;
+        } else {
+          const allTags = document.getElementById('show-all-tags');
+          if (tag.active) {
+            this.activeTags.add(tag.tagId);
+          } else {
+            this.activeTags.delete(tag.tagId);
+          }
+          allTags.active = this.activeTags.size === 0 || this.activeTags.size === this.tags.length;
+          document.querySelectorAll('#designer-toolbox .jinya-media-tile').forEach((tile) => {
+            const file = this.files.find((f) => f.id === parseInt(tile.getAttribute('data-file-id'), 10));
+            if (file.tags.filter((f) => this.activeTags.has(f.id)).length === 0) {
+              tile.classList.add('jinya-media-tile--hidden');
+            } else {
+              tile.classList.remove('jinya-media-tile--hidden');
+            }
+          });
+
+          if (allTags.active) {
+            this.activeTags.clear();
+            document.querySelectorAll('#designer-toolbox .jinya-media-tile').forEach((tile) => {
+              tile.classList.remove('jinya-media-tile--hidden');
+            });
+          }
+        }
+      }),
+    );
   }
 
   selectGallery({ id }) {
@@ -27,6 +95,10 @@ export default class GalleryPage extends JinyaDesignerPage {
     document.querySelector(`[data-id="${id}"]`).classList.add('cosmo-list__item--active');
     document.getElementById('edit-gallery-button').disabled = false;
     document.getElementById('delete-gallery-button').disabled = false;
+    this.activeTags.clear();
+    document.querySelectorAll('#designer-toolbox .jinya-media-tile').forEach((tile) => {
+      tile.classList.remove('jinya-media-tile--hidden');
+    });
   }
 
   async displaySelectedGallery() {
@@ -37,14 +109,11 @@ export default class GalleryPage extends JinyaDesignerPage {
       this.toolboxSortable.destroy();
     }
 
-    const {
-      id,
-      name,
-      type,
-      orientation,
-    } = this.selectedGallery;
+    const { id, name, type, orientation } = this.selectedGallery;
     document.getElementById('id-and-name').innerText = `#${id} ${name}`;
-    document.getElementById('type-and-orientation').innerText = localize({ key: `media.galleries.designer.title.${orientation.toLowerCase()}_${type.toLowerCase()}` });
+    document.getElementById('type-and-orientation').innerText = localize({
+      key: `media.galleries.designer.title.${orientation.toLowerCase()}_${type.toLowerCase()}`,
+    });
 
     const toolbox = document.getElementById('designer-toolbox');
     const result = document.getElementById('designer-result');
@@ -114,11 +183,18 @@ export default class GalleryPage extends JinyaDesignerPage {
         await httpDelete(`/api/media/gallery/${this.selectedGallery.id}/file/${position}`);
       },
     });
+
+    document.querySelectorAll('cms-tag').forEach((tag) => {
+      // eslint-disable-next-line no-param-reassign
+      tag.active = false;
+    });
+    document.getElementById('show-all-tags').active = true;
   }
 
   // eslint-disable-next-line class-methods-use-this
   resetPositions() {
-    document.getElementById('designer-result')
+    document
+      .getElementById('designer-result')
       .querySelectorAll('[data-position]')
       .forEach((elem, key) => {
         elem.setAttribute('data-position', key.toString(10));
@@ -159,36 +235,36 @@ export default class GalleryPage extends JinyaDesignerPage {
 
   // eslint-disable-next-line class-methods-use-this
   toString() {
-    return html`
-        <div class="cosmo-list">
-            <nav class="cosmo-list__items" id="gallery-list">
-                <button class="cosmo-button cosmo-button--full-width">
-                    ${localize({ key: 'media.galleries.action.new' })}
-                </button>
-            </nav>
-            <div class="cosmo-list__content jinya-designer" id="gallery-designer">
-                <div class="jinya-designer__title">
-                    <span class="cosmo-title" id="id-and-name"></span>
-                    <span class="cosmo-title" id="type-and-orientation"></span>
-                </div>
-                <div class="cosmo-toolbar cosmo-toolbar--designer">
-                    <div class="cosmo-toolbar__group">
-                        <button id="edit-gallery-button" class="cosmo-button">
-                            ${localize({ key: 'media.galleries.action.edit' })}
-                        </button>
-                        <button id="delete-gallery-button" class="cosmo-button">
-                            ${localize({ key: 'media.galleries.action.delete' })}
-                        </button>
-                    </div>
-                </div>
-                <div class="jinya-designer__content">
-                    <div class="jinya-designer__result" id="designer-result">
-                    </div>
-                    <div class="jinya-designer__toolbox" id="designer-toolbox">
-                    </div>
-                </div>
-            </div>
-        </div>`;
+    return html` <div class="cosmo-list">
+      <nav class="cosmo-list__items" id="gallery-list">
+        <button class="cosmo-button cosmo-button--full-width">
+          ${localize({ key: 'media.galleries.action.new' })}
+        </button>
+      </nav>
+      <div class="cosmo-list__content jinya-designer" id="gallery-designer">
+        <div class="jinya-designer__title">
+          <span class="cosmo-title" id="id-and-name"></span>
+          <span class="cosmo-title" id="type-and-orientation"></span>
+        </div>
+        <div class="cosmo-toolbar cosmo-toolbar--designer">
+          <div class="cosmo-toolbar__group">
+            <button id="edit-gallery-button" class="cosmo-button">
+              ${localize({ key: 'media.galleries.action.edit' })}
+            </button>
+            <button id="delete-gallery-button" class="cosmo-button">
+              ${localize({ key: 'media.galleries.action.delete' })}
+            </button>
+          </div>
+        </div>
+        <div class="jinya-designer__content">
+          <div class="jinya-designer__result" id="designer-result"></div>
+          <div class="jinya-designer__toolbox-container">
+            <div class="jinya-designer__tags" id="designer-tags"></div>
+            <div class="jinya-designer__toolbox" id="designer-toolbox"></div>
+          </div>
+        </div>
+      </div>
+    </div>`;
   }
 
   async displayed() {
@@ -202,8 +278,13 @@ export default class GalleryPage extends JinyaDesignerPage {
         const { items } = await get('/api/media/file');
         this.files = items;
       })(),
+      (async () => {
+        const { items } = await get('/api/file-tag');
+        this.tags = items;
+      })(),
     ]);
     this.displayGalleries();
+    this.renderTags();
     if (this.galleries.length !== 0) {
       this.selectGallery(this.galleries[0]);
       await this.displaySelectedGallery();
@@ -222,8 +303,7 @@ export default class GalleryPage extends JinyaDesignerPage {
       if (confirmation) {
         try {
           await httpDelete(`/api/media/gallery/${this.selectedGallery.id}`);
-          this.galleries = this.galleries
-            .filter((gallery) => gallery.id !== this.selectedGallery.id);
+          this.galleries = this.galleries.filter((gallery) => gallery.id !== this.selectedGallery.id);
           this.displayGalleries();
           if (this.galleries.length > 0) {
             this.selectGallery({ id: this.galleries[0].id });

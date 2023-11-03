@@ -18,27 +18,26 @@ export default class UpdatePage extends JinyaDesignerPage {
   displayPage() {
     const contentView = document.getElementById('content');
     if (this.version.currentVersion !== this.version.mostRecentVersion) {
-      contentView.innerHTML = html`
-          <div class="jinya-update__text">
-              ${localize({
-                  key: 'maintenance.update.version_text',
-                  values: {
-                      ...this.version,
-                      openB: '<b>',
-                      closeB: '</b>',
-                  },
-              })}
-          </div>
-          <button id="update-button" class="cosmo-button">
-              ${localize({ key: 'maintenance.update.update_now' })}
-          </button>`;
+      contentView.innerHTML = html` <div class="jinya-update__text">
+          ${localize({
+            key: 'maintenance.update.version_text',
+            values: {
+              ...this.version,
+              openB: '<b>',
+              closeB: '</b>',
+            },
+          })}
+        </div>
+        <button id="update-button" class="cosmo-button">${localize({ key: 'maintenance.update.update_now' })}</button>`;
       document.getElementById('update-button').addEventListener('click', async () => {
-        if (await confirm({
-          title: localize({ key: 'maintenance.update.perform_update.title' }),
-          message: localize({ key: 'maintenance.update.perform_update.message' }),
-          declineLabel: localize({ key: 'maintenance.update.perform_update.decline' }),
-          approveLabel: localize({ key: 'maintenance.update.perform_update.approve' }),
-        })) {
+        if (
+          await confirm({
+            title: localize({ key: 'maintenance.update.perform_update.title' }),
+            message: localize({ key: 'maintenance.update.perform_update.message' }),
+            declineLabel: localize({ key: 'maintenance.update.perform_update.decline' }),
+            approveLabel: localize({ key: 'maintenance.update.perform_update.approve' }),
+          })
+        ) {
           const loadingContainer = document.createElement('div');
           loadingContainer.innerHTML = html`
               <div class="cosmo-modal__backdrop"></div>
@@ -57,24 +56,22 @@ export default class UpdatePage extends JinyaDesignerPage {
           try {
             await post('/api/update');
             // eslint-disable-next-line no-empty
-          } catch (e) {
-          }
+          } catch (e) {}
           window.location.reload();
           loadingContainer.remove();
         }
       });
     } else {
-      contentView.innerHTML = html`
-          <div class="jinya-update__text">
-              ${localize({
-                  key: 'maintenance.update.version_text_no_update',
-                  values: {
-                      ...this.version,
-                      openB: '<b>',
-                      closeB: '</b>',
-                  },
-              })}
-          </div>`;
+      contentView.innerHTML = html` <div class="jinya-update__text">
+        ${localize({
+          key: 'maintenance.update.version_text_no_update',
+          values: {
+            ...this.version,
+            openB: '<b>',
+            closeB: '</b>',
+          },
+        })}
+      </div>`;
     }
   }
 

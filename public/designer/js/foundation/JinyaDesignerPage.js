@@ -20,9 +20,9 @@ export default class JinyaDesignerPage {
    * Renders the current page into the main tag
    * @return void
    */
-  display() {
+  async display() {
     this.layout.child = this;
-    this.layout.display();
+    await this.layout.display();
   }
 
   /**
@@ -30,14 +30,12 @@ export default class JinyaDesignerPage {
    * @return Promise<void>
    */
   // eslint-disable-next-line no-empty-function,class-methods-use-this
-  async displayed() {
-  }
+  async displayed() {}
 
   /**
    * Method to bind the events needed
    * @return void
    */
   // eslint-disable-next-line class-methods-use-this
-  bindEvents() {
-  }
+  bindEvents() {}
 }

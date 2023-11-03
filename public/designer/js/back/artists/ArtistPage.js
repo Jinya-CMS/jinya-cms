@@ -76,43 +76,41 @@ export default class ArtistPage extends JinyaDesignerPage {
 
   // eslint-disable-next-line class-methods-use-this
   toString() {
-    return html`
-        <div class="cosmo-list">
-            <nav class="cosmo-list__items" id="artist-list">
-            </nav>
-            <div class="cosmo-list__content jinya-designer">
-                <div class="jinya-profile-view">
-                    <div class="cosmo-toolbar jinya-toolbar--media">
-                        <div class="cosmo-toolbar__group">
-                            <button disabled id="edit-artist" class="cosmo-button">
-                                ${localize({ key: 'artists.action.edit' })}
-                            </button>
-                            <button disabled id="enable-artist" class="cosmo-button">
-                                ${localize({ key: 'artists.action.enable' })}
-                            </button>
-                            <button disabled id="disable-artist" class="cosmo-button">
-                                ${localize({ key: 'artists.action.disable' })}
-                            </button>
-                            <button disabled id="delete-artist" class="cosmo-button">
-                                ${localize({ key: 'artists.action.delete' })}
-                            </button>
-                        </div>
-                    </div>
-                    <div class="jinya-profile__container">
-                        <div class="jinya-profile__sidebar">
-                            <img src="" id="artist-profile-picture" class="jinya-profile__picture" alt="">
-                        </div>
-                        <div class="jinya-profile__about-me">
-                            <div class="cosmo-title">
-                                <span id="artist-name"></span>
-                                (<span id="artist-email"></span>)
-                            </div>
-                            <div id="about-me"></div>
-                        </div>
-                    </div>
-                </div>
+    return html` <div class="cosmo-list">
+      <nav class="cosmo-list__items" id="artist-list"></nav>
+      <div class="cosmo-list__content jinya-designer">
+        <div class="jinya-profile-view">
+          <div class="cosmo-toolbar jinya-toolbar--media">
+            <div class="cosmo-toolbar__group">
+              <button disabled id="edit-artist" class="cosmo-button">
+                ${localize({ key: 'artists.action.edit' })}
+              </button>
+              <button disabled id="enable-artist" class="cosmo-button">
+                ${localize({ key: 'artists.action.enable' })}
+              </button>
+              <button disabled id="disable-artist" class="cosmo-button">
+                ${localize({ key: 'artists.action.disable' })}
+              </button>
+              <button disabled id="delete-artist" class="cosmo-button">
+                ${localize({ key: 'artists.action.delete' })}
+              </button>
             </div>
-        </div>`;
+          </div>
+          <div class="jinya-profile__container">
+            <div class="jinya-profile__sidebar">
+              <img src="" id="artist-profile-picture" class="jinya-profile__picture" alt="" />
+            </div>
+            <div class="jinya-profile__about-me">
+              <div class="cosmo-title">
+                <span id="artist-name"></span>
+                (<span id="artist-email"></span>)
+              </div>
+              <div id="about-me"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
   }
 
   async displayed() {
@@ -179,9 +177,7 @@ export default class ArtistPage extends JinyaDesignerPage {
     document.getElementById('edit-artist').addEventListener('click', async () => {
       const { default: EditArtistDialog } = await import('./artists/EditArtistDialog.js');
       const dialog = new EditArtistDialog({
-        onHide: async ({
-                         id, artistName, email, roles,
-                       }) => {
+        onHide: async ({ id, artistName, email, roles }) => {
           const currentArtist = this.artists.find((a) => a.id === id);
           currentArtist.artistName = artistName;
           currentArtist.email = email;

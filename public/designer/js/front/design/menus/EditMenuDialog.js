@@ -12,9 +12,7 @@ export default class EditMenuDialog {
    * @param name {string}
    * @param logo {number|undefined}
    */
-  constructor({
-                onHide, id, name, logo,
-              }) {
+  constructor({ onHide, id, name, logo }) {
     this.onHide = onHide;
     this.id = id;
     this.name = name;
@@ -24,43 +22,43 @@ export default class EditMenuDialog {
   async show() {
     const { items: files } = await get('/api/media/file');
     const logo = files.find((file) => file.id === this.logo);
-    const content = html`
-        <div class="cosmo-modal__backdrop"></div>
-        <form class="cosmo-modal__container" id="edit-dialog-menu">
-            <div class="cosmo-modal">
-                <h1 class="cosmo-modal__title">${localize({ key: 'design.menus.edit.title' })}</h1>
-                <div class="cosmo-modal__content">
-                    <div class="cosmo-input__group">
-                        <label for="editMenuName" class="cosmo-label">
-                            ${localize({ key: 'design.menus.edit.name' })}
-                        </label>
-                        <input value="${this.name}" required type="text" id="editMenuName" class="cosmo-input">
-                        <label for="editMenuLogo" class="cosmo-label">
-                            ${localize({ key: 'design.menus.edit.logo' })}
-                        </label>
-                        <div class="cosmo-input cosmo-input--picker" id="editMenuLogoPicker">
-                            <label class="cosmo-picker__name jinya-picker__name" for="editMenuLogo">
-                                ${logo ? logo.name : localize({ key: 'design.menus.edit.logo_none' })}
-                            </label>
-                            <label class="cosmo-picker__button" for="editMenuLogo">
-                                <span class="mdi mdi-image-search mdi-24px"></span>
-                            </label>
-                            <input type="hidden" id="editMenuLogo">
-                        </div>
-                        <img src="${logo?.path}" alt="" id="selectedFile" class="jinya-picker__selected-file"
-                             ${logo ? '' : 'hidden'}>
-                    </div>
-                </div>
-                <div class="cosmo-modal__button-bar">
-                    <button type="button" class="cosmo-button" id="cancel-edit-dialog">
-                        ${localize({ key: 'design.menus.edit.cancel' })}
-                    </button>
-                    <button type="submit" class="cosmo-button" id="save-edit-dialog">
-                        ${localize({ key: 'design.menus.edit.update' })}
-                    </button>
-                </div>
+    const content = html` <div class="cosmo-modal__backdrop"></div>
+      <form class="cosmo-modal__container" id="edit-dialog-menu">
+        <div class="cosmo-modal">
+          <h1 class="cosmo-modal__title">${localize({ key: 'design.menus.edit.title' })}</h1>
+          <div class="cosmo-modal__content">
+            <div class="cosmo-input__group">
+              <label for="editMenuName" class="cosmo-label"> ${localize({ key: 'design.menus.edit.name' })} </label>
+              <input value="${this.name}" required type="text" id="editMenuName" class="cosmo-input" />
+              <label for="editMenuLogo" class="cosmo-label"> ${localize({ key: 'design.menus.edit.logo' })} </label>
+              <div class="cosmo-input cosmo-input--picker" id="editMenuLogoPicker">
+                <label class="cosmo-picker__name jinya-picker__name" for="editMenuLogo">
+                  ${logo ? logo.name : localize({ key: 'design.menus.edit.logo_none' })}
+                </label>
+                <label class="cosmo-picker__button" for="editMenuLogo">
+                  <span class="mdi mdi-image-search mdi-24px"></span>
+                </label>
+                <input type="hidden" id="editMenuLogo" />
+              </div>
+              <img
+                src="${logo?.path}"
+                alt=""
+                id="selectedFile"
+                class="jinya-picker__selected-file"
+                ${logo ? '' : 'hidden'}
+              />
             </div>
-        </form>`;
+          </div>
+          <div class="cosmo-modal__button-bar">
+            <button type="button" class="cosmo-button" id="cancel-edit-dialog">
+              ${localize({ key: 'design.menus.edit.cancel' })}
+            </button>
+            <button type="submit" class="cosmo-button" id="save-edit-dialog">
+              ${localize({ key: 'design.menus.edit.update' })}
+            </button>
+          </div>
+        </div>
+      </form>`;
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);

@@ -20,7 +20,8 @@ export default class FormPage extends JinyaDesignerPage {
 
   // eslint-disable-next-line class-methods-use-this
   resetPositions() {
-    document.getElementById('item-list')
+    document
+      .getElementById('item-list')
       .querySelectorAll('[data-position]')
       .forEach((elem, key) => {
         elem.setAttribute('data-position', key.toString(10));
@@ -67,11 +68,10 @@ export default class FormPage extends JinyaDesignerPage {
       itemElem.classList.add('jinya-designer-item', 'jinya-designer-item--html');
       itemElem.setAttribute('data-position', item.position.toString(10));
       itemElem.setAttribute('data-id', item.id.toString(10));
-      itemElem.innerHTML = html`
-          <span class="jinya-designer-item__title">
-              ${localize({ key: `pages_and_forms.form.designer.type_${item.type}` })}
-          </span>
-          <span class="jinya-form-item__label">${item.label}</span>`;
+      itemElem.innerHTML = html` <span class="jinya-designer-item__title">
+          ${localize({ key: `pages_and_forms.form.designer.type_${item.type}` })}
+        </span>
+        <span class="jinya-form-item__label">${item.label}</span>`;
       itemList.appendChild(itemElem);
     }
     document.querySelectorAll('#item-list .jinya-designer-item').forEach((item) => {
@@ -109,59 +109,57 @@ export default class FormPage extends JinyaDesignerPage {
   // eslint-disable-next-line class-methods-use-this
   toString() {
     return html`
-        <div class="cosmo-list">
-            <nav class="cosmo-list__items" id="form-list">
-            </nav>
-            <div class="cosmo-list__content jinya-designer">
-                <div class="jinya-designer__title">
-                    <span class="cosmo-title" id="form-title"></span>
-                </div>
-                <div class="cosmo-toolbar cosmo-toolbar--designer">
-                    <div class="cosmo-toolbar__group">
-                        <button id="edit-form" class="cosmo-button">
-                            ${localize({ key: 'pages_and_forms.form.action.edit' })}
-                        </button>
-                        <button id="delete-form" class="cosmo-button">
-                            ${localize({ key: 'pages_and_forms.form.action.delete' })}
-                        </button>
-                    </div>
-                    <div class="cosmo-toolbar__group">
-                        <button id="edit-item" class="cosmo-button" disabled>
-                            ${localize({ key: 'pages_and_forms.form.action.edit_item' })}
-                        </button>
-                        <button id="delete-item" class="cosmo-button" disabled>
-                            ${localize({ key: 'pages_and_forms.form.action.delete_item' })}
-                        </button>
-                    </div>
-                </div>
-                <div class="jinya-designer__content">
-                    <div id="item-list" class="jinya-designer__result jinya-designer__result--horizontal">
-                    </div>
-                    <div id="item-toolbox" class="jinya-designer__toolbox">
-                        <div data-type="text" class="jinya-designer-item__template">
-                            <span class="jinya-designer__drag-handle"></span>
-                            <span>${localize({ key: 'pages_and_forms.form.designer.type_text' })}</span>
-                        </div>
-                        <div data-type="email" class="jinya-designer-item__template">
-                            <span class="jinya-designer__drag-handle"></span>
-                            <span>${localize({ key: 'pages_and_forms.form.designer.type_email' })}</span>
-                        </div>
-                        <div data-type="textarea" class="jinya-designer-item__template">
-                            <span class="jinya-designer__drag-handle"></span>
-                            <span>${localize({ key: 'pages_and_forms.form.designer.type_textarea' })}</span>
-                        </div>
-                        <div data-type="select" class="jinya-designer-item__template">
-                            <span class="jinya-designer__drag-handle"></span>
-                            <span>${localize({ key: 'pages_and_forms.form.designer.type_select' })}</span>
-                        </div>
-                        <div data-type="checkbox" class="jinya-designer-item__template">
-                            <span class="jinya-designer__drag-handle"></span>
-                            <span>${localize({ key: 'pages_and_forms.form.designer.type_checkbox' })}</span>
-                        </div>
-                    </div>
-                </div>
+      <div class="cosmo-list">
+        <nav class="cosmo-list__items" id="form-list"></nav>
+        <div class="cosmo-list__content jinya-designer">
+          <div class="jinya-designer__title">
+            <span class="cosmo-title" id="form-title"></span>
+          </div>
+          <div class="cosmo-toolbar cosmo-toolbar--designer">
+            <div class="cosmo-toolbar__group">
+              <button id="edit-form" class="cosmo-button">
+                ${localize({ key: 'pages_and_forms.form.action.edit' })}
+              </button>
+              <button id="delete-form" class="cosmo-button">
+                ${localize({ key: 'pages_and_forms.form.action.delete' })}
+              </button>
             </div>
+            <div class="cosmo-toolbar__group">
+              <button id="edit-item" class="cosmo-button" disabled>
+                ${localize({ key: 'pages_and_forms.form.action.edit_item' })}
+              </button>
+              <button id="delete-item" class="cosmo-button" disabled>
+                ${localize({ key: 'pages_and_forms.form.action.delete_item' })}
+              </button>
+            </div>
+          </div>
+          <div class="jinya-designer__content">
+            <div id="item-list" class="jinya-designer__result jinya-designer__result--horizontal"></div>
+            <div id="item-toolbox" class="jinya-designer__toolbox">
+              <div data-type="text" class="jinya-designer-item__template">
+                <span class="jinya-designer__drag-handle"></span>
+                <span>${localize({ key: 'pages_and_forms.form.designer.type_text' })}</span>
+              </div>
+              <div data-type="email" class="jinya-designer-item__template">
+                <span class="jinya-designer__drag-handle"></span>
+                <span>${localize({ key: 'pages_and_forms.form.designer.type_email' })}</span>
+              </div>
+              <div data-type="textarea" class="jinya-designer-item__template">
+                <span class="jinya-designer__drag-handle"></span>
+                <span>${localize({ key: 'pages_and_forms.form.designer.type_textarea' })}</span>
+              </div>
+              <div data-type="select" class="jinya-designer-item__template">
+                <span class="jinya-designer__drag-handle"></span>
+                <span>${localize({ key: 'pages_and_forms.form.designer.type_select' })}</span>
+              </div>
+              <div data-type="checkbox" class="jinya-designer-item__template">
+                <span class="jinya-designer__drag-handle"></span>
+                <span>${localize({ key: 'pages_and_forms.form.designer.type_checkbox' })}</span>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     `;
   }
 
@@ -223,13 +221,7 @@ export default class FormPage extends JinyaDesignerPage {
     if (type === 'email') {
       const { default: EditEmailItemDialog } = await import('./forms/EditEmailItemDialog.js');
       const dialog = new EditEmailItemDialog({
-        onHide: ({
-                   label,
-                   placeholder,
-                   helpText,
-                   isRequired,
-                   isFromAddress,
-                 }) => {
+        onHide: ({ label, placeholder, helpText, isRequired, isFromAddress }) => {
           this.selectedFormItem.label = label;
           this.selectedFormItem.placeholder = placeholder;
           this.selectedFormItem.helpText = helpText;
@@ -243,8 +235,9 @@ export default class FormPage extends JinyaDesignerPage {
           editedItem.isRequired = isRequired;
           editedItem.isFromAddress = isFromAddress;
 
-          document.querySelector(`[data-position="${this.selectedFormItem.position}"] .jinya-form-item__label`)
-            .innerText = label;
+          document.querySelector(
+            `[data-position="${this.selectedFormItem.position}"] .jinya-form-item__label`,
+          ).innerText = label;
         },
         ...this.selectedFormItem,
         formId: this.selectedForm.id,
@@ -253,13 +246,7 @@ export default class FormPage extends JinyaDesignerPage {
     } else if (type === 'textarea') {
       const { default: EditMultilineItemDialog } = await import('./forms/EditMultilineItemDialog.js');
       const dialog = new EditMultilineItemDialog({
-        onHide: ({
-                   label,
-                   placeholder,
-                   helpText,
-                   isRequired,
-                   spamFilter,
-                 }) => {
+        onHide: ({ label, placeholder, helpText, isRequired, spamFilter }) => {
           this.selectedFormItem.label = label;
           this.selectedFormItem.placeholder = placeholder;
           this.selectedFormItem.helpText = helpText;
@@ -273,8 +260,9 @@ export default class FormPage extends JinyaDesignerPage {
           editedItem.isRequired = isRequired;
           editedItem.spamFilter = spamFilter;
 
-          document.querySelector(`[data-position="${this.selectedFormItem.position}"] .jinya-form-item__label`)
-            .innerText = label;
+          document.querySelector(
+            `[data-position="${this.selectedFormItem.position}"] .jinya-form-item__label`,
+          ).innerText = label;
         },
         ...this.selectedFormItem,
         formId: this.selectedForm.id,
@@ -283,12 +271,7 @@ export default class FormPage extends JinyaDesignerPage {
     } else if (type === 'checkbox') {
       const { default: EditCheckboxItemDialog } = await import('./forms/EditCheckboxItemDialog.js');
       const dialog = new EditCheckboxItemDialog({
-        onHide: ({
-                   label,
-                   placeholder,
-                   helpText,
-                   isRequired,
-                 }) => {
+        onHide: ({ label, placeholder, helpText, isRequired }) => {
           this.selectedFormItem.label = label;
           this.selectedFormItem.placeholder = placeholder;
           this.selectedFormItem.helpText = helpText;
@@ -300,8 +283,9 @@ export default class FormPage extends JinyaDesignerPage {
           editedItem.helpText = helpText;
           editedItem.isRequired = isRequired;
 
-          document.querySelector(`[data-position="${this.selectedFormItem.position}"] .jinya-form-item__label`)
-            .innerText = label;
+          document.querySelector(
+            `[data-position="${this.selectedFormItem.position}"] .jinya-form-item__label`,
+          ).innerText = label;
         },
         ...this.selectedFormItem,
         formId: this.selectedForm.id,
@@ -310,13 +294,7 @@ export default class FormPage extends JinyaDesignerPage {
     } else if (type === 'select') {
       const { default: EditDropdownItemDialog } = await import('./forms/EditDropdownItemDialog.js');
       const dialog = new EditDropdownItemDialog({
-        onHide: ({
-                   label,
-                   placeholder,
-                   helpText,
-                   isRequired,
-                   options,
-                 }) => {
+        onHide: ({ label, placeholder, helpText, isRequired, options }) => {
           this.selectedFormItem.label = label;
           this.selectedFormItem.placeholder = placeholder;
           this.selectedFormItem.helpText = helpText;
@@ -330,8 +308,9 @@ export default class FormPage extends JinyaDesignerPage {
           editedItem.isRequired = isRequired;
           editedItem.options = options;
 
-          document.querySelector(`[data-position="${this.selectedFormItem.position}"] .jinya-form-item__label`)
-            .innerText = label;
+          document.querySelector(
+            `[data-position="${this.selectedFormItem.position}"] .jinya-form-item__label`,
+          ).innerText = label;
         },
         ...this.selectedFormItem,
         formId: this.selectedForm.id,
@@ -340,14 +319,7 @@ export default class FormPage extends JinyaDesignerPage {
     } else {
       const { default: EditTextItemDialog } = await import('./forms/EditTextItemDialog.js');
       const dialog = new EditTextItemDialog({
-        onHide: ({
-                   label,
-                   placeholder,
-                   helpText,
-                   isRequired,
-                   isSubject,
-                   spamFilter,
-                 }) => {
+        onHide: ({ label, placeholder, helpText, isRequired, isSubject, spamFilter }) => {
           this.selectedFormItem.label = label;
           this.selectedFormItem.placeholder = placeholder;
           this.selectedFormItem.helpText = helpText;
@@ -363,8 +335,9 @@ export default class FormPage extends JinyaDesignerPage {
           editedItem.isSubject = isSubject;
           editedItem.spamFilter = spamFilter;
 
-          document.querySelector(`[data-position="${this.selectedFormItem.position}"] .jinya-form-item__label`)
-            .innerText = label;
+          document.querySelector(
+            `[data-position="${this.selectedFormItem.position}"] .jinya-form-item__label`,
+          ).innerText = label;
         },
         ...this.selectedFormItem,
         formId: this.selectedForm.id,
@@ -442,9 +415,7 @@ export default class FormPage extends JinyaDesignerPage {
     document.getElementById('edit-form').addEventListener('click', async () => {
       const { default: EditItemPageDialog } = await import('./forms/EditFormDialog.js');
       const dialog = new EditItemPageDialog({
-        onHide: async ({
-                         id, title, description, toAddress,
-                       }) => {
+        onHide: async ({ id, title, description, toAddress }) => {
           const form = this.forms.find((p) => p.id === id);
           form.title = title;
           form.description = description;

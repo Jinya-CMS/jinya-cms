@@ -9,12 +9,7 @@ class HttpError extends Error {
 
 let apiKey = '';
 
-async function sendRequest({
-                             url,
-                             verb,
-                             data,
-                             contentType,
-                           }) {
+async function sendRequest({ url, verb, data, contentType }) {
   const headers = { JinyaApiKey: apiKey, ContentType: contentType };
 
   const request = {
@@ -53,8 +48,8 @@ async function wait({ time }) {
 }
 
 onmessage = async (e) => {
-  const { files: pushedFiles, apiKey: pushedApiKey } = e.data;
-  files.push(...pushedFiles);
+  const { files: pushedFiles, tags: pushedTags, apiKey: pushedApiKey } = e.data;
+  files.push(...[...pushedFiles].map((file) => ({ file, tags: pushedTags })));
   apiKey = pushedApiKey;
 };
 
@@ -68,20 +63,15 @@ onmessage = async (e) => {
         continue;
       }
 
-      const file = files.pop();
+      const { file, tags } = files.pop();
       // eslint-disable-next-line no-await-in-loop
       const postResult = await sendRequest({
         contentType: 'application/json',
         verb: 'POST',
         url: '/api/media/file',
         data: {
-          name: file
-            .name
-            .split('.')
-            .reverse()
-            .slice(1)
-            .reverse()
-            .join('.'),
+          name: file.name.split('.').reverse().slice(1).reverse().join('.'),
+          tags,
         },
       });
       // eslint-disable-next-line no-await-in-loop

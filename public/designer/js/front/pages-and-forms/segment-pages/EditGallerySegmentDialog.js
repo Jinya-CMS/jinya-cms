@@ -12,9 +12,7 @@ export default class EditGallerySegmentDialog {
    * @param position {number}
    * @param newSegment {boolean}
    */
-  constructor({
-                onHide, id, galleryId, position, newSegment = false,
-              }) {
+  constructor({ onHide, id, galleryId, position, newSegment = false }) {
     this.onHide = onHide;
     this.position = position;
     this.newSegment = newSegment;
@@ -24,33 +22,35 @@ export default class EditGallerySegmentDialog {
 
   async show() {
     const { items } = await get('/api/gallery');
-    const content = html`
-        <div class="cosmo-modal__backdrop"></div>
-        <form class="cosmo-modal__container" id="edit-dialog-form">
-            <div class="cosmo-modal">
-                <h1 class="cosmo-modal__title">${localize({ key: 'pages_and_forms.segment.designer.edit.title' })}</h1>
-                <div class="cosmo-modal__content">
-                    <div class="cosmo-input__group">
-                        <label for="editSegmentGallery" class="cosmo-label">
-                            ${localize({ key: 'pages_and_forms.segment.designer.edit.gallery' })}
-                        </label>
-                        <select required type="text" id="editSegmentGallery" class="cosmo-select">
-                            ${items.map((item) => html`
-                                <option ${this.galleryId === item.id ? 'selected' : ''} value="${item.id}">${item.name}
-                                </option>`)}
-                        </select>
-                    </div>
-                </div>
-                <div class="cosmo-modal__button-bar">
-                    <button type="button" class="cosmo-button" id="cancel-edit-dialog">
-                        ${localize({ key: 'pages_and_forms.segment.designer.edit.cancel' })}
-                    </button>
-                    <button type="submit" class="cosmo-button" id="save-edit-dialog">
-                        ${localize({ key: 'pages_and_forms.segment.designer.edit.update' })}
-                    </button>
-                </div>
+    const content = html` <div class="cosmo-modal__backdrop"></div>
+      <form class="cosmo-modal__container" id="edit-dialog-form">
+        <div class="cosmo-modal">
+          <h1 class="cosmo-modal__title">${localize({ key: 'pages_and_forms.segment.designer.edit.title' })}</h1>
+          <div class="cosmo-modal__content">
+            <div class="cosmo-input__group">
+              <label for="editSegmentGallery" class="cosmo-label">
+                ${localize({ key: 'pages_and_forms.segment.designer.edit.gallery' })}
+              </label>
+              <select required type="text" id="editSegmentGallery" class="cosmo-select">
+                ${items.map(
+                  (item) =>
+                    html` <option ${this.galleryId === item.id ? 'selected' : ''} value="${item.id}">
+                      ${item.name}
+                    </option>`,
+                )}
+              </select>
             </div>
-        </form>`;
+          </div>
+          <div class="cosmo-modal__button-bar">
+            <button type="button" class="cosmo-button" id="cancel-edit-dialog">
+              ${localize({ key: 'pages_and_forms.segment.designer.edit.cancel' })}
+            </button>
+            <button type="submit" class="cosmo-button" id="save-edit-dialog">
+              ${localize({ key: 'pages_and_forms.segment.designer.edit.update' })}
+            </button>
+          </div>
+        </div>
+      </form>`;
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
@@ -72,7 +72,8 @@ export default class EditGallerySegmentDialog {
             gallery: galleryId,
           });
           this.onHide({
-            position: this.position, gallery: items.find((g) => g.id === galleryId),
+            position: this.position,
+            gallery: items.find((g) => g.id === galleryId),
           });
         }
         container.remove();
