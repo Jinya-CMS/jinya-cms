@@ -34,8 +34,8 @@ export default async function filePicker({
     }
 
     container.innerHTML = html` <div class="cosmo-modal__backdrop"></div>
-      <div class="cosmo-modal__container">
-        <div class="cosmo-modal jinya-file-picker__modal">
+      <div class="cosmo-modal__container cosmo-modal__container--file-picker">
+        <div class="cosmo-modal cosmo-modal--file-picker">
           <h1 class="cosmo-modal__title">${title}</h1>
           <div class="cosmo-modal__content">
             <div class="jinya-picker__tag-list">

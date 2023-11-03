@@ -5,6 +5,7 @@ export default {
   file_picker: {
     dismiss: 'Close dialog',
     pick: 'Choose file',
+    title: 'Pick a file',
   },
   login: {
     menu: {

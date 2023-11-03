@@ -5,10 +5,6 @@
     white-space: normal;
 }
 
-.jinya-file-picker__modal {
-    max-width: 1000px;
-}
-
 .jinya-picker__selected-file {
     grid-column: 2/3;
     width: 320px;
@@ -24,4 +20,12 @@
 
 .jinya-picker__tag-list cms-tag {
     margin-left: -10px;
+}
+
+.cosmo-modal__container--file-picker {
+    z-index: 1000000;
+}
+
+.cosmo-modal--file-picker {
+    max-width: 1000px;
 }
