@@ -2,7 +2,8 @@ FROM harbor.ulbricht.casa/proxy/library/php:8.2-apache
 
 EXPOSE 80
 
-COPY --from=harbor.ulbricht.casa/proxy/mlocati/php-extension-installer:latest /usr/bin/install-php-extensions /usr/local/bin/install-php-extensions
+COPY --from=mlocati/php-extension-installer:latest /usr/bin/install-php-extensions /usr/local/bin/install-php-extensions
+COPY --from=library/composer:latest /usr/bin/composer /usr/local/bin/composer
 
 COPY ./docker/conf/memory-limit.ini /usr/local/etc/php/conf.d/memory-limit.ini
 COPY ./docker/conf/opcache.ini /usr/local/etc/php/conf.d/opcache-recommended.ini
@@ -12,7 +13,13 @@ COPY --chown=www-data ./ /var/www/jinya/
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
+RUN apt-get update
+RUN apt-get install -y git unzip
 RUN install-php-extensions pdo pdo_mysql zip opcache intl curl apcu imagick
+
+WORKDIR /var/www/jinya
+RUN composer install --no-dev --no-progress --optimize-autoloader --apcu-autoloader --no-interaction
+WORKDIR /var/www/html
 
 RUN a2enmod rewrite
 RUN a2enmod headers

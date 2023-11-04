@@ -30,6 +30,7 @@
   before_script:
     - echo $KANIKO_DOCKERHUB_AND_HARBOR > /kaniko/.docker/config.json
   script:
+    -
     - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
     - /kaniko/executor
       --context "${CI_PROJECT_DIR}"
