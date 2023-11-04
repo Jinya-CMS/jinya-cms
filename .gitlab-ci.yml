@@ -40,11 +40,11 @@
       --destination "jinyacms/jinya-cms:latest"
 
 stages:
-  - deploy-pages
   - lint
   - test
   - deploy-package
   - deploy-docker
+  - deploy-pages
 
 services:
   - name: axllent/mailpit:latest

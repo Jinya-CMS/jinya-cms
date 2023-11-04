@@ -3,13 +3,13 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         configVersion="3"
         xmlns="https://www.phpdoc.org"
-        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/phpDocumentor/phpDocumentor/v3.3.1/data/xsd/phpdoc.xsd"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/phpDocumentor/phpDocumentor/v3.4.1/data/xsd/phpdoc.xsd"
 >
     <title>Jinya CMS</title>
     <paths>
         <output>docs</output>
     </paths>
-    <version number="25.2.1">
+    <version number="25.3.0">
         <api>
             <source dsn=".">
                 <path>src</path>
@@ -23,5 +23,5 @@
         </guide>
     </version>
     <setting name="guides.enabled" value="true"/>
-    <template location="./phpdoc/jinya-theme"/>
+    <template name="jinya-theme" location="phpdoc"/>
 </phpdocumentor>
