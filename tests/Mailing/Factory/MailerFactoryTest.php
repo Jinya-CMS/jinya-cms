@@ -15,7 +15,7 @@ class MailerFactoryTest extends TestCase
         if (getenv('EXECUTE_IN') === 'ci') {
             self::assertEquals('mailer', $mailer->Host);
         } else {
-            self::assertEquals('jinya-mailhog', $mailer->Host);
+            self::assertEquals('jinya-mailer', $mailer->Host);
         }
         self::assertEquals(1025, $mailer->Port);
         self::assertEquals('test@example.com', $mailer->Username);
