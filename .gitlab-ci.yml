@@ -2,7 +2,7 @@
   variables:
     PHP_MEMORY_LIMIT: "2048M"
   image:
-    name: harbor.ulbricht.casa/jinya/jinya-cms-php-base-test-image:latest
+    name: registry.ulbricht.casa/jinya-cms/jinya-cms-php-base-test-image:latest
     pull_policy: always
   before_script:
     - phive --no-progress install --trust-gpg-keys D615FEE32FD1702834DACC9C8AC0BAA79732DD42,D8406D0D82947747293778314AA394086372C20A,CA7C2C7A30C8E8E1274A847651C67305FFC2E5C0
@@ -28,14 +28,14 @@
     pull_policy: always
     entrypoint: [""]
   before_script:
-    - echo $KANIKO_DOCKERHUB_AND_HARBOR > /kaniko/.docker/config.json
+    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"},\"https://index.docker.io/v1/\":{\"auth\":\"$DOCKER_TOKEN\"}}}" > /kaniko/.docker/config.json
   script:
     - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
     - /kaniko/executor
       --context "${CI_PROJECT_DIR}"
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
-      --destination "harbor.ulbricht.casa/jinya/jinya-cms:${PACKAGE_VERSION}"
-      --destination "harbor.ulbricht.casa/jinya/jinya-cms:latest"
+      --destination "${CI_REGISTRY_IMAGE}:${PACKAGE_VERSION}"
+      --destination "${CI_REGISTRY_IMAGE}:latest"
       --destination "jinyacms/jinya-cms:${PACKAGE_VERSION}"
       --destination "jinyacms/jinya-cms:latest"
 

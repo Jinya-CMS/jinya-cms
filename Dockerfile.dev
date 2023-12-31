@@ -1,8 +1,8 @@
-FROM harbor.ulbricht.casa/proxy/library/php:8.2-apache
+FROM registry.ulbricht.casa/jinya-cms/jinya-cms-php-base-test-image:apache
 
 EXPOSE 80
 
-COPY --from=harbor.ulbricht.casa/proxy/mlocati/php-extension-installer:latest /usr/bin/install-php-extensions /usr/local/bin/install-php-extensions
+COPY --from=mlocati/php-extension-installer:latest /usr/bin/install-php-extensions /usr/local/bin/install-php-extensions
 
 COPY ./docker/conf/memory-limit.ini /usr/local/etc/php/conf.d/memory-limit.ini
 COPY ./docker/conf/opcache.ini /usr/local/etc/php/conf.d/opcache-recommended.ini
