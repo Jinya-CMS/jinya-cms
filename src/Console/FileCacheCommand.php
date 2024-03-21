@@ -7,6 +7,7 @@ use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Storage\StorageBaseService;
 use App\Theming\Extensions\FileExtension;
+use Intervention\Image\Drivers\Imagick\Driver;
 use Intervention\Image\ImageManager;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Throwable;
@@ -28,14 +29,14 @@ class FileCacheCommand extends AbstractCommand
      */
     public function run(): void
     {
-        $forceRecache = $this->climate->arguments->get('--force-rebuild') ?: false;
+        $forceRecache = (bool)$this->climate->arguments->get('--force-rebuild');
         $this->climate->info('Load all files from database');
         $files = File::findAll();
-        $manager = new ImageManager(['driver' => 'imagick']);
+        $manager = new ImageManager(new Driver());
         foreach ($files as $file) {
             try {
                 $this->climate->info("Process file $file->name");
-                $image = $manager->make(StorageBaseService::BASE_PATH . '/public/' . $file->path);
+                $image = $manager->read(StorageBaseService::BASE_PATH . '/public/' . $file->path);
                 foreach (FileExtension::RESOLUTIONS_FOR_SOURCE as $width) {
                     $basepath = StorageBaseService::BASE_PATH . '/public/' . $file->path . '-' . $width . 'w.';
                     if ($forceRecache || !file_exists($basepath . 'webp')) {

@@ -10,14 +10,8 @@ COPY ./docker/entrypoint.sh /entrypoint.sh
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
-RUN apt-get update
-RUN apt-get install git -y
-
-RUN install-php-extensions pdo pdo_mysql zip opcache intl curl xdebug pcov apcu imagick
-
 RUN echo "apc.enable_cli=1" >> /usr/local/etc/php/php.ini
 RUN echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/xdebug.ini && echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/xdebug.ini && echo "xdebug.discover_client_host=yes" >> /usr/local/etc/php/conf.d/xdebug.ini && echo "xdebug.log_level=0" >> /usr/local/etc/php/conf.d/xdebug.ini
-#RUN echo "xdebug.mode=coverage" >> /usr/local/etc/php/conf.d/xdebug.ini && echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/xdebug.ini && echo "xdebug.discover_client_host=yes" >> /usr/local/etc/php/conf.d/xdebug.ini && echo "xdebug.log_level=0" >> /usr/local/etc/php/conf.d/xdebug.ini
 #RUN echo "xdebug.mode=profile" >> /usr/local/etc/php/conf.d/xdebug.ini && echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/xdebug.ini && echo "xdebug.discover_client_host=yes" >> /usr/local/etc/php/conf.d/xdebug.ini && echo "xdebug.output_dir=/var/www/html/profile" >> /usr/local/etc/php/conf.d/xdebug.ini && echo "xdebug.use_compression = false" >> /usr/local/etc/php/conf.d/xdebug.ini
 
 RUN a2enmod rewrite

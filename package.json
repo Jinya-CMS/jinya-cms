@@ -11,15 +11,15 @@
   "bugs": {
     "url": "https://github.com/Jinya-CMS/jinya-cms/issues"
   },
-  "homepage": "https://github.com/Jinya-CMS/jinya-cms#readme",
+  "homepage": "https://jinya.de",
   "devDependencies": {
-    "eslint": "8.52.0",
+    "eslint": "8.57.0",
     "eslint-config-airbnb": "19.0.4",
-    "eslint-plugin-import": "2.29.0",
-    "eslint-plugin-jsx-a11y": "6.7.1",
-    "eslint-plugin-react": "7.34.0",
+    "eslint-plugin-import": "2.29.1",
+    "eslint-plugin-jsx-a11y": "6.8.0",
+    "eslint-plugin-react": "7.34.1",
     "eslint-plugin-react-hooks": "4.6.0",
-    "@types/sortablejs": "1.15.4",
-    "prettier": "3.0.3"
+    "@types/sortablejs": "1.15.8",
+    "prettier": "3.2.5"
   }
 }

@@ -1,8 +1,9 @@
 .install-dependencies:
   variables:
     PHP_MEMORY_LIMIT: "2048M"
+    TAG: "latest"
   image:
-    name: registry.ulbricht.casa/jinya-cms/jinya-cms-php-base-test-image:latest
+    name: registry.ulbricht.casa/jinya-cms/jinya-cms-php-base-test-image:${TAG}
     pull_policy: always
   before_script:
     - phive --no-progress install --trust-gpg-keys D615FEE32FD1702834DACC9C8AC0BAA79732DD42,D8406D0D82947747293778314AA394086372C20A,CA7C2C7A30C8E8E1274A847651C67305FFC2E5C0
@@ -11,7 +12,8 @@
 .build-package:
   stage: deploy-package
   before_script:
-    - apk add zip go
+    - apt update
+    - apt install -y zip golang
   script:
     - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
     - zip -r ./jinya-cms.zip ./*
@@ -101,16 +103,20 @@ phpunit:
   services:
     - name: library/mysql:8.0
       alias: mysql-8-0
-    - name: library/mysql:8.1
-      alias: mysql-8-1
-    - name: library/mariadb:10
-      alias: mariadb-10
-    - name: library/mariadb:11
-      alias: mariadb-11
+    - name: library/mysql:8.2
+      alias: mysql-8-2
+    - name: library/mysql:8.3
+      alias: mysql-8-3
+    - name: library/mariadb:10.11
+      alias: mariadb-10-11
+    - name: library/mariadb:11.2
+      alias: mariadb-11-2
+    - name: library/mariadb:11.3
+      alias: mariadb-11-3
     - name: percona/percona-server:8.0
       alias: percona-8-0
-    - name: pingcap/tidb:v7.3.0
-      alias: tidb-7-3
+    - name: pingcap/tidb:v7.6
+      alias: tidb-7-6
       command:
         - --store=unistore
         - --path=""
@@ -119,11 +125,37 @@ phpunit:
   parallel:
     matrix:
       - MYSQL_HOST: "mysql-8-0"
-      - MYSQL_HOST: "mysql-8-1"
-      - MYSQL_HOST: "mariadb-10"
-      - MYSQL_HOST: "mariadb-11"
+        TAG: "8.3-cli"
+      - MYSQL_HOST: "mysql-8-2"
+        TAG: "8.3-cli"
+      - MYSQL_HOST: "mysql-8-3"
+        TAG: "8.3-cli"
+      - MYSQL_HOST: "mariadb-10-11"
+        TAG: "8.3-cli"
+      - MYSQL_HOST: "mariadb-11-2"
+        TAG: "8.3-cli"
+      - MYSQL_HOST: "mariadb-11-3"
+        TAG: "8.3-cli"
       - MYSQL_HOST: "percona-8-0"
-      - MYSQL_HOST: "tidb-7-3"
+        TAG: "8.3-cli"
+      - MYSQL_HOST: "tidb-7-6"
+        TAG: "8.3-cli"
+      - MYSQL_HOST: "mysql-8-0"
+        TAG: "8.2-cli"
+      - MYSQL_HOST: "mysql-8-2"
+        TAG: "8.2-cli"
+      - MYSQL_HOST: "mysql-8-3"
+        TAG: "8.2-cli"
+      - MYSQL_HOST: "mariadb-10-11"
+        TAG: "8.2-cli"
+      - MYSQL_HOST: "mariadb-11-2"
+        TAG: "8.2-cli"
+      - MYSQL_HOST: "mariadb-11-3"
+        TAG: "8.2-cli"
+      - MYSQL_HOST: "percona-8-0"
+        TAG: "8.2-cli"
+      - MYSQL_HOST: "tidb-7-6"
+        TAG: "8.2-cli"
 
 deploy-tag-package:
   extends:
