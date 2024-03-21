@@ -13,7 +13,6 @@ use Slim\Exception\HttpForbiddenException;
 
 class AuthenticationCheckerTest extends DatabaseAwareTestCase
 {
-
     public function testCheckRequestForUserSuccessfulLogin(): void
     {
         $request = new ServerRequest('POST', '', ['JinyaApiKey' => $this->createApiKey()->apiKey]);

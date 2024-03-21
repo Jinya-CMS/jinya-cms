@@ -9,7 +9,6 @@ use PDOException;
 
 class LoadableEntityTest extends DatabaseAwareTestCase
 {
-
     protected function setUp(): void
     {
         AppSettingsInitializer::loadDotEnv();

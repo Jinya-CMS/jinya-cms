@@ -9,7 +9,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class GetPhpInfoActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invoke(): void
     {
         $request = new ServerRequest('', '');

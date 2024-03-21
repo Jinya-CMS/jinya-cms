@@ -15,7 +15,6 @@ use Throwable;
  */
 class GetBlogFrontAction extends FrontAction
 {
-
     /**
      * Displays the given blog post or returns a 404 page
      *

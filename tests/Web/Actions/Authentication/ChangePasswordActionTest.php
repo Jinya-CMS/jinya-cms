@@ -13,7 +13,6 @@ use Slim\Exception\HttpForbiddenException;
 
 class ChangePasswordActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invoke(): void
     {
         CurrentUser::$currentUser->setPassword('start1234');

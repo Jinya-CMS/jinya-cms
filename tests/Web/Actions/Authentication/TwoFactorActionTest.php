@@ -10,7 +10,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class TwoFactorActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invoke(): void
     {
         CurrentUser::$currentUser->setPassword('start1234');

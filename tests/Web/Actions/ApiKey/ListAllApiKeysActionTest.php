@@ -12,7 +12,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class ListAllApiKeysActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invoke(): void
     {
         $apiKey = new ApiKey();

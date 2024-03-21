@@ -146,13 +146,17 @@ class Theme extends Utils\LoadableEntity
         $sql = 'SELECT id, configuration, description, name, display_name, scss_variables, has_api_theme FROM theme WHERE name = :name';
 
         try {
-            return self::getPdo()->fetchObject($sql, new self(), ['name' => $name],
+            return self::getPdo()->fetchObject(
+                $sql,
+                new self(),
+                ['name' => $name],
                 [
                     'scssVariables' => new JsonStrategy(),
                     'configuration' => new JsonStrategy(),
                     'description' => new ThemeDescriptionStrategy(),
                     'hasApiTheme' => new BooleanStrategy(1, 0),
-                ]);
+                ]
+            );
         } catch (InvalidQueryException$exception) {
             throw self::convertInvalidQueryExceptionToException($exception);
         }

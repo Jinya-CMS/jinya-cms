@@ -19,7 +19,6 @@ class JinyaApiField
     public function __construct(
         public readonly bool $ignore = false,
         public readonly bool $required = false,
-    )
-    {
+    ) {
     }
 }

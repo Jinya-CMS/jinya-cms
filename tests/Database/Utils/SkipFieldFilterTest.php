@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class SkipFieldFilterTest extends TestCase
 {
-
     public function test__construct(): void
     {
         $filter = new SkipFieldFilter([]);

@@ -8,7 +8,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class MissingFieldsExceptionTest extends DatabaseAwareTestCase
 {
-
     public function testJsonSerialize(): void
     {
         $request = new ServerRequest('', '');

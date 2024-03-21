@@ -12,7 +12,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class CreateHtmlSegmentActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invoke(): void
     {
         $segmentPage = new SegmentPage();

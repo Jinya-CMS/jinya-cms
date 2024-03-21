@@ -7,7 +7,6 @@ use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Storage\StorageBaseService;
 use App\Theming\Extensions\FileExtension;
-use Intervention\Image\Drivers\Imagick\Driver;
 use Intervention\Image\ImageManager;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Throwable;
@@ -18,7 +17,6 @@ use Throwable;
 #[JinyaCommand('file-cache')]
 class FileCacheCommand extends AbstractCommand
 {
-
     /**
      * Recreates the file cache
      *

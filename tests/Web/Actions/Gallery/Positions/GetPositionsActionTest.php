@@ -13,7 +13,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class GetPositionsActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invoke(): void
     {
         $file = new File();

@@ -11,7 +11,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class GetBlogFrontActionTest extends FrontTestCase
 {
-
     public function test__invoke(): void
     {
         $post = new BlogPost();

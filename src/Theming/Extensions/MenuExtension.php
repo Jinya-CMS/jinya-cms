@@ -16,7 +16,6 @@ use League\Plates\Extension\BaseExtension;
  */
 class MenuExtension extends BaseExtension
 {
-
     /**
      * Registers the helper method with the plates engine
      *

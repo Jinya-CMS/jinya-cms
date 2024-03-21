@@ -35,8 +35,8 @@ class GetFullPhpInfoAction extends Action
         /**
          * @phpstan-ignore-next-line
          */
-        $entitiesToUtf8 = static fn($input) => preg_replace_callback('/(&#[0-9]+;)/', static fn(array $m) => mb_convert_encoding($m[1], 'UTF-8', 'HTML-ENTITIES'), $input);
-        $plainText = static fn($input) => trim(html_entity_decode($entitiesToUtf8(strip_tags($input))));
+        $entitiesToUtf8 = static fn ($input) => preg_replace_callback('/(&#[0-9]+;)/', static fn (array $m) => mb_convert_encoding($m[1], 'UTF-8', 'HTML-ENTITIES'), $input);
+        $plainText = static fn ($input) => trim(html_entity_decode($entitiesToUtf8(strip_tags($input))));
 
         ob_start();
         phpinfo(-1);

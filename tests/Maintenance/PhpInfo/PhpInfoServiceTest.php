@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class PhpInfoServiceTest extends TestCase
 {
-
     private PhpInfoService $infoService;
 
     public function testGetUname(): void

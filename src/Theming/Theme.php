@@ -166,9 +166,9 @@ class Theme implements ExtensionInterface
     private function getStyleCache(): array
     {
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/styles');
-        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/styles/$item", $files ?: []);
+        $files = array_map(fn ($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/styles/$item", $files ?: []);
 
-        return array_filter($files, static fn($item) => is_file($item)) ?: [];
+        return array_filter($files, static fn ($item) => is_file($item)) ?: [];
     }
 
     /**
@@ -217,9 +217,9 @@ class Theme implements ExtensionInterface
     private function getScriptCache(): array
     {
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts');
-        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/scripts/$item", $files ?: []);
+        $files = array_map(fn ($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/scripts/$item", $files ?: []);
 
-        return array_filter($files, static fn($item) => is_file($item)) ?: [];
+        return array_filter($files, static fn ($item) => is_file($item)) ?: [];
     }
 
     /**
@@ -284,9 +284,9 @@ class Theme implements ExtensionInterface
     private function getAssetCache(): array
     {
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/assets');
-        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/assets/$item", $files ?: []);
+        $files = array_map(fn ($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/assets/$item", $files ?: []);
 
-        return array_filter($files, static fn($item) => is_file($item)) ?: [];
+        return array_filter($files, static fn ($item) => is_file($item)) ?: [];
     }
 
     /**

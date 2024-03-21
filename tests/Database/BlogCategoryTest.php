@@ -9,7 +9,6 @@ use App\Tests\DatabaseAwareTestCase;
 
 class BlogCategoryTest extends DatabaseAwareTestCase
 {
-
     public function testFindById(): void
     {
         $cat = $this->createBlogCategory();

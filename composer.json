@@ -38,7 +38,8 @@
   "require-dev": {
     "roave/security-advisories": "dev-latest",
     "fakerphp/faker": "v1.23.0",
-    "symfony/filesystem": "v6.3.1"
+    "symfony/filesystem": "v6.3.1",
+    "laravel/pint": "v1.14.0"
   },
   "config": {
     "process-timeout": 0,

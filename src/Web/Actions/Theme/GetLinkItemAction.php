@@ -15,7 +15,6 @@ use stdClass;
  */
 class GetLinkItemAction extends ThemeAction
 {
-
     /**
      * Gets the links by entity type and theme
      *

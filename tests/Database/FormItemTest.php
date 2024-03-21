@@ -10,7 +10,6 @@ use RuntimeException;
 
 class FormItemTest extends DatabaseAwareTestCase
 {
-
     private Form $form;
 
     protected function setUp(): void

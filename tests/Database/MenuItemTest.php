@@ -19,7 +19,6 @@ use RuntimeException;
 
 class MenuItemTest extends DatabaseAwareTestCase
 {
-
     private function createMenuItem(string $route = '#', string $title = 'Testtitle', int $position = 1): MenuItem
     {
         $menuItem = new MenuItem();

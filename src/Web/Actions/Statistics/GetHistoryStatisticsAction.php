@@ -14,7 +14,6 @@ use Psr\Http\Message\ResponseInterface as Response;
  */
 class GetHistoryStatisticsAction extends Action
 {
-
     /**
      * Gets the created and updated statistics for the given type
      *

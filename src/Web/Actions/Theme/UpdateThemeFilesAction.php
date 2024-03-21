@@ -19,7 +19,6 @@ use ZipArchive;
  */
 class UpdateThemeFilesAction extends Action
 {
-
     /**
      * Updates the given theme, from the zip file in the body
      *

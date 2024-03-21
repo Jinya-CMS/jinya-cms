@@ -14,7 +14,6 @@ use Throwable;
  */
 abstract class UpdateAction extends Action
 {
-
     /** @var Engine The Plates engine */
     protected Engine $engine;
 

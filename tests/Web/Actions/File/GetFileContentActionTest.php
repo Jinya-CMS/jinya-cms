@@ -13,7 +13,6 @@ use Slim\Exception\HttpNotFoundException;
 
 class GetFileContentActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invoke(): void
     {
         $path = Uuid::uuid();

@@ -27,15 +27,15 @@ class ThemeSyncer
         $allThemes = iterator_to_array(Database\Theme::findAll());
         $themes = array_filter(
             array_diff(scandir(self::THEME_BASE_PATH) ?: [], ['..', '.']),
-            static fn($item) => is_dir(self::THEME_BASE_PATH . $item) && is_file(
-                    self::THEME_BASE_PATH . "$item/theme.php"
-                )
+            static fn ($item) => is_dir(self::THEME_BASE_PATH . $item) && is_file(
+                self::THEME_BASE_PATH . "$item/theme.php"
+            )
         );
         foreach ($themes as $dir) {
             $name = $dir;
             $dir = self::THEME_BASE_PATH . $dir;
             $config = require "$dir/theme.php";
-            if (count(array_filter($allThemes, static fn(Database\Theme $theme) => $theme->name === $name)) === 0) {
+            if (count(array_filter($allThemes, static fn (Database\Theme $theme) => $theme->name === $name)) === 0) {
                 $dbTheme = new Database\Theme();
                 $dbTheme->configuration = [];
                 $dbTheme->scssVariables = [];
@@ -55,7 +55,7 @@ class ThemeSyncer
 
         $nonExistingThemes = array_filter(
             $allThemes,
-            static fn(Database\Theme $theme) => !in_array($theme->name, $themes, true)
+            static fn (Database\Theme $theme) => !in_array($theme->name, $themes, true)
         );
 
         $activeTheme = Database\Theme::getActiveTheme();

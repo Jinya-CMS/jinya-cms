@@ -14,7 +14,6 @@ use Faker\Provider\Uuid;
 
 class BlogPostTest extends DatabaseAwareTestCase
 {
-
     public function testCreate(): void
     {
         $post = $this->createBlogPost(false);

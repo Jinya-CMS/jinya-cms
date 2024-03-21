@@ -32,7 +32,6 @@ class JinyaApi
         public readonly string $updateRole = AuthenticationChecker::ROLE_WRITER,
         public readonly bool   $deleteEnabled = true,
         public readonly string $deleteRole = AuthenticationChecker::ROLE_WRITER,
-    )
-    {
+    ) {
     }
 }

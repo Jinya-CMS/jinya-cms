@@ -202,8 +202,7 @@ abstract class Action
         string $path,
         string $contentType = 'application/octet-stream',
         string $basePath = StorageBaseService::BASE_PATH . '/public/'
-    ): Response
-    {
+    ): Response {
         return $this->response
             ->withBody(Stream::create(fopen($basePath . $path, 'rb') ?: ''))
             ->withHeader('Content-Type', $contentType)

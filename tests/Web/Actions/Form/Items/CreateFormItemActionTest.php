@@ -12,7 +12,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class CreateFormItemActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invoke(): void
     {
         $form = new Form();

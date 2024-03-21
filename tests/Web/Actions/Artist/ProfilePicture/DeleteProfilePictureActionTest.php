@@ -12,7 +12,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class DeleteProfilePictureActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invoke(): void
     {
         $service = new ProfilePictureService();

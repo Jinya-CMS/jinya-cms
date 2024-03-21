@@ -12,7 +12,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class CheckRequiredFieldsMiddlewareTest extends DatabaseAwareTestCase
 {
-
     public function testProcess(): void
     {
         $request = new ServerRequest('POST', '');

@@ -14,7 +14,6 @@ use Nyholm\Psr7\Stream;
 
 class UploadProfilePictureActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invoke(): void
     {
         $request = new ServerRequest('', '');

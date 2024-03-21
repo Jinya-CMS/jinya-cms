@@ -16,7 +16,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class PutLinkItemActionTest extends ThemeActionTestCase
 {
-
     public function test__invokeGallery(): void
     {
         $gallery = new Gallery();

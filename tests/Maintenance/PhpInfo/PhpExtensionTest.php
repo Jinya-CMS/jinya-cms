@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class PhpExtensionTest extends TestCase
 {
-
     public function testJsonSerialize(): void
     {
         $extension = new PhpExtension();

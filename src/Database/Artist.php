@@ -78,13 +78,17 @@ class Artist extends LoadableEntity
         $sql = 'SELECT id, email, enabled, two_factor_token, password, roles, artist_name, profile_picture, about_me, failed_login_attempts, login_blocked_until FROM users WHERE email = :email';
 
         try {
-            return self::getPdo()->fetchObject($sql, new self(), ['email' => $email],
+            return self::getPdo()->fetchObject(
+                $sql,
+                new self(),
+                ['email' => $email],
                 [
                     'enabled' => new BooleanStrategy(1, 0),
                     'roles' => new PhpSerializeStrategy(),
                     'loginBlockedUntil' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                     'prefersColorScheme' => new NullableBooleanStrategy(),
-                ]);
+                ]
+            );
         } catch (InvalidQueryException $exception) {
             throw self::convertInvalidQueryExceptionToException($exception);
         }
@@ -127,14 +131,16 @@ class Artist extends LoadableEntity
     {
         $sql = 'SELECT id, email, enabled, two_factor_token, password, roles, artist_name, profile_picture, about_me, prefers_color_scheme FROM users WHERE email LIKE :emailKeyword OR artist_name LIKE :nameKeyword';
         try {
-            return self::getPdo()->fetchIterator($sql,
+            return self::getPdo()->fetchIterator(
+                $sql,
                 new self(),
                 ['emailKeyword' => "%$keyword%", 'nameKeyword' => "%$keyword%"],
                 [
                     'enabled' => new BooleanStrategy(1, 0),
                     'roles' => new PhpSerializeStrategy(),
                     'prefersColorScheme' => new NullableBooleanStrategy(),
-                ]);
+                ]
+            );
         } catch (InvalidQueryException $exception) {
             throw self::convertInvalidQueryExceptionToException($exception);
         }

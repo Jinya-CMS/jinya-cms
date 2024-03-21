@@ -13,7 +13,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class UpdatePositionActionTest extends DatabaseAwareTestCase
 {
-
     private GalleryFilePosition $position;
 
     public function test__invokeNoParameters(): void

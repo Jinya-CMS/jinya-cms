@@ -17,7 +17,6 @@ use Slim\Exception\HttpNotFoundException;
 
 class UpdateSegmentActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invokeSegmentNotFound(): void
     {
         $this->expectExceptionMessage('Segment not found');

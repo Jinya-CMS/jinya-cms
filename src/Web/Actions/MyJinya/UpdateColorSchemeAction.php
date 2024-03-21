@@ -15,7 +15,6 @@ use Psr\Http\Message\ResponseInterface as Response;
  */
 class UpdateColorSchemeAction extends Action
 {
-
     /**
      * Updates the color scheme to the new value
      *

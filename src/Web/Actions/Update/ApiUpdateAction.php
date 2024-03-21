@@ -9,7 +9,6 @@ use ZipArchive;
 /** @codeCoverageIgnore */
 class ApiUpdateAction extends UpdateAction
 {
-
     /**
      * @inheritDoc
      */

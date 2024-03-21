@@ -13,7 +13,6 @@ use Psr\Http\Message\ResponseInterface as Response;
  */
 class GetVisitsByCountryAction extends Action
 {
-
     /**
      * Gets the visits by country from matomo
      *

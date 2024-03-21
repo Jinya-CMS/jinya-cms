@@ -12,7 +12,6 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class ThemeExtensionTest extends DatabaseAwareTestCase
 {
-
     private static string $name;
     private static Filesystem $fs;
     private ThemeExtension $extension;

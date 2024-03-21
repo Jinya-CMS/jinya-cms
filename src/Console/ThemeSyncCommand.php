@@ -7,7 +7,6 @@ use App\Theming\ThemeSyncer;
 #[JinyaCommand('theme-sync')]
 class ThemeSyncCommand extends AbstractCommand
 {
-
     /**
      * @inheritDoc
      */

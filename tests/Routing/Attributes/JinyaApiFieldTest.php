@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class JinyaApiFieldTest extends TestCase
 {
-
     public function test__construct(): void
     {
         $attribute = new JinyaApiField();

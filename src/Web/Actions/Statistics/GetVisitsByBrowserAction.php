@@ -13,7 +13,6 @@ use Psr\Http\Message\ResponseInterface as Response;
  */
 class GetVisitsByBrowserAction extends Action
 {
-
     /**
      * Gets the visits by browser from matomo
      *

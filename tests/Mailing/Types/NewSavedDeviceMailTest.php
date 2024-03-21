@@ -9,7 +9,6 @@ use PHPUnit\Framework\TestCase;
 
 class NewSavedDeviceMailTest extends TestCase
 {
-
     public function testSendMail(): void
     {
         $knownDevice = new KnownDevice();

@@ -12,7 +12,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class UpdateArtistActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invoke(): void
     {
         $request = new ServerRequest('', '');

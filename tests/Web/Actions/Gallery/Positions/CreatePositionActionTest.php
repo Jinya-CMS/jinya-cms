@@ -12,7 +12,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class CreatePositionActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invoke(): void
     {
         $file = new File();

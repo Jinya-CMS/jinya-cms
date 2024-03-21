@@ -12,7 +12,6 @@ use RuntimeException;
 
 class UploadingFileTest extends DatabaseAwareTestCase
 {
-
     private File $testFile;
 
     public function testFindByKeyword(): void

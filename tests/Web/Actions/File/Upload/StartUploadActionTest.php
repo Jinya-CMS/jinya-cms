@@ -12,7 +12,6 @@ use Slim\Exception\HttpNotFoundException;
 
 class StartUploadActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invoke(): void
     {
         $file = new File();

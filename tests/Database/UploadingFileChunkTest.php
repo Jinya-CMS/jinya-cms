@@ -11,7 +11,6 @@ use RuntimeException;
 
 class UploadingFileChunkTest extends DatabaseAwareTestCase
 {
-
     private File $testFile;
     private UploadingFile $testUploadingFile;
 

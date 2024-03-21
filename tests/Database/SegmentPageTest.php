@@ -14,7 +14,6 @@ use Faker\Provider\Uuid;
 
 class SegmentPageTest extends DatabaseAwareTestCase
 {
-
     public function testCreate(): void
     {
         $page = $this->createSegmentPage(false);

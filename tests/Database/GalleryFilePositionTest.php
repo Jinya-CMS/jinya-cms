@@ -12,7 +12,6 @@ use RuntimeException;
 
 class GalleryFilePositionTest extends DatabaseAwareTestCase
 {
-
     private Gallery $gallery;
     private File $file;
     private File $file2;

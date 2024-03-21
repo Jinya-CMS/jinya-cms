@@ -9,7 +9,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class GetEnvironmentActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invoke(): void
     {
         $request = new ServerRequest('', '');

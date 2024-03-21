@@ -12,7 +12,6 @@ use Psr\Http\Message\ResponseInterface as Response;
  */
 class GetSystemStatisticsAction extends Action
 {
-
     /**
      * Gets the system storage statistics, currently used, free and total disk space
      *

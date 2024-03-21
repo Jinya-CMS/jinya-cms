@@ -19,7 +19,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class CreateMenuItemByMenuItemActionTest extends DatabaseAwareTestCase
 {
-
     private Menu $menu;
 
     public function test__invokeWithArtist(): void

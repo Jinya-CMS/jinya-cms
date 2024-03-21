@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class QueryAnalyzerTest extends TestCase
 {
-
     private QueryAnalyzer $analyzer;
 
     public function setUp(): void

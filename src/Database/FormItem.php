@@ -66,7 +66,9 @@ class FormItem extends Utils\RearrangableEntity
         $sql = 'SELECT id, form_id, type, options, spam_filter, label, help_text, position, is_from_address, is_subject, is_required, placeholder FROM form_item WHERE form_id = :id AND position = :position';
 
         try {
-            return self::getPdo()->fetchObject($sql, new self(),
+            return self::getPdo()->fetchObject(
+                $sql,
+                new self(),
                 [
                     'id' => $id,
                     'position' => $position,
@@ -74,7 +76,8 @@ class FormItem extends Utils\RearrangableEntity
                 [
                     'spamFilter' => new JsonStrategy(),
                     'options' => new JsonStrategy(),
-                ]);
+                ]
+            );
         } catch (InvalidQueryException$exception) {
             throw self::convertInvalidQueryExceptionToException($exception);
         }

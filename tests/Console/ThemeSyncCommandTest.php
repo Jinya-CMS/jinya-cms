@@ -7,7 +7,6 @@ use App\Tests\DatabaseAwareTestCase;
 
 class ThemeSyncCommandTest extends DatabaseAwareTestCase
 {
-
     public function testRun(): void
     {
         $command = new ThemeSyncCommand();

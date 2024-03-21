@@ -8,7 +8,6 @@ use RuntimeException;
 
 class ThemeHelperEntityTest extends TestCase
 {
-
     public function testFindByKeyword(): void
     {
         $this->expectException(RuntimeException::class);
