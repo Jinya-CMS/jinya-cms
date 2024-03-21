@@ -32,7 +32,7 @@ class FileCacheCommand extends AbstractCommand
         $forceRecache = (bool)$this->climate->arguments->get('--force-rebuild');
         $this->climate->info('Load all files from database');
         $files = File::findAll();
-        $manager = new ImageManager(new Driver());
+        $manager = ImageManager::imagick();
         foreach ($files as $file) {
             try {
                 $this->climate->info("Process file $file->name");

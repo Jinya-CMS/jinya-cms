@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use App\Database\File;
@@ -21,7 +22,7 @@ if ($id === false) {
 }
 
 $width = $queryParams['width'] ?? false;
-$type = $queryParams['type'] ?? false;
+$type = $queryParams['type'] ?? 'webp';
 $file = File::findById((int)$id);
 if ($file === null) {
     exit(404);
@@ -33,30 +34,20 @@ if (file_exists($fullpath)) {
     exit(302);
 }
 
-$manager = new ImageManager(['driver' => 'imagick']);
-$image = $manager->make(StorageBaseService::BASE_PATH . '/public/' . $file->path);
+$manager = ImageManager::imagick();
+$image = $manager->read(StorageBaseService::BASE_PATH . '/public/' . $file->path);
 if ($width !== false) {
-    $image->widen($width, fn($image) => $image->upsize());
+    $image->scaleDown(width: $width);
 }
 
-if ($type !== false) {
-    $contentType = match (strtolower($type)) {
-        'png' => 'image/png',
-        'jpg' => 'image/jpeg',
-        'gif' => 'image/gif',
-        'bmp' => 'image/bmp',
-        default => 'image/webp',
-    };
-    $targetType = match (strtolower($type)) {
-        'png' => 'png',
-        'jpg' => 'jpeg',
-        'gif' => 'gif',
-        'bmp' => 'bmp',
-        default => 'webp',
-    };
-    $image->save($fullpath, format: $targetType);
-    echo $image->response($targetType);
-} else {
-    $image->save($fullpath);
-    echo $image->response();
-}
+$encodedImage = match ($type) {
+    'png' => $image->toPng(),
+    'jpg' => $image->toJpg(),
+    'gif' => $image->toGif(),
+    'bmp' => $image->toBmp(),
+    default => $image->toWebp(),
+};
+$encodedImage->save($fullpath);
+
+header('Content-Type: ' . $encodedImage->mediaType());
+echo (string)$encodedImage;
