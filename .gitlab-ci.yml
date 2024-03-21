@@ -115,7 +115,7 @@ phpunit:
       alias: mariadb-11-3
     - name: percona/percona-server:8.0
       alias: percona-8-0
-    - name: pingcap/tidb:v7.6
+    - name: pingcap/tidb:v7.6.0
       alias: tidb-7-6
       command:
         - --store=unistore
