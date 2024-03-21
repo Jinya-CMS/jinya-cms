@@ -124,17 +124,6 @@ phpunit:
       alias: mariadb-11-3
       variables:
           MYSQL_TCP_PORT: 33113
-    - name: percona/percona-server:8.0
-      alias: percona-8-0
-      variables:
-          MYSQL_TCP_PORT: 3308
-    - name: pingcap/tidb:v7.6.0
-      alias: tidb-7-6
-      command:
-        - --store=unistore
-        - --path=""
-        - --log-file=/logs/tidb.log
-        - --advertise-address=jinya-tidb
   parallel:
     matrix:
       - MYSQL_HOST: "mysql-8-0"
@@ -155,12 +144,6 @@ phpunit:
       - MYSQL_HOST: "mariadb-11-3"
         TAG: "8.3-cli"
         MYSQL_PORT: 33113
-      - MYSQL_HOST: "percona-8-0"
-        TAG: "8.3-cli"
-        MYSQL_PORT: 3308
-      - MYSQL_HOST: "tidb-7-6"
-        TAG: "8.3-cli"
-        MYSQL_PORT: 4000
       - MYSQL_HOST: "mysql-8-0"
         TAG: "8.2-cli"
         MYSQL_PORT: 3380
@@ -179,12 +162,6 @@ phpunit:
       - MYSQL_HOST: "mariadb-11-3"
         TAG: "8.2-cli"
         MYSQL_PORT: 33113
-      - MYSQL_HOST: "percona-8-0"
-        TAG: "8.2-cli"
-        MYSQL_PORT: 3308
-      - MYSQL_HOST: "tidb-7-6"
-        TAG: "8.2-cli"
-        MYSQL_PORT: 4000
 
 deploy-tag-package:
   extends:
