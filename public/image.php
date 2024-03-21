@@ -42,9 +42,9 @@ if ($width !== false) {
 
 $encodedImage = match ($type) {
     'png' => $image->toPng(),
-    'jpg' => $image->toJpg(),
+    'jpg' => $image->toJpeg(),
     'gif' => $image->toGif(),
-    'bmp' => $image->toBmp(),
+    'bmp' => $image->toBitmap(),
     default => $image->toWebp(),
 };
 $encodedImage->save($fullpath);
