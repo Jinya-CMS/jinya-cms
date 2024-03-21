@@ -10,7 +10,6 @@ use App\Utils\UuidGenerator;
 
 class MenuTest extends DatabaseAwareTestCase
 {
-
     private File $file;
 
     protected function setUp(): void

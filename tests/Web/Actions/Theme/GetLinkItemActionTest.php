@@ -13,7 +13,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class GetLinkItemActionTest extends ThemeActionTestCase
 {
-
     public function test__invokeGallery(): void
     {
         $request = new ServerRequest('', '');

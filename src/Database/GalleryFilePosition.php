@@ -51,12 +51,14 @@ class GalleryFilePosition extends Utils\RearrangableEntity
         $sql = 'SELECT * FROM gallery_file_position WHERE gallery_id = :id AND position = :position';
 
         try {
-            return self::getPdo()->fetchObject($sql,
+            return self::getPdo()->fetchObject(
+                $sql,
                 new self(),
                 [
                     'id' => $id,
                     'position' => $position
-                ]);
+                ]
+            );
         } catch (InvalidQueryException$exception) {
             throw self::convertInvalidQueryExceptionToException($exception);
         }

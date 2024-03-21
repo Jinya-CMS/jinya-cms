@@ -13,7 +13,6 @@ use Faker\Provider\Uuid;
 
 class FileExtensionTest extends DatabaseAwareTestCase
 {
-
     private FileExtension $extension;
 
     public function testRegister(): void

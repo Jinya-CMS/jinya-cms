@@ -13,7 +13,6 @@ use RuntimeException;
 
 class BlogPostSegmentTest extends DatabaseAwareTestCase
 {
-
     public function testGetBlogPost(): void
     {
         $post = $this->createBlogPost();

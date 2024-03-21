@@ -18,7 +18,6 @@ use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 #[JinyaApi]
 class FileTag extends LoadableEntity
 {
-
     /**
      * @var string The name of the tag
      */
@@ -146,11 +145,15 @@ WHERE
 SQL;
 
         try {
-            return self::getPdo()->fetchIterator($sql, new File(), ['tag_id' => $this->id],
+            return self::getPdo()->fetchIterator(
+                $sql,
+                new File(),
+                ['tag_id' => $this->id],
                 [
                     'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                     'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-                ]);
+                ]
+            );
         } catch (InvalidQueryException $exception) {
             throw self::convertInvalidQueryExceptionToException($exception);
         }

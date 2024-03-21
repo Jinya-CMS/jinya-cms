@@ -8,7 +8,6 @@ use App\Tests\DatabaseAwareTestCase;
 
 class SimplePageTest extends DatabaseAwareTestCase
 {
-
     public function testGetCreator(): void
     {
         $page = $this->createPage();

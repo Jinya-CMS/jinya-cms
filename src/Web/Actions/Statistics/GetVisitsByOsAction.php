@@ -13,7 +13,6 @@ use Psr\Http\Message\ResponseInterface as Response;
  */
 class GetVisitsByOsAction extends Action
 {
-
     /**
      * Gets the visits by os versions from matomo
      *

@@ -13,7 +13,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class DectivateArtistActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invoke(): void
     {
         CurrentUser::$currentUser->enabled = true;

@@ -13,7 +13,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class CreateFileSegmentActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invoke(): void
     {
         $segmentPage = new SegmentPage();

@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class TwoFactorMailTest extends TestCase
 {
-
     public function testSendMail(): void
     {
         $twoFactorMail = new TwoFactorMail();

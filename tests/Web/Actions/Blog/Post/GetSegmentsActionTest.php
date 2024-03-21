@@ -12,7 +12,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class GetSegmentsActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invoke(): void
     {
         $post = new BlogPost();

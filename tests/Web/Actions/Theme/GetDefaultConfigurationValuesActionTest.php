@@ -10,7 +10,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class GetDefaultConfigurationValuesActionTest extends ThemeActionTestCase
 {
-
     public function test__invoke(): void
     {
         $request = new ServerRequest('', '');

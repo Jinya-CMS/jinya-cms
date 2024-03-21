@@ -13,7 +13,6 @@ use Psr\Http\Message\ResponseInterface as Response;
  */
 class GetVisitsByReferrerAction extends Action
 {
-
     /**
      * Gets the visits by referrer from matomo
      *

@@ -12,7 +12,6 @@ use App\Utils\UuidGenerator;
 
 class GalleryTest extends DatabaseAwareTestCase
 {
-
     private function createGallery(string $name = 'Gallery', string $description = '', bool $execute = true): Gallery
     {
         $gallery = new Gallery();

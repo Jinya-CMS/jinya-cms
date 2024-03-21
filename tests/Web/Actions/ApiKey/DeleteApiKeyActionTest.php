@@ -12,7 +12,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class DeleteApiKeyActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invokeApiKeyFound(): void
     {
         $apiKey = new ApiKey();

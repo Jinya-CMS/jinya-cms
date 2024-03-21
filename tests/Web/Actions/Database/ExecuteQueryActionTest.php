@@ -9,7 +9,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class ExecuteQueryActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invokeAllowedMethod(): void
     {
         $request = new ServerRequest('', '');

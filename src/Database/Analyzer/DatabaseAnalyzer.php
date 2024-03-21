@@ -13,7 +13,6 @@ use PDOException;
  */
 class DatabaseAnalyzer
 {
-
     /**
      * Gets all tables currently present in the active database
      *

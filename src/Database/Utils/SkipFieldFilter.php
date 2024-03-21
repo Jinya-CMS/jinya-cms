@@ -10,7 +10,6 @@ use Laminas\Hydrator\Filter\FilterInterface;
  */
 class SkipFieldFilter implements FilterInterface
 {
-
     /** @var array<string> The properties to skip */
     private array $propertiesToSkip;
 

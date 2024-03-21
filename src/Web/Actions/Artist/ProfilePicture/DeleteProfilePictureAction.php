@@ -16,7 +16,6 @@ use Psr\Http\Message\ResponseInterface as Response;
  */
 class DeleteProfilePictureAction extends Action
 {
-
     /** @var ProfilePictureService The profile picture service */
     private ProfilePictureService $profilePictureService;
 

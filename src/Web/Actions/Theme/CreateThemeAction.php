@@ -17,7 +17,6 @@ use ZipArchive;
  */
 class CreateThemeAction extends ThemeAction
 {
-
     /**
      * Uploads a new theme, unzips the posted body and syncs all themes
      *

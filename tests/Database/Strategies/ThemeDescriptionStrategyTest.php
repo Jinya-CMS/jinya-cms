@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class ThemeDescriptionStrategyTest extends TestCase
 {
-
     private ThemeDescriptionStrategy $jsonStrategy;
 
     public function testHydrateValidJson(): void

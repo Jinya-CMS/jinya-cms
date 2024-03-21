@@ -18,7 +18,6 @@ use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 #[JinyaApi]
 class Gallery extends Utils\LoadableEntity
 {
-
     /** @var string Used to mark a gallery for list or sequential layout */
     public const TYPE_SEQUENCE = 'sequence';
     /** @var string Used to mark a gallery for masonry layout */

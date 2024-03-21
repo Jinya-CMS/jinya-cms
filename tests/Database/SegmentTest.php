@@ -13,7 +13,6 @@ use RuntimeException;
 
 class SegmentTest extends DatabaseAwareTestCase
 {
-
     public function testGetSegmentPage(): void
     {
         $page = $this->createSegmentPage();

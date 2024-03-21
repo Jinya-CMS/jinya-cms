@@ -13,7 +13,6 @@ use Psr\Http\Message\ResponseInterface as Response;
  */
 class GetVisitsByDeviceBrandAction extends Action
 {
-
     /**
      * Gets the visits by device brand from matomo
      *

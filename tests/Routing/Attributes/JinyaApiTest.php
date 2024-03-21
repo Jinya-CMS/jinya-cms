@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 class JinyaApiTest extends TestCase
 {
-
     public function test__construct(): void
     {
         $attribute = new JinyaApi();

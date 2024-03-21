@@ -11,7 +11,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class UpdateColorSchemeActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invokeAuto(): void
     {
         $request = new ServerRequest('', '');

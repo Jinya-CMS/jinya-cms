@@ -10,7 +10,6 @@ use App\Utils\UuidGenerator;
 
 class FileTagTest extends DatabaseAwareTestCase
 {
-
     public function testFindById(): void
     {
         $tag = $this->createTag();

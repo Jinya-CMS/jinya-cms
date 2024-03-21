@@ -14,7 +14,6 @@ use League\Plates\Extension\BaseExtension;
  */
 class ThemeExtension extends BaseExtension
 {
-
     /** @var Theming\Theme The currently active theming theme */
     private Theming\Theme $theme;
     /** @var Database\Theme The currently active database theme */
@@ -82,8 +81,8 @@ class ThemeExtension extends BaseExtension
     {
         if (file_exists(Theming\Theme::BASE_CACHE_PATH . $this->dbTheme->name . '/styles/')) {
             $styleFiles = scandir(Theming\Theme::BASE_CACHE_PATH . $this->dbTheme->name . '/styles/');
-            $styleFiles = array_map(fn($item) => Theming\Theme::BASE_PUBLIC_PATH . $this->dbTheme->name . "/styles/$item", $styleFiles ?: []);
-            $styleFiles = array_filter($styleFiles, static fn($item) => str_ends_with($item, '.css'));
+            $styleFiles = array_map(fn ($item) => Theming\Theme::BASE_PUBLIC_PATH . $this->dbTheme->name . "/styles/$item", $styleFiles ?: []);
+            $styleFiles = array_filter($styleFiles, static fn ($item) => str_ends_with($item, '.css'));
             $tags = '';
             foreach ($styleFiles as $file) {
                 $tags .= "<link type='text/css' rel='stylesheet' href='$file'>";
@@ -104,8 +103,8 @@ class ThemeExtension extends BaseExtension
     {
         if (file_exists(Theming\Theme::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts/')) {
             $scriptFiles = scandir(Theming\Theme::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts/');
-            $scriptFiles = array_map(fn($item) => Theming\Theme::BASE_PUBLIC_PATH . $this->dbTheme->name . "/scripts/$item", $scriptFiles ?: []);
-            $scriptFiles = array_filter($scriptFiles, static fn($item) => str_ends_with($item, '.js'));
+            $scriptFiles = array_map(fn ($item) => Theming\Theme::BASE_PUBLIC_PATH . $this->dbTheme->name . "/scripts/$item", $scriptFiles ?: []);
+            $scriptFiles = array_filter($scriptFiles, static fn ($item) => str_ends_with($item, '.js'));
             $tags = '';
             foreach ($scriptFiles as $file) {
                 $tags .= "<script src='$file'></script>";

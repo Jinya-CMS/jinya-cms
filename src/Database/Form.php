@@ -56,11 +56,15 @@ class Form extends Utils\LoadableEntity
         $sql = 'SELECT id, creator_id, updated_by_id, created_at, last_updated_at, to_address, title, description FROM form f WHERE f.title LIKE :titleKeyword OR description LIKE :descKeyword';
 
         try {
-            return self::getPdo()->fetchIterator($sql, new self(), ['descKeyword' => "%$keyword%", 'titleKeyword' => "%$keyword%"],
+            return self::getPdo()->fetchIterator(
+                $sql,
+                new self(),
+                ['descKeyword' => "%$keyword%", 'titleKeyword' => "%$keyword%"],
                 [
                     'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                     'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-                ]);
+                ]
+            );
         } catch (InvalidQueryException $exception) {
             throw self::convertInvalidQueryExceptionToException($exception);
         }

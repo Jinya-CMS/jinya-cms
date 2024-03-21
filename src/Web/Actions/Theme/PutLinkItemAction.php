@@ -16,7 +16,6 @@ use ReflectionException;
  */
 class PutLinkItemAction extends ThemeAction
 {
-
     /**
      * Updates the theme link of the given entity type with the given ID and name
      *

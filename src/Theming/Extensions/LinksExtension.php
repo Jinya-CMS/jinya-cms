@@ -22,7 +22,6 @@ use League\Plates\Extension\BaseExtension;
  */
 class LinksExtension extends BaseExtension
 {
-
     /** @var Theme The theme from the database */
     private Theme $dbTheme;
 

@@ -13,7 +13,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class DeleteMenuItemActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invoke(): void
     {
         $menu = new Menu();

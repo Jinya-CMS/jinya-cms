@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 class JsonStrategyTest extends TestCase
 {
-
     private JsonStrategy $jsonStrategy;
 
     protected function setUp(): void

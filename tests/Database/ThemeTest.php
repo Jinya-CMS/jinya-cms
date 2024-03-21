@@ -25,7 +25,6 @@ use stdClass;
 
 class ThemeTest extends ThemeTestCase
 {
-
     public function testFindById(): void
     {
         $theme = Theme::findById($this->theme->getIdAsInt());

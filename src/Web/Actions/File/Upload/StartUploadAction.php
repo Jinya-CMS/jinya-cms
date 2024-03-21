@@ -17,7 +17,6 @@ use Slim\Exception\HttpNotFoundException;
  */
 class StartUploadAction extends Action
 {
-
     /**
      * Starts a new file upload and creates an UploadingFile
      *

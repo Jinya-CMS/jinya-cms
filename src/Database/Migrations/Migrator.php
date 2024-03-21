@@ -31,8 +31,8 @@ abstract class Migrator extends LoadableEntity
 
         $migrationsPath = __ROOT__ . '/migrations';
         $files = array_map(
-            static fn(string|false $item) => "$migrationsPath/$item",
-            array_filter((array)scandir($migrationsPath), static fn(string|false $item) => $item !== '.' && $item !== '..'),
+            static fn (string|false $item) => "$migrationsPath/$item",
+            array_filter((array)scandir($migrationsPath), static fn (string|false $item) => $item !== '.' && $item !== '..'),
         );
 
         $executedMigrations = 0;

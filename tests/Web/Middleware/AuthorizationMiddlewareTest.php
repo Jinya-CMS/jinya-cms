@@ -15,7 +15,6 @@ use Slim\Exception\HttpForbiddenException;
 
 class AuthorizationMiddlewareTest extends DatabaseAwareTestCase
 {
-
     public function testProcess(): void
     {
         $request = new ServerRequest('POST', '', ['JinyaApiKey' => $this->createApiKey()->apiKey]);

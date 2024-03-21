@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class EngineTest extends TestCase
 {
-
     public function testGetPlatesEngine(): void
     {
         $engine = Engine::getPlatesEngine();

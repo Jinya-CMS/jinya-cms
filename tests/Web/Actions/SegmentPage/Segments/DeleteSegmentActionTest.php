@@ -13,7 +13,6 @@ use Slim\Exception\HttpNotFoundException;
 
 class DeleteSegmentActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invoke(): void
     {
         $segmentPage = new SegmentPage();

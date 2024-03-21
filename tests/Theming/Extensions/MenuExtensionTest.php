@@ -11,7 +11,6 @@ use Faker\Provider\Uuid;
 
 class MenuExtensionTest extends DatabaseAwareTestCase
 {
-
     private MenuExtension $extension;
     private Menu $menu;
 

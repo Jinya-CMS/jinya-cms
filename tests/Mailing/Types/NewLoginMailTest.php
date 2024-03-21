@@ -9,7 +9,6 @@ use PHPUnit\Framework\TestCase;
 
 class NewLoginMailTest extends TestCase
 {
-
     public function testSendMail(): void
     {
         $apiKey = new ApiKey();

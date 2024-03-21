@@ -62,11 +62,15 @@ class BlogPost extends Utils\LoadableEntity
         $sql = 'SELECT * FROM blog_post WHERE title LIKE :titleKeyword OR slug LIKE :slugKeyword';
 
         try {
-            return self::getPdo()->fetchIterator($sql, new self(), ['titleKeyword' => "%$keyword%", 'slugKeyword' => "%$keyword%"],
+            return self::getPdo()->fetchIterator(
+                $sql,
+                new self(),
+                ['titleKeyword' => "%$keyword%", 'slugKeyword' => "%$keyword%"],
                 [
                     'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                     'public' => new BooleanStrategy(1, 0),
-                ]);
+                ]
+            );
         } catch (InvalidQueryException$exception) {
             throw self::convertInvalidQueryExceptionToException($exception);
         }

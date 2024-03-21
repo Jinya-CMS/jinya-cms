@@ -18,7 +18,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class GetFrontActionTest extends FrontTestCase
 {
-
     public function test__invokeHome(): void
     {
         $_SERVER['REQUEST_URI'] = '/';

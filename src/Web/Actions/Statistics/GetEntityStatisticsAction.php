@@ -12,7 +12,6 @@ use Psr\Http\Message\ResponseInterface as Response;
  */
 class GetEntityStatisticsAction extends Action
 {
-
     /**
      * Gets the entity share
      *

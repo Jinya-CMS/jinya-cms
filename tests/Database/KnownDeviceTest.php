@@ -11,7 +11,6 @@ use RuntimeException;
 
 class KnownDeviceTest extends DatabaseAwareTestCase
 {
-
     private function createKnownDevice(bool $execute = true): KnownDevice
     {
         $knownDevice = new KnownDevice();

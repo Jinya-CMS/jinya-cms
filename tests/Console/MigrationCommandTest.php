@@ -8,7 +8,6 @@ use App\Tests\DatabaseAwareTestCase;
 
 class MigrationCommandTest extends DatabaseAwareTestCase
 {
-
     public function testRun(): void
     {
         LoadableEntity::executeSqlString('drop table if exists api_key');

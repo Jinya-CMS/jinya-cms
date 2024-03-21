@@ -1,4 +1,6 @@
-<?php /** @noinspection StaticClosureCanBeUsedInspection */
+<?php
+
+/** @noinspection StaticClosureCanBeUsedInspection */
 
 use App\Authentication\AuthenticationChecker;
 use App\Routing\JinyaModelToRouteResolver;
@@ -163,7 +165,7 @@ return function (App $app) {
         })->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_ADMIN));
         $proxy->put(
             '/me/profilepicture',
-            fn(
+            fn (
                 ServerRequestInterface $request,
                 ResponseInterface      $response,
                 array                  $args
@@ -185,7 +187,7 @@ return function (App $app) {
             ->add(AuthorizationMiddleware::class);
         $proxy->post('/login', LoginAction::class)
             ->add(new CheckRequiredFieldsMiddleware(['username', 'password']));
-        $proxy->map(['HEAD'], '/login', fn(ServerRequestInterface $request, ResponseInterface $response) => $response->withStatus(Action::HTTP_NO_CONTENT))
+        $proxy->map(['HEAD'], '/login', fn (ServerRequestInterface $request, ResponseInterface $response) => $response->withStatus(Action::HTTP_NO_CONTENT))
             ->add(AuthorizationMiddleware::class);
         $proxy->post('/2fa', TwoFactorAction::class)
             ->add(new CheckRequiredFieldsMiddleware(['username', 'password']));

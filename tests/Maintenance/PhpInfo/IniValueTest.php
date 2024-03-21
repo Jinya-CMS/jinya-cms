@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class IniValueTest extends TestCase
 {
-
     public function testJsonSerialize(): void
     {
         $iniValue = new IniValue();

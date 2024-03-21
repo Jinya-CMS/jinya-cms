@@ -145,8 +145,7 @@ abstract class LoadableEntity implements FormattableEntityInterface
         int    $id,
         mixed  $prototype,
         array  $additionalStrategies = []
-    ): mixed
-    {
+    ): mixed {
         $sql = "SELECT * FROM $table WHERE id = :id";
 
         try {
@@ -165,8 +164,7 @@ abstract class LoadableEntity implements FormattableEntityInterface
     #[Pure]
     protected static function convertInvalidQueryExceptionToException(
         InvalidQueryException $exception
-    ): UniqueFailedException|ForeignKeyFailedException|InvalidQueryException
-    {
+    ): UniqueFailedException|ForeignKeyFailedException|InvalidQueryException {
         if (!empty($exception->errorInfo[1])) {
             return match ($exception->errorInfo[1]) {
                 1062 => new UniqueFailedException($exception->getMessage(), 1062, $exception, $exception->errorInfo),
@@ -255,7 +253,7 @@ abstract class LoadableEntity implements FormattableEntityInterface
         $extracted = $hydrator->extract($this);
         $keys = array_keys($extracted);
         $columns = implode(',', $keys);
-        $values = implode(',', array_map(static fn(string $value) => ":$value", $keys));
+        $values = implode(',', array_map(static fn (string $value) => ":$value", $keys));
         $sql = "INSERT INTO $table ($columns) VALUES ($values)";
         self::executeStatement($sql, $extracted);
 

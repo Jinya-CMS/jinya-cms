@@ -13,7 +13,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class MoveMenuItemParentToItemActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invokeNewParent(): void
     {
         $menu = new Menu();

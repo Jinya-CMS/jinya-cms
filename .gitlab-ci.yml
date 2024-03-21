@@ -1,212 +1,224 @@
 .install-dependencies:
-  variables:
-    PHP_MEMORY_LIMIT: "2048M"
-    TAG: "latest"
-  image:
-    name: registry.ulbricht.casa/jinya-cms/jinya-cms-php-base-test-image:${TAG}
-    pull_policy: always
-  before_script:
-    - phive --no-progress install --trust-gpg-keys D615FEE32FD1702834DACC9C8AC0BAA79732DD42,D8406D0D82947747293778314AA394086372C20A,CA7C2C7A30C8E8E1274A847651C67305FFC2E5C0
-    - composer install
+    variables:
+        PHP_MEMORY_LIMIT: "2048M"
+        TAG: "latest"
+    image:
+        name: registry.ulbricht.casa/jinya-cms/jinya-cms-php-base-test-image:${TAG}
+        pull_policy: always
+    before_script:
+        - phive --no-progress install --trust-gpg-keys D615FEE32FD1702834DACC9C8AC0BAA79732DD42,D8406D0D82947747293778314AA394086372C20A,CA7C2C7A30C8E8E1274A847651C67305FFC2E5C0
+        - composer install
+    cache:
+        key: jinya-cms-vendor-${CI_COMMIT_BRANCH}
+        paths:
+            - vendor
+            - tools
 
 .build-package:
-  stage: deploy-package
-  before_script:
-    - apt update
-    - apt install -y zip golang
-  script:
-    - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
-    - zip -r ./jinya-cms.zip ./*
-    - go run ./main.go
-  artifacts:
-    name: "jinya-cms-${PACKAGE_VERSION}.zip"
-    paths:
-      - jinya-cms.zip
+    stage: deploy-package
+    before_script:
+        - apt update
+        - apt install -y zip golang
+    script:
+        - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
+        - zip -r ./jinya-cms.zip ./*
+        - go run ./main.go
+    artifacts:
+        name: "jinya-cms-${PACKAGE_VERSION}.zip"
+        paths:
+            - jinya-cms.zip
 
 .build-image:
-  stage: deploy-docker
-  image:
-    name: gcr.io/kaniko-project/executor:debug
-    pull_policy: always
-    entrypoint: [""]
-  before_script:
-    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"},\"https://index.docker.io/v1/\":{\"auth\":\"$DOCKER_TOKEN\"}}}" > /kaniko/.docker/config.json
-  script:
-    - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
-    - /kaniko/executor
-      --context "${CI_PROJECT_DIR}"
-      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
-      --destination "${CI_REGISTRY_IMAGE}:${PACKAGE_VERSION}"
-      --destination "${CI_REGISTRY_IMAGE}:latest"
-      --destination "jinyacms/jinya-cms:${PACKAGE_VERSION}"
-      --destination "jinyacms/jinya-cms:latest"
+    stage: deploy-docker
+    image:
+        name: gcr.io/kaniko-project/executor:debug
+        pull_policy: always
+        entrypoint: [ "" ]
+    before_script:
+        - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"},\"https://index.docker.io/v1/\":{\"auth\":\"$DOCKER_TOKEN\"}}}" > /kaniko/.docker/config.json
+    script:
+        - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
+        - /kaniko/executor
+            --context "${CI_PROJECT_DIR}"
+            --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+            --destination "${CI_REGISTRY_IMAGE}:${PACKAGE_VERSION}"
+            --destination "${CI_REGISTRY_IMAGE}:latest"
+            --destination "jinyacms/jinya-cms:${PACKAGE_VERSION}"
+            --destination "jinyacms/jinya-cms:latest"
 
 stages:
-  - lint
-  - test
-  - deploy-package
-  - deploy-docker
-  - deploy-pages
+    - lint
+    - test
+    - deploy-package
+    - deploy-docker
+    - deploy-pages
 
 services:
-  - name: axllent/mailpit:latest
-    alias: mailer
-    variables:
-      MP_SMTP_AUTH_ACCEPT_ANY: "true"
-      MP_SMTP_AUTH_ALLOW_INSECURE: "true"
+    -   name: axllent/mailpit:latest
+        alias: mailer
+        variables:
+            MP_SMTP_AUTH_ACCEPT_ANY: "true"
+            MP_SMTP_AUTH_ALLOW_INSECURE: "true"
 
 phpstan:
-  extends:
-    - .install-dependencies
-  stage: lint
-  script:
-    - ./tools/phpstan --no-progress analyze ./src ./app ./cli ./public --memory-limit 1G
+    extends:
+        - .install-dependencies
+    stage: lint
+    script:
+        - ./tools/phpstan --no-progress analyze ./src ./app ./cli ./public --memory-limit 1G
+
+pint:
+    extends:
+        - .install-dependencies
+    stage: lint
+    script:
+        - ./vendor/bin/pint --test
 
 phpunit:
-  stage: test
-  extends:
-    - .install-dependencies
-  variables:
-    EXECUTE_IN: "ci"
-    APP_ENV: "dev"
-    MYSQL_RANDOM_ROOT_PASSWORD: "true"
-    MYSQL_PASSWORD: "jinya"
-    MYSQL_USER: "jinya"
-    MYSQL_DATABASE: "jinya"
-    MYSQL_CHARSET: "utf8mb4"
-    MAILER_HOST: "mailer"
-    MAILER_PORT: "1025"
-    MAILER_USERNAME: "test@example.com"
-    MAILER_PASSWORD: "start1234"
-    MAILER_ENCRYPTION: "tls"
-    MAILER_SMTP_AUTH: "true"
-    MAILER_FROM: "jinya@example.com"
-    JINYA_API_KEY_EXPIRY: "315360000"
-    JINYA_UPDATE_SERVER: "https://releases.jinya.de/cms"
-    INSTALLED_VERSION: "phpunit"
-  script:
-    - sleep 60
-    - ./tools/phpunit --no-progress --log-junit report.xml --configuration phpunit.ci.xml --coverage-cobertura=coverage.cobertura.xml
-  artifacts:
-    when: always
-    paths:
-      - report.xml
-    reports:
-      junit:
-        - report.xml
-      coverage_report:
-        coverage_format: cobertura
-        path: coverage.cobertura.xml
-  needs:
-    - phpstan
-  services:
-    - name: library/mysql:8.0
-      alias: mysql-8-0-php-8-2
-      variables:
-          MYSQL_TCP_PORT: 3380
-    - name: library/mysql:8.3
-      alias: mysql-8-3-php-8-2
-      variables:
-          MYSQL_TCP_PORT: 3383
-    - name: library/mariadb:10.11
-      alias: mariadb-10-11-php-8-2
-      variables:
-          MYSQL_TCP_PORT: 3311
-    - name: library/mariadb:11.3
-      alias: mariadb-11-3-php-8-2
-      variables:
-          MYSQL_TCP_PORT: 33113
-    - name: library/mysql:8.0
-      alias: mysql-8-0-php-8-3
-      variables:
-          MYSQL_TCP_PORT: 4380
-    - name: library/mysql:8.3
-      alias: mysql-8-3-php-8-3
-      variables:
-          MYSQL_TCP_PORT: 4383
-    - name: library/mariadb:10.11
-      alias: mariadb-10-11-php-8-3
-      variables:
-          MYSQL_TCP_PORT: 4311
-    - name: library/mariadb:11.3
-      alias: mariadb-11-3-php-8-3
-      variables:
-          MYSQL_TCP_PORT: 43113
-  parallel:
-    matrix:
-      - MYSQL_HOST: "mysql-8-0-php-8-3"
-        TAG: "8.3-cli"
-        MYSQL_PORT: 4380
-      - MYSQL_HOST: "mysql-8-3-php-8-3"
-        TAG: "8.3-cli"
-        MYSQL_PORT: 4383
-      - MYSQL_HOST: "mariadb-10-11-php-8-3"
-        TAG: "8.3-cli"
-        MYSQL_PORT: 4311
-      - MYSQL_HOST: "mariadb-11-3-php-8-3"
-        TAG: "8.3-cli"
-        MYSQL_PORT: 43113
-      - MYSQL_HOST: "mysql-8-0-php-8-2"
-        TAG: "8.2-cli"
-        MYSQL_PORT: 3380
-      - MYSQL_HOST: "mysql-8-3-php-8-2"
-        TAG: "8.2-cli"
-        MYSQL_PORT: 3383
-      - MYSQL_HOST: "mariadb-10-11-php-8-2"
-        TAG: "8.2-cli"
-        MYSQL_PORT: 3311
-      - MYSQL_HOST: "mariadb-11-3-php-8-2"
-        TAG: "8.2-cli"
-        MYSQL_PORT: 33113
+    stage: test
+    extends:
+        - .install-dependencies
+    variables:
+        EXECUTE_IN: "ci"
+        APP_ENV: "dev"
+        MYSQL_RANDOM_ROOT_PASSWORD: "true"
+        MYSQL_PASSWORD: "jinya"
+        MYSQL_USER: "jinya"
+        MYSQL_DATABASE: "jinya"
+        MYSQL_CHARSET: "utf8mb4"
+        MAILER_HOST: "mailer"
+        MAILER_PORT: "1025"
+        MAILER_USERNAME: "test@example.com"
+        MAILER_PASSWORD: "start1234"
+        MAILER_ENCRYPTION: "tls"
+        MAILER_SMTP_AUTH: "true"
+        MAILER_FROM: "jinya@example.com"
+        JINYA_API_KEY_EXPIRY: "315360000"
+        JINYA_UPDATE_SERVER: "https://releases.jinya.de/cms"
+        INSTALLED_VERSION: "phpunit"
+    script:
+        - sleep 60
+        - ./tools/phpunit --no-progress --log-junit report.xml --configuration phpunit.ci.xml --coverage-cobertura=coverage.cobertura.xml
+    artifacts:
+        when: always
+        paths:
+            - report.xml
+        reports:
+            junit:
+                - report.xml
+            coverage_report:
+                coverage_format: cobertura
+                path: coverage.cobertura.xml
+    needs:
+        - phpstan
+    services:
+        -   name: library/mysql:8.0
+            alias: mysql-8-0-php-8-2
+            variables:
+                MYSQL_TCP_PORT: 3380
+        -   name: library/mysql:8.3
+            alias: mysql-8-3-php-8-2
+            variables:
+                MYSQL_TCP_PORT: 3383
+        -   name: library/mariadb:10.11
+            alias: mariadb-10-11-php-8-2
+            variables:
+                MYSQL_TCP_PORT: 3311
+        -   name: library/mariadb:11.3
+            alias: mariadb-11-3-php-8-2
+            variables:
+                MYSQL_TCP_PORT: 33113
+        -   name: library/mysql:8.0
+            alias: mysql-8-0-php-8-3
+            variables:
+                MYSQL_TCP_PORT: 4380
+        -   name: library/mysql:8.3
+            alias: mysql-8-3-php-8-3
+            variables:
+                MYSQL_TCP_PORT: 4383
+        -   name: library/mariadb:10.11
+            alias: mariadb-10-11-php-8-3
+            variables:
+                MYSQL_TCP_PORT: 4311
+        -   name: library/mariadb:11.3
+            alias: mariadb-11-3-php-8-3
+            variables:
+                MYSQL_TCP_PORT: 43113
+    parallel:
+        matrix:
+            -   MYSQL_HOST: "mysql-8-0-php-8-3"
+                TAG: "8.3-cli"
+                MYSQL_PORT: 4380
+            -   MYSQL_HOST: "mysql-8-3-php-8-3"
+                TAG: "8.3-cli"
+                MYSQL_PORT: 4383
+            -   MYSQL_HOST: "mariadb-10-11-php-8-3"
+                TAG: "8.3-cli"
+                MYSQL_PORT: 4311
+            -   MYSQL_HOST: "mariadb-11-3-php-8-3"
+                TAG: "8.3-cli"
+                MYSQL_PORT: 43113
+            -   MYSQL_HOST: "mysql-8-0-php-8-2"
+                TAG: "8.2-cli"
+                MYSQL_PORT: 3380
+            -   MYSQL_HOST: "mysql-8-3-php-8-2"
+                TAG: "8.2-cli"
+                MYSQL_PORT: 3383
+            -   MYSQL_HOST: "mariadb-10-11-php-8-2"
+                TAG: "8.2-cli"
+                MYSQL_PORT: 3311
+            -   MYSQL_HOST: "mariadb-11-3-php-8-2"
+                TAG: "8.2-cli"
+                MYSQL_PORT: 33113
 
 deploy-tag-package:
-  extends:
-    - .install-dependencies
-    - .build-package
-  variables:
-    PACKAGE_VERSION: $CI_COMMIT_TAG
-  rules:
-    - if: $CI_COMMIT_TAG
+    extends:
+        - .install-dependencies
+        - .build-package
+    variables:
+        PACKAGE_VERSION: $CI_COMMIT_TAG
+    rules:
+        -   if: $CI_COMMIT_TAG
 
 deploy-tag-image:
-  extends:
-    - .build-image
-  variables:
-    PACKAGE_VERSION: ${CI_COMMIT_TAG}
-  rules:
-    - if: $CI_COMMIT_TAG
-      exists:
-        - Dockerfile
+    extends:
+        - .build-image
+    variables:
+        PACKAGE_VERSION: ${CI_COMMIT_TAG}
+    rules:
+        -   if: $CI_COMMIT_TAG
+            exists:
+                - Dockerfile
 
 deploy-main-package:
-  extends:
-    - .install-dependencies
-    - .build-package
-  variables:
-    PACKAGE_VERSION: 26.0.${CI_PIPELINE_IID}-unstable
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
+    extends:
+        - .install-dependencies
+        - .build-package
+    variables:
+        PACKAGE_VERSION: 26.0.${CI_PIPELINE_IID}-unstable
+    rules:
+        -   if: $CI_COMMIT_BRANCH == "main"
 
 deploy-main-image:
-  extends:
-    - .build-image
-  variables:
-    PACKAGE_VERSION: 26.0.${CI_PIPELINE_IID}-unstable
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
-      exists:
-        - Dockerfile
+    extends:
+        - .build-image
+    variables:
+        PACKAGE_VERSION: 26.0.${CI_PIPELINE_IID}-unstable
+    rules:
+        -   if: $CI_COMMIT_BRANCH == "main"
+            exists:
+                - Dockerfile
 
 pages:
-  extends:
-    - .install-dependencies
-  stage: deploy-pages
-  script:
-    - rm -rf public/
-    - ./tools/phpdocumentor
-    - mv docs/ public/
-  artifacts:
-    paths:
-      - public
-  rules:
-    - if: $CI_COMMIT_TAG
+    extends:
+        - .install-dependencies
+    stage: deploy-pages
+    script:
+        - rm -rf public/
+        - ./tools/phpdocumentor
+        - mv docs/ public/
+    artifacts:
+        paths:
+            - public
+    rules:
+        -   if: $CI_COMMIT_TAG

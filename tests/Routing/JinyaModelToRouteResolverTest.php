@@ -125,7 +125,7 @@ class JinyaModelToRouteResolverTest extends DatabaseAwareTestCase
             'offset' => 0,
             'itemsCount' => $count,
             'totalCount' => $count,
-            'items' => array_map(static fn(File $item) => $item->format(), $data),
+            'items' => array_map(static fn (File $item) => $item->format(), $data),
         ], JSON_THROW_ON_ERROR), $result->getBody()->getContents());
     }
 
@@ -147,7 +147,7 @@ class JinyaModelToRouteResolverTest extends DatabaseAwareTestCase
             'offset' => 0,
             'itemsCount' => $count,
             'totalCount' => $count,
-            'items' => array_map(static fn(File $item) => $item->format(), $data),
+            'items' => array_map(static fn (File $item) => $item->format(), $data),
         ], JSON_THROW_ON_ERROR), $result->getBody()->getContents());
     }
 

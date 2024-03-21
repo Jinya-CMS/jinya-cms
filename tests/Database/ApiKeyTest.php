@@ -14,7 +14,6 @@ use RuntimeException;
 
 class ApiKeyTest extends DatabaseAwareTestCase
 {
-
     private ApiKey $testApiKey;
     private Artist $testArtist;
 

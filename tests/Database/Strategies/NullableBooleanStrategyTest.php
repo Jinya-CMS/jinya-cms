@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class NullableBooleanStrategyTest extends TestCase
 {
-
     public function testExtractFalse(): void
     {
         $strategy = new NullableBooleanStrategy();

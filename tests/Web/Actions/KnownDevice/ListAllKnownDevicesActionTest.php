@@ -12,7 +12,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class ListAllKnownDevicesActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invoke(): void
     {
         $device = new KnownDevice();

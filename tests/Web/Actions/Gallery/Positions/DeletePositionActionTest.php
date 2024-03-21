@@ -13,7 +13,6 @@ use Nyholm\Psr7\ServerRequest;
 
 class DeletePositionActionTest extends DatabaseAwareTestCase
 {
-
     public function test__invoke(): void
     {
         $file = new File();

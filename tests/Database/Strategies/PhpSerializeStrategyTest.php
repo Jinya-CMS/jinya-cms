@@ -7,7 +7,6 @@ use App\Tests\DatabaseAwareTestCase;
 
 class PhpSerializeStrategyTest extends DatabaseAwareTestCase
 {
-
     private PhpSerializeStrategy $phpSerializeStrategy;
 
     protected function setUp(): void

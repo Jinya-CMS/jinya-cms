@@ -6,7 +6,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 class GetFrontLinksAction extends FrontAction
 {
-
     /**
      * @inheritDoc
      */
