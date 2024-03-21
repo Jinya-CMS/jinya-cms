@@ -1,8 +1,9 @@
 .install-dependencies:
   variables:
     PHP_MEMORY_LIMIT: "2048M"
+    TAG: "latest"
   image:
-    name: harbor.ulbricht.casa/jinya/jinya-cms-php-base-test-image:latest
+    name: registry.ulbricht.casa/jinya-cms/jinya-cms-php-base-test-image:${TAG}
     pull_policy: always
   before_script:
     - phive --no-progress install --trust-gpg-keys D615FEE32FD1702834DACC9C8AC0BAA79732DD42,D8406D0D82947747293778314AA394086372C20A,CA7C2C7A30C8E8E1274A847651C67305FFC2E5C0
@@ -11,7 +12,8 @@
 .build-package:
   stage: deploy-package
   before_script:
-    - apk add zip go
+    - apt update
+    - apt install -y zip golang
   script:
     - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
     - zip -r ./jinya-cms.zip ./*
@@ -28,14 +30,14 @@
     pull_policy: always
     entrypoint: [""]
   before_script:
-    - echo $KANIKO_DOCKERHUB_AND_HARBOR > /kaniko/.docker/config.json
+    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"},\"https://index.docker.io/v1/\":{\"auth\":\"$DOCKER_TOKEN\"}}}" > /kaniko/.docker/config.json
   script:
     - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
     - /kaniko/executor
       --context "${CI_PROJECT_DIR}"
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
-      --destination "harbor.ulbricht.casa/jinya/jinya-cms:${PACKAGE_VERSION}"
-      --destination "harbor.ulbricht.casa/jinya/jinya-cms:latest"
+      --destination "${CI_REGISTRY_IMAGE}:${PACKAGE_VERSION}"
+      --destination "${CI_REGISTRY_IMAGE}:latest"
       --destination "jinyacms/jinya-cms:${PACKAGE_VERSION}"
       --destination "jinyacms/jinya-cms:latest"
 
@@ -71,7 +73,6 @@ phpunit:
     MYSQL_PASSWORD: "jinya"
     MYSQL_USER: "jinya"
     MYSQL_DATABASE: "jinya"
-    MYSQL_PORT: "3306"
     MYSQL_CHARSET: "utf8mb4"
     MAILER_HOST: "mailer"
     MAILER_PORT: "1025"
@@ -100,30 +101,63 @@ phpunit:
     - phpstan
   services:
     - name: library/mysql:8.0
-      alias: mysql-8-0
-    - name: library/mysql:8.1
-      alias: mysql-8-1
-    - name: library/mariadb:10
-      alias: mariadb-10
-    - name: library/mariadb:11
-      alias: mariadb-11
-    - name: percona/percona-server:8.0
-      alias: percona-8-0
-    - name: pingcap/tidb:v7.3.0
-      alias: tidb-7-3
-      command:
-        - --store=unistore
-        - --path=""
-        - --log-file=/logs/tidb.log
-        - --advertise-address=jinya-tidb
+      alias: mysql-8-0-php-8-2
+      variables:
+          MYSQL_TCP_PORT: 3380
+    - name: library/mysql:8.3
+      alias: mysql-8-3-php-8-2
+      variables:
+          MYSQL_TCP_PORT: 3383
+    - name: library/mariadb:10.11
+      alias: mariadb-10-11-php-8-2
+      variables:
+          MYSQL_TCP_PORT: 3311
+    - name: library/mariadb:11.3
+      alias: mariadb-11-3-php-8-2
+      variables:
+          MYSQL_TCP_PORT: 33113
+    - name: library/mysql:8.0
+      alias: mysql-8-0-php-8-3
+      variables:
+          MYSQL_TCP_PORT: 4380
+    - name: library/mysql:8.3
+      alias: mysql-8-3-php-8-3
+      variables:
+          MYSQL_TCP_PORT: 4383
+    - name: library/mariadb:10.11
+      alias: mariadb-10-11-php-8-3
+      variables:
+          MYSQL_TCP_PORT: 4311
+    - name: library/mariadb:11.3
+      alias: mariadb-11-3-php-8-3
+      variables:
+          MYSQL_TCP_PORT: 43113
   parallel:
     matrix:
-      - MYSQL_HOST: "mysql-8-0"
-      - MYSQL_HOST: "mysql-8-1"
-      - MYSQL_HOST: "mariadb-10"
-      - MYSQL_HOST: "mariadb-11"
-      - MYSQL_HOST: "percona-8-0"
-      - MYSQL_HOST: "tidb-7-3"
+      - MYSQL_HOST: "mysql-8-0-php-8-3"
+        TAG: "8.3-cli"
+        MYSQL_PORT: 4380
+      - MYSQL_HOST: "mysql-8-3-php-8-3"
+        TAG: "8.3-cli"
+        MYSQL_PORT: 4383
+      - MYSQL_HOST: "mariadb-10-11-php-8-3"
+        TAG: "8.3-cli"
+        MYSQL_PORT: 4311
+      - MYSQL_HOST: "mariadb-11-3-php-8-3"
+        TAG: "8.3-cli"
+        MYSQL_PORT: 43113
+      - MYSQL_HOST: "mysql-8-0-php-8-2"
+        TAG: "8.2-cli"
+        MYSQL_PORT: 3380
+      - MYSQL_HOST: "mysql-8-3-php-8-2"
+        TAG: "8.2-cli"
+        MYSQL_PORT: 3383
+      - MYSQL_HOST: "mariadb-10-11-php-8-2"
+        TAG: "8.2-cli"
+        MYSQL_PORT: 3311
+      - MYSQL_HOST: "mariadb-11-3-php-8-2"
+        TAG: "8.2-cli"
+        MYSQL_PORT: 33113
 
 deploy-tag-package:
   extends:

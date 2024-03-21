@@ -1,4 +1,4 @@
-FROM harbor.ulbricht.casa/proxy/library/php:8.2-apache
+FROM library/php:8.3-apache
 
 EXPOSE 80
 
