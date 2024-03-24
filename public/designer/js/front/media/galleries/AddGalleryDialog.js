@@ -13,7 +13,7 @@ export default class AddGalleryDialog {
   }
 
   show() {
-    const content = html` <div class="cosmo-modal__backdrop"></div>
+    const content = html`
       <form class="cosmo-modal__container" id="create-dialog-form">
         <div class="cosmo-modal">
           <h1 class="cosmo-modal__title">${localize({ key: 'media.galleries.create.title' })}</h1>
@@ -23,47 +23,30 @@ export default class AddGalleryDialog {
                 ${localize({ key: 'media.galleries.create.name' })}
               </label>
               <input required type="text" id="createGalleryName" class="cosmo-input" />
-              <span class="cosmo-label cosmo-label--radio">
+              <span class="cosmo-label is--radio">
                 ${localize({ key: 'media.galleries.create.orientation' })}
               </span>
-              <div class="cosmo-radio__group">
-                <input
-                  name="orientation"
-                  class="cosmo-radio"
-                  type="radio"
-                  checked
-                  id="createGalleryOrientationHorizontal"
-                  value="horizontal"
-                />
+              <div class="cosmo-input__group is--radio">
+                <input name="orientation" class="cosmo-radio" type="radio" checked
+                       id="createGalleryOrientationHorizontal" value="horizontal" />
                 <label for="createGalleryOrientationHorizontal">
                   ${localize({ key: 'media.galleries.create.horizontal' })}
                 </label>
-                <input
-                  name="orientation"
-                  class="cosmo-radio"
-                  type="radio"
-                  id="createGalleryOrientationVertical"
-                  value="vertical"
-                />
+                <input name="orientation" class="cosmo-radio" type="radio" id="createGalleryOrientationVertical"
+                       value="vertical" />
                 <label for="createGalleryOrientationVertical">
                   ${localize({ key: 'media.galleries.create.vertical' })}
                 </label>
               </div>
-              <span class="cosmo-label cosmo-label--radio"> ${localize({ key: 'media.galleries.create.type' })} </span>
-              <div class="cosmo-radio__group">
-                <input
-                  name="type"
-                  class="cosmo-radio"
-                  type="radio"
-                  id="createGalleryTypeMasonry"
-                  checked
-                  value="masonry"
-                />
-                <label for="createGalleryTypeMasonry"> ${localize({ key: 'media.galleries.create.masonry' })} </label>
+              <span class="cosmo-label is--radio">${localize({ key: 'media.galleries.create.type' })}</span>
+              <div class="cosmo-input__group is--radio">
+                <input name="type" class="cosmo-radio" type="radio" id="createGalleryTypeMasonry" checked
+                       value="masonry" />
+                <label for="createGalleryTypeMasonry">${localize({ key: 'media.galleries.create.masonry' })}</label>
                 <input name="type" class="cosmo-radio" type="radio" id="createGalleryTypeSequence" value="sequence" />
-                <label for="createGalleryTypeSequence"> ${localize({ key: 'media.galleries.create.sequence' })} </label>
+                <label for="createGalleryTypeSequence">${localize({ key: 'media.galleries.create.sequence' })}</label>
               </div>
-              <label for="createGalleryDescription" class="cosmo-label cosmo-label--textarea">
+              <label for="createGalleryDescription" class="cosmo-label is--textarea">
                 ${localize({ key: 'media.galleries.create.description' })}
               </label>
               <textarea rows="5" id="createGalleryDescription" class="cosmo-textarea"></textarea>

@@ -60,6 +60,11 @@
     border-radius: unset;
 }
 
+.jinya-media-tile--designer {
+    object-fit: cover;
+    border-radius: var(--border-radius);
+}
+
 .jinya-media-tile__img {
     border-radius: var(--border-radius);
     background: var(--control-border-color);

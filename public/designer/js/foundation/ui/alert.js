@@ -22,7 +22,7 @@ export default async function alert({
     document.body.appendChild(container);
     const modalId = crypto.randomUUID();
 
-    container.innerHTML = html` <div class="cosmo-modal__backdrop"></div>
+    container.innerHTML = html`
       <div class="cosmo-modal__container">
         <div class="cosmo-modal">
           <h1 class="cosmo-modal__title">${title}</h1>

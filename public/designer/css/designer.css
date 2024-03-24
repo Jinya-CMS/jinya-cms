@@ -1,6 +1,6 @@
 .jinya-designer {
     display: grid;
-    grid-template-rows: [header] 36px 20px [toolbar] 28px 30px [content] 1fr;
+    grid-template-rows: [header] 2.75rem 1.25rem [toolbar] 2rem 2rem [content] 1fr;
 }
 
 .jinya-designer__title {
@@ -14,20 +14,20 @@
 .jinya-designer__content {
     display: grid;
     grid-row: content;
-    grid-template-columns: [content] 1fr [toolbox] 464px;
-    max-height: calc(100vh - 64px - 80px - 32px - 36px - 20px - 28px - 30px - 28px - 68px);
+    grid-template-columns: [content] 1fr [toolbox] 29rem;
+    max-height: calc(var(--page-height) - 2.75rem - 1.25rem - 2rem - 2rem - 0.25rem);
 }
 
 .jinya-designer__result {
     grid-column: content;
     display: flex;
     box-sizing: border-box;
-    border-right: 1px solid var(--control-border-color);
-    padding-right: 16px;
-    margin-right: 16px;
+    border-right: 0.0625rem solid var(--control-border-color);
+    padding-right: 1rem;
+    margin-right: 1rem;
     overflow-y: auto;
     max-height: 100%;
-    gap: 16px;
+    gap: 1rem;
     flex-flow: row wrap;
     align-content: baseline;
     justify-content: flex-start;
@@ -35,7 +35,7 @@
 
 .jinya-designer__result--horizontal {
     flex-flow: row wrap;
-    gap: 16px;
+    gap: 1rem;
     align-content: flex-start;
 }
 
@@ -43,8 +43,8 @@
     grid-column: toolbox;
     display: grid;
     grid-template-rows: auto 1fr;
-    max-height: calc(100vh - 64px - 80px - 32px - 36px - 20px - 28px - 30px - 28px - 68px);
-    gap: 16px;
+    max-height: calc(var(--page-height) - 2.75rem - 1.25rem - 2rem - 2rem);
+    gap: 1rem;
 }
 
 .jinya-designer__toolbox-container .jinya-designer__toolbox {
@@ -56,23 +56,23 @@
     overflow-y: auto;
     display: flex;
     flex-flow: row wrap;
-    gap: 8px;
+    gap: 0.5rem;
     max-height: 100%;
     align-content: flex-start;
 }
 
 .jinya-designer__tags {
     display: flex;
-    margin-left: -10px;
+    margin-left: -0.75rem;
     flex-flow: row wrap;
-    row-gap: 8px;
+    row-gap: 0.5rem;
 }
 
 .jinya-designer__drag-handle {
     cursor: move;
     position: relative;
-    width: 24px;
-    height: 24px;
+    width: 1.5rem;
+    height: 1.5rem;
     display: block;
 }
 
@@ -80,19 +80,19 @@
 .jinya-designer__drag-handle::before {
     content: '';
     display: block;
-    height: 1px;
-    width: 20px;
+    height: 0.0625rem;
+    width: 1.25rem;
     background: var(--black);
     position: absolute;
     left: 0;
 }
 
 .jinya-designer__drag-handle::after {
-    top: 13px;
+    top: 0.75rem;
 }
 
 .jinya-designer__drag-handle::before {
-    top: 7px;
+    top: 0.5rem;
 }
 
 .jinya-designer-item {
@@ -100,10 +100,10 @@
     min-width: 100%;
     flex: 0 0 100%;
     grid-template-rows: [title] auto [content] auto;
-    border: 1px solid var(--control-border-color);
+    border: 0.0625rem solid var(--control-border-color);
     box-sizing: border-box;
-    padding: 16px;
-    gap: 8px;
+    padding: 1rem;
+    gap: 0.5rem;
     cursor: move;
 }
 
@@ -113,16 +113,16 @@
 }
 
 .jinya-designer-item--selected {
-    border: 4px solid var(--primary-color);
-    padding: 13px;
+    border: 0.25rem solid var(--primary-color);
+    padding: 0.75rem;
     position: relative;
     box-sizing: border-box;
 }
 
 .jinya-designer-item--selected::after {
     content: "\F012C";
-    width: 24px;
-    height: 24px;
+    width: 1.5rem;
+    height: 1.5rem;
     background: var(--primary-color);
     display: flex;
     position: absolute;
@@ -136,15 +136,15 @@
 }
 
 .jinya-designer-item--file {
-    grid-template-columns: [image] 210px [details] 1fr;
+    grid-template-columns: [image] 13rem [details] 1fr;
     grid-template-rows: unset;
-    height: 144px;
+    height: 9rem;
     padding: unset;
     gap: unset;
 }
 
 .jinya-designer-item--file-selected {
-    grid-template-columns: [image] 207px [details] 1fr;
+    grid-template-columns: [image] 13rem [details] 1fr;
 }
 
 .jinya-designer-item__details {
@@ -154,18 +154,18 @@
 .jinya-designer-item__details--file {
     grid-column: details;
     grid-row: unset;
-    padding: 12px;
+    padding: 0.75rem;
 }
 
 .jinya-designer-item__details--file-selected {
-    padding-top: 9px;
+    padding-top: 0.5rem;
 }
 
 .jinya-designer-item__title {
     text-transform: uppercase;
     font-weight: var(--font-weight-light);
-    font-size: 16px;
-    line-height: 16px;
+    font-size: 1rem;
+    line-height: 1rem;
     vertical-align: text-top;
     grid-row: title;
 }
@@ -178,10 +178,10 @@
     display: flex;
     flex: 0 0 100%;
     min-width: 100%;
-    border: 1px solid var(--control-border-color);
+    border: 0.0.625rem solid var(--control-border-color);
     box-sizing: border-box;
-    padding: 10px;
-    gap: 8px;
+    padding: 0.75rem;
+    gap: 0.5rem;
     text-transform: uppercase;
     font-weight: var(--font-weight-light);
     align-items: flex-start;
