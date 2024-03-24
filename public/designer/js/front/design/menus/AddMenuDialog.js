@@ -14,24 +14,21 @@ export default class AddMenuDialog {
   }
 
   async show() {
-    const content = html` <div class="cosmo-modal__backdrop"></div>
+    const content = html`
       <form class="cosmo-modal__container" id="create-dialog-form">
         <div class="cosmo-modal">
           <h1 class="cosmo-modal__title">${localize({ key: 'design.menus.create.title' })}</h1>
           <div class="cosmo-modal__content">
             <div class="cosmo-input__group">
-              <label for="createMenuName" class="cosmo-label"> ${localize({ key: 'design.menus.create.name' })} </label>
+              <label for="createMenuName" class="cosmo-label">${localize({ key: 'design.menus.create.name' })}</label>
               <input required type="text" id="createMenuName" class="cosmo-input" />
-              <label for="createMenuLogo" class="cosmo-label"> ${localize({ key: 'design.menus.create.logo' })} </label>
-              <div class="cosmo-input cosmo-input--picker" id="createMenuLogoPicker">
-                <label class="cosmo-picker__name jinya-picker__name" for="createMenuLogo">
-                  ${localize({ key: 'design.menus.create.logo_none' })}
-                </label>
-                <label class="cosmo-picker__button" for="createMenuLogo">
-                  <span class="mdi mdi-image-search mdi-24px"></span>
-                </label>
-                <input type="hidden" id="createMenuLogo" />
-              </div>
+              <label for="createMenuLogo" class="cosmo-label">${localize({ key: 'design.menus.create.logo' })}</label>
+              <button class="cosmo-input is--picker" id="createMenuLogoPicker"
+                      data-picker="${localize({ key: 'design.menus.create.file_picker_label' })}"
+                      type="button">
+                ${localize({ key: 'design.menus.create.logo_none' })}
+              </button>
+              <input type="hidden" id="createMenuLogo" />
               <img src="" alt="" id="selectedFile" class="jinya-picker__selected-file" hidden />
             </div>
           </div>
@@ -48,24 +45,22 @@ export default class AddMenuDialog {
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
-    document.querySelectorAll('#createMenuLogoPicker label')
-      .forEach((item) => {
-        item.addEventListener('click', async (e) => {
-          e.preventDefault();
-          const selectedFileId = parseInt(document.getElementById('createMenuLogo').value, 10);
-          const fileResult = await filePicker({
-            title: localize({ key: 'design.menus.create.logo' }),
-            selectedFileId,
-          });
-          if (fileResult) {
-            document.getElementById('selectedFile').src = fileResult.path;
-            document.getElementById('selectedFile').alt = fileResult.name;
-            document.getElementById('selectedFile').hidden = false;
-
-            document.getElementById('createMenuLogo').value = fileResult.id;
-            document.querySelector('#createMenuLogoPicker .cosmo-picker__name').innerText = fileResult.name;
-          }
+    document.getElementById('createMenuLogoPicker')
+      .addEventListener('click', async (e) => {
+        e.preventDefault();
+        const selectedFileId = parseInt(document.getElementById('createMenuLogo').value, 10);
+        const fileResult = await filePicker({
+          title: localize({ key: 'design.menus.create.logo' }),
+          selectedFileId,
         });
+        if (fileResult) {
+          document.getElementById('selectedFile').src = fileResult.path;
+          document.getElementById('selectedFile').alt = fileResult.name;
+          document.getElementById('selectedFile').hidden = false;
+
+          document.getElementById('createMenuLogo').value = fileResult.id;
+          document.getElementById('createMenuLogoPicker').innerText = fileResult.name;
+        }
       });
 
     document.getElementById('cancel-add-dialog')

@@ -49,66 +49,51 @@ export default class EditMenuItemDialog {
 
   async show() {
     const content = html`
-        <div class="cosmo-modal__backdrop"></div>
-        <form class="cosmo-modal__container" id="edit-dialog-form">
-            <div class="cosmo-modal">
-                <h1 class="cosmo-modal__title">${localize({ key: 'design.menus.designer.edit.title' })}</h1>
-                <div class="cosmo-modal__content">
-                    <div class="cosmo-input__group">
-                        <label for="editMenuItemTitle" class="cosmo-label">
-                            ${localize({ key: 'design.menus.designer.edit.item_title' })}
-                        </label>
-                        <input value="${this.title ?? ''}" required type="text" id="editMenuItemTitle"
-                               class="cosmo-input">
-                        ${
-      this.type === 'group'
-        ? ''
-        : html` <label for="editMenuItemRoute" class="cosmo-label">
-                                  ${localize({ key: 'design.menus.designer.edit.route' })}
-                                </label>
-                                <input
-                                  value="${this.route ?? ''}"
-                                  type="text"
-                                  id="editMenuItemRoute"
-                                  class="cosmo-input"
-                                />`
-    }
-                        ${
-      this.type !== 'group' && this.type !== 'blog_home_page' && this.type !== 'external_link'
-        ? html` <label for="editMenuElement" class="cosmo-label">
-                                  ${localize({ key: `design.menus.designer.type_${this.type}` })}
-                                </label>
-                                <select required id="editMenuElement" class="cosmo-select">
-                                  ${this.items.map(
-          (item) =>
-            html` <option
-                                        ${this.selectedItem === item.id ? 'selected' : ''}
-                                        value="${item.id}"
-                                      >
-                                        #${item.id} ${item.name ?? item.title ?? item.artistName}
-                                      </option>`,
-        )}
-                                </select>`
-        : ''
-    }
-                      <div class="cosmo-checkbox__group">
-                        <input ${this.highlighted ? 'checked' : ''} type="checkbox" id="editMenuItemIsHighlighted"
-                               class="cosmo-checkbox">
-                        <label for="editMenuItemIsHighlighted">
-                          ${localize({ key: 'design.menus.designer.edit.is_highlighted' })}
-                        </label>
-                      </div>
-                    </div>
-                  <div class="cosmo-modal__button-bar">
-                    <button type="button" class="cosmo-button" id="cancel-edit-dialog">
-                      ${localize({ key: 'design.menus.designer.edit.cancel' })}
-                    </button>
-                    <button type="submit" class="cosmo-button" id="save-edit-dialog">
-                      ${localize({ key: 'design.menus.designer.edit.update' })}
-                    </button>
-                  </div>
-                </div>
-        </form>`;
+      <form class="cosmo-modal__container" id="edit-dialog-form">
+        <div class="cosmo-modal">
+          <h1 class="cosmo-modal__title">${localize({ key: 'design.menus.designer.edit.title' })}</h1>
+          <div class="cosmo-modal__content">
+            <div class="cosmo-input__group">
+              <label for="editMenuItemTitle" class="cosmo-label">
+                ${localize({ key: 'design.menus.designer.edit.item_title' })}
+              </label>
+              <input value="${this.title ?? ''}" required type="text" id="editMenuItemTitle"
+                     class="cosmo-input">
+              ${this.type === 'group' ? '' : html`
+                <label for="editMenuItemRoute" class="cosmo-label">
+                  ${localize({ key: 'design.menus.designer.edit.route' })}
+                </label>
+                <input value="${this.route ?? ''}" type="text" id="editMenuItemRoute" class="cosmo-input" />`}
+              ${this.type !== 'group' && this.type !== 'blog_home_page' && this.type !== 'external_link' ? html`
+                  <label for="editMenuElement" class="cosmo-label">
+                    ${localize({ key: `design.menus.designer.type_${this.type}` })}
+                  </label>
+                  <select required id="editMenuElement" class="cosmo-select">
+                    ${this.items.map((item) => html`
+                      <option ${this.selectedItem === item.id ? 'selected' : ''} value="${item.id}">#${item.id}
+                        ${item.name ?? item.title ?? item.artistName}
+                      </option>`)}
+                  </select>`
+                : ''
+              }
+              <div class="cosmo-input__group is--checkbox">
+                <input ${this.highlighted ? 'checked' : ''} type="checkbox" id="editMenuItemIsHighlighted"
+                       class="cosmo-checkbox">
+                <label for="editMenuItemIsHighlighted">
+                  ${localize({ key: 'design.menus.designer.edit.is_highlighted' })}
+                </label>
+              </div>
+            </div>
+            <div class="cosmo-modal__button-bar">
+              <button type="button" class="cosmo-button" id="cancel-edit-dialog">
+                ${localize({ key: 'design.menus.designer.edit.cancel' })}
+              </button>
+              <button type="submit" class="cosmo-button" id="save-edit-dialog">
+                ${localize({ key: 'design.menus.designer.edit.update' })}
+              </button>
+            </div>
+          </div>
+      </form>`;
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);

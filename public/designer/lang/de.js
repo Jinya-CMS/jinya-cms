@@ -605,6 +605,7 @@ export default {
         name: 'Name',
         logo: 'Logo',
         logo_none: 'Kein Logo',
+        file_picker_label: 'Logo wählen',
         create: 'Menü erstellen',
         cancel: 'Menü löschen',
         error: {
@@ -618,6 +619,7 @@ export default {
         name: 'Name',
         logo: 'Logo',
         logo_none: 'Kein Logo',
+        file_picker_label: 'Logo wählen',
         update: 'Menü speichern',
         cancel: 'Änderungen verwerfen',
         error: {

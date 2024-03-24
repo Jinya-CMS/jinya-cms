@@ -21,9 +21,9 @@ export default class MenusPage extends JinyaDesignerPage {
   // eslint-disable-next-line class-methods-use-this
   toString() {
     return html`
-      <div class="cosmo-list">
-        <nav class="cosmo-list__items" id="menu-list"></nav>
-        <div class="cosmo-list__content jinya-designer">
+      <div class="cosmo-side-list">
+        <nav class="cosmo-side-list__items" id="menu-list"></nav>
+        <div class="cosmo-side-list__content jinya-designer">
           <div class="jinya-designer__title">
             <span class="cosmo-title" id="menu-title"></span>
           </div>
@@ -131,11 +131,11 @@ export default class MenusPage extends JinyaDesignerPage {
     document.getElementById('delete-menu').disabled = false;
     this.selectedMenu = this.menus.find((p) => p.id === parseInt(id, 10));
     document
-      .querySelectorAll('.cosmo-list__item--active')
-      .forEach((item) => item.classList.remove('cosmo-list__item--active'));
+      .querySelectorAll('.cosmo-side-list__item.is--active')
+      .forEach((item) => item.classList.remove('is--active'));
     document.querySelector(`[data-id="${id}"]`)
       .classList
-      .add('cosmo-list__item--active');
+      .add('is--active');
     document.getElementById('edit-item')
       .setAttribute('disabled', 'disabled');
     document.getElementById('delete-item')
@@ -147,14 +147,14 @@ export default class MenusPage extends JinyaDesignerPage {
     document.getElementById('delete-menu').disabled = true;
     let list = '';
     for (const menu of this.menus) {
-      list += `<a class="cosmo-list__item" data-id="${menu.id}">${menu.name}</a>`;
+      list += `<a class="cosmo-side-list__item" data-id="${menu.id}">${menu.name}</a>`;
     }
     clearChildren({ parent: document.getElementById('menu-list') });
     document.getElementById('menu-list').innerHTML = `${list}
-                <button id="new-menu-button" class="cosmo-button cosmo-button--full-width">
+                <button id="new-menu-button" class="cosmo-button is--full-width">
                     ${localize({ key: 'design.menus.action.new' })}
                 </button>`;
-    document.querySelectorAll('.cosmo-list__item')
+    document.querySelectorAll('.cosmo-side-list__item')
       .forEach((item) => {
         item.addEventListener('click', async () => {
           this.selectMenu({ id: item.getAttribute('data-id') });

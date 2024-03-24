@@ -13,7 +13,7 @@ export default class UpdateThemeDialog {
 
   show() {
     const container = document.createElement('div');
-    container.innerHTML = html` <div class="cosmo-modal__backdrop"></div>
+    container.innerHTML = html`
       <form class="cosmo-modal__container" id="update-dialog">
         <div class="cosmo-modal">
           <h1 class="cosmo-modal__title">${localize({ key: 'design.themes.update.title' })}</h1>
