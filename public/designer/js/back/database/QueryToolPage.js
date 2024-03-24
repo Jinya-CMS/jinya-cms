@@ -54,10 +54,11 @@ export default class QueryToolPage extends JinyaDesignerPage {
         document
           .querySelectorAll('.cosmo-tab-control__tab-link--active')
           .forEach((item) => item.classList.remove('cosmo-tab-control__tab-link--active'));
-        document.querySelectorAll('.cosmo-tab-control__content').forEach((item) => {
-          // eslint-disable-next-line no-param-reassign
-          item.style.display = 'none';
-        });
+        document.querySelectorAll('.cosmo-tab-control__content')
+          .forEach((item) => {
+            // eslint-disable-next-line no-param-reassign
+            item.style.display = 'none';
+          });
         tabElem.classList.add('cosmo-tab-control__tab-link--active');
         document.getElementById(result.statement).style.display = 'flex';
       });
@@ -91,7 +92,8 @@ export default class QueryToolPage extends JinyaDesignerPage {
             td.innerText = row[key];
             tr.append(td);
           }
-          contentElem.querySelector('tbody').append(tr);
+          contentElem.querySelector('tbody')
+            .append(tr);
         }
       } else if (!Number.isNaN(result.result)) {
         contentElem.innerText = localize({
@@ -105,17 +107,18 @@ export default class QueryToolPage extends JinyaDesignerPage {
 
   bindEvents() {
     super.bindEvents();
-    document.getElementById('execute').addEventListener('click', async () => {
-      const query = this.editor.getValue();
-      try {
-        this.queryResult = await post('/api/maintenance/database/query', { query });
-        this.displayQueryResult();
-      } catch (e) {
-        await alert({
-          title: localize({ key: 'database.query_tool.error.title' }),
-          message: localize({ key: 'database.query_tool.error.message' }),
-        });
-      }
-    });
+    document.getElementById('execute')
+      .addEventListener('click', async () => {
+        const query = this.editor.getValue();
+        try {
+          this.queryResult = await post('/api/maintenance/database/query', { query });
+          this.displayQueryResult();
+        } catch (e) {
+          await alert({
+            title: localize({ key: 'database.query_tool.error.title' }),
+            message: localize({ key: 'database.query_tool.error.message' }),
+          });
+        }
+      });
   }
 }

@@ -4,7 +4,13 @@ import localize from '../../../foundation/localize.js';
 import alert from '../../../foundation/ui/alert.js';
 
 export default class EditArtistDialog {
-  constructor({ onHide, id, artistName, email, roles }) {
+  constructor({
+                onHide,
+                id,
+                artistName,
+                email,
+                roles,
+              }) {
     this.onHide = onHide;
     this.id = id;
     this.artistName = artistName;
@@ -69,52 +75,57 @@ export default class EditArtistDialog {
       </form>`;
     document.body.append(container);
 
-    document.getElementById('cancel-artist-dialog').addEventListener('click', () => container.remove());
-    document.getElementById('edit-artist-dialog').addEventListener('submit', async () => {
-      const artistName = document.getElementById('editArtistName').value;
-      const password = document.getElementById('editArtistPassword').value;
-      const email = document.getElementById('editArtistEmail').value;
-      const isReader = document.getElementById('editArtistIsReader').checked;
-      const isWriter = document.getElementById('editArtistIsWriter').checked;
-      const isAdmin = document.getElementById('editArtistIsAdmin').checked;
+    document.getElementById('cancel-artist-dialog')
+      .addEventListener('click', () => container.remove());
+    document.getElementById('edit-artist-dialog')
+      .addEventListener('submit', async () => {
+        const artistName = document.getElementById('editArtistName').value;
+        const password = document.getElementById('editArtistPassword').value;
+        const email = document.getElementById('editArtistEmail').value;
+        const isReader = document.getElementById('editArtistIsReader').checked;
+        const isWriter = document.getElementById('editArtistIsWriter').checked;
+        const isAdmin = document.getElementById('editArtistIsAdmin').checked;
 
-      const roles = [];
-      if (isReader) {
-        roles.push('ROLE_READER');
-      }
-      if (isWriter) {
-        roles.push('ROLE_WRITER');
-      }
-      if (isAdmin) {
-        roles.push('ROLE_ADMIN');
-      }
-      const data = {
-        artistName,
-        email,
-        roles,
-      };
-
-      if (password) {
-        data.password = password;
-      }
-
-      try {
-        await put(`/api/artist/${this.id}`, data);
-        this.onHide({ ...data, id: this.id });
-        container.remove();
-      } catch (e) {
-        if (e.status === 409) {
-          await alert({
-            title: localize({ key: 'artists.edit.error.title' }),
-            message: localize({ key: 'artists.edit.error.conflict' }),
-          });
-        } else {
-          await alert({
-            title: localize({ key: 'artists.edit.error.title' }),
-            message: localize({ key: 'artists.edit.error.generic' }),
-          });
+        const roles = [];
+        if (isReader) {
+          roles.push('ROLE_READER');
         }
-      }
-    });
+        if (isWriter) {
+          roles.push('ROLE_WRITER');
+        }
+        if (isAdmin) {
+          roles.push('ROLE_ADMIN');
+        }
+        const data = {
+          artistName,
+          email,
+          roles,
+        };
+
+        if (password) {
+          data.password = password;
+        }
+
+        try {
+          await put(`/api/artist/${this.id}`, data);
+          this.onHide({
+            ...data,
+            id: this.id,
+          });
+          container.remove();
+        } catch (e) {
+          if (e.status === 409) {
+            await alert({
+              title: localize({ key: 'artists.edit.error.title' }),
+              message: localize({ key: 'artists.edit.error.conflict' }),
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'artists.edit.error.title' }),
+              message: localize({ key: 'artists.edit.error.generic' }),
+            });
+          }
+        }
+      });
   }
 }

@@ -37,7 +37,9 @@ export default class ArtistPage extends JinyaDesignerPage {
     document
       .querySelectorAll('.cosmo-list__item--active')
       .forEach((item) => item.classList.remove('cosmo-list__item--active'));
-    document.querySelector(`[data-id="${this.selectedArtist.id}"]`).classList.add('cosmo-list__item--active');
+    document.querySelector(`[data-id="${this.selectedArtist.id}"]`)
+      .classList
+      .add('cosmo-list__item--active');
   }
 
   displayArtists() {
@@ -54,24 +56,26 @@ export default class ArtistPage extends JinyaDesignerPage {
                 <button id="new-artist-button" class="cosmo-button cosmo-button--full-width">
                     ${localize({ key: 'artists.action.new' })}
                 </button>`;
-    document.querySelectorAll('.cosmo-list__item').forEach((item) => {
-      item.addEventListener('click', async () => {
-        this.selectArtist({ id: parseInt(item.getAttribute('data-id'), 10) });
-        this.displaySelectedArtist();
-      });
-    });
-    document.getElementById('new-artist-button').addEventListener('click', async () => {
-      const { default: AddArtistDialog } = await import('./artists/AddArtistDialog.js');
-      const dialog = new AddArtistDialog({
-        onHide: async (artist) => {
-          this.artists.push(artist);
-          this.displayArtists();
-          this.selectArtist({ id: artist.id });
+    document.querySelectorAll('.cosmo-list__item')
+      .forEach((item) => {
+        item.addEventListener('click', async () => {
+          this.selectArtist({ id: parseInt(item.getAttribute('data-id'), 10) });
           this.displaySelectedArtist();
-        },
+        });
       });
-      dialog.show();
-    });
+    document.getElementById('new-artist-button')
+      .addEventListener('click', async () => {
+        const { default: AddArtistDialog } = await import('./artists/AddArtistDialog.js');
+        const dialog = new AddArtistDialog({
+          onHide: async (artist) => {
+            this.artists.push(artist);
+            this.displayArtists();
+            this.selectArtist({ id: artist.id });
+            this.displaySelectedArtist();
+          },
+        });
+        dialog.show();
+      });
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -125,70 +129,88 @@ export default class ArtistPage extends JinyaDesignerPage {
 
   bindEvents() {
     super.bindEvents();
-    document.getElementById('enable-artist').addEventListener('click', async () => {
-      const result = await confirm({
-        title: localize({ key: 'artists.enable.title' }),
-        message: localize({ key: 'artists.enable.message', values: this.selectedArtist }),
-        approveLabel: localize({ key: 'artists.enable.delete' }),
-        declineLabel: localize({ key: 'artists.enable.keep' }),
+    document.getElementById('enable-artist')
+      .addEventListener('click', async () => {
+        const result = await confirm({
+          title: localize({ key: 'artists.enable.title' }),
+          message: localize({
+            key: 'artists.enable.message',
+            values: this.selectedArtist,
+          }),
+          approveLabel: localize({ key: 'artists.enable.delete' }),
+          declineLabel: localize({ key: 'artists.enable.keep' }),
+        });
+        if (result) {
+          const { id } = this.selectedArtist;
+          await put(`/api/artist/${id}/activation`);
+          const artist = this.artists.find((item) => item.id === id);
+          artist.enabled = true;
+          this.selectArtist({ id });
+          this.displaySelectedArtist();
+        }
       });
-      if (result) {
-        const { id } = this.selectedArtist;
-        await put(`/api/artist/${id}/activation`);
-        const artist = this.artists.find((item) => item.id === id);
-        artist.enabled = true;
-        this.selectArtist({ id });
-        this.displaySelectedArtist();
-      }
-    });
-    document.getElementById('disable-artist').addEventListener('click', async () => {
-      const result = await confirm({
-        title: localize({ key: 'artists.disable.title' }),
-        message: localize({ key: 'artists.disable.message', values: this.selectedArtist }),
-        approveLabel: localize({ key: 'artists.disable.delete' }),
-        declineLabel: localize({ key: 'artists.disable.keep' }),
+    document.getElementById('disable-artist')
+      .addEventListener('click', async () => {
+        const result = await confirm({
+          title: localize({ key: 'artists.disable.title' }),
+          message: localize({
+            key: 'artists.disable.message',
+            values: this.selectedArtist,
+          }),
+          approveLabel: localize({ key: 'artists.disable.delete' }),
+          declineLabel: localize({ key: 'artists.disable.keep' }),
+        });
+        if (result) {
+          const { id } = this.selectedArtist;
+          await httpDelete(`/api/artist/${id}/activation`);
+          const artist = this.artists.find((item) => item.id === id);
+          artist.enabled = false;
+          this.selectArtist({ id });
+          this.displaySelectedArtist();
+        }
       });
-      if (result) {
-        const { id } = this.selectedArtist;
-        await httpDelete(`/api/artist/${id}/activation`);
-        const artist = this.artists.find((item) => item.id === id);
-        artist.enabled = false;
-        this.selectArtist({ id });
-        this.displaySelectedArtist();
-      }
-    });
-    document.getElementById('delete-artist').addEventListener('click', async () => {
-      const result = await confirm({
-        title: localize({ key: 'artists.delete.title' }),
-        message: localize({ key: 'artists.delete.message', values: this.selectedArtist }),
-        approveLabel: localize({ key: 'artists.delete.delete' }),
-        declineLabel: localize({ key: 'artists.delete.keep' }),
-      });
-      if (result) {
-        const { id } = this.selectedArtist;
-        await httpDelete(`/api/artist/${id}`);
-        const artistIdx = this.artists.findIndex((item) => item.id === id);
-        this.artists.splice(artistIdx, 1);
-        this.displayArtists();
-        this.selectArtist({ id });
-        this.displaySelectedArtist();
-      }
-    });
-    document.getElementById('edit-artist').addEventListener('click', async () => {
-      const { default: EditArtistDialog } = await import('./artists/EditArtistDialog.js');
-      const dialog = new EditArtistDialog({
-        onHide: async ({ id, artistName, email, roles }) => {
-          const currentArtist = this.artists.find((a) => a.id === id);
-          currentArtist.artistName = artistName;
-          currentArtist.email = email;
-          currentArtist.roles = roles;
+    document.getElementById('delete-artist')
+      .addEventListener('click', async () => {
+        const result = await confirm({
+          title: localize({ key: 'artists.delete.title' }),
+          message: localize({
+            key: 'artists.delete.message',
+            values: this.selectedArtist,
+          }),
+          approveLabel: localize({ key: 'artists.delete.delete' }),
+          declineLabel: localize({ key: 'artists.delete.keep' }),
+        });
+        if (result) {
+          const { id } = this.selectedArtist;
+          await httpDelete(`/api/artist/${id}`);
+          const artistIdx = this.artists.findIndex((item) => item.id === id);
+          this.artists.splice(artistIdx, 1);
           this.displayArtists();
           this.selectArtist({ id });
           this.displaySelectedArtist();
-        },
-        ...this.selectedArtist,
+        }
       });
-      dialog.show();
-    });
+    document.getElementById('edit-artist')
+      .addEventListener('click', async () => {
+        const { default: EditArtistDialog } = await import('./artists/EditArtistDialog.js');
+        const dialog = new EditArtistDialog({
+          onHide: async ({
+                           id,
+                           artistName,
+                           email,
+                           roles,
+                         }) => {
+            const currentArtist = this.artists.find((a) => a.id === id);
+            currentArtist.artistName = artistName;
+            currentArtist.email = email;
+            currentArtist.roles = roles;
+            this.displayArtists();
+            this.selectArtist({ id });
+            this.displaySelectedArtist();
+          },
+          ...this.selectedArtist,
+        });
+        dialog.show();
+      });
   }
 }

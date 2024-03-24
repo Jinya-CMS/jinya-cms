@@ -4,21 +4,26 @@
     <meta charset="UTF-8">
     <title>Jinya CMS Designer</title>
     <link href="/designer/mdi/mdi.css" rel="stylesheet">
-    <link href="/designer/cosmo/variables.css" rel="stylesheet">
-    <link href="/designer/cosmo/lato.css" rel="stylesheet">
-    <link href="/designer/cosmo/scrollbars.css" rel="stylesheet">
-    <link href="/designer/cosmo/layout.css" rel="stylesheet">
+
+    <link href="/designer/cosmo/alert.css" rel="stylesheet">
+    <link href="/designer/cosmo/buttons.css" rel="stylesheet">
     <link href="/designer/cosmo/form.css" rel="stylesheet">
-    <link href="/designer/cosmo/modal.css" rel="stylesheet">
-    <link href="/designer/cosmo/progress.css" rel="stylesheet">
+    <link href="/designer/cosmo/layout.css" rel="stylesheet">
     <link href="/designer/cosmo/list.css" rel="stylesheet">
-    <link href="/designer/cosmo/toolbar.css" rel="stylesheet">
-    <link href="/designer/cosmo/typography.css" rel="stylesheet">
+    <link href="/designer/cosmo/modal.css" rel="stylesheet">
+    <link href="/designer/cosmo/normalize.css" rel="stylesheet">
+    <link href="/designer/cosmo/progress.css" rel="stylesheet">
+    <link href="/designer/cosmo/scrollbars.css" rel="stylesheet">
     <link href="/designer/cosmo/tab.css" rel="stylesheet">
     <link href="/designer/cosmo/table.css" rel="stylesheet">
-    <link href="/designer/cosmo/key-value-list.css" rel="stylesheet">
-    <link href="/designer/cosmo/buttons.css" rel="stylesheet">
-    <link href="/designer/css/body.css" rel="stylesheet">
+    <link href="/designer/cosmo/toolbar.css" rel="stylesheet">
+    <link href="/designer/cosmo/typography.css" rel="stylesheet">
+    <link href="/designer/cosmo/variables.css" rel="stylesheet">
+
+    <link href="/designer/cosmo/fonts/albert-sans.css" rel="stylesheet">
+    <link href="/designer/cosmo/fonts/oxygen-mono.css" rel="stylesheet">
+    <link href="/designer/cosmo/fonts/urbanist.css" rel="stylesheet">
+
     <link href="/designer/css/layout.css" rel="stylesheet">
     <link href="/designer/css/media.css" rel="stylesheet">
     <link href="/designer/css/designer.css" rel="stylesheet">
@@ -34,8 +39,9 @@
     <link href="/designer/css/helper.css" rel="stylesheet">
     <link href="/designer/css/tiny.css" rel="stylesheet">
     <link href="/designer/css/file-picker.css" rel="stylesheet">
-    <link href="/designer/css/form-addons.css" rel="stylesheet">
+
     <link href="/designer/vs/editor/editor.main.css" rel="stylesheet">
+
     <link href="/designer/favicons/favicon-light.png" rel="icon" type="image/png"/>
     <link
             href="/designer/favicons/favicon-dark.png"
@@ -44,21 +50,24 @@
             type="image/png"
     />
     <link href="/designer/favicons/favicon.svg" rel="icon" type="image/svg+xml"/>
-    <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <link href="/designer/favicons/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
     <link href="/designer/favicons/site.webmanifest" rel="manifest">
+
     <link color="#19324c" href="/designer/favicons/safari-pinned-tab.svg" rel="mask-icon">
+
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <meta content="Jinya CMS" name="apple-mobile-web-app-title"/>
     <meta content="Jinya CMS" name="application-name"/>
     <meta content="#19324c" name="msapplication-TileColor"/>
     <meta content="#19324c" name="theme-color"/>
 </head>
 <body>
-<main class="cosmo-page-layout" id="mainPage">
+<main class="cosmo-page" id="mainPage">
     <div class="jinya-loader__container" style="min-height: 100vh">
         <div class="jinya-loader"></div>
     </div>
 </main>
+
 <script>
     let require = {
         paths: { vs: './vs' }, config: {
@@ -70,12 +79,13 @@
         }
     };
 </script>
+
 <script src="/designer/vs/loader.js"></script>
-<script>
-</script>
 <script src="/designer/vs/editor/editor.main.nls.js"></script>
 <script src="/designer/vs/editor/editor.main.js"></script>
+
 <script src="/designer/lib/tinymce/tinymce.min.js"></script>
+
 <script src="/designer/js/index.js" type="module"></script>
 </body>
 </html>

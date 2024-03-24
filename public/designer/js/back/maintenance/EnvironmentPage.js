@@ -13,7 +13,10 @@ export default class EnvironmentPage extends JinyaDesignerPage {
   displayEnvironment() {
     const table = document.querySelector('.cosmo-table tbody');
     clearChildren({ parent: table });
-    for (const { key, value } of this.environment) {
+    for (const {
+      key,
+      value
+    } of this.environment) {
       const tr = document.createElement('tr');
       tr.innerHTML = html` <tr>
         <td>${key}</td>

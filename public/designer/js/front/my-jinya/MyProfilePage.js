@@ -56,23 +56,25 @@ export default class MyProfilePage extends JinyaDesignerPage {
 
   bindEvents() {
     super.bindEvents();
-    document.getElementById('change-password').addEventListener('click', async () => {
-      const { default: ChangePasswordDialog } = await import('./my-profile/ChangePasswordDialog.js');
-      const dialog = new ChangePasswordDialog();
-      dialog.show();
-    });
-    document.getElementById('edit-profile').addEventListener('click', async () => {
-      const { default: EditProfileDialog } = await import('./my-profile/EditProfileDialog.js');
-      const dialog = new EditProfileDialog({
-        artist: this.artist,
-        onHide: async () => {
-          this.artist = await get('/api/me');
-          this.displayProfile();
-          document.querySelector('.cosmo-profile-picture').src = this.artist.profilePicture;
-          document.querySelector('.cosmo-profile-picture').alt = this.artist.artistName;
-        },
+    document.getElementById('change-password')
+      .addEventListener('click', async () => {
+        const { default: ChangePasswordDialog } = await import('./my-profile/ChangePasswordDialog.js');
+        const dialog = new ChangePasswordDialog();
+        dialog.show();
       });
-      await dialog.show();
-    });
+    document.getElementById('edit-profile')
+      .addEventListener('click', async () => {
+        const { default: EditProfileDialog } = await import('./my-profile/EditProfileDialog.js');
+        const dialog = new EditProfileDialog({
+          artist: this.artist,
+          onHide: async () => {
+            this.artist = await get('/api/me');
+            this.displayProfile();
+            document.querySelector('.cosmo-profile-picture').src = this.artist.profilePicture;
+            document.querySelector('.cosmo-profile-picture').alt = this.artist.artistName;
+          },
+        });
+        await dialog.show();
+      });
   }
 }

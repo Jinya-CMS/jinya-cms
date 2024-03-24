@@ -38,31 +38,33 @@ export default class AddSegmentPageDialog {
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
-    document.getElementById('cancel-add-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('create-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('createPageName').value;
-      try {
-        const saved = await post('/api/segment-page', {
-          name,
-        });
-        this.onHide(saved);
+    document.getElementById('cancel-add-dialog')
+      .addEventListener('click', () => {
         container.remove();
-      } catch (err) {
-        if (err.status === 409) {
-          await alert({
-            title: localize({ key: 'pages_and_forms.segment.create.error.title' }),
-            message: localize({ key: 'pages_and_forms.segment.create.error.conflict' }),
+      });
+    document.getElementById('create-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('createPageName').value;
+        try {
+          const saved = await post('/api/segment-page', {
+            name,
           });
-        } else {
-          await alert({
-            title: localize({ key: 'pages_and_forms.segment.create.error.title' }),
-            message: localize({ key: 'pages_and_forms.segment.create.error.generic' }),
-          });
+          this.onHide(saved);
+          container.remove();
+        } catch (err) {
+          if (err.status === 409) {
+            await alert({
+              title: localize({ key: 'pages_and_forms.segment.create.error.title' }),
+              message: localize({ key: 'pages_and_forms.segment.create.error.conflict' }),
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'pages_and_forms.segment.create.error.title' }),
+              message: localize({ key: 'pages_and_forms.segment.create.error.generic' }),
+            });
+          }
         }
-      }
-    });
+      });
   }
 }

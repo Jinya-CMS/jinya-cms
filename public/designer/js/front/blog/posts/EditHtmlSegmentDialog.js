@@ -9,7 +9,11 @@ export default class EditFileSegmentDialog {
    * @param html {string}
    * @param position {number}
    */
-  constructor({ onHide, html: content, position }) {
+  constructor({
+                onHide,
+                html: content,
+                position,
+              }) {
     this.onHide = onHide;
     this.position = position;
     this.html = content ?? '';
@@ -41,17 +45,19 @@ export default class EditFileSegmentDialog {
     const tiny = await getEditor({ element: document.getElementById('editHtml') });
     tiny.setContent(this.html);
 
-    document.getElementById('cancel-edit-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('edit-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      this.onHide({
-        position: this.position,
-        html: tiny.getContent(),
+    document.getElementById('cancel-edit-dialog')
+      .addEventListener('click', () => {
+        container.remove();
       });
-      tinymce.remove();
-      container.remove();
-    });
+    document.getElementById('edit-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        this.onHide({
+          position: this.position,
+          html: tiny.getContent(),
+        });
+        tinymce.remove();
+        container.remove();
+      });
   }
 }

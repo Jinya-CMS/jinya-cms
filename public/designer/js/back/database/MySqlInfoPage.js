@@ -21,13 +21,14 @@ export default class MySqlInfoPage extends JinyaDesignerPage {
           </tr>
         </thead>
         <tbody>
-          ${Object.keys(variables).map(
-            (variable) =>
-              html` <tr>
+          ${Object.keys(variables)
+        .map(
+          (variable) =>
+            html` <tr>
                 <td>${variable}</td>
                 <td>${variables[variable]}</td>
               </tr>`,
-          )}
+        )}
         </tbody>
       </table>`;
     let content = '';
@@ -59,7 +60,9 @@ export default class MySqlInfoPage extends JinyaDesignerPage {
     document
       .querySelectorAll('.cosmo-list__item--active')
       .forEach((tag) => tag.classList.remove('cosmo-list__item--active'));
-    document.querySelector(`[data-tab="${this.selectedTab}"]`).classList.add('cosmo-list__item--active');
+    document.querySelector(`[data-tab="${this.selectedTab}"]`)
+      .classList
+      .add('cosmo-list__item--active');
 
     const container = document.getElementById('mysql-content');
     clearChildren({ parent: container });
@@ -72,8 +75,8 @@ export default class MySqlInfoPage extends JinyaDesignerPage {
       <nav class="cosmo-list__items">
         <a data-tab="server" class="cosmo-list__item cosmo-list__item--active"
           >${localize({
-            key: 'database.mysql.system_and_server',
-          })}</a
+      key: 'database.mysql.system_and_server',
+    })}</a
         >
         <a data-tab="global" class="cosmo-list__item">${localize({ key: 'database.mysql.global_variables' })}</a>
         <a data-tab="local" class="cosmo-list__item">${localize({ key: 'database.mysql.local_variables' })}</a>
@@ -91,12 +94,13 @@ export default class MySqlInfoPage extends JinyaDesignerPage {
 
   bindEvents() {
     super.bindEvents();
-    document.querySelectorAll('.cosmo-list__item').forEach((item) =>
-      item.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.selectedTab = e.target.getAttribute('data-tab');
-        this.displaySelectedTab();
-      }),
-    );
+    document.querySelectorAll('.cosmo-list__item')
+      .forEach((item) =>
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          this.selectedTab = e.target.getAttribute('data-tab');
+          this.displaySelectedTab();
+        }),
+      );
   }
 }

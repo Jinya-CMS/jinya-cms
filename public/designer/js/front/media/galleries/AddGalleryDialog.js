@@ -82,37 +82,39 @@ export default class AddGalleryDialog {
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
-    document.getElementById('cancel-add-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('create-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('createGalleryName').value;
-      const description = document.getElementById('createGalleryDescription').value;
-      const orientation = document.querySelector('[name="orientation"]:checked').value;
-      const type = document.querySelector('[name="type"]:checked').value;
-      try {
-        const saved = await post('/api/media/gallery', {
-          name,
-          description,
-          orientation,
-          type,
-        });
-        this.onHide(saved);
+    document.getElementById('cancel-add-dialog')
+      .addEventListener('click', () => {
         container.remove();
-      } catch (err) {
-        if (err.status === 409) {
-          await alert({
-            title: localize({ key: 'media.galleries.edit.error.title' }),
-            message: localize({ key: 'media.galleries.edit.error.conflict' }),
+      });
+    document.getElementById('create-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('createGalleryName').value;
+        const description = document.getElementById('createGalleryDescription').value;
+        const orientation = document.querySelector('[name="orientation"]:checked').value;
+        const type = document.querySelector('[name="type"]:checked').value;
+        try {
+          const saved = await post('/api/media/gallery', {
+            name,
+            description,
+            orientation,
+            type,
           });
-        } else {
-          await alert({
-            title: localize({ key: 'media.galleries.edit.error.title' }),
-            message: localize({ key: 'media.galleries.edit.error.generic' }),
-          });
+          this.onHide(saved);
+          container.remove();
+        } catch (err) {
+          if (err.status === 409) {
+            await alert({
+              title: localize({ key: 'media.galleries.edit.error.title' }),
+              message: localize({ key: 'media.galleries.edit.error.conflict' }),
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'media.galleries.edit.error.title' }),
+              message: localize({ key: 'media.galleries.edit.error.generic' }),
+            });
+          }
         }
-      }
-    });
+      });
   }
 }

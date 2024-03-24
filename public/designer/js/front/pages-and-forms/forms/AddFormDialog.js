@@ -48,36 +48,38 @@ export default class AddFormDialog {
     container.innerHTML = content;
     document.body.append(container);
     const tiny = await getEditor({ element: document.getElementById('createDescription') });
-    document.getElementById('cancel-create-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('create-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      try {
-        const title = document.getElementById('createFormTitle').value;
-        const toAddress = document.getElementById('createFormToAddress').value;
-        const description = tiny.getContent();
-        const saved = await post('/api/form', {
-          title,
-          toAddress,
-          description,
-        });
-        this.onHide(saved);
-        tinymce.remove();
+    document.getElementById('cancel-create-dialog')
+      .addEventListener('click', () => {
         container.remove();
-      } catch (err) {
-        if (err.status === 409) {
-          await alert({
-            title: localize({ key: 'pages_and_forms.form.create.error.title' }),
-            message: localize({ key: 'pages_and_forms.form.create.error.conflict' }),
+      });
+    document.getElementById('create-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        try {
+          const title = document.getElementById('createFormTitle').value;
+          const toAddress = document.getElementById('createFormToAddress').value;
+          const description = tiny.getContent();
+          const saved = await post('/api/form', {
+            title,
+            toAddress,
+            description,
           });
-        } else {
-          await alert({
-            title: localize({ key: 'pages_and_forms.form.create.error.title' }),
-            message: localize({ key: 'pages_and_forms.form.create.error.generic' }),
-          });
+          this.onHide(saved);
+          tinymce.remove();
+          container.remove();
+        } catch (err) {
+          if (err.status === 409) {
+            await alert({
+              title: localize({ key: 'pages_and_forms.form.create.error.title' }),
+              message: localize({ key: 'pages_and_forms.form.create.error.conflict' }),
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'pages_and_forms.form.create.error.title' }),
+              message: localize({ key: 'pages_and_forms.form.create.error.generic' }),
+            });
+          }
         }
-      }
-    });
+      });
   }
 }

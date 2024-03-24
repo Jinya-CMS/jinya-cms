@@ -6,7 +6,10 @@ import localize from '../../../foundation/localize.js';
 import confirm from '../../../foundation/ui/confirm.js';
 
 export default class PostDesignerDialog {
-  constructor({ post, segments }) {
+  constructor({
+                post,
+                segments,
+              }) {
     this.post = post;
     this.selectedSegment = {};
     this.segments = segments;
@@ -43,12 +46,18 @@ export default class PostDesignerDialog {
     item.classList.add('jinya-designer-item--selected');
     if (item.getAttribute('data-is-file') === 'true') {
       item.classList.add('jinya-designer-item--file-selected');
-      item.querySelector('.jinya-designer-item__details').classList.add('jinya-designer-item__details--file-selected');
-      item.querySelector('.jinya-segment__image').classList.add('jinya-segment__image--file-selected');
+      item.querySelector('.jinya-designer-item__details')
+        .classList
+        .add('jinya-designer-item__details--file-selected');
+      item.querySelector('.jinya-segment__image')
+        .classList
+        .add('jinya-segment__image--file-selected');
     }
 
-    document.getElementById('edit-segment').removeAttribute('disabled');
-    document.getElementById('delete-segment').removeAttribute('disabled');
+    document.getElementById('edit-segment')
+      .removeAttribute('disabled');
+    document.getElementById('delete-segment')
+      .removeAttribute('disabled');
     this.selectedSegment = this.segments.find((s) => s.position === parseInt(segmentPosition, 10));
   }
 
@@ -60,20 +69,34 @@ export default class PostDesignerDialog {
     clearChildren({ parent: segmentList });
     for (const segment of this.segments) {
       if (segment.html) {
-        this.displayHtmlSegment({ segment, segmentList });
+        this.displayHtmlSegment({
+          segment,
+          segmentList,
+        });
       } else if (segment.file) {
-        this.displayFileSegment({ segment, segmentList });
+        this.displayFileSegment({
+          segment,
+          segmentList,
+        });
       } else if (segment.gallery) {
-        this.displayGallerySegment({ segment, segmentList });
+        this.displayGallerySegment({
+          segment,
+          segmentList,
+        });
       }
     }
-    document.querySelectorAll('#segment-list .jinya-designer-item').forEach((item) => {
-      item.addEventListener('click', () => {
-        this.selectSegment({ segmentPosition: item.getAttribute('data-position') });
+    document.querySelectorAll('#segment-list .jinya-designer-item')
+      .forEach((item) => {
+        item.addEventListener('click', () => {
+          this.selectSegment({ segmentPosition: item.getAttribute('data-position') });
+        });
       });
-    });
     this.resultSortable = new Sortable(document.getElementById('segment-list'), {
-      group: { name: 'post', put: true, pull: false },
+      group: {
+        name: 'post',
+        put: true,
+        pull: false,
+      },
       sort: true,
       onAdd: async (e) => {
         const dropIdx = e.newIndex;
@@ -87,7 +110,10 @@ export default class PostDesignerDialog {
         }
         const createNewSegmentType = e.item.getAttribute('data-type');
         this.newSegment = true;
-        await this.openSegmentEditor({ position: createPosition, type: createNewSegmentType });
+        await this.openSegmentEditor({
+          position: createPosition,
+          type: createNewSegmentType,
+        });
       },
       onUpdate: () => {
         this.resetPositions();
@@ -100,7 +126,10 @@ export default class PostDesignerDialog {
    * @param segmentList {HTMLDivElement}
    */
   // eslint-disable-next-line class-methods-use-this
-  displayHtmlSegment({ segment, segmentList }) {
+  displayHtmlSegment({
+                       segment,
+                       segmentList,
+                     }) {
     const segmentElem = document.createElement('div');
     segmentElem.classList.add('jinya-designer-item', 'jinya-designer-item--html');
     segmentElem.setAttribute('data-position', segment.position.toString(10));
@@ -117,7 +146,10 @@ export default class PostDesignerDialog {
    * @param segmentList {HTMLDivElement}
    */
   // eslint-disable-next-line class-methods-use-this
-  displayFileSegment({ segment, segmentList }) {
+  displayFileSegment({
+                       segment,
+                       segmentList,
+                     }) {
     const segmentElem = document.createElement('div');
     segmentElem.classList.add('jinya-designer-item', 'jinya-designer-item--file');
     segmentElem.setAttribute('data-position', segment.position.toString(10));
@@ -154,7 +186,10 @@ export default class PostDesignerDialog {
    * @param segmentList {HTMLDivElement}
    */
   // eslint-disable-next-line class-methods-use-this
-  displayGallerySegment({ segment, segmentList }) {
+  displayGallerySegment({
+                          segment,
+                          segmentList,
+                        }) {
     const segmentElem = document.createElement('div');
     segmentElem.classList.add('jinya-designer-item', 'jinya-designer-item--gallery');
     segmentElem.setAttribute('data-position', segment.position.toString(10));
@@ -168,7 +203,10 @@ export default class PostDesignerDialog {
     segmentList.appendChild(segmentElem);
   }
 
-  async openSegmentEditor({ position, type }) {
+  async openSegmentEditor({
+                            position,
+                            type,
+                          }) {
     if (type === 'gallery') {
       const { default: EditGallerySegmentDialog } = await import('./EditGallerySegmentDialog.js');
       const dialog = new EditGallerySegmentDialog({
@@ -177,7 +215,10 @@ export default class PostDesignerDialog {
         galleryId: this.selectedSegment?.gallery?.id ?? -1,
         onHide: ({ gallery }) => {
           if (this.newSegment) {
-            this.segments.splice(position, 0, { position, gallery });
+            this.segments.splice(position, 0, {
+              position,
+              gallery,
+            });
           } else {
             this.selectedSegment.gallery = gallery;
             this.segments.find((s) => s.position === this.selectedSegment.position).gallery = gallery;
@@ -191,9 +232,16 @@ export default class PostDesignerDialog {
       const dialog = new EditFileSegmentDialog({
         ...this.selectedSegment,
         fileId: this.selectedSegment?.file?.id ?? -1,
-        onHide: ({ file, link }) => {
+        onHide: ({
+                   file,
+                   link,
+                 }) => {
           if (this.newSegment) {
-            this.segments.splice(position, 0, { position, file, link });
+            this.segments.splice(position, 0, {
+              position,
+              file,
+              link,
+            });
           } else {
             this.selectedSegment.file = file;
             this.selectedSegment.link = link;
@@ -212,7 +260,10 @@ export default class PostDesignerDialog {
         position,
         onHide: ({ html: newHtml }) => {
           if (this.newSegment) {
-            this.segments.splice(position, 0, { position, html: newHtml });
+            this.segments.splice(position, 0, {
+              position,
+              html: newHtml,
+            });
           } else {
             this.selectedSegment.html = newHtml;
             this.segments.find((s) => s.position === this.selectedSegment.position).html = newHtml;
@@ -277,7 +328,11 @@ export default class PostDesignerDialog {
     this.displaySegments();
 
     this.toolboxSortable = new Sortable(document.getElementById('segment-toolbox'), {
-      group: { name: 'post', put: false, pull: 'clone' },
+      group: {
+        name: 'post',
+        put: false,
+        pull: 'clone',
+      },
       sort: false,
       handle: '.jinya-designer__drag-handle',
       onEnd(e) {
@@ -287,66 +342,75 @@ export default class PostDesignerDialog {
       },
     });
 
-    document.getElementById('cancel-post-dialog').addEventListener('click', () => {
-      this.toolboxSortable.destroy();
-      this.resultSortable.destroy();
-      container.remove();
-    });
-    document.getElementById('post-designer-dialog').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      await put(`/api/blog/post/${this.post.id}/segment`, {
-        segments: this.segments
-          .map((segment) => {
-            const data = {
-              position: segment.position,
-            };
-            if (segment.file) {
-              data.file = segment.file.id;
-              data.link = segment.link;
-            } else if (segment.gallery) {
-              data.gallery = segment.gallery.id;
-            } else if (segment.html) {
-              data.html = segment.html;
-            }
+    document.getElementById('cancel-post-dialog')
+      .addEventListener('click', () => {
+        this.toolboxSortable.destroy();
+        this.resultSortable.destroy();
+        container.remove();
+      });
+    document.getElementById('post-designer-dialog')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        await put(`/api/blog/post/${this.post.id}/segment`, {
+          segments: this.segments
+            .map((segment) => {
+              const data = {
+                position: segment.position,
+              };
+              if (segment.file) {
+                data.file = segment.file.id;
+                data.link = segment.link;
+              } else if (segment.gallery) {
+                data.gallery = segment.gallery.id;
+              } else if (segment.html) {
+                data.html = segment.html;
+              }
 
-            return data;
-          })
-          .sort((a, b) => a.position - b.position),
+              return data;
+            })
+            .sort((a, b) => a.position - b.position),
+        });
+        container.remove();
       });
-      container.remove();
-    });
-    document.getElementById('edit-segment').addEventListener('click', () => {
-      let type = '';
-      if (this.selectedSegment.file) {
-        type = 'file';
-      } else if (this.selectedSegment.gallery) {
-        type = 'gallery';
-      } else if (this.selectedSegment.html) {
-        type = 'html';
-      }
-      this.newSegment = false;
-      this.openSegmentEditor({ position: this.selectedSegment.position, type });
-    });
-    document.getElementById('delete-segment').addEventListener('click', async () => {
-      const confirmation = await confirm({
-        title: localize({ key: 'blog.posts.designer.edit.delete_segment.title' }),
-        message: localize({
-          key: 'blog.posts.designer.edit.delete_segment.message',
-          values: this.selectedPage,
-        }),
-        approveLabel: localize({ key: 'blog.posts.designer.edit.delete_segment.delete' }),
-        declineLabel: localize({ key: 'blog.posts.designer.edit.delete_segment.keep' }),
+    document.getElementById('edit-segment')
+      .addEventListener('click', () => {
+        let type = '';
+        if (this.selectedSegment.file) {
+          type = 'file';
+        } else if (this.selectedSegment.gallery) {
+          type = 'gallery';
+        } else if (this.selectedSegment.html) {
+          type = 'html';
+        }
+        this.newSegment = false;
+        this.openSegmentEditor({
+          position: this.selectedSegment.position,
+          type,
+        });
       });
-      if (confirmation) {
-        const { position } = this.selectedSegment;
-        const segmentElem = document.querySelector(`[data-position="${position}"]`);
-        segmentElem.remove();
-        this.segments.splice(position, 1);
-        this.resetPositions();
-        this.selectedSegment = null;
-        document.getElementById('edit-segment').setAttribute('disabled', 'disabled');
-        document.getElementById('delete-segment').setAttribute('disabled', 'disabled');
-      }
-    });
+    document.getElementById('delete-segment')
+      .addEventListener('click', async () => {
+        const confirmation = await confirm({
+          title: localize({ key: 'blog.posts.designer.edit.delete_segment.title' }),
+          message: localize({
+            key: 'blog.posts.designer.edit.delete_segment.message',
+            values: this.selectedPage,
+          }),
+          approveLabel: localize({ key: 'blog.posts.designer.edit.delete_segment.delete' }),
+          declineLabel: localize({ key: 'blog.posts.designer.edit.delete_segment.keep' }),
+        });
+        if (confirmation) {
+          const { position } = this.selectedSegment;
+          const segmentElem = document.querySelector(`[data-position="${position}"]`);
+          segmentElem.remove();
+          this.segments.splice(position, 1);
+          this.resetPositions();
+          this.selectedSegment = null;
+          document.getElementById('edit-segment')
+            .setAttribute('disabled', 'disabled');
+          document.getElementById('delete-segment')
+            .setAttribute('disabled', 'disabled');
+        }
+      });
   }
 }

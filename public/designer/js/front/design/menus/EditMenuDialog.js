@@ -12,7 +12,12 @@ export default class EditMenuDialog {
    * @param name {string}
    * @param logo {number|undefined}
    */
-  constructor({ onHide, id, name, logo }) {
+  constructor({
+                onHide,
+                id,
+                name,
+                logo,
+              }) {
     this.onHide = onHide;
     this.id = id;
     this.name = name;
@@ -62,57 +67,63 @@ export default class EditMenuDialog {
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
-    document.querySelectorAll('#editMenuLogoPicker label').forEach((item) => {
-      item.addEventListener('click', async (e) => {
-        e.preventDefault();
-        const selectedFileId = parseInt(document.getElementById('editMenuLogo').value, 10);
-        const fileResult = await filePicker({
-          title: localize({ key: 'design.menus.edit.logo' }),
-          selectedFileId,
-        });
-        if (fileResult) {
-          document.getElementById('selectedFile').src = fileResult.path;
-          document.getElementById('selectedFile').alt = fileResult.name;
-          document.getElementById('selectedFile').hidden = false;
+    document.querySelectorAll('#editMenuLogoPicker label')
+      .forEach((item) => {
+        item.addEventListener('click', async (e) => {
+          e.preventDefault();
+          const selectedFileId = parseInt(document.getElementById('editMenuLogo').value, 10);
+          const fileResult = await filePicker({
+            title: localize({ key: 'design.menus.edit.logo' }),
+            selectedFileId,
+          });
+          if (fileResult) {
+            document.getElementById('selectedFile').src = fileResult.path;
+            document.getElementById('selectedFile').alt = fileResult.name;
+            document.getElementById('selectedFile').hidden = false;
 
-          document.getElementById('editMenuLogo').value = fileResult.id;
-          document.querySelector('#editMenuLogoPicker .cosmo-picker__name').innerText = fileResult.name;
+            document.getElementById('editMenuLogo').value = fileResult.id;
+            document.querySelector('#editMenuLogoPicker .cosmo-picker__name').innerText = fileResult.name;
+          }
+        });
+      });
+
+    document.getElementById('cancel-edit-dialog')
+      .addEventListener('click', () => {
+        container.remove();
+      });
+    document.getElementById('edit-dialog-menu')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('editMenuName').value;
+        const logo = parseInt(document.getElementById('editMenuLogo').value, 10);
+        try {
+          const data = {
+            name,
+          };
+          if (logo !== -1) {
+            data.logo = logo;
+          } else {
+            data.logo = null;
+          }
+          await put(`/api/menu/${this.id}`, data);
+          this.onHide({
+            ...data,
+            id: this.id,
+          });
+          container.remove();
+        } catch (err) {
+          if (err.status === 409) {
+            await alert({
+              title: localize({ key: 'design.menus.edit.error.title' }),
+              message: localize({ key: 'design.menus.edit.error.conflict' }),
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'design.menus.edit.error.title' }),
+              message: localize({ key: 'design.menus.edit.error.generic' }),
+            });
+          }
         }
       });
-    });
-
-    document.getElementById('cancel-edit-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('edit-dialog-menu').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('editMenuName').value;
-      const logo = parseInt(document.getElementById('editMenuLogo').value, 10);
-      try {
-        const data = {
-          name,
-        };
-        if (logo !== -1) {
-          data.logo = logo;
-        } else {
-          data.logo = null;
-        }
-        await put(`/api/menu/${this.id}`, data);
-        this.onHide({ ...data, id: this.id });
-        container.remove();
-      } catch (err) {
-        if (err.status === 409) {
-          await alert({
-            title: localize({ key: 'design.menus.edit.error.title' }),
-            message: localize({ key: 'design.menus.edit.error.conflict' }),
-          });
-        } else {
-          await alert({
-            title: localize({ key: 'design.menus.edit.error.title' }),
-            message: localize({ key: 'design.menus.edit.error.generic' }),
-          });
-        }
-      }
-    });
   }
 }

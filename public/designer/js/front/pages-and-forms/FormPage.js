@@ -33,9 +33,13 @@ export default class FormPage extends JinyaDesignerPage {
     document
       .querySelectorAll('.cosmo-list__item--active')
       .forEach((item) => item.classList.remove('cosmo-list__item--active'));
-    document.querySelector(`[data-id="${id}"]`).classList.add('cosmo-list__item--active');
-    document.getElementById('edit-item').setAttribute('disabled', 'disabled');
-    document.getElementById('delete-item').setAttribute('disabled', 'disabled');
+    document.querySelector(`[data-id="${id}"]`)
+      .classList
+      .add('cosmo-list__item--active');
+    document.getElementById('edit-item')
+      .setAttribute('disabled', 'disabled');
+    document.getElementById('delete-item')
+      .setAttribute('disabled', 'disabled');
   }
 
   async displaySelectedForm() {
@@ -52,8 +56,10 @@ export default class FormPage extends JinyaDesignerPage {
     const item = document.querySelector(`[data-position="${itemPosition}"]`);
     item.classList.add('jinya-designer-item--selected');
 
-    document.getElementById('edit-item').removeAttribute('disabled');
-    document.getElementById('delete-item').removeAttribute('disabled');
+    document.getElementById('edit-item')
+      .removeAttribute('disabled');
+    document.getElementById('delete-item')
+      .removeAttribute('disabled');
     this.selectedFormItem = this.formItems.find((s) => s.position === parseInt(itemPosition, 10));
   }
 
@@ -74,13 +80,18 @@ export default class FormPage extends JinyaDesignerPage {
         <span class="jinya-form-item__label">${item.label}</span>`;
       itemList.appendChild(itemElem);
     }
-    document.querySelectorAll('#item-list .jinya-designer-item').forEach((item) => {
-      item.addEventListener('click', () => {
-        this.selectItem({ itemPosition: item.getAttribute('data-position') });
+    document.querySelectorAll('#item-list .jinya-designer-item')
+      .forEach((item) => {
+        item.addEventListener('click', () => {
+          this.selectItem({ itemPosition: item.getAttribute('data-position') });
+        });
       });
-    });
     this.resultSortable = new Sortable(document.getElementById('item-list'), {
-      group: { name: 'form', put: true, pull: false },
+      group: {
+        name: 'form',
+        put: true,
+        pull: false,
+      },
       sort: true,
       onAdd: async (e) => {
         const dropIdx = e.newIndex;
@@ -93,7 +104,10 @@ export default class FormPage extends JinyaDesignerPage {
           createPosition = this.formItems[dropIdx].position;
         }
         const createNewItemType = e.item.getAttribute('data-type');
-        await this.openItemEditorCreate({ position: createPosition, type: createNewItemType });
+        await this.openItemEditorCreate({
+          position: createPosition,
+          type: createNewItemType,
+        });
       },
       onUpdate: async (e) => {
         const oldPosition = e.item.getAttribute('data-position');
@@ -173,24 +187,26 @@ export default class FormPage extends JinyaDesignerPage {
                 <button id="new-form-button" class="cosmo-button cosmo-button--full-width">
                     ${localize({ key: 'pages_and_forms.form.action.new' })}
                 </button>`;
-    document.querySelectorAll('.cosmo-list__item').forEach((item) => {
-      item.addEventListener('click', async () => {
-        this.selectForm({ id: item.getAttribute('data-id') });
-        await this.displaySelectedForm();
-      });
-    });
-    document.getElementById('new-form-button').addEventListener('click', async () => {
-      const { default: AddFormDialog } = await import('./forms/AddFormDialog.js');
-      const dialog = new AddFormDialog({
-        onHide: async (form) => {
-          this.forms.push(form);
-          this.displayForms();
-          this.selectForm({ id: form.id });
+    document.querySelectorAll('.cosmo-list__item')
+      .forEach((item) => {
+        item.addEventListener('click', async () => {
+          this.selectForm({ id: item.getAttribute('data-id') });
           await this.displaySelectedForm();
-        },
+        });
       });
-      await dialog.show();
-    });
+    document.getElementById('new-form-button')
+      .addEventListener('click', async () => {
+        const { default: AddFormDialog } = await import('./forms/AddFormDialog.js');
+        const dialog = new AddFormDialog({
+          onHide: async (form) => {
+            this.forms.push(form);
+            this.displayForms();
+            this.selectForm({ id: form.id });
+            await this.displaySelectedForm();
+          },
+        });
+        await dialog.show();
+      });
   }
 
   async displayed() {
@@ -199,7 +215,11 @@ export default class FormPage extends JinyaDesignerPage {
     this.forms = items;
 
     this.toolboxSortable = new Sortable(document.getElementById('item-toolbox'), {
-      group: { name: 'form', put: false, pull: 'clone' },
+      group: {
+        name: 'form',
+        put: false,
+        pull: 'clone',
+      },
       sort: false,
       handle: '.jinya-designer__drag-handle',
       onEnd(e) {
@@ -221,7 +241,13 @@ export default class FormPage extends JinyaDesignerPage {
     if (type === 'email') {
       const { default: EditEmailItemDialog } = await import('./forms/EditEmailItemDialog.js');
       const dialog = new EditEmailItemDialog({
-        onHide: ({ label, placeholder, helpText, isRequired, isFromAddress }) => {
+        onHide: ({
+                   label,
+                   placeholder,
+                   helpText,
+                   isRequired,
+                   isFromAddress,
+                 }) => {
           this.selectedFormItem.label = label;
           this.selectedFormItem.placeholder = placeholder;
           this.selectedFormItem.helpText = helpText;
@@ -246,7 +272,13 @@ export default class FormPage extends JinyaDesignerPage {
     } else if (type === 'textarea') {
       const { default: EditMultilineItemDialog } = await import('./forms/EditMultilineItemDialog.js');
       const dialog = new EditMultilineItemDialog({
-        onHide: ({ label, placeholder, helpText, isRequired, spamFilter }) => {
+        onHide: ({
+                   label,
+                   placeholder,
+                   helpText,
+                   isRequired,
+                   spamFilter,
+                 }) => {
           this.selectedFormItem.label = label;
           this.selectedFormItem.placeholder = placeholder;
           this.selectedFormItem.helpText = helpText;
@@ -271,7 +303,12 @@ export default class FormPage extends JinyaDesignerPage {
     } else if (type === 'checkbox') {
       const { default: EditCheckboxItemDialog } = await import('./forms/EditCheckboxItemDialog.js');
       const dialog = new EditCheckboxItemDialog({
-        onHide: ({ label, placeholder, helpText, isRequired }) => {
+        onHide: ({
+                   label,
+                   placeholder,
+                   helpText,
+                   isRequired,
+                 }) => {
           this.selectedFormItem.label = label;
           this.selectedFormItem.placeholder = placeholder;
           this.selectedFormItem.helpText = helpText;
@@ -294,7 +331,13 @@ export default class FormPage extends JinyaDesignerPage {
     } else if (type === 'select') {
       const { default: EditDropdownItemDialog } = await import('./forms/EditDropdownItemDialog.js');
       const dialog = new EditDropdownItemDialog({
-        onHide: ({ label, placeholder, helpText, isRequired, options }) => {
+        onHide: ({
+                   label,
+                   placeholder,
+                   helpText,
+                   isRequired,
+                   options,
+                 }) => {
           this.selectedFormItem.label = label;
           this.selectedFormItem.placeholder = placeholder;
           this.selectedFormItem.helpText = helpText;
@@ -319,7 +362,14 @@ export default class FormPage extends JinyaDesignerPage {
     } else {
       const { default: EditTextItemDialog } = await import('./forms/EditTextItemDialog.js');
       const dialog = new EditTextItemDialog({
-        onHide: ({ label, placeholder, helpText, isRequired, isSubject, spamFilter }) => {
+        onHide: ({
+                   label,
+                   placeholder,
+                   helpText,
+                   isRequired,
+                   isSubject,
+                   spamFilter,
+                 }) => {
           this.selectedFormItem.label = label;
           this.selectedFormItem.placeholder = placeholder;
           this.selectedFormItem.helpText = helpText;
@@ -346,7 +396,10 @@ export default class FormPage extends JinyaDesignerPage {
     }
   }
 
-  async openItemEditorCreate({ position, type }) {
+  async openItemEditorCreate({
+                               position,
+                               type,
+                             }) {
     if (type === 'email') {
       const { default: EditEmailItemDialog } = await import('./forms/EditEmailItemDialog.js');
       const dialog = new EditEmailItemDialog({
@@ -412,82 +465,101 @@ export default class FormPage extends JinyaDesignerPage {
 
   bindEvents() {
     super.bindEvents();
-    document.getElementById('edit-form').addEventListener('click', async () => {
-      const { default: EditItemPageDialog } = await import('./forms/EditFormDialog.js');
-      const dialog = new EditItemPageDialog({
-        onHide: async ({ id, title, description, toAddress }) => {
-          const form = this.forms.find((p) => p.id === id);
-          form.title = title;
-          form.description = description;
-          form.toAddress = toAddress;
-          this.displayForms();
-          this.selectForm({ id });
-          await this.displaySelectedForm();
-        },
-        id: this.selectedForm.id,
-        title: this.selectedForm.title,
-        description: this.selectedForm.description,
-        toAddress: this.selectedForm.toAddress,
+    document.getElementById('edit-form')
+      .addEventListener('click', async () => {
+        const { default: EditItemPageDialog } = await import('./forms/EditFormDialog.js');
+        const dialog = new EditItemPageDialog({
+          onHide: async ({
+                           id,
+                           title,
+                           description,
+                           toAddress,
+                         }) => {
+            const form = this.forms.find((p) => p.id === id);
+            form.title = title;
+            form.description = description;
+            form.toAddress = toAddress;
+            this.displayForms();
+            this.selectForm({ id });
+            await this.displaySelectedForm();
+          },
+          id: this.selectedForm.id,
+          title: this.selectedForm.title,
+          description: this.selectedForm.description,
+          toAddress: this.selectedForm.toAddress,
+        });
+        await dialog.show();
       });
-      await dialog.show();
-    });
-    document.getElementById('delete-form').addEventListener('click', async () => {
-      const confirmation = await confirm({
-        title: localize({ key: 'pages_and_forms.form.delete.title' }),
-        message: localize({ key: 'pages_and_forms.form.delete.message', values: this.selectedForm }),
-        approveLabel: localize({ key: 'pages_and_forms.form.delete.delete' }),
-        declineLabel: localize({ key: 'pages_and_forms.form.delete.keep' }),
-      });
-      if (confirmation) {
-        try {
-          await httpDelete(`/api/form/${this.selectedForm.id}`);
-          this.forms = this.forms.filter((form) => form.id !== this.selectedForm.id);
-          this.displayForms();
-          if (this.forms.length > 0) {
-            this.selectForm({ id: this.forms[0].id });
-          } else {
-            this.selectedForm = null;
-            document.getElementById('form-title').innerText = `#${this.selectedForm.id} ${this.selectedForm.title}`;
-            this.formItems = [];
-            this.displayItems();
-          }
-          document.getElementById('edit-item').setAttribute('disabled', 'disabled');
-          document.getElementById('delete-item').setAttribute('disabled', 'disabled');
-        } catch (e) {
-          if (e.status === 409) {
-            await alert({
-              title: localize({ key: 'pages_and_forms.form.delete.error.title' }),
-              message: localize({ key: 'pages_and_forms.form.delete.error.conflict' }),
-            });
-          } else {
-            await alert({
-              title: localize({ key: 'pages_and_forms.form.delete.error.title' }),
-              message: localize({ key: 'pages_and_forms.form.delete.error.generic' }),
-            });
+    document.getElementById('delete-form')
+      .addEventListener('click', async () => {
+        const confirmation = await confirm({
+          title: localize({ key: 'pages_and_forms.form.delete.title' }),
+          message: localize({
+            key: 'pages_and_forms.form.delete.message',
+            values: this.selectedForm,
+          }),
+          approveLabel: localize({ key: 'pages_and_forms.form.delete.delete' }),
+          declineLabel: localize({ key: 'pages_and_forms.form.delete.keep' }),
+        });
+        if (confirmation) {
+          try {
+            await httpDelete(`/api/form/${this.selectedForm.id}`);
+            this.forms = this.forms.filter((form) => form.id !== this.selectedForm.id);
+            this.displayForms();
+            if (this.forms.length > 0) {
+              this.selectForm({ id: this.forms[0].id });
+            } else {
+              this.selectedForm = null;
+              document.getElementById('form-title').innerText = `#${this.selectedForm.id} ${this.selectedForm.title}`;
+              this.formItems = [];
+              this.displayItems();
+            }
+            document.getElementById('edit-item')
+              .setAttribute('disabled', 'disabled');
+            document.getElementById('delete-item')
+              .setAttribute('disabled', 'disabled');
+          } catch (e) {
+            if (e.status === 409) {
+              await alert({
+                title: localize({ key: 'pages_and_forms.form.delete.error.title' }),
+                message: localize({ key: 'pages_and_forms.form.delete.error.conflict' }),
+              });
+            } else {
+              await alert({
+                title: localize({ key: 'pages_and_forms.form.delete.error.title' }),
+                message: localize({ key: 'pages_and_forms.form.delete.error.generic' }),
+              });
+            }
           }
         }
-      }
-    });
-    document.getElementById('edit-item').addEventListener('click', async () => {
-      await this.openItemEditorUpdate();
-    });
-    document.getElementById('delete-item').addEventListener('click', async () => {
-      const confirmation = await confirm({
-        title: localize({ key: 'pages_and_forms.form.delete_item.title' }),
-        message: localize({ key: 'pages_and_forms.form.delete_item.message', values: this.selectedForm }),
-        approveLabel: localize({ key: 'pages_and_forms.form.delete_item.delete' }),
-        declineLabel: localize({ key: 'pages_and_forms.form.delete_item.keep' }),
       });
-      if (confirmation) {
-        const { position } = this.selectedFormItem;
-        const itemElem = document.querySelector(`[data-position="${position}"]`);
-        itemElem.remove();
-        this.resetPositions();
-        this.selectedFormItem = null;
-        document.getElementById('edit-item').setAttribute('disabled', 'disabled');
-        document.getElementById('delete-item').setAttribute('disabled', 'disabled');
-        await httpDelete(`/api/form/${this.selectedForm.id}/item/${position}`);
-      }
-    });
+    document.getElementById('edit-item')
+      .addEventListener('click', async () => {
+        await this.openItemEditorUpdate();
+      });
+    document.getElementById('delete-item')
+      .addEventListener('click', async () => {
+        const confirmation = await confirm({
+          title: localize({ key: 'pages_and_forms.form.delete_item.title' }),
+          message: localize({
+            key: 'pages_and_forms.form.delete_item.message',
+            values: this.selectedForm,
+          }),
+          approveLabel: localize({ key: 'pages_and_forms.form.delete_item.delete' }),
+          declineLabel: localize({ key: 'pages_and_forms.form.delete_item.keep' }),
+        });
+        if (confirmation) {
+          const { position } = this.selectedFormItem;
+          const itemElem = document.querySelector(`[data-position="${position}"]`);
+          itemElem.remove();
+          this.resetPositions();
+          this.selectedFormItem = null;
+          document.getElementById('edit-item')
+            .setAttribute('disabled', 'disabled');
+          document.getElementById('delete-item')
+            .setAttribute('disabled', 'disabled');
+          await httpDelete(`/api/form/${this.selectedForm.id}/item/${position}`);
+        }
+      });
   }
 }

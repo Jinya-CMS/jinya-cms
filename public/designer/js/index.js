@@ -10,15 +10,26 @@ const layout = new JinyaLayout();
 async function renderLogin(redirect) {
   const deviceCode = getDeviceCode();
   const { default: LoginLayoutPage } = await import('./login/LoginLayout.js');
-  const loginLayout = new LoginLayoutPage({ isLogin: true, isTwoFa: false });
+  const loginLayout = new LoginLayoutPage({
+    isLogin: true,
+    isTwoFa: false,
+  });
   try {
     await head(`/api/known_device/${deviceCode}`);
     const { default: LoginPage } = await import('./login/LoginPage.js');
-    const login = new LoginPage({ loginLayout, isTwoFa: false, redirect });
+    const login = new LoginPage({
+      loginLayout,
+      isTwoFa: false,
+      redirect,
+    });
     login.display();
   } catch (e) {
     const { default: LoginPage } = await import('./login/LoginPage.js');
-    const login = new LoginPage({ loginLayout, isTwoFa: true, redirect });
+    const login = new LoginPage({
+      loginLayout,
+      isTwoFa: true,
+      redirect,
+    });
     login.display();
   }
 }
@@ -29,10 +40,12 @@ async function renderLogin(redirect) {
 async function hashChanged({ redirect = 'front/statistics/matomo-stats' }) {
   destroyTiny();
   if (window.location.hash === '#login') {
-    document.querySelector('.cosmo-menu-bar__back-button')?.setAttribute('disabled', 'disabled');
+    document.querySelector('.cosmo-menu-bar__back-button')
+      ?.setAttribute('disabled', 'disabled');
     await renderLogin(redirect);
   } else {
-    document.querySelector('.cosmo-menu-bar__back-button')?.removeAttribute('disabled');
+    document.querySelector('.cosmo-menu-bar__back-button')
+      ?.removeAttribute('disabled');
     const split = urlSplitter();
     await navigate({ layout, ...split });
   }

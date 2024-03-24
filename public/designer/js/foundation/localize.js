@@ -9,7 +9,11 @@ import en from '../../lang/en.js';
  * @param def {string}
  * @return {string}
  */
-function getByPath({ obj, path = '', def = '' }) {
+function getByPath({
+                     obj,
+                     path = '',
+                     def = '',
+                   }) {
   let current = obj;
   const splitPath = path.split('.');
   // eslint-disable-next-line no-plusplus
@@ -27,12 +31,23 @@ function getByPath({ obj, path = '', def = '' }) {
  * @param values {Object}
  * @return string
  */
-export default function localize({ key, values = {} }) {
+export default function localize({
+                                   key,
+                                   values = {},
+                                 }) {
   let localized = key;
   if (navigator.language.startsWith('de')) {
-    localized = getByPath({ obj: de, path: key, def: key });
+    localized = getByPath({
+      obj: de,
+      path: key,
+      def: key,
+    });
   } else {
-    localized = getByPath({ obj: en, path: key, def: key });
+    localized = getByPath({
+      obj: en,
+      path: key,
+      def: key,
+    });
   }
 
   let transformed = localized;

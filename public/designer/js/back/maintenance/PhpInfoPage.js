@@ -34,16 +34,17 @@ export default class PhpInfoPage extends JinyaDesignerPage {
     if (this.selectedExtension) {
       content = html` <span class="cosmo-title">${this.selectedExtensionName}</span>
         <dl class="cosmo-key-value-list">
-          ${Object.keys(this.selectedExtension).map((key) => {
-            if (key === 'ini') {
-              return '';
-            }
-            return html` <dt class="cosmo-key-value-list__key">${key}</dt>
+          ${Object.keys(this.selectedExtension)
+        .map((key) => {
+          if (key === 'ini') {
+            return '';
+          }
+          return html` <dt class="cosmo-key-value-list__key">${key}</dt>
               <dd class="cosmo-key-value-list__value">${this.selectedExtension[key]}</dd>`;
-          })}
+        })}
         </dl>
         ${Object.keys(this.selectedExtension.ini).length > 0
-          ? html`
+        ? html`
               <h2>${localize({ key: 'maintenance.php.extension.ini_values' })}</h2>
               <table class="cosmo-table">
                 <thead>
@@ -53,36 +54,39 @@ export default class PhpInfoPage extends JinyaDesignerPage {
                   </tr>
                 </thead>
                 <tbody>
-                  ${Object.keys(this.selectedExtension.ini).map(
-                    (key) =>
-                      html` <tr>
+                  ${Object.keys(this.selectedExtension.ini)
+          .map(
+            (key) =>
+              html` <tr>
                         <td>${key}</td>
                         <td>${this.selectedExtension.ini[key]}</td>
                       </tr>`,
-                  )}
+          )}
                 </tbody>
               </table>
             `
-          : ''}`;
+        : ''}`;
     } else {
       content = html` <dl class="cosmo-key-value-list">
         <span class="cosmo-title">${localize({ key: 'maintenance.php.system_and_server' })}</span>
         <h2>${localize({ key: 'maintenance.php.about' })}</h2>
-        ${Object.keys(this.phpInfo.about).map(
+        ${Object.keys(this.phpInfo.about)
+        .map(
           (key) =>
             html` <dt class="cosmo-key-value-list__key">${key}</dt>
               <dd class="cosmo-key-value-list__value">${this.phpInfo.about[key]}</dd>`,
         )}
         ${this.phpInfo.apache
-          ? html` <h2>${localize({ key: 'maintenance.php.apache' })}</h2>
+        ? html` <h2>${localize({ key: 'maintenance.php.apache' })}</h2>
               <dl class="cosmo-key-value-list">
-                ${Object.keys(this.phpInfo.apache).map(
-                  (key) =>
-                    html` <dt class="cosmo-key-value-list__key">${key}</dt>
+                ${Object.keys(this.phpInfo.apache)
+          .map(
+            (key) =>
+              html` <dt class="cosmo-key-value-list__key">${key}</dt>
                       <dd class="cosmo-key-value-list__value">${this.phpInfo.apache[key]}</dd>`,
-                )}
+          )}
               </dl>`
-          : ''}
+        : ''}
       </dl>`;
     }
 
@@ -93,7 +97,8 @@ export default class PhpInfoPage extends JinyaDesignerPage {
       .forEach((item) => item.classList.remove('cosmo-list__item--active'));
     document
       .querySelector(`.cosmo-list__item[data-name="${this.selectedExtensionName}"]`)
-      .classList.add('cosmo-list__item--active');
+      .classList
+      .add('cosmo-list__item--active');
   }
 
   displayExtensions() {
@@ -105,12 +110,13 @@ export default class PhpInfoPage extends JinyaDesignerPage {
     }
     clearChildren({ parent: document.getElementById('extension-list') });
     document.getElementById('extension-list').innerHTML = list;
-    document.querySelectorAll('.cosmo-list__item').forEach((item) => {
-      item.addEventListener('click', async () => {
-        this.selectExtension({ name: item.getAttribute('data-name') });
-        this.displaySelectedExtension();
+    document.querySelectorAll('.cosmo-list__item')
+      .forEach((item) => {
+        item.addEventListener('click', async () => {
+          this.selectExtension({ name: item.getAttribute('data-name') });
+          this.displaySelectedExtension();
+        });
       });
-    });
   }
 
   async displayed() {

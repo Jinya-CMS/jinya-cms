@@ -17,17 +17,17 @@ export default class EditEmailItemDialog {
    * @param newItem {boolean}
    */
   constructor({
-    onHide,
-    id,
-    formId,
-    label,
-    position,
-    placeholder,
-    helpText,
-    isRequired,
-    isFromAddress,
-    newItem = false,
-  }) {
+                onHide,
+                id,
+                formId,
+                label,
+                position,
+                placeholder,
+                helpText,
+                isRequired,
+                isFromAddress,
+                newItem = false,
+              }) {
     this.onHide = onHide;
     this.position = position;
     this.newItem = newItem;
@@ -113,44 +113,46 @@ export default class EditEmailItemDialog {
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
-    document.getElementById('cancel-edit-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('edit-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const label = document.getElementById('editItemLabel').value;
-      const placeholder = document.getElementById('editItemPlaceholder').value;
-      const helpText = document.getElementById('editItemHelpText').value;
-      const isRequired = document.getElementById('editItemIsRequired').checked;
-      const isFromAddress = document.getElementById('editItemIsFromAddress').checked;
-      if (this.newItem) {
-        const item = await post(`/api/form/${this.formId}/item`, {
-          label,
-          placeholder,
-          helpText,
-          isRequired,
-          isFromAddress,
-          position: this.position,
-          type: 'email',
-        });
-        this.onHide({ item });
-      } else {
-        await put(`/api/form/${this.formId}/item/${this.position}`, {
-          label,
-          placeholder,
-          helpText,
-          isRequired,
-          isFromAddress,
-        });
-        this.onHide({
-          label,
-          placeholder,
-          helpText,
-          isRequired,
-          isFromAddress,
-        });
-      }
-      container.remove();
-    });
+    document.getElementById('cancel-edit-dialog')
+      .addEventListener('click', () => {
+        container.remove();
+      });
+    document.getElementById('edit-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const label = document.getElementById('editItemLabel').value;
+        const placeholder = document.getElementById('editItemPlaceholder').value;
+        const helpText = document.getElementById('editItemHelpText').value;
+        const isRequired = document.getElementById('editItemIsRequired').checked;
+        const isFromAddress = document.getElementById('editItemIsFromAddress').checked;
+        if (this.newItem) {
+          const item = await post(`/api/form/${this.formId}/item`, {
+            label,
+            placeholder,
+            helpText,
+            isRequired,
+            isFromAddress,
+            position: this.position,
+            type: 'email',
+          });
+          this.onHide({ item });
+        } else {
+          await put(`/api/form/${this.formId}/item/${this.position}`, {
+            label,
+            placeholder,
+            helpText,
+            isRequired,
+            isFromAddress,
+          });
+          this.onHide({
+            label,
+            placeholder,
+            helpText,
+            isRequired,
+            isFromAddress,
+          });
+        }
+        container.remove();
+      });
   }
 }

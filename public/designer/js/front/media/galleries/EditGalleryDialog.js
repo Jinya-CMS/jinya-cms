@@ -9,7 +9,10 @@ export default class EditGalleryDialog {
    * @param onHide {function({id: number, name: string, orientation: string, type: string, description: string})}
    * @param gallery {{id: number, name: string, description: string, orientation: string, type: string}}
    */
-  constructor({ onHide, gallery }) {
+  constructor({
+                onHide,
+                gallery,
+              }) {
     this.onHide = onHide;
     this.gallery = gallery;
   }
@@ -95,43 +98,45 @@ export default class EditGalleryDialog {
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
-    document.getElementById('cancel-add-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('edit-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('editGalleryName').value;
-      const description = document.getElementById('editGalleryDescription').value;
-      const orientation = document.querySelector('[name="orientation"]:checked').value;
-      const type = document.querySelector('[name="type"]:checked').value;
-      try {
-        await put(`/api/media/gallery/${this.gallery.id}`, {
-          name,
-          description,
-          orientation,
-          type,
-        });
-        this.onHide({
-          id: this.gallery.id,
-          name,
-          description,
-          orientation,
-          type,
-        });
+    document.getElementById('cancel-add-dialog')
+      .addEventListener('click', () => {
         container.remove();
-      } catch (err) {
-        if (err.status === 409) {
-          await alert({
-            title: localize({ key: 'media.galleries.edit.error.title' }),
-            message: localize({ key: 'media.galleries.edit.error.conflict' }),
+      });
+    document.getElementById('edit-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('editGalleryName').value;
+        const description = document.getElementById('editGalleryDescription').value;
+        const orientation = document.querySelector('[name="orientation"]:checked').value;
+        const type = document.querySelector('[name="type"]:checked').value;
+        try {
+          await put(`/api/media/gallery/${this.gallery.id}`, {
+            name,
+            description,
+            orientation,
+            type,
           });
-        } else {
-          await alert({
-            title: localize({ key: 'media.galleries.edit.error.title' }),
-            message: localize({ key: 'media.galleries.edit.error.generic' }),
+          this.onHide({
+            id: this.gallery.id,
+            name,
+            description,
+            orientation,
+            type,
           });
+          container.remove();
+        } catch (err) {
+          if (err.status === 409) {
+            await alert({
+              title: localize({ key: 'media.galleries.edit.error.title' }),
+              message: localize({ key: 'media.galleries.edit.error.conflict' }),
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'media.galleries.edit.error.title' }),
+              message: localize({ key: 'media.galleries.edit.error.generic' }),
+            });
+          }
         }
-      }
-    });
+      });
   }
 }

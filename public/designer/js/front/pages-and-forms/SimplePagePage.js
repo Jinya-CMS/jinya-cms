@@ -22,7 +22,9 @@ export default class SimplePagePage extends JinyaDesignerPage {
     document
       .querySelectorAll('.cosmo-list__item--active')
       .forEach((item) => item.classList.remove('cosmo-list__item--active'));
-    document.querySelector(`[data-id="${id}"]`).classList.add('cosmo-list__item--active');
+    document.querySelector(`[data-id="${id}"]`)
+      .classList
+      .add('cosmo-list__item--active');
   }
 
   displaySelectedPage() {
@@ -42,24 +44,26 @@ export default class SimplePagePage extends JinyaDesignerPage {
                 <button id="new-page-button" class="cosmo-button cosmo-button--full-width">
                     ${localize({ key: 'pages_and_forms.simple.action.new' })}
                 </button>`;
-    document.querySelectorAll('.cosmo-list__item').forEach((item) => {
-      item.addEventListener('click', async () => {
-        this.selectPage({ id: item.getAttribute('data-id') });
-        this.displaySelectedPage();
+    document.querySelectorAll('.cosmo-list__item')
+      .forEach((item) => {
+        item.addEventListener('click', async () => {
+          this.selectPage({ id: item.getAttribute('data-id') });
+          this.displaySelectedPage();
+        });
       });
-    });
-    document.getElementById('new-page-button').addEventListener('click', async () => {
-      const { default: AddSimplePageDialog } = await import('./simple-pages/AddSimplePageDialog.js');
-      const dialog = new AddSimplePageDialog({
-        onHide: async (page) => {
-          this.pages.push(page);
-          this.displayPages();
-          this.selectPage({ id: page.id });
-          await this.displaySelectedPage();
-        },
+    document.getElementById('new-page-button')
+      .addEventListener('click', async () => {
+        const { default: AddSimplePageDialog } = await import('./simple-pages/AddSimplePageDialog.js');
+        const dialog = new AddSimplePageDialog({
+          onHide: async (page) => {
+            this.pages.push(page);
+            this.displayPages();
+            this.selectPage({ id: page.id });
+            await this.displaySelectedPage();
+          },
+        });
+        dialog.show();
       });
-      dialog.show();
-    });
   }
 
   updateTiny() {
@@ -68,35 +72,36 @@ export default class SimplePagePage extends JinyaDesignerPage {
 
   // eslint-disable-next-line class-methods-use-this
   toString() {
-    return html` <div class="cosmo-list">
-      <nav class="cosmo-list__items" id="page-list"></nav>
-      <div class="cosmo-list__content jinya-designer">
-        <div class="jinya-designer__title">
-          <span class="cosmo-title" id="page-title"></span>
-        </div>
-        <div class="cosmo-toolbar cosmo-toolbar--designer">
-          <div class="cosmo-toolbar__group">
-            <button class="cosmo-button" id="edit-page">
-              ${localize({ key: 'pages_and_forms.simple.action.edit' })}
-            </button>
-            <button class="cosmo-button" id="delete-page">
-              ${localize({ key: 'pages_and_forms.simple.action.delete' })}
-            </button>
+    return html`
+      <div class="cosmo-list">
+        <nav class="cosmo-list__items" id="page-list"></nav>
+        <div class="cosmo-list__content jinya-designer">
+          <div class="jinya-designer__title">
+            <span class="cosmo-title" id="page-title"></span>
+          </div>
+          <div class="cosmo-toolbar cosmo-toolbar--designer">
+            <div class="cosmo-toolbar__group">
+              <button class="cosmo-button" id="edit-page">
+                ${localize({ key: 'pages_and_forms.simple.action.edit' })}
+              </button>
+              <button class="cosmo-button" id="delete-page">
+                ${localize({ key: 'pages_and_forms.simple.action.delete' })}
+              </button>
+            </div>
+          </div>
+          <div class="jinya-designer__content jinya-designer__content--simple-pages">
+            <div id="page-editor"></div>
+            <div class="cosmo-button__container">
+              <button id="discard-changes" class="cosmo-button">
+                ${localize({ key: 'pages_and_forms.simple.action.discard_content' })}
+              </button>
+              <button id="save-changes" class="cosmo-button">
+                ${localize({ key: 'pages_and_forms.simple.action.save_content' })}
+              </button>
+            </div>
           </div>
         </div>
-        <div class="jinya-designer__content jinya-designer__content--simple-pages">
-          <div id="page-editor"></div>
-          <div class="cosmo-button__container">
-            <button id="discard-changes" class="cosmo-button">
-              ${localize({ key: 'pages_and_forms.simple.action.discard_content' })}
-            </button>
-            <button id="save-changes" class="cosmo-button">
-              ${localize({ key: 'pages_and_forms.simple.action.save_content' })}
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>`;
+      </div>`;
   }
 
   bindEvents() {
@@ -104,75 +109,84 @@ export default class SimplePagePage extends JinyaDesignerPage {
     document
       .getElementById('discard-changes')
       .addEventListener('click', () => this.tiny.setContent(this.selectedPage.content));
-    document.getElementById('save-changes').addEventListener('click', async () => {
-      const content = this.tiny.getContent();
-      try {
-        await put(`/api/simple-page/${this.selectedPage.id}`, { content });
-        this.selectedPage.content = content;
-        this.pages.find((p) => p.id === this.selectedPage.id).content = content;
-      } catch (e) {
-        if (e.status === 409) {
-          await alert({
-            title: localize({ key: 'pages_and_forms.simple.edit.error.title' }),
-            message: localize({ key: 'pages_and_forms.simple.edit.error.conflict' }),
-          });
-        } else {
-          await alert({
-            title: localize({ key: 'pages_and_forms.simple.edit.error.title' }),
-            message: localize({ key: 'pages_and_forms.simple.edit.error.generic' }),
-          });
-        }
-      }
-    });
-    document.getElementById('edit-page').addEventListener('click', async () => {
-      const { default: EditSimplePageDialog } = await import('./simple-pages/EditSimplePageDialog.js');
-      const dialog = new EditSimplePageDialog({
-        onHide: async ({ id, title }) => {
-          this.pages.find((p) => p.id === id).title = title;
-          this.displayPages();
-          this.selectPage({ id });
-          await this.displaySelectedPage();
-        },
-        title: this.selectedPage.title,
-        id: this.selectedPage.id,
-      });
-      dialog.show();
-    });
-    document.getElementById('delete-page').addEventListener('click', async () => {
-      const confirmation = await confirm({
-        title: localize({ key: 'pages_and_forms.simple.delete.title' }),
-        message: localize({ key: 'pages_and_forms.simple.delete.message', values: this.selectedPage }),
-        declineLabel: localize({ key: 'pages_and_forms.simple.delete.keep' }),
-        approveLabel: localize({ key: 'pages_and_forms.simple.delete.delete' }),
-      });
-      if (confirmation) {
+    document.getElementById('save-changes')
+      .addEventListener('click', async () => {
+        const content = this.tiny.getContent();
         try {
-          await httpDelete(`/api/simple-page/${this.selectedPage.id}`);
-          this.pages = this.pages.filter((page) => page.id !== this.selectedPage.id);
-          this.displayPages();
-          if (this.pages.length > 0) {
-            this.selectPage({ id: this.pages[0].id });
-            await this.displaySelectedPage();
-          } else {
-            this.selectedPage = null;
-            await this.displaySegments();
-            document.getElementById('page-title').innerText = '';
-          }
+          await put(`/api/simple-page/${this.selectedPage.id}`, { content });
+          this.selectedPage.content = content;
+          this.pages.find((p) => p.id === this.selectedPage.id).content = content;
         } catch (e) {
           if (e.status === 409) {
             await alert({
-              title: localize({ key: 'pages_and_forms.simple.delete.error.title' }),
-              message: localize({ key: 'pages_and_forms.simple.delete.error.conflict' }),
+              title: localize({ key: 'pages_and_forms.simple.edit.error.title' }),
+              message: localize({ key: 'pages_and_forms.simple.edit.error.conflict' }),
             });
           } else {
             await alert({
-              title: localize({ key: 'pages_and_forms.simple.delete.error.title' }),
-              message: localize({ key: 'pages_and_forms.simple.delete.error.generic' }),
+              title: localize({ key: 'pages_and_forms.simple.edit.error.title' }),
+              message: localize({ key: 'pages_and_forms.simple.edit.error.generic' }),
             });
           }
         }
-      }
-    });
+      });
+    document.getElementById('edit-page')
+      .addEventListener('click', async () => {
+        const { default: EditSimplePageDialog } = await import('./simple-pages/EditSimplePageDialog.js');
+        const dialog = new EditSimplePageDialog({
+          onHide: async ({
+                           id,
+                           title,
+                         }) => {
+            this.pages.find((p) => p.id === id).title = title;
+            this.displayPages();
+            this.selectPage({ id });
+            await this.displaySelectedPage();
+          },
+          title: this.selectedPage.title,
+          id: this.selectedPage.id,
+        });
+        dialog.show();
+      });
+    document.getElementById('delete-page')
+      .addEventListener('click', async () => {
+        const confirmation = await confirm({
+          title: localize({ key: 'pages_and_forms.simple.delete.title' }),
+          message: localize({
+            key: 'pages_and_forms.simple.delete.message',
+            values: this.selectedPage,
+          }),
+          declineLabel: localize({ key: 'pages_and_forms.simple.delete.keep' }),
+          approveLabel: localize({ key: 'pages_and_forms.simple.delete.delete' }),
+        });
+        if (confirmation) {
+          try {
+            await httpDelete(`/api/simple-page/${this.selectedPage.id}`);
+            this.pages = this.pages.filter((page) => page.id !== this.selectedPage.id);
+            this.displayPages();
+            if (this.pages.length > 0) {
+              this.selectPage({ id: this.pages[0].id });
+              await this.displaySelectedPage();
+            } else {
+              this.selectedPage = null;
+              await this.displaySegments();
+              document.getElementById('page-title').innerText = '';
+            }
+          } catch (e) {
+            if (e.status === 409) {
+              await alert({
+                title: localize({ key: 'pages_and_forms.simple.delete.error.title' }),
+                message: localize({ key: 'pages_and_forms.simple.delete.error.conflict' }),
+              });
+            } else {
+              await alert({
+                title: localize({ key: 'pages_and_forms.simple.delete.error.title' }),
+                message: localize({ key: 'pages_and_forms.simple.delete.error.generic' }),
+              });
+            }
+          }
+        }
+      });
   }
 
   async displayed() {

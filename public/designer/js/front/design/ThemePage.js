@@ -150,26 +150,28 @@ export default class ThemePage extends JinyaDesignerPage {
                 <button id="upload-theme-button" class="cosmo-button cosmo-button--full-width">
                     ${localize({ key: 'design.themes.action.create' })}
                 </button>`;
-    document.querySelectorAll('.cosmo-list__item').forEach((item) => {
-      item.addEventListener('click', async () => {
-        this.selectTheme({ id: item.getAttribute('data-id') });
-        await this.displaySelectedTheme();
-      });
-    });
-    document.getElementById('upload-theme-button').addEventListener('click', async () => {
-      const { default: UploadThemeDialog } = await import('./themes/UploadThemeDialog.js');
-      const dialog = new UploadThemeDialog({
-        onHide: async ({ name }) => {
-          const { items } = await get('/api/theme');
-          this.themes = items;
-          this.displayThemes();
-          const selectedTheme = this.themes.find((t) => t.name === name);
-          this.selectTheme({ id: selectedTheme.id });
+    document.querySelectorAll('.cosmo-list__item')
+      .forEach((item) => {
+        item.addEventListener('click', async () => {
+          this.selectTheme({ id: item.getAttribute('data-id') });
           await this.displaySelectedTheme();
-        },
+        });
       });
-      await dialog.show();
-    });
+    document.getElementById('upload-theme-button')
+      .addEventListener('click', async () => {
+        const { default: UploadThemeDialog } = await import('./themes/UploadThemeDialog.js');
+        const dialog = new UploadThemeDialog({
+          onHide: async ({ name }) => {
+            const { items } = await get('/api/theme');
+            this.themes = items;
+            this.displayThemes();
+            const selectedTheme = this.themes.find((t) => t.name === name);
+            this.selectTheme({ id: selectedTheme.id });
+            await this.displaySelectedTheme();
+          },
+        });
+        await dialog.show();
+      });
   }
 
   selectTheme({ id }) {
@@ -177,7 +179,9 @@ export default class ThemePage extends JinyaDesignerPage {
     document
       .querySelectorAll('.cosmo-list__item--active')
       .forEach((item) => item.classList.remove('cosmo-list__item--active'));
-    document.querySelector(`[data-id="${id}"]`).classList.add('cosmo-list__item--active');
+    document.querySelector(`[data-id="${id}"]`)
+      .classList
+      .add('cosmo-list__item--active');
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -204,56 +208,70 @@ export default class ThemePage extends JinyaDesignerPage {
     let defaultConfiguration = {};
 
     await Promise.all([
-      get(`/api/theme/${this.selectedTheme.id}/segment-page`).then((result) => {
-        for (const key of Object.keys(result)) {
-          this.themeSegmentPages[key] = result[key].id;
-        }
-      }),
-      get(`/api/theme/${this.selectedTheme.id}/page`).then((result) => {
-        for (const key of Object.keys(result)) {
-          this.themePages[key] = result[key].id;
-        }
-      }),
-      get(`/api/theme/${this.selectedTheme.id}/form`).then((result) => {
-        for (const key of Object.keys(result)) {
-          this.themeForms[key] = result[key].id;
-        }
-      }),
-      get(`/api/theme/${this.selectedTheme.id}/menu`).then((result) => {
-        for (const key of Object.keys(result)) {
-          this.themeMenus[key] = result[key].id;
-        }
-      }),
-      get(`/api/theme/${this.selectedTheme.id}/gallery`).then((result) => {
-        for (const key of Object.keys(result)) {
-          this.themeGalleries[key] = result[key].id;
-        }
-      }),
-      get(`/api/theme/${this.selectedTheme.id}/file`).then((result) => {
-        for (const key of Object.keys(result)) {
-          this.themeFiles[key] = result[key].id;
-        }
-      }),
-      get(`/api/theme/${this.selectedTheme.id}/category`).then((result) => {
-        for (const key of Object.keys(result)) {
-          this.themeCategories[key] = result[key].id;
-        }
-      }),
-      get(`/api/theme/${this.selectedTheme.id}/styling`).then((result) => {
-        this.defaultVariables = result;
-      }),
-      get(`/api/theme/${this.selectedTheme.id}/configuration/default`).then((result) => {
-        defaultConfiguration = result;
-      }),
-      get(`/api/theme/${this.selectedTheme.id}/configuration/structure`).then((result) => {
-        this.configurationStructure = result;
-      }),
+      get(`/api/theme/${this.selectedTheme.id}/segment-page`)
+        .then((result) => {
+          for (const key of Object.keys(result)) {
+            this.themeSegmentPages[key] = result[key].id;
+          }
+        }),
+      get(`/api/theme/${this.selectedTheme.id}/page`)
+        .then((result) => {
+          for (const key of Object.keys(result)) {
+            this.themePages[key] = result[key].id;
+          }
+        }),
+      get(`/api/theme/${this.selectedTheme.id}/form`)
+        .then((result) => {
+          for (const key of Object.keys(result)) {
+            this.themeForms[key] = result[key].id;
+          }
+        }),
+      get(`/api/theme/${this.selectedTheme.id}/menu`)
+        .then((result) => {
+          for (const key of Object.keys(result)) {
+            this.themeMenus[key] = result[key].id;
+          }
+        }),
+      get(`/api/theme/${this.selectedTheme.id}/gallery`)
+        .then((result) => {
+          for (const key of Object.keys(result)) {
+            this.themeGalleries[key] = result[key].id;
+          }
+        }),
+      get(`/api/theme/${this.selectedTheme.id}/file`)
+        .then((result) => {
+          for (const key of Object.keys(result)) {
+            this.themeFiles[key] = result[key].id;
+          }
+        }),
+      get(`/api/theme/${this.selectedTheme.id}/category`)
+        .then((result) => {
+          for (const key of Object.keys(result)) {
+            this.themeCategories[key] = result[key].id;
+          }
+        }),
+      get(`/api/theme/${this.selectedTheme.id}/styling`)
+        .then((result) => {
+          this.defaultVariables = result;
+        }),
+      get(`/api/theme/${this.selectedTheme.id}/configuration/default`)
+        .then((result) => {
+          defaultConfiguration = result;
+        }),
+      get(`/api/theme/${this.selectedTheme.id}/configuration/structure`)
+        .then((result) => {
+          this.configurationStructure = result;
+        }),
     ]);
 
-    const { configuration, scssVariables } = this.selectedTheme;
-    Object.keys(defaultConfiguration).forEach((item) => {
-      configuration[item] = configuration[item] ?? {};
-    });
+    const {
+      configuration,
+      scssVariables,
+    } = this.selectedTheme;
+    Object.keys(defaultConfiguration)
+      .forEach((item) => {
+        configuration[item] = configuration[item] ?? {};
+      });
 
     const getGroupHeader = (group) =>
       html`<span class="cosmo-input__header"> ${this.getValueForCurrentLanguage(group.title)} </span>`;
@@ -286,7 +304,8 @@ export default class ThemePage extends JinyaDesignerPage {
     };
     const getGroups = () =>
       this.configurationStructure.groups
-        .map((group) => getGroupHeader(group) + group.fields.map((field) => getField(group, field)).join('\n'))
+        .map((group) => getGroupHeader(group) + group.fields.map((field) => getField(group, field))
+          .join('\n'))
         .join('\n');
     const configurationElement = document.querySelector('#configuration-tab .cosmo-input__group');
     clearChildren({ parent: configurationElement });
@@ -302,11 +321,11 @@ export default class ThemePage extends JinyaDesignerPage {
               >
               <select required id="files_${link}" name="file__%__${link}" class="cosmo-select">
                 ${this.files.map(
-                  (file) =>
-                    `<option ${file.id === this.themeFiles[link] ? 'selected' : ''} value="${file.id}">"${
-                      file.name
-                    }"</option>`,
-                )}
+              (file) =>
+                `<option ${file.id === this.themeFiles[link] ? 'selected' : ''} value="${file.id}">"${
+                  file.name
+                }"</option>`,
+            )}
               </select>`,
         )
         .join('\n');
@@ -320,11 +339,11 @@ export default class ThemePage extends JinyaDesignerPage {
               >
               <select required id="segment_pages_${link}" name="segment-page__%__${link}" class="cosmo-select">
                 ${this.segmentPages.map(
-                  (segmentPage) =>
-                    `<option ${segmentPage.id === this.themeSegmentPages[link] ? 'selected' : ''} value="${
-                      segmentPage.id
-                    }">${segmentPage.name}</option>`,
-                )}
+              (segmentPage) =>
+                `<option ${segmentPage.id === this.themeSegmentPages[link] ? 'selected' : ''} value="${
+                  segmentPage.id
+                }">${segmentPage.name}</option>`,
+            )}
               </select>`,
         )
         .join('\n');
@@ -334,16 +353,16 @@ export default class ThemePage extends JinyaDesignerPage {
         .map(
           (link) =>
             html` <label for="pages_${link}" class="cosmo-label"
-                >${this.getValueForCurrentLanguage(this.configurationStructure.links.pages[link])}</label
-              >
-              <select required id="pages_${link}" name="page__%__${link}" class="cosmo-select">
-                ${this.pages.map(
-                  (page) =>
-                    `<option ${page.id === this.themePages[link] ? 'selected' : ''} value="${page.id}">${
-                      page.title
-                    }</option>`,
-                )}
-              </select>`,
+            >${this.getValueForCurrentLanguage(this.configurationStructure.links.pages[link])}</label
+            >
+            <select required id="pages_${link}" name="page__%__${link}" class="cosmo-select">
+              ${this.pages.map(
+                (page) =>
+                  `<option ${page.id === this.themePages[link] ? 'selected' : ''} value="${page.id}">${
+                    page.title
+                  }</option>`,
+              )}
+            </select>`,
         )
         .join('\n');
     const getFormLinks = () =>
@@ -356,11 +375,11 @@ export default class ThemePage extends JinyaDesignerPage {
               >
               <select required id="forms_${link}" name="form__%__${link}" class="cosmo-select">
                 ${this.forms.map(
-                  (form) =>
-                    `<option ${form.id === this.themeForms[link] ? 'selected' : ''} value="${form.id}">${
-                      form.title
-                    }</option>`,
-                )}
+              (form) =>
+                `<option ${form.id === this.themeForms[link] ? 'selected' : ''} value="${form.id}">${
+                  form.title
+                }</option>`,
+            )}
               </select>`,
         )
         .join('\n');
@@ -374,11 +393,11 @@ export default class ThemePage extends JinyaDesignerPage {
               >
               <select required id="menus_${link}" name="menu__%__${link}" class="cosmo-select">
                 ${this.menus.map(
-                  (menu) =>
-                    `<option ${menu.id === this.themeMenus[link] ? 'selected' : ''} value="${menu.id}">${
-                      menu.name
-                    }</option>`,
-                )}
+              (menu) =>
+                `<option ${menu.id === this.themeMenus[link] ? 'selected' : ''} value="${menu.id}">${
+                  menu.name
+                }</option>`,
+            )}
               </select>`,
         )
         .join('\n');
@@ -392,11 +411,11 @@ export default class ThemePage extends JinyaDesignerPage {
               >
               <select required id="galleries_${link}" name="gallery__%__${link}" class="cosmo-select">
                 ${this.galleries.map(
-                  (gallery) =>
-                    `<option ${gallery.id === this.themeGalleries[link] ? 'selected' : ''} value="${gallery.id}">${
-                      gallery.name
-                    }</option>`,
-                )}
+              (gallery) =>
+                `<option ${gallery.id === this.themeGalleries[link] ? 'selected' : ''} value="${gallery.id}">${
+                  gallery.name
+                }</option>`,
+            )}
               </select>`,
         )
         .join('\n');
@@ -410,11 +429,11 @@ export default class ThemePage extends JinyaDesignerPage {
               >
               <select required id="categories_${link}" name="category__%__${link}" class="cosmo-select">
                 ${this.blog_categories.map(
-                  (category) =>
-                    `<option ${category.id === this.themeCategories[link] ? 'selected' : ''} value="${category.id}">${
-                      category.name
-                    }</option>`,
-                )}
+              (category) =>
+                `<option ${category.id === this.themeCategories[link] ? 'selected' : ''} value="${category.id}">${
+                  category.name
+                }</option>`,
+            )}
               </select>`,
         )
         .join('\n');
@@ -472,27 +491,34 @@ export default class ThemePage extends JinyaDesignerPage {
     this.displayThemes();
     this.selectTheme({ id: this.themes[0].id });
     await Promise.all([
-      get('/api/segment-page').then(({ items }) => {
-        this.segmentPages = items;
-      }),
-      get('/api/page').then(({ items }) => {
-        this.pages = items;
-      }),
-      get('/api/form').then(({ items }) => {
-        this.forms = items;
-      }),
-      get('/api/menu').then(({ items }) => {
-        this.menus = items;
-      }),
-      get('/api/media/gallery').then(({ items }) => {
-        this.galleries = items;
-      }),
-      get('/api/media/file').then(({ items }) => {
-        this.files = items;
-      }),
-      get('/api/blog/category').then(({ items }) => {
-        this.categories = items;
-      }),
+      get('/api/segment-page')
+        .then(({ items }) => {
+          this.segmentPages = items;
+        }),
+      get('/api/page')
+        .then(({ items }) => {
+          this.pages = items;
+        }),
+      get('/api/form')
+        .then(({ items }) => {
+          this.forms = items;
+        }),
+      get('/api/menu')
+        .then(({ items }) => {
+          this.menus = items;
+        }),
+      get('/api/media/gallery')
+        .then(({ items }) => {
+          this.galleries = items;
+        }),
+      get('/api/media/file')
+        .then(({ items }) => {
+          this.files = items;
+        }),
+      get('/api/blog/category')
+        .then(({ items }) => {
+          this.categories = items;
+        }),
     ]);
     await this.displaySelectedTheme();
   }
@@ -504,190 +530,207 @@ export default class ThemePage extends JinyaDesignerPage {
 
   bindEvents() {
     super.bindEvents();
-    document.getElementById('activate-theme').addEventListener('click', async () => {
-      if (
-        await confirm({
-          title: localize({ key: 'design.themes.activate.title' }),
-          message: localize({ key: 'design.themes.activate.message', values: this.selectedTheme }),
-          approveLabel: localize({ key: 'design.themes.activate.approve' }),
-          declineLabel: localize({ key: 'design.themes.activate.decline' }),
-        })
-      ) {
-        try {
-          await put(`/api/theme/${this.selectedTheme.id}/active`);
-          await alert({
-            title: localize({ key: 'design.themes.activate.success.title' }),
-            message: localize({
-              key: 'design.themes.activate.success.message',
-              values: this.selectedTheme,
-            }),
-          });
-        } catch (e) {
-          await alert({
-            title: localize({ key: 'design.themes.activate.error.title' }),
-            message: localize({
-              key: 'design.themes.activate.error.message',
-              values: this.selectedTheme,
-            }),
-          });
-        }
-      }
-    });
-    document.getElementById('compile-assets').addEventListener('click', async () => {
-      if (
-        await confirm({
-          title: localize({ key: 'design.themes.assets.title' }),
-          message: localize({ key: 'design.themes.assets.message', values: this.selectedTheme }),
-          approveLabel: localize({ key: 'design.themes.assets.approve' }),
-          declineLabel: localize({ key: 'design.themes.assets.decline' }),
-        })
-      ) {
-        try {
-          await put(`/api/theme/${this.selectedTheme.id}/assets`);
-          await alert({
-            title: localize({ key: 'design.themes.assets.success.title' }),
-            message: localize({
-              key: 'design.themes.assets.success.message',
-              values: this.selectedTheme,
-            }),
-          });
-        } catch (e) {
-          await alert({
-            title: localize({ key: 'design.themes.assets.error.title' }),
-            message: localize({
-              key: 'design.themes.assets.error.message',
-              values: this.selectedTheme,
-            }),
-          });
-        }
-      }
-    });
-    document.getElementById('update-theme').addEventListener('click', async () => {
-      const { default: UploadThemeDialog } = await import('./themes/UpdateThemeDialog.js');
-      const dialog = new UploadThemeDialog({
-        id: this.selectedTheme.id,
-        onHide: async () => {
-          const { items } = await get('/api/theme');
-          this.themes = items;
-          this.selectTheme(this.themes.filter((f) => f.id === this.selectedTheme.id)[0]);
-          await this.displaySelectedTheme();
-        },
-      });
-      dialog.show();
-    });
-
-    document.getElementById('configuration-tab').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const configuration = {};
-      const formData = new FormData(document.getElementById('configuration-tab'));
-      for (const [key, value] of formData.entries()) {
-        const split = key.split('__%__');
-        const group = split[0];
-        const field = split[1];
-        configuration[group] = configuration[group] ?? {};
+    document.getElementById('activate-theme')
+      .addEventListener('click', async () => {
         if (
-          this.configurationStructure.groups.find((g) => g.name === group).fields.find((f) => f.name === field).type ===
-          'boolean'
+          await confirm({
+            title: localize({ key: 'design.themes.activate.title' }),
+            message: localize({
+              key: 'design.themes.activate.message',
+              values: this.selectedTheme,
+            }),
+            approveLabel: localize({ key: 'design.themes.activate.approve' }),
+            declineLabel: localize({ key: 'design.themes.activate.decline' }),
+          })
         ) {
-          configuration[group][field] = value.toLowerCase() === 'on';
-        } else {
-          configuration[group][field] = value;
+          try {
+            await put(`/api/theme/${this.selectedTheme.id}/active`);
+            await alert({
+              title: localize({ key: 'design.themes.activate.success.title' }),
+              message: localize({
+                key: 'design.themes.activate.success.message',
+                values: this.selectedTheme,
+              }),
+            });
+          } catch (e) {
+            await alert({
+              title: localize({ key: 'design.themes.activate.error.title' }),
+              message: localize({
+                key: 'design.themes.activate.error.message',
+                values: this.selectedTheme,
+              }),
+            });
+          }
         }
-      }
-
-      try {
-        await put(`/api/theme/${this.selectedTheme.id}/configuration`, { configuration });
-        await alert({
-          title: localize({ key: 'design.themes.configuration.success.title' }),
-          message: localize({ key: 'design.themes.configuration.success.message' }),
-        });
-        await this.loadThemes();
-        this.displayThemes();
-        this.selectTheme({ id: this.selectedTheme.id });
-        await this.displaySelectedTheme();
-      } catch (err) {
-        await alert({
-          title: localize({ key: 'design.themes.configuration.error.title' }),
-          message: localize({ key: 'design.themes.configuration.error.message' }),
-        });
-      }
-    });
-    document.getElementById('links-tab').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(document.getElementById('links-tab'));
-      const promises = [];
-      for (const [key, value] of formData.entries()) {
-        const split = key.split('__%__');
-        const type = split[0];
-        const field = split[1];
-        const data = {};
-        if (type === 'segment-page') {
-          data.segmentPage = value;
-        } else {
-          data[type] = value;
-        }
-        promises.push(put(`/api/theme/${this.selectedTheme.id}/${type}/${field}`, data));
-      }
-
-      try {
-        await Promise.all(promises);
-        await alert({
-          title: localize({ key: 'design.themes.links.success.title' }),
-          message: localize({ key: 'design.themes.links.success.message' }),
-        });
-        await this.loadThemes();
-        this.displayThemes();
-        this.selectTheme({ id: this.selectedTheme.id });
-        await this.displaySelectedTheme();
-      } catch (err) {
-        await alert({
-          title: localize({ key: 'design.themes.links.error.title' }),
-          message: localize({ key: 'design.themes.links.error.message' }),
-        });
-      }
-    });
-    document.getElementById('variables-tab').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(document.getElementById('variables-tab'));
-      const variables = {};
-      for (const [key, value] of formData.entries()) {
-        if (value !== '') {
-          variables[key] = value;
-        }
-      }
-
-      try {
-        await put(`/api/theme/${this.selectedTheme.id}/styling`, { variables });
-        await alert({
-          title: localize({ key: 'design.themes.variables.success.title' }),
-          message: localize({ key: 'design.themes.variables.success.message' }),
-        });
-        await this.loadThemes();
-        this.displayThemes();
-        this.selectTheme({ id: this.selectedTheme.id });
-        await this.displaySelectedTheme();
-      } catch (err) {
-        await alert({
-          title: localize({ key: 'design.themes.variables.error.title' }),
-          message: localize({ key: 'design.themes.variables.error.message' }),
-        });
-      }
-    });
-
-    document.querySelectorAll('[data-type="tab"]').forEach((tab) => {
-      tab.addEventListener('click', (e) => {
-        e.preventDefault();
-        const target = tab.getAttribute('data-target');
-        document
-          .querySelectorAll('[data-type="tab"]')
-          .forEach((item) => item.classList.remove('cosmo-tab-control__tab-link--active'));
-        document.querySelectorAll('.cosmo-tab-control__content').forEach((item) => {
-          // eslint-disable-next-line no-param-reassign
-          item.style.display = 'none';
-        });
-        document.getElementById(target).removeAttribute('style');
-        tab.classList.add('cosmo-tab-control__tab-link--active');
       });
-    });
+    document.getElementById('compile-assets')
+      .addEventListener('click', async () => {
+        if (
+          await confirm({
+            title: localize({ key: 'design.themes.assets.title' }),
+            message: localize({
+              key: 'design.themes.assets.message',
+              values: this.selectedTheme,
+            }),
+            approveLabel: localize({ key: 'design.themes.assets.approve' }),
+            declineLabel: localize({ key: 'design.themes.assets.decline' }),
+          })
+        ) {
+          try {
+            await put(`/api/theme/${this.selectedTheme.id}/assets`);
+            await alert({
+              title: localize({ key: 'design.themes.assets.success.title' }),
+              message: localize({
+                key: 'design.themes.assets.success.message',
+                values: this.selectedTheme,
+              }),
+            });
+          } catch (e) {
+            await alert({
+              title: localize({ key: 'design.themes.assets.error.title' }),
+              message: localize({
+                key: 'design.themes.assets.error.message',
+                values: this.selectedTheme,
+              }),
+            });
+          }
+        }
+      });
+    document.getElementById('update-theme')
+      .addEventListener('click', async () => {
+        const { default: UploadThemeDialog } = await import('./themes/UpdateThemeDialog.js');
+        const dialog = new UploadThemeDialog({
+          id: this.selectedTheme.id,
+          onHide: async () => {
+            const { items } = await get('/api/theme');
+            this.themes = items;
+            this.selectTheme(this.themes.filter((f) => f.id === this.selectedTheme.id)[0]);
+            await this.displaySelectedTheme();
+          },
+        });
+        dialog.show();
+      });
+
+    document.getElementById('configuration-tab')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const configuration = {};
+        const formData = new FormData(document.getElementById('configuration-tab'));
+        for (const [key, value] of formData.entries()) {
+          const split = key.split('__%__');
+          const group = split[0];
+          const field = split[1];
+          configuration[group] = configuration[group] ?? {};
+          if (
+            this.configurationStructure.groups.find((g) => g.name === group)
+              .fields
+              .find((f) => f.name === field).type ===
+            'boolean'
+          ) {
+            configuration[group][field] = value.toLowerCase() === 'on';
+          } else {
+            configuration[group][field] = value;
+          }
+        }
+
+        try {
+          await put(`/api/theme/${this.selectedTheme.id}/configuration`, { configuration });
+          await alert({
+            title: localize({ key: 'design.themes.configuration.success.title' }),
+            message: localize({ key: 'design.themes.configuration.success.message' }),
+          });
+          await this.loadThemes();
+          this.displayThemes();
+          this.selectTheme({ id: this.selectedTheme.id });
+          await this.displaySelectedTheme();
+        } catch (err) {
+          await alert({
+            title: localize({ key: 'design.themes.configuration.error.title' }),
+            message: localize({ key: 'design.themes.configuration.error.message' }),
+          });
+        }
+      });
+    document.getElementById('links-tab')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(document.getElementById('links-tab'));
+        const promises = [];
+        for (const [key, value] of formData.entries()) {
+          const split = key.split('__%__');
+          const type = split[0];
+          const field = split[1];
+          const data = {};
+          if (type === 'segment-page') {
+            data.segmentPage = value;
+          } else {
+            data[type] = value;
+          }
+          promises.push(put(`/api/theme/${this.selectedTheme.id}/${type}/${field}`, data));
+        }
+
+        try {
+          await Promise.all(promises);
+          await alert({
+            title: localize({ key: 'design.themes.links.success.title' }),
+            message: localize({ key: 'design.themes.links.success.message' }),
+          });
+          await this.loadThemes();
+          this.displayThemes();
+          this.selectTheme({ id: this.selectedTheme.id });
+          await this.displaySelectedTheme();
+        } catch (err) {
+          await alert({
+            title: localize({ key: 'design.themes.links.error.title' }),
+            message: localize({ key: 'design.themes.links.error.message' }),
+          });
+        }
+      });
+    document.getElementById('variables-tab')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(document.getElementById('variables-tab'));
+        const variables = {};
+        for (const [key, value] of formData.entries()) {
+          if (value !== '') {
+            variables[key] = value;
+          }
+        }
+
+        try {
+          await put(`/api/theme/${this.selectedTheme.id}/styling`, { variables });
+          await alert({
+            title: localize({ key: 'design.themes.variables.success.title' }),
+            message: localize({ key: 'design.themes.variables.success.message' }),
+          });
+          await this.loadThemes();
+          this.displayThemes();
+          this.selectTheme({ id: this.selectedTheme.id });
+          await this.displaySelectedTheme();
+        } catch (err) {
+          await alert({
+            title: localize({ key: 'design.themes.variables.error.title' }),
+            message: localize({ key: 'design.themes.variables.error.message' }),
+          });
+        }
+      });
+
+    document.querySelectorAll('[data-type="tab"]')
+      .forEach((tab) => {
+        tab.addEventListener('click', (e) => {
+          e.preventDefault();
+          const target = tab.getAttribute('data-target');
+          document
+            .querySelectorAll('[data-type="tab"]')
+            .forEach((item) => item.classList.remove('cosmo-tab-control__tab-link--active'));
+          document.querySelectorAll('.cosmo-tab-control__content')
+            .forEach((item) => {
+              // eslint-disable-next-line no-param-reassign
+              item.style.display = 'none';
+            });
+          document.getElementById(target)
+            .removeAttribute('style');
+          tab.classList.add('cosmo-tab-control__tab-link--active');
+        });
+      });
   }
 }

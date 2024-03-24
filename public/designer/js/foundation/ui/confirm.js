@@ -8,7 +8,12 @@ import html from '../../../lib/jinya-html.js';
  * @param approveLabel {string}
  * @return {Promise<boolean>}
  */
-export default async function confirm({ title = window.location.href, message, declineLabel, approveLabel }) {
+export default async function confirm({
+                                        title = window.location.href,
+                                        message,
+                                        declineLabel,
+                                        approveLabel,
+                                      }) {
   return new Promise((resolve) => {
     const container = document.createElement('div');
     document.body.appendChild(container);
@@ -28,15 +33,17 @@ export default async function confirm({ title = window.location.href, message, d
 
     document.body.appendChild(container);
 
-    document.getElementById(`${modalId}DeclineButton`).addEventListener('click', (e) => {
-      e.preventDefault();
-      container.remove();
-      resolve(false);
-    });
-    document.getElementById(`${modalId}ApproveButton`).addEventListener('click', (e) => {
-      e.preventDefault();
-      container.remove();
-      resolve(true);
-    });
+    document.getElementById(`${modalId}DeclineButton`)
+      .addEventListener('click', (e) => {
+        e.preventDefault();
+        container.remove();
+        resolve(false);
+      });
+    document.getElementById(`${modalId}ApproveButton`)
+      .addEventListener('click', (e) => {
+        e.preventDefault();
+        container.remove();
+        resolve(true);
+      });
   });
 }

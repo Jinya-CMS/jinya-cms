@@ -69,15 +69,16 @@ export default class ActiveSessionsPage extends JinyaDesignerPage {
       </tr>`;
       table.append(tr);
     }
-    document.querySelectorAll('[data-action="logout"]').forEach((button) => {
-      button.addEventListener('click', async () => {
-        const key = button.getAttribute('data-apikey');
-        await httpDelete(`/api/api_key/${key}`);
-        const idx = this.sessions.findIndex((s) => s.key === key);
-        this.sessions.splice(idx, 1);
-        this.displaySessions();
+    document.querySelectorAll('[data-action="logout"]')
+      .forEach((button) => {
+        button.addEventListener('click', async () => {
+          const key = button.getAttribute('data-apikey');
+          await httpDelete(`/api/api_key/${key}`);
+          const idx = this.sessions.findIndex((s) => s.key === key);
+          this.sessions.splice(idx, 1);
+          this.displaySessions();
+        });
       });
-    });
   }
 
   // eslint-disable-next-line class-methods-use-this

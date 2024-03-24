@@ -62,15 +62,16 @@ export default class ActiveDevicesPage extends JinyaDesignerPage {
       </tr>`;
       table.append(tr);
     }
-    document.querySelectorAll('[data-action="logout"]').forEach((button) => {
-      button.addEventListener('click', async () => {
-        const key = button.getAttribute('data-key');
-        await httpDelete(`/api/known_device/${key}`);
-        const idx = this.devices.findIndex((s) => s.key === key);
-        this.devices.splice(idx, 1);
-        this.displayDevices();
+    document.querySelectorAll('[data-action="logout"]')
+      .forEach((button) => {
+        button.addEventListener('click', async () => {
+          const key = button.getAttribute('data-key');
+          await httpDelete(`/api/known_device/${key}`);
+          const idx = this.devices.findIndex((s) => s.key === key);
+          this.devices.splice(idx, 1);
+          this.displayDevices();
+        });
       });
-    });
   }
 
   // eslint-disable-next-line class-methods-use-this

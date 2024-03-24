@@ -10,7 +10,11 @@ export default class EditSimplePageDialog {
    * @param title {string}
    * @param id {number}
    */
-  constructor({ onHide, title, id }) {
+  constructor({
+                onHide,
+                title,
+                id,
+              }) {
     this.onHide = onHide;
     this.title = title;
     this.id = id;
@@ -42,31 +46,36 @@ export default class EditSimplePageDialog {
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
-    document.getElementById('cancel-edit-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('edit-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const title = document.getElementById('editPageTitle').value;
-      try {
-        await put(`/api/simple-page/${this.id}`, {
-          title,
-        });
-        this.onHide({ title, id: this.id });
+    document.getElementById('cancel-edit-dialog')
+      .addEventListener('click', () => {
         container.remove();
-      } catch (err) {
-        if (err.status === 409) {
-          await alert({
-            title: localize({ key: 'pages_and_forms.simple.create.error.title' }),
-            message: localize({ key: 'pages_and_forms.simple.create.error.conflict' }),
+      });
+    document.getElementById('edit-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const title = document.getElementById('editPageTitle').value;
+        try {
+          await put(`/api/simple-page/${this.id}`, {
+            title,
           });
-        } else {
-          await alert({
-            title: localize({ key: 'pages_and_forms.simple.create.error.title' }),
-            message: localize({ key: 'pages_and_forms.simple.create.error.generic' }),
+          this.onHide({
+            title,
+            id: this.id,
           });
+          container.remove();
+        } catch (err) {
+          if (err.status === 409) {
+            await alert({
+              title: localize({ key: 'pages_and_forms.simple.create.error.title' }),
+              message: localize({ key: 'pages_and_forms.simple.create.error.conflict' }),
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'pages_and_forms.simple.create.error.title' }),
+              message: localize({ key: 'pages_and_forms.simple.create.error.generic' }),
+            });
+          }
         }
-      }
-    });
+      });
   }
 }

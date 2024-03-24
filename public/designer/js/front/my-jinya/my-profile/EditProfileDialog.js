@@ -4,7 +4,10 @@ import localize from '../../../foundation/localize.js';
 import getEditor from '../../../foundation/ui/tiny.js';
 
 export default class EditProfileDialog {
-  constructor({ artist, onHide }) {
+  constructor({
+                artist,
+                onHide,
+              }) {
     this.artist = artist;
     this.onHide = onHide;
   }
@@ -49,21 +52,33 @@ export default class EditProfileDialog {
     tiny.setContent(this.artist.aboutMe);
     container.style.display = 'inherit';
 
-    document.getElementById('discardProfile').addEventListener('click', () => container.remove());
-    document.getElementById('edit-profile-dialog').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const artistName = document.getElementById('artistName').value;
-      const email = document.getElementById('email').value;
-      const aboutMe = tiny.getContent();
-      await put('/api/me', { email, artistName, aboutMe });
-      const profilePictureInput = document.getElementById('profilePictureFile');
-      if (profilePictureInput.files.length > 0) {
-        const pic = profilePictureInput.files[0];
-        await upload('/api/me/profilepicture', pic);
-      }
-      tinymce.remove();
-      container.remove();
-      this.onHide({ artist: { artistName, email, aboutMe } });
-    });
+    document.getElementById('discardProfile')
+      .addEventListener('click', () => container.remove());
+    document.getElementById('edit-profile-dialog')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const artistName = document.getElementById('artistName').value;
+        const email = document.getElementById('email').value;
+        const aboutMe = tiny.getContent();
+        await put('/api/me', {
+          email,
+          artistName,
+          aboutMe,
+        });
+        const profilePictureInput = document.getElementById('profilePictureFile');
+        if (profilePictureInput.files.length > 0) {
+          const pic = profilePictureInput.files[0];
+          await upload('/api/me/profilepicture', pic);
+        }
+        tinymce.remove();
+        container.remove();
+        this.onHide({
+          artist: {
+            artistName,
+            email,
+            aboutMe,
+          },
+        });
+      });
   }
 }

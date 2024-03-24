@@ -11,7 +11,11 @@ export default class EditDialog {
    * @param tags {{id: number, name: string, emoji: string, color: string}[]}
    * @param file {{id: number, name: string, tags: {id: number, name: string, emoji: string, color: string}[]}}
    */
-  constructor({ onHide, file, tags }) {
+  constructor({
+                onHide,
+                file,
+                tags,
+              }) {
     this.onHide = onHide;
     this.file = file;
     this.tags = tags;
@@ -20,39 +24,44 @@ export default class EditDialog {
 
   renderTags() {
     const tagList = document.getElementById('edit-tag-list');
-    tagList.innerHTML = html`${this.tags.map(
-        (tag) =>
-          html` <cms-tag
-            emoji="${tag.emoji}"
-            name="${tag.name}"
-            color="${tag.color}"
-            tag-id="${tag.id}"
-            id="tag-${tag.name}"
-            class="jinya-tag--file"
-            ${this.activeTagNames.includes(tag.name) ? 'active' : ''}
-          ></cms-tag>`,
-      )}
-      <button class="cosmo-circular-button cosmo-circular-button--small" id="new-tag-open-button" type="button">
-        <span class="mdi mdi-plus"></span>
-      </button>`;
-    tagList.querySelectorAll('cms-tag').forEach((tag) => {
-      tag.addEventListener('click', () => {
-        // eslint-disable-next-line no-param-reassign
-        tag.active = !tag.active;
-        if (tag.active) {
-          this.activeTagNames.push(tag.name);
-        } else {
-          this.activeTagNames = this.activeTagNames.filter((t) => tag.name !== t);
-        }
+    tagList.innerHTML = html`${this.tags.map((tag) => html`
+      <cms-tag
+        emoji="${tag.emoji}"
+        name="${tag.name}"
+        color="${tag.color}"
+        tag-id="${tag.id}"
+        id="tag-${tag.name}"
+        class="jinya-tag--file"
+        ${this.activeTagNames.includes(tag.name) ? 'active' : ''}
+      ></cms-tag>`)}
+    <button class="cosmo-button is--small is--circle is--primary" id="new-tag-open-button" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+           stroke-linejoin="round">
+        <path d="M5 12h14" />
+        <path d="M12 5v14" />
+      </svg>
+    </button>`;
+    tagList.querySelectorAll('cms-tag')
+      .forEach((tag) => {
+        tag.addEventListener('click', () => {
+          // eslint-disable-next-line no-param-reassign
+          tag.active = !tag.active;
+          if (tag.active) {
+            this.activeTagNames.push(tag.name);
+          } else {
+            this.activeTagNames = this.activeTagNames.filter((t) => tag.name !== t);
+          }
+        });
       });
-    });
-    document.getElementById('new-tag-open-button').addEventListener('click', () => {
-      document.getElementById('edit-new-tag').open = true;
-    });
+    document.getElementById('new-tag-open-button')
+      .addEventListener('click', () => {
+        document.getElementById('edit-new-tag').open = true;
+      });
   }
 
   show() {
-    const content = html` <div class="cosmo-modal__backdrop"></div>
+    const content = html`
+      <div class="cosmo-modal__backdrop"></div>
       <form class="cosmo-modal__container" id="edit-dialog-form">
         <div class="cosmo-modal cosmo-modal--files">
           <h1 class="cosmo-modal__title">${localize({ key: 'media.files.edit.title' })}</h1>
@@ -91,58 +100,68 @@ export default class EditDialog {
 
     this.renderTags();
 
-    document.getElementById('edit-new-tag').addEventListener('submit', async (evt) => {
-      try {
-        const data = { emoji: evt.emoji, name: evt.name, color: evt.color };
-        const result = await post('/api/file-tag', data);
-        this.tags.push(result);
-        this.renderTags();
+    document.getElementById('edit-new-tag')
+      .addEventListener('submit', async (evt) => {
+        try {
+          const data = {
+            emoji: evt.emoji,
+            name: evt.name,
+            color: evt.color,
+          };
+          const result = await post('/api/file-tag', data);
+          this.tags.push(result);
+          this.renderTags();
 
-        const popup = document.getElementById('edit-new-tag');
-        popup.emoji = getRandomEmoji();
-        popup.color = getRandomColor();
-        popup.name = '';
-        popup.open = false;
-      } catch (e) {
-        await alert({
-          title: localize({ key: 'media.files.tags.new.error.title' }),
-          message: localize({
-            key: `media.files.tags.new.error.${e.status === 409 ? 'exists' : 'generic'}`,
-          }),
-          buttonLabel: localize({ key: 'media.files.tags.new.error.close' }),
-        });
-      }
-    });
-    document.getElementById('cancel-edit-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('edit-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('editFileName').value;
-      const { files } = document.getElementById('editFileFile');
-      try {
-        await put(`/api/media/file/${this.file.id}`, { name, tags: this.activeTagNames });
-        if (files && files.length === 1) {
-          await put(`/api/media/file/${this.file.id}/content`);
-          await upload(`/api/media/file/${this.file.id}/content/0`, files[0]);
-          await put(`/api/media/file/${this.file.id}/content/finish`);
+          const popup = document.getElementById('edit-new-tag');
+          popup.emoji = getRandomEmoji();
+          popup.color = getRandomColor();
+          popup.name = '';
+          popup.open = false;
+        } catch (e) {
+          await alert({
+            title: localize({ key: 'media.files.tags.new.error.title' }),
+            message: localize({
+              key: `media.files.tags.new.error.${e.status === 409 ? 'exists' : 'generic'}`,
+            }),
+            buttonLabel: localize({ key: 'media.files.tags.new.error.close' }),
+          });
         }
-        const saved = await get(`/api/media/file/${this.file.id}`);
-        this.onHide(saved);
+      });
+    document.getElementById('cancel-edit-dialog')
+      .addEventListener('click', () => {
         container.remove();
-      } catch (err) {
-        if (err.status === 409) {
-          await alert({
-            title: localize({ key: 'media.files.edit.error.title' }),
-            message: localize({ key: 'media.files.edit.error.conflict' }),
+      });
+    document.getElementById('edit-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('editFileName').value;
+        const { files } = document.getElementById('editFileFile');
+        try {
+          await put(`/api/media/file/${this.file.id}`, {
+            name,
+            tags: this.activeTagNames,
           });
-        } else {
-          await alert({
-            title: localize({ key: 'media.files.edit.error.title' }),
-            message: localize({ key: 'media.files.edit.error.generic' }),
-          });
+          if (files && files.length === 1) {
+            await put(`/api/media/file/${this.file.id}/content`);
+            await upload(`/api/media/file/${this.file.id}/content/0`, files[0]);
+            await put(`/api/media/file/${this.file.id}/content/finish`);
+          }
+          const saved = await get(`/api/media/file/${this.file.id}`);
+          this.onHide(saved);
+          container.remove();
+        } catch (err) {
+          if (err.status === 409) {
+            await alert({
+              title: localize({ key: 'media.files.edit.error.title' }),
+              message: localize({ key: 'media.files.edit.error.conflict' }),
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'media.files.edit.error.title' }),
+              message: localize({ key: 'media.files.edit.error.generic' }),
+            });
+          }
         }
-      }
-    });
+      });
   }
 }

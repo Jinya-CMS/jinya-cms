@@ -16,7 +16,16 @@ export default class EditPostDialog {
    * @param headerImage {number}
    * @param onHide {function()}
    */
-  constructor({ id, category, title, slug, postPublic, categories, headerImage, onHide }) {
+  constructor({
+                id,
+                category,
+                title,
+                slug,
+                postPublic,
+                categories,
+                headerImage,
+                onHide,
+              }) {
     this.category = category;
     this.categories = categories;
     this.onHide = onHide;
@@ -47,11 +56,11 @@ export default class EditPostDialog {
               </label>
               <select required id="editPostCategory" class="cosmo-select">
                 ${this.categories.map(
-                  (cat) =>
-                    `<option ${cat.id === this.category ? 'selected' : ''} value="${cat.id}">#${cat.id} ${
-                      cat.name
-                    }</option>`,
-                )}
+      (cat) =>
+        `<option ${cat.id === this.category ? 'selected' : ''} value="${cat.id}">#${cat.id} ${
+          cat.name
+        }</option>`,
+    )}
               </select>
               <label for="editPostHeaderImage" class="cosmo-label">
                 ${localize({ key: 'blog.posts.edit.header_image' })}
@@ -85,63 +94,66 @@ export default class EditPostDialog {
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
-    document.querySelectorAll('#editPostHeaderImagePicker label').forEach((item) => {
-      item.addEventListener('click', async (e) => {
-        e.preventDefault();
-        const selectedFileId = parseInt(document.getElementById('editPostHeaderImage').value, 10);
-        const fileResult = await filePicker({
-          title: localize({ key: 'blog.posts.edit.header_image' }),
-          selectedFileId,
-        });
-        if (fileResult) {
-          document.getElementById('selectedFile').src = fileResult.path;
-          document.getElementById('selectedFile').alt = fileResult.name;
+    document.querySelectorAll('#editPostHeaderImagePicker label')
+      .forEach((item) => {
+        item.addEventListener('click', async (e) => {
+          e.preventDefault();
+          const selectedFileId = parseInt(document.getElementById('editPostHeaderImage').value, 10);
+          const fileResult = await filePicker({
+            title: localize({ key: 'blog.posts.edit.header_image' }),
+            selectedFileId,
+          });
+          if (fileResult) {
+            document.getElementById('selectedFile').src = fileResult.path;
+            document.getElementById('selectedFile').alt = fileResult.name;
 
-          document.getElementById('editPostHeaderImage').value = fileResult.id;
-          document.querySelector('#editPostHeaderImagePicker .cosmo-picker__name').innerText = fileResult.name;
+            document.getElementById('editPostHeaderImage').value = fileResult.id;
+            document.querySelector('#editPostHeaderImagePicker .cosmo-picker__name').innerText = fileResult.name;
+          }
+        });
+      });
+
+    document.getElementById('cancel-edit-dialog')
+      .addEventListener('click', () => {
+        container.remove();
+      });
+    document.getElementById('edit-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const title = document.getElementById('editPostTitle').value;
+        const slug = document.getElementById('editPostSlug').value;
+        const postPublic = document.getElementById('editPostPublic').checked;
+        const headerImageId = parseInt(document.getElementById('editPostHeaderImage').value, 10);
+        const categoryId = parseInt(document.getElementById('editPostCategory').value, 10);
+        try {
+          const data = {
+            title,
+            slug,
+            public: postPublic,
+            categoryId,
+          };
+          if (headerImageId !== -1) {
+            data.headerImageId = headerImageId;
+          }
+          await put(`/api/blog/post/${this.id}`, data);
+          this.onHide({
+            ...data,
+            headerImage: files.find((f) => f.id === headerImageId),
+            category: this.categories.find((c) => c.id === categoryId),
+          });
+          container.remove();
+        } catch (err) {
+          let msg = 'generic';
+          if (err.status === 409 && err.message.includes('slug')) {
+            msg = 'slug_exists';
+          } else if (err.status === 409 && err.message.includes('title')) {
+            msg = 'title_exists';
+          }
+          await alert({
+            title: localize({ key: 'blog.posts.edit.error.title' }),
+            message: localize({ key: `blog.posts.edit.error.${msg}` }),
+          });
         }
       });
-    });
-
-    document.getElementById('cancel-edit-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('edit-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const title = document.getElementById('editPostTitle').value;
-      const slug = document.getElementById('editPostSlug').value;
-      const postPublic = document.getElementById('editPostPublic').checked;
-      const headerImageId = parseInt(document.getElementById('editPostHeaderImage').value, 10);
-      const categoryId = parseInt(document.getElementById('editPostCategory').value, 10);
-      try {
-        const data = {
-          title,
-          slug,
-          public: postPublic,
-          categoryId,
-        };
-        if (headerImageId !== -1) {
-          data.headerImageId = headerImageId;
-        }
-        await put(`/api/blog/post/${this.id}`, data);
-        this.onHide({
-          ...data,
-          headerImage: files.find((f) => f.id === headerImageId),
-          category: this.categories.find((c) => c.id === categoryId),
-        });
-        container.remove();
-      } catch (err) {
-        let msg = 'generic';
-        if (err.status === 409 && err.message.includes('slug')) {
-          msg = 'slug_exists';
-        } else if (err.status === 409 && err.message.includes('title')) {
-          msg = 'title_exists';
-        }
-        await alert({
-          title: localize({ key: 'blog.posts.edit.error.title' }),
-          message: localize({ key: `blog.posts.edit.error.${msg}` }),
-        });
-      }
-    });
   }
 }

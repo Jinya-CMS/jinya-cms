@@ -11,7 +11,11 @@ export default class UploadDialog {
    * @param tags {{id: number, name: string, emoji: string, color: string}[]}
    * @param activeTagNames {string[]}
    */
-  constructor({ tags, activeTagNames, onHide }) {
+  constructor({
+                tags,
+                activeTagNames,
+                onHide,
+              }) {
     this.tags = tags;
     this.activeTagNames = activeTagNames;
     this.onHide = onHide;
@@ -19,39 +23,43 @@ export default class UploadDialog {
 
   renderTags() {
     const tagList = document.getElementById('sfu-tag-list');
-    tagList.innerHTML = html`${this.tags.map(
-        (tag) =>
-          html` <cms-tag
-            emoji="${tag.emoji}"
-            name="${tag.name}"
-            color="${tag.color}"
-            tag-id="${tag.id}"
-            id="tag-${tag.name}"
-            class="jinya-tag--file"
-            ${this.activeTagNames.includes(tag.name) ? 'active' : ''}
-          ></cms-tag>`,
-      )}
-      <button class="cosmo-circular-button cosmo-circular-button--small" id="new-tag-open-button" type="button">
-        <span class="mdi mdi-plus"></span>
-      </button>`;
-    tagList.querySelectorAll('cms-tag').forEach((tag) => {
-      tag.addEventListener('click', () => {
-        // eslint-disable-next-line no-param-reassign
-        tag.active = !tag.active;
-        if (tag.active) {
-          this.activeTagNames.push(tag.name);
-        } else {
-          this.activeTagNames = this.activeTagNames.filter((t) => tag.name !== t);
-        }
+    tagList.innerHTML = html`${this.tags.map((tag) => html`
+      <cms-tag
+        emoji="${tag.emoji}"
+        name="${tag.name}"
+        color="${tag.color}"
+        tag-id="${tag.id}"
+        id="tag-${tag.name}"
+        class="jinya-tag--file"
+        ${this.activeTagNames.includes(tag.name) ? 'active' : ''}
+      ></cms-tag>`)}
+    <button class="cosmo-button is--small is--circle is--primary" id="new-tag-open-button" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+           stroke-linejoin="round">
+        <path d="M5 12h14" />
+        <path d="M12 5v14" />
+      </svg>
+    </button>`;
+    tagList.querySelectorAll('cms-tag')
+      .forEach((tag) => {
+        tag.addEventListener('click', () => {
+          // eslint-disable-next-line no-param-reassign
+          tag.active = !tag.active;
+          if (tag.active) {
+            this.activeTagNames.push(tag.name);
+          } else {
+            this.activeTagNames = this.activeTagNames.filter((t) => tag.name !== t);
+          }
+        });
       });
-    });
-    document.getElementById('new-tag-open-button').addEventListener('click', () => {
-      document.getElementById('sfu-new-tag').open = true;
-    });
+    document.getElementById('new-tag-open-button')
+      .addEventListener('click', () => {
+        document.getElementById('sfu-new-tag').open = true;
+      });
   }
 
   show() {
-    const content = html` <div class="cosmo-modal__backdrop"></div>
+    const content = html`
       <form class="cosmo-modal__container" id="upload-dialog-form">
         <div class="cosmo-modal cosmo-modal--files">
           <h1 class="cosmo-modal__title">${localize({ key: 'media.files.upload_single_file.title' })}</h1>
@@ -95,63 +103,78 @@ export default class UploadDialog {
 
     this.renderTags();
 
-    document.getElementById('sfu-new-tag').addEventListener('submit', async (evt) => {
-      try {
-        const data = { emoji: evt.emoji, name: evt.name, color: evt.color };
-        const result = await post('/api/file-tag', data);
-        this.tags.push(result);
-        this.renderTags();
+    document.getElementById('sfu-new-tag')
+      .addEventListener('submit', async (evt) => {
+        try {
+          const data = {
+            emoji: evt.emoji,
+            name: evt.name,
+            color: evt.color,
+          };
+          const result = await post('/api/file-tag', data);
+          this.tags.push(result);
+          this.renderTags();
 
-        const popup = document.getElementById('sfu-new-tag');
-        popup.emoji = getRandomEmoji();
-        popup.color = getRandomColor();
-        popup.name = '';
-        popup.open = false;
-      } catch (e) {
-        await alert({
-          title: localize({ key: 'media.files.tags.new.error.title' }),
-          message: localize({
-            key: `media.files.tags.new.error.${e.status === 409 ? 'exists' : 'generic'}`,
-          }),
-          buttonLabel: localize({ key: 'media.files.tags.new.error.close' }),
-        });
-      }
-    });
-    document.getElementById('uploadFileFile').addEventListener('change', (e) => {
-      const nameInput = document.getElementById('uploadFileName');
-      if (nameInput.value === '') {
-        const file = e.currentTarget.files[0];
-        nameInput.value = file.name.split('.').reverse().slice(1).reverse().join('.');
-      }
-    });
-    document.getElementById('cancel-upload-dialog').addEventListener('click', () => {
-      container.remove();
-      this.onHide(null);
-    });
-    document.getElementById('upload-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('uploadFileName').value;
-      const { files } = document.getElementById('uploadFileFile');
-      try {
-        const createdFile = await post('/api/media/file', { name, tags: this.activeTagNames });
-        await put(`/api/media/file/${createdFile.id}/content`);
-        await upload(`/api/media/file/${createdFile.id}/content/0`, files[0]);
-        await put(`/api/media/file/${createdFile.id}/content/finish`);
-        await this.onHide(await get(`/api/media/file/${createdFile.id}`));
-        container.remove();
-      } catch (err) {
-        if (err.status === 409) {
+          const popup = document.getElementById('sfu-new-tag');
+          popup.emoji = getRandomEmoji();
+          popup.color = getRandomColor();
+          popup.name = '';
+          popup.open = false;
+        } catch (e) {
           await alert({
-            title: localize({ key: 'media.files.upload_single_file.error.title' }),
-            message: localize({ key: 'media.files.upload_single_file.error.conflict' }),
-          });
-        } else {
-          await alert({
-            title: localize({ key: 'media.files.upload_single_file.error.title' }),
-            message: localize({ key: 'media.files.upload_single_file.error.generic' }),
+            title: localize({ key: 'media.files.tags.new.error.title' }),
+            message: localize({
+              key: `media.files.tags.new.error.${e.status === 409 ? 'exists' : 'generic'}`,
+            }),
+            buttonLabel: localize({ key: 'media.files.tags.new.error.close' }),
           });
         }
-      }
-    });
+      });
+    document.getElementById('uploadFileFile')
+      .addEventListener('change', (e) => {
+        const nameInput = document.getElementById('uploadFileName');
+        if (nameInput.value === '') {
+          const file = e.currentTarget.files[0];
+          nameInput.value = file.name.split('.')
+            .reverse()
+            .slice(1)
+            .reverse()
+            .join('.');
+        }
+      });
+    document.getElementById('cancel-upload-dialog')
+      .addEventListener('click', () => {
+        container.remove();
+        this.onHide(null);
+      });
+    document.getElementById('upload-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('uploadFileName').value;
+        const { files } = document.getElementById('uploadFileFile');
+        try {
+          const createdFile = await post('/api/media/file', {
+            name,
+            tags: this.activeTagNames,
+          });
+          await put(`/api/media/file/${createdFile.id}/content`);
+          await upload(`/api/media/file/${createdFile.id}/content/0`, files[0]);
+          await put(`/api/media/file/${createdFile.id}/content/finish`);
+          await this.onHide(await get(`/api/media/file/${createdFile.id}`));
+          container.remove();
+        } catch (err) {
+          if (err.status === 409) {
+            await alert({
+              title: localize({ key: 'media.files.upload_single_file.error.title' }),
+              message: localize({ key: 'media.files.upload_single_file.error.conflict' }),
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'media.files.upload_single_file.error.title' }),
+              message: localize({ key: 'media.files.upload_single_file.error.generic' }),
+            });
+          }
+        }
+      });
   }
 }

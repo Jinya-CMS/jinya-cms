@@ -9,8 +9,16 @@ class HttpError extends Error {
 
 let apiKey = '';
 
-async function sendRequest({ url, verb, data, contentType }) {
-  const headers = { JinyaApiKey: apiKey, ContentType: contentType };
+async function sendRequest({
+                             url,
+                             verb,
+                             data,
+                             contentType,
+                           }) {
+  const headers = {
+    JinyaApiKey: apiKey,
+    ContentType: contentType,
+  };
 
   const request = {
     headers,
@@ -35,7 +43,8 @@ async function sendRequest({ url, verb, data, contentType }) {
     return null;
   }
 
-  const httpError = await response.json().then((error) => error.error);
+  const httpError = await response.json()
+    .then((error) => error.error);
   throw new HttpError(response.status, httpError);
 }
 
@@ -48,8 +57,15 @@ async function wait({ time }) {
 }
 
 onmessage = async (e) => {
-  const { files: pushedFiles, tags: pushedTags, apiKey: pushedApiKey } = e.data;
-  files.push(...[...pushedFiles].map((file) => ({ file, tags: pushedTags })));
+  const {
+    files: pushedFiles,
+    tags: pushedTags,
+    apiKey: pushedApiKey,
+  } = e.data;
+  files.push(...[...pushedFiles].map((file) => ({
+    file,
+    tags: pushedTags,
+  })));
   apiKey = pushedApiKey;
 };
 
@@ -63,14 +79,21 @@ onmessage = async (e) => {
         continue;
       }
 
-      const { file, tags } = files.pop();
+      const {
+        file,
+        tags,
+      } = files.pop();
       // eslint-disable-next-line no-await-in-loop
       const postResult = await sendRequest({
         contentType: 'application/json',
         verb: 'POST',
         url: '/api/media/file',
         data: {
-          name: file.name.split('.').reverse().slice(1).reverse().join('.'),
+          name: file.name.split('.')
+            .reverse()
+            .slice(1)
+            .reverse()
+            .join('.'),
           tags,
         },
       });
@@ -95,7 +118,10 @@ onmessage = async (e) => {
         verb: 'GET',
         url: `/api/media/file/${postResult.id}`,
       });
-      postMessage({ type: 'file-uploaded', file: uploadedFile });
+      postMessage({
+        type: 'file-uploaded',
+        file: uploadedFile,
+      });
     } catch (e) {
       postMessage({ type: 'file-uploaded-failed' });
     }

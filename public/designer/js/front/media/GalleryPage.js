@@ -32,8 +32,8 @@ export default class GalleryPage extends JinyaDesignerPage {
         ${this.activeTags.size === 0 ? 'active' : ''}
       ></cms-tag>
       ${this.tags.map(
-        (tag) =>
-          html` <cms-tag
+      (tag) =>
+        html` <cms-tag
             class="jinya-tag--file"
             emoji="${tag.emoji}"
             name="${tag.name}"
@@ -42,49 +42,53 @@ export default class GalleryPage extends JinyaDesignerPage {
             id="show-tag-${tag.id}"
             ${this.activeTags.has(tag.id) ? 'active' : ''}
           ></cms-tag>`,
-      )}
+    )}
     `;
-    document.querySelectorAll('cms-tag').forEach((tag) =>
-      tag.addEventListener('click', (evt) => {
-        evt.stopPropagation();
-        // eslint-disable-next-line no-param-reassign
-        tag.active = !tag.active;
-        if (tag.id === 'show-all-tags') {
-          document
-            .querySelectorAll('#designer-toolbox .jinya-media-tile')
-            .forEach((tile) => tile.classList.remove('jinya-media-tile--hidden'));
-          document.querySelectorAll('cms-tag').forEach((t) => {
-            // eslint-disable-next-line no-param-reassign
-            t.active = false;
-          });
+    document.querySelectorAll('cms-tag')
+      .forEach((tag) =>
+        tag.addEventListener('click', (evt) => {
+          evt.stopPropagation();
           // eslint-disable-next-line no-param-reassign
-          tag.active = true;
-        } else {
-          const allTags = document.getElementById('show-all-tags');
-          if (tag.active) {
-            this.activeTags.add(tag.tagId);
+          tag.active = !tag.active;
+          if (tag.id === 'show-all-tags') {
+            document
+              .querySelectorAll('#designer-toolbox .jinya-media-tile')
+              .forEach((tile) => tile.classList.remove('jinya-media-tile--hidden'));
+            document.querySelectorAll('cms-tag')
+              .forEach((t) => {
+                // eslint-disable-next-line no-param-reassign
+                t.active = false;
+              });
+            // eslint-disable-next-line no-param-reassign
+            tag.active = true;
           } else {
-            this.activeTags.delete(tag.tagId);
-          }
-          allTags.active = this.activeTags.size === 0 || this.activeTags.size === this.tags.length;
-          document.querySelectorAll('#designer-toolbox .jinya-media-tile').forEach((tile) => {
-            const file = this.files.find((f) => f.id === parseInt(tile.getAttribute('data-file-id'), 10));
-            if (file.tags.filter((f) => this.activeTags.has(f.id)).length === 0) {
-              tile.classList.add('jinya-media-tile--hidden');
+            const allTags = document.getElementById('show-all-tags');
+            if (tag.active) {
+              this.activeTags.add(tag.tagId);
             } else {
-              tile.classList.remove('jinya-media-tile--hidden');
+              this.activeTags.delete(tag.tagId);
             }
-          });
+            allTags.active = this.activeTags.size === 0 || this.activeTags.size === this.tags.length;
+            document.querySelectorAll('#designer-toolbox .jinya-media-tile')
+              .forEach((tile) => {
+                const file = this.files.find((f) => f.id === parseInt(tile.getAttribute('data-file-id'), 10));
+                if (file.tags.filter((f) => this.activeTags.has(f.id)).length === 0) {
+                  tile.classList.add('jinya-media-tile--hidden');
+                } else {
+                  tile.classList.remove('jinya-media-tile--hidden');
+                }
+              });
 
-          if (allTags.active) {
-            this.activeTags.clear();
-            document.querySelectorAll('#designer-toolbox .jinya-media-tile').forEach((tile) => {
-              tile.classList.remove('jinya-media-tile--hidden');
-            });
+            if (allTags.active) {
+              this.activeTags.clear();
+              document.querySelectorAll('#designer-toolbox .jinya-media-tile')
+                .forEach((tile) => {
+                  tile.classList.remove('jinya-media-tile--hidden');
+                });
+            }
           }
-        }
-      }),
-    );
+        }),
+      );
   }
 
   selectGallery({ id }) {
@@ -92,13 +96,16 @@ export default class GalleryPage extends JinyaDesignerPage {
     document
       .querySelectorAll('.cosmo-list__item--active')
       .forEach((item) => item.classList.remove('cosmo-list__item--active'));
-    document.querySelector(`[data-id="${id}"]`).classList.add('cosmo-list__item--active');
+    document.querySelector(`[data-id="${id}"]`)
+      .classList
+      .add('cosmo-list__item--active');
     document.getElementById('edit-gallery-button').disabled = false;
     document.getElementById('delete-gallery-button').disabled = false;
     this.activeTags.clear();
-    document.querySelectorAll('#designer-toolbox .jinya-media-tile').forEach((tile) => {
-      tile.classList.remove('jinya-media-tile--hidden');
-    });
+    document.querySelectorAll('#designer-toolbox .jinya-media-tile')
+      .forEach((tile) => {
+        tile.classList.remove('jinya-media-tile--hidden');
+      });
   }
 
   async displaySelectedGallery() {
@@ -109,7 +116,12 @@ export default class GalleryPage extends JinyaDesignerPage {
       this.toolboxSortable.destroy();
     }
 
-    const { id, name, type, orientation } = this.selectedGallery;
+    const {
+      id,
+      name,
+      type,
+      orientation,
+    } = this.selectedGallery;
     document.getElementById('id-and-name').innerText = `#${id} ${name}`;
     document.getElementById('type-and-orientation').innerText = localize({
       key: `media.galleries.designer.title.${orientation.toLowerCase()}_${type.toLowerCase()}`,
@@ -184,10 +196,11 @@ export default class GalleryPage extends JinyaDesignerPage {
       },
     });
 
-    document.querySelectorAll('cms-tag').forEach((tag) => {
-      // eslint-disable-next-line no-param-reassign
-      tag.active = false;
-    });
+    document.querySelectorAll('cms-tag')
+      .forEach((tag) => {
+        // eslint-disable-next-line no-param-reassign
+        tag.active = false;
+      });
     document.getElementById('show-all-tags').active = true;
   }
 
@@ -213,24 +226,26 @@ export default class GalleryPage extends JinyaDesignerPage {
                 <button id="new-gallery-button" class="cosmo-button cosmo-button--full-width">
                     ${localize({ key: 'media.galleries.action.new' })}
                 </button>`;
-    document.querySelectorAll('.cosmo-list__item').forEach((item) => {
-      item.addEventListener('click', async () => {
-        this.selectGallery({ id: item.getAttribute('data-id') });
-        await this.displaySelectedGallery();
-      });
-    });
-    document.getElementById('new-gallery-button').addEventListener('click', async () => {
-      const { default: AddGalleryDialog } = await import('./galleries/AddGalleryDialog.js');
-      const dialog = new AddGalleryDialog({
-        onHide: async (gallery) => {
-          this.galleries.push(gallery);
-          this.displayGalleries();
-          this.selectGallery({ id: gallery.id });
+    document.querySelectorAll('.cosmo-list__item')
+      .forEach((item) => {
+        item.addEventListener('click', async () => {
+          this.selectGallery({ id: item.getAttribute('data-id') });
           await this.displaySelectedGallery();
-        },
+        });
       });
-      dialog.show();
-    });
+    document.getElementById('new-gallery-button')
+      .addEventListener('click', async () => {
+        const { default: AddGalleryDialog } = await import('./galleries/AddGalleryDialog.js');
+        const dialog = new AddGalleryDialog({
+          onHide: async (gallery) => {
+            this.galleries.push(gallery);
+            this.displayGalleries();
+            this.selectGallery({ id: gallery.id });
+            await this.displaySelectedGallery();
+          },
+        });
+        dialog.show();
+      });
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -293,53 +308,58 @@ export default class GalleryPage extends JinyaDesignerPage {
 
   bindEvents() {
     super.bindEvents();
-    document.getElementById('delete-gallery-button').addEventListener('click', async () => {
-      const confirmation = await confirm({
-        title: localize({ key: 'media.galleries.delete.title' }),
-        message: localize({ key: 'media.galleries.delete.message', values: this.selectedGallery }),
-        declineLabel: localize({ key: 'media.galleries.delete.keep' }),
-        approveLabel: localize({ key: 'media.galleries.delete.delete' }),
-      });
-      if (confirmation) {
-        try {
-          await httpDelete(`/api/media/gallery/${this.selectedGallery.id}`);
-          this.galleries = this.galleries.filter((gallery) => gallery.id !== this.selectedGallery.id);
-          this.displayGalleries();
-          if (this.galleries.length > 0) {
-            this.selectGallery({ id: this.galleries[0].id });
-            await this.displaySelectedGallery();
-          } else {
-            this.selectedGallery = null;
-            document.getElementById('id-and-name').innerText = '';
-            document.getElementById('type-and-orientation').innerText = '';
-          }
-        } catch (e) {
-          if (e.status === 409) {
-            await alert({
-              title: localize({ key: 'media.galleries.delete.error.title' }),
-              message: localize({ key: 'media.galleries.delete.error.conflict' }),
-            });
-          } else {
-            await alert({
-              title: localize({ key: 'media.galleries.delete.error.title' }),
-              message: localize({ key: 'media.galleries.delete.error.generic' }),
-            });
+    document.getElementById('delete-gallery-button')
+      .addEventListener('click', async () => {
+        const confirmation = await confirm({
+          title: localize({ key: 'media.galleries.delete.title' }),
+          message: localize({
+            key: 'media.galleries.delete.message',
+            values: this.selectedGallery,
+          }),
+          declineLabel: localize({ key: 'media.galleries.delete.keep' }),
+          approveLabel: localize({ key: 'media.galleries.delete.delete' }),
+        });
+        if (confirmation) {
+          try {
+            await httpDelete(`/api/media/gallery/${this.selectedGallery.id}`);
+            this.galleries = this.galleries.filter((gallery) => gallery.id !== this.selectedGallery.id);
+            this.displayGalleries();
+            if (this.galleries.length > 0) {
+              this.selectGallery({ id: this.galleries[0].id });
+              await this.displaySelectedGallery();
+            } else {
+              this.selectedGallery = null;
+              document.getElementById('id-and-name').innerText = '';
+              document.getElementById('type-and-orientation').innerText = '';
+            }
+          } catch (e) {
+            if (e.status === 409) {
+              await alert({
+                title: localize({ key: 'media.galleries.delete.error.title' }),
+                message: localize({ key: 'media.galleries.delete.error.conflict' }),
+              });
+            } else {
+              await alert({
+                title: localize({ key: 'media.galleries.delete.error.title' }),
+                message: localize({ key: 'media.galleries.delete.error.generic' }),
+              });
+            }
           }
         }
-      }
-    });
-    document.getElementById('edit-gallery-button').addEventListener('click', async () => {
-      const { default: EditGalleryDialog } = await import('./galleries/EditGalleryDialog.js');
-      const dialog = new EditGalleryDialog({
-        gallery: this.selectedGallery,
-        onHide: async (gallery) => {
-          this.galleries[this.galleries.findIndex((item) => item.id === gallery.id)] = gallery;
-          this.displayGalleries();
-          this.selectGallery({ id: gallery.id });
-          await this.displaySelectedGallery();
-        },
       });
-      dialog.show();
-    });
+    document.getElementById('edit-gallery-button')
+      .addEventListener('click', async () => {
+        const { default: EditGalleryDialog } = await import('./galleries/EditGalleryDialog.js');
+        const dialog = new EditGalleryDialog({
+          gallery: this.selectedGallery,
+          onHide: async (gallery) => {
+            this.galleries[this.galleries.findIndex((item) => item.id === gallery.id)] = gallery;
+            this.displayGalleries();
+            this.selectGallery({ id: gallery.id });
+            await this.displaySelectedGallery();
+          },
+        });
+        dialog.show();
+      });
   }
 }
