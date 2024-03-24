@@ -50,23 +50,24 @@ export default class ActiveSessionsPage extends JinyaDesignerPage {
     clearChildren({ parent: table });
     for (const session of this.sessions) {
       const tr = document.createElement('tr');
-      tr.innerHTML = html` <tr>
-        <td>${session.validSince.toLocaleString()}</td>
-        <td>${session.browser}</td>
-        <td>${session.device}</td>
-        <td>${session.location}</td>
-        <td>${session.remoteAddress}</td>
-        <td>
-          <button
-            ${session.key === getJinyaApiKey() ? 'disabled' : ''}
-            class="cosmo-button"
-            data-action="logout"
-            data-apikey="${session.key}"
-          >
-            ${localize({ key: 'my_jinya.sessions.action.logout' })}
-          </button>
-        </td>
-      </tr>`;
+      tr.innerHTML = html`
+        <tr>
+          <td>${session.validSince.toLocaleString()}</td>
+          <td>${session.browser}</td>
+          <td>${session.device}</td>
+          <td>${session.location}</td>
+          <td>${session.remoteAddress}</td>
+          <td>
+            <button
+              ${session.key === getJinyaApiKey() ? 'disabled' : ''}
+              class="cosmo-button"
+              data-action="logout"
+              data-apikey="${session.key}"
+            >
+              ${localize({ key: 'my_jinya.sessions.action.logout' })}
+            </button>
+          </td>
+        </tr>`;
       table.append(tr);
     }
     document.querySelectorAll('[data-action="logout"]')
@@ -83,8 +84,9 @@ export default class ActiveSessionsPage extends JinyaDesignerPage {
 
   // eslint-disable-next-line class-methods-use-this
   toString() {
-    return html` <table class="cosmo-table">
-      <thead>
+    return html`
+      <table class="cosmo-table">
+        <thead>
         <tr>
           <th>${localize({ key: 'my_jinya.sessions.table.valid_since' })}</th>
           <th>${localize({ key: 'my_jinya.sessions.table.browser' })}</th>
@@ -93,9 +95,9 @@ export default class ActiveSessionsPage extends JinyaDesignerPage {
           <th>${localize({ key: 'my_jinya.sessions.table.ip' })}</th>
           <th>${localize({ key: 'my_jinya.sessions.table.actions' })}</th>
         </tr>
-      </thead>
-      <tbody></tbody>
-    </table>`;
+        </thead>
+        <tbody></tbody>
+      </table>`;
   }
 
   async displayed() {

@@ -8,7 +8,6 @@ export default class ChangePasswordDialog {
   show() {
     const container = document.createElement('div');
     container.innerHTML = html`
-      <div class="cosmo-modal__backdrop"></div>
       <form class="cosmo-modal__container" id="change-password-dialog">
         <div class="cosmo-modal">
           <h1 class="cosmo-modal__title">${localize({ key: 'my_jinya.my_profile.change_password.title' })}</h1>
@@ -37,8 +36,7 @@ export default class ChangePasswordDialog {
             </button>
           </div>
         </div>
-      </form>
-    `;
+      </form>`;
     document.body.append(container);
 
     document.getElementById('cancel-password-change')
