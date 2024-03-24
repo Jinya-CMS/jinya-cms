@@ -15,8 +15,12 @@ info:
     backgroundColor: '#FFFFFF'
     altText: Jinya logo
 servers:
-  - url: 'http://localhost:8080'
-    description: Local development environment
+  - url: 'https://{yourServer}'
+    description: Your server of Jinya CMS
+    variables:
+      yourServer:
+        default: localhost:8080
+        description: The server your Jinya CMS instance is installed on
 tags:
   - name: authentication
     description: User authentication
@@ -39,7 +43,7 @@ tags:
   - name: artists
     description: Artist management
 paths:
-  /api/api_key:
+  /api/api-key:
     get:
       summary: List api keys
       tags:
@@ -67,7 +71,7 @@ paths:
       description: Gets all currently valid api keys
       security:
         - jinya-api-key: [ ]
-  /api/api_key/{key}:
+  /api/api-key/{key}:
     parameters:
       - name: key
         schema:
@@ -123,7 +127,9 @@ paths:
       operationId: get_all_users
       description: Gets a list of all users (artists)
       tags:
-        - artist
+        - artists
+      security:
+        - jinya-api-key: [ ]
     post:
       summary: Create user
       responses:
@@ -132,7 +138,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/artist'
+                $ref: '#/components/schemas/user'
         '400':
           description: Missing fields
           content:
@@ -167,7 +173,7 @@ paths:
             schema:
               $ref: '#/components/schemas/create-user-request'
       tags:
-        - artist
+        - artists
   /api/user/{id}:
     parameters:
       - name: id
@@ -214,7 +220,7 @@ paths:
             schema:
               $ref: '#/components/schemas/update-user-request'
       tags:
-        - artist
+        - artists
     delete:
       summary: Delete user by id
       responses:
@@ -243,7 +249,7 @@ paths:
         - jinya-api-key: [ ]
       description: Deletes the given user
       tags:
-        - artist
+        - artists
     get:
       summary: Get user by id
       responses:
@@ -252,7 +258,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/artist'
+                $ref: '#/components/schemas/user'
         '401':
           description: Api key missing
           content:
@@ -276,7 +282,7 @@ paths:
       security:
         - jinya-api-key: [ ]
       tags:
-        - artist
+        - artists
   /api/user/{id}/activation:
     parameters:
       - name: id
@@ -287,7 +293,7 @@ paths:
     put:
       summary: Activate user
       tags:
-        - artist
+        - artists
       responses:
         '204':
           description: Successfully activated the user
@@ -316,7 +322,7 @@ paths:
     delete:
       summary: Deactivate user
       tags:
-        - artist
+        - artists
       responses:
         '204':
           description: Successfully deactivated the user
@@ -413,7 +419,7 @@ paths:
               type: string
               format: binary
       tags:
-        - artist
+        - artists
     delete:
       summary: Delete user profile picture by id
       responses:
@@ -442,7 +448,7 @@ paths:
         - jinya-api-key: [ ]
       description: Deletes the given users profile picture
       tags:
-        - artist
+        - artists
     get:
       summary: Get user profile picture by id
       responses:
@@ -500,7 +506,7 @@ paths:
       security:
         - jinya-api-key: [ ]
       tags:
-        - artist
+        - artists
 
   /api/login:
     post:
@@ -539,6 +545,7 @@ paths:
           schema:
             type: string
           in: header
+      security: []
     head:
       summary: Check the validity of a Jinya Api Key
       tags:
@@ -550,12 +557,8 @@ paths:
           description: Api key is invalid
       operationId: check_api_key
       description: Check if the api key provided in the header is still valid.
-      parameters:
-        - name: JinyaApiKey
-          description: The Jinya API Key that should get validated
-          schema:
-            type: string
-          in: header
+      security:
+        - jinya-api-key: [ ]
   /api/account/password:
     put:
       summary: Change password
@@ -613,6 +616,7 @@ paths:
                 $ref: '#/components/schemas/exception'
       operationId: request_two_factor_code
       description: This request creates a new two-factor token and sends it to the provided user
+      security: [ ]
       requestBody:
         content:
           application/json:
@@ -645,6 +649,8 @@ paths:
       description: Gets a list of all blog categories
       tags:
         - blog
+      security:
+        - jinya-api-key: [ ]
     post:
       summary: Create blog category
       responses:
@@ -864,6 +870,8 @@ paths:
       description: Gets a list of all blog posts in all categories
       tags:
         - blog
+      security:
+        - jinya-api-key: [ ]
     post:
       summary: Create blog post
       responses:
@@ -992,7 +1000,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/artist'
+                $ref: '#/components/schemas/user'
         '401':
           description: Api key missing
           content:
@@ -1017,19 +1025,24 @@ paths:
         - jinya-api-key: [ ]
       tags:
         - blog
-  /api/blog-post/{id}/segment:
+  /api/blog-post/{id}/section:
+    parameters:
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
     get:
-      summary: List blog post segments
+      summary: List blog post sections
       responses:
         '200':
-          description: Successfully returned all blog post segments
+          description: Successfully returned all blog post sections
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  schema:
-                    $ref: '#/components/schemas/blog-post-segment'
+                  $ref: '#/components/schemas/blog-post-section'
         '401':
           description: Api key missing
           content:
@@ -1048,15 +1061,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/exception'
-      operationId: get_all_blog_post_segments
-      description: Gets a list of all blog post segments for the given post
+      operationId: get_all_blog_post_sections
+      description: Gets a list of all blog post sections for the given post
       tags:
         - blog
+      security:
+        - jinya-api-key: [ ]
     put:
-      summary: Update blog post segments
+      summary: Update blog post sections
       responses:
         '204':
-          description: Updated blog post segments
+          description: Updated blog post sections
         '400':
           description: Missing fields
           content:
@@ -1081,8 +1096,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/exception'
-      operationId: update_blog_post_segments
-      description: Replaces all blog post segments
+      operationId: update_blog_post_sections
+      description: Replaces all blog post sections
       security:
         - jinya-api-key: [ ]
       requestBody:
@@ -1091,8 +1106,7 @@ paths:
             schema:
               type: array
               items:
-                schema:
-                  $ref: '#/components/schemas/update-blog-post-segment'
+                $ref: '#/components/schemas/update-blog-post-section'
       tags:
         - blog
 
@@ -1122,6 +1136,8 @@ paths:
                 $ref: '#/components/schemas/exception'
       operationId: analyze_database
       description: Gets a full structure of the database
+      security:
+        - jinya-api-key: [ ]
   /api/maintenance/database/query:
     post:
       summary: Execute sql queries
@@ -1199,6 +1215,8 @@ paths:
                 $ref: '#/components/schemas/exception'
       operationId: get_environment_variables
       description: Gets all environment variables currently used in Jinya CMS
+      security:
+        - jinya-api-key: [ ]
 
   /api/file:
     get:
@@ -1226,6 +1244,8 @@ paths:
                 $ref: '#/components/schemas/exception'
       operationId: get_all_files
       description: Gets a list of all uploaded files
+      security:
+        - jinya-api-key: [ ]
     post:
       summary: Create file
       tags:
@@ -1365,6 +1385,8 @@ paths:
                 $ref: '#/components/schemas/exception'
       operationId: get_file_by_id
       description: Gets the file with the specified id
+      security:
+        - jinya-api-key: [ ]
   /api/file/{id}/content:
     parameters:
       - name: id
@@ -1433,6 +1455,8 @@ paths:
                 $ref: '#/components/schemas/exception'
       operationId: get_file_content
       description: Gets the files content with the specified id
+      security:
+        - jinya-api-key: [ ]
   /api/file/{id}/content/{position}:
     parameters:
       - name: id
@@ -1536,6 +1560,8 @@ paths:
                 $ref: '#/components/schemas/exception'
       operationId: get_all_file_tags
       description: Gets a list of all file tags
+      security:
+        - jinya-api-key: [ ]
     post:
       summary: Create file tag
       tags:
@@ -1675,6 +1701,8 @@ paths:
                 $ref: '#/components/schemas/exception'
       operationId: get_file_tag_by_id
       description: Gets the file tag with the specified id
+      security:
+        - jinya-api-key: [ ]
 
   /api/form:
     get:
@@ -1714,7 +1742,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schema/form'
+                $ref: '#/components/schemas/form'
         '400':
           description: Validation error
           content:
@@ -1747,7 +1775,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schema/create-form-request'
+              $ref: '#/components/schemas/create-form-request'
   /api/form/{id}:
     parameters:
       - name: id
@@ -1877,7 +1905,25 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/form-item'
-      operationId: api_form_item_get_all
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '404':
+          description: Form not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: get_form_items
       security:
         - jinya-api-key: [ ]
       description: Gets the items of the given form
@@ -1920,8 +1966,7 @@ paths:
             schema:
               type: array
               items:
-                schema:
-                  $ref: '#/components/schemas/update-form-item'
+                $ref: '#/components/schemas/update-form-item'
       tags:
         - pages-and-forms
 
@@ -1951,6 +1996,8 @@ paths:
                 $ref: '#/components/schemas/exception'
       operationId: get_all_galleries
       description: Gets all galleries saved in Jinya CMS
+      security:
+        - jinya-api-key: [ ]
     post:
       summary: Create gallery
       tags:
@@ -2102,6 +2149,8 @@ paths:
                 $ref: '#/components/schemas/exception'
       operationId: get_gallery_by_id
       description: Gets the gallery with the specified slug
+      security:
+        - jinya-api-key: [ ]
   /api/gallery/{galleryId}/file:
     parameters:
       - name: galleryId
@@ -2121,8 +2170,7 @@ paths:
               schema:
                 type: array
                 items:
-                  schema:
-                    $ref: '#/components/schemas/gallery-file-position'
+                  $ref: '#/components/schemas/gallery-file-position'
         '401':
           description: Api key missing
           content:
@@ -2143,6 +2191,8 @@ paths:
                 $ref: '#/components/schemas/exception'
       operationId: get_gallery_files
       description: Gets all files in the given gallery
+      security:
+        - jinya-api-key: [ ]
     post:
       summary: Create file by gallery id
       tags:
@@ -2261,7 +2311,7 @@ paths:
         content:
           application/json:
             schema:
-                  $ref: '#/components/schemas/update-gallery-file-position'
+              $ref: '#/components/schemas/update-gallery-file-position-request'
 
   /api/known_device:
     get:
@@ -2309,6 +2359,7 @@ paths:
           description: Known device is invalid
       operationId: check_known_device
       description: Check if the known device provided in the url is valid
+      security: [ ]
     delete:
       summary: Delete known device
       tags:
@@ -2372,8 +2423,76 @@ paths:
                 $ref: '#/components/schemas/exception'
       operationId: locate_ip
       description: Locates the given IPv4 address using ip.jinya.de
+      security:
+        - jinya-api-key: [ ]
 
-  '/api/menu/{id}':
+  /api/menu:
+    get:
+      summary: List menus
+      responses:
+        '200':
+          description: Successfully returned all menus
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/menu-list'
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: get_all_menus
+      description: Gets a list of all menus
+      tags:
+        - design
+      security:
+        - jinya-api-key: [ ]
+    post:
+      summary: Create menu
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/menu'
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '409':
+          description: Name is not unique
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: create_menu
+      description: Creates a new menu
+      security:
+        - jinya-api-key: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create-menu-request'
+      tags:
+        - design
+  /api/menu/{id}:
     parameters:
       - name: id
         schema:
@@ -2390,19 +2509,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '403':
           description: Invalid api key
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '404':
           description: Menu not found
           content:
@@ -2415,7 +2528,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/exception'
-      operationId: api_menu_put
+      operationId: update_menu
       description: Updates the name of the given menu
       security:
         - jinya-api-key: [ ]
@@ -2423,12 +2536,9 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                name:
-                  type: string
+              $ref: '#/components/schemas/update-menu-request'
       tags:
-        - menu
+        - design
     delete:
       summary: Delete menu by id
       responses:
@@ -2439,31 +2549,25 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '403':
           description: Invalid api key
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '404':
           description: Menu not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/exception'
-      operationId: api_menu_delete
+      operationId: delete_menu
       security:
         - jinya-api-key: [ ]
       description: Deletes the given menu
       tags:
-        - menu
+        - design
     get:
       summary: Get menu by id
       responses:
@@ -2478,130 +2582,26 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '403':
           description: Invalid api key
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '404':
           description: Menu not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/exception'
-      operationId: api_menu_get
+      operationId: get_menu_by_id
       description: Gets the menu with the specified id
       security:
         - jinya-api-key: [ ]
       tags:
-        - menu
-  /api/menu:
-    get:
-      summary: List menus
-      responses:
-        '200':
-          description: Successfully returned all pages
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  items:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/menu'
-                  count:
-                    type: integer
-                  offset:
-                    type: integer
-                  success:
-                    type: boolean
-        '401':
-          description: Api key missing
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '403':
-          description: Invalid api key
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-      operationId: api_menu_get_all
-      description: Gets a list of all menus
-      parameters:
-        - name: keyword
-          description: The keyword to filter the menus by
-          schema:
-            type: string
-          in: query
-      tags:
-        - menu
-    post:
-      summary: Create menu
-      responses:
-        '201':
-          description: Created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/menu'
-        '401':
-          description: Api key missing
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '403':
-          description: Invalid api key
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '409':
-          description: Name is not unique
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/exception'
-      operationId: api_menu_post
-      description: 'Creates a new menu, uploading the logo needs to be done in the second step'
-      security:
-        - jinya-api-key: [ ]
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-              required:
-                - name
-      tags:
-        - menu
-  '/api/menu/{menuId}/items':
+        - design
+  /api/menu/{menuId}/items:
     parameters:
       - name: menuId
         schema:
@@ -2611,7 +2611,7 @@ paths:
     get:
       summary: List items by menu id
       tags:
-        - menu
+        - design
       responses:
         '200':
           description: Successfully listed menu items
@@ -2621,355 +2621,82 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/menu-item'
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
         '404':
           description: Menu not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/exception'
-      operationId: api_menu_items_get_all
+      operationId: get_all_menu_items_by_menu
       description: Lists all menu items for the given menu
-  '/api/menu/{menuId}/items/{position}':
-    parameters:
-      - name: menuId
-        schema:
-          type: integer
-        in: path
-        required: true
-      - name: position
-        schema:
-          type: integer
-        in: path
-        required: true
-    get:
-      summary: Get item by menu id and position
-      tags:
-        - menu
-      responses:
-        '200':
-          description: Successfully got menuitem
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/menu-item'
-      operationId: api_menu_items_get
-      description: 'Gets the menu item, that is in the given menu at the specified position.'
-    delete:
-      summary: Delete menu item by menu id and position
-      tags:
-        - configuration
-        - menu
-      responses:
-        '204':
-          description: Successfully deleted
-        '401':
-          description: Api key missing
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '403':
-          description: Invalid api key
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '404':
-          description: Menu or menu item not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/exception'
-      operationId: api_menu_items_delete_parent_menu
-      description: Deletes a menu item by menu id and position
       security:
         - jinya-api-key: [ ]
-    post:
-      summary: Create menu item by menu id and position
-      tags:
-        - configuration
-        - menu
-      operationId: api_menu_items_post_parent_menu
-      description: 'Creates a new menu item, by menu id and position.'
-      security:
-        - jinya-api-key: [ ]
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                highlighted:
-                  type: string
-                route:
-                  $ref: '#/components/schemas/RouteEntry'
-                pageType:
-                  type: string
-      responses:
-        '201':
-          description: Created menu item
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/menu'
-        '401':
-          description: Api key missing
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '403':
-          description: Invalid api key
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '404':
-          description: Menu or menu item not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/exception'
-  '/api/menu/{menuId}/items/{parentId}/{position}':
-    parameters:
-      - name: menuId
-        schema:
-          type: integer
-        in: path
-        required: true
-      - name: position
-        schema:
-          type: integer
-        in: path
-        required: true
-      - name: parentId
-        schema:
-          type: integer
-        in: path
-        required: true
-    delete:
-      summary: 'Delete menu item by menu id, parent id and position'
-      tags:
-        - configuration
-        - menu
-      responses:
-        '204':
-          description: Successfully deleted
-        '401':
-          description: Api key missing
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '403':
-          description: Invalid api key
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '404':
-          description: Menu or menu item not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/exception'
-      operationId: api_menu_items_delete_parent_menu_item
-      description: Deletes a menu item by menu id an position
-      security:
-        - jinya-api-key: [ ]
-    post:
-      summary: 'Create menu item by menu id, parent id and position'
-      tags:
-        - menu
-      operationId: api_menu_items_post_parent_menu_item
-      description: 'Creates a new menu item, by menu id and position.'
-      security:
-        - jinya-api-key: [ ]
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                highlighted:
-                  type: string
-                route:
-                  $ref: '#/components/schemas/RouteEntry'
-                pageType:
-                  type: string
-      responses:
-        '201':
-          description: Created menu item
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/menu'
-        '401':
-          description: Api key missing
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '403':
-          description: Invalid api key
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '404':
-          description: Menu or menu item not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/exception'
-  '/api/menu/{menuId}/logo':
-    parameters:
-      - name: menuId
-        schema:
-          type: integer
-        in: path
-        required: true
-    get:
-      summary: Get logo by menu id
-      tags:
-        - menu
-      responses:
-        '200':
-          description: Successfully got the logo
-          content:
-            application/octet-stream:
-              schema:
-                type: string
-        '404':
-          description: Menu not found
-          content:
-            application/json:
-              schema:
-                oneOf:
-                  - $ref: '#/components/schemas/exception'
-                  - type: object
-                    properties:
-                      message:
-                        type: string
-      operationId: api_menu_logo_get
-      description: Gets the logo for the specified menu item
-    delete:
-      summary: Delete logo by menu id
-      tags:
-        - menu
-        - configuration
-      responses:
-        '204':
-          description: Successfully deleted the menu logo
-        '401':
-          description: Api key missing
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '403':
-          description: Invalid api key
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '404':
-          description: Menu not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/exception'
-      operationId: api_menu_logo_delete
-      security:
-        - jinya-api-key: [ ]
-      description: Deletes the logo of the given menu
     put:
-      summary: Add logo by menu id
-      tags:
-        - menu
-        - configuration
+      summary: Update menu items
       responses:
         '204':
-          description: Successfully uploaded the logo
+          description: Updated menu items
+        '400':
+          description: Missing fields
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
         '401':
           description: Api key missing
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '403':
           description: Invalid api key
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '404':
           description: Menu not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/exception'
-      operationId: api_menu_logo_post
-      requestBody:
-        content:
-          application/octet-stream:
-            schema:
-              type: string
-        description: The binary representation of the logo
-      description: Sets the logo of the given menu
+      operationId: update_menu_items
+      description: Replaces all menu items
       security:
         - jinya-api-key: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/update-menu-item'
+      tags:
+        - design
+
   /api/me:
     get:
-      summary: Get user info
-      operationId: get_user_info
+      summary: Get about me
+      operationId: get_about_me
       responses:
         '200':
           description: Successfully got all information
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/artist'
+                $ref: '#/components/schemas/user'
         '401':
           description: Api key missing
           content:
@@ -2986,11 +2713,11 @@ paths:
       security:
         - jinya-api-key: [ ]
       tags:
-        - artist
+        - my-jinya
     put:
       summary: Update about me data
       tags:
-        - myjinya
+        - my-jinya
       responses:
         '204':
           description: Successfully changed about me data
@@ -2999,20 +2726,14 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '403':
           description: Invalid api key
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-      operationId: api_my_jinya_put
+                $ref: '#/components/schemas/exception'
+      operationId: update_my_jinya
       security:
         - jinya-api-key: [ ]
       description: Updates the about me data of the current user
@@ -3020,85 +2741,121 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  format: email
-                artistName:
-                  type: string
-                aboutMe:
-                  type: string
-        description: ''
+              $ref: '#/components/schemas/update-about-me-request'
+  /api/me/colorscheme:
+    put:
+      summary: Update prefered color scheme
+      tags:
+        - my-jinya
+      responses:
+        '204':
+          description: Successfully changed the prefered color scheme
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: update_prefered_colorscheme
+      description: Updates the prefered color scheme
+      security:
+        - jinya-api-key: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update-colorscheme'
   /api/me/profilepicture:
     put:
-      summary: Update profile picture data
-      tags:
-        - myjinya
+      summary: Update current user profile picture
       responses:
         '204':
-          description: Successfully uploaded profile picture
+          description: Successfully updated current users profile picture
         '401':
           description: Api key missing
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '403':
           description: Invalid api key
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-      operationId: api_my_jinya_put_profile_picture
-      description: Uploads a new profile picture
+                $ref: '#/components/schemas/exception'
+      operationId: upload_my_profilepicture
+      description: Updates the current users profile picture
       security:
         - jinya-api-key: [ ]
       requestBody:
         content:
-          application/octet-stream:
+          image/apng:
             schema:
-              type: object
-        description: 'Raw image to upload, the file will be converted to png on upload'
-  /api/page:
+              type: string
+              format: binary
+          image/avif:
+            schema:
+              type: string
+              format: binary
+          image/gif:
+            schema:
+              type: string
+              format: binary
+          image/jpeg:
+            schema:
+              type: string
+              format: binary
+          image/png:
+            schema:
+              type: string
+              format: binary
+          image/svg+xml:
+            schema:
+              type: string
+              format: binary
+          image/webp:
+            schema:
+              type: string
+              format: binary
+      tags:
+        - artist
+
+  /api/classic-page:
     get:
-      summary: List pages
+      summary: List classic pages
       responses:
         '200':
-          description: Successfully returned all pages
+          description: Successfully returned all classic pages
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  items:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/classic-page'
-                  count:
-                    type: integer
-                  offset:
-                    type: integer
-                  success:
-                    type: boolean
-      operationId: api_page_get_all
-      description: Gets a list of all pages
-      parameters:
-        - name: keyword
-          description: The keyword to filter the pages by
-          schema:
-            type: string
-          in: query
+                $ref: '#/components/schemas/classic-page-list'
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: get_all_classic_pages
+      description: Gets a list of all classic pages
       tags:
-        - page
+        - pages-and-forms
+      security:
+        - jinya-api-key: [ ]
     post:
-      summary: Create page
+      summary: Create classic page
       responses:
         '201':
           description: Created
@@ -3111,81 +2868,9 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '403':
-          description: Invalid api key
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '409':
-          description: Title is not unique
-          content:
-            application/json:
-              schema:
                 $ref: '#/components/schemas/exception'
-      operationId: api_page_post
-      description: Creates a new page
-      security:
-        - jinya-api-key: [ ]
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  deprecated: true
-                content:
-                  type: string
-                slug:
-                  type: string
-                  deprecated: true
-                title:
-                  type: string
-              required:
-                - title
-      tags:
-        - page
-  '/api/page/{slug}':
-    parameters:
-      - name: slug
-        schema:
-          type: string
-        in: path
-        required: true
-    put:
-      summary: Update page by slug
-      responses:
-        '204':
-          description: Successfully updated page
-        '401':
-          description: Api key missing
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
         '403':
           description: Invalid api key
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '404':
-          description: Page not found
           content:
             application/json:
               schema:
@@ -3196,598 +2881,485 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/exception'
-      operationId: api_page_put
-      description: Updates the page with the given slug
+      operationId: create_classic_page
+      description: Creates a new classic page
       security:
         - jinya-api-key: [ ]
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                content:
-                  type: string
+              $ref: '#/components/schemas/create-classic-page-request'
       tags:
-        - page
-    delete:
-      summary: Delete page by slug
-      responses:
-        '204':
-          description: Page successfully deleted
-        '401':
-          description: Api key missing
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '403':
-          description: Invalid api key
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '404':
-          description: Page not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/exception'
-      operationId: api_page_delete
-      security:
-        - jinya-api-key: [ ]
-      description: Deletes the given page
-      tags:
-        - page
-    get:
-      summary: Get page by slug
-      tags:
-        - page
-      responses:
-        '200':
-          description: Successfully got the page
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/classic-page'
-        '404':
-          description: Page not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/exception'
-      operationId: api_page_get
-      description: Gets the page with the specified slug
-      security:
-        - jinya-api-key: [ ]
-  '/api/segment_page/{slug}':
+        - pages-and-forms
+  /api/classic-page/{id}:
     parameters:
-      - name: slug
-        schema:
-          type: string
-        in: path
-        required: true
-    put:
-      summary: Update segment page by slug
-      responses:
-        '204':
-          description: Successfully updated segment page
-        '401':
-          description: Api key missing
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '403':
-          description: Invalid api key
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '404':
-          description: Segment page not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/exception'
-        '409':
-          description: Name is not unique
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/exception'
-      operationId: api_segment_page_put
-      description: Updates the segment page with the given slug
-      security:
-        - jinya-api-key: [ ]
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                slug:
-                  type: string
-      tags:
-        - page
-    delete:
-      summary: Delete segment page by slug
-      responses:
-        '204':
-          description: Segment page successfully deleted
-        '401':
-          description: Api key missing
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '403':
-          description: Invalid api key
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '404':
-          description: Segment page not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/exception'
-      operationId: api_segment_page_delete
-      security:
-        - jinya-api-key: [ ]
-      description: Deletes the given segment page
-      tags:
-        - page
-    get:
-      summary: Get segment page by slug
-      tags:
-        - page
-      responses:
-        '200':
-          description: Successfully got the page
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/modern-page'
-        '404':
-          description: Page not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/exception'
-      operationId: api_segment_page_get
-      description: Gets the segment page with the specified slug
-  /api/segment_page:
-    get:
-      summary: List segment pages
-      responses:
-        '200':
-          description: Successfully returned all segment pages
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  items:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/modern-page'
-                  count:
-                    type: integer
-                  offset:
-                    type: integer
-                  success:
-                    type: boolean
-      operationId: api_segment_page_get_all
-      description: Gets a list of all segment pages
-      parameters:
-        - name: keyword
-          description: The keyword to filter the segment pages by
-          schema:
-            type: string
-          in: query
-      tags:
-        - page
-    post:
-      summary: Create segment page
-      responses:
-        '201':
-          description: Created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/modern-page'
-        '401':
-          description: Api key missing
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '403':
-          description: Invalid api key
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '409':
-          description: Name is not unique
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/exception'
-      operationId: api_segment_page_post
-      description: Creates a new segment page
-      security:
-        - jinya-api-key: [ ]
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-              required:
-                - name
-      tags:
-        - page
-  '/api/segment_page/{slug}/segment':
-    parameters:
-      - name: slug
-        schema:
-          type: string
-        in: path
-        required: true
-    get:
-      summary: Get segment by segment page
-      tags:
-        - page
-      responses:
-        '200':
-          description: Successfully got segments
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/modern-page-segment'
-        '404':
-          description: Segment page not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/exception'
-      operationId: api_segment_page_segment_get
-      description: Gets all segments in the given segment page
-    post:
-      summary: Add Segment
-      operationId: api_segment_page_segment_post
-      responses:
-        '201':
-          description: Segment successfully added
-          content:
-            application/json:
-        '401':
-          description: Api key missing
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '403':
-          description: Invalid api key
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '404':
-          description: Segment page not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/exception'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              oneOf:
-                - properties:
-                    position:
-                      type: integer
-                    html:
-                      type: string
-                - properties:
-                    position:
-                      type: integer
-                    file:
-                      type: string
-                    action:
-                      enum:
-                        - link
-                        - none
-                        - script
-                      type: string
-                    target:
-                      type: string
-                    script:
-                      type: string
-                - properties:
-                    position:
-                      type: integer
-                    gallery:
-                      type: string
-              type: object
-      description: Adds a new segment to a segment page
-      security:
-        - jinya-api-key: [ ]
-      tags:
-        - page
-  '/api/segment_page/{slug}/segment/{id}':
-    parameters:
-      - name: slug
-        schema:
-          type: string
-        in: path
-        required: true
       - name: id
         schema:
           type: integer
         in: path
         required: true
     put:
-      summary: Update a segment by page slug and segment id
+      summary: Update classic page by id
       responses:
-        '201':
-          description: Segment successfully added
-          content:
-            application/json:
-              schema:
-                properties:
-                  id:
-                    type: integer
-                  position:
-                    type: integer
-                  html:
-                    type: string
-                type: object
+        '204':
+          description: Successfully updated classic page
         '401':
           description: Api key missing
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '403':
           description: Invalid api key
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '404':
-          description: Segment page not found
+          description: Classic page not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/exception'
-      operationId: api_segment_page_segment_put
-      description: Updates the given segment in the specified segment page
+        '409':
+          description: Title is not unique
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: update_classic_page
+      description: Updates the classic page with the given id
+      security:
+        - jinya-api-key: [ ]
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                position:
-                  default: -1
-                  type: integer
-                file:
-                  type: string
-                action:
-                  default: none
-                  enum:
-                    - link
-                    - none
-                    - script
-                  type: string
-                target:
-                  type: string
-                script:
-                  type: string
-                    - properties:
-                      position:
-                        default: -1
-                        type: integer
-                      gallery:
-                        type: string
-      security:
-        - jinya-api-key: [ ]
+              $ref: '#/components/schemas/update-classic-page-request'
       tags:
-        - page
+        - pages-and-forms
     delete:
-      summary: Delete a segment by page slug and segment id
-      tags:
-        - page
+      summary: Delete classic page by id
       responses:
         '204':
-          description: Successfully deleted the segment
+          description: Classic page successfully deleted
         '401':
           description: Api key missing
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '403':
           description: Invalid api key
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '404':
-          description: Segment page or segment not found
+          description: Classic page not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/exception'
-      operationId: api_segment_page_segment_delete
-      description: Deletes a segment from the given segment page with the given id
+      operationId: delete_classic_page
       security:
         - jinya-api-key: [ ]
-  '/api/segment_page/{slug}/preview':
+      description: Deletes the given classic page
+      tags:
+        - pages-and-forms
+    get:
+      summary: Get page by id
+      tags:
+        - pages-and-forms
+      responses:
+        '200':
+          description: Successfully got the classic page
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/classic-page'
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '404':
+          description: Classic page not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: get_classic_page_by_id
+      description: Gets the classic page with the specified id
+      security:
+        - jinya-api-key: [ ]
+
+  /api/modern-page:
+    get:
+      summary: List modern pages
+      responses:
+        '200':
+          description: Successfully returned all modern pages
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/modern-page-list'
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: get_all_modern_pages
+      description: Gets a list of all modern pages
+      tags:
+        - pages-and-forms
+      security:
+        - jinya-api-key: [ ]
+    post:
+      summary: Create modern page
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/modern-page'
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '409':
+          description: Title is not unique
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: create_modern_page
+      description: Creates a new modern page
+      security:
+        - jinya-api-key: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create-modern-page-request'
+      tags:
+        - pages-and-forms
+  /api/modern-page/{id}:
     parameters:
-      - name: slug
+      - name: id
         schema:
-          type: string
+          type: integer
+        in: path
+        required: true
+    put:
+      summary: Update modern page by id
+      responses:
+        '204':
+          description: Successfully updated modern page
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '404':
+          description: Modern page not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '409':
+          description: Name is not unique
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: update_modern_page
+      description: Updates the modern page with the given id
+      security:
+        - jinya-api-key: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update-modern-page-request'
+      tags:
+        - pages-and-forms
+    delete:
+      summary: Delete modern page by id
+      responses:
+        '204':
+          description: Modern page successfully deleted
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '404':
+          description: Modern page not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: delete_modern_page
+      security:
+        - jinya-api-key: [ ]
+      description: Deletes the given page
+      tags:
+        - pages-and-forms
+    get:
+      summary: Get modern page by id
+      tags:
+        - pages-and-forms
+      responses:
+        '200':
+          description: Successfully got the modern page
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/modern-page'
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '404':
+          description: Modern page not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: get_modern_page_by_id
+      description: Gets the modern page with the specified id
+      security:
+        - jinya-api-key: [ ]
+  /api/modern-page/{id}/section:
+    parameters:
+      - name: id
+        schema:
+          type: integer
         in: path
         required: true
     get:
-      summary: Get segment page preview
+      summary: Get sections by modern page
       tags:
-        - page
+        - pages-and-forms
       responses:
         '200':
-          description: Successfully generated preview
+          description: Successfully got sections
           content:
-            text/html:
+            application/json:
               schema:
-                type: object
+                type: array
+                items:
+                  $ref: '#/components/schemas/modern-page-section'
         '401':
           description: Api key missing
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '403':
           description: Invalid api key
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '404':
-          description: Segment page not found
+          description: Modern page not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/exception'
-      operationId: api_segment_page_preview
-      description: Generates a preview of the given segment page based on the current theme
+      operationId: get_modern_page_sections
+      description: Gets all sections in the given modern page
       security:
         - jinya-api-key: [ ]
+    put:
+      summary: Update modern page sections
+      responses:
+        '204':
+          description: Updated modern page sections
+        '400':
+          description: Missing fields
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '404':
+          description: Modern page not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: update_modern_page_sections
+      description: Replaces all modern page sections
+      security:
+        - jinya-api-key: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/update-modern-page-section'
+      tags:
+        - pages-and-forms
+
+  /api/php-info:
+    get:
+      summary: Get PHP info
+      responses:
+        '200':
+          description: Successfully returned all classic pages
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: get_php_info
+      description: Get PHP infos as JSON
+      tags:
+        - maintenance
+      security:
+        - jinya-api-key: [ ]
+
   /api/theme:
     get:
       summary: List all themes
       tags:
-        - theme
+        - design
       responses:
         '200':
           description: Successfully got all themes
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                  offset:
-                    type: integer
-                  count:
-                    type: integer
-                  items:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        name:
-                          type: string
-                        description:
-                          type: string
-                        displayName:
-                          type: string
-                        previewImage:
-                          type: string
+                $ref: '#/components/schemas/theme-list'
         '401':
           description: Api key missing
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '403':
           description: Invalid api key
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-      operationId: api_theme_get_all
+                $ref: '#/components/schemas/exception'
+      operationId: get_all_themes
       description: Gets a list of all currently installed themes
       security:
         - jinya-api-key: [ ]
-  '/api/theme/{themeName}':
+    post:
+      summary: Upload new theme
+      tags:
+        - design
+      responses:
+        '204':
+          description: Successfully uploaded new theme
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: upload_theme
+      description: Uploads a new theme that can later be used
+      security:
+        - jinya-api-key: [ ]
+      requestBody:
+        content:
+          application/zip:
+            schema:
+              type: string
+              format: binary
+  /api/theme/{id}:
     parameters:
-      - name: themeName
+      - name: id
         schema:
-          type: string
+          type: integer
         in: path
         required: true
     get:
-      summary: Get theme by name
+      summary: Get theme by id
       tags:
-        - theme
+        - design
       responses:
         '200':
           description: Successfully got the theme
@@ -3800,58 +3372,199 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '403':
           description: Invalid api key
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '404':
           description: Theme not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/exception'
-      operationId: api_theme_get
-      description: Gets the informations of the theme with the specified name
+      operationId: get_theme_by_id
+      description: Gets the information of the theme with the specified id
+      security:
+        - jinya-api-key: [ ]
     put:
-      summary: Update theme
-      operationId: api_theme_put
+      summary: Update theme by id
+      tags:
+        - design
       responses:
         '204':
-          description: Successfully updated the config
+          description: Successfully updated the theme
         '401':
           description: Api key missing
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '403':
           description: Invalid api key
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '404':
           description: Theme not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/exception'
-      description: Updates the config and scss variables for the selected theme
+      operationId: update_theme
+      description: Updates the given theme
+      security:
+        - jinya-api-key: [ ]
+      requestBody:
+        content:
+          application/zip:
+            schema:
+              type: string
+              format: binary
+  /api/theme/{id}/active:
+    parameters:
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+    put:
+      summary: Activate theme by id
+      tags:
+        - design
+      responses:
+        '204':
+          description: Successfully activated the theme
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '404':
+          description: Theme not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: activate_theme
+      description: Activates the given theme
+      security:
+        - jinya-api-key: [ ]
+  /api/theme/{id}/assets:
+    parameters:
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+    put:
+      summary: Compile the themes assets
+      tags:
+        - design
+      responses:
+        '204':
+          description: Successfully compiled the themes assets
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '404':
+          description: Theme not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: compile_theme_assets
+      description: Compiles the given themes assets
+      security:
+        - jinya-api-key: [ ]
+  /api/theme/{id}/styling:
+    parameters:
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+    get:
+      summary: Get theme styling variables
+      tags:
+        - design
+      responses:
+        '200':
+          description: Successfully got the theme styling variables
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '404':
+          description: Theme not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: get_theme_variables
+      description: Gets styling variables of the given theme
+      security:
+        - jinya-api-key: [ ]
+    put:
+      summary: Update the theme variables and compile the theme
+      tags:
+        - design
+      responses:
+        '204':
+          description: Successfully updated the variables and compiled the theme
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '404':
+          description: Theme not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: save_theme_variables
+      description: Updates the theme variables and recompiles the theme to apply the variables to the assets
       security:
         - jinya-api-key: [ ]
       requestBody:
@@ -3859,489 +3572,872 @@ paths:
           application/json:
             schema:
               type: object
-              properties:
-                config:
-                  type: object
-                scss:
-                  type: object
-      tags:
-        - theme
-        - configuration
-  '/api/theme/{themeName}/form/config':
+              additionalProperties:
+                type: string
+  /api/theme/{id}/blog-category:
     parameters:
-      - name: themeName
+      - name: id
         schema:
-          type: string
+          type: integer
         in: path
         required: true
     get:
-      summary: Get theme config form by name
+      summary: Get theme blog categories
       tags:
-        - theme
+        - design
       responses:
         '200':
-          description: Successfully got the theme config form
+          description: Successfully got the theme blog categories
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ThemeConfigForm'
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/theme-blog-category'
         '401':
           description: Api key missing
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '403':
           description: Invalid api key
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '404':
           description: Theme not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/exception'
-      operationId: api_theme_form_config_get
-      description: 'Gets the theme config form, based on this json you can build the configuration ui'
+      operationId: get_theme_blog_categories
+      description: Gets the theme blog categories for the given theme
       security:
         - jinya-api-key: [ ]
-  '/api/theme/{themeName}/form/variables':
+  /api/theme/{id}/blog-category/{name}:
     parameters:
-      - name: themeName
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+      - name: name
         schema:
           type: string
         in: path
         required: true
-    get:
-      summary: Get theme variables by name
-      tags:
-        - theme
-      responses:
-        '200':
-          description: Successfully got the variables with default values
-          content:
-            application/json:
-              schema:
-                type: object
-        '401':
-          description: Api key missing
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '403':
-          description: Invalid api key
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '404':
-          description: Theme not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/exception'
-      operationId: api_theme_form_variables_get
-      description: Gets the scss variables for the selected theme including default values
-  '/api/theme/{themeName}/file/{key}':
-    parameters:
-      - name: themeName
-        schema:
-          type: string
-        in: path
-        required: true
-      - name: key
-        schema:
-          type: string
-        in: path
-        required: true
-    delete:
-      summary: Delete file by key
-      tags:
-        - configuration
-        - theme
-      responses:
-        '204':
-          description: Successfully removed file
-        '401':
-          description: Api key missing
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '403':
-          description: Invalid api key
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '404':
-          description: Theme or key not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/exception'
-      operationId: api_theme_delete_file
-      security:
-        - jinya-api-key: [ ]
-      description: Deletes a file from the theme config
     put:
-      summary: Add file by key
+      summary: Set theme blog category with the given name in the given theme
       tags:
-        - theme
+        - design
       responses:
         '204':
-          description: Successfully saved file
+          description: Successfully updated the theme blog category
         '401':
           description: Api key missing
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '403':
           description: Invalid api key
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '404':
-          description: Theme or key not found
+          description: Theme or blog category not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/exception'
-      operationId: api_theme_put_file
-      description: Uploads the given file and saves it in the theme config variable
+      operationId: update_theme_blog_category_by_name
+      description: Updates the theme blog category with the given name in the given theme
       security:
         - jinya-api-key: [ ]
       requestBody:
         content:
-          application/octet-stream:
+          application/json:
             schema:
-              type: object
-  '/api/theme/{themeName}/preview':
+              $ref: '#/components/schemas/update-theme-blog-category-request'
+  /api/theme/{id}/file:
     parameters:
-      - name: themeName
+      - name: id
         schema:
-          type: string
+          type: integer
         in: path
         required: true
     get:
-      summary: Get preview image
+      summary: Get theme files
       tags:
-        - theme
+        - design
       responses:
         '200':
-          description: The image
+          description: Successfully got the theme files
           content:
-            application/octet-stream:
+            application/json:
               schema:
                 type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/theme-file'
         '401':
           description: Api key missing
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '403':
-          description: Invalid api key
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        '404':
-          description: Theme or key not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/exception'
-      operationId: api_theme_preview_get
-      description: Gets the preview image for the specified theme
-      security:
-        - jinya-api-key: [ ]
-  '/api/theme/{themeName}/links':
-    parameters:
-      - name: themeName
-        schema:
-          type: string
-        in: path
-        required: true
-    get:
-      summary: Get theme links
-      tags:
-        - theme
-      responses:
-        '200':
-          description: Successfully got the links
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  forms:
-                    type: object
-                    properties:
-                      '':
-                        type: object
-                        properties:
-                          slug:
-                            type: string
-                          name:
-                            type: string
-                  pages:
-                    type: object
-                    properties:
-                      '':
-                        type: object
-                        properties:
-                          slug:
-                            type: string
-                          name:
-                            type: string
-                  menus:
-                    type: object
-                    properties:
-                      '':
-                        type: object
-                        properties:
-                          id:
-                            type: integer
-                          name:
-                            type: string
-                  galleries:
-                    type: object
-                    properties:
-                      '':
-                        type: object
-                        properties:
-                          slug:
-                            type: string
-                          name:
-                            type: string
-                  files:
-                    type: object
-                    properties:
-                      '':
-                        type: object
-                        properties:
-                          name:
-                            type: string
-                          id:
-                            type: integer
-                  segmentPages:
-                    type: object
-                    properties:
-                      '':
-                        type: object
-                        properties:
-                          slug:
-                            type: string
-                          name:
-                            type: string
-        '401':
-          description: Api key missing
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
         '403':
           description: Invalid api key
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '404':
           description: Theme not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/exception'
-      operationId: api_theme_get_links
-      description: Gets all links for the current theme
+      operationId: get_theme_files
+      description: Gets the theme files for the given theme
       security:
         - jinya-api-key: [ ]
+  /api/theme/{id}/file/{name}:
+    parameters:
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+      - name: name
+        schema:
+          type: string
+        in: path
+        required: true
     put:
-      summary: Set theme link
+      summary: Set theme file with the given name in the given theme
       tags:
-        - theme
-        - configuration
+        - design
       responses:
         '204':
-          description: Successfully updated links
+          description: Successfully updated the theme file
         '401':
           description: Api key missing
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '403':
           description: Invalid api key
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '404':
-          description: Theme or any of the link elements not found
+          description: Theme or file not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/exception'
-      operationId: api_theme_put_links
+      operationId: update_theme_file_by_name
+      description: Updates the theme file with the given name in the given theme
+      security:
+        - jinya-api-key: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update-theme-file-request'
+  /api/theme/{id}/form:
+    parameters:
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+    get:
+      summary: Get theme forms
+      tags:
+        - design
+      responses:
+        '200':
+          description: Successfully got the theme forms
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/theme-form'
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '404':
+          description: Theme not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: get_theme_forms
+      description: Gets the theme forms for the given theme
+      security:
+        - jinya-api-key: [ ]
+  /api/theme/{id}/form/{name}:
+    parameters:
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+      - name: name
+        schema:
+          type: string
+        in: path
+        required: true
+    put:
+      summary: Set theme form with the given name in the given theme
+      tags:
+        - design
+      responses:
+        '204':
+          description: Successfully updated the theme form
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '404':
+          description: Theme or form not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: update_theme_form_by_name
+      description: Updates the theme form with the given name in the given theme
+      security:
+        - jinya-api-key: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update-theme-form-request'
+  /api/theme/{id}/gallery:
+    parameters:
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+    get:
+      summary: Get theme galleries
+      tags:
+        - design
+      responses:
+        '200':
+          description: Successfully got the theme galleries
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/theme-gallery'
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '404':
+          description: Theme not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: get_theme_galleries
+      description: Gets the theme galleries for the given theme
+      security:
+        - jinya-api-key: [ ]
+  /api/theme/{id}/gallery/{name}:
+    parameters:
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+      - name: name
+        schema:
+          type: string
+        in: path
+        required: true
+    put:
+      summary: Set theme gallery with the given name in the given theme
+      tags:
+        - design
+      responses:
+        '204':
+          description: Successfully updated the theme gallery
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '404':
+          description: Theme or gallery not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: update_theme_gallery_by_name
+      description: Updates the theme gallery with the given name in the given theme
+      security:
+        - jinya-api-key: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update-theme-gallery-request'
+  /api/theme/{id}/menu:
+    parameters:
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+    get:
+      summary: Get theme menus
+      tags:
+        - design
+      responses:
+        '200':
+          description: Successfully got the theme menus
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/theme-menu'
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '404':
+          description: Theme not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: get_theme_menus
+      description: Gets the theme menus for the given theme
+      security:
+        - jinya-api-key: [ ]
+  /api/theme/{id}/menu/{name}:
+    parameters:
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+      - name: name
+        schema:
+          type: string
+        in: path
+        required: true
+    put:
+      summary: Set theme menu with the given name in the given theme
+      tags:
+        - design
+      responses:
+        '204':
+          description: Successfully updated the theme menu
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '404':
+          description: Theme or menu not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: update_theme_menu_by_name
+      description: Updates the theme menu with the given name in the given theme
+      security:
+        - jinya-api-key: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update-theme-menu-request'
+  /api/theme/{id}/classic-page:
+    parameters:
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+    get:
+      summary: Get theme classic pages
+      tags:
+        - design
+      responses:
+        '200':
+          description: Successfully got the theme classic pages
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/theme-classic-page'
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '404':
+          description: Theme not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: get_theme_classic_pages
+      description: Gets the theme classic pages for the given theme
+      security:
+        - jinya-api-key: [ ]
+  /api/theme/{id}/classic-page/{name}:
+    parameters:
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+      - name: name
+        schema:
+          type: string
+        in: path
+        required: true
+    put:
+      summary: Set theme classic page with the given name in the given theme
+      tags:
+        - design
+      responses:
+        '204':
+          description: Successfully updated the theme classic page
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '404':
+          description: Theme or classic page not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: update_theme_classic_page_by_name
+      description: Updates the theme classic page with the given name in the given theme
+      security:
+        - jinya-api-key: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update-theme-classic-page-request'
+  /api/theme/{id}/modern-page:
+    parameters:
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+    get:
+      summary: Get theme modern pages
+      tags:
+        - design
+      responses:
+        '200':
+          description: Successfully got the theme modern pages
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/theme-modern-page'
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '404':
+          description: Theme not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: get_theme_modern_pages
+      description: Gets the theme modern pages for the given theme
+      security:
+        - jinya-api-key: [ ]
+  /api/theme/{id}/modern-page/{name}:
+    parameters:
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+      - name: name
+        schema:
+          type: string
+        in: path
+        required: true
+    put:
+      summary: Set theme modern page with the given name in the given theme
+      tags:
+        - design
+      responses:
+        '204':
+          description: Successfully updated the theme modern page
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '404':
+          description: Theme or modern page not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: update_theme_modern_page_by_name
+      description: Updates the theme modern page with the given name in the given theme
+      security:
+        - jinya-api-key: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update-theme-modern-page-request'
+  /api/theme/{id}/configuration:
+    parameters:
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+    put:
+      summary: Update theme configuration by id
+      tags:
+        - design
+      responses:
+        '204':
+          description: Successfully updated the theme configuration
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '404':
+          description: Theme not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: update_theme_configuration
+      description: Updates the theme configuration of the given theme
+      security:
+        - jinya-api-key: [ ]
       requestBody:
         content:
           application/json:
             schema:
               type: object
-              properties:
-                menus:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                pages:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      slug:
-                        type: string
-                forms:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      slug:
-                        type: string
-                galleries:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      slug:
-                        type: string
-                files:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      slug:
-                        type: string
-                segmentPages:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      slug:
-                        type: string
-        description: ''
-      description: Sets the theme links for the given theme
-      security:
-        - jinya-api-key: [ ]
-  '/api/theme/{themeName}/links/structure':
+              additionalProperties:
+                oneOf:
+                  - type: string
+                  - type: boolean
+  /api/theme/{id}/configuration/default:
     parameters:
-      - name: themeName
+      - name: id
         schema:
-          type: string
+          type: integer
         in: path
         required: true
     get:
-      summary: Get theme links structure
+      summary: Get the default configuration
       tags:
-        - theme
+        - design
       responses:
         '200':
-          description: Successfully got the structure
+          description: The theme default configuration
           content:
             application/json:
               schema:
                 type: object
-                properties:
-                  segment_pages:
-                    type: string
-                  pages:
-                    type: string
-                  menus:
-                    type: string
-                  galleries:
-                    type: string
-                  files:
-                    type: string
-                  forms:
-                    type: string
+                additionalProperties:
+                  oneOf:
+                    - type: string
+                    - type: boolean
         '401':
           description: Api key missing
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '403':
           description: Invalid api key
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/exception'
         '404':
           description: Theme not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/exception'
-      operationId: api_theme_get_links_structure
-      description: Gets the structure of the theme links
+      operationId: get_theme_default_configuration
+      description: Gets the default configuration for the given theme
       security:
         - jinya-api-key: [ ]
+  /api/theme/{id}/configuration/structure:
+    parameters:
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+    get:
+      summary: Get the configuration structure
+      tags:
+        - design
+      responses:
+        '200':
+          description: The theme configuration structure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/theme-configuration-structure'
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '404':
+          description: Theme not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: get_theme_configuration_structure
+      description: Gets the configuration structure for the given theme
+      security:
+        - jinya-api-key: [ ]
+  /api/theme/{id}/preview:
+    parameters:
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+    get:
+      summary: Get theme preview image
+      tags:
+        - design
+      responses:
+        '200':
+          description: Successfully got the theme preview image
+          content:
+            image/apng:
+              schema:
+                type: string
+                format: binary
+            image/avif:
+              schema:
+                type: string
+                format: binary
+            image/gif:
+              schema:
+                type: string
+                format: binary
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+            image/png:
+              schema:
+                type: string
+                format: binary
+            image/svg+xml:
+              schema:
+                type: string
+                format: binary
+            image/webp:
+              schema:
+                type: string
+                format: binary
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '404':
+          description: Theme not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: get_theme_preview_image
+      description: Gets the information of the theme with the specified id
+      security:
+        - jinya-api-key: [ ]
+
+  /api/update:
+    put:
+      summary: Perform update of Jinya CMS
+      responses:
+        '204':
+          description: Successfully updated Jinya CMS to the latest version
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: update_jinya_cms
+      description: Perform update of Jinya CMS to the latest version
+      security:
+        - jinya-api-key: [ ]
+      tags:
+        - maintenance
+
+  /api/version:
+    get:
+      summary: Get version information
+      responses:
+        '200':
+          description: The version information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/version-information'
+        '401':
+          description: Api key missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+        '403':
+          description: Invalid api key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exception'
+      operationId: get_version_information
+      description: Gets the currently installed version and the latest version available
+      security:
+        - jinya-api-key: [ ]
+      tags:
+        - maintenance
 components:
   securitySchemes:
     jinya-api-key:
@@ -4350,399 +4446,6 @@ components:
       in: header
       description: A Jinya API Key is generated after a user successfully logged in and returned in the response body of the login response
   schemas:
-    known-device:
-      title: Known device
-      type: object
-      properties:
-        key:
-          type: string
-        remoteAddress:
-          type: string
-          format: ipv4
-        userAgent:
-          type: string
-      required:
-        - key
-        - remoteAddress
-        - userAgent
-    menu:
-      title: Menu
-      type: object
-      description: Menus are the central navigation entities in Jinya. In the theme config, they can be assigned to a theme
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        logo:
-          $ref: '#/components/schemas/menu-logo'
-      required:
-        - id
-        - name
-    menu-logo:
-      title: Menu logo
-      type: object
-      description: A reduced file containing only the data needed for the logo
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-      required:
-        - id
-        - name
-    theme-blog-category:
-      type: object
-      description: A blog category assigned to a theme
-      properties:
-        name:
-          type: string
-        blogCategory:
-          $ref: '#/components/schemas/blog-category'
-      required:
-        - name
-        - blogCategory
-    theme-file:
-      type: object
-      description: A file assigned to a theme
-      properties:
-        name:
-          type: string
-        file:
-          $ref: '#/components/schemas/file'
-      required:
-        - name
-        - file
-    theme-form:
-      type: object
-      description: A form assigned to a theme
-      properties:
-        name:
-          type: string
-        form:
-          $ref: '#/components/schemas/form'
-      required:
-        - name
-        - form
-    theme-gallery:
-      type: object
-      description: A gallery assigned to a theme
-      properties:
-        name:
-          type: string
-        gallery:
-          $ref: '#/components/schemas/gallery'
-      required:
-        - name
-        - gallery
-    theme-menu:
-      type: object
-      description: A menu assigned to a theme
-      properties:
-        name:
-          type: string
-        menu:
-          $ref: '#/components/schemas/menu'
-      required:
-        - name
-        - menu
-    theme-classic-page:
-      type: object
-      description: A classic page assigned to a theme
-      properties:
-        name:
-          type: string
-        page:
-          $ref: '#/components/schemas/classic-page'
-      required:
-        - name
-        - page
-    theme-modern-page:
-      type: object
-      description: A modern page assigned to a theme
-      properties:
-        name:
-          type: string
-        segmentPage:
-          $ref: '#/components/schemas/modern-page'
-      required:
-        - name
-        - segmentPage
-    theme:
-      title: Theme
-      type: object
-      description: Contains information about the rendering of the pages
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        displayName:
-          type: string
-        configuration:
-          type: object
-        description:
-          type: string
-        previewImage:
-          type: string
-        scssVariables:
-          type: object
-        hasApi:
-          type: boolean
-      required:
-        - id
-        - name
-        - displayName
-        - configuration
-        - description
-        - scssVariables
-        - hasApi
-    theme-configuration-group:
-      title: Theme configuration group
-      type: object
-      properties:
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/theme-configuration-field'
-        name:
-          type: string
-        title:
-          type: object
-      description: A group for several fields in a theme config form
-    theme-configuration-field:
-      title: Theme configuration field
-      type: object
-      description: A field in the theme configuration form
-      properties:
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-            - string
-            - boolean
-        label:
-          type: object
-      required:
-        - name
-        - type
-        - label
-    theme-configuration-links:
-      title: Theme configuration links
-      type: object
-      description: The links for the theme
-      properties:
-        segment_pages:
-          type: object
-        menus:
-          type: object
-        pages:
-          type: object
-        forms:
-          type: object
-        galleries:
-          type: object
-        files:
-          type: object
-        blog_categories:
-          type: object
-    theme-configuration-structure:
-      title: Theme configuration structure
-      type: object
-      description: The structure of the theme configuration
-      properties:
-        title:
-          type: object
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/theme-configuration-group'
-        links:
-          $ref: '#/components/schemas/theme-configuration-links'
-    classic-page:
-      title: Classic page
-      type: object
-      description: A classic page displays only a single html page. The name derives from the classic editing experience in the designer
-      properties:
-        id:
-          type: integer
-        title:
-          type: string
-        content:
-          type: string
-        created:
-          $ref: '#/components/schemas/modification'
-        updated:
-          $ref: '#/components/schemas/modification'
-      required:
-        - id
-        - title
-        - content
-    modern-page:
-      title: Modern page
-      type: object
-      description: A modern page displays a page made up of multiple segments. The name derives from the more modern editing experience in the designer
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        segmentCount:
-          type: integer
-        created:
-          $ref: '#/components/schemas/modification'
-        updated:
-          $ref: '#/components/schemas/modification'
-      required:
-        - id
-        - name
-        - segmentCount
-    modern-page-segment:
-      title: Modern page segment
-      type: object
-      properties:
-        id:
-          type: string
-        position:
-          type: string
-        gallery:
-          $ref: '#/components/schemas/gallery'
-        file:
-          $ref: '#/components/schemas/file'
-        target:
-          type: string
-        action:
-          type: string
-          enum:
-            - link
-            - script
-            - none
-        script:
-          type: string
-        html:
-          type: string
-      required:
-        - id
-        - position
-    menu-item-form:
-      title: Menu item form
-      type: object
-      description: A form referenced in a menu item
-      properties:
-        id:
-          type: integer
-        title:
-          type: string
-      required:
-        - id
-        - title
-    menu-item-artist:
-      title: Menu item artist
-      type: object
-      description: An artist referenced in a menu item
-      properties:
-        id:
-          type: integer
-        artistName:
-          type: string
-        email:
-          type: string
-          format: email
-      required:
-        - id
-        - artistName
-        - email
-    menu-item-classic-page:
-      title: Menu item classic page
-      type: object
-      description: A classic page referenced in a menu item
-      properties:
-        id:
-          type: integer
-        title:
-          type: string
-      required:
-        - id
-        - title
-    menu-item-modern-page:
-      title: Menu item modern page
-      type: object
-      description: A modern page referenced in a menu item
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-      required:
-        - id
-        - name
-    menu-item-gallery:
-      title: Menu item gallery
-      type: object
-      description: A gallery referenced in a menu item
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-      required:
-        - id
-        - name
-    menu-item-blog-category:
-      title: Menu item blog category
-      type: object
-      description: A blog category referenced in a menu item
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-      required:
-        - id
-        - name
-    menu-item:
-      title: Menu item
-      type: object
-      description: A menu item is an element in the menu navigation tree.
-      properties:
-        id:
-          type: integer
-        position:
-          type: integer
-        highlighted:
-          type: boolean
-        title:
-          type: string
-        route:
-          type: string
-        blogHomePage:
-          type: boolean
-      required:
-        - id
-        - position
-        - title
-        - route
-    known-device-list:
-      title: A list of known devices
-      type: object
-      properties:
-        offset:
-          type: integer
-        itemsCount:
-          type: integer
-        totalCount:
-          type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/known-device'
-      required:
-        - offset
-        - itemsCount
-        - totalCount
-        - items
-
     modified-by:
       type: object
       required:
@@ -4804,12 +4507,12 @@ components:
           type: string
         roles:
           type: array
-          enum:
-            - ROLE_WRITER
-            - ROLE_SUPER_ADMIN
-            - ROLE_ADMIN
           items:
             type: string
+            enum:
+              - ROLE_WRITER
+              - ROLE_READER
+              - ROLE_ADMIN
       required:
         - apiKey
         - deviceCode
@@ -4884,7 +4587,7 @@ components:
         - totalCount
         - items
 
-    artist:
+    user:
       title: Artist
       type: object
       description: Artists are the users of Jinya CMS
@@ -4898,12 +4601,12 @@ components:
           type: string
         roles:
           type: array
-          enum:
-            - ROLE_SUPER_ADMIN
-            - ROLE_ADMIN
-            - ROLE_WRITER
           items:
             type: string
+            enum:
+              - ROLE_WRITER
+              - ROLE_READER
+              - ROLE_ADMIN
         enabled:
           type: boolean
         id:
@@ -4955,12 +4658,12 @@ components:
           default: false
         roles:
           type: array
-          enum:
-            - ROLE_WRITER
-            - ROLE_ADMIN
-            - ROLE_SUPER_ADMIN
           items:
             type: string
+            enum:
+              - ROLE_WRITER
+              - ROLE_READER
+              - ROLE_ADMIN
       required:
         - artistName
         - email
@@ -4977,12 +4680,12 @@ components:
           type: string
         roles:
           type: array
-          enum:
-            - ROLE_WRITER
-            - ROLE_ADMIN
-            - ROLE_SUPER_ADMIN
           items:
             type: string
+            enum:
+              - ROLE_WRITER
+              - ROLE_READER
+              - ROLE_ADMIN
 
     blog-category:
       title: Blog category
@@ -5031,23 +4734,23 @@ components:
         slug:
           type: string
         headerImage:
-          $ref: '#/components/schemas/file'
+          $ref: '#/components/schemas/blog-post-header-image'
         category:
           $ref: '#/components/schemas/blog-category'
         public:
           type: string
         created:
-          type: '#/components/schemas/modification'
+          $ref: '#/components/schemas/modification'
       required:
         - id
         - title
         - slug
         - public
         - created
-    blog-post-segment:
-      title: Blog post segment
+    blog-post-section:
+      title: Blog post section
       type: object
-      description: A segment in a blog post
+      description: A section in a blog post
       properties:
         id:
           type: string
@@ -5170,10 +4873,10 @@ components:
           type: integer
         public:
           type: string
-    update-blog-post-segment:
-      title: Update blog post segment
+    update-blog-post-section:
+      title: Update blog post section
       type: object
-      description: A segment in a blog post
+      description: A section in a blog post
       properties:
         position:
           type: string
@@ -5243,8 +4946,7 @@ components:
         tags:
           type: array
           items:
-            schema:
-              type: string
+            type: string
       required:
         - name
     update-file-request:
@@ -5257,8 +4959,7 @@ components:
         tags:
           type: array
           items:
-            schema:
-              type: string
+            type: string
       required:
         - name
     file-tag:
@@ -5330,9 +5031,7 @@ components:
         tables:
           type: object
           additionalProperties:
-            type: object
-            schema:
-              $ref: '#/components/schemas/database-table'
+            $ref: '#/components/schemas/database-table'
         server:
           $ref: '#/components/schemas/database-server-info'
         variables:
@@ -5341,7 +5040,7 @@ components:
       title: The variables of the database
       type: object
       description: Contains variables of the database
-      schema:
+      properties:
         local:
           type: object
           additionalProperties:
@@ -5388,21 +5087,15 @@ components:
         constraints:
           type: array
           items:
-            type: object
-            schema:
-              $ref: '#/components/schemas/database-contraint'
+            $ref: '#/components/schemas/database-constraint'
         indexes:
           type: array
           items:
-            type: object
-            schema:
-              $ref: '#/components/schemas/database-index'
+            $ref: '#/components/schemas/database-index'
         structure:
           type: array
           items:
-            type: object
-            schema:
-              $ref: '#/components/schemas/database-table-field'
+            $ref: '#/components/schemas/database-table-field'
     database-constraint:
       title: A database table constraint
       type: object
@@ -5795,6 +5488,41 @@ components:
             - sequence
             - masonry
 
+    known-device:
+      title: Known device
+      type: object
+      properties:
+        key:
+          type: string
+        remoteAddress:
+          type: string
+          format: ipv4
+        userAgent:
+          type: string
+      required:
+        - key
+        - remoteAddress
+        - userAgent
+    known-device-list:
+      title: A list of known devices
+      type: object
+      properties:
+        offset:
+          type: integer
+        itemsCount:
+          type: integer
+        totalCount:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/known-device'
+      required:
+        - offset
+        - itemsCount
+        - totalCount
+        - items
+
     ip-location:
       title: IP location
       description: The data of a located ip
@@ -5808,3 +5536,665 @@ components:
           type: string
         providedBy:
           type: string
+
+    menu:
+      title: Menu
+      type: object
+      description: Menus are the central navigation entities in Jinya. In the theme config, they can be assigned to a theme
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        logo:
+          $ref: '#/components/schemas/menu-logo'
+      required:
+        - id
+        - name
+    menu-list:
+      title: A list of menus
+      type: object
+      properties:
+        offset:
+          type: integer
+        itemsCount:
+          type: integer
+        totalCount:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/menu'
+      required:
+        - offset
+        - itemsCount
+        - totalCount
+        - items
+    menu-logo:
+      title: Menu logo
+      type: object
+      description: A reduced file containing only the data needed for the logo
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+      required:
+        - id
+        - name
+    create-menu-request:
+      title: Create menu request
+      type: object
+      description: Menus are the central navigation entities in Jinya. In the theme config, they can be assigned to a theme
+      properties:
+        name:
+          type: string
+        logo:
+          type: integer
+      required:
+        - name
+    update-menu-request:
+      title: Update menu request
+      type: object
+      description: Menus are the central navigation entities in Jinya. In the theme config, they can be assigned to a theme
+      properties:
+        name:
+          type: string
+        logo:
+          type: integer
+    menu-item-form:
+      title: Menu item form
+      type: object
+      description: A form referenced in a menu item
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+      required:
+        - id
+        - title
+    menu-item-artist:
+      title: Menu item artist
+      type: object
+      description: An artist referenced in a menu item
+      properties:
+        id:
+          type: integer
+        artistName:
+          type: string
+        email:
+          type: string
+          format: email
+      required:
+        - id
+        - artistName
+        - email
+    menu-item-classic-page:
+      title: Menu item classic page
+      type: object
+      description: A classic page referenced in a menu item
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+      required:
+        - id
+        - title
+    menu-item-modern-page:
+      title: Menu item modern page
+      type: object
+      description: A modern page referenced in a menu item
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+      required:
+        - id
+        - name
+    menu-item-gallery:
+      title: Menu item gallery
+      type: object
+      description: A gallery referenced in a menu item
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+      required:
+        - id
+        - name
+    menu-item-blog-category:
+      title: Menu item blog category
+      type: object
+      description: A blog category referenced in a menu item
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+      required:
+        - id
+        - name
+    menu-item:
+      title: Menu item
+      type: object
+      description: A menu item is an element in the menu navigation tree.
+      properties:
+        id:
+          type: integer
+        position:
+          type: integer
+        highlighted:
+          type: boolean
+        title:
+          type: string
+        route:
+          type: string
+        blogHomePage:
+          type: boolean
+        form:
+          $ref: '#/components/schemas/menu-item-form'
+        artist:
+          $ref: '#/components/schemas/menu-item-artist'
+        classicPage:
+          $ref: '#/components/schemas/menu-item-classic-page'
+        modernPage:
+          $ref: '#/components/schemas/menu-item-modern-page'
+        gallery:
+          $ref: '#/components/schemas/menu-item-gallery'
+        blogCategory:
+          $ref: '#/components/schemas/menu-item-blog-category'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/menu-item'
+      required:
+        - id
+        - position
+        - title
+        - route
+    update-menu-item:
+      title: Update menu item
+      type: object
+      description: A menu item is an element in the menu navigation tree.
+      properties:
+        highlighted:
+          type: boolean
+        title:
+          type: string
+        route:
+          type: string
+        blogHomePage:
+          type: boolean
+        formId:
+          type: integer
+        artistId:
+          type: integer
+        classicPageId:
+          type: integer
+        modernPageId:
+          type: integer
+        galleryId:
+          type: integer
+        blogCategoryId:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/update-menu-item'
+      required:
+        - id
+        - position
+        - title
+        - route
+
+    update-about-me-request:
+      title: Update about me request
+      description: Updates the current users about me data
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        artistName:
+          type: string
+        aboutMe:
+          type: string
+    update-colorscheme:
+      title: Update prefered color scheme request
+      description: Updates the prefered color scheme of the current user
+      type: object
+      properties:
+        colorScheme:
+          type: string
+          enum:
+            - auto
+            - light
+            - dark
+
+    classic-page:
+      title: Classic page
+      type: object
+      description: A classic page displays only a single html page. The name derives from the classic editing experience in the designer
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        content:
+          type: string
+        created:
+          $ref: '#/components/schemas/modification'
+        updated:
+          $ref: '#/components/schemas/modification'
+      required:
+        - id
+        - title
+        - content
+    classic-page-list:
+      title: A list of classic pages
+      type: object
+      properties:
+        offset:
+          type: integer
+        itemsCount:
+          type: integer
+        totalCount:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/classic-page'
+      required:
+        - offset
+        - itemsCount
+        - totalCount
+        - items
+    create-classic-page-request:
+      title: Create classic page request
+      type: object
+      description: A classic page displays only a single html page. The name derives from the classic editing experience in the designer
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+      required:
+        - title
+        - content
+    update-classic-page-request:
+      title: Update classic page request
+      type: object
+      description: A classic page displays only a single html page. The name derives from the classic editing experience in the designer
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+
+    modern-page:
+      title: Modern page
+      type: object
+      description: A modern page displays a page made up of multiple sections. The name derives from the more modern editing experience in the designer
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        sectionCount:
+          type: integer
+        created:
+          $ref: '#/components/schemas/modification'
+        updated:
+          $ref: '#/components/schemas/modification'
+      required:
+        - id
+        - name
+        - sectionCount
+    modern-page-section:
+      title: Modern page section
+      type: object
+      properties:
+        id:
+          type: string
+        position:
+          type: string
+        gallery:
+          $ref: '#/components/schemas/gallery'
+        file:
+          $ref: '#/components/schemas/file'
+        target:
+          type: string
+        action:
+          type: string
+          enum:
+            - link
+            - script
+            - none
+        script:
+          type: string
+        html:
+          type: string
+      required:
+        - id
+        - position
+    modern-page-list:
+      title: A list of modern pages
+      type: object
+      properties:
+        offset:
+          type: integer
+        itemsCount:
+          type: integer
+        totalCount:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/modern-page'
+      required:
+        - offset
+        - itemsCount
+        - totalCount
+        - items
+    create-modern-page-request:
+      title: Create modern page request
+      type: object
+      description: A modern page displays a page made up of multiple sections. The name derives from the more modern editing experience in the designer
+      properties:
+        name:
+          type: string
+      required:
+        - name
+    update-modern-page-request:
+      title: Update modern page request
+      type: object
+      description: A modern page displays a page made up of multiple sections. The name derives from the more modern editing experience in the designer
+      properties:
+        name:
+          type: string
+    update-modern-page-section:
+      title: Modern page section
+      type: object
+      properties:
+        id:
+          type: string
+        gallery:
+          type: integer
+        file:
+          type: integer
+        target:
+          type: string
+        action:
+          type: string
+          enum:
+            - link
+            - script
+            - none
+        script:
+          type: string
+        html:
+          type: string
+
+    theme:
+      title: Theme
+      type: object
+      description: Contains information about the rendering of the pages
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        displayName:
+          type: string
+        configuration:
+          type: object
+          additionalProperties: true
+        description:
+          type: string
+        previewImage:
+          type: string
+        scssVariables:
+          type: object
+          additionalProperties:
+            type: string
+        hasApi:
+          type: boolean
+      required:
+        - id
+        - name
+        - displayName
+        - configuration
+        - description
+        - scssVariables
+        - hasApi
+    theme-list:
+      title: A list of themes
+      type: object
+      properties:
+        offset:
+          type: integer
+        itemsCount:
+          type: integer
+        totalCount:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/theme'
+      required:
+        - offset
+        - itemsCount
+        - totalCount
+        - items
+    theme-blog-category:
+      type: object
+      description: A blog category assigned to a theme
+      properties:
+        name:
+          type: string
+        blogCategory:
+          $ref: '#/components/schemas/blog-category'
+      required:
+        - name
+        - blogCategory
+    theme-file:
+      type: object
+      description: A file assigned to a theme
+      properties:
+        name:
+          type: string
+        file:
+          $ref: '#/components/schemas/file'
+      required:
+        - name
+        - file
+    theme-form:
+      type: object
+      description: A form assigned to a theme
+      properties:
+        name:
+          type: string
+        form:
+          $ref: '#/components/schemas/form'
+      required:
+        - name
+        - form
+    theme-gallery:
+      type: object
+      description: A gallery assigned to a theme
+      properties:
+        name:
+          type: string
+        gallery:
+          $ref: '#/components/schemas/gallery'
+      required:
+        - name
+        - gallery
+    theme-menu:
+      type: object
+      description: A menu assigned to a theme
+      properties:
+        name:
+          type: string
+        menu:
+          $ref: '#/components/schemas/menu'
+      required:
+        - name
+        - menu
+    theme-classic-page:
+      type: object
+      description: A classic page assigned to a theme
+      properties:
+        name:
+          type: string
+        page:
+          $ref: '#/components/schemas/classic-page'
+      required:
+        - name
+        - page
+    theme-modern-page:
+      type: object
+      description: A modern page assigned to a theme
+      properties:
+        name:
+          type: string
+        sectionPage:
+          $ref: '#/components/schemas/modern-page'
+      required:
+        - name
+        - sectionPage
+    theme-configuration-group:
+      title: Theme configuration group
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/theme-configuration-field'
+        name:
+          type: string
+        title:
+          type: object
+      description: A group for several fields in a theme config form
+    theme-configuration-field:
+      title: Theme configuration field
+      type: object
+      description: A field in the theme configuration form
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+            - string
+            - boolean
+        label:
+          type: object
+      required:
+        - name
+        - type
+        - label
+    theme-configuration-links:
+      title: Theme configuration links
+      type: object
+      description: The links for the theme
+      properties:
+        section_pages:
+          type: object
+        menus:
+          type: object
+        pages:
+          type: object
+        forms:
+          type: object
+        galleries:
+          type: object
+        files:
+          type: object
+        blog_categories:
+          type: object
+    theme-configuration-structure:
+      title: Theme configuration structure
+      type: object
+      description: The structure of the theme configuration
+      properties:
+        title:
+          type: object
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/theme-configuration-group'
+        links:
+          $ref: '#/components/schemas/theme-configuration-links'
+    update-theme-blog-category-request:
+      type: object
+      description: A blog category assigned to a theme
+      properties:
+        blogCategory:
+          type: integer
+      required:
+        - blogCategory
+    update-theme-file-request:
+      type: object
+      description: A file assigned to a theme
+      properties:
+        file:
+          type: integer
+      required:
+        - file
+    update-theme-form-request:
+      type: object
+      description: A form assigned to a theme
+      properties:
+        form:
+          type: integer
+      required:
+        - form
+    update-theme-gallery-request:
+      type: object
+      description: A gallery assigned to a theme
+      properties:
+        gallery:
+          type: integer
+      required:
+        - gallery
+    update-theme-menu-request:
+      type: object
+      description: A menu assigned to a theme
+      properties:
+        menu:
+          type: integer
+      required:
+        - menu
+    update-theme-classic-page-request:
+      type: object
+      description: A classic page assigned to a theme
+      properties:
+        classicPage:
+          type: integer
+      required:
+        - classicPage
+    update-theme-modern-page-request:
+      type: object
+      description: A modern page assigned to a theme
+      properties:
+        modernPage:
+          type: integer
+      required:
+        - modernPage
+
+    version-information:
+      type: object
+      description: The version information
+      properties:
+        currentVersion:
+          type: string
+        mostRecentVersion:
+          type: string
+      required:
+        - currentVersion
+        - mostRecentVersion
