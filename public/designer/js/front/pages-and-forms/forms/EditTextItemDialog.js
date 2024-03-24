@@ -18,18 +18,18 @@ export default class EditTextItemDialog {
    * @param newItem {boolean}
    */
   constructor({
-    onHide,
-    id,
-    formId,
-    label,
-    position,
-    placeholder,
-    helpText,
-    isRequired,
-    isSubject,
-    spamFilter,
-    newItem = false,
-  }) {
+                onHide,
+                id,
+                formId,
+                label,
+                position,
+                placeholder,
+                helpText,
+                isRequired,
+                isSubject,
+                spamFilter,
+                newItem = false,
+              }) {
     this.onHide = onHide;
     this.position = position;
     this.newItem = newItem;
@@ -44,7 +44,7 @@ export default class EditTextItemDialog {
   }
 
   show() {
-    const content = html` <div class="cosmo-modal__backdrop"></div>
+    const content = html`
       <form class="cosmo-modal__container" id="edit-dialog-form">
         <div class="cosmo-modal">
           <h1 class="cosmo-modal__title">${localize({ key: 'pages_and_forms.form.designer.edit.title' })}</h1>
@@ -78,13 +78,12 @@ export default class EditTextItemDialog {
                 id="editItemHelpText"
                 class="cosmo-input"
               />
-              <label for="editItemSpamFilter" class="cosmo-label cosmo-label--textarea">
+              <label for="editItemSpamFilter" class="cosmo-label is--textarea">
                 ${localize({ key: 'pages_and_forms.form.designer.edit.spam_filter' })}
               </label>
               <textarea type="text" id="editItemSpamFilter" class="cosmo-textarea" rows="5">
-${this.newItem ? '' : this.spamFilter.join('\n')}</textarea
-              >
-              <div class="cosmo-checkbox__group">
+${this.newItem ? '' : this.spamFilter.join('\n')}</textarea>
+              <div class="cosmo-input__group is--checkbox">
                 <input
                   type="checkbox"
                   id="editItemIsSubject"
@@ -95,7 +94,7 @@ ${this.newItem ? '' : this.spamFilter.join('\n')}</textarea
                   ${localize({ key: 'pages_and_forms.form.designer.edit.is_subject' })}
                 </label>
               </div>
-              <div class="cosmo-checkbox__group">
+              <div class="cosmo-input__group is--checkbox">
                 <input
                   type="checkbox"
                   id="editItemIsRequired"
@@ -122,48 +121,52 @@ ${this.newItem ? '' : this.spamFilter.join('\n')}</textarea
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
-    document.getElementById('cancel-edit-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('edit-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const label = document.getElementById('editItemLabel').value;
-      const placeholder = document.getElementById('editItemPlaceholder').value;
-      const helpText = document.getElementById('editItemHelpText').value;
-      const isRequired = document.getElementById('editItemIsRequired').checked;
-      const isSubject = document.getElementById('editItemIsSubject').checked;
-      const spamFilter = document.getElementById('editItemSpamFilter').value.split(/\n|\r|\r\n/gm);
-      if (this.newItem) {
-        const item = await post(`/api/form/${this.formId}/item`, {
-          label,
-          placeholder,
-          helpText,
-          isRequired,
-          isSubject,
-          spamFilter,
-          position: this.position,
-          type: 'text',
-        });
-        this.onHide({ item });
-      } else {
-        await put(`/api/form/${this.formId}/item/${this.position}`, {
-          label,
-          placeholder,
-          helpText,
-          isSubject,
-          isRequired,
-          spamFilter,
-        });
-        this.onHide({
-          label,
-          placeholder,
-          helpText,
-          isSubject,
-          isRequired,
-          spamFilter,
-        });
-      }
-      container.remove();
-    });
+    document.getElementById('cancel-edit-dialog')
+      .addEventListener('click', () => {
+        container.remove();
+      });
+    document.getElementById('edit-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const label = document.getElementById('editItemLabel').value;
+        const placeholder = document.getElementById('editItemPlaceholder').value;
+        const helpText = document.getElementById('editItemHelpText').value;
+        const isRequired = document.getElementById('editItemIsRequired').checked;
+        const isSubject = document.getElementById('editItemIsSubject').checked;
+        const spamFilter = document.getElementById('editItemSpamFilter')
+          .value
+          .split(/\n|\r|\r\n/gm);
+        if (this.newItem) {
+          const item = await post(`/api/form/${this.formId}/item`, {
+            label,
+            placeholder,
+            helpText,
+            isRequired,
+            isSubject,
+            spamFilter,
+            position: this.position,
+            type: 'text',
+          });
+          this.onHide({ item });
+        } else {
+          await put(`/api/form/${this.formId}/item/${this.position}`, {
+            label,
+            placeholder,
+            helpText,
+            isSubject,
+            isRequired,
+            spamFilter,
+          });
+          this.onHide({
+            label,
+            placeholder,
+            helpText,
+            isSubject,
+            isRequired,
+            spamFilter,
+          });
+        }
+        container.remove();
+      });
   }
 }

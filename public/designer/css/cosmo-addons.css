@@ -1,0 +1,4 @@
+.cosmo-side-list__items .cosmo-button.is--full-width {
+    position: sticky;
+    bottom: 0;
+}

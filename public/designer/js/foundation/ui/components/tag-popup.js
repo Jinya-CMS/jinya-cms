@@ -73,8 +73,8 @@ class TagPopupElement extends HTMLElement {
 
   set saveLabel(value) {
     this.setAttribute('save-label', value);
-    if (this.root?.getElementById('save-button')) {
-      this.root.getElementById('save-button').textContent = value;
+    if (this.root?.getElementById('save-label')) {
+      this.root.getElementById('save-label').textContent = value;
     }
   }
 
@@ -84,8 +84,8 @@ class TagPopupElement extends HTMLElement {
 
   set cancelLabel(value) {
     this.setAttribute('cancel-label', value);
-    if (this.root.getElementById('cancel-button')) {
-      this.root.getElementById('cancel-button').textContent = value;
+    if (this.root.getElementById('cancel-label')) {
+      this.root.getElementById('cancel-label').textContent = value;
     }
   }
 
@@ -121,101 +121,108 @@ class TagPopupElement extends HTMLElement {
 
   connectedCallback() {
     this.root.innerHTML = html`
-            <style id="target-position"></style>
-            <style>
-                @import "/designer/cosmo/form.css";
-                @import "/designer/css/form-addons.css";
+      <style id="target-position"></style>
+      <style>
+        @import "/designer/cosmo/form.css";
+        @import "/designer/cosmo/buttons.css";
 
-                :host::selection {
-                    background: var(--primary-color);
-                }
+        :host::selection {
+          background: var(--primary-color);
+        }
 
-                :host {
-                    display: none;
-                    background: var(--white);
-                    position: fixed;
-                    border: 1px solid var(--primary-color);
-                    padding: 16px;
-                    color: var(--primary-color);
-                }
+        :host {
+          display: none;
+          background: var(--modal-background);
+          backdrop-filter: var(--modal-backdrop-filter);
+          position: fixed;
+          border: 0.0625rem solid var(--primary-color);
+          padding: 1rem;
+          color: var(--primary-color);
+          border-radius: var(--border-radius);
+        }
 
-                :host:hover {
-                    color: var(--primary-color);
-                }
+        :host:hover {
+          color: var(--primary-color);
+        }
 
-                :host::before {
-                    content: '';
-                    position: absolute;
-                    left: 50%;
-                    transform: translate(-50%);
-                    border: 16px solid transparent;
-                    border-bottom-color: var(--primary-color);
-                    top: -32px;
-                }
+        :host::before {
+          content: '';
+          position: absolute;
+          left: 50%;
+          transform: translate(-50%);
+          border: 1rem solid transparent;
+          border-bottom-color: var(--primary-color);
+          top: -2rem;
+        }
 
-                :host([open]) {
-                    display: block;
-                }
+        :host([open]) {
+          display: block;
+        }
 
-                fieldset {
-                    min-width: 0;
-                    padding: 0;
-                    margin: 0;
-                    border: 0;
-                    grid-column: span 2;
-                }
+        fieldset {
+          min-width: 0;
+          padding: 0;
+          margin: 0;
+          border: 0;
+          grid-column: span 2;
+        }
 
-                legend {
-                    font-size: 24px;
-                    height: 24px;
-                    font-weight: var(--font-weight-light);
-                    text-transform: uppercase;
-                    margin-top: 10px;
-                    margin-bottom: 10px;
-                }
+        legend {
+          font-size: 1.5rem;
+          height: 1.5rem;
+          font-weight: var(--font-weight-light);
+          text-transform: uppercase;
+          margin-top: 0.75rem;
+          margin-bottom: 0.75rem;
+        }
 
-                .cosmo-input--emoji::part(popup) {
-                    margin-left: -8px;
-                    margin-bottom: 4px;
-                }
-            </style>
-            <form>
-                <fieldset>
-                    <legend>${this.title}</legend>
-                    <div class="cosmo-input__group">
-                        <label class="cosmo-label"
-                               for="name">${localize({ key: 'media.files.tags.popup.name' })}</label>
-                        <input type="text" class="cosmo-input" required id="name">
-                        <label class="cosmo-label"
-                               for="color">${localize({ key: 'media.files.tags.popup.color' })}</label>
-                        <input type="color" value="${this.color}" class="cosmo-input" id="color">
-                        <label class="cosmo-label"
-                               for="emoji">${localize({ key: 'media.files.tags.popup.emoji' })}</label>
-                        <cms-emoji-picker emoji="${this.emoji}" class="cosmo-input cosmo-input--emoji" id="emoji">
-                    </div>
-                    <div class="cosmo-button__container">
-                        <button id="cancel-button" class="cosmo-button" type="button">${this.cancelLabel}</button>
-                        <button id="save-button" class="cosmo-button" type="submit">${this.saveLabel}</button>
-                    </div>
-                </fieldset>
-            </form>`;
-    this.root.querySelector('form').addEventListener('submit', (evt) => {
-      evt.preventDefault();
-      this.dispatchEvent(new TagPopupSubmitEvent(this.name, this.color, this.emoji));
-    });
-    this.root.getElementById('cancel-button').addEventListener('click', (evt) => {
-      evt.preventDefault();
-      this.open = false;
-    });
-    this.root.getElementById('name').addEventListener('input', (evt) => {
-      this.name = evt.currentTarget.value;
-    });
-    this.root.getElementById('color').addEventListener('input', (evt) => {
-      this.color = evt.currentTarget.value;
-    });
-    this.root.getElementById('emoji').addEventListener('input', (evt) => {
-      this.emoji = evt.currentTarget.emoji;
-    });
+        .cosmo-input--emoji::part(popup) {
+          margin-left: -0.5rem;
+          margin-bottom: 0.25rem;
+        }
+      </style>
+      <form>
+        <fieldset>
+          <legend>${this.title}</legend>
+          <div class="cosmo-input__group">
+            <label class="cosmo-label"
+                   for="name">${localize({ key: 'media.files.tags.popup.name' })}</label>
+            <input type="text" class="cosmo-input" required id="name">
+            <label class="cosmo-label"
+                   for="color">${localize({ key: 'media.files.tags.popup.color' })}</label>
+            <input type="color" value="${this.color}" class="cosmo-input" id="color">
+            <label class="cosmo-label"
+                   for="emoji">${localize({ key: 'media.files.tags.popup.emoji' })}</label>
+            <cms-emoji-picker emoji="${this.emoji}" class="cosmo-input cosmo-input--emoji" id="emoji">
+          </div>
+          <div class="cosmo-button__container">
+            <button id="cancel-button" class="cosmo-button" type="button">${this.cancelLabel}</button>
+            <button id="save-button" class="cosmo-button is--primary" type="submit">${this.saveLabel}</button>
+          </div>
+        </fieldset>
+      </form>`;
+    this.root.querySelector('form')
+      .addEventListener('submit', (evt) => {
+        evt.preventDefault();
+        this.dispatchEvent(new TagPopupSubmitEvent(this.name, this.color, this.emoji));
+      });
+    this.root.getElementById('cancel-button')
+      .addEventListener('click', (evt) => {
+        evt.preventDefault();
+        this.open = false;
+      });
+    this.root.getElementById('name')
+      .addEventListener('input', (evt) => {
+        this.name = evt.currentTarget.value;
+      });
+    this.root.getElementById('color')
+      .addEventListener('input', (evt) => {
+        this.color = evt.currentTarget.value;
+      });
+    this.root.getElementById('emoji')
+      .addEventListener('input', (evt) => {
+        this.emoji = evt.currentTarget.emoji;
+      });
   }
 
   attributeChangedCallback(property, oldValue, newValue) {

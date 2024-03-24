@@ -53,7 +53,10 @@ export default class DatabasePage extends JinyaDesignerPage {
             width: 500,
           },
           dataLabels: {
-            formatter(val, { seriesIndex, w }) {
+            formatter(val, {
+              seriesIndex,
+              w,
+            }) {
               return `${(w.config.series[seriesIndex] / 1024 / 1024 / 1024).toFixed(2)} GB`;
             },
           },
@@ -68,11 +71,17 @@ export default class DatabasePage extends JinyaDesignerPage {
           series: [
             {
               name: localize({ key: 'statistics.database.history.created' }),
-              data: fileHistoryData.created.map((item) => ({ x: new Date(item.date), y: item.count })),
+              data: fileHistoryData.created.map((item) => ({
+                x: new Date(item.date),
+                y: item.count,
+              })),
             },
             {
               name: localize({ key: 'statistics.database.history.updated' }),
-              data: fileHistoryData.updated.map((item) => ({ x: new Date(item.date), y: item.count })),
+              data: fileHistoryData.updated.map((item) => ({
+                x: new Date(item.date),
+                y: item.count,
+              })),
             },
           ],
           chart: {

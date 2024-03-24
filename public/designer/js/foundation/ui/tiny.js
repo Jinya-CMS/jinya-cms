@@ -44,7 +44,10 @@ function getContentCss() {
  * @param height
  * @return {Promise<Editor>}
  */
-export default async function getEditor({ element, height = '500px' }) {
+export default async function getEditor({
+                                          element,
+                                          height = '500px',
+                                        }) {
   // eslint-disable-next-line no-undef
   return (
     await tinymce.init({
@@ -59,7 +62,11 @@ export default async function getEditor({ element, height = '500px' }) {
       width: '100%',
       async image_list(success) {
         const fileResult = await get('/api/media/file');
-        const files = fileResult.items.map((item) => ({ title: item.name, url: item.path, value: item.path }));
+        const files = fileResult.items.map((item) => ({
+          title: item.name,
+          url: item.path,
+          value: item.path,
+        }));
         success(files);
       },
       plugins: [

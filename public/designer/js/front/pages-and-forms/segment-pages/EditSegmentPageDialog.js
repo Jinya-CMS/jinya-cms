@@ -10,14 +10,18 @@ export default class EditSegmentPageDialog {
    * @param name {string}
    * @param id {number}
    */
-  constructor({ onHide, name, id }) {
+  constructor({
+                onHide,
+                name,
+                id,
+              }) {
     this.onHide = onHide;
     this.name = name;
     this.id = id;
   }
 
   show() {
-    const content = html` <div class="cosmo-modal__backdrop"></div>
+    const content = html`
       <form class="cosmo-modal__container" id="edit-dialog-form">
         <div class="cosmo-modal">
           <h1 class="cosmo-modal__title">${localize({ key: 'pages_and_forms.segment.edit.title' })}</h1>
@@ -42,31 +46,38 @@ export default class EditSegmentPageDialog {
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
-    document.getElementById('cancel-edit-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('edit-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('editPageName').value;
-      try {
-        await put(`/api/segment-page/${this.id}`, {
-          name,
-        });
-        this.onHide({ name, id: this.id });
+    document.getElementById('cancel-edit-dialog')
+      .addEventListener('click', () => {
         container.remove();
-      } catch (err) {
-        if (err.status === 409) {
-          await alert({
-            title: localize({ key: 'pages_and_forms.segment.create.error.title' }),
-            message: localize({ key: 'pages_and_forms.segment.create.error.conflict' }),
+      });
+    document.getElementById('edit-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('editPageName').value;
+        try {
+          await put(`/api/segment-page/${this.id}`, {
+            name,
           });
-        } else {
-          await alert({
-            title: localize({ key: 'pages_and_forms.segment.create.error.title' }),
-            message: localize({ key: 'pages_and_forms.segment.create.error.generic' }),
+          this.onHide({
+            name,
+            id: this.id,
           });
+          container.remove();
+        } catch (err) {
+          if (err.status === 409) {
+            await alert({
+              title: localize({ key: 'pages_and_forms.segment.create.error.title' }),
+              message: localize({ key: 'pages_and_forms.segment.create.error.conflict' }),
+              negative: true,
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'pages_and_forms.segment.create.error.title' }),
+              message: localize({ key: 'pages_and_forms.segment.create.error.generic' }),
+              negative: true,
+            });
+          }
         }
-      }
-    });
+      });
   }
 }

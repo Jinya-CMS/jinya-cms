@@ -5,17 +5,26 @@ import alert from '../../../foundation/ui/alert.js';
 
 export default class EditCategoryDialog {
   /**
-     Shows the edit dialog
-     * @param categories {{id: number, name: string}[]}
-     * @param id {number}
-     * @param name {string}
-     * @param description {string}
-     * @param webhookUrl {string}
-     * @param parent {{id: number, name: string}}
-     * @param webhookEnabled {boolean}
-     * @param onHide {function({id: number, name: string, description: string, webhookUrl: string, parent: {id: number, name: string}, webhookEnabled: boolean})}
-     */
-  constructor({ categories, id, name, description, webhookUrl, parent, webhookEnabled, onHide }) {
+   Shows the edit dialog
+   * @param categories {{id: number, name: string}[]}
+   * @param id {number}
+   * @param name {string}
+   * @param description {string}
+   * @param webhookUrl {string}
+   * @param parent {{id: number, name: string}}
+   * @param webhookEnabled {boolean}
+   * @param onHide {function({id: number, name: string, description: string, webhookUrl: string, parent: {id: number, name: string}, webhookEnabled: boolean})}
+   */
+  constructor({
+                categories,
+                id,
+                name,
+                description,
+                webhookUrl,
+                parent,
+                webhookEnabled,
+                onHide,
+              }) {
     this.onHide = onHide;
     this.categories = categories;
     this.id = id;
@@ -27,7 +36,7 @@ export default class EditCategoryDialog {
   }
 
   show() {
-    const content = html` <div class="cosmo-modal__backdrop"></div>
+    const content = html`
       <form class="cosmo-modal__container" id="edit-dialog-form">
         <div class="cosmo-modal">
           <h1 class="cosmo-modal__title">${localize({ key: 'blog.categories.edit.title' })}</h1>
@@ -44,17 +53,15 @@ export default class EditCategoryDialog {
                 <option ${this.parent ? '' : 'selected'} value="null">
                   ${localize({ key: 'blog.categories.edit.parent_none' })}
                 </option>
-                ${this.categories.map(
-                  (category) =>
-                    html` <option
-                      ${this.parent && this.parent?.id === category.id ? 'selected' : ''}
-                      value=${category.id}
-                    >
+                ${this.categories.map((category) => html`
+                  <option
+                    ${this.parent && this.parent?.id === category.id ? 'selected' : ''}
+                    value=${category.id}
+                  >
                       #${category.id} ${category.name}
-                    </option>`,
-                )}
+                  </option>`)}
               </select>
-              <label for="editCategoryDescription" class="cosmo-label cosmo-label--textarea">
+              <label for="editCategoryDescription" class="cosmo-label is--textarea">
                 ${localize({ key: 'blog.categories.edit.description' })}
               </label>
               <textarea rows="5" id="editCategoryDescription" class="cosmo-textarea">${this.description}</textarea>
@@ -62,7 +69,7 @@ export default class EditCategoryDialog {
                 ${localize({ key: 'blog.categories.edit.webhook_url' })}
               </label>
               <input type="text" id="editCategoryWebhookUrl" class="cosmo-input" value="${this.webhookUrl}" />
-              <div class="cosmo-checkbox__group">
+              <div class="cosmo-input__group is--checkbox">
                 <input
                   class="cosmo-checkbox"
                   type="checkbox"
@@ -88,48 +95,52 @@ export default class EditCategoryDialog {
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
-    document.getElementById('cancel-edit-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('edit-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('editCategoryName').value;
-      const description = document.getElementById('editCategoryDescription').value;
-      const webhookUrl = document.getElementById('editCategoryWebhookUrl').value;
-      let parent = document.getElementById('editCategoryParent').value;
-      const webhookEnabled = document.getElementById('editCategoryWebhookEnabled').checked;
-      if (parent === 'null') {
-        parent = null;
-      }
-      try {
-        await put(`/api/blog/category/${this.id}`, {
-          name,
-          description,
-          webhookUrl,
-          parentId: parent,
-          webhookEnabled,
-        });
-        this.onHide({
-          name,
-          description,
-          webhookUrl,
-          parent: this.categories.find((c) => c.id === parseInt(parent, 10)),
-          webhookEnabled,
-        });
+    document.getElementById('cancel-edit-dialog')
+      .addEventListener('click', () => {
         container.remove();
-      } catch (err) {
-        if (err.status === 409) {
-          await alert({
-            title: localize({ key: 'blog.categories.edit.error.title' }),
-            message: localize({ key: 'blog.categories.edit.error.conflict' }),
-          });
-        } else {
-          await alert({
-            title: localize({ key: 'blog.categories.edit.error.title' }),
-            message: localize({ key: 'blog.categories.edit.error.generic' }),
-          });
+      });
+    document.getElementById('edit-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('editCategoryName').value;
+        const description = document.getElementById('editCategoryDescription').value;
+        const webhookUrl = document.getElementById('editCategoryWebhookUrl').value;
+        let parent = document.getElementById('editCategoryParent').value;
+        const webhookEnabled = document.getElementById('editCategoryWebhookEnabled').checked;
+        if (parent === 'null') {
+          parent = null;
         }
-      }
-    });
+        try {
+          await put(`/api/blog/category/${this.id}`, {
+            name,
+            description,
+            webhookUrl,
+            parentId: parent,
+            webhookEnabled,
+          });
+          this.onHide({
+            name,
+            description,
+            webhookUrl,
+            parent: this.categories.find((c) => c.id === parseInt(parent, 10)),
+            webhookEnabled,
+          });
+          container.remove();
+        } catch (err) {
+          if (err.status === 409) {
+            await alert({
+              title: localize({ key: 'blog.categories.edit.error.title' }),
+              message: localize({ key: 'blog.categories.edit.error.conflict' }),
+              negative: true,
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'blog.categories.edit.error.title' }),
+              message: localize({ key: 'blog.categories.edit.error.generic' }),
+              negative: true,
+            });
+          }
+        }
+      });
   }
 }

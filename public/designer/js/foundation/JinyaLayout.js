@@ -14,13 +14,19 @@ export default class JinyaLayout extends JinyaDesignerLayout {
     this.filesUploaded = 0;
     this.fileUploadWorker = new Worker('./js/front/media/files/UploadWorker.js');
     this.fileUploadWorker.addEventListener('message', (e) => {
-      const { type, file } = e.data;
+      const {
+        type,
+        file,
+      } = e.data;
       this.bumpUploadCounter();
       if (type === 'file-uploaded') {
         document.dispatchEvent(new FileUploadedEvent({ file }));
       }
     });
-    document.addEventListener('filesSelected', ({ files, tags }) => {
+    document.addEventListener('filesSelected', ({
+                                                  files,
+                                                  tags,
+                                                }) => {
       this.filesToUpload += files.length;
       document.getElementById('file-upload-progress').max = this.filesToUpload;
       document.getElementById('file-upload-progress-bottom-label').innerText = localize({
@@ -30,19 +36,24 @@ export default class JinyaLayout extends JinyaDesignerLayout {
           filesUploaded: this.filesUploaded,
         },
       });
-      this.fileUploadWorker.postMessage({ files, tags, apiKey: getJinyaApiKey() });
-      document.querySelector('.cosmo-bottom-bar__item--center.jinya-progress').removeAttribute('style');
+      this.fileUploadWorker.postMessage({
+        files,
+        tags,
+        apiKey: getJinyaApiKey(),
+      });
+      document.querySelector('.cosmo-bottom-bar__item.is--center.jinya-progress')
+        .removeAttribute('style');
     });
   }
 
-  getThemeMode() {
-    switch (this.artist.colorScheme) {
+  static getThemeMode(colorScheme) {
+    switch (colorScheme) {
       case 'light':
-        return 'mdi-weather-sunny';
+        return '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 3v1"/><path d="M12 20v1"/><path d="M3 12h1"/><path d="M20 12h1"/><path d="m18.364 5.636-.707.707"/><path d="m6.343 17.657-.707.707"/><path d="m5.636 5.636.707.707"/><path d="m17.657 17.657.707.707"/></svg>';
       case 'dark':
-        return 'mdi-weather-night';
+        return '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/><path d="M19 3v4"/><path d="M21 5h-4"/></svg>';
       default:
-        return 'mdi-theme-light-dark';
+        return '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a7 7 0 1 0 10 10"/></svg>';
     }
   }
 
@@ -53,119 +64,126 @@ export default class JinyaLayout extends JinyaDesignerLayout {
 
     switch (this.artist.colorScheme) {
       case 'light':
-        document.body.classList.add('cosmo--light-theme');
+        document.querySelector('html')
+          .classList
+          .add('is--light');
         break;
       case 'dark':
-        document.body.classList.add('cosmo--dark-theme');
+        document.querySelector('html')
+          .classList
+          .add('is--dark');
         break;
       default:
-        document.body.classList.add('cosmo--auto-theme');
+        document.querySelector('html')
+          .classList
+          .add('is--auto');
         break;
     }
     const roles = getRoles();
 
-    return html` <div class="cosmo-top-bar">
+    return html`
+      <div class="cosmo-menu is--top">
         ${roles.includes('ROLE_ADMIN')
-          ? html` <div class="cosmo-top-bar__menu" data-stage="front">
-                <a href="#back/maintenance/updates" class="cosmo-top-bar__menu-item">
-                  ${localize({ key: 'maintenance.menu.title' })}
-                </a>
-                <a href="#back/database/mysql-info" class="cosmo-top-bar__menu-item">
-                  ${localize({ key: 'database.menu.title' })}
-                </a>
-                <a href="#back/artists/index" class="cosmo-top-bar__menu-item">
-                  ${localize({ key: 'artists.menu.title' })}
-                </a>
-              </div>
-              <div class="cosmo-top-bar__menu" data-stage="back">
-                <a
-                  href="#front/statistics/matomo-stats"
-                  data-section="statistics"
-                  data-stage="front"
-                  class="cosmo-top-bar__menu-item"
-                >
-                  ${localize({ key: 'statistics.menu.title' })}
-                </a>
-                <a href="#front/media/files" data-section="media" data-stage="front" class="cosmo-top-bar__menu-item">
-                  ${localize({ key: 'media.menu.title' })}
-                </a>
-                <a
-                  href="#front/pages-and-forms/simple-pages"
-                  class="cosmo-top-bar__menu-item"
-                  data-stage="front"
-                  data-section="pages-and-forms"
-                >
-                  ${localize({ key: 'pages_and_forms.menu.title' })}
-                </a>
-                <a
-                  href="#front/blog/categories"
-                  class="cosmo-top-bar__menu-item"
-                  data-section="blog"
-                  data-stage="front"
-                >
-                  ${localize({ key: 'blog.menu.title' })}
-                </a>
-                <a href="#front/design/menus" class="cosmo-top-bar__menu-item" data-section="design" data-stage="front">
-                  ${localize({ key: 'design.menu.title' })}
-                </a>
-                <a
-                  href="#front/my-jinya/my-profile"
-                  class="cosmo-top-bar__menu-item"
-                  data-section="my-jinya"
-                  data-stage="front"
-                >
-                  ${localize({ key: 'my_jinya.menu.title' })}
-                </a>
-              </div>`
+          ? html`
+            <div class="cosmo-menu__row" data-stage="front">
+              <a href="#back/maintenance/updates" class="cosmo-menu__item">
+                ${localize({ key: 'maintenance.menu.title' })}
+              </a>
+              <a href="#back/database/mysql-info" class="cosmo-menu__item">
+                ${localize({ key: 'database.menu.title' })}
+              </a>
+              <a href="#back/artists/index" class="cosmo-menu__item">
+                ${localize({ key: 'artists.menu.title' })}
+              </a>
+            </div>
+            <div class="cosmo-menu__row" data-stage="back">
+              <a
+                href="#front/statistics/matomo-stats"
+                data-section="statistics"
+                data-stage="front"
+                class="cosmo-menu__item"
+              >
+                ${localize({ key: 'statistics.menu.title' })}
+              </a>
+              <a href="#front/media/files" data-section="media" data-stage="front" class="cosmo-menu__item">
+                ${localize({ key: 'media.menu.title' })}
+              </a>
+              <a
+                href="#front/pages-and-forms/simple-pages"
+                class="cosmo-menu__item"
+                data-stage="front"
+                data-section="pages-and-forms"
+              >
+                ${localize({ key: 'pages_and_forms.menu.title' })}
+              </a>
+              <a
+                href="#front/blog/categories"
+                class="cosmo-menu__item"
+                data-section="blog"
+                data-stage="front"
+              >
+                ${localize({ key: 'blog.menu.title' })}
+              </a>
+              <a href="#front/design/menus" class="cosmo-menu__item" data-section="design" data-stage="front">
+                ${localize({ key: 'design.menu.title' })}
+              </a>
+              <a
+                href="#front/my-jinya/my-profile"
+                class="cosmo-menu__item"
+                data-section="my-jinya"
+                data-stage="front"
+              >
+                ${localize({ key: 'my_jinya.menu.title' })}
+              </a>
+            </div>`
           : ''}
         <img src="${this.artist.profilePicture}" class="cosmo-profile-picture" alt="Imanuel Ulbricht" />
-        <a class="cosmo-top-bar__menu-item jinya-top-bar__menu-item--logout" id="jinya-logout">
+        <a class="cosmo-menu__item is--right" id="jinya-logout">
           ${localize({ key: 'top_menu.logout' })}
         </a>
       </div>
-      <div class="cosmo-menu-bar">
-        <div class="cosmo-menu-bar__touch"></div>
-        <button type="button" class="cosmo-menu-bar__back-button"></button>
-        <nav class="cosmo-menu-bar__menu-collection" data-stage="front">
-          <div class="cosmo-menu-bar__main-menu" data-stage="front">
+      <div class="cosmo-menu">
+        <button type="button" class="cosmo-back-button"></button>
+        <nav class="cosmo-menu__collection" data-stage="front">
+          <div class="cosmo-menu__row is--main" data-stage="front">
             <a
               href="#front/statistics/matomo-stats"
               data-section="statistics"
               data-stage="front"
-              class="cosmo-menu-bar__main-item"
+              class="cosmo-menu__item"
             >
               ${localize({ key: 'statistics.menu.title' })}
             </a>
-            <a href="#front/media/files" data-section="media" data-stage="front" class="cosmo-menu-bar__main-item">
+            <a href="#front/media/files" data-section="media" data-stage="front" class="cosmo-menu__item">
               ${localize({ key: 'media.menu.title' })}
             </a>
             <a
               href="#front/pages-and-forms/simple-pages"
-              class="cosmo-menu-bar__main-item"
+              class="cosmo-menu__item"
               data-section="pages-and-forms"
               data-stage="front"
             >
               ${localize({ key: 'pages_and_forms.menu.title' })}
             </a>
-            <a href="#front/blog/categories" class="cosmo-menu-bar__main-item" data-section="blog" data-stage="front">
+            <a href="#front/blog/categories" class="cosmo-menu__item" data-section="blog" data-stage="front">
               ${localize({ key: 'blog.menu.title' })}
             </a>
-            <a href="#front/design/menus" class="cosmo-menu-bar__main-item" data-section="design" data-stage="front">
+            <a href="#front/design/menus" class="cosmo-menu__item" data-section="design" data-stage="front">
               ${localize({ key: 'design.menu.title' })}
             </a>
             <a
               href="#front/my-jinya/my-profile"
-              class="cosmo-menu-bar__main-item"
+              class="cosmo-menu__item"
               data-section="my-jinya"
               data-stage="front"
             >
               ${localize({ key: 'my_jinya.menu.title' })}
             </a>
           </div>
-          <div class="cosmo-menu-bar__main-menu" data-stage="back">
+          <div class="cosmo-menu__row is--main" data-stage="back">
             <a
               href="#back/maintenance/updates"
-              class="cosmo-menu-bar__main-item"
+              class="cosmo-menu__item"
               data-stage="back"
               data-section="maintenance"
             >
@@ -173,24 +191,24 @@ export default class JinyaLayout extends JinyaDesignerLayout {
             </a>
             <a
               href="#back/database/mysql-info"
-              class="cosmo-menu-bar__main-item"
+              class="cosmo-menu__item"
               data-stage="back"
               data-section="database"
             >
               ${localize({ key: 'database.menu.title' })}
             </a>
-            <a href="#back/artists/index" class="cosmo-menu-bar__main-item" data-stage="back" data-section="artists">
+            <a href="#back/artists/index" class="cosmo-menu__item" data-stage="back" data-section="artists">
               ${localize({ key: 'artists.menu.title' })}
             </a>
           </div>
-          <div class="cosmo-menu-bar__sub-menu">
+          <div class="cosmo-menu__row is--sub">
             <a
               href="#front/statistics/matomo-stats"
               data-section="statistics"
               hidden
               data-stage="front"
               data-page="matomo-stats"
-              class="cosmo-menu-bar__sub-item"
+              class="cosmo-menu__item"
             >
               ${localize({ key: 'statistics.menu.matomo' })}
             </a>
@@ -200,7 +218,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
               data-stage="front"
               hidden
               data-page="database"
-              class="cosmo-menu-bar__sub-item"
+              class="cosmo-menu__item"
             >
               ${localize({ key: 'statistics.menu.database' })}
             </a>
@@ -210,7 +228,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
               data-stage="front"
               hidden
               data-page="files"
-              class="cosmo-menu-bar__sub-item"
+              class="cosmo-menu__item"
             >
               ${localize({ key: 'media.menu.files' })}
             </a>
@@ -220,7 +238,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
               data-stage="front"
               hidden
               data-page="galleries"
-              class="cosmo-menu-bar__sub-item"
+              class="cosmo-menu__item"
             >
               ${localize({ key: 'media.menu.galleries' })}
             </a>
@@ -230,7 +248,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
               data-stage="front"
               hidden
               data-page="simple-pages"
-              class="cosmo-menu-bar__sub-item"
+              class="cosmo-menu__item"
             >
               ${localize({ key: 'pages_and_forms.menu.simple_pages' })}
             </a>
@@ -240,7 +258,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
               data-stage="front"
               hidden
               data-page="segment-pages"
-              class="cosmo-menu-bar__sub-item"
+              class="cosmo-menu__item"
             >
               ${localize({ key: 'pages_and_forms.menu.segment_pages' })}
             </a>
@@ -250,7 +268,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
               data-stage="front"
               hidden
               data-page="forms"
-              class="cosmo-menu-bar__sub-item"
+              class="cosmo-menu__item"
             >
               ${localize({ key: 'pages_and_forms.menu.forms' })}
             </a>
@@ -260,7 +278,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
               data-stage="front"
               hidden
               data-page="categories"
-              class="cosmo-menu-bar__sub-item"
+              class="cosmo-menu__item"
             >
               ${localize({ key: 'blog.menu.categories' })}
             </a>
@@ -270,7 +288,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
               data-stage="front"
               hidden
               data-page="posts-overview"
-              class="cosmo-menu-bar__sub-item"
+              class="cosmo-menu__item"
             >
               ${localize({ key: 'blog.menu.posts' })}
             </a>
@@ -280,7 +298,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
               data-stage="front"
               hidden
               data-page="menus"
-              class="cosmo-menu-bar__sub-item"
+              class="cosmo-menu__item"
             >
               ${localize({ key: 'design.menu.menus' })}
             </a>
@@ -290,7 +308,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
               data-stage="front"
               hidden
               data-page="themes"
-              class="cosmo-menu-bar__sub-item"
+              class="cosmo-menu__item"
             >
               ${localize({ key: 'design.menu.themes' })}
             </a>
@@ -300,7 +318,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
               data-stage="front"
               hidden
               data-page="my-profile"
-              class="cosmo-menu-bar__sub-item"
+              class="cosmo-menu__item"
             >
               ${localize({ key: 'my_jinya.menu.my_profile' })}
             </a>
@@ -310,7 +328,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
               data-stage="front"
               hidden
               data-page="active-sessions"
-              class="cosmo-menu-bar__sub-item"
+              class="cosmo-menu__item"
             >
               ${localize({ key: 'my_jinya.menu.active_sessions' })}
             </a>
@@ -320,7 +338,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
               data-stage="front"
               hidden
               data-page="active-devices"
-              class="cosmo-menu-bar__sub-item"
+              class="cosmo-menu__item"
             >
               ${localize({ key: 'my_jinya.menu.active_devices' })}
             </a>
@@ -330,7 +348,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
               data-stage="back"
               hidden
               data-page="updates"
-              class="cosmo-menu-bar__sub-item"
+              class="cosmo-menu__item"
             >
               ${localize({ key: 'maintenance.menu.update' })}
             </a>
@@ -340,7 +358,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
               data-stage="back"
               hidden
               data-page="environment"
-              class="cosmo-menu-bar__sub-item"
+              class="cosmo-menu__item"
             >
               ${localize({ key: 'maintenance.menu.app_config' })}
             </a>
@@ -350,7 +368,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
               data-stage="back"
               hidden
               data-page="php-info"
-              class="cosmo-menu-bar__sub-item"
+              class="cosmo-menu__item"
             >
               ${localize({ key: 'maintenance.menu.php_info' })}
             </a>
@@ -360,7 +378,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
               data-stage="back"
               hidden
               data-page="mysql-info"
-              class="cosmo-menu-bar__sub-item"
+              class="cosmo-menu__item"
             >
               ${localize({ key: 'database.menu.mysql_info' })}
             </a>
@@ -370,7 +388,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
               data-stage="back"
               hidden
               data-page="tables"
-              class="cosmo-menu-bar__sub-item"
+              class="cosmo-menu__item"
             >
               ${localize({ key: 'database.menu.tables' })}
             </a>
@@ -380,7 +398,7 @@ export default class JinyaLayout extends JinyaDesignerLayout {
               data-stage="back"
               hidden
               data-page="query-tool"
-              class="cosmo-menu-bar__sub-item"
+              class="cosmo-menu__item"
             >
               ${localize({ key: 'database.menu.query_tool' })}
             </a>
@@ -390,27 +408,27 @@ export default class JinyaLayout extends JinyaDesignerLayout {
               data-stage="back"
               hidden
               data-page="index"
-              class="cosmo-menu-bar__sub-item"
+              class="cosmo-menu__item"
             >
               ${localize({ key: 'artists.menu.artists' })}
             </a>
           </div>
         </nav>
       </div>
-      <div class="cosmo-page-body jinya-page-body--app">
-        <div class="cosmo-page-body__content">%%%child%%%</div>
+      <div class="cosmo-page__body">
+        %%%child%%%
       </div>
-      <div class="cosmo-bottom-bar cosmo-bottom-bar--three-column">
-        <div class="cosmo-bottom-bar__item cosmo-bottom-bar__item--center jinya-progress" style="display: none">
-          <span class="cosmo-progress-bar__top-label" id="file-upload-progress-top-label">
+      <div class="cosmo-bottom-bar is--three-column">
+        <div class="cosmo-bottom-bar__item is--center jinya-progress" style="display: none">
+          <span class="cosmo-progress-bar__label" id="file-upload-progress-top-label">
             ${localize({ key: 'bottom_bar.upload_title.uploading' })}
           </span>
           <progress id="file-upload-progress" class="cosmo-progress-bar" value="0" max="0"></progress>
-          <span class="cosmo-progress-bar__bottom-label" id="file-upload-progress-bottom-label"> </span>
+          <span class="cosmo-progress-bar__label" id="file-upload-progress-bottom-label"> </span>
         </div>
-        <div class="cosmo-bottom-bar__item cosmo-bottom-bar__item--right">
-          <button id="toggle-theme-button" class="cosmo-circular-button cosmo-circular-button--large">
-            <span class="mdi ${this.getThemeMode()}"></span>
+        <div class="cosmo-bottom-bar__item is--right">
+          <button id="toggle-theme-button" class="cosmo-button is--circle is--large is--primary">
+            ${JinyaLayout.getThemeMode(this.artist.colorScheme)}
           </button>
         </div>
       </div>`;
@@ -439,79 +457,87 @@ export default class JinyaLayout extends JinyaDesignerLayout {
 
   bindEvents() {
     super.bindEvents();
-    document.getElementById('jinya-logout').addEventListener('click', (e) => {
-      e.preventDefault();
-      deleteJinyaApiKey();
-      document.dispatchEvent(new CustomEvent('logout'));
-    });
-    document.querySelector('.cosmo-menu-bar__back-button').addEventListener('click', (e) => {
-      e.preventDefault();
-      window.history.back();
-      if (window.history.length === 0) {
-        e.target.setAttribute('disabled', 'disabled');
-      }
-    });
-    document.getElementById('toggle-theme-button').addEventListener('click', async () => {
-      let colorScheme = '';
-      if (document.body.classList.contains('cosmo--light-theme')) {
-        document.body.classList.replace('cosmo--light-theme', 'cosmo--dark-theme');
-        colorScheme = 'dark';
-        document.querySelector('#toggle-theme-button .mdi').classList.replace('mdi-weather-sunny', 'mdi-weather-night');
-      } else if (document.body.classList.contains('cosmo--dark-theme')) {
-        document.body.classList.replace('cosmo--dark-theme', 'cosmo--auto-theme');
-        colorScheme = 'auto';
-        document
-          .querySelector('#toggle-theme-button .mdi')
-          .classList.replace('mdi-weather-night', 'mdi-theme-light-dark');
-      } else {
-        document.body.classList.remove('cosmo--auto-theme');
-        document.body.classList.add('cosmo--light-theme');
-        colorScheme = 'light';
-        document
-          .querySelector('#toggle-theme-button .mdi')
-          .classList.replace('mdi-theme-light-dark', 'mdi-weather-sunny');
-      }
+    document.getElementById('jinya-logout')
+      .addEventListener('click', (e) => {
+        e.preventDefault();
+        deleteJinyaApiKey();
+        document.dispatchEvent(new CustomEvent('logout'));
+      });
+    document.querySelector('.cosmo-back-button')
+      .addEventListener('click', (e) => {
+        e.preventDefault();
+        window.history.back();
+        if (window.history.length === 0) {
+          e.target.setAttribute('disabled', 'disabled');
+        }
+      });
+    document.getElementById('toggle-theme-button')
+      .addEventListener('click', async (evt) => {
+        let colorScheme = '';
+        const windowHtml = document.querySelector('html');
+        if (windowHtml.classList.contains('is--light')) {
+          windowHtml.classList.replace('is--light', 'is--dark');
+          colorScheme = 'dark';
+        } else if (windowHtml.classList.contains('is--dark')) {
+          windowHtml.classList.replace('is--dark', 'is--auto');
+          colorScheme = 'auto';
+        } else {
+          windowHtml.classList.remove('is--auto');
+          windowHtml.classList.add('is--light');
+          colorScheme = 'light';
+        }
+        // eslint-disable-next-line no-param-reassign
+        evt.target.innerHTML = JinyaLayout.getThemeMode(colorScheme);
 
-      await put('/api/me/colorscheme', { colorScheme });
-    });
+        await put('/api/me/colorscheme', { colorScheme });
+      });
   }
 
   async afterRender() {
     await super.afterRender();
-    const { stage, section, page } = urlSplitter();
-    document.querySelectorAll('.cosmo-top-bar__menu').forEach((item) => {
-      // eslint-disable-next-line no-param-reassign
-      item.style.display = 'none';
-    });
-    const topBarMenu = document.querySelector(`.cosmo-top-bar__menu[data-stage="${stage}"]`);
+    const {
+      stage,
+      section,
+      page,
+    } = urlSplitter();
+    document.querySelectorAll('.is--top .cosmo-menu__row')
+      .forEach((item) => {
+        // eslint-disable-next-line no-param-reassign
+        item.style.display = 'none';
+      });
+    const topBarMenu = document.querySelector(`.is--top .cosmo-menu__row[data-stage="${stage}"]`);
     if (topBarMenu) {
       topBarMenu.style.display = 'flex';
     }
-    document.querySelectorAll('.cosmo-menu-bar__main-menu').forEach((item) => {
-      // eslint-disable-next-line no-param-reassign
-      item.style.display = 'none';
-    });
-    const mainMenu = document.querySelector(`.cosmo-menu-bar__main-menu[data-stage="${stage}"]`);
+    document.querySelectorAll('.cosmo-menu__row.is--main')
+      .forEach((item) => {
+        // eslint-disable-next-line no-param-reassign
+        item.style.display = 'none';
+      });
+    const mainMenu = document.querySelector(`.cosmo-menu__row.is--main[data-stage="${stage}"]`);
     if (mainMenu) {
       mainMenu.style.display = 'flex';
     }
     document
-      .querySelectorAll('.cosmo-menu-bar__main-item--active')
-      .forEach((item) => item.classList.remove('cosmo-menu-bar__main-item--active'));
+      .querySelectorAll('.cosmo-menu__row.is--main .is--active')
+      .forEach((item) => item.classList.remove('is--active'));
     document
-      .querySelector(`.cosmo-menu-bar__main-item[data-stage="${stage}"][data-section="${section}"]`)
-      ?.classList.add('cosmo-menu-bar__main-item--active');
+      .querySelector(`.cosmo-menu__row.is--main .cosmo-menu__item[data-stage="${stage}"][data-section="${section}"]`)
+      ?.classList
+      .add('is--active');
 
-    document.querySelectorAll('.cosmo-menu-bar__sub-item').forEach((item) => item.setAttribute('hidden', 'hidden'));
+    document.querySelectorAll('.cosmo-menu__row.is--sub .cosmo-menu__item')
+      .forEach((item) => item.setAttribute('hidden', 'hidden'));
     document
-      .querySelectorAll(`.cosmo-menu-bar__sub-item[data-stage="${stage}"][data-section="${section}"]`)
-      .forEach((item) => item.removeAttribute('hidden', 'hidden'));
+      .querySelectorAll(`.cosmo-menu__row.is--sub .cosmo-menu__item[data-stage="${stage}"][data-section="${section}"]`)
+      .forEach((item) => item.removeAttribute('hidden'));
 
     document
-      .querySelectorAll('.cosmo-menu-bar__sub-item--active')
-      .forEach((item) => item.classList.remove('cosmo-menu-bar__sub-item--active'));
+      .querySelectorAll('.cosmo-menu__row.is--sub .is--active')
+      .forEach((item) => item.classList.remove('is--active'));
     document
       .querySelector(`[data-stage="${stage}"][data-section="${section}"][data-page=${page}]`)
-      ?.classList.add('cosmo-menu-bar__sub-item--active');
+      ?.classList
+      .add('is--active');
   }
 }

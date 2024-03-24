@@ -13,7 +13,13 @@ export default class AddFormDialog {
    * @param toAddress {string}
    * @param description {string}
    */
-  constructor({ onHide, id, title, toAddress, description }) {
+  constructor({
+                onHide,
+                id,
+                title,
+                toAddress,
+                description,
+              }) {
     this.onHide = onHide;
     this.id = id;
     this.title = title;
@@ -22,7 +28,7 @@ export default class AddFormDialog {
   }
 
   async show() {
-    const content = html` <div class="cosmo-modal__backdrop"></div>
+    const content = html`
       <form class="cosmo-modal__container" id="edit-dialog-form">
         <div class="cosmo-modal">
           <h1 class="cosmo-modal__title">${localize({ key: 'pages_and_forms.form.edit.title' })}</h1>
@@ -36,7 +42,7 @@ export default class AddFormDialog {
                 ${localize({ key: 'pages_and_forms.form.edit.to_address' })}
               </label>
               <input required type="email" id="editFormToAddress" class="cosmo-input" value="${this.toAddress}" />
-              <label for="editDescription" class="cosmo-label cosmo-label--textarea">
+              <label for="editDescription" class="cosmo-label is--textarea">
                 ${localize({ key: 'pages_and_forms.form.edit.description' })}
               </label>
               <textarea id="editDescription" hidden></textarea>
@@ -58,42 +64,46 @@ export default class AddFormDialog {
     const tiny = await getEditor({ element: document.getElementById('editDescription') });
     tiny.setContent(this.description);
 
-    document.getElementById('cancel-edit-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('edit-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      try {
-        const title = document.getElementById('editFormTitle').value;
-        const toAddress = document.getElementById('editFormToAddress').value;
-        const description = tiny.getContent();
-        await put(`/api/form/${this.id}`, {
-          title,
-          toAddress,
-          description,
-        });
-        this.onHide({
-          id: this.id,
-          title,
-          description,
-          toAddress,
-        });
-        tinymce.remove();
-        tiny.destroy();
+    document.getElementById('cancel-edit-dialog')
+      .addEventListener('click', () => {
         container.remove();
-      } catch (err) {
-        if (err.status === 409) {
-          await alert({
-            title: localize({ key: 'pages_and_forms.form.edit.error.title' }),
-            message: localize({ key: 'pages_and_forms.form.edit.error.conflict' }),
+      });
+    document.getElementById('edit-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        try {
+          const title = document.getElementById('editFormTitle').value;
+          const toAddress = document.getElementById('editFormToAddress').value;
+          const description = tiny.getContent();
+          await put(`/api/form/${this.id}`, {
+            title,
+            toAddress,
+            description,
           });
-        } else {
-          await alert({
-            title: localize({ key: 'pages_and_forms.form.edit.error.title' }),
-            message: localize({ key: 'pages_and_forms.form.edit.error.generic' }),
+          this.onHide({
+            id: this.id,
+            title,
+            description,
+            toAddress,
           });
+          tinymce.remove();
+          tiny.destroy();
+          container.remove();
+        } catch (err) {
+          if (err.status === 409) {
+            await alert({
+              title: localize({ key: 'pages_and_forms.form.edit.error.title' }),
+              message: localize({ key: 'pages_and_forms.form.edit.error.conflict' }),
+              negative: true,
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'pages_and_forms.form.edit.error.title' }),
+              message: localize({ key: 'pages_and_forms.form.edit.error.generic' }),
+              negative: true,
+            });
+          }
         }
-      }
-    });
+      });
   }
 }

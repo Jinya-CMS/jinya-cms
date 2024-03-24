@@ -13,7 +13,7 @@ export default class AddSimplePageDialog {
   }
 
   show() {
-    const content = html` <div class="cosmo-modal__backdrop"></div>
+    const content = html`
       <form class="cosmo-modal__container" id="create-dialog-form">
         <div class="cosmo-modal">
           <h1 class="cosmo-modal__title">${localize({ key: 'pages_and_forms.simple.create.title' })}</h1>
@@ -38,32 +38,36 @@ export default class AddSimplePageDialog {
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
-    document.getElementById('cancel-add-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('create-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const title = document.getElementById('createPageTitle').value;
-      try {
-        const saved = await post('/api/simple-page', {
-          title,
-          content: '',
-        });
-        this.onHide(saved);
+    document.getElementById('cancel-add-dialog')
+      .addEventListener('click', () => {
         container.remove();
-      } catch (err) {
-        if (err.status === 409) {
-          await alert({
-            title: localize({ key: 'pages_and_forms.simple.create.error.title' }),
-            message: localize({ key: 'pages_and_forms.simple.create.error.conflict' }),
+      });
+    document.getElementById('create-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const title = document.getElementById('createPageTitle').value;
+        try {
+          const saved = await post('/api/simple-page', {
+            title,
+            content: '',
           });
-        } else {
-          await alert({
-            title: localize({ key: 'pages_and_forms.simple.create.error.title' }),
-            message: localize({ key: 'pages_and_forms.simple.create.error.generic' }),
-          });
+          this.onHide(saved);
+          container.remove();
+        } catch (err) {
+          if (err.status === 409) {
+            await alert({
+              title: localize({ key: 'pages_and_forms.simple.create.error.title' }),
+              message: localize({ key: 'pages_and_forms.simple.create.error.conflict' }),
+              negative: true,
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'pages_and_forms.simple.create.error.title' }),
+              message: localize({ key: 'pages_and_forms.simple.create.error.generic' }),
+              negative: true,
+            });
+          }
         }
-      }
-    });
+      });
   }
 }

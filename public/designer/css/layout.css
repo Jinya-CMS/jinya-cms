@@ -4,24 +4,15 @@
     align-items: center;
 }
 
-.jinya-page-body--app {
-    display: grid;
-    grid-template-columns: 164px [content] 1fr 164px;
-}
-
-.jinya-top-bar__menu-item--logout {
-    margin-left: 16px;
-}
-
 .jinya-profile-view {
     display: grid;
-    grid-template-rows: [toolbar] 31px 30px [content] 1fr;
+    grid-template-rows: [toolbar] 2rem 2rem [content] 1fr;
     height: 100%;
 }
 
 .jinya-media-view {
     display: grid;
-    grid-template-rows: [toolbar] 31px 30px [tags] 30px 30px [content] 1fr;
+    grid-template-rows: [toolbar] 2rem 2rem [tags] 2rem 2rem [content] 1fr;
     height: 100%;
 }
 
@@ -52,6 +43,14 @@
     :root {
         --background: url("/designer/background-dark.webp");
     }
+}
+
+.is--dark {
+    --background: url("/designer/background-dark.webp");
+}
+
+.is--light {
+    --background: url("/designer/background.webp");
 }
 
 body {

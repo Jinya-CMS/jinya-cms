@@ -12,7 +12,13 @@ export default class EditGallerySegmentDialog {
    * @param position {number}
    * @param newSegment {boolean}
    */
-  constructor({ onHide, id, galleryId, position, newSegment = false }) {
+  constructor({
+                onHide,
+                id,
+                galleryId,
+                position,
+                newSegment = false,
+              }) {
     this.onHide = onHide;
     this.position = position;
     this.newSegment = newSegment;
@@ -22,7 +28,7 @@ export default class EditGallerySegmentDialog {
 
   async show() {
     const { items } = await get('/api/gallery');
-    const content = html` <div class="cosmo-modal__backdrop"></div>
+    const content = html`
       <form class="cosmo-modal__container" id="edit-dialog-form">
         <div class="cosmo-modal">
           <h1 class="cosmo-modal__title">${localize({ key: 'pages_and_forms.segment.designer.edit.title' })}</h1>
@@ -32,11 +38,10 @@ export default class EditGallerySegmentDialog {
                 ${localize({ key: 'pages_and_forms.segment.designer.edit.gallery' })}
               </label>
               <select required type="text" id="editSegmentGallery" class="cosmo-select">
-                ${items.map(
-                  (item) =>
-                    html` <option ${this.galleryId === item.id ? 'selected' : ''} value="${item.id}">
-                      ${item.name}
-                    </option>`,
+                ${items.map((item) => html`
+                  <option ${this.galleryId === item.id ? 'selected' : ''} value="${item.id}">
+                    ${item.name}
+                  </option>`,
                 )}
               </select>
             </div>
@@ -54,42 +59,46 @@ export default class EditGallerySegmentDialog {
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
-    document.getElementById('cancel-edit-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('edit-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const galleryId = parseInt(document.getElementById('editSegmentGallery').value, 10);
-      try {
-        if (this.newSegment) {
-          const segment = await post(`/api/segment-page/${this.id}/segment/gallery`, {
-            gallery: galleryId,
-            position: this.position,
-          });
-          this.onHide({ segment });
-        } else {
-          await put(`/api/segment-page/${this.id}/segment/${this.position}`, {
-            gallery: galleryId,
-          });
-          this.onHide({
-            position: this.position,
-            gallery: items.find((g) => g.id === galleryId),
-          });
-        }
+    document.getElementById('cancel-edit-dialog')
+      .addEventListener('click', () => {
         container.remove();
-      } catch (err) {
-        if (err.status === 409) {
-          await alert({
-            title: localize({ key: 'pages_and_forms.segment.create.error.title' }),
-            message: localize({ key: 'pages_and_forms.segment.create.error.conflict' }),
-          });
-        } else {
-          await alert({
-            title: localize({ key: 'pages_and_forms.segment.create.error.title' }),
-            message: localize({ key: 'pages_and_forms.segment.create.error.generic' }),
-          });
+      });
+    document.getElementById('edit-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const galleryId = parseInt(document.getElementById('editSegmentGallery').value, 10);
+        try {
+          if (this.newSegment) {
+            const segment = await post(`/api/segment-page/${this.id}/segment/gallery`, {
+              gallery: galleryId,
+              position: this.position,
+            });
+            this.onHide({ segment });
+          } else {
+            await put(`/api/segment-page/${this.id}/segment/${this.position}`, {
+              gallery: galleryId,
+            });
+            this.onHide({
+              position: this.position,
+              gallery: items.find((g) => g.id === galleryId),
+            });
+          }
+          container.remove();
+        } catch (err) {
+          if (err.status === 409) {
+            await alert({
+              title: localize({ key: 'pages_and_forms.segment.create.error.title' }),
+              message: localize({ key: 'pages_and_forms.segment.create.error.conflict' }),
+              negative: true,
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'pages_and_forms.segment.create.error.title' }),
+              message: localize({ key: 'pages_and_forms.segment.create.error.generic' }),
+              negative: true,
+            });
+          }
         }
-      }
-    });
+      });
   }
 }

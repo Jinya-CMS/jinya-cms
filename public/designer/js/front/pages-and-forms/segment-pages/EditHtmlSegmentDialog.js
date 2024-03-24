@@ -13,7 +13,13 @@ export default class EditFileSegmentDialog {
    * @param position {number}
    * @param newSegment {boolean}
    */
-  constructor({ onHide, id, html: content, position, newSegment = false }) {
+  constructor({
+                onHide,
+                id,
+                html: content,
+                position,
+                newSegment = false,
+              }) {
     this.onHide = onHide;
     this.position = position;
     this.newSegment = newSegment;
@@ -22,7 +28,7 @@ export default class EditFileSegmentDialog {
   }
 
   async show() {
-    const content = html` <div class="cosmo-modal__backdrop"></div>
+    const content = html`
       <form class="cosmo-modal__container" id="edit-dialog-form">
         <div class="cosmo-modal">
           <h1 class="cosmo-modal__title">${localize({ key: 'pages_and_forms.segment.designer.edit.title' })}</h1>
@@ -47,35 +53,38 @@ export default class EditFileSegmentDialog {
     const tiny = await getEditor({ element: document.getElementById('editHtml') });
     tiny.setContent(this.html);
 
-    document.getElementById('cancel-edit-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('edit-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      try {
-        if (this.newSegment) {
-          const segment = await post(`/api/segment-page/${this.id}/segment/html`, {
-            position: this.position,
-            html: tiny.getContent(),
-          });
-          this.onHide({ segment });
-        } else {
-          await put(`/api/segment-page/${this.id}/segment/${this.position}`, {
-            html: tiny.getContent(),
-          });
-          this.onHide({
-            position: this.position,
-            html: tiny.getContent(),
+    document.getElementById('cancel-edit-dialog')
+      .addEventListener('click', () => {
+        container.remove();
+      });
+    document.getElementById('edit-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        try {
+          if (this.newSegment) {
+            const segment = await post(`/api/segment-page/${this.id}/segment/html`, {
+              position: this.position,
+              html: tiny.getContent(),
+            });
+            this.onHide({ segment });
+          } else {
+            await put(`/api/segment-page/${this.id}/segment/${this.position}`, {
+              html: tiny.getContent(),
+            });
+            this.onHide({
+              position: this.position,
+              html: tiny.getContent(),
+            });
+          }
+          tinymce.remove();
+          container.remove();
+        } catch (err) {
+          await alert({
+            title: localize({ key: 'pages_and_forms.segment.designer.edit.error.title' }),
+            message: localize({ key: 'pages_and_forms.segment.designer.edit.error.generic' }),
+            negative: true,
           });
         }
-        tinymce.remove();
-        container.remove();
-      } catch (err) {
-        await alert({
-          title: localize({ key: 'pages_and_forms.segment.designer.edit.error.title' }),
-          message: localize({ key: 'pages_and_forms.segment.designer.edit.error.generic' }),
-        });
-      }
-    });
+      });
   }
 }

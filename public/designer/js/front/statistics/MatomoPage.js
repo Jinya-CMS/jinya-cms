@@ -14,33 +14,38 @@ export default class MatomoPage extends JinyaDesignerPage {
   }
 
   toString() {
-    return html` <div>
+    return html`
+      <div>
       <span class="cosmo-title"
-        >${localize({ key: 'statistics.access.title' })} |
+      >${localize({ key: 'statistics.access.title' })} |
         ${this.from.toLocaleDateString(window.navigator.language, {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-        })}
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })}
         –
-        ${this.to.toLocaleDateString(window.navigator.language, { year: 'numeric', month: '2-digit', day: '2-digit' })}
+        ${this.to.toLocaleDateString(window.navigator.language, {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })}
         | <span id="stats-total-visits">${this.totalVisits}</span> ${localize({
-          key: 'statistics.access.total_visits',
-        })}</span
+      key: 'statistics.access.total_visits',
+    })}</span
       >
-      <div class="jinya-stats__row jinya-stats__row--one">
-        <div id="country-chart"></div>
-      </div>
-      <div class="jinya-stats__row jinya-stats__row--third">
-        <div id="language-chart"></div>
-        <div id="device-brand-chart"></div>
-        <div id="device-type-chart"></div>
-      </div>
-      <div class="jinya-stats__row jinya-stats__row--half">
-        <div id="browser-chart"></div>
-        <div id="os-chart"></div>
-      </div>
-    </div>`;
+        <div class="jinya-stats__row jinya-stats__row--one">
+          <div id="country-chart"></div>
+        </div>
+        <div class="jinya-stats__row jinya-stats__row--third">
+          <div id="language-chart"></div>
+          <div id="device-brand-chart"></div>
+          <div id="device-type-chart"></div>
+        </div>
+        <div class="jinya-stats__row jinya-stats__row--half">
+          <div id="browser-chart"></div>
+          <div id="os-chart"></div>
+        </div>
+      </div>`;
   }
 
   async displayed() {
@@ -73,7 +78,10 @@ export default class MatomoPage extends JinyaDesignerPage {
           .map((m) => m.visitCount)
           .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
         const countryStatsChart = new ApexCharts(document.getElementById('country-chart'), {
-          chart: { ...chart, type: 'treemap' },
+          chart: {
+            ...chart,
+            type: 'treemap',
+          },
           plotOptions: {
             treemap: {
               distributed: true,
@@ -187,8 +195,10 @@ export default class MatomoPage extends JinyaDesignerPage {
             width: 100,
             fontFamily: 'Lato, sans-serif',
           },
-          series: deviceTypeStats.filter((item) => item.visitCount > 0).map((item) => item.visitCount),
-          labels: deviceTypeStats.filter((item) => item.visitCount > 0).map((item) => item.label),
+          series: deviceTypeStats.filter((item) => item.visitCount > 0)
+            .map((item) => item.visitCount),
+          labels: deviceTypeStats.filter((item) => item.visitCount > 0)
+            .map((item) => item.label),
           title: {
             text: localize({ key: 'statistics.access.device_type' }),
             align: 'left',

@@ -1,8 +1,8 @@
 .jinya-blog-tile__container {
     display: flex;
     flex-flow: row wrap;
-    gap: 22px;
-    height: calc(100vh - 64px - 32px - 80px - 28px - 68px - 31px - 30px - 53px);
+    gap: 1.5rem;
+    height: calc(var(--page-height) - 2.75rem - 1.25rem - 2rem - 2rem);
     grid-row: content;
     overflow-y: auto;
     align-content: start;
@@ -13,8 +13,8 @@
 }
 
 .jinya-blog-tile {
-    width: 370px;
-    height: 240px;
+    width: 23rem;
+    height: 15rem;
     display: grid;
     position: relative;
     box-sizing: border-box;
@@ -23,23 +23,19 @@
 }
 
 .jinya-blog-tile--selected {
-    border: 4px solid var(--primary-color);
+    border: 0.25rem solid var(--primary-color);
+    position: relative;
+    box-sizing: border-box;
 }
 
 .jinya-blog-tile--selected::after {
-    content: "\F012C";
-    width: 24px;
-    height: 24px;
-    background: var(--primary-color);
-    display: flex;
+    content: '';
+    border: 0.75rem solid transparent;
+    border-left-color: var(--primary-color);
+    border-top-color: var(--primary-color);
     position: absolute;
-    font-size: 125%;
     top: 0;
-    right: 0;
-    justify-content: center;
-    color: var(--white);
-    font-family: mdi;
-    align-items: center;
+    left: 0;
 }
 
 .jinya-blog-tile__img {
@@ -48,11 +44,11 @@
     object-fit: cover;
     background: var(--control-border-color);
     grid-row: img;
-    max-height: 208px;
+    max-height: 13rem;
 }
 
 .jinya-blog-tile--selected .jinya-blog-tile__img {
-    max-height: 200px;
+    max-height: 12.5rem;
 }
 
 .jinya-blog-tile__img:hover {
@@ -61,7 +57,7 @@
 
 .jinya-blog-tile__title {
     grid-row: title;
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: var(--font-weight-light);
     background: var(--control-border-color);
     overflow: hidden;
@@ -71,13 +67,13 @@
 
 .jinya-designer__content--blog,
 .jinya-designer__result--blog {
-    --height: calc(100vh - 36px - 10px - 18px - 27px - 10px - 78px - 24px);
+    --height: calc(99vh - var(--modal-border-width) - var(--modal-border-width) - var(--modal-title-font-size) - var(--modal-title-margin-top) - var(--modal-title-margin-bottom) - var(--modal-padding-top) - var(--modal-padding-bottom) - 2.75rem - 1.25rem - 1rem);
     max-height: var(--height);
     min-height: var(--height);
 }
 
 .cosmo-toolbar--blog {
-    margin-bottom: 10px;
+    margin-bottom: 0.75rem;
 }
 
 .jinya-designer__modal--blog {

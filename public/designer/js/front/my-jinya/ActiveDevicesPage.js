@@ -49,34 +49,37 @@ export default class ActiveDevicesPage extends JinyaDesignerPage {
     clearChildren({ parent: table });
     for (const device of this.devices) {
       const tr = document.createElement('tr');
-      tr.innerHTML = html` <tr>
-        <td>${device.browser}</td>
-        <td>${device.device}</td>
-        <td>${device.location}</td>
-        <td>${device.remoteAddress}</td>
-        <td>
-          <button class="cosmo-button" data-action="logout" data-key="${device.key}">
-            ${localize({ key: 'my_jinya.devices.action.forget' })}
-          </button>
-        </td>
-      </tr>`;
+      tr.innerHTML = html`
+        <tr>
+          <td>${device.browser}</td>
+          <td>${device.device}</td>
+          <td>${device.location}</td>
+          <td>${device.remoteAddress}</td>
+          <td>
+            <button class="cosmo-button" data-action="logout" data-key="${device.key}">
+              ${localize({ key: 'my_jinya.devices.action.forget' })}
+            </button>
+          </td>
+        </tr>`;
       table.append(tr);
     }
-    document.querySelectorAll('[data-action="logout"]').forEach((button) => {
-      button.addEventListener('click', async () => {
-        const key = button.getAttribute('data-key');
-        await httpDelete(`/api/known_device/${key}`);
-        const idx = this.devices.findIndex((s) => s.key === key);
-        this.devices.splice(idx, 1);
-        this.displayDevices();
+    document.querySelectorAll('[data-action="logout"]')
+      .forEach((button) => {
+        button.addEventListener('click', async () => {
+          const key = button.getAttribute('data-key');
+          await httpDelete(`/api/known_device/${key}`);
+          const idx = this.devices.findIndex((s) => s.key === key);
+          this.devices.splice(idx, 1);
+          this.displayDevices();
+        });
       });
-    });
   }
 
   // eslint-disable-next-line class-methods-use-this
   toString() {
-    return html` <table class="cosmo-table">
-      <thead>
+    return html`
+      <table class="cosmo-table">
+        <thead>
         <tr>
           <th>${localize({ key: 'my_jinya.devices.table.browser' })}</th>
           <th>${localize({ key: 'my_jinya.devices.table.device' })}</th>
@@ -84,9 +87,9 @@ export default class ActiveDevicesPage extends JinyaDesignerPage {
           <th>${localize({ key: 'my_jinya.devices.table.ip' })}</th>
           <th>${localize({ key: 'my_jinya.devices.table.actions' })}</th>
         </tr>
-      </thead>
-      <tbody></tbody>
-    </table>`;
+        </thead>
+        <tbody></tbody>
+      </table>`;
   }
 
   async displayed() {

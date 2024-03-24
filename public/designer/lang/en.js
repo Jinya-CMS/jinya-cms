@@ -339,6 +339,7 @@ export default {
           title: 'Edit segment',
           file: 'File',
           please_select: 'Please select a file',
+          file_picker_label: 'Select file',
           has_link: 'Has link',
           target: 'Target',
           gallery: 'Gallery',
@@ -473,7 +474,7 @@ export default {
         error: {
           title: 'Error saving category',
           conflict: 'A category with the chosen name already exists.',
-          generic: 'An unknown error occured.',
+          generic: 'An unknown error occurred.',
         },
       },
       delete: {
@@ -512,6 +513,7 @@ export default {
         post_title: 'Title',
         public: 'Public',
         no_header_image: 'No post image',
+        file_picker_label: 'Select image',
         header_image: 'Post image',
         update: 'Save post',
         cancel: 'Discard changes',
@@ -544,6 +546,7 @@ export default {
           gallery: 'Gallery',
           update: 'Update segment',
           please_select: 'Please select a file',
+          file_picker_label: 'Select file',
           cancel: 'Discard changes',
           delete_segment: {
             title: 'Remove segment',
@@ -564,6 +567,7 @@ export default {
         post_title: 'Title',
         public: 'Public',
         no_header_image: 'No post image',
+        file_picker_label: 'Select image',
         header_image: 'Post image',
         create: 'Create post',
         cancel: 'Discard post',
@@ -601,6 +605,7 @@ export default {
         name: 'Name',
         logo: 'Logo',
         logo_none: 'No logo',
+        file_picker_label: 'Select image',
         create: 'Create menu',
         cancel: 'Discard menu',
         error: {
@@ -614,6 +619,7 @@ export default {
         name: 'Name',
         logo: 'Logo',
         logo_none: 'No logo',
+        file_picker_label: 'Select image',
         update: 'Update menu',
         cancel: 'Discard changes',
         error: {

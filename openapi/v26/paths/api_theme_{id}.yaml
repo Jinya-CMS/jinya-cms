@@ -41,6 +41,12 @@ put:
   summary: Update theme by id
   tags:
     - themes
+  parameters:
+    - required: true
+      in: query
+      name: name
+      schema:
+        type: string
   responses:
     '204':
       description: Successfully updated the theme

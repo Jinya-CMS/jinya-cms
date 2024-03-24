@@ -12,11 +12,11 @@ import './components/tag.js';
  * @return {Promise<boolean>}
  */
 export default async function filePicker({
-  title = window.location.href,
-  selectedFileId = -1,
-  cancelLabel,
-  pickLabel,
-}) {
+                                           title = window.location.href,
+                                           selectedFileId = -1,
+                                           cancelLabel,
+                                           pickLabel,
+                                         }) {
   const { items: files } = await get('/api/file');
   const { items: tags } = await get('/api/file-tag');
 
@@ -33,7 +33,7 @@ export default async function filePicker({
       pickLabel = localize({ key: 'file_picker.pick' });
     }
 
-    container.innerHTML = html` <div class="cosmo-modal__backdrop"></div>
+    container.innerHTML = html`
       <div class="cosmo-modal__container cosmo-modal__container--file-picker">
         <div class="cosmo-modal cosmo-modal--file-picker">
           <h1 class="cosmo-modal__title">${title}</h1>
@@ -47,35 +47,29 @@ export default async function filePicker({
                 tag-id="-1"
                 id="show-all-tags"
               ></cms-tag>
-              ${tags.map(
-                (tag) =>
-                  html` <cms-tag
-                    class="jinya-tag--file"
-                    emoji="${tag.emoji}"
-                    name="${tag.name}"
-                    color="${tag.color}"
-                    tag-id="${tag.id}"
-                    id="show-tag-${tag.id}"
-                  ></cms-tag>`,
-              )}
+              ${tags.map((tag) => html`
+                <cms-tag
+                  class="jinya-tag--file"
+                  emoji="${tag.emoji}"
+                  name="${tag.name}"
+                  color="${tag.color}"
+                  tag-id="${tag.id}"
+                  id="show-tag-${tag.id}"
+                ></cms-tag>`)}
             </div>
             <div class="jinya-media-tile__container--modal">
-              ${files.map(
-                (file) =>
-                  html` <div
-                    class="jinya-media-tile jinya-media-tile--medium ${selectedFileId === file.id
-                      ? 'jinya-media-tile--selected'
-                      : ''}"
+              ${files.map((file) => html`
+                <div
+                  class="jinya-media-tile jinya-media-tile--medium ${selectedFileId === file.id ? 'jinya-media-tile--selected' : ''}"
+                  data-id="${file.id}"
+                >
+                  <img
+                    class="jinya-media-tile__img jinya-media-tile__img--small"
                     data-id="${file.id}"
-                  >
-                    <img
-                      class="jinya-media-tile__img jinya-media-tile__img--small"
-                      data-id="${file.id}"
-                      src="${file.path}"
-                      alt="${file.name}"
-                    />
-                  </div>`,
-              )}
+                    src="${file.path}"
+                    alt="${file.name}"
+                  />
+                </div>`)}
             </div>
           </div>
           <div class="cosmo-modal__button-bar">
@@ -87,8 +81,8 @@ export default async function filePicker({
 
     document.body.appendChild(container);
 
-    document.querySelectorAll('.jinya-picker__tag-list cms-tag').forEach((tag) =>
-      tag.addEventListener('click', (evt) => {
+    document.querySelectorAll('.jinya-picker__tag-list cms-tag')
+      .forEach((tag) => tag.addEventListener('click', (evt) => {
         evt.stopPropagation();
         // eslint-disable-next-line no-param-reassign
         tag.active = !tag.active;
@@ -96,10 +90,11 @@ export default async function filePicker({
           container
             .querySelectorAll('.jinya-media-tile')
             .forEach((tile) => tile.classList.remove('jinya-media-tile--hidden'));
-          container.querySelectorAll('cms-tag').forEach((t) => {
-            // eslint-disable-next-line no-param-reassign
-            t.active = false;
-          });
+          container.querySelectorAll('cms-tag')
+            .forEach((t) => {
+              // eslint-disable-next-line no-param-reassign
+              t.active = false;
+            });
           // eslint-disable-next-line no-param-reassign
           tag.active = true;
         } else {
@@ -110,46 +105,48 @@ export default async function filePicker({
             activeTags.delete(tag.tagId);
           }
           allTags.active = activeTags.size === 0 || activeTags.size === tags.length;
-          container.querySelectorAll('.jinya-media-tile').forEach((tile) => {
-            const file = files.find((f) => f.id === parseInt(tile.getAttribute('data-id'), 10));
-            if (file.tags.filter((f) => activeTags.has(f.id)).length === 0) {
-              tile.classList.add('jinya-media-tile--hidden');
-            } else {
-              tile.classList.remove('jinya-media-tile--hidden');
-            }
-          });
+          container.querySelectorAll('.jinya-media-tile')
+            .forEach((tile) => {
+              const file = files.find((f) => f.id === parseInt(tile.getAttribute('data-id'), 10));
+              if (file.tags.filter((f) => activeTags.has(f.id)).length === 0) {
+                tile.classList.add('jinya-media-tile--hidden');
+              } else {
+                tile.classList.remove('jinya-media-tile--hidden');
+              }
+            });
 
           if (allTags.active) {
             activeTags.clear();
-            container.querySelectorAll('.jinya-media-tile').forEach((tile) => {
-              tile.classList.remove('jinya-media-tile--hidden');
-            });
+            container.querySelectorAll('.jinya-media-tile')
+              .forEach((tile) => {
+                tile.classList.remove('jinya-media-tile--hidden');
+              });
           }
         }
-      }),
-    );
-    container.querySelectorAll('.jinya-media-tile').forEach((item) => {
-      item.addEventListener('click', (e) => {
-        e.preventDefault();
-        container
-          .querySelectorAll('.jinya-media-tile--selected')
-          .forEach((tile) => tile.classList.remove('jinya-media-tile--selected'));
-        item.classList.add('jinya-media-tile--selected');
+      }));
+    container.querySelectorAll('.jinya-media-tile')
+      .forEach((item) => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          container
+            .querySelectorAll('.jinya-media-tile--selected')
+            .forEach((tile) => tile.classList.remove('jinya-media-tile--selected'));
+          item.classList.add('jinya-media-tile--selected');
+        });
       });
-    });
-    document.getElementById(`${modalId}CancelButton`).addEventListener('click', (e) => {
-      e.preventDefault();
-      container.remove();
-      resolve(null);
-    });
-    document.getElementById(`${modalId}PickButton`).addEventListener('click', (e) => {
-      e.preventDefault();
-      const selectedFile = files.find(
-        (file) =>
-          parseInt(document.querySelector('.jinya-media-tile--selected').getAttribute('data-id'), 10) === file.id,
-      );
-      container.remove();
-      resolve(selectedFile);
-    });
+    document.getElementById(`${modalId}CancelButton`)
+      .addEventListener('click', (e) => {
+        e.preventDefault();
+        container.remove();
+        resolve(null);
+      });
+    document.getElementById(`${modalId}PickButton`)
+      .addEventListener('click', (e) => {
+        e.preventDefault();
+        const selectedFile = files.find((file) => parseInt(document.querySelector('.jinya-media-tile--selected')
+          .getAttribute('data-id'), 10) === file.id);
+        container.remove();
+        resolve(selectedFile);
+      });
   });
 }

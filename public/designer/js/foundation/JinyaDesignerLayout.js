@@ -13,7 +13,8 @@ export default class JinyaDesignerLayout {
    * @returns {Promise<void>}
    */
   // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async afterRender() {}
+  async afterRender() {
+  }
 
   /**
    * Method to render the subclass and return the rendered HTML
@@ -44,12 +45,14 @@ export default class JinyaDesignerLayout {
    * @return void
    */
   // eslint-disable-next-line class-methods-use-this
-  bindEvents() {}
+  bindEvents() {
+  }
 
   /**
    * Returns the template of the layout
    * @return Promise<string>
    */
   // eslint-disable-next-line class-methods-use-this,no-empty-function
-  async getTemplate() {}
+  async getTemplate() {
+  }
 }

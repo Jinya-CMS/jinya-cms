@@ -8,7 +8,6 @@ export default class ChangePasswordDialog {
   show() {
     const container = document.createElement('div');
     container.innerHTML = html`
-      <div class="cosmo-modal__backdrop"></div>
       <form class="cosmo-modal__container" id="change-password-dialog">
         <div class="cosmo-modal">
           <h1 class="cosmo-modal__title">${localize({ key: 'my_jinya.my_profile.change_password.title' })}</h1>
@@ -37,40 +36,47 @@ export default class ChangePasswordDialog {
             </button>
           </div>
         </div>
-      </form>
-    `;
+      </form>`;
     document.body.append(container);
 
-    document.getElementById('cancel-password-change').addEventListener('click', () => container.remove());
-    document.getElementById('change-password-dialog').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const oldPassword = document.getElementById('oldPassword').value;
-      const newPassword = document.getElementById('newPassword').value;
-      const newPasswordRepeat = document.getElementById('newPasswordRepeat').value;
-      if (newPassword !== newPasswordRepeat) {
-        await alert({
-          title: localize({ key: 'my_jinya.my_profile.change_password.not_match.title' }),
-          message: localize({ key: 'my_jinya.my_profile.change_password.not_match.message' }),
-        });
-      } else {
-        try {
-          await post('/api/account/password', { oldPassword, password: newPassword });
-          container.remove();
-          document.dispatchEvent(new CustomEvent('logout'));
-        } catch (e) {
-          if (e.status === 403) {
-            await alert({
-              title: localize({ key: 'my_jinya.my_profile.change_password.error.title' }),
-              message: localize({ key: 'my_jinya.my_profile.change_password.error.forbidden' }),
+    document.getElementById('cancel-password-change')
+      .addEventListener('click', () => container.remove());
+    document.getElementById('change-password-dialog')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const oldPassword = document.getElementById('oldPassword').value;
+        const newPassword = document.getElementById('newPassword').value;
+        const newPasswordRepeat = document.getElementById('newPasswordRepeat').value;
+        if (newPassword !== newPasswordRepeat) {
+          await alert({
+            title: localize({ key: 'my_jinya.my_profile.change_password.not_match.title' }),
+            message: localize({ key: 'my_jinya.my_profile.change_password.not_match.message' }),
+            negative: true,
+          });
+        } else {
+          try {
+            await post('/api/account/password', {
+              oldPassword,
+              password: newPassword,
             });
-          } else {
-            await alert({
-              title: localize({ key: 'my_jinya.my_profile.change_password.error.title' }),
-              message: localize({ key: 'my_jinya.my_profile.change_password.error.generic' }),
-            });
+            container.remove();
+            document.dispatchEvent(new CustomEvent('logout'));
+          } catch (e) {
+            if (e.status === 403) {
+              await alert({
+                title: localize({ key: 'my_jinya.my_profile.change_password.error.title' }),
+                message: localize({ key: 'my_jinya.my_profile.change_password.error.forbidden' }),
+                negative: true,
+              });
+            } else {
+              await alert({
+                title: localize({ key: 'my_jinya.my_profile.change_password.error.title' }),
+                message: localize({ key: 'my_jinya.my_profile.change_password.error.generic' }),
+                negative: true,
+              });
+            }
           }
         }
-      }
-    });
+      });
   }
 }

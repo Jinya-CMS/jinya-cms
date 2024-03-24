@@ -9,7 +9,11 @@ export default class EditGallerySegmentDialog {
    * @param galleryId {number}
    * @param position {number}
    */
-  constructor({ onHide, galleryId, position }) {
+  constructor({
+                onHide,
+                galleryId,
+                position,
+              }) {
     this.onHide = onHide;
     this.position = position;
     this.galleryId = galleryId;
@@ -17,7 +21,7 @@ export default class EditGallerySegmentDialog {
 
   async show() {
     const { items } = await get('/api/gallery');
-    const content = html` <div class="cosmo-modal__backdrop"></div>
+    const content = html`
       <form class="cosmo-modal__container" id="edit-dialog-form">
         <div class="cosmo-modal">
           <h1 class="cosmo-modal__title">${localize({ key: 'blog.posts.designer.edit.title' })}</h1>
@@ -27,12 +31,8 @@ export default class EditGallerySegmentDialog {
                 ${localize({ key: 'blog.posts.designer.edit.gallery' })}
               </label>
               <select required type="text" id="editSegmentGallery" class="cosmo-select">
-                ${items.map(
-                  (item) =>
-                    html` <option ${this.galleryId === item.id ? 'selected' : ''} value="${item.id}">
-                      ${item.name}
-                    </option>`,
-                )}
+                ${items.map((item) => html`
+                  <option ${this.galleryId === item.id ? 'selected' : ''} value="${item.id}"> ${item.name}</option>`)}
               </select>
             </div>
           </div>
@@ -49,17 +49,19 @@ export default class EditGallerySegmentDialog {
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
-    document.getElementById('cancel-edit-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('edit-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const galleryId = parseInt(document.getElementById('editSegmentGallery').value, 10);
-      this.onHide({
-        position: this.position,
-        gallery: items.find((g) => g.id === galleryId),
+    document.getElementById('cancel-edit-dialog')
+      .addEventListener('click', () => {
+        container.remove();
       });
-      container.remove();
-    });
+    document.getElementById('edit-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const galleryId = parseInt(document.getElementById('editSegmentGallery').value, 10);
+        this.onHide({
+          position: this.position,
+          gallery: items.find((g) => g.id === galleryId),
+        });
+        container.remove();
+      });
   }
 }
