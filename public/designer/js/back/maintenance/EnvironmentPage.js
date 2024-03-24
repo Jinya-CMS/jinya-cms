@@ -15,28 +15,30 @@ export default class EnvironmentPage extends JinyaDesignerPage {
     clearChildren({ parent: table });
     for (const {
       key,
-      value
+      value,
     } of this.environment) {
       const tr = document.createElement('tr');
-      tr.innerHTML = html` <tr>
-        <td>${key}</td>
-        <td>${value}</td>
-      </tr>`;
+      tr.innerHTML = html`
+        <tr>
+          <td>${key}</td>
+          <td>${value}</td>
+        </tr>`;
       table.append(tr);
     }
   }
 
   // eslint-disable-next-line class-methods-use-this
   toString() {
-    return html` <table class="cosmo-table">
-      <thead>
+    return html`
+      <table class="cosmo-table">
+        <thead>
         <tr>
           <th>${localize({ key: 'maintenance.configuration.key' })}</th>
           <th>${localize({ key: 'maintenance.configuration.value' })}</th>
         </tr>
-      </thead>
-      <tbody></tbody>
-    </table>`;
+        </thead>
+        <tbody></tbody>
+      </table>`;
   }
 
   async displayed() {

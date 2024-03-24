@@ -14,10 +14,11 @@ export default class PhpInfoPage extends JinyaDesignerPage {
 
   // eslint-disable-next-line class-methods-use-this
   toString() {
-    return html` <div class="cosmo-list">
-      <nav class="cosmo-list__items" id="extension-list"></nav>
-      <div class="cosmo-list__content" id="php-info-content"></div>
-    </div>`;
+    return html`
+      <div class="cosmo-side-list">
+        <nav class="cosmo-side-list__items" id="extension-list"></nav>
+        <div class="cosmo-side-list__content" id="php-info-content"></div>
+      </div>`;
   }
 
   selectExtension({ name }) {
@@ -32,85 +33,84 @@ export default class PhpInfoPage extends JinyaDesignerPage {
   displaySelectedExtension() {
     let content = '';
     if (this.selectedExtension) {
-      content = html` <span class="cosmo-title">${this.selectedExtensionName}</span>
-        <dl class="cosmo-key-value-list">
+      content = html`
+        <span class="cosmo-title">${this.selectedExtensionName}</span>
+        <dl class="cosmo-list is--key-value">
           ${Object.keys(this.selectedExtension)
-        .map((key) => {
-          if (key === 'ini') {
-            return '';
-          }
-          return html` <dt class="cosmo-key-value-list__key">${key}</dt>
-              <dd class="cosmo-key-value-list__value">${this.selectedExtension[key]}</dd>`;
-        })}
+            .map((key) => {
+              if (key === 'ini') {
+                return '';
+              }
+
+              return html`
+                <dt>${key}</dt>
+                <dd>${this.selectedExtension[key]}</dd>`;
+            })}
         </dl>
-        ${Object.keys(this.selectedExtension.ini).length > 0
-        ? html`
-              <h2>${localize({ key: 'maintenance.php.extension.ini_values' })}</h2>
-              <table class="cosmo-table">
-                <thead>
-                  <tr>
-                    <th>${localize({ key: 'maintenance.php.ini.name' })}</th>
-                    <th>${localize({ key: 'maintenance.php.ini.value' })}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${Object.keys(this.selectedExtension.ini)
-          .map(
-            (key) =>
-              html` <tr>
-                        <td>${key}</td>
-                        <td>${this.selectedExtension.ini[key]}</td>
-                      </tr>`,
-          )}
-                </tbody>
-              </table>
-            `
-        : ''}`;
+        ${Object.keys(this.selectedExtension.ini).length > 0 ? html`
+          <h2>${localize({ key: 'maintenance.php.extension.ini_values' })}</h2>
+          <table class="cosmo-table">
+            <thead>
+            <tr>
+              <th>${localize({ key: 'maintenance.php.ini.name' })}</th>
+              <th>${localize({ key: 'maintenance.php.ini.value' })}</th>
+            </tr>
+            </thead>
+            <tbody>
+            ${Object.keys(this.selectedExtension.ini)
+              .map((key) => html`
+                <tr>
+                  <td>${key}</td>
+                  <td>${this.selectedExtension.ini[key]}</td>
+                </tr>`)}
+            </tbody>
+          </table>
+        ` : ''}`;
     } else {
-      content = html` <dl class="cosmo-key-value-list">
+      content = html`
         <span class="cosmo-title">${localize({ key: 'maintenance.php.system_and_server' })}</span>
         <h2>${localize({ key: 'maintenance.php.about' })}</h2>
-        ${Object.keys(this.phpInfo.about)
-        .map(
-          (key) =>
-            html` <dt class="cosmo-key-value-list__key">${key}</dt>
-              <dd class="cosmo-key-value-list__value">${this.phpInfo.about[key]}</dd>`,
-        )}
-        ${this.phpInfo.apache
-        ? html` <h2>${localize({ key: 'maintenance.php.apache' })}</h2>
-              <dl class="cosmo-key-value-list">
-                ${Object.keys(this.phpInfo.apache)
-          .map(
-            (key) =>
-              html` <dt class="cosmo-key-value-list__key">${key}</dt>
-                      <dd class="cosmo-key-value-list__value">${this.phpInfo.apache[key]}</dd>`,
-          )}
-              </dl>`
-        : ''}
-      </dl>`;
+        <dl class="cosmo-list is--key-value">
+          ${Object.keys(this.phpInfo.about)
+            .map((key) => html`
+              <dt>${key}</dt>
+              <dd>${this.phpInfo.about[key]}</dd>`)}
+        </dl>
+        ${this.phpInfo.apache ? html`
+          <h2>${localize({ key: 'maintenance.php.apache' })}</h2>
+          <dl class="cosmo-list is--key-value">
+            ${Object.keys(this.phpInfo.apache)
+              .map((key) => html`
+                <dt>${key}</dt>
+                <dd>${this.phpInfo.apache[key]}</dd>`)}
+          </dl>` : ''}`;
     }
 
     clearChildren({ parent: document.getElementById('php-info-content') });
     document.getElementById('php-info-content').innerHTML = content;
     document
-      .querySelectorAll('.cosmo-list__item--active')
-      .forEach((item) => item.classList.remove('cosmo-list__item--active'));
+      .querySelectorAll('.cosmo-side-list__item.is--active')
+      .forEach((item) => item.classList.remove('is--active'));
     document
-      .querySelector(`.cosmo-list__item[data-name="${this.selectedExtensionName}"]`)
+      .querySelector(`.cosmo-side-list__item[data-name='${this.selectedExtensionName}']`)
       .classList
-      .add('cosmo-list__item--active');
+      .add('is--active');
   }
 
   displayExtensions() {
-    let list = html` <a data-name="system-environment" class="cosmo-list__item"
-      >${localize({ key: 'maintenance.php.system_and_server' })}</a
-    >`;
+    let list = html`
+      <a data-name="system-environment"
+         class="cosmo-side-list__item">${localize({ key: 'maintenance.php.system_and_server' })}</a>`;
+
     for (const extension of Object.keys(this.phpInfo.extensions)) {
-      list += `<a class="cosmo-list__item" data-name="${extension}">${extension}</a>`;
+      list += `<a class="cosmo-side-list__item" data-name="${extension}">${extension}</a>`;
     }
-    clearChildren({ parent: document.getElementById('extension-list') });
+
+    clearChildren({
+      parent: document.getElementById('extension-list'),
+    });
     document.getElementById('extension-list').innerHTML = list;
-    document.querySelectorAll('.cosmo-list__item')
+    document.querySelectorAll('.cosmo-side-list__item')
       .forEach((item) => {
         item.addEventListener('click', async () => {
           this.selectExtension({ name: item.getAttribute('data-name') });
