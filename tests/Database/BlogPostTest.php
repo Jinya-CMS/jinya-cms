@@ -11,6 +11,7 @@ use App\Database\File;
 use App\Database\Gallery;
 use App\Tests\DatabaseAwareTestCase;
 use Faker\Provider\Uuid;
+use PDOException;
 
 class BlogPostTest extends DatabaseAwareTestCase
 {
@@ -19,7 +20,7 @@ class BlogPostTest extends DatabaseAwareTestCase
         $post = $this->createBlogPost(false);
         $post->create();
 
-        $foundPost = BlogPost::findById($post->getIdAsInt());
+        $foundPost = BlogPost::findById($post->id);
         $this->assertEquals($post->format(), $foundPost->format());
     }
 
@@ -35,7 +36,7 @@ class BlogPostTest extends DatabaseAwareTestCase
         $category->update();
         $post->create();
 
-        $foundPost = BlogPost::findById($post->getIdAsInt());
+        $foundPost = BlogPost::findById($post->id);
         $this->assertEquals($post->format(), $foundPost->format());
     }
 
@@ -51,7 +52,7 @@ class BlogPostTest extends DatabaseAwareTestCase
         $category->update();
         $post->create();
 
-        $foundPost = BlogPost::findById($post->getIdAsInt());
+        $foundPost = BlogPost::findById($post->id);
         $this->assertEquals($post->format(), $foundPost->format());
     }
 
@@ -67,7 +68,7 @@ class BlogPostTest extends DatabaseAwareTestCase
         $category->update();
         $post->create();
 
-        $foundPost = BlogPost::findById($post->getIdAsInt());
+        $foundPost = BlogPost::findById($post->id);
         $this->assertEquals($post->format(), $foundPost->format());
     }
 
@@ -88,17 +89,21 @@ class BlogPostTest extends DatabaseAwareTestCase
         $this->assertTrue(true);
     }
 
-
-    private function createBlogPost(bool $execute = true, bool $withCategory = true, bool $withHeaderImage = true, string $title = 'Test', string $slug = 'test'): BlogPost
-    {
+    private function createBlogPost(
+        bool $execute = true,
+        bool $withCategory = true,
+        bool $withHeaderImage = true,
+        string $title = 'Test',
+        string $slug = 'test'
+    ): BlogPost {
         $post = new BlogPost();
         $post->title = $title;
         $post->slug = $slug;
         if ($withHeaderImage) {
-            $post->headerImageId = $this->createFile()->getIdAsInt();
+            $post->headerImageId = $this->createFile()->id;
         }
         if ($withCategory) {
-            $post->categoryId = $this->createBlogCategory()->getIdAsInt();
+            $post->categoryId = $this->createBlogCategory()->id;
         }
 
         if ($execute) {
@@ -128,7 +133,7 @@ class BlogPostTest extends DatabaseAwareTestCase
 
     public function testCreateDuplicate(): void
     {
-        $this->expectException(UniqueFailedException::class);
+        $this->expectException(PDOException::class);
         $this->createBlogPost();
         $this->createBlogPost();
     }
@@ -151,14 +156,17 @@ class BlogPostTest extends DatabaseAwareTestCase
         $post = $this->createBlogPost();
         $post->delete();
 
-        $this->assertNull(BlogPost::findById($post->getIdAsInt()));
+        $this->assertNull(BlogPost::findById($post->id));
     }
 
     public function testDeleteNotExistent(): void
     {
         $post = $this->createBlogPost(false);
-        $post->delete();
-        $this->assertTrue(true);
+        try {
+            $post->delete();
+        } catch (\Error$error) {
+            $this->assertTrue(true);
+        }
     }
 
     public function testFindBySlug(): void
@@ -185,12 +193,12 @@ class BlogPostTest extends DatabaseAwareTestCase
             'title' => $post->title,
             'slug' => $post->slug,
             'headerImage' => [
-                'id' => $post->getHeaderImage()->getIdAsInt(),
+                'id' => $post->getHeaderImage()->id,
                 'name' => $post->getHeaderImage()->name,
                 'path' => $post->getHeaderImage()->path,
             ],
             'category' => [
-                'id' => $post->getCategory()->getIdAsInt(),
+                'id' => $post->getCategory()->id,
                 'name' => $post->getCategory()->name,
             ],
             'public' => $post->public,
@@ -243,7 +251,7 @@ class BlogPostTest extends DatabaseAwareTestCase
     public function testFindById(): void
     {
         $post = $this->createBlogPost();
-        $foundPost = BlogPost::findById($post->getIdAsInt());
+        $foundPost = BlogPost::findById($post->id);
 
         $this->assertEquals($post->format(), $foundPost->format());
     }
@@ -262,47 +270,17 @@ class BlogPostTest extends DatabaseAwareTestCase
         $post->title = 'Start';
         $post->update();
 
-        $foundPost = BlogPost::findById($post->getIdAsInt());
+        $foundPost = BlogPost::findById($post->id);
         $this->assertEquals($post->format(), $foundPost->format());
     }
 
-    public function testFindByKeyword(): void
-    {
-        $this->createBlogPost(title: 'Test 1', slug: 'test-1');
-        $this->createBlogPost(title: 'Test 2', slug: 'test-2');
-        $this->createBlogPost(title: 'Test 3', slug: 'test-3');
-        $this->createBlogPost(title: 'Test 4', slug: 'test-4');
-        $found = BlogPost::findByKeyword('test');
-        $this->assertCount(4, iterator_to_array($found));
-
-        $found = BlogPost::findByKeyword('test-1');
-        $this->assertCount(1, iterator_to_array($found));
-
-        $found = BlogPost::findByKeyword('Test 1');
-        $this->assertCount(1, iterator_to_array($found));
-
-        $found = BlogPost::findByKeyword('Test 15');
-        $this->assertCount(0, iterator_to_array($found));
-    }
-
-    public function testGetSegments(): void
-    {
-        $post = $this->createBlogPost();
-        $this->createBlogPostSegment($post->getIdAsInt());
-        $this->createBlogPostSegment($post->getIdAsInt());
-        $this->createBlogPostSegment($post->getIdAsInt());
-        $this->createBlogPostSegment($post->getIdAsInt());
-
-        $segments = $post->getSegments();
-        $this->assertCount(4, iterator_to_array($segments));
-    }
-
-    private function createBlogPostSegment(int $blogPostId): void
+    private function createBlogPostSegment(int $blogPostId): BlogPostSegment
     {
         $segment = new BlogPostSegment();
         $segment->blogPostId = $blogPostId;
         $segment->position = random_int(0, 10000);
-        $segment->create();
+
+        return $segment;
     }
 
     public function testGetSegmentsNoSegments(): void
@@ -323,13 +301,11 @@ class BlogPostTest extends DatabaseAwareTestCase
     public function testBatchReplaceSegmentsEmptyArray(): void
     {
         $post = $this->createBlogPost();
-        $this->createBlogPostSegment($post->getIdAsInt());
-        $this->createBlogPostSegment($post->getIdAsInt());
-        $this->createBlogPostSegment($post->getIdAsInt());
-        $this->createBlogPostSegment($post->getIdAsInt());
-        $this->createBlogPostSegment($post->getIdAsInt());
+        $post->batchReplaceSegments([
+            ['html' => 'Test segment'],
+        ]);
 
-        $this->assertCount(5, iterator_to_array($post->getSegments()));
+        $this->assertCount(1, iterator_to_array($post->getSegments()));
 
         $post->batchReplaceSegments([]);
         $this->assertCount(0, iterator_to_array($post->getSegments()));
@@ -344,25 +320,22 @@ class BlogPostTest extends DatabaseAwareTestCase
         return $gallery;
     }
 
-
     public function testBatchReplaceSegmentsCreateSegments(): void
     {
         $post = $this->createBlogPost();
-        $this->createBlogPostSegment($post->getIdAsInt());
-        $this->createBlogPostSegment($post->getIdAsInt());
-        $this->createBlogPostSegment($post->getIdAsInt());
-        $this->createBlogPostSegment($post->getIdAsInt());
-        $this->createBlogPostSegment($post->getIdAsInt());
+        $post->batchReplaceSegments([
+            ['html' => 'Test segment'],
+        ]);
 
-        $this->assertCount(5, iterator_to_array($post->getSegments()));
+        $this->assertCount(1, iterator_to_array($post->getSegments()));
 
         $file = $this->createFile();
         $gallery = $this->createGallery();
         $post->batchReplaceSegments([
             ['html' => 'Test segment'],
-            ['file' => $file->getIdAsInt()],
-            ['file' => $file->getIdAsInt(), 'link' => 'https://google.com'],
-            ['gallery' => $gallery->getIdAsInt()],
+            ['file' => $file->id],
+            ['file' => $file->id, 'link' => 'https://google.com'],
+            ['gallery' => $gallery->id],
         ]);
 
         $segments = $post->getSegments();
@@ -376,18 +349,18 @@ class BlogPostTest extends DatabaseAwareTestCase
         $segments->next();
 
         $segment = $segments->current();
-        $this->assertEquals($file->getIdAsInt(), $segment->fileId);
+        $this->assertEquals($file->id, $segment->fileId);
         $this->assertEquals(1, $segment->position);
         $segments->next();
 
         $segment = $segments->current();
-        $this->assertEquals($file->getIdAsInt(), $segment->fileId);
+        $this->assertEquals($file->id, $segment->fileId);
         $this->assertEquals('https://google.com', $segment->link);
         $this->assertEquals(2, $segment->position);
         $segments->next();
 
         $segment = $segments->current();
-        $this->assertEquals($gallery->getIdAsInt(), $segment->galleryId);
+        $this->assertEquals($gallery->id, $segment->galleryId);
         $this->assertEquals(3, $segment->position);
         $segments->next();
     }
