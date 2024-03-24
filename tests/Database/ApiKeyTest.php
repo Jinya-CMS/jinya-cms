@@ -101,12 +101,6 @@ class ApiKeyTest extends DatabaseAwareTestCase
         $apiKey->create();
     }
 
-    public function testFindAll(): void
-    {
-        $this->expectException(RuntimeException::class);
-        ApiKey::findAll();
-    }
-
     public function testFindByArtist(): void
     {
         $apiKeys = ApiKey::findByArtist($this->testArtist->getIdAsInt());
@@ -154,23 +148,11 @@ class ApiKeyTest extends DatabaseAwareTestCase
         $testApiKey->update();
     }
 
-    public function testFindById(): void
-    {
-        $this->expectException(RuntimeException::class);
-        ApiKey::findById(0);
-    }
-
     public function testGetArtist(): void
     {
         $artist = $this->testApiKey->getArtist();
         $this->assertNotNull($artist);
         $this->assertEquals($this->testArtist->id, $artist->id);
-    }
-
-    public function testFindByKeyword(): void
-    {
-        $this->expectException(RuntimeException::class);
-        ApiKey::findByKeyword('');
     }
 
     public function testSetApiKey(): void

@@ -8,8 +8,6 @@ use App\Database\Utils\LoadableEntity;
 use Error;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../../defines.php';
-
 class DatabaseAwareTestCase extends TestCase
 {
     public static function setUpBeforeClass(): void
