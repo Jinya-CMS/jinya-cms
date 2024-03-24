@@ -28,7 +28,7 @@ export default class AddFormDialog {
   }
 
   async show() {
-    const content = html` <div class="cosmo-modal__backdrop"></div>
+    const content = html`
       <form class="cosmo-modal__container" id="edit-dialog-form">
         <div class="cosmo-modal">
           <h1 class="cosmo-modal__title">${localize({ key: 'pages_and_forms.form.edit.title' })}</h1>
@@ -42,7 +42,7 @@ export default class AddFormDialog {
                 ${localize({ key: 'pages_and_forms.form.edit.to_address' })}
               </label>
               <input required type="email" id="editFormToAddress" class="cosmo-input" value="${this.toAddress}" />
-              <label for="editDescription" class="cosmo-label cosmo-label--textarea">
+              <label for="editDescription" class="cosmo-label is--textarea">
                 ${localize({ key: 'pages_and_forms.form.edit.description' })}
               </label>
               <textarea id="editDescription" hidden></textarea>

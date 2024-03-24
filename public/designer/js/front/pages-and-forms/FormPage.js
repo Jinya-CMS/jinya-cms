@@ -31,11 +31,11 @@ export default class FormPage extends JinyaDesignerPage {
   selectForm({ id }) {
     this.selectedForm = this.forms.find((p) => p.id === parseInt(id, 10));
     document
-      .querySelectorAll('.cosmo-list__item--active')
-      .forEach((item) => item.classList.remove('cosmo-list__item--active'));
+      .querySelectorAll('.cosmo-side-list__item.is--active')
+      .forEach((item) => item.classList.remove('is--active'));
     document.querySelector(`[data-id="${id}"]`)
       .classList
-      .add('cosmo-list__item--active');
+      .add('is--active');
     document.getElementById('edit-item')
       .setAttribute('disabled', 'disabled');
     document.getElementById('delete-item')
@@ -77,7 +77,7 @@ export default class FormPage extends JinyaDesignerPage {
       itemElem.innerHTML = html` <span class="jinya-designer-item__title">
           ${localize({ key: `pages_and_forms.form.designer.type_${item.type}` })}
         </span>
-        <span class="jinya-form-item__label">${item.label}</span>`;
+      <span class="jinya-form-item__label">${item.label}</span>`;
       itemList.appendChild(itemElem);
     }
     document.querySelectorAll('#item-list .jinya-designer-item')
@@ -123,9 +123,9 @@ export default class FormPage extends JinyaDesignerPage {
   // eslint-disable-next-line class-methods-use-this
   toString() {
     return html`
-      <div class="cosmo-list">
-        <nav class="cosmo-list__items" id="form-list"></nav>
-        <div class="cosmo-list__content jinya-designer">
+      <div class="cosmo-side-list">
+        <nav class="cosmo-side-list__items" id="form-list"></nav>
+        <div class="cosmo-side-list__content jinya-designer">
           <div class="jinya-designer__title">
             <span class="cosmo-title" id="form-title"></span>
           </div>
@@ -180,11 +180,11 @@ export default class FormPage extends JinyaDesignerPage {
   displayForms() {
     let list = '';
     for (const form of this.forms) {
-      list += `<a class="cosmo-list__item" data-id="${form.id}">${form.title}</a>`;
+      list += `<a class="cosmo-side-list__item" data-id="${form.id}">${form.title}</a>`;
     }
     clearChildren({ parent: document.getElementById('form-list') });
     document.getElementById('form-list').innerHTML = `${list}
-                <button id="new-form-button" class="cosmo-button cosmo-button--full-width">
+                <button id="new-form-button" class="cosmo-button is--full-width">
                     ${localize({ key: 'pages_and_forms.form.action.new' })}
                 </button>`;
     document.querySelectorAll('.cosmo-list__item')
@@ -261,11 +261,8 @@ export default class FormPage extends JinyaDesignerPage {
           editedItem.isRequired = isRequired;
           editedItem.isFromAddress = isFromAddress;
 
-          document.querySelector(
-            `[data-position="${this.selectedFormItem.position}"] .jinya-form-item__label`,
-          ).innerText = label;
-        },
-        ...this.selectedFormItem,
+          document.querySelector(`[data-position="${this.selectedFormItem.position}"] .jinya-form-item__label`).innerText = label;
+        }, ...this.selectedFormItem,
         formId: this.selectedForm.id,
       });
       dialog.show();
@@ -292,11 +289,8 @@ export default class FormPage extends JinyaDesignerPage {
           editedItem.isRequired = isRequired;
           editedItem.spamFilter = spamFilter;
 
-          document.querySelector(
-            `[data-position="${this.selectedFormItem.position}"] .jinya-form-item__label`,
-          ).innerText = label;
-        },
-        ...this.selectedFormItem,
+          document.querySelector(`[data-position="${this.selectedFormItem.position}"] .jinya-form-item__label`).innerText = label;
+        }, ...this.selectedFormItem,
         formId: this.selectedForm.id,
       });
       dialog.show();
@@ -320,11 +314,8 @@ export default class FormPage extends JinyaDesignerPage {
           editedItem.helpText = helpText;
           editedItem.isRequired = isRequired;
 
-          document.querySelector(
-            `[data-position="${this.selectedFormItem.position}"] .jinya-form-item__label`,
-          ).innerText = label;
-        },
-        ...this.selectedFormItem,
+          document.querySelector(`[data-position="${this.selectedFormItem.position}"] .jinya-form-item__label`).innerText = label;
+        }, ...this.selectedFormItem,
         formId: this.selectedForm.id,
       });
       dialog.show();
@@ -351,11 +342,8 @@ export default class FormPage extends JinyaDesignerPage {
           editedItem.isRequired = isRequired;
           editedItem.options = options;
 
-          document.querySelector(
-            `[data-position="${this.selectedFormItem.position}"] .jinya-form-item__label`,
-          ).innerText = label;
-        },
-        ...this.selectedFormItem,
+          document.querySelector(`[data-position="${this.selectedFormItem.position}"] .jinya-form-item__label`).innerText = label;
+        }, ...this.selectedFormItem,
         formId: this.selectedForm.id,
       });
       dialog.show();
@@ -385,11 +373,8 @@ export default class FormPage extends JinyaDesignerPage {
           editedItem.isSubject = isSubject;
           editedItem.spamFilter = spamFilter;
 
-          document.querySelector(
-            `[data-position="${this.selectedFormItem.position}"] .jinya-form-item__label`,
-          ).innerText = label;
-        },
-        ...this.selectedFormItem,
+          document.querySelector(`[data-position="${this.selectedFormItem.position}"] .jinya-form-item__label`).innerText = label;
+        }, ...this.selectedFormItem,
         formId: this.selectedForm.id,
       });
       dialog.show();

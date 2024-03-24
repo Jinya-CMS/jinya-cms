@@ -41,7 +41,7 @@ export default class EditEmailItemDialog {
   }
 
   show() {
-    const content = html` <div class="cosmo-modal__backdrop"></div>
+    const content = html`
       <form class="cosmo-modal__container" id="edit-dialog-form">
         <div class="cosmo-modal">
           <h1 class="cosmo-modal__title">${localize({ key: 'pages_and_forms.form.designer.edit.title' })}</h1>
@@ -75,7 +75,7 @@ export default class EditEmailItemDialog {
                 id="editItemHelpText"
                 class="cosmo-input"
               />
-              <div class="cosmo-checkbox__group">
+              <div class="cosmo-input__group is--checkbox">
                 <input
                   type="checkbox"
                   id="editItemIsFromAddress"
@@ -86,7 +86,7 @@ export default class EditEmailItemDialog {
                   ${localize({ key: 'pages_and_forms.form.designer.edit.is_from_address' })}
                 </label>
               </div>
-              <div class="cosmo-checkbox__group">
+              <div class="cosmo-input__group is--checkbox">
                 <input
                   type="checkbox"
                   id="editItemIsRequired"

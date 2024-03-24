@@ -41,7 +41,7 @@ export default class EditDropdownItemDialog {
   }
 
   show() {
-    const content = html` <div class="cosmo-modal__backdrop"></div>
+    const content = html`
       <form class="cosmo-modal__container" id="edit-dialog-form">
         <div class="cosmo-modal">
           <h1 class="cosmo-modal__title">${localize({ key: 'pages_and_forms.form.designer.edit.title' })}</h1>
@@ -75,13 +75,13 @@ export default class EditDropdownItemDialog {
                 id="editItemHelpText"
                 class="cosmo-input"
               />
-              <label for="editItemOptions" class="cosmo-label cosmo-label--textarea">
+              <label for="editItemOptions" class="cosmo-label is--textarea">
                 ${localize({ key: 'pages_and_forms.form.designer.edit.items' })}
               </label>
               <textarea type="text" id="editItemOptions" class="cosmo-textarea" rows="5">
 ${this.newItem ? '' : this.options.join('\n')}</textarea
               >
-              <div class="cosmo-checkbox__group">
+              <div class="cosmo-input__group is--checkbox">
                 <input
                   type="checkbox"
                   id="editItemIsRequired"

@@ -23,11 +23,11 @@ export default class SegmentPagePage extends JinyaDesignerPage {
     document.getElementById('delete-page').disabled = false;
     this.selectedPage = this.pages.find((p) => p.id === parseInt(id, 10));
     document
-      .querySelectorAll('.cosmo-list__item--active')
-      .forEach((item) => item.classList.remove('cosmo-list__item--active'));
+      .querySelectorAll('.cosmo-side-list__item.is--active')
+      .forEach((item) => item.classList.remove('is--active'));
     document.querySelector(`[data-id="${id}"]`)
       .classList
-      .add('cosmo-list__item--active');
+      .add('is--active');
     document.getElementById('edit-segment')
       .setAttribute('disabled', 'disabled');
     document.getElementById('delete-segment')
@@ -157,7 +157,8 @@ export default class SegmentPagePage extends JinyaDesignerPage {
     segmentElem.classList.add('jinya-designer-item', 'jinya-designer-item--html');
     segmentElem.setAttribute('data-position', segment.position.toString(10));
     segmentElem.setAttribute('data-id', segment.id.toString(10));
-    segmentElem.innerHTML = html` <span class="jinya-designer-item__title">
+    segmentElem.innerHTML = html`
+      <span class="jinya-designer-item__title">
         ${localize({ key: 'pages_and_forms.segment.designer.html' })}
       </span>
       <div class="jinya-designer-item__details jinya-designer-item__details--html">${segment.html}</div>`;
@@ -179,34 +180,27 @@ export default class SegmentPagePage extends JinyaDesignerPage {
     segmentElem.setAttribute('data-id', segment.id.toString(10));
     segmentElem.setAttribute('data-is-file', 'true');
     segmentElem.innerHTML = html` <img
-        class="jinya-segment__image"
-        src="${segment.file.path}"
-        alt="${segment.file.name}"
-      />
-      <div class="jinya-designer-item__details jinya-designer-item__details--file">
-        <span class="jinya-designer-item__title"> ${localize({ key: 'pages_and_forms.segment.designer.file' })} </span>
-        <dl class="jinya-segment__action">
-          <dt class="jinya-segment__label">${localize({ key: 'pages_and_forms.segment.designer.action' })}</dt>
-          <dd class="jinya-segment__content" data-type="action-label">
-            ${localize({ key: `pages_and_forms.segment.designer.action_${segment.action}` })}
-          </dd>
-          <dt
-            class="jinya-segment__label"
-            data-type="target"
-            ${segment.action !== 'link' ? 'style="display: none;"' : ''}
-          >
-            ${localize({ key: 'pages_and_forms.segment.designer.link' })}
-          </dt>
-          <dd
-            class="jinya-segment__content"
-            data-type="target"
-            data-action="target"
-            ${segment.action !== 'link' ? 'style="display: none;"' : ''}
-          >
-            ${segment.target}
-          </dd>
-        </dl>
-      </div>`;
+      class="jinya-segment__image"
+      src="${segment.file.path}"
+      alt="${segment.file.name}"
+    />
+    <div class="jinya-designer-item__details jinya-designer-item__details--file">
+      <span class="jinya-designer-item__title"> ${localize({ key: 'pages_and_forms.segment.designer.file' })} </span>
+      <dl class="jinya-segment__action">
+        <dt class="jinya-segment__label">${localize({ key: 'pages_and_forms.segment.designer.action' })}</dt>
+        <dd class="jinya-segment__content" data-type="action-label">
+          ${localize({ key: `pages_and_forms.segment.designer.action_${segment.action}` })}
+        </dd>
+        <dt class="jinya-segment__label" data-type="target"
+            ${segment.action !== 'link' ? 'style="display: none;"' : ''}>
+          ${localize({ key: 'pages_and_forms.segment.designer.link' })}
+        </dt>
+        <dd class="jinya-segment__content" data-type="target" data-action="target"
+            ${segment.action !== 'link' ? 'style="display: none;"' : ''}>
+          ${segment.target}
+        </dd>
+      </dl>
+    </div>`;
     segmentList.appendChild(segmentElem);
   }
 
@@ -222,7 +216,8 @@ export default class SegmentPagePage extends JinyaDesignerPage {
     const segmentElem = document.createElement('div');
     segmentElem.classList.add('jinya-designer-item', 'jinya-designer-item--gallery');
     segmentElem.setAttribute('data-position', segment.position.toString(10));
-    segmentElem.innerHTML = html` <span class="jinya-designer-item__title">
+    segmentElem.innerHTML = html`
+      <span class="jinya-designer-item__title">
         ${localize({ key: 'pages_and_forms.segment.designer.gallery' })}
       </span>
       <span class="jinya-designer-item__details jinya-designer-item__details--gallery">
@@ -234,9 +229,9 @@ export default class SegmentPagePage extends JinyaDesignerPage {
   // eslint-disable-next-line class-methods-use-this
   toString() {
     return html`
-      <div class="cosmo-list">
-        <nav class="cosmo-list__items" id="page-list"></nav>
-        <div class="cosmo-list__content jinya-designer">
+      <div class="cosmo-side-list">
+        <nav class="cosmo-side-list__items" id="page-list"></nav>
+        <div class="cosmo-side-list__content jinya-designer">
           <div class="jinya-designer__title">
             <span class="cosmo-title" id="page-title"></span>
           </div>
@@ -285,14 +280,14 @@ export default class SegmentPagePage extends JinyaDesignerPage {
     document.getElementById('delete-page').disabled = true;
     let list = '';
     for (const page of this.pages) {
-      list += `<a class="cosmo-list__item" data-id="${page.id}">${page.name}</a>`;
+      list += `<a class="cosmo-side-list__item" data-id="${page.id}">${page.name}</a>`;
     }
     clearChildren({ parent: document.getElementById('page-list') });
     document.getElementById('page-list').innerHTML = `${list}
-                <button id="new-page-button" class="cosmo-button cosmo-button--full-width">
+                <button id="new-page-button" class="cosmo-button is--full-width">
                     ${localize({ key: 'pages_and_forms.segment.action.new' })}
                 </button>`;
-    document.querySelectorAll('.cosmo-list__item')
+    document.querySelectorAll('.cosmo-side-list__item')
       .forEach((item) => {
         item.addEventListener('click', async () => {
           this.selectPage({ id: item.getAttribute('data-id') });
@@ -350,9 +345,7 @@ export default class SegmentPagePage extends JinyaDesignerPage {
         onHide: async ({ gallery }) => {
           this.selectedSegment.gallery = gallery;
           this.segments.find((s) => s.position === this.selectedSegment.position).gallery = gallery;
-          document.querySelector(
-            `[data-position="${this.selectedSegment.position}"] .jinya-designer-item__details--gallery`,
-          ).innerText = gallery.name;
+          document.querySelector(`[data-position="${this.selectedSegment.position}"] .jinya-designer-item__details--gallery`).innerText = gallery.name;
         },
       });
       await dialog.show();
@@ -383,15 +376,10 @@ export default class SegmentPagePage extends JinyaDesignerPage {
             document
               .querySelectorAll(`[data-position="${this.selectedSegment.position}"] [data-type="target"]`)
               .forEach((item) => item.removeAttribute('style'));
-            document.querySelector(
-              `[data-position="${this.selectedSegment.position}"] [data-action="target"]`,
-            ).innerText = target;
-            document.querySelector(`[data-position="${this.selectedSegment.position}"] .jinya-segment__image`).src =
-              file.path;
+            document.querySelector(`[data-position="${this.selectedSegment.position}"] [data-action="target"]`).innerText = target;
+            document.querySelector(`[data-position="${this.selectedSegment.position}"] .jinya-segment__image`).src = file.path;
           }
-          document.querySelector(
-            `[data-position="${this.selectedSegment.position}"] [data-type="action-label"]`,
-          ).innerText = localize({ key: `pages_and_forms.segment.designer.action_${action}` });
+          document.querySelector(`[data-position="${this.selectedSegment.position}"] [data-type="action-label"]`).innerText = localize({ key: `pages_and_forms.segment.designer.action_${action}` });
           document.querySelector(`[data-position="${this.selectedSegment.position}"] img`).src = file.path;
         },
       });
@@ -406,9 +394,7 @@ export default class SegmentPagePage extends JinyaDesignerPage {
         onHide: async ({ html: content }) => {
           this.selectedSegment.html = content;
           this.segments.find((s) => s.position === this.selectedSegment.position).html = content;
-          document.querySelector(
-            `[data-position="${this.selectedSegment.position}"] .jinya-designer-item__details--html`,
-          ).innerHTML = content;
+          document.querySelector(`[data-position="${this.selectedSegment.position}"] .jinya-designer-item__details--html`).innerHTML = content;
         },
       });
       await dialog.show();

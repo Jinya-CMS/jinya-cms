@@ -28,7 +28,7 @@ export default class EditGallerySegmentDialog {
 
   async show() {
     const { items } = await get('/api/gallery');
-    const content = html` <div class="cosmo-modal__backdrop"></div>
+    const content = html`
       <form class="cosmo-modal__container" id="edit-dialog-form">
         <div class="cosmo-modal">
           <h1 class="cosmo-modal__title">${localize({ key: 'pages_and_forms.segment.designer.edit.title' })}</h1>
@@ -38,12 +38,11 @@ export default class EditGallerySegmentDialog {
                 ${localize({ key: 'pages_and_forms.segment.designer.edit.gallery' })}
               </label>
               <select required type="text" id="editSegmentGallery" class="cosmo-select">
-                ${items.map(
-      (item) =>
-        html` <option ${this.galleryId === item.id ? 'selected' : ''} value="${item.id}">
-                      ${item.name}
-                    </option>`,
-    )}
+                ${items.map((item) => html`
+                  <option ${this.galleryId === item.id ? 'selected' : ''} value="${item.id}">
+                    ${item.name}
+                  </option>`,
+                )}
               </select>
             </div>
           </div>

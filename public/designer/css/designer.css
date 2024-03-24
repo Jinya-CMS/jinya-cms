@@ -105,6 +105,7 @@
     padding: 1rem;
     gap: 0.5rem;
     cursor: move;
+    border-radius: var(--border-radius);
 }
 
 .jinya-designer-item--menu {
@@ -120,19 +121,13 @@
 }
 
 .jinya-designer-item--selected::after {
-    content: "\F012C";
-    width: 1.5rem;
-    height: 1.5rem;
-    background: var(--primary-color);
-    display: flex;
+    content: '';
+    border: 0.75rem solid transparent;
+    border-left-color: var(--primary-color);
+    border-top-color: var(--primary-color);
     position: absolute;
-    font-size: 125%;
     top: 0;
-    right: 0;
-    justify-content: center;
-    color: var(--white);
-    font-family: mdi;
-    align-items: center;
+    left: 0;
 }
 
 .jinya-designer-item--file {
@@ -178,11 +173,12 @@
     display: flex;
     flex: 0 0 100%;
     min-width: 100%;
-    border: 0.0.625rem solid var(--control-border-color);
+    border: 0.0625rem solid var(--control-border-color);
     box-sizing: border-box;
     padding: 0.75rem;
     gap: 0.5rem;
     text-transform: uppercase;
     font-weight: var(--font-weight-light);
     align-items: flex-start;
+    border-radius: var(--border-radius);
 }

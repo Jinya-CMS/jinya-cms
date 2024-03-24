@@ -20,11 +20,11 @@ export default class SimplePagePage extends JinyaDesignerPage {
     document.getElementById('delete-page').disabled = false;
     this.selectedPage = this.pages.find((f) => f.id === parseInt(id, 10));
     document
-      .querySelectorAll('.cosmo-list__item--active')
-      .forEach((item) => item.classList.remove('cosmo-list__item--active'));
+      .querySelectorAll('.cosmo-side-list__item.is--active')
+      .forEach((item) => item.classList.remove('is--active'));
     document.querySelector(`[data-id="${id}"]`)
       .classList
-      .add('cosmo-list__item--active');
+      .add('is--active');
   }
 
   displaySelectedPage() {
@@ -37,14 +37,14 @@ export default class SimplePagePage extends JinyaDesignerPage {
     document.getElementById('delete-page').disabled = true;
     let list = '';
     for (const page of this.pages) {
-      list += `<a class="cosmo-list__item" data-id="${page.id}">${page.title}</a>`;
+      list += `<a class="cosmo-side-list__item" data-id="${page.id}">${page.title}</a>`;
     }
     clearChildren({ parent: document.getElementById('page-list') });
     document.getElementById('page-list').innerHTML = `${list}
-                <button id="new-page-button" class="cosmo-button cosmo-button--full-width">
+                <button id="new-page-button" class="cosmo-button is--full-width">
                     ${localize({ key: 'pages_and_forms.simple.action.new' })}
                 </button>`;
-    document.querySelectorAll('.cosmo-list__item')
+    document.querySelectorAll('.cosmo-side-list__item')
       .forEach((item) => {
         item.addEventListener('click', async () => {
           this.selectPage({ id: item.getAttribute('data-id') });
@@ -73,9 +73,9 @@ export default class SimplePagePage extends JinyaDesignerPage {
   // eslint-disable-next-line class-methods-use-this
   toString() {
     return html`
-      <div class="cosmo-list">
-        <nav class="cosmo-list__items" id="page-list"></nav>
-        <div class="cosmo-list__content jinya-designer">
+      <div class="cosmo-side-list">
+        <nav class="cosmo-side-list__items" id="page-list"></nav>
+        <div class="cosmo-side-list__content jinya-designer">
           <div class="jinya-designer__title">
             <span class="cosmo-title" id="page-title"></span>
           </div>
@@ -95,7 +95,7 @@ export default class SimplePagePage extends JinyaDesignerPage {
               <button id="discard-changes" class="cosmo-button">
                 ${localize({ key: 'pages_and_forms.simple.action.discard_content' })}
               </button>
-              <button id="save-changes" class="cosmo-button">
+              <button id="save-changes" class="cosmo-button is--primary">
                 ${localize({ key: 'pages_and_forms.simple.action.save_content' })}
               </button>
             </div>
@@ -193,7 +193,7 @@ export default class SimplePagePage extends JinyaDesignerPage {
     await super.displayed();
     this.tiny = await getEditor({
       element: document.getElementById('page-editor'),
-      height: 'calc(100% - 37px)',
+      height: 'calc(100% - 2.5rem)',
     });
     const { items } = await get('/api/simple-page');
     this.pages = items;
