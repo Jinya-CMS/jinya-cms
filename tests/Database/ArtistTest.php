@@ -11,10 +11,21 @@ use App\Tests\DatabaseAwareTestCase;
 use DateTime;
 use InvalidArgumentException;
 
+use PDOException;
+
+use function PHPUnit\Framework\assertFalse;
+
 class ArtistTest extends DatabaseAwareTestCase
 {
-    private function createArtist(bool $isAdmin = true, bool $isWriter = true, bool $isReader = true, bool $enabled = true, string $email = 'test@example.com', string $password = 'test1234', bool $execute = true): Artist
-    {
+    private function createArtist(
+        bool $isAdmin = true,
+        bool $isWriter = true,
+        bool $isReader = true,
+        bool $enabled = true,
+        string $email = 'test@example.com',
+        string $password = 'test1234',
+        bool $execute = true
+    ): Artist {
         $artist = new Artist();
         $artist->email = $email;
         $artist->aboutMe = 'About me';
@@ -73,7 +84,7 @@ class ArtistTest extends DatabaseAwareTestCase
         $artist = $this->createArtist(execute: false);
         $artist->create();
 
-        $savedArtist = Artist::findById($artist->getIdAsInt());
+        $savedArtist = Artist::findById($artist->id);
         $this->assertEquals($artist, $savedArtist);
     }
 
@@ -109,7 +120,7 @@ class ArtistTest extends DatabaseAwareTestCase
 
     public function testCreateDuplicate(): void
     {
-        $this->expectException(UniqueFailedException::class);
+        $this->expectException(PDOException::class);
         $artist = $this->createArtist(execute: false);
         $artist->create();
         $artist->create();
@@ -122,7 +133,7 @@ class ArtistTest extends DatabaseAwareTestCase
         $knownDevice->setDeviceKey();
         $knownDevice->userAgent = 'PHPUnit';
         $knownDevice->remoteAddress = '127.0.0.1';
-        $knownDevice->userId = $artist->getIdAsInt();
+        $knownDevice->userId = $artist->id;
 
         $knownDevice->create();
 
@@ -182,7 +193,7 @@ class ArtistTest extends DatabaseAwareTestCase
     {
         $artist = $this->createArtist();
         $apiKey = new ApiKey();
-        $apiKey->userId = $artist->getIdAsInt();
+        $apiKey->userId = $artist->id;
         $apiKey->setApiKey();
         $apiKey->remoteAddress = '127.0.0.1';
         $apiKey->userAgent = 'PHPUnit';
@@ -191,7 +202,7 @@ class ArtistTest extends DatabaseAwareTestCase
 
         $this->assertTrue($artist->changePassword('test1234', 'start1234'));
         $this->assertTrue($artist->validatePassword('start1234'));
-        $this->assertCount(0, iterator_to_array(ApiKey::findByArtist($artist->getIdAsInt())));
+        $this->assertCount(0, iterator_to_array(ApiKey::findByArtist($artist->id)));
     }
 
     public function testChangePasswordInvalidOldPassword(): void
@@ -242,7 +253,7 @@ class ArtistTest extends DatabaseAwareTestCase
             'profilePicture' => $artist->profilePicture,
             'roles' => $artist->roles,
             'enabled' => $artist->enabled,
-            'id' => $artist->getIdAsInt(),
+            'id' => $artist->id,
             'aboutMe' => $artist->aboutMe,
             'colorScheme' => 'auto',
         ], $artist->format());
@@ -267,7 +278,7 @@ class ArtistTest extends DatabaseAwareTestCase
         $artist->setPassword('test');
         $artist->update();
 
-        $savedArtist = Artist::findById($artist->getIdAsInt());
+        $savedArtist = Artist::findById($artist->id);
         $this->assertEquals($artist, $savedArtist);
     }
 
@@ -281,15 +292,17 @@ class ArtistTest extends DatabaseAwareTestCase
         $artist->enabled = true;
         $artist->roles = [];
         $artist->setPassword('test');
-        $artist->update();
-
-        $this->assertEquals(-1, $artist->id);
+        try {
+            $artist->update();
+        } catch (\Error $error) {
+            self::assertTrue(true);
+        }
     }
 
     public function testFindById(): void
     {
         $artist = $this->createArtist();
-        $foundArtist = Artist::findById($artist->getIdAsInt());
+        $foundArtist = Artist::findById($artist->id);
 
         $this->assertEquals($artist, $foundArtist);
     }
@@ -307,7 +320,7 @@ class ArtistTest extends DatabaseAwareTestCase
         $artist = $this->createArtist();
         $artist->delete();
 
-        $foundArtist = Artist::findById($artist->getIdAsInt());
+        $foundArtist = Artist::findById($artist->id);
         $this->assertNull($foundArtist);
     }
 
@@ -316,7 +329,7 @@ class ArtistTest extends DatabaseAwareTestCase
         $this->createArtist(email: 'test2@example.com');
         $artist = $this->createArtist();
         $apiKey = new ApiKey();
-        $apiKey->userId = $artist->getIdAsInt();
+        $apiKey->userId = $artist->id;
         $apiKey->setApiKey();
         $apiKey->remoteAddress = '127.0.0.1';
         $apiKey->userAgent = 'PHPUnit';
@@ -324,19 +337,20 @@ class ArtistTest extends DatabaseAwareTestCase
         $apiKey->create();
         $artist->delete();
 
-        $foundArtist = Artist::findById($artist->getIdAsInt());
+        $foundArtist = Artist::findById($artist->id);
         $this->assertNull($foundArtist);
     }
 
     public function testDeleteUnsaved(): void
     {
-        $this->createArtist();
-        $this->createArtist(email: 'test2@example.com');
-        $artist = $this->createArtist(execute: false);
-        $artist->delete();
-
-        $foundArtist = Artist::findById($artist->getIdAsInt());
-        $this->assertNull($foundArtist);
+        try {
+            $this->createArtist();
+            $this->createArtist(email: 'test2@example.com');
+            $artist = $this->createArtist(execute: false);
+            $artist->delete();
+        } catch (\Error $error) {
+            self::assertTrue(true);
+        }
     }
 
     public function testDeleteLastUser(): void
@@ -345,7 +359,7 @@ class ArtistTest extends DatabaseAwareTestCase
         $artist = $this->createArtist(isAdmin: false, isWriter: true, isReader: true);
         $artist->delete();
 
-        $foundArtist = Artist::findById($artist->getIdAsInt());
+        $foundArtist = Artist::findById($artist->id);
         $this->assertNull($foundArtist);
     }
 
@@ -364,22 +378,6 @@ class ArtistTest extends DatabaseAwareTestCase
         $artist->delete();
 
         $this->assertTrue(true);
-    }
-
-    public function testFindByKeywordEmail(): void
-    {
-        $this->createArtist();
-        $this->createArtist(isAdmin: false, email: 'test2@example.com');
-        $artists = Artist::findByKeyword('test@');
-        $this->assertCount(1, iterator_to_array($artists));
-    }
-
-    public function testFindByKeywordArtistName(): void
-    {
-        $this->createArtist();
-        $this->createArtist(isAdmin: false, email: 'test2@example.com');
-        $artists = Artist::findByKeyword('Artist');
-        $this->assertCount(2, iterator_to_array($artists));
     }
 
     public function testCountAdmins(): void

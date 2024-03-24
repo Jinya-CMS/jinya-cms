@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "4c4e424e910726d029bbc04a5059b53c",
+  "content-hash": "9e93b6a90cdb247d8abe31558d43a69f",
   "packages": [
     {
       "name": "aura/sqlquery",
@@ -506,16 +506,16 @@
     },
     {
       "name": "jinya/database",
-      "version": "0.7.0",
+      "version": "0.8.0",
       "source": {
         "type": "git",
         "url": "https://github.com/Jinya-CMS/jinya-database.git",
-        "reference": "cd9699ba01a764bd76acfd71078abf3b4e8c2bec"
+        "reference": "bb20906b88a0dbbc1a441cf18bd7908afb037f33"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/Jinya-CMS/jinya-database/zipball/cd9699ba01a764bd76acfd71078abf3b4e8c2bec",
-        "reference": "cd9699ba01a764bd76acfd71078abf3b4e8c2bec",
+        "url": "https://api.github.com/repos/Jinya-CMS/jinya-database/zipball/bb20906b88a0dbbc1a441cf18bd7908afb037f33",
+        "reference": "bb20906b88a0dbbc1a441cf18bd7908afb037f33",
         "shasum": ""
       },
       "require": {
@@ -549,9 +549,9 @@
       "notification-url": "https://packagist.org/downloads/",
       "support": {
         "issues": "https://github.com/Jinya-CMS/jinya-database/issues",
-        "source": "https://github.com/Jinya-CMS/jinya-database/tree/0.7.0"
+        "source": "https://github.com/Jinya-CMS/jinya-database/tree/0.8.0"
       },
-      "time": "2024-02-22T00:30:44+00:00"
+      "time": "2024-03-24T22:14:25+00:00"
     },
     {
       "name": "jinya/pdox",
@@ -725,22 +725,22 @@
     },
     {
       "name": "jinya/router-extensions",
-      "version": "0.5.0",
+      "version": "0.6.0",
       "source": {
         "type": "git",
         "url": "https://github.com/Jinya-CMS/jinya-router-extensions.git",
-        "reference": "7a576d8a001051a6fee407d1c9c744ce82bb5869"
+        "reference": "9c6ed548a59c0972ec8b4e059a5edb215a38750c"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/Jinya-CMS/jinya-router-extensions/zipball/7a576d8a001051a6fee407d1c9c744ce82bb5869",
-        "reference": "7a576d8a001051a6fee407d1c9c744ce82bb5869",
+        "url": "https://api.github.com/repos/Jinya-CMS/jinya-router-extensions/zipball/9c6ed548a59c0972ec8b4e059a5edb215a38750c",
+        "reference": "9c6ed548a59c0972ec8b4e059a5edb215a38750c",
         "shasum": ""
       },
       "require": {
         "ext-pdo": "*",
         "ext-simplexml": "*",
-        "jinya/database": "^0.7.0",
+        "jinya/database": "^0.8.0",
         "jinya/router": "^0.6.0",
         "php": "^8.2"
       },
@@ -769,9 +769,9 @@
       ],
       "support": {
         "issues": "https://github.com/Jinya-CMS/jinya-router-extensions/issues",
-        "source": "https://github.com/Jinya-CMS/jinya-router-extensions/tree/0.5.0"
+        "source": "https://github.com/Jinya-CMS/jinya-router-extensions/tree/0.6.0"
       },
-      "time": "2024-03-20T21:52:42+00:00"
+      "time": "2024-03-24T22:18:02+00:00"
     },
     {
       "name": "laminas/laminas-diactoros",
