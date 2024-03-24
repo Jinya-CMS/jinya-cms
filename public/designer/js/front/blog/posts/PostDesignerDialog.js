@@ -156,28 +156,28 @@ export default class PostDesignerDialog {
     segmentElem.setAttribute('data-position', segment.position.toString(10));
     segmentElem.setAttribute('data-is-file', 'true');
     segmentElem.innerHTML = html` <img
-        class="jinya-segment__image"
-        src="${segment.file.path}"
-        alt="${segment.file.name}"
-      />
-      <div class="jinya-designer-item__details jinya-designer-item__details--file">
-        <span class="jinya-designer-item__title"> ${localize({ key: 'pages_and_forms.segment.designer.file' })} </span>
-        <dl class="jinya-segment__action">
-          <dt class="jinya-segment__label">${localize({ key: 'blog.posts.designer.name' })}</dt>
-          <dd class="jinya-segment__content" data-type="action-label">${segment.file.name}</dd>
-          <dt class="jinya-segment__label" data-type="link" ${segment.link === '' ? 'style="display: none;"' : ''}>
-            ${localize({ key: 'blog.posts.designer.link' })}
-          </dt>
-          <dd
-            class="jinya-segment__content"
-            data-type="link"
-            data-action="link"
-            ${segment.link === '' ? 'style="display: none;"' : ''}
-          >
-            ${segment.link}
-          </dd>
-        </dl>
-      </div>`;
+      class="jinya-segment__image"
+      src="${segment.file.path}"
+      alt="${segment.file.name}"
+    />
+    <div class="jinya-designer-item__details jinya-designer-item__details--file">
+      <span class="jinya-designer-item__title"> ${localize({ key: 'pages_and_forms.segment.designer.file' })} </span>
+      <dl class="jinya-segment__action">
+        <dt class="jinya-segment__label">${localize({ key: 'blog.posts.designer.name' })}</dt>
+        <dd class="jinya-segment__content" data-type="action-label">${segment.file.name}</dd>
+        <dt class="jinya-segment__label" data-type="link" ${segment.link === '' ? 'style="display: none;"' : ''}>
+          ${localize({ key: 'blog.posts.designer.link' })}
+        </dt>
+        <dd
+          class="jinya-segment__content"
+          data-type="link"
+          data-action="link"
+          ${segment.link === '' ? 'style="display: none;"' : ''}
+        >
+          ${segment.link}
+        </dd>
+      </dl>
+    </div>`;
     segmentElem.segment = segment;
     segmentList.appendChild(segmentElem);
   }
@@ -400,6 +400,7 @@ export default class PostDesignerDialog {
           }),
           approveLabel: localize({ key: 'blog.posts.designer.edit.delete_segment.delete' }),
           declineLabel: localize({ key: 'blog.posts.designer.edit.delete_segment.keep' }),
+          negative: true,
         });
         if (confirmation) {
           const { position } = this.selectedSegment;

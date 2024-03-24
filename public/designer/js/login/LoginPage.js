@@ -53,6 +53,7 @@ export default class LoginPage extends JinyaDesignerPage {
             await alert({
               title: localize({ key: 'login.error.login_failed.title' }),
               message: localize({ key: 'login.error.login_failed.message' }),
+              negative: true,
             });
           }
         }

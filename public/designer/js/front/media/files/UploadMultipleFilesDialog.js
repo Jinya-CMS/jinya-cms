@@ -126,6 +126,7 @@ export default class UploadMultipleFilesDialog {
               key: `media.files.tags.new.error.${e.status === 409 ? 'exists' : 'generic'}`,
             }),
             buttonLabel: localize({ key: 'media.files.tags.new.error.close' }),
+            negative: true,
           });
         }
       });

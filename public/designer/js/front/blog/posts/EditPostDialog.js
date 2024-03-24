@@ -142,6 +142,7 @@ export default class EditPostDialog {
           await alert({
             title: localize({ key: 'blog.posts.edit.error.title' }),
             message: localize({ key: `blog.posts.edit.error.${msg}` }),
+            negative: true,
           });
         }
       });

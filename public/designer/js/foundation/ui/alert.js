@@ -6,12 +6,16 @@ import localize from '../localize.js';
  * @param title {string}
  * @param message {string}
  * @param buttonLabel {string}
+ * @param negative {boolean}
+ * @param positive {boolean}
  * @return {Promise<void>}
  */
 export default async function alert({
                                       title = window.location.href,
                                       message,
                                       buttonLabel = null,
+                                      negative = false,
+                                      positive = false,
                                     }) {
   if (buttonLabel === null) {
     // eslint-disable-next-line no-param-reassign
@@ -24,7 +28,7 @@ export default async function alert({
 
     container.innerHTML = html`
       <div class="cosmo-modal__container">
-        <div class="cosmo-modal">
+        <div class="cosmo-modal ${negative ? 'is--negative' : ''} ${positive ? 'is--positive' : ''}">
           <h1 class="cosmo-modal__title">${title}</h1>
           <p class="cosmo-modal__content">${message}</p>
           <div class="cosmo-modal__button-bar">

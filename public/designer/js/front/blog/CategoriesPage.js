@@ -135,6 +135,7 @@ export default class CategoriesPage extends JinyaDesignerPage {
           }),
           declineLabel: localize({ key: 'blog.categories.delete.keep' }),
           approveLabel: localize({ key: 'blog.categories.delete.delete' }),
+          negative: true,
         });
         if (confirmation) {
           try {
@@ -153,11 +154,13 @@ export default class CategoriesPage extends JinyaDesignerPage {
               await alert({
                 title: localize({ key: 'blog.categories.delete.error.title' }),
                 message: localize({ key: 'blog.categories.delete.error.conflict' }),
+                negative: true,
               });
             } else {
               await alert({
                 title: localize({ key: 'blog.categories.delete.error.title' }),
                 message: localize({ key: 'blog.categories.delete.error.generic' }),
+                negative: true,
               });
             }
           }

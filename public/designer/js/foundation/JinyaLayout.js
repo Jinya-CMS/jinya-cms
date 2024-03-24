@@ -64,13 +64,19 @@ export default class JinyaLayout extends JinyaDesignerLayout {
 
     switch (this.artist.colorScheme) {
       case 'light':
-        document.querySelector('html').classList.add('is--light');
+        document.querySelector('html')
+          .classList
+          .add('is--light');
         break;
       case 'dark':
-        document.querySelector('html').classList.add('is--dark');
+        document.querySelector('html')
+          .classList
+          .add('is--dark');
         break;
       default:
-        document.querySelector('html').classList.add('is--auto');
+        document.querySelector('html')
+          .classList
+          .add('is--auto');
         break;
     }
     const roles = getRoles();

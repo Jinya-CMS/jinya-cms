@@ -311,6 +311,7 @@ export default class GalleryPage extends JinyaDesignerPage {
           }),
           declineLabel: localize({ key: 'media.galleries.delete.keep' }),
           approveLabel: localize({ key: 'media.galleries.delete.delete' }),
+          negative: true,
         });
         if (confirmation) {
           try {
@@ -330,11 +331,13 @@ export default class GalleryPage extends JinyaDesignerPage {
               await alert({
                 title: localize({ key: 'media.galleries.delete.error.title' }),
                 message: localize({ key: 'media.galleries.delete.error.conflict' }),
+                negative: true,
               });
             } else {
               await alert({
                 title: localize({ key: 'media.galleries.delete.error.title' }),
                 message: localize({ key: 'media.galleries.delete.error.generic' }),
+                negative: true,
               });
             }
           }

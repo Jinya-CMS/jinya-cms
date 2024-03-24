@@ -46,6 +46,7 @@ export default class TwoFactorPage extends JinyaDesignerPage {
             await alert({
               title: localize({ key: 'login.error.2fa_failed.title' }),
               message: localize({ key: 'login.error.2fa_failed.message' }),
+              negative: true,
             });
           }
         }

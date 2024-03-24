@@ -89,11 +89,13 @@ export default class AddArtistDialog {
             await alert({
               title: localize({ key: 'artists.create.error.title' }),
               message: localize({ key: 'artists.create.error.conflict' }),
+              negative: true,
             });
           } else {
             await alert({
               title: localize({ key: 'artists.create.error.title' }),
               message: localize({ key: 'artists.create.error.generic' }),
+              negative: true,
             });
           }
         }

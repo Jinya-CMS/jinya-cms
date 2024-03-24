@@ -111,11 +111,13 @@ export default class EditMenuDialog {
             await alert({
               title: localize({ key: 'design.menus.edit.error.title' }),
               message: localize({ key: 'design.menus.edit.error.conflict' }),
+              negative: true,
             });
           } else {
             await alert({
               title: localize({ key: 'design.menus.edit.error.title' }),
               message: localize({ key: 'design.menus.edit.error.generic' }),
+              negative: true,
             });
           }
         }

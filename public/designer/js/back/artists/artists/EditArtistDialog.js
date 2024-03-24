@@ -118,11 +118,13 @@ export default class EditArtistDialog {
             await alert({
               title: localize({ key: 'artists.edit.error.title' }),
               message: localize({ key: 'artists.edit.error.conflict' }),
+              negative: true,
             });
           } else {
             await alert({
               title: localize({ key: 'artists.edit.error.title' }),
               message: localize({ key: 'artists.edit.error.generic' }),
+              negative: true,
             });
           }
         }

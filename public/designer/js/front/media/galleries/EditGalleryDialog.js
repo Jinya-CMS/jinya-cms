@@ -111,11 +111,13 @@ export default class EditGalleryDialog {
             await alert({
               title: localize({ key: 'media.galleries.edit.error.title' }),
               message: localize({ key: 'media.galleries.edit.error.conflict' }),
+              negative: true,
             });
           } else {
             await alert({
               title: localize({ key: 'media.galleries.edit.error.title' }),
               message: localize({ key: 'media.galleries.edit.error.generic' }),
+              negative: true,
             });
           }
         }

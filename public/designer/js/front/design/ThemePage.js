@@ -474,6 +474,7 @@ export default class ThemePage extends JinyaDesignerPage {
                 key: 'design.themes.activate.success.message',
                 values: this.selectedTheme,
               }),
+              positive: true,
             });
           } catch (e) {
             await alert({
@@ -482,6 +483,7 @@ export default class ThemePage extends JinyaDesignerPage {
                 key: 'design.themes.activate.error.message',
                 values: this.selectedTheme,
               }),
+              negative: true,
             });
           }
         }
@@ -505,6 +507,7 @@ export default class ThemePage extends JinyaDesignerPage {
                 key: 'design.themes.assets.success.message',
                 values: this.selectedTheme,
               }),
+              positive: true,
             });
           } catch (e) {
             await alert({
@@ -512,6 +515,7 @@ export default class ThemePage extends JinyaDesignerPage {
               message: localize({
                 key: 'design.themes.assets.error.message',
                 values: this.selectedTheme,
+                negative: true,
               }),
             });
           }
@@ -556,6 +560,7 @@ export default class ThemePage extends JinyaDesignerPage {
           await alert({
             title: localize({ key: 'design.themes.configuration.success.title' }),
             message: localize({ key: 'design.themes.configuration.success.message' }),
+            positive: true,
           });
           await this.loadThemes();
           this.displayThemes();
@@ -565,6 +570,7 @@ export default class ThemePage extends JinyaDesignerPage {
           await alert({
             title: localize({ key: 'design.themes.configuration.error.title' }),
             message: localize({ key: 'design.themes.configuration.error.message' }),
+            negative: true,
           });
         }
       });
@@ -591,6 +597,7 @@ export default class ThemePage extends JinyaDesignerPage {
           await alert({
             title: localize({ key: 'design.themes.links.success.title' }),
             message: localize({ key: 'design.themes.links.success.message' }),
+            positive: true,
           });
           await this.loadThemes();
           this.displayThemes();
@@ -600,6 +607,7 @@ export default class ThemePage extends JinyaDesignerPage {
           await alert({
             title: localize({ key: 'design.themes.links.error.title' }),
             message: localize({ key: 'design.themes.links.error.message' }),
+            negative: true,
           });
         }
       });
@@ -619,6 +627,7 @@ export default class ThemePage extends JinyaDesignerPage {
           await alert({
             title: localize({ key: 'design.themes.variables.success.title' }),
             message: localize({ key: 'design.themes.variables.success.message' }),
+            positive: true,
           });
           await this.loadThemes();
           this.displayThemes();
@@ -628,6 +637,7 @@ export default class ThemePage extends JinyaDesignerPage {
           await alert({
             title: localize({ key: 'design.themes.variables.error.title' }),
             message: localize({ key: 'design.themes.variables.error.message' }),
+            negative: true,
           });
         }
       });

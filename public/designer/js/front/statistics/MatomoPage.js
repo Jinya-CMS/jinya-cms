@@ -19,19 +19,19 @@ export default class MatomoPage extends JinyaDesignerPage {
       <span class="cosmo-title"
       >${localize({ key: 'statistics.access.title' })} |
         ${this.from.toLocaleDateString(window.navigator.language, {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-        })}
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })}
         –
         ${this.to.toLocaleDateString(window.navigator.language, {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-        })}
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })}
         | <span id="stats-total-visits">${this.totalVisits}</span> ${localize({
-          key: 'statistics.access.total_visits',
-        })}</span
+      key: 'statistics.access.total_visits',
+    })}</span
       >
         <div class="jinya-stats__row jinya-stats__row--one">
           <div id="country-chart"></div>

@@ -118,6 +118,7 @@ export default class FilePage extends JinyaDesignerPage {
             }),
             declineLabel: localize({ key: 'media.files.delete.decline' }),
             approveLabel: localize({ key: 'media.files.delete.approve' }),
+            negative: true,
           });
           if (deleteConfirmation) {
             try {
@@ -134,11 +135,13 @@ export default class FilePage extends JinyaDesignerPage {
                     key: 'media.files.delete.error.conflict',
                     values: { name: this.selectedFile.name },
                   }),
+                  negative: true,
                 });
               } else {
                 await alert({
                   title: localize({ key: 'media.files.delete.error.title' }),
                   message: localize({ key: 'media.files.delete.error.generic' }),
+                  negative: true,
                 });
               }
             }

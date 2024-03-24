@@ -127,6 +127,7 @@ export default class UploadDialog {
               key: `media.files.tags.new.error.${e.status === 409 ? 'exists' : 'generic'}`,
             }),
             buttonLabel: localize({ key: 'media.files.tags.new.error.close' }),
+            negative: true,
           });
         }
       });
@@ -167,11 +168,13 @@ export default class UploadDialog {
             await alert({
               title: localize({ key: 'media.files.upload_single_file.error.title' }),
               message: localize({ key: 'media.files.upload_single_file.error.conflict' }),
+              negative: true,
             });
           } else {
             await alert({
               title: localize({ key: 'media.files.upload_single_file.error.title' }),
               message: localize({ key: 'media.files.upload_single_file.error.generic' }),
+              negative: true,
             });
           }
         }

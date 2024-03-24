@@ -160,6 +160,7 @@ export default class ArtistPage extends JinyaDesignerPage {
           }),
           approveLabel: localize({ key: 'artists.disable.delete' }),
           declineLabel: localize({ key: 'artists.disable.keep' }),
+          negative: true,
         });
         if (result) {
           const { id } = this.selectedArtist;
@@ -180,6 +181,7 @@ export default class ArtistPage extends JinyaDesignerPage {
           }),
           approveLabel: localize({ key: 'artists.delete.delete' }),
           declineLabel: localize({ key: 'artists.delete.keep' }),
+          negative: true,
         });
         if (result) {
           const { id } = this.selectedArtist;

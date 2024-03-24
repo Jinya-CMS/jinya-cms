@@ -72,11 +72,13 @@ export default class AddFormDialog {
             await alert({
               title: localize({ key: 'pages_and_forms.form.create.error.title' }),
               message: localize({ key: 'pages_and_forms.form.create.error.conflict' }),
+              negative: true,
             });
           } else {
             await alert({
               title: localize({ key: 'pages_and_forms.form.create.error.title' }),
               message: localize({ key: 'pages_and_forms.form.create.error.generic' }),
+              negative: true,
             });
           }
         }

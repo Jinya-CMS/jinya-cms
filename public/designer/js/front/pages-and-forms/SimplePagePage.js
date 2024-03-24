@@ -121,11 +121,13 @@ export default class SimplePagePage extends JinyaDesignerPage {
             await alert({
               title: localize({ key: 'pages_and_forms.simple.edit.error.title' }),
               message: localize({ key: 'pages_and_forms.simple.edit.error.conflict' }),
+              negative: true,
             });
           } else {
             await alert({
               title: localize({ key: 'pages_and_forms.simple.edit.error.title' }),
               message: localize({ key: 'pages_and_forms.simple.edit.error.generic' }),
+              negative: true,
             });
           }
         }
@@ -158,6 +160,7 @@ export default class SimplePagePage extends JinyaDesignerPage {
           }),
           declineLabel: localize({ key: 'pages_and_forms.simple.delete.keep' }),
           approveLabel: localize({ key: 'pages_and_forms.simple.delete.delete' }),
+          negative: true,
         });
         if (confirmation) {
           try {
@@ -177,11 +180,13 @@ export default class SimplePagePage extends JinyaDesignerPage {
               await alert({
                 title: localize({ key: 'pages_and_forms.simple.delete.error.title' }),
                 message: localize({ key: 'pages_and_forms.simple.delete.error.conflict' }),
+                negative: true,
               });
             } else {
               await alert({
                 title: localize({ key: 'pages_and_forms.simple.delete.error.title' }),
                 message: localize({ key: 'pages_and_forms.simple.delete.error.generic' }),
+                negative: true,
               });
             }
           }

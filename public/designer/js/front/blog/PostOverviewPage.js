@@ -131,6 +131,7 @@ export default class PostOverviewPage extends JinyaDesignerPage {
           }),
           declineLabel: localize({ key: 'blog.posts.overview.delete.keep' }),
           approveLabel: localize({ key: 'blog.posts.overview.delete.delete' }),
+          negative: true,
         });
         if (confirmation) {
           await httpDelete(`/api/blog/post/${this.selectedPost.id}`);

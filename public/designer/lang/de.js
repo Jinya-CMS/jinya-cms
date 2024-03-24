@@ -999,7 +999,7 @@ export default {
     delete: {
       title: 'Künstler löschen',
       message: 'Soll der Künstler {artistName} wirklich gelöscht werden?',
-      keep: 'Keep artist',
+      keep: 'Künstler behalten',
       delete: 'Künstler löschen',
     },
     disable: {

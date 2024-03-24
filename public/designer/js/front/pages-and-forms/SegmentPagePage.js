@@ -478,6 +478,7 @@ export default class SegmentPagePage extends JinyaDesignerPage {
           }),
           approveLabel: localize({ key: 'pages_and_forms.segment.delete.delete' }),
           declineLabel: localize({ key: 'pages_and_forms.segment.delete.keep' }),
+          negative: true,
         });
         if (confirmation) {
           try {
@@ -501,11 +502,13 @@ export default class SegmentPagePage extends JinyaDesignerPage {
               await alert({
                 title: localize({ key: 'pages_and_forms.segment.delete.error.title' }),
                 message: localize({ key: 'pages_and_forms.segment.delete.error.conflict' }),
+                negative: true,
               });
             } else {
               await alert({
                 title: localize({ key: 'pages_and_forms.segment.delete.error.title' }),
                 message: localize({ key: 'pages_and_forms.segment.delete.error.generic' }),
+                negative: true,
               });
             }
           }
@@ -525,6 +528,7 @@ export default class SegmentPagePage extends JinyaDesignerPage {
           }),
           approveLabel: localize({ key: 'pages_and_forms.segment.delete_segment.delete' }),
           declineLabel: localize({ key: 'pages_and_forms.segment.delete_segment.keep' }),
+          negative: true,
         });
         if (confirmation) {
           const { position } = this.selectedSegment;

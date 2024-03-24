@@ -120,6 +120,7 @@ export default class QueryToolPage extends JinyaDesignerPage {
           await alert({
             title: localize({ key: 'database.query_tool.error.title' }),
             message: localize({ key: 'database.query_tool.error.message' }),
+            negative: true,
           });
         }
       });

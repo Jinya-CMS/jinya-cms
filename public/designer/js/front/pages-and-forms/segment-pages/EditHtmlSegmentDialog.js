@@ -82,6 +82,7 @@ export default class EditFileSegmentDialog {
           await alert({
             title: localize({ key: 'pages_and_forms.segment.designer.edit.error.title' }),
             message: localize({ key: 'pages_and_forms.segment.designer.edit.error.generic' }),
+            negative: true,
           });
         }
       });

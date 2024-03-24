@@ -91,6 +91,7 @@ export default class ManageTagsDialog {
                   key: `media.files.tags.edit.error.${e.status === 409 ? 'exists' : 'generic'}`,
                 }),
                 buttonLabel: localize({ key: 'media.files.tags.edit.error.close' }),
+                negative: true,
               });
             }
           });
@@ -104,6 +105,7 @@ export default class ManageTagsDialog {
             }),
             declineLabel: localize({ key: 'media.files.tags.delete.decline' }),
             approveLabel: localize({ key: 'media.files.tags.delete.approve' }),
+            negative: true,
           })) {
             try {
               await httpDelete(`/api/file-tag/${evt.id}`);
@@ -116,6 +118,7 @@ export default class ManageTagsDialog {
                 title: localize({ key: 'media.files.tags.delete.error.title' }),
                 message: localize({ key: 'media.files.tags.delete.error.generic' }),
                 buttonLabel: localize({ key: 'media.files.tags.delete.error.close' }),
+                negative: true,
               });
             }
           }

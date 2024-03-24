@@ -485,6 +485,7 @@ export default class FormPage extends JinyaDesignerPage {
           }),
           approveLabel: localize({ key: 'pages_and_forms.form.delete.delete' }),
           declineLabel: localize({ key: 'pages_and_forms.form.delete.keep' }),
+          negative: true,
         });
         if (confirmation) {
           try {
@@ -508,11 +509,13 @@ export default class FormPage extends JinyaDesignerPage {
               await alert({
                 title: localize({ key: 'pages_and_forms.form.delete.error.title' }),
                 message: localize({ key: 'pages_and_forms.form.delete.error.conflict' }),
+                negative: true,
               });
             } else {
               await alert({
                 title: localize({ key: 'pages_and_forms.form.delete.error.title' }),
                 message: localize({ key: 'pages_and_forms.form.delete.error.generic' }),
+                negative: true,
               });
             }
           }
@@ -532,6 +535,7 @@ export default class FormPage extends JinyaDesignerPage {
           }),
           approveLabel: localize({ key: 'pages_and_forms.form.delete_item.delete' }),
           declineLabel: localize({ key: 'pages_and_forms.form.delete_item.keep' }),
+          negative: true,
         });
         if (confirmation) {
           const { position } = this.selectedFormItem;

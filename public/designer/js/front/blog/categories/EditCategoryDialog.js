@@ -131,11 +131,13 @@ export default class EditCategoryDialog {
             await alert({
               title: localize({ key: 'blog.categories.edit.error.title' }),
               message: localize({ key: 'blog.categories.edit.error.conflict' }),
+              negative: true,
             });
           } else {
             await alert({
               title: localize({ key: 'blog.categories.edit.error.title' }),
               message: localize({ key: 'blog.categories.edit.error.generic' }),
+              negative: true,
             });
           }
         }

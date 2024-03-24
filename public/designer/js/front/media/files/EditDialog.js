@@ -124,6 +124,7 @@ export default class EditDialog {
               key: `media.files.tags.new.error.${e.status === 409 ? 'exists' : 'generic'}`,
             }),
             buttonLabel: localize({ key: 'media.files.tags.new.error.close' }),
+            negative: true,
           });
         }
       });
@@ -154,11 +155,13 @@ export default class EditDialog {
             await alert({
               title: localize({ key: 'media.files.edit.error.title' }),
               message: localize({ key: 'media.files.edit.error.conflict' }),
+              negative: true,
             });
           } else {
             await alert({
               title: localize({ key: 'media.files.edit.error.title' }),
               message: localize({ key: 'media.files.edit.error.generic' }),
+              negative: true,
             });
           }
         }

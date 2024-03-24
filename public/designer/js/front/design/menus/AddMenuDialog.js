@@ -87,11 +87,13 @@ export default class AddMenuDialog {
             await alert({
               title: localize({ key: 'design.menus.create.error.title' }),
               message: localize({ key: 'design.menus.create.error.conflict' }),
+              negative: true,
             });
           } else {
             await alert({
               title: localize({ key: 'design.menus.create.error.title' }),
               message: localize({ key: 'design.menus.create.error.generic' }),
+              negative: true,
             });
           }
         }

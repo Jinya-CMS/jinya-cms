@@ -94,11 +94,13 @@ export default class AddFormDialog {
             await alert({
               title: localize({ key: 'pages_and_forms.form.edit.error.title' }),
               message: localize({ key: 'pages_and_forms.form.edit.error.conflict' }),
+              negative: true,
             });
           } else {
             await alert({
               title: localize({ key: 'pages_and_forms.form.edit.error.title' }),
               message: localize({ key: 'pages_and_forms.form.edit.error.generic' }),
+              negative: true,
             });
           }
         }

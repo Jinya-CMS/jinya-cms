@@ -51,6 +51,7 @@ export default class ChangePasswordDialog {
           await alert({
             title: localize({ key: 'my_jinya.my_profile.change_password.not_match.title' }),
             message: localize({ key: 'my_jinya.my_profile.change_password.not_match.message' }),
+            negative: true,
           });
         } else {
           try {
@@ -65,11 +66,13 @@ export default class ChangePasswordDialog {
               await alert({
                 title: localize({ key: 'my_jinya.my_profile.change_password.error.title' }),
                 message: localize({ key: 'my_jinya.my_profile.change_password.error.forbidden' }),
+                negative: true,
               });
             } else {
               await alert({
                 title: localize({ key: 'my_jinya.my_profile.change_password.error.title' }),
                 message: localize({ key: 'my_jinya.my_profile.change_password.error.generic' }),
+                negative: true,
               });
             }
           }

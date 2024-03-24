@@ -320,7 +320,7 @@ export default class MenusPage extends JinyaDesignerPage {
       itemElem.innerHTML = html` <span class="jinya-designer-item__title">
           ${localize({ key: `design.menus.designer.type_${type}` })}
         </span>
-        <span>
+      <span>
           <span>${item.title}</span>
           <span class="jinya-menu-item__route">${item.route ?? ''}</span>
         </span>`;
@@ -444,6 +444,7 @@ export default class MenusPage extends JinyaDesignerPage {
           }),
           approveLabel: localize({ key: 'design.menus.delete.delete' }),
           declineLabel: localize({ key: 'design.menus.delete.keep' }),
+          negative: true,
         });
         if (confirmation) {
           try {
@@ -469,11 +470,13 @@ export default class MenusPage extends JinyaDesignerPage {
               await alert({
                 title: localize({ key: 'design.menus.delete.error.title' }),
                 message: localize({ key: 'design.menus.delete.error.conflict' }),
+                negative: true,
               });
             } else {
               await alert({
                 title: localize({ key: 'design.menus.delete.error.title' }),
                 message: localize({ key: 'design.menus.delete.error.generic' }),
+                negative: true,
               });
             }
           }

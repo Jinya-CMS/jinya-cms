@@ -57,11 +57,13 @@ export default class AddSegmentPageDialog {
             await alert({
               title: localize({ key: 'pages_and_forms.segment.create.error.title' }),
               message: localize({ key: 'pages_and_forms.segment.create.error.conflict' }),
+              negative: true,
             });
           } else {
             await alert({
               title: localize({ key: 'pages_and_forms.segment.create.error.title' }),
               message: localize({ key: 'pages_and_forms.segment.create.error.generic' }),
+              negative: true,
             });
           }
         }

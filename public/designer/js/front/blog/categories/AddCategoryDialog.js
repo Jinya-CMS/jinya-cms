@@ -98,11 +98,13 @@ export default class AddCategoryDialog {
             await alert({
               title: localize({ key: 'blog.categories.create.error.title' }),
               message: localize({ key: 'blog.categories.create.error.conflict' }),
+              negative: true,
             });
           } else {
             await alert({
               title: localize({ key: 'blog.categories.create.error.title' }),
               message: localize({ key: 'blog.categories.create.error.generic' }),
+              negative: true,
             });
           }
         }
