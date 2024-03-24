@@ -11,34 +11,34 @@ export default class AddArtistDialog {
   // eslint-disable-next-line class-methods-use-this
   show() {
     const container = document.createElement('div');
-    container.innerHTML = html` <div class="cosmo-modal__backdrop"></div>
+    container.innerHTML = html`
       <form class="cosmo-modal__container" id="create-artist-dialog">
         <div class="cosmo-modal">
           <h1 class="cosmo-modal__title">${localize({ key: 'artists.create.title' })}</h1>
           <div class="cosmo-modal__content">
             <div class="cosmo-input__group">
-              <label for="createArtistName" class="cosmo-label"> ${localize({ key: 'artists.create.name' })} </label>
+              <label for="createArtistName" class="cosmo-label">${localize({ key: 'artists.create.name' })}</label>
               <input required type="text" id="createArtistName" class="cosmo-input" />
-              <label for="createArtistEmail" class="cosmo-label"> ${localize({ key: 'artists.create.email' })} </label>
+              <label for="createArtistEmail" class="cosmo-label">${localize({ key: 'artists.create.email' })}</label>
               <input required type="email" id="createArtistEmail" class="cosmo-input" />
               <label for="createArtistPassword" class="cosmo-label">
                 ${localize({ key: 'artists.create.password' })}
               </label>
               <input required type="password" id="createArtistPassword" class="cosmo-input" />
-              <span class="cosmo-input__header cosmo-input__header--small">
+              <span class="cosmo-label is--checkbox">
                 ${localize({ key: 'artists.create.roles' })}
               </span>
-              <div class="cosmo-checkbox__group">
+              <div class="cosmo-input__group is--checkbox">
                 <input checked type="checkbox" id="createArtistIsReader" class="cosmo-checkbox" />
-                <label for="createArtistIsReader"> ${localize({ key: 'artists.create.is_reader' })} </label>
+                <label for="createArtistIsReader">${localize({ key: 'artists.create.is_reader' })}</label>
               </div>
-              <div class="cosmo-checkbox__group">
+              <div class="cosmo-input__group is--checkbox">
                 <input checked type="checkbox" id="createArtistIsWriter" class="cosmo-checkbox" />
-                <label for="createArtistIsWriter"> ${localize({ key: 'artists.create.is_writer' })} </label>
+                <label for="createArtistIsWriter">${localize({ key: 'artists.create.is_writer' })}</label>
               </div>
-              <div class="cosmo-checkbox__group">
+              <div class="cosmo-input__group is--checkbox">
                 <input type="checkbox" id="createArtistIsAdmin" class="cosmo-checkbox" />
-                <label for="createArtistIsAdmin"> ${localize({ key: 'artists.create.is_admin' })} </label>
+                <label for="createArtistIsAdmin">${localize({ key: 'artists.create.is_admin' })}</label>
               </div>
             </div>
           </div>

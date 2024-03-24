@@ -35,11 +35,11 @@ export default class ArtistPage extends JinyaDesignerPage {
     document.getElementById('artist-email').innerText = this.selectedArtist.email;
     document.getElementById('about-me').innerHTML = this.selectedArtist.aboutMe;
     document
-      .querySelectorAll('.cosmo-list__item--active')
-      .forEach((item) => item.classList.remove('cosmo-list__item--active'));
+      .querySelectorAll('.cosmo-side-list__item.is--active')
+      .forEach((item) => item.classList.remove('is--active'));
     document.querySelector(`[data-id="${this.selectedArtist.id}"]`)
       .classList
-      .add('cosmo-list__item--active');
+      .add('is--active');
   }
 
   displayArtists() {
@@ -49,14 +49,14 @@ export default class ArtistPage extends JinyaDesignerPage {
     document.getElementById('enable-artist').disabled = true;
     let list = '';
     for (const artist of this.artists) {
-      list += `<a class="cosmo-list__item" data-id="${artist.id}">${artist.artistName}</a>`;
+      list += `<a class="cosmo-side-list__item" data-id="${artist.id}">${artist.artistName}</a>`;
     }
     clearChildren({ parent: document.getElementById('artist-list') });
     document.getElementById('artist-list').innerHTML = `${list}
-                <button id="new-artist-button" class="cosmo-button cosmo-button--full-width">
+                <button id="new-artist-button" class="cosmo-button is--full-width">
                     ${localize({ key: 'artists.action.new' })}
                 </button>`;
-    document.querySelectorAll('.cosmo-list__item')
+    document.querySelectorAll('.cosmo-side-list__item')
       .forEach((item) => {
         item.addEventListener('click', async () => {
           this.selectArtist({ id: parseInt(item.getAttribute('data-id'), 10) });
@@ -80,9 +80,10 @@ export default class ArtistPage extends JinyaDesignerPage {
 
   // eslint-disable-next-line class-methods-use-this
   toString() {
-    return html` <div class="cosmo-list">
-      <nav class="cosmo-list__items" id="artist-list"></nav>
-      <div class="cosmo-list__content jinya-designer">
+    return html` 
+      <div class="cosmo-side-list">
+      <nav class="cosmo-side-list__items" id="artist-list"></nav>
+      <div class="cosmo-side-list__content jinya-designer">
         <div class="jinya-profile-view">
           <div class="cosmo-toolbar jinya-toolbar--media">
             <div class="cosmo-toolbar__group">
