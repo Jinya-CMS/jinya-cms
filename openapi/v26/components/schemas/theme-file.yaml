@@ -1,0 +1,10 @@
+type: object
+description: A file assigned to a theme
+properties:
+  name:
+    type: string
+  file:
+    $ref: ./file.yaml
+required:
+  - name
+  - file

@@ -1,0 +1,108 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+put:
+  summary: Update blog category by id
+  responses:
+    '204':
+      description: Successfully updated blog category
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Page not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '409':
+      description: Name is not unique
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: update_blog_category
+  description: Updates the blog category with the given id
+  security:
+    - jinya-api-key: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/update-blog-category-request.yaml
+  tags:
+    - blog-categories
+delete:
+  summary: Delete blog category by id
+  responses:
+    '204':
+      description: Blog category successfully deleted
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Blog category not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: delete_blog_category
+  security:
+    - jinya-api-key: []
+  description: Deletes the given blog category
+  tags:
+    - blog-categories
+get:
+  summary: Get blog category by id
+  responses:
+    '200':
+      description: Successfully got the blog category
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/blog-category.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Blog category not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_blog_category_by_id
+  description: Gets the blog category with the given id
+  security:
+    - jinya-api-key: []
+  tags:
+    - blog-categories

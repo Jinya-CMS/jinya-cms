@@ -1,0 +1,79 @@
+parameters:
+  - name: galleryId
+    schema:
+      type: integer
+    in: path
+    required: true
+get:
+  summary: List files by gallery id
+  tags:
+    - galleries
+  responses:
+    '200':
+      description: List of all files
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../components/schemas/gallery-file-position.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Gallery not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_gallery_files
+  description: Gets all files in the given gallery
+  security:
+    - jinya-api-key: []
+post:
+  summary: Create file by gallery id
+  tags:
+    - galleries
+  responses:
+    '201':
+      description: Added file to gallery
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/gallery-file-position.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Gallery or file not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: create_gallery_file_position
+  description: Adds a new file to the gallery
+  security:
+    - jinya-api-key: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/create-gallery-file-position-request.yaml

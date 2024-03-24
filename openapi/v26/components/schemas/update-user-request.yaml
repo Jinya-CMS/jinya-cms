@@ -1,0 +1,17 @@
+type: object
+properties:
+  artistName:
+    type: string
+  email:
+    type: string
+    format: email
+  password:
+    type: string
+  roles:
+    type: array
+    items:
+      type: string
+      enum:
+        - ROLE_WRITER
+        - ROLE_READER
+        - ROLE_ADMIN

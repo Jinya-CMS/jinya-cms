@@ -1,0 +1,10 @@
+type: object
+description: A form assigned to a theme
+properties:
+  name:
+    type: string
+  form:
+    $ref: ./form.yaml
+required:
+  - name
+  - form

@@ -1,0 +1,18 @@
+title: A list of classic pages
+type: object
+properties:
+  offset:
+    type: integer
+  itemsCount:
+    type: integer
+  totalCount:
+    type: integer
+  items:
+    type: array
+    items:
+      $ref: ./classic-page.yaml
+required:
+  - offset
+  - itemsCount
+  - totalCount
+  - items

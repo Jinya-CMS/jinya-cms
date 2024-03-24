@@ -1,0 +1,65 @@
+get:
+  summary: List modern pages
+  responses:
+    '200':
+      description: Successfully returned all modern pages
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/modern-page-list.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_all_modern_pages
+  description: Gets a list of all modern pages
+  tags:
+    - modern-pages
+  security:
+    - jinya-api-key: []
+post:
+  summary: Create modern page
+  responses:
+    '201':
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/modern-page.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '409':
+      description: Title is not unique
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: create_modern_page
+  description: Creates a new modern page
+  security:
+    - jinya-api-key: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/create-modern-page-request.yaml
+  tags:
+    - modern-pages

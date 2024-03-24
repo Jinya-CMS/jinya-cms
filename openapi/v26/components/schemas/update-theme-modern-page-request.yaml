@@ -1,0 +1,7 @@
+type: object
+description: A modern page assigned to a theme
+properties:
+  modernPage:
+    type: integer
+required:
+  - modernPage

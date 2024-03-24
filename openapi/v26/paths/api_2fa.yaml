@@ -1,0 +1,29 @@
+post:
+  summary: Request two-factor code
+  tags:
+    - authentication
+  responses:
+    '204':
+      description: Successfully sent two-factor code
+    '403':
+      description: Invalid username or password
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '500':
+      description: Sending of the email failed
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: request_two_factor_code
+  description: >-
+    This request creates a new two-factor token and sends it to the provided
+    user
+  security: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/request-two-factor-code.yaml

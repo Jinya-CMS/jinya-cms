@@ -1,0 +1,12 @@
+title: The database analysis
+type: object
+description: Contains all information about the database
+properties:
+  tables:
+    type: object
+    additionalProperties:
+      $ref: ./database-table.yaml
+  server:
+    $ref: ./database-server-info.yaml
+  variables:
+    $ref: ./database-variables.yaml

@@ -1,0 +1,11 @@
+title: Update about me request
+description: Updates the current users about me data
+type: object
+properties:
+  email:
+    type: string
+    format: email
+  artistName:
+    type: string
+  aboutMe:
+    type: string

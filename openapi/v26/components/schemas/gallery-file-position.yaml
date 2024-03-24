@@ -1,0 +1,17 @@
+title: Gallery file position
+description: A gallery file position connects a file to a gallery
+type: object
+properties:
+  id:
+    type: integer
+  file:
+    $ref: ./file.yaml
+  gallery:
+    $ref: ./gallery.yaml
+  position:
+    type: integer
+required:
+  - id
+  - file
+  - gallery
+  - position

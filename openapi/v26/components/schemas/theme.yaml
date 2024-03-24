@@ -1,0 +1,31 @@
+title: Theme
+type: object
+description: Contains information about the rendering of the pages
+properties:
+  id:
+    type: integer
+  name:
+    type: string
+  displayName:
+    type: string
+  configuration:
+    type: object
+    additionalProperties: true
+  description:
+    type: string
+  previewImage:
+    type: string
+  scssVariables:
+    type: object
+    additionalProperties:
+      type: string
+  hasApi:
+    type: boolean
+required:
+  - id
+  - name
+  - displayName
+  - configuration
+  - description
+  - scssVariables
+  - hasApi

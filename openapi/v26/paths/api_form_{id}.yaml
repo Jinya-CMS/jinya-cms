@@ -1,0 +1,108 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+get:
+  summary: Get form by id
+  tags:
+    - forms
+  responses:
+    '200':
+      description: Successfully got the form
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/form.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_form_by_id
+  description: Gets the specified form
+  security:
+    - jinya-api-key: []
+delete:
+  summary: Deletes form by id
+  tags:
+    - forms
+  responses:
+    '204':
+      description: No Content
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: delete_form
+  description: Deletes the given form
+  security:
+    - jinya-api-key: []
+put:
+  summary: Update form by id
+  tags:
+    - forms
+  responses:
+    '204':
+      description: Successfully updated the form
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Form not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '409':
+      description: Title is not unique
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: update_form
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/update-form-request.yaml
+  description: Updates the given form with the specified values
+  security:
+    - jinya-api-key: []

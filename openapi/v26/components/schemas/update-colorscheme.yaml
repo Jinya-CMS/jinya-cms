@@ -1,0 +1,10 @@
+title: Update prefered color scheme request
+description: Updates the prefered color scheme of the current user
+type: object
+properties:
+  colorScheme:
+    type: string
+    enum:
+      - auto
+      - light
+      - dark

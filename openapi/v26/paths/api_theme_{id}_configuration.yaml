@@ -1,0 +1,44 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+put:
+  summary: Update theme configuration by id
+  tags:
+    - themes
+  responses:
+    '204':
+      description: Successfully updated the theme configuration
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Theme not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: update_theme_configuration
+  description: Updates the theme configuration of the given theme
+  security:
+    - jinya-api-key: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          additionalProperties:
+            oneOf:
+              - type: string
+              - type: boolean

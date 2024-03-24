@@ -1,0 +1,12 @@
+title: Theme configuration group
+type: object
+properties:
+  fields:
+    type: array
+    items:
+      $ref: ./theme-configuration-field.yaml
+  name:
+    type: string
+  title:
+    type: object
+description: A group for several fields in a theme config form

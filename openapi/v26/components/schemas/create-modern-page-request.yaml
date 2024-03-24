@@ -1,0 +1,10 @@
+title: Create modern page request
+type: object
+description: >-
+  A modern page displays a page made up of multiple sections. The name derives
+  from the more modern editing experience in the designer
+properties:
+  name:
+    type: string
+required:
+  - name

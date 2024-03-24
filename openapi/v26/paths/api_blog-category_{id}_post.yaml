@@ -1,0 +1,39 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+get:
+  summary: Get blog posts by category id
+  responses:
+    '200':
+      description: Successfully got the blog posts
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/blog-post-list.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Blog category not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_blog_posts_by_category_id
+  description: Gets the blog posts for the given category
+  security:
+    - jinya-api-key: []
+  tags:
+    - blog-categories

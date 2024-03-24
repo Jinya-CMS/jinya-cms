@@ -1,0 +1,308 @@
+openapi: '3.0.3'
+info:
+  title: Jinya CMS API
+  version: 26.0.0
+  contact:
+    name: Jinya Developers
+    url: https://github.com/Jinya-CMS/Jinya-CMS
+    email: developers@jinya.de
+  license:
+    name: MIT
+    url: https://github.com/Jinya-CMS/Jinya-CMS/blob/main/LICENSE
+  description: This API docs specifies the Jinya CMS API for version 26.0.0
+  x-logo:
+    url: >-
+      https://raw.githubusercontent.com/Jinya-CMS/jinya-cms/main/public/designer/favicons/favicon-light.png
+    backgroundColor: '#FFFFFF'
+    altText: Jinya logo
+servers:
+  - url: https://{yourServer}
+    description: Your server of Jinya CMS
+    variables:
+      yourServer:
+        default: localhost:8080
+        description: The server your Jinya CMS instance is installed on
+x-tagGroups:
+  - name: authentication
+    description: User authentication
+    x-displayName: User authentication
+    tags:
+      - authentication
+  - name: statistics
+    description: Statistics
+    x-displayName: Statistics
+    tags:
+      - statistics
+  - name: artists
+    description: Artist management
+    x-displayName: Artist management
+    tags:
+      - artists
+  - name: media
+    description: Media management
+    x-displayName: Media management
+    tags:
+      - files
+      - galleries
+  - name: pages-and-forms
+    description: Pages and forms management
+    x-displayName: Pages and forms management
+    tags:
+      - classic-pages
+      - modern-pages
+      - forms
+  - name: blog
+    description: Blog management
+    x-displayName: Blog management
+    tags:
+      - blog-categories
+      - blog-posts
+  - name: design
+    description: Theme and menu management
+    x-displayName: Theme and menu management
+    tags:
+      - themes
+      - menus
+  - name: my-jinya
+    description: My Jinya area
+    x-displayName: My Jinya area
+    tags:
+      - my-profile
+      - active-sessions
+      - known-devices
+  - name: maintenance
+    description: Maintenance of Jinya
+    x-displayName: Maintenance of Jinya
+    tags:
+      - update
+      - configuration
+      - php-info
+  - name: database
+    description: Database access
+    x-displayName: Database access
+    tags:
+      - mysql
+      - query-tool
+  - name: utilities
+    description: Utilities
+    x-displayName: Utilities
+    tags:
+      - utilities
+tags:
+  - name: authentication
+    description: User authentication
+    x-displayName: User authentication
+  - name: statistics
+    description: Statistics
+    x-displayName: Statistics
+  - name: files
+    description: File management
+    x-displayName: File management
+  - name: galleries
+    description: Gallery management
+    x-displayName: Gallery management
+  - name: classic-pages
+    description: Classic page management
+    x-displayName: Classic page management
+  - name: modern-pages
+    description: Modern page management
+    x-displayName: Modern page management
+  - name: forms
+    description: Form management
+    x-displayName: Form management
+  - name: blog-posts
+    description: Blog post management
+    x-displayName: Blog post management
+  - name: blog-categories
+    description: Blog categories management
+    x-displayName: Blog categories management
+  - name: themes
+    description: Theme management
+    x-displayName: Theme management
+  - name: menus
+    description: Menu management
+    x-displayName: Menu management
+  - name: my-profile
+    description: My profile
+    x-displayName: My profile
+  - name: active-sessions
+    description: Active sessions
+    x-displayName: Active sessions
+  - name: known-devices
+    description: Known devices
+    x-displayName: Known devices
+  - name: update
+    description: Update and version
+    x-displayName: Update and version
+  - name: configuration
+    description: Configuration
+    x-displayName: Configuration
+  - name: php-info
+    description: PHP info
+    x-displayName: PHP info
+  - name: mysql
+    description: MySQL info
+    x-displayName: MySQL info
+  - name: query-tool
+    description: Query tool
+    x-displayName: Query tool
+  - name: artists
+    description: Artist management
+    x-displayName: Artist management
+  - name: utilities
+    description: Utilities
+    x-displayName: Utilities
+paths:
+  /api/api-key:
+    $ref: paths/api_api-key.yaml
+  /api/api-key/{key}:
+    $ref: paths/api_api-key_{key}.yaml
+  /api/user:
+    $ref: paths/api_user.yaml
+  /api/user/{id}:
+    $ref: paths/api_user_{id}.yaml
+  /api/user/{id}/activation:
+    $ref: paths/api_user_{id}_activation.yaml
+  /api/user/{id}/profilepicture:
+    $ref: paths/api_user_{id}_profilepicture.yaml
+  /api/login:
+    $ref: paths/api_login.yaml
+  /api/account/password:
+    $ref: paths/api_account_password.yaml
+  /api/2fa:
+    $ref: paths/api_2fa.yaml
+  /api/blog-category:
+    $ref: paths/api_blog-category.yaml
+  /api/blog-category/{id}:
+    $ref: paths/api_blog-category_{id}.yaml
+  /api/blog-category/{id}/post:
+    $ref: paths/api_blog-category_{id}_post.yaml
+  /api/blog-post:
+    $ref: paths/api_blog-post.yaml
+  /api/blog-post/{id}:
+    $ref: paths/api_blog-post_{id}.yaml
+  /api/blog-post/{id}/section:
+    $ref: paths/api_blog-post_{id}_section.yaml
+  /api/maintenance/database/analyze:
+    $ref: paths/api_maintenance_database_analyze.yaml
+  /api/maintenance/database/query:
+    $ref: paths/api_maintenance_database_query.yaml
+  /api/environment:
+    $ref: paths/api_environment.yaml
+  /api/file:
+    $ref: paths/api_file.yaml
+  /api/file/{id}:
+    $ref: paths/api_file_{id}.yaml
+  /api/file/{id}/content:
+    $ref: paths/api_file_{id}_content.yaml
+  /api/file/{id}/content/{position}:
+    $ref: paths/api_file_{id}_content_{position}.yaml
+  /api/file/{id}/content/finish:
+    $ref: paths/api_file_{id}_content_finish.yaml
+  /api/file-tag:
+    $ref: paths/api_file-tag.yaml
+  /api/file-tag/{id}:
+    $ref: paths/api_file-tag_{id}.yaml
+  /api/form:
+    $ref: paths/api_form.yaml
+  /api/form/{id}:
+    $ref: paths/api_form_{id}.yaml
+  /api/form/{id}/items:
+    $ref: paths/api_form_{id}_items.yaml
+  /api/gallery:
+    $ref: paths/api_gallery.yaml
+  /api/gallery/{id}:
+    $ref: paths/api_gallery_{id}.yaml
+  /api/gallery/{galleryId}/file:
+    $ref: paths/api_gallery_{galleryId}_file.yaml
+  /api/gallery/{galleryId}/file/{position}:
+    $ref: paths/api_gallery_{galleryId}_file_{position}.yaml
+  /api/known_device:
+    $ref: paths/api_known_device.yaml
+  /api/known_device/{key}:
+    $ref: paths/api_known_device_{key}.yaml
+  /api/ip-location/{ip}:
+    $ref: paths/api_ip-location_{ip}.yaml
+  /api/menu:
+    $ref: paths/api_menu.yaml
+  /api/menu/{id}:
+    $ref: paths/api_menu_{id}.yaml
+  /api/menu/{menuId}/items:
+    $ref: paths/api_menu_{menuId}_items.yaml
+  /api/me:
+    $ref: paths/api_me.yaml
+  /api/me/colorscheme:
+    $ref: paths/api_me_colorscheme.yaml
+  /api/me/profilepicture:
+    $ref: paths/api_me_profilepicture.yaml
+  /api/classic-page:
+    $ref: paths/api_classic-page.yaml
+  /api/classic-page/{id}:
+    $ref: paths/api_classic-page_{id}.yaml
+  /api/modern-page:
+    $ref: paths/api_modern-page.yaml
+  /api/modern-page/{id}:
+    $ref: paths/api_modern-page_{id}.yaml
+  /api/modern-page/{id}/section:
+    $ref: paths/api_modern-page_{id}_section.yaml
+  /api/php-info:
+    $ref: paths/api_php-info.yaml
+  /api/theme:
+    $ref: paths/api_theme.yaml
+  /api/theme/{id}:
+    $ref: paths/api_theme_{id}.yaml
+  /api/theme/{id}/active:
+    $ref: paths/api_theme_{id}_active.yaml
+  /api/theme/{id}/assets:
+    $ref: paths/api_theme_{id}_assets.yaml
+  /api/theme/{id}/styling:
+    $ref: paths/api_theme_{id}_styling.yaml
+  /api/theme/{id}/blog-category:
+    $ref: paths/api_theme_{id}_blog-category.yaml
+  /api/theme/{id}/blog-category/{name}:
+    $ref: paths/api_theme_{id}_blog-category_{name}.yaml
+  /api/theme/{id}/file:
+    $ref: paths/api_theme_{id}_file.yaml
+  /api/theme/{id}/file/{name}:
+    $ref: paths/api_theme_{id}_file_{name}.yaml
+  /api/theme/{id}/form:
+    $ref: paths/api_theme_{id}_form.yaml
+  /api/theme/{id}/form/{name}:
+    $ref: paths/api_theme_{id}_form_{name}.yaml
+  /api/theme/{id}/gallery:
+    $ref: paths/api_theme_{id}_gallery.yaml
+  /api/theme/{id}/gallery/{name}:
+    $ref: paths/api_theme_{id}_gallery_{name}.yaml
+  /api/theme/{id}/menu:
+    $ref: paths/api_theme_{id}_menu.yaml
+  /api/theme/{id}/menu/{name}:
+    $ref: paths/api_theme_{id}_menu_{name}.yaml
+  /api/theme/{id}/classic-page:
+    $ref: paths/api_theme_{id}_classic-page.yaml
+  /api/theme/{id}/classic-page/{name}:
+    $ref: paths/api_theme_{id}_classic-page_{name}.yaml
+  /api/theme/{id}/modern-page:
+    $ref: paths/api_theme_{id}_modern-page.yaml
+  /api/theme/{id}/modern-page/{name}:
+    $ref: paths/api_theme_{id}_modern-page_{name}.yaml
+  /api/theme/{id}/configuration:
+    $ref: paths/api_theme_{id}_configuration.yaml
+  /api/theme/{id}/configuration/default:
+    $ref: paths/api_theme_{id}_configuration_default.yaml
+  /api/theme/{id}/configuration/structure:
+    $ref: paths/api_theme_{id}_configuration_structure.yaml
+  /api/theme/{id}/preview:
+    $ref: paths/api_theme_{id}_preview.yaml
+  /api/update:
+    $ref: paths/api_update.yaml
+  /api/version:
+    $ref: paths/api_version.yaml
+components:
+  securitySchemes:
+    jinya-api-key:
+      name: JinyaApiKey
+      type: apiKey
+      in: header
+      description: >-
+        A Jinya API Key is generated after a user successfully logged in and
+        returned in the response body of the login response

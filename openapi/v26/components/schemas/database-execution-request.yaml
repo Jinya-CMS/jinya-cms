@@ -1,0 +1,8 @@
+title: Execute the database queries
+type: object
+description: Contains a sql query to execute against the database
+properties:
+  query:
+    type: string
+required:
+  - query

@@ -1,0 +1,19 @@
+title: Login result
+type: object
+properties:
+  apiKey:
+    type: string
+  deviceCode:
+    type: string
+  roles:
+    type: array
+    items:
+      type: string
+      enum:
+        - ROLE_WRITER
+        - ROLE_READER
+        - ROLE_ADMIN
+required:
+  - apiKey
+  - deviceCode
+  - roles

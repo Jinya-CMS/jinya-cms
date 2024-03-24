@@ -1,0 +1,23 @@
+put:
+  summary: Perform update of Jinya CMS
+  responses:
+    '204':
+      description: Successfully updated Jinya CMS to the latest version
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: update_jinya_cms
+  description: Perform update of Jinya CMS to the latest version
+  security:
+    - jinya-api-key: []
+  tags:
+    - update

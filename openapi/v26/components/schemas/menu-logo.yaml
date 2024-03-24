@@ -1,0 +1,11 @@
+title: Menu logo
+type: object
+description: A reduced file containing only the data needed for the logo
+properties:
+  id:
+    type: integer
+  name:
+    type: string
+required:
+  - id
+  - name

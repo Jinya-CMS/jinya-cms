@@ -1,0 +1,12 @@
+title: IP location
+description: The data of a located ip
+type: object
+properties:
+  city:
+    type: string
+  country:
+    type: string
+  region:
+    type: string
+  providedBy:
+    type: string

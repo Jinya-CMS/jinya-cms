@@ -1,0 +1,30 @@
+title: Form
+type: object
+description: >-
+  A form is a content element that allows end users to send requests and
+  feedback to the artist
+properties:
+  id:
+    type: integer
+  created:
+    $ref: ./modification.yaml
+  description:
+    type: string
+  items:
+    type: array
+    items:
+      $ref: ./form-item.yaml
+  title:
+    type: string
+  toAddress:
+    type: string
+    format: email
+  updated:
+    $ref: ./modification.yaml
+required:
+  - id
+  - created
+  - items
+  - updated
+  - title
+  - toAddress

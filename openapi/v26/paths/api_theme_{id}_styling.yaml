@@ -1,0 +1,79 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+get:
+  summary: Get theme styling variables
+  tags:
+    - themes
+  responses:
+    '200':
+      description: Successfully got the theme styling variables
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Theme not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_theme_variables
+  description: Gets styling variables of the given theme
+  security:
+    - jinya-api-key: []
+put:
+  summary: Update the theme variables and compile the theme
+  tags:
+    - design
+  responses:
+    '204':
+      description: Successfully updated the variables and compiled the theme
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Theme not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: save_theme_variables
+  description: >-
+    Updates the theme variables and recompiles the theme to apply the variables
+    to the assets
+  security:
+    - jinya-api-key: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          additionalProperties:
+            type: string

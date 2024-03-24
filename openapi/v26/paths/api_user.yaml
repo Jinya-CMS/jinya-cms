@@ -1,0 +1,71 @@
+get:
+  summary: List users
+  responses:
+    '200':
+      description: Successfully returned all users
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/user-list.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_all_users
+  description: Gets a list of all users (artists)
+  tags:
+    - artists
+  security:
+    - jinya-api-key: []
+post:
+  summary: Create user
+  responses:
+    '201':
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/user.yaml
+    '400':
+      description: Missing fields
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '409':
+      description: Email address is in use
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: create_user
+  description: Creates a new user (artist)
+  security:
+    - jinya-api-key: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/create-user-request.yaml
+  tags:
+    - artists

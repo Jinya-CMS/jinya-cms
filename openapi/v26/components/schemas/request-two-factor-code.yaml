@@ -1,0 +1,8 @@
+title: The data to request the two factor code
+type: object
+properties:
+  username:
+    type: string
+  password:
+    type: string
+    format: password

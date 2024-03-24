@@ -1,0 +1,7 @@
+type: object
+description: A menu assigned to a theme
+properties:
+  menu:
+    type: integer
+required:
+  - menu

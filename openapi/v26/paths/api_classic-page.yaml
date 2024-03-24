@@ -1,0 +1,65 @@
+get:
+  summary: List classic pages
+  responses:
+    '200':
+      description: Successfully returned all classic pages
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/classic-page-list.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_all_classic_pages
+  description: Gets a list of all classic pages
+  tags:
+    - classic-pages
+  security:
+    - jinya-api-key: []
+post:
+  summary: Create classic page
+  responses:
+    '201':
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/classic-page.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '409':
+      description: Title is not unique
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: create_classic_page
+  description: Creates a new classic page
+  security:
+    - jinya-api-key: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/create-classic-page-request.yaml
+  tags:
+    - classic-pages

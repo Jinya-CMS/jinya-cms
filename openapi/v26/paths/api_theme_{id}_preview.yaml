@@ -1,0 +1,64 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+get:
+  summary: Get theme preview image
+  tags:
+    - themes
+  responses:
+    '200':
+      description: Successfully got the theme preview image
+      content:
+        image/apng:
+          schema:
+            type: string
+            format: binary
+        image/avif:
+          schema:
+            type: string
+            format: binary
+        image/gif:
+          schema:
+            type: string
+            format: binary
+        image/jpeg:
+          schema:
+            type: string
+            format: binary
+        image/png:
+          schema:
+            type: string
+            format: binary
+        image/svg+xml:
+          schema:
+            type: string
+            format: binary
+        image/webp:
+          schema:
+            type: string
+            format: binary
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Theme not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_theme_preview_image
+  description: Gets the information of the theme with the specified id
+  security:
+    - jinya-api-key: []

@@ -1,0 +1,74 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+get:
+  summary: Get theme by id
+  tags:
+    - themes
+  responses:
+    '200':
+      description: Successfully got the theme
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/theme.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Theme not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_theme_by_id
+  description: Gets the information of the theme with the specified id
+  security:
+    - jinya-api-key: []
+put:
+  summary: Update theme by id
+  tags:
+    - themes
+  responses:
+    '204':
+      description: Successfully updated the theme
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Theme not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: update_theme
+  description: Updates the given theme
+  security:
+    - jinya-api-key: []
+  requestBody:
+    content:
+      application/zip:
+        schema:
+          type: string
+          format: binary

@@ -1,0 +1,83 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+get:
+  summary: List blog post sections
+  responses:
+    '200':
+      description: Successfully returned all blog post sections
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../components/schemas/blog-post-section.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Blog post not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_all_blog_post_sections
+  description: Gets a list of all blog post sections for the given post
+  tags:
+    - blog-posts
+  security:
+    - jinya-api-key: []
+put:
+  summary: Update blog post sections
+  responses:
+    '204':
+      description: Updated blog post sections
+    '400':
+      description: Missing fields
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Blog post not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: update_blog_post_sections
+  description: Replaces all blog post sections
+  security:
+    - jinya-api-key: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: ../components/schemas/update-blog-post-section.yaml
+  tags:
+    - blog-posts

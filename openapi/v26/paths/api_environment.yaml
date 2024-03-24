@@ -1,0 +1,29 @@
+get:
+  summary: Gets all environment variables
+  tags:
+    - configuration
+  responses:
+    '200':
+      description: Successfully returned the environment variables
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_environment_variables
+  description: Gets all environment variables currently used in Jinya CMS
+  security:
+    - jinya-api-key: []

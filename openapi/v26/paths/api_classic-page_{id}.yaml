@@ -1,0 +1,108 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+put:
+  summary: Update classic page by id
+  responses:
+    '204':
+      description: Successfully updated classic page
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Classic page not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '409':
+      description: Title is not unique
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: update_classic_page
+  description: Updates the classic page with the given id
+  security:
+    - jinya-api-key: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/update-classic-page-request.yaml
+  tags:
+    - classic-pages
+delete:
+  summary: Delete classic page by id
+  responses:
+    '204':
+      description: Classic page successfully deleted
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Classic page not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: delete_classic_page
+  security:
+    - jinya-api-key: []
+  description: Deletes the given classic page
+  tags:
+    - classic-pages
+get:
+  summary: Get page by id
+  tags:
+    - classic-pages
+  responses:
+    '200':
+      description: Successfully got the classic page
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/classic-page.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Classic page not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_classic_page_by_id
+  description: Gets the classic page with the specified id
+  security:
+    - jinya-api-key: []

@@ -1,0 +1,29 @@
+title: Gallery
+description: A gallery is a way to organize files to display them to end users
+type: object
+properties:
+  id:
+    type: integer
+  name:
+    type: string
+  description:
+    type: string
+  orientation:
+    type: string
+    enum:
+      - horizontal
+      - vertical
+    default: horizontal
+  type:
+    type: string
+    enum:
+      - sequence
+      - masonry
+    default: sequence
+  created:
+    $ref: ./modification.yaml
+  updated:
+    $ref: ./modification.yaml
+required:
+  - id
+  - name
