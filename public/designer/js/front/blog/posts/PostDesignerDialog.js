@@ -133,7 +133,8 @@ export default class PostDesignerDialog {
     const segmentElem = document.createElement('div');
     segmentElem.classList.add('jinya-designer-item', 'jinya-designer-item--html');
     segmentElem.setAttribute('data-position', segment.position.toString(10));
-    segmentElem.innerHTML = html` <span class="jinya-designer-item__title">
+    segmentElem.innerHTML = html`
+      <span class="jinya-designer-item__title">
         ${localize({ key: 'pages_and_forms.segment.designer.html' })}
       </span>
       <div class="jinya-designer-item__details jinya-designer-item__details--html">${segment.html}</div>`;
@@ -193,7 +194,8 @@ export default class PostDesignerDialog {
     const segmentElem = document.createElement('div');
     segmentElem.classList.add('jinya-designer-item', 'jinya-designer-item--gallery');
     segmentElem.setAttribute('data-position', segment.position.toString(10));
-    segmentElem.innerHTML = html` <span class="jinya-designer-item__title">
+    segmentElem.innerHTML = html`
+      <span class="jinya-designer-item__title">
         ${localize({ key: 'pages_and_forms.segment.designer.gallery' })}
       </span>
       <span class="jinya-designer-item__details jinya-designer-item__details--gallery">
@@ -276,7 +278,7 @@ export default class PostDesignerDialog {
   }
 
   show() {
-    const content = html` <div class="cosmo-modal__backdrop"></div>
+    const content = html`
       <form class="cosmo-modal__container" id="post-designer-dialog">
         <div class="cosmo-modal jinya-designer__modal--blog">
           <h1 class="cosmo-modal__title">${localize({ key: 'blog.posts.designer.title' })}</h1>

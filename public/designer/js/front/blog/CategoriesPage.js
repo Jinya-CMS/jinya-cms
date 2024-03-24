@@ -15,36 +15,38 @@ export default class CategoriesPage extends JinyaDesignerPage {
 
   // eslint-disable-next-line class-methods-use-this
   toString() {
-    return html` <div class="cosmo-list">
-      <nav class="cosmo-list__items" id="category-list"></nav>
-      <div class="cosmo-list__content jinya-designer">
-        <div class="jinya-designer__title">
-          <span class="cosmo-title" id="category-title"></span>
-        </div>
-        <div class="cosmo-toolbar cosmo-toolbar--designer">
-          <div class="cosmo-toolbar__group">
-            <button class="cosmo-button" id="edit-category">${localize({ key: 'blog.categories.action.edit' })}</button>
-            <button class="cosmo-button" id="delete-category">
-              ${localize({ key: 'blog.categories.action.delete' })}
-            </button>
+    return html`
+      <div class="cosmo-side-list">
+        <nav class="cosmo-side-list__items" id="category-list"></nav>
+        <div class="cosmo-side-list__content jinya-designer">
+          <div class="jinya-designer__title">
+            <span class="cosmo-title" id="category-title"></span>
+          </div>
+          <div class="cosmo-toolbar cosmo-toolbar--designer">
+            <div class="cosmo-toolbar__group">
+              <button class="cosmo-button" id="edit-category">${localize({ key: 'blog.categories.action.edit' })}
+              </button>
+              <button class="cosmo-button" id="delete-category">
+                ${localize({ key: 'blog.categories.action.delete' })}
+              </button>
+            </div>
+          </div>
+          <div class="jinya-designer__content jinya-designer__content--key-value-list">
+            <dl class="cosmo-list is--key-value">
+              <dt>${localize({ key: 'blog.categories.details.name' })}</dt>
+              <dd id="category-name"></dd>
+              <dt>${localize({ key: 'blog.categories.details.description' })}</dt>
+              <dd id="category-description"></dd>
+              <dt>${localize({ key: 'blog.categories.details.parent' })}</dt>
+              <dd id="category-parent"></dd>
+              <dt hidden data-type="webhook">
+                ${localize({ key: 'blog.categories.details.webhook' })}
+              </dt>
+              <dd hidden data-type="webhook" id="category-webhook"></dd>
+            </dl>
           </div>
         </div>
-        <div class="jinya-designer__content jinya-designer__content--key-value-list">
-          <dl class="cosmo-key-value-list">
-            <dt class="cosmo-key-value-list__key">${localize({ key: 'blog.categories.details.name' })}</dt>
-            <dd class="cosmo-key-value-list__value" id="category-name"></dd>
-            <dt class="cosmo-key-value-list__key">${localize({ key: 'blog.categories.details.description' })}</dt>
-            <dd class="cosmo-key-value-list__value" id="category-description"></dd>
-            <dt class="cosmo-key-value-list__key">${localize({ key: 'blog.categories.details.parent' })}</dt>
-            <dd class="cosmo-key-value-list__value" id="category-parent"></dd>
-            <dt hidden class="cosmo-key-value-list__key" data-type="webhook">
-              ${localize({ key: 'blog.categories.details.webhook' })}
-            </dt>
-            <dd hidden class="cosmo-key-value-list__value" data-type="webhook" id="category-webhook"></dd>
-          </dl>
-        </div>
-      </div>
-    </div>`;
+      </div>`;
   }
 
   displayCategories() {
@@ -52,14 +54,14 @@ export default class CategoriesPage extends JinyaDesignerPage {
     document.getElementById('delete-category').disabled = true;
     let list = '';
     for (const category of this.categories) {
-      list += `<a class="cosmo-list__item" data-id="${category.id}">#${category.id} ${category.name}</a>`;
+      list += `<a class="cosmo-side-list__item" data-id="${category.id}">#${category.id} ${category.name}</a>`;
     }
     clearChildren({ parent: document.getElementById('category-list') });
     document.getElementById('category-list').innerHTML = `${list}
-                <button id="new-category-button" class="cosmo-button cosmo-button--full-width">
+                <button id="new-category-button" class="cosmo-button is--full-width">
                     ${localize({ key: 'blog.categories.action.new' })}
                 </button>`;
-    document.querySelectorAll('.cosmo-list__item')
+    document.querySelectorAll('.cosmo-side-list__item')
       .forEach((item) => {
         item.addEventListener('click', async () => {
           this.selectCategory({ id: item.getAttribute('data-id') });
@@ -85,10 +87,8 @@ export default class CategoriesPage extends JinyaDesignerPage {
   displaySelectedCategory() {
     document.getElementById('category-title').innerText = `#${this.selectedCategory.id} ${this.selectedCategory.name}`;
     document.getElementById('category-name').innerText = this.selectedCategory.name;
-    document.getElementById('category-description').innerText =
-      this.selectedCategory.description ?? localize({ key: 'blog.categories.details.description_none' });
-    document.getElementById('category-parent').innerText =
-      this.selectedCategory.parent?.name ?? localize({ key: 'blog.categories.details.parent_none' });
+    document.getElementById('category-description').innerText = this.selectedCategory.description ?? localize({ key: 'blog.categories.details.description_none' });
+    document.getElementById('category-parent').innerText = this.selectedCategory.parent?.name ?? localize({ key: 'blog.categories.details.parent_none' });
     if (this.selectedCategory.webhookEnabled) {
       document.getElementById('category-webhook').innerText = this.selectedCategory.webhookUrl;
       document.querySelectorAll('[data-type="webhook"]')
@@ -104,11 +104,11 @@ export default class CategoriesPage extends JinyaDesignerPage {
     document.getElementById('delete-category').disabled = false;
     this.selectedCategory = this.categories.find((f) => f.id === parseInt(id, 10));
     document
-      .querySelectorAll('.cosmo-list__item--active')
-      .forEach((item) => item.classList.remove('cosmo-list__item--active'));
+      .querySelectorAll('.cosmo-side-list__item.is--active')
+      .forEach((item) => item.classList.remove('is--active'));
     document.querySelector(`[data-id="${id}"]`)
       .classList
-      .add('cosmo-list__item--active');
+      .add('is--active');
   }
 
   async displayed() {

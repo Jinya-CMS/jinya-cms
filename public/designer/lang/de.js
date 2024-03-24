@@ -513,6 +513,7 @@ export default {
         post_title: 'Titel',
         public: 'Öffentlich',
         no_header_image: 'Kein Artikelbild',
+        file_picker_label: 'Bild wählen',
         header_image: 'Artikelbild',
         update: 'Artikel speichern',
         cancel: 'Änderungen verwerfen',
@@ -535,6 +536,7 @@ export default {
         post_title: 'Titel',
         public: 'Öffentlich',
         no_header_image: 'Kein Artikelbild',
+        file_picker_label: 'Bild wählen',
         header_image: 'Artikelbild',
         create: 'Artikel erstellen',
         cancel: 'Artikel verwerfen',
@@ -566,6 +568,7 @@ export default {
           link: 'Link',
           gallery: 'Galerie',
           please_select: 'Bitte eine Datei wählen',
+          file_picker_label: 'Datei wählen',
           update: 'Segment speichern',
           cancel: 'Änderungen verwerfen',
           delete_segment: {

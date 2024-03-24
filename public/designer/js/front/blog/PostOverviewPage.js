@@ -15,41 +15,42 @@ export default class PostOverviewPage extends JinyaDesignerPage {
 
   // eslint-disable-next-line class-methods-use-this
   toString() {
-    return html` <div class="cosmo-list">
-      <nav class="cosmo-list__items" id="category-list"></nav>
-      <div class="cosmo-list__content jinya-designer">
-        <div class="jinya-designer__title">
-          <span class="cosmo-title" id="category-title"></span>
-        </div>
-        <div class="cosmo-toolbar cosmo-toolbar--designer">
-          <div class="cosmo-toolbar__group">
-            <button class="cosmo-button" id="new-post">${localize({ key: 'blog.posts.overview.action.new' })}</button>
+    return html`
+      <div class="cosmo-side-list">
+        <nav class="cosmo-side-list__items" id="category-list"></nav>
+        <div class="cosmo-side-list__content jinya-designer">
+          <div class="jinya-designer__title">
+            <span class="cosmo-title" id="category-title"></span>
           </div>
-          <div class="cosmo-toolbar__group">
-            <button class="cosmo-button" id="edit-post" disabled>
-              ${localize({ key: 'blog.posts.overview.action.edit' })}
-            </button>
-            <button class="cosmo-button" id="designer-post" disabled>
-              ${localize({ key: 'blog.posts.overview.action.designer' })}
-            </button>
-            <button class="cosmo-button" id="delete-post" disabled>
-              ${localize({ key: 'blog.posts.overview.action.delete' })}
-            </button>
+          <div class="cosmo-toolbar cosmo-toolbar--designer">
+            <div class="cosmo-toolbar__group">
+              <button class="cosmo-button" id="new-post">${localize({ key: 'blog.posts.overview.action.new' })}</button>
+            </div>
+            <div class="cosmo-toolbar__group">
+              <button class="cosmo-button" id="edit-post" disabled>
+                ${localize({ key: 'blog.posts.overview.action.edit' })}
+              </button>
+              <button class="cosmo-button" id="designer-post" disabled>
+                ${localize({ key: 'blog.posts.overview.action.designer' })}
+              </button>
+              <button class="cosmo-button" id="delete-post" disabled>
+                ${localize({ key: 'blog.posts.overview.action.delete' })}
+              </button>
+            </div>
           </div>
+          <div class="jinya-blog-tile__container"></div>
         </div>
-        <div class="jinya-blog-tile__container"></div>
-      </div>
-    </div>`;
+      </div>`;
   }
 
   displayCategories() {
-    let list = `<a class="cosmo-list__item" data-id="-1">${localize({ key: 'blog.posts.overview.all' })}</a>`;
+    let list = `<a class="cosmo-side-list__item" data-id="-1">${localize({ key: 'blog.posts.overview.all' })}</a>`;
     for (const category of this.categories) {
-      list += `<a class="cosmo-list__item" data-id="${category.id}">#${category.id} ${category.name}</a>`;
+      list += `<a class="cosmo-side-list__item" data-id="${category.id}">#${category.id} ${category.name}</a>`;
     }
     clearChildren({ parent: document.getElementById('category-list') });
     document.getElementById('category-list').innerHTML = list;
-    document.querySelectorAll('.cosmo-list__item')
+    document.querySelectorAll('.cosmo-side-list__item')
       .forEach((item) => {
         item.addEventListener('click', async () => {
           await this.selectCategory({ id: parseInt(item.getAttribute('data-id'), 10) });
@@ -72,7 +73,8 @@ export default class PostOverviewPage extends JinyaDesignerPage {
       const container = document.createElement('div');
       container.classList.add('jinya-blog-tile');
       container.setAttribute('data-post-id', post.id);
-      container.innerHTML = html` <span class="jinya-blog-tile__title">#${post.id} ${post.title}</span>
+      container.innerHTML = html`
+        <span class="jinya-blog-tile__title">#${post.id} ${post.title}</span>
         <img class="jinya-blog-tile__img" src="${post.headerImage?.path}" alt="${post.headerImage?.name}" />`;
 
       tileContainer.append(container);
@@ -86,20 +88,20 @@ export default class PostOverviewPage extends JinyaDesignerPage {
     this.selectedPost = null;
     if (id === -1) {
       document
-        .querySelectorAll('.cosmo-list__item--active')
-        .forEach((item) => item.classList.remove('cosmo-list__item--active'));
+        .querySelectorAll('.cosmo-side-list__item.is--active')
+        .forEach((item) => item.classList.remove('is--active'));
       document.querySelector('[data-id="-1"]')
         .classList
-        .add('cosmo-list__item--active');
+        .add('is--active');
       this.posts = (await get('/api/blog/post')).items;
     } else {
       this.selectedCategory = this.categories.find((f) => f.id === parseInt(id, 10));
       document
-        .querySelectorAll('.cosmo-list__item--active')
-        .forEach((item) => item.classList.remove('cosmo-list__item--active'));
+        .querySelectorAll('.cosmo-side-list__item.is--active')
+        .forEach((item) => item.classList.remove('is--active'));
       document.querySelector(`[data-id="${id}"]`)
         .classList
-        .add('cosmo-list__item--active');
+        .add('is--active');
       this.posts = (await get(`/api/blog/category/${this.selectedCategory.id}/post`)).items;
       document.getElementById('edit-post').disabled = !this.selectedPost;
       document.getElementById('designer-post').disabled = !this.selectedPost;

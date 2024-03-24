@@ -36,7 +36,7 @@ export default class EditCategoryDialog {
   }
 
   show() {
-    const content = html` <div class="cosmo-modal__backdrop"></div>
+    const content = html`
       <form class="cosmo-modal__container" id="edit-dialog-form">
         <div class="cosmo-modal">
           <h1 class="cosmo-modal__title">${localize({ key: 'blog.categories.edit.title' })}</h1>
@@ -53,17 +53,15 @@ export default class EditCategoryDialog {
                 <option ${this.parent ? '' : 'selected'} value="null">
                   ${localize({ key: 'blog.categories.edit.parent_none' })}
                 </option>
-                ${this.categories.map(
-      (category) =>
-        html` <option
-                      ${this.parent && this.parent?.id === category.id ? 'selected' : ''}
-                      value=${category.id}
-                    >
+                ${this.categories.map((category) => html`
+                  <option
+                    ${this.parent && this.parent?.id === category.id ? 'selected' : ''}
+                    value=${category.id}
+                  >
                       #${category.id} ${category.name}
-                    </option>`,
-    )}
+                  </option>`)}
               </select>
-              <label for="editCategoryDescription" class="cosmo-label cosmo-label--textarea">
+              <label for="editCategoryDescription" class="cosmo-label is--textarea">
                 ${localize({ key: 'blog.categories.edit.description' })}
               </label>
               <textarea rows="5" id="editCategoryDescription" class="cosmo-textarea">${this.description}</textarea>
@@ -71,7 +69,7 @@ export default class EditCategoryDialog {
                 ${localize({ key: 'blog.categories.edit.webhook_url' })}
               </label>
               <input type="text" id="editCategoryWebhookUrl" class="cosmo-input" value="${this.webhookUrl}" />
-              <div class="cosmo-checkbox__group">
+              <div class="cosmo-input__group is--checkbox">
                 <input
                   class="cosmo-checkbox"
                   type="checkbox"
