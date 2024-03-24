@@ -6,7 +6,6 @@ use App\Authentication\CurrentUser;
 use App\Database\BlogCategory;
 use App\Database\BlogPost;
 use App\Database\BlogPostSegment;
-use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Database\Gallery;
 use App\Tests\DatabaseAwareTestCase;
@@ -161,12 +160,9 @@ class BlogPostTest extends DatabaseAwareTestCase
 
     public function testDeleteNotExistent(): void
     {
+        $this->expectError();
         $post = $this->createBlogPost(false);
-        try {
-            $post->delete();
-        } catch (\Error$error) {
-            $this->assertTrue(true);
-        }
+        $post->delete();
     }
 
     public function testFindBySlug(): void

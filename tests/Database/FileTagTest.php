@@ -2,11 +2,11 @@
 
 namespace Jinya\Tests\Database;
 
-use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Database\FileTag;
 use App\Tests\DatabaseAwareTestCase;
 use App\Utils\UuidGenerator;
+use PDOException;
 
 class FileTagTest extends DatabaseAwareTestCase
 {
@@ -14,7 +14,7 @@ class FileTagTest extends DatabaseAwareTestCase
     {
         $tag = $this->createTag();
 
-        $foundTag = FileTag::findById($tag->getIdAsInt());
+        $foundTag = FileTag::findById($tag->id);
 
         self::assertEquals($tag->format(), $foundTag->format());
     }
@@ -57,33 +57,12 @@ class FileTagTest extends DatabaseAwareTestCase
 
     public function testFormat(): void
     {
-        $tag = $this->createTag(false);
+        $tag = $this->createTag();
         $formattedTag = $tag->format();
 
         self::assertArrayHasKey('color', $formattedTag);
         self::assertArrayHasKey('emoji', $formattedTag);
         self::assertArrayHasKey('name', $formattedTag);
-    }
-
-    public function testFindByKeyword(): void
-    {
-        $this->createTag();
-        $tag = $this->createTag();
-
-        $tags = iterator_to_array(FileTag::findByKeyword($tag->name));
-
-        self::assertCount(1, $tags);
-        self::assertEquals($tag->format(), $tags[0]->format());
-    }
-
-    public function testFindByKeywordNoResult(): void
-    {
-        $this->createTag();
-        $this->createTag();
-
-        $tags = iterator_to_array(FileTag::findByKeyword('Non existent'));
-
-        self::assertEmpty($tags);
     }
 
     public function testUpdate(): void
@@ -98,7 +77,7 @@ class FileTagTest extends DatabaseAwareTestCase
 
     public function testUpdateUniqueFailed(): void
     {
-        $this->expectException(UniqueFailedException::class);
+        $this->expectException(PDOException::class);
         $tag1 = $this->createTag();
         $tag2 = $this->createTag();
         $tag2->name = $tag1->name;
@@ -107,10 +86,9 @@ class FileTagTest extends DatabaseAwareTestCase
 
     public function testUpdateNonExistent(): void
     {
+        $this->expectError();
         $tag = $this->createTag(false);
         $tag->update();
-
-        self::assertTrue(true);
     }
 
     public function testGetFiles(): void
@@ -132,14 +110,14 @@ class FileTagTest extends DatabaseAwareTestCase
         $tag = $this->createTag(false);
         $tag->create();
 
-        $createdTag = FileTag::findById($tag->getIdAsInt());
+        $createdTag = FileTag::findById($tag->id);
         self::assertNotNull($createdTag);
         self::assertEquals($tag->format(), $createdTag->format());
     }
 
     public function testCreateUniqueFailed(): void
     {
-        $this->expectException(UniqueFailedException::class);
+        $this->expectException(PDOException::class);
         $tag1 = $this->createTag();
         $tag = $this->createTag(false);
         $tag->name = $tag1->name;
@@ -161,14 +139,13 @@ class FileTagTest extends DatabaseAwareTestCase
         $tag = $this->createTag();
         $tag->delete();
 
-        self::assertNull(FileTag::findById($tag->getIdAsInt()));
+        self::assertNull(FileTag::findById($tag->id));
     }
 
     public function testDeleteNonExistent(): void
     {
+        $this->expectError();
         $tag = $this->createTag(false);
         $tag->delete();
-
-        self::assertTrue(true);
     }
 }

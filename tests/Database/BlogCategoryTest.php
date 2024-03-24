@@ -6,7 +6,6 @@ use App\Authentication\CurrentUser;
 use App\Database\BlogCategory;
 use App\Database\BlogPost;
 use App\Tests\DatabaseAwareTestCase;
-use Error;
 
 class BlogCategoryTest extends DatabaseAwareTestCase
 {
@@ -52,13 +51,10 @@ class BlogCategoryTest extends DatabaseAwareTestCase
 
     public function testUpdateNotExistent(): void
     {
+        $this->expectError();
         $cat = $this->createBlogCategory(false);
         $cat->name = 'New category';
-        try {
-            $cat->update();
-        } catch (Error $error) {
-            self::assertTrue(true);
-        }
+        $cat->update();
     }
 
     public function testFormatWithParent(): void
@@ -146,12 +142,9 @@ class BlogCategoryTest extends DatabaseAwareTestCase
 
     public function testDeleteNotExistent(): void
     {
+        $this->expectError();
         $cat = $this->createBlogCategory(false);
-        try {
-            $cat->delete();
-        } catch (Error $error) {
-            self::assertTrue(true);
-        }
+        $cat->delete();
     }
 
     public function testGetBlogPostsNoPostsIncludeChildren(): void
