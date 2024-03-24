@@ -1,0 +1,43 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+get:
+  summary: Get the default configuration
+  tags:
+    - themes
+  responses:
+    '200':
+      description: The theme default configuration
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties:
+              oneOf:
+                - type: string
+                - type: boolean
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Theme not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_theme_default_configuration
+  description: Gets the default configuration for the given theme
+  security:
+    - jinya-api-key: []

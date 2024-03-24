@@ -1,0 +1,22 @@
+title: A database table
+type: object
+description: Contains the information in a database table
+properties:
+  engine:
+    type: string
+  size:
+    type: integer
+  entryCount:
+    type: integer
+  constraints:
+    type: array
+    items:
+      $ref: ./database-constraint.yaml
+  indexes:
+    type: array
+    items:
+      $ref: ./database-index.yaml
+  structure:
+    type: array
+    items:
+      $ref: ./database-table-field.yaml

@@ -1,0 +1,83 @@
+parameters:
+  - name: menuId
+    schema:
+      type: integer
+    in: path
+    required: true
+get:
+  summary: List items by menu id
+  tags:
+    - menus
+  responses:
+    '200':
+      description: Successfully listed menu items
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../components/schemas/menu-item.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Menu not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_all_menu_items_by_menu
+  description: Lists all menu items for the given menu
+  security:
+    - jinya-api-key: []
+put:
+  summary: Update menu items
+  responses:
+    '204':
+      description: Updated menu items
+    '400':
+      description: Missing fields
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Menu not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: update_menu_items
+  description: Replaces all menu items
+  security:
+    - jinya-api-key: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: ../components/schemas/update-menu-item.yaml
+  tags:
+    - menus

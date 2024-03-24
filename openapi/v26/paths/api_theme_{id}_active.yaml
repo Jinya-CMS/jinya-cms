@@ -1,0 +1,35 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+put:
+  summary: Activate theme by id
+  tags:
+    - themes
+  responses:
+    '204':
+      description: Successfully activated the theme
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Theme not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: activate_theme
+  description: Activates the given theme
+  security:
+    - jinya-api-key: []

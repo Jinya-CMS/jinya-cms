@@ -1,0 +1,7 @@
+type: object
+description: A blog category assigned to a theme
+properties:
+  blogCategory:
+    type: integer
+required:
+  - blogCategory

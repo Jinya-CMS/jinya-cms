@@ -1,0 +1,15 @@
+title: Menu item artist
+type: object
+description: An artist referenced in a menu item
+properties:
+  id:
+    type: integer
+  artistName:
+    type: string
+  email:
+    type: string
+    format: email
+required:
+  - id
+  - artistName
+  - email

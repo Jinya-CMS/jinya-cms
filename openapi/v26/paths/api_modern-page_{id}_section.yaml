@@ -1,0 +1,83 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+get:
+  summary: Get sections by modern page
+  tags:
+    - modern-pages
+  responses:
+    '200':
+      description: Successfully got sections
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../components/schemas/modern-page-section.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Modern page not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_modern_page_sections
+  description: Gets all sections in the given modern page
+  security:
+    - jinya-api-key: []
+put:
+  summary: Update modern page sections
+  responses:
+    '204':
+      description: Updated modern page sections
+    '400':
+      description: Missing fields
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Modern page not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: update_modern_page_sections
+  description: Replaces all modern page sections
+  security:
+    - jinya-api-key: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: ../components/schemas/update-modern-page-section.yaml
+  tags:
+    - modern-pages

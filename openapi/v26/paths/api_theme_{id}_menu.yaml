@@ -1,0 +1,41 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+get:
+  summary: Get theme menus
+  tags:
+    - themes
+  responses:
+    '200':
+      description: Successfully got the theme menus
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties:
+              $ref: ../components/schemas/theme-menu.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Theme not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_theme_menus
+  description: Gets the theme menus for the given theme
+  security:
+    - jinya-api-key: []

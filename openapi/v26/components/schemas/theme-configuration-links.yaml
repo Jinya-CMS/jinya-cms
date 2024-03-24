@@ -1,0 +1,18 @@
+title: Theme configuration links
+type: object
+description: The links for the theme
+properties:
+  section_pages:
+    type: object
+  menus:
+    type: object
+  pages:
+    type: object
+  forms:
+    type: object
+  galleries:
+    type: object
+  files:
+    type: object
+  blog_categories:
+    type: object

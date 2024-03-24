@@ -1,0 +1,15 @@
+title: File tag
+type: object
+description: A tag allows grouping of files
+properties:
+  id:
+    type: integer
+  name:
+    type: string
+  color:
+    type: string
+  emoji:
+    type: string
+required:
+  - id
+  - name

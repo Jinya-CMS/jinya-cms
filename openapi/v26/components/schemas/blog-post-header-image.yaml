@@ -1,0 +1,15 @@
+title: Blog post header image
+type: object
+description: >-
+  A reduced file containing only the information needed for the header image of
+  a blog post
+properties:
+  id:
+    type: integer
+  name:
+    type: string
+  path:
+    type: string
+required:
+  - id
+  - name

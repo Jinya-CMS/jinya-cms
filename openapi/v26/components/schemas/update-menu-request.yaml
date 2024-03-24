@@ -1,0 +1,10 @@
+title: Update menu request
+type: object
+description: >-
+  Menus are the central navigation entities in Jinya. In the theme config, they
+  can be assigned to a theme
+properties:
+  name:
+    type: string
+  logo:
+    type: integer

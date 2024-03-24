@@ -1,0 +1,12 @@
+type: object
+required:
+  - artistName
+  - email
+properties:
+  artistName:
+    type: string
+  email:
+    type: string
+    format: email
+  profilePicture:
+    type: string

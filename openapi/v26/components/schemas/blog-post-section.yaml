@@ -1,0 +1,19 @@
+title: Blog post section
+type: object
+description: A section in a blog post
+properties:
+  id:
+    type: string
+  position:
+    type: string
+  gallery:
+    $ref: ./gallery.yaml
+  link:
+    type: string
+  html:
+    type: string
+  file:
+    $ref: ./file.yaml
+required:
+  - id
+  - position

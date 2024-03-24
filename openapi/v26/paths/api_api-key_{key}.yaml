@@ -1,0 +1,29 @@
+parameters:
+  - name: key
+    schema:
+      type: string
+    in: path
+    required: true
+delete:
+  summary: Delete api key
+  operationId: delete_api_key
+  responses:
+    '204':
+      description: Succesfully deleted the api key
+    '401':
+      description: Api Key is missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: The specified api key was not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  tags:
+    - active-sessions
+  security:
+    - jinya-api-key: []
+  description: Deletes the api key given in the request path

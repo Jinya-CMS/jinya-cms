@@ -1,0 +1,13 @@
+title: Update form request
+type: object
+description: >-
+  A form is a content element that allows end users to send requests and
+  feedback to the artist
+properties:
+  description:
+    type: string
+  title:
+    type: string
+  toAddress:
+    type: string
+    format: email

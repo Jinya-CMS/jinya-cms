@@ -1,0 +1,18 @@
+title: Create blog post request
+type: object
+description: A blog post
+properties:
+  title:
+    type: string
+  slug:
+    type: string
+  headerImageId:
+    type: integer
+  categoryId:
+    type: integer
+  public:
+    type: string
+required:
+  - title
+  - slug
+  - public

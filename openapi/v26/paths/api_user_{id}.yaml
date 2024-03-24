@@ -1,0 +1,108 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+put:
+  summary: Update user by id
+  responses:
+    '204':
+      description: Successfully updated user
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: User not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '409':
+      description: Email address is not unique
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: update_user
+  description: Updates the user with the given id
+  security:
+    - jinya-api-key: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/update-user-request.yaml
+  tags:
+    - artists
+delete:
+  summary: Delete user by id
+  responses:
+    '204':
+      description: User successfully deleted
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: User not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: delete_user
+  security:
+    - jinya-api-key: []
+  description: Deletes the given user
+  tags:
+    - artists
+get:
+  summary: Get user by id
+  responses:
+    '200':
+      description: Successfully got the user
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/user.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: User not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_user_by_id
+  description: Gets the user with the given id
+  security:
+    - jinya-api-key: []
+  tags:
+    - artists

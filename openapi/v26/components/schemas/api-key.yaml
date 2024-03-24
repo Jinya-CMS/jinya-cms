@@ -1,0 +1,19 @@
+title: Api key
+type: object
+description: The ApiKey is used to authenticate a user against the Jinya API
+properties:
+  key:
+    type: string
+  remoteAddress:
+    type: string
+    format: ipv4
+  userAgent:
+    type: string
+  validSince:
+    type: string
+    format: date-time
+required:
+  - key
+  - remoteAddress
+  - userAgent
+  - validSince

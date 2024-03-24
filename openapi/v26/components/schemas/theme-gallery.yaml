@@ -1,0 +1,10 @@
+type: object
+description: A gallery assigned to a theme
+properties:
+  name:
+    type: string
+  gallery:
+    $ref: ./gallery.yaml
+required:
+  - name
+  - gallery

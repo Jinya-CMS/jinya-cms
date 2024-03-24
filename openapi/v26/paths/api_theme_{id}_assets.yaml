@@ -1,0 +1,35 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+put:
+  summary: Compile the themes assets
+  tags:
+    - themes
+  responses:
+    '204':
+      description: Successfully compiled the themes assets
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Theme not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: compile_theme_assets
+  description: Compiles the given themes assets
+  security:
+    - jinya-api-key: []

@@ -1,0 +1,83 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+get:
+  summary: List form items
+  tags:
+    - forms
+  responses:
+    '200':
+      description: Successfully got all items of the given form
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../components/schemas/form-item.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Form not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_form_items
+  security:
+    - jinya-api-key: []
+  description: Gets the items of the given form
+put:
+  summary: Update form items
+  responses:
+    '204':
+      description: Updated form items
+    '400':
+      description: Missing fields
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Form not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: update_form_items
+  description: Replaces all form items
+  security:
+    - jinya-api-key: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: ../components/schemas/update-form-item.yaml
+  tags:
+    - forms

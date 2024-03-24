@@ -1,0 +1,27 @@
+get:
+  summary: List api keys
+  tags:
+    - active-sessions
+  responses:
+    '200':
+      description: Successfully got all api keys
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/api-key-list.yaml
+    '401':
+      description: Api Key is missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_all_api_keys
+  description: Gets all currently valid api keys
+  security:
+    - jinya-api-key: []

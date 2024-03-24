@@ -1,0 +1,110 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+put:
+  summary: Update blog post by id
+  responses:
+    '204':
+      description: Successfully updated blog post
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Page not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '409':
+      description: >-
+        Slug or title is in use. Also the category or header image could not
+        exists, check the exception details
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: update_blog_post
+  description: Updates the blog post with the given id
+  security:
+    - jinya-api-key: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/update-blog-post-request.yaml
+  tags:
+    - blog-posts
+delete:
+  summary: Delete blog post by id
+  responses:
+    '204':
+      description: Blog post successfully deleted
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Blog post not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: delete_blog_post
+  security:
+    - jinya-api-key: []
+  description: Deletes the given blog post
+  tags:
+    - blog-posts
+get:
+  summary: Get blog post by id
+  responses:
+    '200':
+      description: Successfully got the blog post
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/user.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Blog post not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_blog_post_by_id
+  description: Gets the blog post with the given id
+  security:
+    - jinya-api-key: []
+  tags:
+    - blog-posts

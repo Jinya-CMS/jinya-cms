@@ -1,0 +1,10 @@
+type: object
+description: A modern page assigned to a theme
+properties:
+  name:
+    type: string
+  sectionPage:
+    $ref: ./modern-page.yaml
+required:
+  - name
+  - sectionPage

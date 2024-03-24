@@ -1,0 +1,71 @@
+get:
+  summary: List forms
+  tags:
+    - forms
+  responses:
+    '200':
+      description: Successfully listed forms
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/form-list.yaml
+    '401':
+      description: Api token missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api token
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_all_forms
+  security:
+    - jinya-api-key: []
+  description: Gets all forms
+post:
+  summary: Create form
+  tags:
+    - forms
+  responses:
+    '201':
+      description: Successfully created the form
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/form.yaml
+    '400':
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '401':
+      description: Api token missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api token
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '409':
+      description: Title is not unique
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: create_form
+  description: Creates a new form with the given parameters
+  security:
+    - jinya-api-key: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/create-form-request.yaml

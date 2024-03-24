@@ -1,0 +1,17 @@
+title: The database server info
+type: object
+description: Contains the server information
+properties:
+  version:
+    type: string
+  comment:
+    type: string
+  compileMachine:
+    type: string
+  compileOs:
+    type: string
+required:
+  - version
+  - comment
+  - compileMachine
+  - compileOs

@@ -1,0 +1,44 @@
+title: Form item
+description: A form item is a field in a form
+type: object
+required:
+  - id
+  - type
+  - label
+  - position
+  - isRequired
+  - isFromAddress
+  - isSubject
+properties:
+  id:
+    type: integer
+  type:
+    type: string
+    enum:
+      - text
+      - email
+      - textarea
+      - select
+      - checkbox
+  options:
+    type: array
+    items:
+      type: string
+  spamFilter:
+    type: array
+    items:
+      type: string
+  label:
+    type: string
+  placeholder:
+    type: string
+  helpText:
+    type: string
+  position:
+    type: string
+  isRequired:
+    type: boolean
+  isFromAddress:
+    type: boolean
+  isSubject:
+    type: boolean

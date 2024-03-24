@@ -1,0 +1,8 @@
+title: Update gallery file position request
+description: A gallery file position connects a file to a gallery
+type: object
+properties:
+  newPosition:
+    type: integer
+  file:
+    type: integer

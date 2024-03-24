@@ -1,0 +1,7 @@
+type: object
+description: A gallery assigned to a theme
+properties:
+  gallery:
+    type: integer
+required:
+  - gallery

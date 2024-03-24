@@ -1,0 +1,10 @@
+type: object
+description: A menu assigned to a theme
+properties:
+  name:
+    type: string
+  menu:
+    $ref: ./menu.yaml
+required:
+  - name
+  - menu

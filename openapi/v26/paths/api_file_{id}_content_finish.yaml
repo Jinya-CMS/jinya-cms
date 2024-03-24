@@ -1,0 +1,35 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+put:
+  summary: Finish upload
+  tags:
+    - files
+  responses:
+    '204':
+      description: Successfully finished the upload
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: File not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: finish_file_upload
+  description: Finishes the upload for the given file
+  security:
+    - jinya-api-key: []

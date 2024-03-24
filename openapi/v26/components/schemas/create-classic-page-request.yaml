@@ -1,0 +1,13 @@
+title: Create classic page request
+type: object
+description: >-
+  A classic page displays only a single html page. The name derives from the
+  classic editing experience in the designer
+properties:
+  title:
+    type: string
+  content:
+    type: string
+required:
+  - title
+  - content

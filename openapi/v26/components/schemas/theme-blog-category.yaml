@@ -1,0 +1,10 @@
+type: object
+description: A blog category assigned to a theme
+properties:
+  name:
+    type: string
+  blogCategory:
+    $ref: ./blog-category.yaml
+required:
+  - name
+  - blogCategory

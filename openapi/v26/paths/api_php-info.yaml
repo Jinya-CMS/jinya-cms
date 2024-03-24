@@ -1,0 +1,28 @@
+get:
+  summary: Get PHP info
+  responses:
+    '200':
+      description: Successfully returned all classic pages
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: true
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_php_info
+  description: Get PHP infos as JSON
+  tags:
+    - php-info
+  security:
+    - jinya-api-key: []

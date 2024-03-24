@@ -1,0 +1,14 @@
+title: Known device
+type: object
+properties:
+  key:
+    type: string
+  remoteAddress:
+    type: string
+    format: ipv4
+  userAgent:
+    type: string
+required:
+  - key
+  - remoteAddress
+  - userAgent

@@ -1,0 +1,108 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+put:
+  summary: Update modern page by id
+  responses:
+    '204':
+      description: Successfully updated modern page
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Modern page not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '409':
+      description: Name is not unique
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: update_modern_page
+  description: Updates the modern page with the given id
+  security:
+    - jinya-api-key: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/update-modern-page-request.yaml
+  tags:
+    - modern-pages
+delete:
+  summary: Delete modern page by id
+  responses:
+    '204':
+      description: Modern page successfully deleted
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Modern page not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: delete_modern_page
+  security:
+    - jinya-api-key: []
+  description: Deletes the given page
+  tags:
+    - modern-pages
+get:
+  summary: Get modern page by id
+  tags:
+    - modern-pages
+  responses:
+    '200':
+      description: Successfully got the modern page
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/modern-page.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Modern page not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_modern_page_by_id
+  description: Gets the modern page with the specified id
+  security:
+    - jinya-api-key: []

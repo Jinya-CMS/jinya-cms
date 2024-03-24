@@ -1,0 +1,26 @@
+title: Modern page section
+type: object
+properties:
+  id:
+    type: string
+  position:
+    type: string
+  gallery:
+    $ref: ./gallery.yaml
+  file:
+    $ref: ./file.yaml
+  target:
+    type: string
+  action:
+    type: string
+    enum:
+      - link
+      - script
+      - none
+  script:
+    type: string
+  html:
+    type: string
+required:
+  - id
+  - position

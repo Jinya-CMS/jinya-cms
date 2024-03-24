@@ -1,0 +1,71 @@
+get:
+  summary: List files
+  tags:
+    - files
+  responses:
+    '200':
+      description: Successfully returned all files
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/file-list.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_all_files
+  description: Gets a list of all uploaded files
+  security:
+    - jinya-api-key: []
+post:
+  summary: Create file
+  tags:
+    - files
+  responses:
+    '201':
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/create-file-request.yaml
+    '400':
+      description: Missing fields
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '409':
+      description: Name is not unique
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: create_file
+  description: Creates a new file, uploading needs to be done in the second step
+  security:
+    - jinya-api-key: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/create-file-request.yaml
