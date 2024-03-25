@@ -3,14 +3,12 @@
 namespace Jinya\Tests\Database;
 
 use App\Authentication\CurrentUser;
-use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
-use App\Database\Form;
 use App\Database\Gallery;
-use App\Database\Segment;
 use App\Database\SegmentPage;
 use App\Tests\DatabaseAwareTestCase;
 use Faker\Provider\Uuid;
+use PDOException;
 
 class SegmentPageTest extends DatabaseAwareTestCase
 {
@@ -19,14 +17,14 @@ class SegmentPageTest extends DatabaseAwareTestCase
         $page = $this->createSegmentPage(false);
         $page->create();
 
-        $foundPost = SegmentPage::findById($page->getIdAsInt());
-        $this->assertEquals($page->format(), $foundPost->format());
+        $foundPage = SegmentPage::findById($page->id);
+        $this->assertEquals($page->format(), $foundPage->format());
     }
 
-    private function createSegmentPage(bool $execute = true, string $title = 'Test'): SegmentPage
+    private function createSegmentPage(bool $execute = true, string $name = 'Test'): SegmentPage
     {
         $page = new SegmentPage();
-        $page->name = $title;
+        $page->name = $name;
 
         if ($execute) {
             $page->create();
@@ -35,9 +33,18 @@ class SegmentPageTest extends DatabaseAwareTestCase
         return $page;
     }
 
+    private function createFile(): File
+    {
+        $file = new File();
+        $file->name = Uuid::uuid();
+        $file->create();
+
+        return $file;
+    }
+
     public function testCreateDuplicate(): void
     {
-        $this->expectException(UniqueFailedException::class);
+        $this->expectException(PDOException::class);
         $this->createSegmentPage();
         $this->createSegmentPage();
     }
@@ -47,14 +54,14 @@ class SegmentPageTest extends DatabaseAwareTestCase
         $page = $this->createSegmentPage();
         $page->delete();
 
-        $this->assertNull(SegmentPage::findById($page->getIdAsInt()));
+        $this->assertNull(SegmentPage::findById($page->id));
     }
 
     public function testDeleteNotExistent(): void
     {
+        $this->expectError();
         $page = $this->createSegmentPage(false);
         $page->delete();
-        $this->assertTrue(true);
     }
 
     public function testFormat(): void
@@ -63,6 +70,7 @@ class SegmentPageTest extends DatabaseAwareTestCase
         $this->assertEquals([
             'id' => $page->id,
             'name' => $page->name,
+            'segmentCount' => 0,
             'created' => [
                 'at' => $page->createdAt->format(DATE_ATOM),
                 'by' => [
@@ -79,16 +87,16 @@ class SegmentPageTest extends DatabaseAwareTestCase
                     'profilePicture' => CurrentUser::$currentUser->profilePicture,
                 ],
             ],
-            'segmentCount' => 0,
         ], $page->format());
     }
 
+
     public function testFindAll(): void
     {
-        $this->createSegmentPage(title: 'Test 1');
-        $this->createSegmentPage(title: 'Test 2');
-        $this->createSegmentPage(title: 'Test 3');
-        $this->createSegmentPage(title: 'Test 4');
+        $this->createSegmentPage(name: 'Test 1');
+        $this->createSegmentPage(name: 'Test 2');
+        $this->createSegmentPage(name: 'Test 3');
+        $this->createSegmentPage(name: 'Test 4');
         $found = SegmentPage::findAll();
         $this->assertCount(4, iterator_to_array($found));
     }
@@ -102,17 +110,17 @@ class SegmentPageTest extends DatabaseAwareTestCase
     public function testFindById(): void
     {
         $page = $this->createSegmentPage();
-        $foundPost = SegmentPage::findById($page->getIdAsInt());
+        $foundPage = SegmentPage::findById($page->id);
 
-        $this->assertEquals($page->format(), $foundPost->format());
+        $this->assertEquals($page->format(), $foundPage->format());
     }
 
     public function testFindByIdNotExistent(): void
     {
         $this->createSegmentPage();
-        $foundPost = SegmentPage::findById(-100);
+        $foundPage = SegmentPage::findById(-100);
 
-        $this->assertNull($foundPost);
+        $this->assertNull($foundPage);
     }
 
     public function testUpdate(): void
@@ -121,46 +129,8 @@ class SegmentPageTest extends DatabaseAwareTestCase
         $page->name = 'Start';
         $page->update();
 
-        $foundPost = SegmentPage::findById($page->getIdAsInt());
-        $this->assertEquals($page->format(), $foundPost->format());
-    }
-
-    public function testFindByKeyword(): void
-    {
-        $this->createSegmentPage(title: 'Test 1');
-        $this->createSegmentPage(title: 'Test 2');
-        $this->createSegmentPage(title: 'Test 3');
-        $this->createSegmentPage(title: 'Test 4');
-        $found = SegmentPage::findByKeyword('test');
-        $this->assertCount(4, iterator_to_array($found));
-
-        $found = SegmentPage::findByKeyword('Test 1');
-        $this->assertCount(1, iterator_to_array($found));
-
-        $found = SegmentPage::findByKeyword('Test 15');
-        $this->assertCount(0, iterator_to_array($found));
-    }
-
-    public function testGetSegments(): void
-    {
-        $page = $this->createSegmentPage();
-        $this->createSegment($page->getIdAsInt());
-        $this->createSegment($page->getIdAsInt());
-        $this->createSegment($page->getIdAsInt());
-        $this->createSegment($page->getIdAsInt());
-
-        $segments = $page->getSegments();
-        $this->assertCount(4, iterator_to_array($segments));
-    }
-
-    private function createSegment(int $segmentPageId, int $position = 0): Segment
-    {
-        $segment = new Segment();
-        $segment->pageId = $segmentPageId;
-        $segment->position = $position;
-        $segment->create();
-
-        return $segment;
+        $foundPage = SegmentPage::findById($page->id);
+        $this->assertEquals($page->format(), $foundPage->format());
     }
 
     public function testGetSegmentsNoSegments(): void
@@ -178,70 +148,17 @@ class SegmentPageTest extends DatabaseAwareTestCase
         $this->assertEquals(CurrentUser::$currentUser, $creator);
     }
 
-    public function testCreateSegments(): void
+    public function testReplaceSegmentsEmptyArray(): void
     {
         $page = $this->createSegmentPage();
-        $htmlSegment = $this->createSegment($page->getIdAsInt(), 0);
-        $fileSegment = $this->createSegment($page->getIdAsInt(), 1);
-        $fileWithLinkSegment = $this->createSegment($page->getIdAsInt(), 2);
-        $gallerySegment = $this->createSegment($page->getIdAsInt(), 3);
-        $formSegment = $this->createSegment($page->getIdAsInt(), 4);
+        $page->replaceSegments([
+            ['html' => 'Test segment'],
+        ]);
 
-        $this->assertCount(5, iterator_to_array($page->getSegments()));
+        $this->assertCount(1, iterator_to_array($page->getSegments()));
 
-        $file = $this->createFile();
-        $gallery = $this->createGallery();
-        $form = $this->createForm();
-
-        $htmlSegment->html = 'Test segment';
-        $htmlSegment->update();
-
-        $fileSegment->fileId = $file->getIdAsInt();
-        $fileSegment->update();
-
-        $fileWithLinkSegment->fileId = $file->getIdAsInt();
-        $fileWithLinkSegment->target = 'https://google.com';
-        $fileWithLinkSegment->action = 'link';
-        $fileWithLinkSegment->update();
-
-        $gallerySegment->galleryId = $gallery->getIdAsInt();
-        $gallerySegment->update();
-
-        $formSegment->formId = $form->getIdAsInt();
-        $formSegment->update();
-
-        $segments = $page->getSegments();
-
-        $segment = $segments->current();
-        $this->assertEquals('Test segment', $segment->html);
-        $this->assertEquals(0, $segment->position);
-        $segments->next();
-
-        $segment = $segments->current();
-        $this->assertEquals($file->getIdAsInt(), $segment->fileId);
-        $this->assertEquals(1, $segment->position);
-        $segments->next();
-
-        $segment = $segments->current();
-        $this->assertEquals($file->getIdAsInt(), $segment->fileId);
-        $this->assertEquals('link', $segment->action);
-        $this->assertEquals('https://google.com', $segment->target);
-        $this->assertEquals(2, $segment->position);
-        $segments->next();
-
-        $segment = $segments->current();
-        $this->assertEquals($gallery->getIdAsInt(), $segment->galleryId);
-        $this->assertEquals(3, $segment->position);
-        $segments->next();
-    }
-
-    private function createFile(): File
-    {
-        $file = new File();
-        $file->name = Uuid::uuid();
-        $file->create();
-
-        return $file;
+        $page->replaceSegments([]);
+        $this->assertCount(0, iterator_to_array($page->getSegments()));
     }
 
     private function createGallery(): Gallery
@@ -253,13 +170,58 @@ class SegmentPageTest extends DatabaseAwareTestCase
         return $gallery;
     }
 
-    private function createForm(): Form
+    public function testReplaceSegmentsCreateSegments(): void
     {
-        $form = new Form();
-        $form->title = 'Form';
-        $form->toAddress = 'test@example.com';
-        $form->create();
+        $page = $this->createSegmentPage();
+        $page->replaceSegments([
+            ['html' => 'Test segment'],
+        ]);
 
-        return $form;
+        $this->assertCount(1, iterator_to_array($page->getSegments()));
+
+        $file = $this->createFile();
+        $gallery = $this->createGallery();
+        $page->replaceSegments([
+            ['html' => 'Test segment'],
+            ['file' => $file->id],
+            ['file' => $file->id, 'link' => 'https://google.com'],
+            ['file' => $file->id, 'script' => 'https://google.com'],
+            ['gallery' => $gallery->id],
+        ]);
+
+        $segments = $page->getSegments();
+        $this->assertCount(5, iterator_to_array($segments));
+
+        $segments = $page->getSegments();
+
+        $segment = $segments->current();
+        $this->assertEquals('Test segment', $segment->html);
+        $this->assertEquals(0, $segment->position);
+        $segments->next();
+
+        $segment = $segments->current();
+        $this->assertEquals($file->id, $segment->fileId);
+        $this->assertEquals(1, $segment->position);
+        $this->assertEquals('none', $segment->action);
+        $segments->next();
+
+        $segment = $segments->current();
+        $this->assertEquals($file->id, $segment->fileId);
+        $this->assertEquals('https://google.com', $segment->target);
+        $this->assertEquals('link', $segment->action);
+        $this->assertEquals(2, $segment->position);
+        $segments->next();
+
+        $segment = $segments->current();
+        $this->assertEquals($file->id, $segment->fileId);
+        $this->assertEquals('https://google.com', $segment->script);
+        $this->assertEquals('script', $segment->action);
+        $this->assertEquals(3, $segment->position);
+        $segments->next();
+
+        $segment = $segments->current();
+        $this->assertEquals($gallery->id, $segment->galleryId);
+        $this->assertEquals(4, $segment->position);
+        $segments->next();
     }
 }

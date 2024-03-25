@@ -4,9 +4,7 @@ namespace App\Database;
 
 use App\Authentication\CurrentUser;
 use App\Database\Converter\BooleanConverter;
-use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\TransactionFailedException;
-use App\Database\Exceptions\UniqueFailedException;
 use App\Logging\Logger;
 use DateTime;
 use Exception;
@@ -17,8 +15,6 @@ use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
 use Jinya\Database\Entity;
 use Jinya\Database\Exception\NotNullViolationException;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
 use League\Uri\Http as HttpUri;
 use PDOException;
 
@@ -119,35 +115,24 @@ class BlogPost extends Entity
         $newSegmentQueries = [];
 
         foreach ($newSegments as $idx => $newSegment) {
+            $row = [
+                'position' => $idx,
+                'blog_post_id' => $this->id
+            ];
+
             if (array_key_exists('file', $newSegment)) {
-                $newSegmentQueries[] = self::getQueryBuilder()
-                    ->newInsert()
-                    ->into(BlogPostSegment::getTableName())
-                    ->addRow([
-                        'position' => $idx,
-                        'file_id' => $newSegment['file'],
-                        'link' => $newSegment['link'] ?? null,
-                        'blog_post_id' => $this->id
-                    ]);
+                $row['link'] = $newSegment['link'] ?? null;
+                $row['file_id'] = $newSegment['file'];
             } elseif (array_key_exists('gallery', $newSegment)) {
-                $newSegmentQueries[] = self::getQueryBuilder()
-                    ->newInsert()
-                    ->into(BlogPostSegment::getTableName())
-                    ->addRow([
-                        'position' => $idx,
-                        'gallery_id' => $newSegment['gallery'],
-                        'blog_post_id' => $this->id
-                    ]);
+                $row['gallery_id'] = $newSegment['gallery'];
             } else {
-                $newSegmentQueries[] = self::getQueryBuilder()
-                    ->newInsert()
-                    ->into(BlogPostSegment::getTableName())
-                    ->addRow([
-                        'position' => $idx,
-                        'html' => $newSegment['html'] ?? '',
-                        'blog_post_id' => $this->id
-                    ]);
+                $row['html'] = $newSegment['html'];
             }
+
+            $newSegmentQueries[] = self::getQueryBuilder()
+                ->newInsert()
+                ->into(BlogPostSegment::getTableName())
+                ->addRow($row);
         }
 
         try {
@@ -172,10 +157,6 @@ class BlogPost extends Entity
      * Creates the current blog post
      *
      * @return void
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     * @throws UniqueFailedException
      * @throws NotNullViolationException
      */
     public function create(): void
@@ -190,11 +171,6 @@ class BlogPost extends Entity
 
     /**
      * Executes the webhook defined in the category
-     *
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     * @throws UniqueFailedException
      */
     private function executeHook(): void
     {
@@ -263,10 +239,6 @@ class BlogPost extends Entity
      * Formats the blog post into an array
      *
      * @return array<string, array<string, array<string, string|null>|int|string>|bool|int|string|null>
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     #[ArrayShape([
         'id' => 'int|string',
@@ -332,10 +304,6 @@ class BlogPost extends Entity
      * Gets the header image file of the blog post
      *
      * @return File|null
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     public function getHeaderImage(): File|null
     {
@@ -365,11 +333,7 @@ class BlogPost extends Entity
      * Updates the current blog post
      *
      * @return void
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      * @throws NotNullViolationException
-     * @throws UniqueFailedException
      */
     public function update(): void
     {
@@ -392,7 +356,15 @@ class BlogPost extends Entity
         $query = self::getQueryBuilder()
             ->newSelect()
             ->from(BlogPostSegment::getTableName())
-            ->cols(['*'])
+            ->cols([
+                'id',
+                'gallery_id',
+                'html',
+                'file_id',
+                'blog_post_id',
+                'link',
+                'position',
+            ])
             ->where('blog_post_id = :postId', ['postId' => $this->id])
             ->orderBy(['position']);
         $data = self::executeQuery($query);

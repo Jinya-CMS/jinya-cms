@@ -270,15 +270,6 @@ class BlogPostTest extends DatabaseAwareTestCase
         $this->assertEquals($post->format(), $foundPost->format());
     }
 
-    private function createBlogPostSegment(int $blogPostId): BlogPostSegment
-    {
-        $segment = new BlogPostSegment();
-        $segment->blogPostId = $blogPostId;
-        $segment->position = random_int(0, 10000);
-
-        return $segment;
-    }
-
     public function testGetSegmentsNoSegments(): void
     {
         $post = $this->createBlogPost();
@@ -294,7 +285,7 @@ class BlogPostTest extends DatabaseAwareTestCase
         $this->assertEquals(CurrentUser::$currentUser, $creator);
     }
 
-    public function testBatchReplaceSegmentsEmptyArray(): void
+    public function testReplaceSegmentsEmptyArray(): void
     {
         $post = $this->createBlogPost();
         $post->replaceSegments([
@@ -316,7 +307,7 @@ class BlogPostTest extends DatabaseAwareTestCase
         return $gallery;
     }
 
-    public function testBatchReplaceSegmentsCreateSegments(): void
+    public function testReplaceSegmentsCreateSegments(): void
     {
         $post = $this->createBlogPost();
         $post->replaceSegments([

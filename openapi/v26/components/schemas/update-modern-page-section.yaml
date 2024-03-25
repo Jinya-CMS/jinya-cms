@@ -7,14 +7,8 @@ properties:
     type: integer
   file:
     type: integer
-  target:
+  link:
     type: string
-  action:
-    type: string
-    enum:
-      - link
-      - script
-      - none
   script:
     type: string
   html:

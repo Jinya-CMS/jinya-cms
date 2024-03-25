@@ -2,84 +2,59 @@
 
 namespace App\Database;
 
-use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
-use RuntimeException;
+use Jinya\Database\Attributes\Column;
+use Jinya\Database\Attributes\Id;
+use Jinya\Database\Attributes\Table;
+use Jinya\Database\EntityTrait;
 
 /**
- * This class contains a segment of segment pages. Segments can contain different kinds of data, currently supported are galleries, forms, files and static HTML content. If the data is a file it is also possible to specify an action which can be either script or link. Depending on the action the fields have to be set accordingly.
+ * This class contains a segment of segment pages. Segments can contain different kinds of data, currently supported are galleries, files, and static HTML content. If the data is a file, it is also possible to specify an action which can be either script or link. Depending on the action, the fields have to be set accordingly.
  */
-class Segment extends Utils\RearrangableEntity
+#[Table('segment')]
+class Segment
 {
-    /** @var int The ID of the segment page this segment belongs to */
-    public int $pageId;
-    /** @var int|null The ID of the form this segment contains */
-    public ?int $formId = null;
-    /** @var int|null The ID of the gallery this segment contains */
+    use EntityTrait;
+
+    #[Id]
+    #[Column]
+    public int $id;
+
+    #[Column]
+    public int $position;
+
+    /** @var int|null The gallery in the segment */
+    #[Column(sqlName: 'gallery_id')]
     public ?int $galleryId = null;
-    /** @var int|null The ID of the file this segment contains */
+
+    /** @var int|null The file in the segment */
+    #[Column(sqlName: 'file_id')]
     public ?int $fileId = null;
-    /** @var string|null The action type to execute when the file is clicked. It can be either script, link or none */
-    public ?string $action = null;
-    /** @var string|null The script to execute when the file is clicked */
-    public ?string $script = null;
-    /** @var string|null The link to open when the file is clicked */
-    public ?string $target = null;
-    /** @var string|null The HTML content of the segment */
+
+    /** @var string|null The html content in the segment */
+    #[Column]
     public ?string $html = null;
 
-    /**
-     * Not implemented
-     */
-    public static function findByKeyword(string $keyword): Iterator
-    {
-        throw new RuntimeException('Not implemented');
-    }
+    /** @var int The ID of the segment page this segment belongs to */
+    #[Column(sqlName: 'page_id')]
+    public int $pageId;
 
-    /**
-     * Not implemented
-     */
-    public static function findAll(): Iterator
-    {
-        throw new RuntimeException('Not implemented');
-    }
+    /** @var string|null The action type to execute when the file is clicked. It can be either script, link or none */
+    #[Column]
+    public ?string $action = null;
 
-    /**
-     * Gets the segment at the given position in the given page
-     *
-     * @param int $id
-     * @param int $position
-     * @return Segment|null
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws Exceptions\UniqueFailedException
-     * @throws NoResultException
-     * @throws NoResultException
-     */
-    public static function findByPosition(int $id, int $position): ?Segment
-    {
-        $sql = 'SELECT id, page_id, form_id, gallery_id, file_id, position, html, action, script, target FROM segment WHERE page_id = :id AND position = :position';
+    /** @var string|null The script to execute when the file is clicked */
+    #[Column]
+    public ?string $script = null;
 
-        try {
-            return self::getPdo()->fetchObject($sql, new self(), [
-                'id' => $id,
-                'position' => $position
-            ]);
-        } catch (InvalidQueryException$exception) {
-            throw self::convertInvalidQueryExceptionToException($exception);
-        }
-    }
+    /** @var string|null The link to open when the file is clicked */
+    #[Column]
+    public ?string $target = null;
 
     /**
      * Gets the file
      *
      * @return File|null
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     public function getFile(): ?File
     {
@@ -91,39 +66,9 @@ class Segment extends Utils\RearrangableEntity
     }
 
     /**
-     * Not implemented
-     */
-    public static function findById(int $id): ?object
-    {
-        throw new RuntimeException('Not implemented');
-    }
-
-    /**
-     * Gets the form
-     *
-     * @return Form|null
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     */
-    public function getForm(): ?Form
-    {
-        if ($this->formId === null) {
-            return null;
-        }
-
-        return Form::findById($this->formId);
-    }
-
-    /**
      * Gets the gallery
      *
      * @return Gallery|null
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     public function getGallery(): ?Gallery
     {
@@ -139,10 +84,6 @@ class Segment extends Utils\RearrangableEntity
      *
      * @return SegmentPage|null
      *
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     public function getSegmentPage(): ?SegmentPage
     {
@@ -153,36 +94,22 @@ class Segment extends Utils\RearrangableEntity
      * Formats the segment into an array
      *
      * @return array<string, array<string, int|string|null>|int|string|null>
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     #[ArrayShape([
         'position' => 'int',
         'id' => 'int',
-        'form' => 'array',
         'gallery' => 'array',
-        'target' => 'null|string',
+        'link' => 'null|string',
         'html' => 'null|string',
         'script' => 'null|string',
-        'action' => 'null|string',
         'file' => 'array'
     ])] public function format(): array
     {
         $data = [
             'position' => $this->position,
-            'id' => $this->getIdAsInt(),
+            'id' => $this->id,
         ];
-        if (isset($this->formId)) {
-            $form = Form::findById($this->formId);
-            $data['form'] = [
-                'id' => $this->formId,
-                'title' => $form?->title,
-                'description' => $form?->description,
-                'toAddress' => $form?->toAddress,
-            ];
-        } elseif (isset($this->galleryId)) {
+        if (isset($this->galleryId)) {
             $gallery = Gallery::findById($this->galleryId);
             $data['gallery'] = [
                 'id' => $this->galleryId,
@@ -199,72 +126,16 @@ class Segment extends Utils\RearrangableEntity
                 'type' => $file?->type,
                 'path' => $file?->path,
             ];
-            $data['action'] = $this->action;
-            $data['script'] = $this->script;
-            $data['target'] = $this->target;
+            if ($this->action === 'script') {
+                $data['script'] = $this->script;
+            }
+            if ($this->action === 'link') {
+                $data['link'] = $this->target;
+            }
         } else {
             $data['html'] = $this->html;
         }
 
         return $data;
-    }
-
-    /**
-     * Creates the current segment and also rearranges the other segments in the page based on the position
-     *
-     * @return void
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     */
-    public function create(): void
-    {
-        $this->internalRearrange('segment', 'page_id', $this->pageId, $this->position);
-        $this->internalCreate('segment');
-        $this->resetOrder('segment', 'page_id', $this->pageId);
-    }
-
-    /**
-     * Deletes the given segment, the order of the remaining segments will be reset
-     *
-     * @return void
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     */
-    public function delete(): void
-    {
-        $this->internalDelete('segment');
-        $this->internalRearrange('segment', 'page_id', $this->pageId, -1);
-        $this->resetOrder('segment', 'page_id', $this->pageId);
-    }
-
-    /**
-     * Moves the segment to a new position and rearranges the other items accordingly
-     *
-     * @param int $newPosition
-     * @return void
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     */
-    public function move(int $newPosition): void
-    {
-        $this->internalRearrange('segment', 'page_id', $this->pageId, $newPosition);
-        $this->update();
-        $this->resetOrder('segment', 'page_id', $this->pageId);
-    }
-
-    /**
-     * Updates the current menu item
-     *
-     * @return void
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     */
-    public function update(): void
-    {
-        $this->internalUpdate('segment');
     }
 }
