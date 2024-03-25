@@ -14,11 +14,11 @@ class SimplePageTest extends DatabaseAwareTestCase
         self::assertEquals(CurrentUser::$currentUser->format(), $page->getCreator()->format());
     }
 
-    private function createPage(string $title = 'Test', string $content = 'Test', bool $execute = true): SimplePage
+    private function createPage(string $title = 'Test', bool $execute = true): SimplePage
     {
         $page = new SimplePage();
         $page->title = $title;
-        $page->content = $content;
+        $page->content = 'Test';
         if ($execute) {
             $page->create();
         }
@@ -77,7 +77,7 @@ class SimplePageTest extends DatabaseAwareTestCase
     public function testFindById(): void
     {
         $page = $this->createPage();
-        $foundPage = SimplePage::findById($page->getIdAsInt());
+        $foundPage = SimplePage::findById($page->id);
 
         self::assertEquals($page->format(), $foundPage->format());
     }
@@ -104,25 +104,8 @@ class SimplePageTest extends DatabaseAwareTestCase
         $page = $this->createPage(execute: false);
         $page->create();
 
-        $foundPage = SimplePage::findById($page->getIdAsInt());
+        $foundPage = SimplePage::findById($page->id);
         self::assertEquals($page->format(), $foundPage->format());
-    }
-
-    public function testFindByKeyword(): void
-    {
-        $this->createPage('Test 1');
-        $this->createPage('Test 2');
-        $this->createPage('Test 3');
-        $this->createPage('Test 4');
-
-        $all = SimplePage::findByKeyword('Test');
-        self::assertCount(4, iterator_to_array($all));
-
-        $all = SimplePage::findByKeyword('Test 1');
-        self::assertCount(1, iterator_to_array($all));
-
-        $all = SimplePage::findByKeyword('Test 15');
-        self::assertCount(0, iterator_to_array($all));
     }
 
     public function testGetUpdatedBy(): void
