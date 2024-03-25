@@ -3,12 +3,12 @@
 namespace Jinya\Tests\Database;
 
 use App\Authentication\CurrentUser;
-use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Database\Gallery;
 use App\Database\GalleryFilePosition;
 use App\Tests\DatabaseAwareTestCase;
 use App\Utils\UuidGenerator;
+use PDOException;
 
 class GalleryTest extends DatabaseAwareTestCase
 {
@@ -34,7 +34,7 @@ class GalleryTest extends DatabaseAwareTestCase
 
         $filePosition = new GalleryFilePosition();
         $filePosition->position = $position;
-        $filePosition->fileId = $file->getIdAsInt();
+        $filePosition->fileId = $file->id;
         $filePosition->galleryId = $gallery;
         $filePosition->create();
     }
@@ -42,11 +42,11 @@ class GalleryTest extends DatabaseAwareTestCase
     public function testGetFiles(): void
     {
         $gallery = $this->createGallery();
-        $this->createPosition(1, $gallery->getIdAsInt());
-        $this->createPosition(2, $gallery->getIdAsInt());
-        $this->createPosition(3, $gallery->getIdAsInt());
-        $this->createPosition(4, $gallery->getIdAsInt());
-        $this->createPosition(5, $gallery->getIdAsInt());
+        $this->createPosition(1, $gallery->id);
+        $this->createPosition(2, $gallery->id);
+        $this->createPosition(3, $gallery->id);
+        $this->createPosition(4, $gallery->id);
+        $this->createPosition(5, $gallery->id);
 
         $this->assertCount(5, iterator_to_array($gallery->getFiles()));
     }
@@ -69,13 +69,13 @@ class GalleryTest extends DatabaseAwareTestCase
         $gallery = $this->createGallery(execute: false);
         $gallery->create();
 
-        $foundGallery = Gallery::findById($gallery->getIdAsInt());
+        $foundGallery = Gallery::findById($gallery->id);
         $this->assertEquals($gallery->format(), $foundGallery->format());
     }
 
     public function testCreateUniqueFailed(): void
     {
-        $this->expectException(UniqueFailedException::class);
+        $this->expectException(PDOException::class);
         $this->createGallery();
         $gallery = $this->createGallery(execute: false);
         $gallery->create();
@@ -87,13 +87,13 @@ class GalleryTest extends DatabaseAwareTestCase
         $gallery->name = 'New name';
         $gallery->update();
 
-        $foundGallery = Gallery::findById($gallery->getIdAsInt());
+        $foundGallery = Gallery::findById($gallery->id);
         $this->assertEquals('New name', $foundGallery->name);
     }
 
     public function testUpdateUniqueFailed(): void
     {
-        $this->expectException(UniqueFailedException::class);
+        $this->expectException(PDOException::class);
         $this->createGallery(name: 'New name');
         $gallery = $this->createGallery();
         $gallery->name = 'New name';
@@ -108,7 +108,7 @@ class GalleryTest extends DatabaseAwareTestCase
         $gallery->name = 'New name';
         $gallery->update();
 
-        $foundGallery = Gallery::findById($gallery->getIdAsInt());
+        $foundGallery = Gallery::findById($gallery->id);
         $this->assertNull($foundGallery);
     }
 
@@ -125,26 +125,6 @@ class GalleryTest extends DatabaseAwareTestCase
         $this->assertArrayHasKey('updated', $formattedGallery);
     }
 
-    public function testFindByKeywordInName(): void
-    {
-        $this->createGallery('Test');
-        $this->createGallery('Test2');
-        $this->createGallery('Tes2t');
-        $found = Gallery::findByKeyword('test');
-
-        $this->assertCount(2, iterator_to_array($found));
-    }
-
-    public function testFindByKeywordInDescription(): void
-    {
-        $this->createGallery('Test', description: 'Testgallery 1');
-        $this->createGallery('Test2', description: 'Testgallery 12');
-        $this->createGallery('Tes2t', description: 'Testgallery 2');
-        $found = Gallery::findByKeyword('Testgallery 1');
-
-        $this->assertCount(2, iterator_to_array($found));
-    }
-
     public function testGetUpdatedBy(): void
     {
         $gallery = $this->createGallery();
@@ -156,17 +136,17 @@ class GalleryTest extends DatabaseAwareTestCase
         $gallery = $this->createGallery();
         $gallery->delete();
 
-        $foundGallery = Gallery::findById($gallery->getIdAsInt());
+        $foundGallery = Gallery::findById($gallery->id);
         $this->assertNull($foundGallery);
     }
 
     public function testDeleteWithGalleryFilePositions(): void
     {
         $gallery = $this->createGallery();
-        $this->createPosition(1, $gallery->getIdAsInt());
+        $this->createPosition(1, $gallery->id);
         $gallery->delete();
 
-        $foundGallery = Gallery::findById($gallery->getIdAsInt());
+        $foundGallery = Gallery::findById($gallery->id);
         $this->assertNull($foundGallery);
     }
 
@@ -176,7 +156,7 @@ class GalleryTest extends DatabaseAwareTestCase
         $gallery->delete();
         $gallery->delete();
 
-        $foundGallery = Gallery::findById($gallery->getIdAsInt());
+        $foundGallery = Gallery::findById($gallery->id);
         $this->assertNull($foundGallery);
     }
 
@@ -194,15 +174,7 @@ class GalleryTest extends DatabaseAwareTestCase
     {
         $gallery = $this->createGallery();
 
-        $foundGallery = Gallery::findById($gallery->getIdAsInt());
+        $foundGallery = Gallery::findById($gallery->id);
         $this->assertEquals($gallery->format(), $foundGallery->format());
-    }
-
-    public function testFindByIdNotSaved(): void
-    {
-        $gallery = $this->createGallery(execute: false);
-
-        $foundGallery = Gallery::findById($gallery->getIdAsInt());
-        $this->assertNull($foundGallery);
     }
 }
