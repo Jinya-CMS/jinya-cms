@@ -13,59 +13,59 @@ class ThemeSegmentPageTest extends ThemeTestCase
 
     public function testFindByThemeNoSegmentPage(): void
     {
-        $themeSegmentPages = ThemeSegmentPage::findByTheme($this->theme->getIdAsInt());
+        $themeSegmentPages = ThemeSegmentPage::findByTheme($this->theme->id);
         self::assertCount(0, iterator_to_array($themeSegmentPages));
     }
 
     public function testFindByTheme(): void
     {
         $themeSegmentPage = new ThemeSegmentPage();
-        $themeSegmentPage->segmentPageId = $this->segmentPage->getIdAsInt();
-        $themeSegmentPage->themeId = $this->theme->getIdAsInt();
+        $themeSegmentPage->segmentPageId = $this->segmentPage->id;
+        $themeSegmentPage->themeId = $this->theme->id;
         $themeSegmentPage->name = 'Test';
         $themeSegmentPage->create();
 
-        $themeSegmentPages = ThemeSegmentPage::findByTheme($this->theme->getIdAsInt());
+        $themeSegmentPages = ThemeSegmentPage::findByTheme($this->theme->id);
         self::assertCount(1, iterator_to_array($themeSegmentPages));
     }
 
     public function testFindByThemeAndNameNotFound(): void
     {
-        $found = ThemeSegmentPage::findByThemeAndName($this->theme->getIdAsInt(), 'Test');
+        $found = ThemeSegmentPage::findByThemeAndName($this->theme->id, 'Test');
         self::assertNull($found);
     }
 
     public function testFindByThemeAndName(): void
     {
         $themeSegmentPage = new ThemeSegmentPage();
-        $themeSegmentPage->segmentPageId = $this->segmentPage->getIdAsInt();
-        $themeSegmentPage->themeId = $this->theme->getIdAsInt();
+        $themeSegmentPage->segmentPageId = $this->segmentPage->id;
+        $themeSegmentPage->themeId = $this->theme->id;
         $themeSegmentPage->name = 'Test';
         $themeSegmentPage->create();
 
-        $found = ThemeSegmentPage::findByThemeAndName($this->theme->getIdAsInt(), 'Test');
+        $found = ThemeSegmentPage::findByThemeAndName($this->theme->id, 'Test');
         self::assertEquals($themeSegmentPage->format(), $found->format());
     }
 
     public function testDelete(): void
     {
         $themeSegmentPage = new ThemeSegmentPage();
-        $themeSegmentPage->segmentPageId = $this->segmentPage->getIdAsInt();
-        $themeSegmentPage->themeId = $this->theme->getIdAsInt();
+        $themeSegmentPage->segmentPageId = $this->segmentPage->id;
+        $themeSegmentPage->themeId = $this->theme->id;
         $themeSegmentPage->name = 'Test';
         $themeSegmentPage->create();
 
-        self::assertNotNull(ThemeSegmentPage::findByThemeAndName($this->theme->getIdAsInt(), 'Test'));
+        self::assertNotNull(ThemeSegmentPage::findByThemeAndName($this->theme->id, 'Test'));
 
         $themeSegmentPage->delete();
-        self::assertNull(ThemeSegmentPage::findByThemeAndName($this->theme->getIdAsInt(), 'Test'));
+        self::assertNull(ThemeSegmentPage::findByThemeAndName($this->theme->id, 'Test'));
     }
 
     public function testUpdate(): void
     {
         $themeSegmentPage = new ThemeSegmentPage();
-        $themeSegmentPage->segmentPageId = $this->segmentPage->getIdAsInt();
-        $themeSegmentPage->themeId = $this->theme->getIdAsInt();
+        $themeSegmentPage->segmentPageId = $this->segmentPage->id;
+        $themeSegmentPage->themeId = $this->theme->id;
         $themeSegmentPage->name = 'Test';
         $themeSegmentPage->create();
 
@@ -73,29 +73,29 @@ class ThemeSegmentPageTest extends ThemeTestCase
         $segmentPage->name = 'TempsegmentPage';
         $segmentPage->create();
 
-        $themeSegmentPage->segmentPageId = $segmentPage->getIdAsInt();
+        $themeSegmentPage->segmentPageId = $segmentPage->id;
         $themeSegmentPage->update();
-        $found = ThemeSegmentPage::findByThemeAndName($this->theme->getIdAsInt(), 'Test');
+        $found = ThemeSegmentPage::findByThemeAndName($this->theme->id, 'Test');
         self::assertNotNull($found);
-        self::assertEquals($segmentPage->getIdAsInt(), $found->segmentPageId);
+        self::assertEquals($segmentPage->id, $found->segmentPageId);
     }
 
     public function testCreate(): void
     {
         $themeSegmentPage = new ThemeSegmentPage();
-        $themeSegmentPage->segmentPageId = $this->segmentPage->getIdAsInt();
-        $themeSegmentPage->themeId = $this->theme->getIdAsInt();
+        $themeSegmentPage->segmentPageId = $this->segmentPage->id;
+        $themeSegmentPage->themeId = $this->theme->id;
         $themeSegmentPage->name = 'Test';
         $themeSegmentPage->create();
 
-        self::assertNotNull(ThemeSegmentPage::findByThemeAndName($this->theme->getIdAsInt(), 'Test'));
+        self::assertNotNull(ThemeSegmentPage::findByThemeAndName($this->theme->id, 'Test'));
     }
 
     public function testSegmentPageat(): void
     {
         $themeSegmentPage = new ThemeSegmentPage();
-        $themeSegmentPage->segmentPageId = $this->segmentPage->getIdAsInt();
-        $themeSegmentPage->themeId = $this->theme->getIdAsInt();
+        $themeSegmentPage->segmentPageId = $this->segmentPage->id;
+        $themeSegmentPage->themeId = $this->theme->id;
         $themeSegmentPage->name = 'Test';
         $themeSegmentPage->create();
 

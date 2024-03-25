@@ -1,37 +1,43 @@
 <?php
 /** @var string[] $data */
+
 ?>
-<?php $this->layout('install::layout', ['title' => 'Create first admin']) ?>
-<?php $this->start('body') ?>
+<?php
+$this->layout('install::layout', ['title' => 'Create first admin']) ?>
+<?php
+$this->start('body') ?>
 <form class="installer-form" method="post">
-    <input type="hidden" name="action" value="admin">
-    <h1>Create first admin</h1>
-    <?php if (isset($error)): ?>
-        <div class="installer-message--error">
-            <?= $error ?>
-        </div>
-    <?php endif ?>
-    <fieldset class="installer-fieldset">
-        <legend class="installer-legend">User data</legend>
-        <div class="installer-block">
-            <label for="artistname">Artist name</label>
-            <input required class="installer-input" type="text" name="artistname" id="artistname"
-                   value="<?= $data['artistname'] ?? '' ?>">
-        </div>
-        <div class="installer-block">
-            <label for="email">Email</label>
-            <input required class="installer-input" type="email" name="email" id="email"
-                   value="<?= $data['email'] ?? '' ?>">
-        </div>
-        <div class="installer-block">
-            <label for="password">Password</label>
-            <input required class="installer-input" type="password" value="<?= $data['password'] ?? '' ?>"
-                   name="password"
-                   id="password">
-        </div>
-    </fieldset>
-    <div>
-        <button class="installer-button" type="submit">Create admin and go to designer</button>
+  <input type="hidden" name="action" value="admin">
+  <h1>Create first admin</h1>
+    <?php
+    if (isset($error)): ?>
+      <div class="installer-message--error">
+          <?= $error ?>
+      </div>
+    <?php
+    endif ?>
+  <fieldset class="installer-fieldset">
+    <legend class="installer-legend">User data</legend>
+    <div class="installer-block">
+      <label for="artistname">Artist name</label>
+      <input required class="installer-input" type="text" name="artistname" id="artistname"
+             value="<?= $data['artistname'] ?? '' ?>">
     </div>
+    <div class="installer-block">
+      <label for="email">Email</label>
+      <input required class="installer-input" type="email" name="email" id="email"
+             value="<?= $data['email'] ?? '' ?>">
+    </div>
+    <div class="installer-block">
+      <label for="password">Password</label>
+      <input required class="installer-input" type="password" value="<?= $data['password'] ?? '' ?>"
+             name="password"
+             id="password">
+    </div>
+  </fieldset>
+  <div>
+    <button class="installer-button" type="submit">Create admin and go to designer</button>
+  </div>
 </form>
-<?php $this->stop() ?>
+<?php
+$this->stop() ?>

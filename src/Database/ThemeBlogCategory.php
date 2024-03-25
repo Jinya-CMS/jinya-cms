@@ -2,19 +2,35 @@
 
 namespace App\Database;
 
-use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\UniqueFailedException;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
+use Jinya\Database\Attributes\Column;
+use Jinya\Database\Attributes\Table;
+use Jinya\Database\Creatable;
+use Jinya\Database\Deletable;
+use Jinya\Database\DeletableEntityTrait;
+use Jinya\Database\EntityTrait;
+use Jinya\Database\Updatable;
 
 /**
  * This class contains a blog category connected to a theme
  */
-class ThemeBlogCategory extends Utils\ThemeHelperEntity
+#[Table('theme_blog_category')]
+class ThemeBlogCategory implements Creatable, Updatable, Deletable
 {
+    use EntityTrait;
+    use DeletableEntityTrait;
+
+    /** @var string The theme name */
+    #[Column]
+    public string $name = '';
+
+    /** @var int The theme id */
+    #[Column(sqlName: 'theme_id')]
+    public int $themeId = -1;
+
     /** @var int The blog category ID */
+    #[Column(sqlName: 'blog_category_id')]
     public int $blogCategoryId = -1;
 
     /**
@@ -23,84 +39,88 @@ class ThemeBlogCategory extends Utils\ThemeHelperEntity
      * @param int $themeId
      * @param string $name
      * @return ThemeBlogCategory|null
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws UniqueFailedException
-     * @throws NoResultException
-     * @throws NoResultException
      */
     public static function findByThemeAndName(int $themeId, string $name): ThemeBlogCategory|null
     {
-        /**
-         * @phpstan-ignore-next-line
-         */
-        return self::fetchByThemeAndName($themeId, $name, 'theme_blog_category', new self());
+        $query = self::getQueryBuilder()
+            ->newSelect()
+            ->from(self::getTableName())
+            ->cols([
+                'theme_id',
+                'name',
+                'blog_category_id',
+            ])
+            ->where('theme_id = :themeId AND name = :name', ['themeId' => $themeId, 'name' => $name]);
+
+        $data = self::executeQuery($query);
+        if (empty($data)) {
+            return null;
+        }
+
+        return self::fromArray($data[0]);
     }
 
     /**
-     * Finds all theme blog categories in the with the given ID
+     * Finds all theme blog categories in the theme with the given ID
      *
      * @param int $themeId
      * @return Iterator<ThemeBlogCategory>
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws UniqueFailedException
      */
     public static function findByTheme(int $themeId): Iterator
     {
-        /**
-         * @phpstan-ignore-next-line
-         */
-        return self::fetchByTheme($themeId, 'theme_blog_category', new self());
+        $query = self::getQueryBuilder()
+            ->newSelect()
+            ->from(self::getTableName())
+            ->cols([
+                'theme_id',
+                'name',
+                'blog_category_id',
+            ])
+            ->where('theme_id = :themeId', ['themeId' => $themeId]);
+
+        $data = self::executeQuery($query);
+        foreach ($data as $item) {
+            yield self::fromArray($item);
+        }
     }
 
     /**
      * Creates the current theme blog category
      *
      * @return void
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws UniqueFailedException
      */
     public function create(): void
     {
-        $this->internalCreate('theme_blog_category');
+        $query = self::getQueryBuilder()
+            ->newInsert()
+            ->into(self::getTableName())
+            ->addRow([
+                'theme_id' => $this->themeId,
+                'name' => $this->name,
+                'blog_category_id' => $this->blogCategoryId,
+            ]);
+
+        self::executeQuery($query);
     }
 
     /**
-     * Deletes the current theme blog category
-     *
-     * @return void
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws UniqueFailedException
-     */
-    public function delete(): void
-    {
-        $this->internalDelete('theme_blog_category');
-    }
-
-    /**
-     * Updates the current theme
-     *
-     * @return void
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws UniqueFailedException
+     * @inheritDoc
      */
     public function update(): void
     {
-        $this->internalUpdate('theme_blog_category');
+        $query = self::getQueryBuilder()
+            ->newUpdate()
+            ->table(self::getTableName())
+            ->set('blog_category_id', $this->blogCategoryId)
+            ->where('theme_id = :themeId AND name = :name', ['themeId' => $this->themeId, 'name' => $this->name]);
+
+        self::executeQuery($query);
     }
 
     /**
      * Formats the theme blog category into an array
      *
      * @return array<string, array<string, mixed>|string|null>
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     * @throws UniqueFailedException
      */
     #[ArrayShape(['name' => 'string', 'blogCategory' => 'array'])]
     public function format(): array
@@ -115,10 +135,6 @@ class ThemeBlogCategory extends Utils\ThemeHelperEntity
      * Gets the blog category associated to this theme blog category
      *
      * @return BlogCategory|null
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     * @throws UniqueFailedException
      */
     public function getBlogCategory(): BlogCategory|null
     {

@@ -2,7 +2,7 @@
 
 namespace App\Tests\Extensions\Subscriber;
 
-use App\Database\Utils\LoadableEntity;
+use Jinya\Database\Entity;
 use PHPUnit\Event\Test\AfterLastTestMethodFinished;
 use PHPUnit\Event\Test\AfterLastTestMethodFinishedSubscriber;
 
@@ -11,37 +11,37 @@ class DropAllTablesSubscriber implements AfterLastTestMethodFinishedSubscriber
 {
     public function notify(AfterLastTestMethodFinished $event): void
     {
-        LoadableEntity::executeSqlString('drop table if exists api_key');
-        LoadableEntity::executeSqlString('drop table if exists blog_post_segment');
-        LoadableEntity::executeSqlString('drop table if exists blog_post');
-        LoadableEntity::executeSqlString('drop table if exists configuration');
-        LoadableEntity::executeSqlString('drop table if exists form_item');
-        LoadableEntity::executeSqlString('drop table if exists gallery_file_position');
-        LoadableEntity::executeSqlString('drop table if exists known_device');
-        LoadableEntity::executeSqlString('drop table if exists menu_item');
-        LoadableEntity::executeSqlString('drop table if exists migration_state');
-        LoadableEntity::executeSqlString('drop table if exists segment');
-        LoadableEntity::executeSqlString('drop table if exists theme_asset');
-        LoadableEntity::executeSqlString('drop table if exists theme_blog_category');
-        LoadableEntity::executeSqlString('drop table if exists blog_category');
-        LoadableEntity::executeSqlString('drop table if exists theme_file');
-        LoadableEntity::executeSqlString('drop table if exists theme_form');
-        LoadableEntity::executeSqlString('drop table if exists message');
-        LoadableEntity::executeSqlString('drop table if exists form');
-        LoadableEntity::executeSqlString('drop table if exists theme_gallery');
-        LoadableEntity::executeSqlString('drop table if exists gallery');
-        LoadableEntity::executeSqlString('drop table if exists theme_menu');
-        LoadableEntity::executeSqlString('drop table if exists menu');
-        LoadableEntity::executeSqlString('drop table if exists theme_page');
-        LoadableEntity::executeSqlString('drop table if exists page');
-        LoadableEntity::executeSqlString('drop table if exists theme_segment_page');
-        LoadableEntity::executeSqlString('drop table if exists segment_page');
-        LoadableEntity::executeSqlString('drop table if exists theme');
-        LoadableEntity::executeSqlString('drop table if exists uploading_file_chunk');
-        LoadableEntity::executeSqlString('drop table if exists uploading_file');
-        LoadableEntity::executeSqlString('drop table if exists file_tag_file');
-        LoadableEntity::executeSqlString('drop table if exists file_tag');
-        LoadableEntity::executeSqlString('drop table if exists file');
-        LoadableEntity::executeSqlString('drop table if exists users');
+        Entity::getPDO()->exec('drop table if exists api_key cascade');
+        Entity::getPDO()->exec('drop table if exists blog_post_segment cascade');
+        Entity::getPDO()->exec('drop table if exists blog_post cascade');
+        Entity::getPDO()->exec('drop table if exists configuration cascade');
+        Entity::getPDO()->exec('drop table if exists form_item cascade');
+        Entity::getPDO()->exec('drop table if exists gallery_file_position cascade');
+        Entity::getPDO()->exec('drop table if exists known_device cascade');
+        Entity::getPDO()->exec('drop table if exists menu_item cascade');
+        Entity::getPDO()->exec('drop table if exists migration_state cascade');
+        Entity::getPDO()->exec('drop table if exists segment cascade');
+        Entity::getPDO()->exec('drop table if exists theme_asset cascade');
+        Entity::getPDO()->exec('drop table if exists theme_blog_category cascade');
+        Entity::getPDO()->exec('drop table if exists blog_category cascade');
+        Entity::getPDO()->exec('drop table if exists theme_file cascade');
+        Entity::getPDO()->exec('drop table if exists theme_form cascade');
+        Entity::getPDO()->exec('drop table if exists message cascade');
+        Entity::getPDO()->exec('drop table if exists form cascade');
+        Entity::getPDO()->exec('drop table if exists theme_gallery cascade');
+        Entity::getPDO()->exec('drop table if exists gallery cascade');
+        Entity::getPDO()->exec('drop table if exists theme_menu cascade');
+        Entity::getPDO()->exec('drop table if exists menu cascade');
+        Entity::getPDO()->exec('drop table if exists theme_page cascade');
+        Entity::getPDO()->exec('drop table if exists page cascade');
+        Entity::getPDO()->exec('drop table if exists theme_segment_page cascade');
+        Entity::getPDO()->exec('drop table if exists segment_page cascade');
+        Entity::getPDO()->exec('drop table if exists theme cascade');
+        Entity::getPDO()->exec('drop table if exists uploading_file_chunk cascade');
+        Entity::getPDO()->exec('drop table if exists uploading_file cascade');
+        Entity::getPDO()->exec('drop table if exists file_tag_file cascade');
+        Entity::getPDO()->exec('drop table if exists file_tag cascade');
+        Entity::getPDO()->exec('drop table if exists file cascade');
+        Entity::getPDO()->exec('drop table if exists users cascade');
     }
 }

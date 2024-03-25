@@ -1,8 +1,24 @@
 <?php
 
-return [
-    'version' => 'initial',
-    'sql' => <<<'SQL'
+namespace App\Database\Migrations;
+
+use Jinya\Database\Migration\AbstractMigration;
+use PDO;
+
+class InitialMigration extends AbstractMigration
+{
+    public function getMigrationName(): string
+    {
+        return 'initial';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function up(PDO $pdo): void
+    {
+        $pdo->exec(
+            <<<SQL
 create table if not exists migration_state
 (
     version varchar(255) primary key
@@ -558,5 +574,14 @@ collate=utf8_unicode_ci;
 
 create index IDX_3F70FB06FD34D444
  on uploading_file_chunk (uploading_file_id);
-SQL,
-];
+SQL
+        );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function down(PDO $pdo): void
+    {
+    }
+}

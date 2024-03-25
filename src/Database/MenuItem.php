@@ -4,15 +4,12 @@ namespace App\Database;
 
 use App\Database\Converter\BooleanConverter;
 use App\Database\Converter\NullableBooleanConverter;
-use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\UniqueFailedException;
 use Iterator;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
 use Jinya\Database\EntityTrait;
 use Jinya\Database\FindableEntityTrait;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
 
 /**
  * This class contains a menu item. A menu item is a class containing information about an entry in a menu.
@@ -244,53 +241,6 @@ class MenuItem
         }
     }
 
-
-    /**
-     * Finds all menu items that are direct children of the given menu item
-     *
-     * @param int $parentId
-     * @return Iterator<MenuItem>
-     */
-    public static function findByParent(int $parentId): Iterator
-    {
-        $query = self::getQueryBuilder()
-            ->newSelect()
-            ->from(self::getTableName())
-            ->cols([
-                'id',
-                'menu_id',
-                'parent_id',
-                'title',
-                'highlighted',
-                'position',
-                'artist_id',
-                'page_id',
-                'form_id',
-                'gallery_id',
-                'segment_page_id',
-                'category_id',
-                'route',
-                'blog_home_page'
-            ])
-            ->where('parent_id = :parentId', ['parentId' => $parentId])
-            ->orderBy(['position']);
-
-        $data = self::executeQuery($query);
-
-        foreach ($data as $item) {
-            yield self::fromArray($item);
-        }
-    }
-
-    /**
-     *  Gets the menu items
-     * @return Iterator<MenuItem>
-     */
-    public function getItems(): Iterator
-    {
-        return self::findByParent($this->id);
-    }
-
     /**
      * Gets the parent
      *
@@ -489,5 +439,51 @@ class MenuItem
         }
 
         return $data;
+    }
+
+    /**
+     *  Gets the menu items
+     * @return Iterator<MenuItem>
+     */
+    public function getItems(): Iterator
+    {
+        return self::findByParent($this->id);
+    }
+
+    /**
+     * Finds all menu items that are direct children of the given menu item
+     *
+     * @param int $parentId
+     * @return Iterator<MenuItem>
+     */
+    public static function findByParent(int $parentId): Iterator
+    {
+        $query = self::getQueryBuilder()
+            ->newSelect()
+            ->from(self::getTableName())
+            ->cols([
+                'id',
+                'menu_id',
+                'parent_id',
+                'title',
+                'highlighted',
+                'position',
+                'artist_id',
+                'page_id',
+                'form_id',
+                'gallery_id',
+                'segment_page_id',
+                'category_id',
+                'route',
+                'blog_home_page'
+            ])
+            ->where('parent_id = :parentId', ['parentId' => $parentId])
+            ->orderBy(['position']);
+
+        $data = self::executeQuery($query);
+
+        foreach ($data as $item) {
+            yield self::fromArray($item);
+        }
     }
 }

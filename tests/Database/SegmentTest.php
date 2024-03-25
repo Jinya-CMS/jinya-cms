@@ -41,9 +41,6 @@ class SegmentTest extends DatabaseAwareTestCase
                 'type' => $file->type,
                 'path' => $file->path,
             ],
-            'target' => $segment->target,
-            'action' => $segment->action,
-            'script' => $segment->script,
         ], $segment->format());
     }
 

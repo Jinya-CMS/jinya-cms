@@ -9,7 +9,6 @@ use JetBrains\PhpStorm\Pure;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
-use Jinya\Database\CreatableEntityTrait;
 use Jinya\Database\EntityTrait;
 
 /**

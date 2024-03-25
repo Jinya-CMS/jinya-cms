@@ -2,18 +2,35 @@
 
 namespace App\Database;
 
-use App\Database\Utils\ThemeHelperEntity;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
+use Jinya\Database\Attributes\Column;
+use Jinya\Database\Attributes\Table;
+use Jinya\Database\Creatable;
+use Jinya\Database\Deletable;
+use Jinya\Database\DeletableEntityTrait;
+use Jinya\Database\EntityTrait;
+use Jinya\Database\Updatable;
 
 /**
  * This class contains a gallery connected to a theme
  */
-class ThemeGallery extends ThemeHelperEntity
+#[Table('theme_gallery')]
+class ThemeGallery implements Creatable, Updatable, Deletable
 {
+    use EntityTrait;
+    use DeletableEntityTrait;
+
+    /** @var string The theme name */
+    #[Column]
+    public string $name = '';
+
+    /** @var int The theme id */
+    #[Column(sqlName: 'theme_id')]
+    public int $themeId = -1;
+
     /** @var int The gallery ID */
+    #[Column(sqlName: 'gallery_id')]
     public int $galleryId = -1;
 
     /**
@@ -22,42 +39,55 @@ class ThemeGallery extends ThemeHelperEntity
      * @param int $themeId
      * @param string $name
      * @return ThemeGallery|null
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws Exceptions\UniqueFailedException
-     * @throws NoResultException
-     * @throws NoResultException
      */
     public static function findByThemeAndName(int $themeId, string $name): ?ThemeGallery
     {
-        /**
-         * @phpstan-ignore-next-line
-         */
-        return self::fetchByThemeAndName($themeId, $name, 'theme_gallery', new self());
+        $query = self::getQueryBuilder()
+            ->newSelect()
+            ->from(self::getTableName())
+            ->cols([
+                'theme_id',
+                'name',
+                'gallery_id',
+            ])
+            ->where('theme_id = :themeId AND name = :name', ['themeId' => $themeId, 'name' => $name]);
+
+        $data = self::executeQuery($query);
+        if (empty($data)) {
+            return null;
+        }
+
+        return self::fromArray($data[0]);
     }
 
     /**
      * Finds the galleries for the given theme
      *
      * @param int $themeId
-     * @return Iterator
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws Exceptions\UniqueFailedException
+     * @return Iterator<ThemeGallery>
      */
     public static function findByTheme(int $themeId): Iterator
     {
-        return self::fetchByTheme($themeId, 'theme_gallery', new self());
+        $query = self::getQueryBuilder()
+            ->newSelect()
+            ->from(self::getTableName())
+            ->cols([
+                'theme_id',
+                'name',
+                'gallery_id',
+            ])
+            ->where('theme_id = :themeId', ['themeId' => $themeId]);
+
+        $data = self::executeQuery($query);
+        foreach ($data as $item) {
+            yield self::fromArray($item);
+        }
     }
 
     /**
      * Formats the theme gallery into an array
      *
      * @return array<string, array<string, array<string, array<string, string|null>|string>|int|string>|string|null>
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     #[ArrayShape(['name' => 'string', 'gallery' => 'array'])] public function format(): array
     {
@@ -71,11 +101,6 @@ class ThemeGallery extends ThemeHelperEntity
      * Gets the gallery of the theme gallery
      *
      * @return Gallery|null
-     *
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     public function getGallery(): ?Gallery
     {
@@ -86,38 +111,32 @@ class ThemeGallery extends ThemeHelperEntity
      * Creates the given theme gallery
      *
      * @return void
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
      */
     public function create(): void
     {
-        $this->internalCreate('theme_gallery');
+        $query = self::getQueryBuilder()
+            ->newInsert()
+            ->into(self::getTableName())
+            ->addRow([
+                'theme_id' => $this->themeId,
+                'name' => $this->name,
+                'gallery_id' => $this->galleryId,
+            ]);
+
+        self::executeQuery($query);
     }
 
     /**
-     * Deletes the current theme gallery
-     *
-     * @return void
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     */
-    public function delete(): void
-    {
-        $this->internalDelete('theme_gallery');
-    }
-
-    /**
-     * Updates the current theme gallery
-     *
-     * @return void
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
+     * @inheritDoc
      */
     public function update(): void
     {
-        $this->internalUpdate('theme_gallery');
+        $query = self::getQueryBuilder()
+            ->newUpdate()
+            ->table(self::getTableName())
+            ->set('gallery_id', $this->galleryId)
+            ->where('theme_id = :themeId AND name = :name', ['themeId' => $this->themeId, 'name' => $this->name]);
+
+        self::executeQuery($query);
     }
 }

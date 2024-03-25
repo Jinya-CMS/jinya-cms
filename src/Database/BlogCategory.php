@@ -3,16 +3,12 @@
 namespace App\Database;
 
 use App\Database\Converter\BooleanConverter;
-use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\UniqueFailedException;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
 use Jinya\Database\Entity;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
 use PDO;
 use PDOException;
 
@@ -52,10 +48,6 @@ class BlogCategory extends Entity
      * Formats the blog category
      *
      * @return array<string, int|string|null|mixed|bool>
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     * @throws UniqueFailedException
      */
     #[ArrayShape([
         'id' => 'int',

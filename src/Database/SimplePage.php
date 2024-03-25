@@ -3,19 +3,13 @@
 namespace App\Database;
 
 use App\Authentication\CurrentUser;
-use App\Routing\Attributes\JinyaApi;
-use App\Routing\Attributes\JinyaApiField;
 use DateTime;
-use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
 use Jinya\Database\Entity;
 use Jinya\Database\Exception\NotNullViolationException;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
-use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 /**
  * This class contains a simple page. Simple pages only contain HTML content and a title

@@ -7,9 +7,6 @@ use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
 use Jinya\Database\EntityTrait;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
-use RuntimeException;
 
 /**
  * This class contains a part of a blog post. A blog post consists of several segments.

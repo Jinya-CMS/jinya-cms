@@ -1,8 +1,27 @@
 <?php
 
-return [
-    'version' => 'category-name-not-unique',
-    'sql' => <<<'SQL'
+namespace Migrations;
+
+use Jinya\Database\Migration\AbstractMigration;
+use PDO;
+
+class CollationUtf8Mb4 extends AbstractMigration
+{
+    /**
+     * @inheritDoc
+     */
+    public function getMigrationName(): string
+    {
+        return 'collation-utf8mb4';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function up(PDO $pdo): void
+    {
+        $pdo->exec(
+            <<<'SQL'
 alter table api_key convert to character set utf8mb4 collate utf8mb4_bin;
 alter table blog_category convert to character set utf8mb4 collate utf8mb4_bin;
 alter table blog_post convert to character set utf8mb4 collate utf8mb4_bin;
@@ -30,4 +49,13 @@ alter table theme_menu convert to character set utf8mb4 collate utf8mb4_bin;
 alter table theme_page convert to character set utf8mb4 collate utf8mb4_bin;
 alter table theme_segment_page convert to character set utf8mb4 collate utf8mb4_bin;
 SQL
-];
+        );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function down(PDO $pdo): void
+    {
+    }
+}

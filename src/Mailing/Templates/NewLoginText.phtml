@@ -8,7 +8,9 @@
  * @var $platform string
  */
 
-use League\Plates\Template\Template; ?>
+use League\Plates\Template\Template;
+
+?>
 Hello <?= $this->e($artistName) ?>
 
 there was a new successful login for your account.
@@ -16,14 +18,14 @@ there was a new successful login for your account.
 The login was from the IP address <?= $this->e($remoteAddress) ?>.
 <?php
 if (array_key_exists('city', $location) && !empty($location['city'])): ?>
-    Which is located at, <?= $this->e($location['city']) ?>, <?= $this->e($location['region']) ?> in <?= $this->e(
-        $location['country']
-    ) ?>.
+  Which is located at, <?= $this->e($location['city']) ?>, <?= $this->e($location['region']) ?> in <?= $this->e(
+      $location['country']
+  ) ?>.
 <?php
 endif ?>
 <?php
 if (!empty($browser)): ?>
-    The browser used was <?= $this->e($browser) ?> on <?= $this->e($platform) ?>
+  The browser used was <?= $this->e($browser) ?> on <?= $this->e($platform) ?>
 <?php
 endif ?>
 

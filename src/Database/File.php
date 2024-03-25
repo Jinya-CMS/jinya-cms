@@ -85,6 +85,37 @@ class File extends Entity
     }
 
     /**
+     * @return void
+     */
+    public function setTagsInDatabase(): void
+    {
+        $rows = [];
+        foreach ($this->tags as $tag) {
+            $tag = FileTag::findByName($tag);
+            if ($tag) {
+                $rows[] = [
+                    'file_id' => $this->id,
+                    'file_tag_id' => $tag->id
+                ];
+            }
+        }
+
+        $query = self::getQueryBuilder()
+            ->newDelete()
+            ->from('file_tag_file')
+            ->where('file_id = :fileId', ['fileId' => $this->id]);
+        self::executeQuery($query);
+
+        if (!empty($rows)) {
+            $query = self::getQueryBuilder()
+                ->newInsert()
+                ->into('file_tag_file')
+                ->addRows($rows);
+            self::executeQuery($query);
+        }
+    }
+
+    /**
      * Updates the current file
      *
      * @return void
@@ -103,7 +134,6 @@ class File extends Entity
      * Formats the file into an array
      *
      * @return array{id: int, name: string, type: string, path: string, tags: array<array{name: string, color: string|null, emoji: string|null}>, created: array{by: array{artistName: string|null, email: string|null, profilePicture: string|null}, at: non-falsy-string}, updated: array{by: array{artistName: string|null, email: string|null, profilePicture: string|null}, at: non-falsy-string}}
-     * @throws Exception
      */
     #[ArrayShape([
         'id' => 'int',
@@ -191,37 +221,6 @@ class File extends Entity
         $data = self::executeQuery($query);
         foreach ($data as $item) {
             yield FileTag::fromArray($item);
-        }
-    }
-
-    /**
-     * @return void
-     */
-    public function setTagsInDatabase(): void
-    {
-        $rows = [];
-        foreach ($this->tags as $tag) {
-            $tag = FileTag::findByName($tag);
-            if ($tag) {
-                $rows[] = [
-                    'file_id' => $this->id,
-                    'file_tag_id' => $tag->id
-                ];
-            }
-        }
-
-        $query = self::getQueryBuilder()
-            ->newDelete()
-            ->from('file_tag_file')
-            ->where('file_id = :fileId', ['fileId' => $this->id]);
-        self::executeQuery($query);
-
-        if (!empty($rows)) {
-            $query = self::getQueryBuilder()
-                ->newInsert()
-                ->into('file_tag_file')
-                ->addRows($rows);
-            self::executeQuery($query);
         }
     }
 }

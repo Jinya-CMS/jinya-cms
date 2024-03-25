@@ -61,7 +61,9 @@ abstract class JinyaModelToRouteResolver
         if (count($jinyaApiAttributes) !== 1) {
             throw new HttpNotFoundException($request);
         }
-        if (!$reflectionClass->isSubclassOf(LoadableEntity::class) || !$reflectionClass->implementsInterface(FormattableEntityInterface::class)) {
+        if (!$reflectionClass->isSubclassOf(LoadableEntity::class) || !$reflectionClass->implementsInterface(
+            FormattableEntityInterface::class
+        )) {
             throw new HttpNotFoundException($request);
         }
 
@@ -81,16 +83,34 @@ abstract class JinyaModelToRouteResolver
         $method = strtolower($request->getMethod());
 
         if ($method === 'get' && $jinyaApiArguments['readEnabled']) {
-            return self::executeGetRequest($reflectionClass, $jinyaApiArguments['readRole'], $request, $response, $args);
+            return self::executeGetRequest(
+                $reflectionClass,
+                $jinyaApiArguments['readRole'],
+                $request,
+                $response,
+                $args
+            );
         }
         if ($method === 'delete' && $jinyaApiArguments['deleteEnabled']) {
-            return self::executeDeleteRequest($reflectionClass, $jinyaApiArguments['deleteRole'], $request, $response, $args);
+            return self::executeDeleteRequest(
+                $reflectionClass,
+                $jinyaApiArguments['deleteRole'],
+                $request,
+                $response,
+                $args
+            );
         }
         if ($method === 'post' && $jinyaApiArguments['createEnabled']) {
             return self::executePostRequest($reflectionClass, $jinyaApiArguments['createRole'], $request, $response);
         }
         if ($method === 'put' && $jinyaApiArguments['updateEnabled']) {
-            return self::executePutRequest($reflectionClass, $jinyaApiArguments['updateRole'], $request, $response, $args);
+            return self::executePutRequest(
+                $reflectionClass,
+                $jinyaApiArguments['updateRole'],
+                $request,
+                $response,
+                $args
+            );
         }
 
         throw new HttpMethodNotAllowedException($request);
@@ -112,8 +132,13 @@ abstract class JinyaModelToRouteResolver
      * @throws ReflectionException
      * @throws UniqueFailedException
      */
-    private static function executeGetRequest(ReflectionClass $reflectionClass, string $role, Request $request, Response $response, array $args): Response
-    {
+    private static function executeGetRequest(
+        ReflectionClass $reflectionClass,
+        string $role,
+        Request $request,
+        Response $response,
+        array $args
+    ): Response {
         self::checkRole($request, $role);
         if (array_key_exists('id', $args)) {
             $id = $args['id'];
@@ -131,7 +156,9 @@ abstract class JinyaModelToRouteResolver
                 }
             }
         } else {
-            if (array_key_exists('keyword', $request->getQueryParams()) && $reflectionClass->hasMethod('findByKeyword')) {
+            if (array_key_exists('keyword', $request->getQueryParams()) && $reflectionClass->hasMethod(
+                'findByKeyword'
+            )) {
                 $method = $reflectionClass->getMethod('findByKeyword');
                 $result = $method->invoke(null, $request->getQueryParams()['keyword']);
             } elseif ($reflectionClass->hasMethod('findAll')) {
@@ -196,8 +223,13 @@ abstract class JinyaModelToRouteResolver
      * @throws ReflectionException
      * @throws UniqueFailedException
      */
-    private static function executeDeleteRequest(ReflectionClass $reflectionClass, string $role, Request $request, Response $response, array $args): Response
-    {
+    private static function executeDeleteRequest(
+        ReflectionClass $reflectionClass,
+        string $role,
+        Request $request,
+        Response $response,
+        array $args
+    ): Response {
         self::checkRole($request, $role);
         if (array_key_exists('id', $args)) {
             $id = $args['id'];
@@ -230,8 +262,12 @@ abstract class JinyaModelToRouteResolver
      * @throws ReflectionException
      * @throws UniqueFailedException
      */
-    private static function executePostRequest(ReflectionClass $reflectionClass, string $role, Request $request, Response $response): Response
-    {
+    private static function executePostRequest(
+        ReflectionClass $reflectionClass,
+        string $role,
+        Request $request,
+        Response $response
+    ): Response {
         self::checkRole($request, $role);
         /** @var LoadableEntity $entity */
         $entity = $reflectionClass->newInstance();
@@ -293,8 +329,13 @@ abstract class JinyaModelToRouteResolver
      * @throws ReflectionException
      * @throws UniqueFailedException
      */
-    private static function executePutRequest(ReflectionClass $reflectionClass, string $role, Request $request, Response $response, array $args): Response
-    {
+    private static function executePutRequest(
+        ReflectionClass $reflectionClass,
+        string $role,
+        Request $request,
+        Response $response,
+        array $args
+    ): Response {
         self::checkRole($request, $role);
         if (array_key_exists('id', $args)) {
             $id = $args['id'];

@@ -29,7 +29,6 @@ class CreateHtmlSegmentAction extends Action
      */
     protected function action(): Response
     {
-
         $id = $this->args['id'];
         $segmentPage = SegmentPage::findById($id);
 

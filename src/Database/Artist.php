@@ -19,7 +19,6 @@ use JetBrains\PhpStorm\Pure;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
-use Jinya\Database\Converters\DateConverter;
 use Jinya\Database\Entity;
 use Jinya\Database\Exception\NotNullViolationException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;

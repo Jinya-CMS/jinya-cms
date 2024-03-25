@@ -62,6 +62,9 @@ class CheckRequiredFieldsMiddleware implements MiddlewareInterface
             return true;
         }
 
-        throw new MissingFieldsException($request, array_values(array_diff($requiredFields, array_values($intersectBody))));
+        throw new MissingFieldsException(
+            $request,
+            array_values(array_diff($requiredFields, array_values($intersectBody)))
+        );
     }
 }

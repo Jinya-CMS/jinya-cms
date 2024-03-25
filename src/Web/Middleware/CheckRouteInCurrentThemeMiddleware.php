@@ -79,7 +79,8 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
             $activeThemingTheme = new Theming\Theme($activeTheme);
             if (Theming\Theme::ERROR_BEHAVIOR_HOMEPAGE === $activeThemingTheme->getErrorBehavior()) {
                 $redirectUri = $uri->getScheme() . '://' . $uri->getHost();
-                if (($uri->getScheme() === 'https' && $uri->getPort() !== 443) || ($uri->getScheme() === 'http' && $uri->getPort() !== 80)) {
+                if (($uri->getScheme() === 'https' && $uri->getPort() !== 443) || ($uri->getScheme(
+                ) === 'http' && $uri->getPort() !== 80)) {
                     $redirectUri .= ':' . $uri->getPort();
                 }
 
@@ -103,7 +104,12 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
             if ($currentThemeHasApi) {
                 $acceptHeader = strtolower($request->getHeaderLine('Accept'));
                 $acceptMimeType = [];
-                preg_match_all('/(?!\s)(?:"(?:[^"\\\\]|\\\\.)*(?:"|\\\\|$)|[^", ]+)+(?<!\s)|\s*(?<separator>[, ])\s*/x', $acceptHeader, $acceptMimeType, PREG_SET_ORDER);
+                preg_match_all(
+                    '/(?!\s)(?:"(?:[^"\\\\]|\\\\.)*(?:"|\\\\|$)|[^", ]+)+(?<!\s)|\s*(?<separator>[, ])\s*/x',
+                    $acceptHeader,
+                    $acceptMimeType,
+                    PREG_SET_ORDER
+                );
                 if ($acceptMimeType && $acceptHeader[0] === 'application/json') {
                     $isApiRequest = true;
                 }

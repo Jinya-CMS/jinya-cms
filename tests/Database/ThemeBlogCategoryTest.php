@@ -7,6 +7,7 @@ use App\Database\Exceptions\UniqueFailedException;
 use App\Database\ThemeBlogCategory;
 use App\Tests\ThemeTestCase;
 use Faker\Provider\Uuid;
+use PDOException;
 
 class ThemeBlogCategoryTest extends ThemeTestCase
 {
@@ -34,8 +35,8 @@ class ThemeBlogCategoryTest extends ThemeTestCase
     public function createThemeBlogCategory(bool $execute = true, string $name = 'Test'): ThemeBlogCategory
     {
         $themeCat = new ThemeBlogCategory();
-        $themeCat->themeId = $this->theme->getIdAsInt();
-        $themeCat->blogCategoryId = $this->category->getIdAsInt();
+        $themeCat->themeId = $this->theme->id;
+        $themeCat->blogCategoryId = $this->category->id;
         $themeCat->name = $name;
         if ($execute) {
             $themeCat->create();
@@ -57,13 +58,13 @@ class ThemeBlogCategoryTest extends ThemeTestCase
         $themeCat = $this->createThemeBlogCategory(execute: false);
         $themeCat->create();
 
-        $foundCat = ThemeBlogCategory::findByThemeAndName($this->theme->getIdAsInt(), $themeCat->name);
+        $foundCat = ThemeBlogCategory::findByThemeAndName($this->theme->id, $themeCat->name);
         $this->assertEquals($themeCat->format(), $foundCat->format());
     }
 
     public function testCreateNonUniqueName(): void
     {
-        $this->expectException(UniqueFailedException::class);
+        $this->expectException(PDOException::class);
         $this->createThemeBlogCategory();
         $this->createThemeBlogCategory();
     }
@@ -76,17 +77,17 @@ class ThemeBlogCategoryTest extends ThemeTestCase
         $category->name = Uuid::uuid();
         $category->create();
 
-        $themeCat->blogCategoryId = $category->getIdAsInt();
+        $themeCat->blogCategoryId = $category->id;
         $themeCat->update();
 
-        $foundCat = ThemeBlogCategory::findByThemeAndName($this->theme->getIdAsInt(), $themeCat->name);
+        $foundCat = ThemeBlogCategory::findByThemeAndName($this->theme->id, $themeCat->name);
         $this->assertEquals($themeCat->format(), $foundCat->format());
     }
 
     public function testFindByThemeAndName(): void
     {
         $themeCat = $this->createThemeBlogCategory();
-        $foundCat = ThemeBlogCategory::findByThemeAndName($this->theme->getIdAsInt(), $themeCat->name);
+        $foundCat = ThemeBlogCategory::findByThemeAndName($this->theme->id, $themeCat->name);
 
         $this->assertEquals($themeCat->format(), $foundCat->format());
     }
@@ -95,7 +96,7 @@ class ThemeBlogCategoryTest extends ThemeTestCase
     {
         $themeCat = $this->createThemeBlogCategory();
         $themeCat->delete();
-        $foundCat = ThemeBlogCategory::findByThemeAndName($this->theme->getIdAsInt(), $themeCat->name);
+        $foundCat = ThemeBlogCategory::findByThemeAndName($this->theme->id, $themeCat->name);
 
         $this->assertNull($foundCat);
     }
@@ -105,7 +106,7 @@ class ThemeBlogCategoryTest extends ThemeTestCase
         $this->createThemeBlogCategory(name: Uuid::uuid());
         $this->createThemeBlogCategory(name: Uuid::uuid());
 
-        $found = ThemeBlogCategory::findByTheme($this->theme->getIdAsInt());
+        $found = ThemeBlogCategory::findByTheme($this->theme->id);
         $this->assertCount(2, iterator_to_array($found));
     }
 }

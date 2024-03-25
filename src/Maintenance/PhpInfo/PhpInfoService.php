@@ -2,9 +2,9 @@
 
 namespace App\Maintenance\PhpInfo;
 
-use App\Database\Utils\LoadableEntity;
 use Imagick;
 use JetBrains\PhpStorm\Pure;
+use Jinya\Database\Entity;
 use PDO;
 use Phar;
 use ReflectionException;
@@ -179,7 +179,7 @@ class PhpInfoService
         }
 
         if ($lowerExt === 'pdo') {
-            $pdo = LoadableEntity::getPdo();
+            $pdo = Entity::getPdo();
             return [
                 'type' => 'pdo',
                 'enabled' => true,
@@ -192,7 +192,7 @@ class PhpInfoService
         }
 
         if ($lowerExt === 'pdo_mysql') {
-            $pdo = LoadableEntity::getPdo();
+            $pdo = Entity::getPdo();
             return [
                 'type' => 'pdo_mysql',
                 'clientVersion' => $pdo->getAttribute(PDO::ATTR_CLIENT_VERSION),

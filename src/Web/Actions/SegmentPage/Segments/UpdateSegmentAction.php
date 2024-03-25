@@ -32,7 +32,6 @@ class UpdateSegmentAction extends Action
      */
     protected function action(): Response
     {
-
         $segment = Segment::findByPosition($this->args['id'], $this->args['position']);
         if (!$segment) {
             throw new HttpNotFoundException($this->request, 'Segment not found');

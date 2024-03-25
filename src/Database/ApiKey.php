@@ -13,8 +13,6 @@ use Jinya\Database\Creatable;
 use Jinya\Database\Deletable;
 use Jinya\Database\EntityTrait;
 use Jinya\Database\Updatable;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
 use PDOException;
 
 /**
@@ -118,35 +116,10 @@ class ApiKey implements Creatable, Deletable, Updatable
      * Gets the artist belonging to the api key
      *
      * @return Artist|null
-     *
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     public function getArtist(): ?Artist
     {
         return Artist::findById($this->userId);
-    }
-
-    /**
-     * Formats the api key into an array
-     *
-     * @return array<string, string>
-     */
-    #[ArrayShape([
-        'remoteAddress' => 'string',
-        'validSince' => 'string',
-        'userAgent' => 'string',
-        'key' => 'string'
-    ])] public function format(): array
-    {
-        return [
-            'remoteAddress' => $this->remoteAddress,
-            'validSince' => $this->validSince->format(DATE_ATOM),
-            'userAgent' => $this->userAgent,
-            'key' => $this->apiKey,
-        ];
     }
 
     public function create(): void
@@ -169,6 +142,26 @@ class ApiKey implements Creatable, Deletable, Updatable
                 throw new ForeignKeyFailedException();
             }
         }
+    }
+
+    /**
+     * Formats the api key into an array
+     *
+     * @return array<string, string>
+     */
+    #[ArrayShape([
+        'remoteAddress' => 'string',
+        'validSince' => 'string',
+        'userAgent' => 'string',
+        'key' => 'string'
+    ])] public function format(): array
+    {
+        return [
+            'remoteAddress' => $this->remoteAddress,
+            'validSince' => $this->validSince->format(DATE_ATOM),
+            'userAgent' => $this->userAgent,
+            'key' => $this->apiKey,
+        ];
     }
 
     public function delete(): void

@@ -25,7 +25,6 @@ class PostUpdateAction extends UpdateAction
      */
     protected function action(): ResponseInterface
     {
-
         if (isset($this->body['cancel'])) {
             unlink(__ROOT__ . '/update.lock');
         }

@@ -2,7 +2,6 @@
 
 namespace App\Web\Actions;
 
-use App\Database\Utils\FormattableEntityInterface;
 use App\Logging\Logger;
 use App\Storage\StorageBaseService;
 use Iterator;
@@ -157,8 +156,11 @@ abstract class Action
      * @param int $jsonFlags
      * @return Response
      */
-    protected function respond(mixed $payload = null, int $statusCode = Action::HTTP_OK, int $jsonFlags = JSON_THROW_ON_ERROR): Response
-    {
+    protected function respond(
+        mixed $payload = null,
+        int $statusCode = Action::HTTP_OK,
+        int $jsonFlags = JSON_THROW_ON_ERROR
+    ): Response {
         $json = json_encode($payload, $jsonFlags) ?: '';
         $this->response->getBody()->write($json);
 
@@ -229,7 +231,6 @@ abstract class Action
     {
         $data = [];
         foreach ($iterator as $item) {
-            /** @var FormattableEntityInterface $item */
             $data[] = $item->format();
         }
 

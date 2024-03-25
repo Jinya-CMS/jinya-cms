@@ -1,8 +1,27 @@
 <?php
 
-return [
-    'version' => 'blog',
-    'sql' => <<<'SQL'
+namespace Migrations;
+
+use Jinya\Database\Migration\AbstractMigration;
+use PDO;
+
+class Blog extends AbstractMigration
+{
+    /**
+     * @inheritDoc
+     */
+    public function getMigrationName(): string
+    {
+        return 'blog';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function up(PDO $pdo): void
+    {
+        $pdo->exec(
+            <<<'SQL'
 create table if not exists blog_category
 (
 	id int auto_increment primary key,
@@ -80,5 +99,14 @@ create table theme_blog_category
         foreign key (theme_id) references theme (id)
             on delete cascade
 );
-SQL,
-];
+SQL
+        );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function down(PDO $pdo): void
+    {
+    }
+}

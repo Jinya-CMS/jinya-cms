@@ -45,7 +45,12 @@ class NewSavedDeviceMail
         /**
          * @phpstan-ignore-next-line
          */
-        $location = json_decode(file_get_contents("https://ip.jinya.de/?ip=$knownDevice->remoteAddress"), true, 512, JSON_THROW_ON_ERROR);
+        $location = json_decode(
+            file_get_contents("https://ip.jinya.de/?ip=$knownDevice->remoteAddress"),
+            true,
+            512,
+            JSON_THROW_ON_ERROR
+        );
         $renderedHtmlMail = $this->templateEngine->render(
             'mailing::NewSavedDeviceHtml',
             [

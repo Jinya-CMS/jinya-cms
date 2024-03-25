@@ -3,8 +3,8 @@
 namespace App\Web\Actions\Database;
 
 use App\Database\Analyzer\QueryAnalyzer;
-use App\Database\Utils\LoadableEntity;
 use App\Web\Actions\Action;
+use Jinya\Database\Entity;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
@@ -31,15 +31,26 @@ class ExecuteQueryAction extends Action
             $result[] = match ($queryAnalyzer->getQueryType($statement)) {
                 'UPDATE', 'DELETE', 'INSERT', 'SELECT', 'EXPLAIN', 'CHECK', 'CHECKSUM', 'ANALYSE', 'SHOW' => [
                     'statement' => $builtStatement,
-                    'result' => LoadableEntity::executeSqlString($builtStatement),
+                    'result' => self::executeSqlString($builtStatement),
                 ],
                 default => [
                     'statement' => $builtStatement,
-                    'result' => 'Query not allowed',
+                    'result' => "Query hasn't been allowed",
                 ],
             };
         }
 
         return $this->respond($result);
+    }
+
+    public static function executeSqlString(string $sql): array|int
+    {
+        $pdo = Entity::getPdo();
+        $stmt = $pdo->query($sql);
+        if ($stmt && $stmt->columnCount() > 0) {
+            return $stmt->fetchAll();
+        }
+
+        return $stmt ? $stmt->rowCount() : 0;
     }
 }

@@ -46,6 +46,48 @@ class GalleryFilePosition implements Creatable, Updatable, Deletable
     public int $fileId;
 
     /**
+     * Gets the gallery file position at the given position in the given gallery
+     *
+     * @param int $id The gallery ID
+     * @param int $position The files' position
+     * @return GalleryFilePosition | null
+     */
+    public static function findByPosition(int $id, int $position): ?GalleryFilePosition
+    {
+        $query = self::getQueryBuilder()
+            ->newSelect()
+            ->from(self::getTableName())
+            ->cols([
+                'position',
+                'id',
+                'file_id',
+                'gallery_id'
+            ])
+            ->where('gallery_id = :parentId AND position = :position', ['parentId' => $id, 'position' => $position])
+            ->orderBy(['position']);
+
+        $data = self::executeQuery($query);
+        if (empty($data)) {
+            return null;
+        }
+
+        return self::fromArray($data[0]);
+    }
+
+    /**
+     * Creates the current gallery file position, also moves the position of the other gallery file positions according to the new position
+     *
+     * @return void
+     * @throws NotNullViolationException
+     */
+    public function create(): void
+    {
+        $this->internalRearrange($this->galleryId, $this->position);
+        $this->internalCreate();
+        $this->resetOrder($this->galleryId);
+    }
+
+    /**
      * Rearranges the items in the same parent
      *
      * @param int $parentId
@@ -107,48 +149,6 @@ class GalleryFilePosition implements Creatable, Updatable, Deletable
                 ->where('id = :id', ['id' => $item['id']]);
             self::executeQuery($query);
         }
-    }
-
-    /**
-     * Gets the gallery file position at the given position in the given gallery
-     *
-     * @param int $id The gallery ID
-     * @param int $position The files' position
-     * @return GalleryFilePosition | null
-     */
-    public static function findByPosition(int $id, int $position): ?GalleryFilePosition
-    {
-        $query = self::getQueryBuilder()
-            ->newSelect()
-            ->from(self::getTableName())
-            ->cols([
-                'position',
-                'id',
-                'file_id',
-                'gallery_id'
-            ])
-            ->where('gallery_id = :parentId AND position = :position', ['parentId' => $id, 'position' => $position])
-            ->orderBy(['position']);
-
-        $data = self::executeQuery($query);
-        if (empty($data)) {
-            return null;
-        }
-
-        return self::fromArray($data[0]);
-    }
-
-    /**
-     * Creates the current gallery file position, also moves the position of the other gallery file positions according to the new position
-     *
-     * @return void
-     * @throws NotNullViolationException
-     */
-    public function create(): void
-    {
-        $this->internalRearrange($this->galleryId, $this->position);
-        $this->internalCreate();
-        $this->resetOrder($this->galleryId);
     }
 
     /**

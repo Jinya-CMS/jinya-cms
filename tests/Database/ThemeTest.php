@@ -18,16 +18,16 @@ use App\Database\ThemeGallery;
 use App\Database\ThemeMenu;
 use App\Database\ThemePage;
 use App\Database\ThemeSegmentPage;
-use App\Database\Utils\LoadableEntity;
 use App\Tests\ThemeTestCase;
 use Faker\Provider\Uuid;
+use Jinya\Database\Entity;
 use stdClass;
 
 class ThemeTest extends ThemeTestCase
 {
     public function testFindById(): void
     {
-        $theme = Theme::findById($this->theme->getIdAsInt());
+        $theme = Theme::findById($this->theme->id);
         self::assertEquals($theme->format(), $this->theme->format());
     }
 
@@ -45,7 +45,7 @@ class ThemeTest extends ThemeTestCase
             'name' => $this->theme->name,
             'displayName' => $this->theme->displayName,
             'scssVariables' => new stdClass(),
-            'id' => $this->theme->getIdAsInt(),
+            'id' => $this->theme->id,
             'hasApi' => $this->theme->hasApiTheme,
         ];
         self::assertEquals($configuration, $this->theme->format());
@@ -62,7 +62,7 @@ class ThemeTest extends ThemeTestCase
             'name' => $this->theme->name,
             'displayName' => $this->theme->displayName,
             'scssVariables' => $this->theme->scssVariables,
-            'id' => $this->theme->getIdAsInt(),
+            'id' => $this->theme->id,
             'hasApi' => $this->theme->hasApiTheme,
         ];
         self::assertEquals($configuration, $this->theme->format());
@@ -70,7 +70,11 @@ class ThemeTest extends ThemeTestCase
 
     public function testActiveTheme(): void
     {
-        LoadableEntity::executeSqlString('INSERT INTO configuration (current_frontend_theme_id) VALUES (null)');
+        $query = Entity::getQueryBuilder()
+            ->newInsert()
+            ->into('configuration')
+            ->addRow(['current_frontend_theme_id' => null]);
+        Entity::executeQuery($query);
 
         $activeTheme = Theme::getActiveTheme();
         self::assertNull($activeTheme);
@@ -90,7 +94,7 @@ class ThemeTest extends ThemeTestCase
         $this->theme->hasApiTheme = !$this->theme->hasApiTheme;
         $this->theme->update();
 
-        $changedTheme = Theme::findById($this->theme->getIdAsInt());
+        $changedTheme = Theme::findById($this->theme->id);
         self::assertEquals($this->theme->format(), $changedTheme->format());
     }
 
@@ -138,23 +142,6 @@ class ThemeTest extends ThemeTestCase
         self::assertNull(Theme::findByName($theme->name));
     }
 
-    public function testFindByKeyword(): void
-    {
-        $theme = new Theme();
-        $theme->name = Uuid::uuid();
-        $theme->displayName = Uuid::uuid();
-        $theme->description = ['en' => Uuid::uuid()];
-        $theme->scssVariables = [];
-        $theme->configuration = [];
-        $theme->create();
-
-        $foundThemes = Theme::findByKeyword($theme->displayName);
-        self::assertCount(1, iterator_to_array($foundThemes));
-
-        $foundThemes = Theme::findByKeyword(Uuid::uuid());
-        self::assertCount(0, iterator_to_array($foundThemes));
-    }
-
     public function testFindAll(): void
     {
         $themes = Theme::findAll();
@@ -176,7 +163,7 @@ class ThemeTest extends ThemeTestCase
     {
         $asset = new ThemeAsset();
         $asset->publicPath = '/local';
-        $asset->themeId = $this->theme->getIdAsInt();
+        $asset->themeId = $this->theme->id;
         $asset->name = 'Test';
         $asset->create();
 
@@ -191,8 +178,8 @@ class ThemeTest extends ThemeTestCase
         $category->create();
 
         $themeCat = new ThemeBlogCategory();
-        $themeCat->themeId = $this->theme->getIdAsInt();
-        $themeCat->blogCategoryId = $category->getIdAsInt();
+        $themeCat->themeId = $this->theme->id;
+        $themeCat->blogCategoryId = $category->id;
         $themeCat->name = 'Test';
         $themeCat->create();
 
@@ -207,8 +194,8 @@ class ThemeTest extends ThemeTestCase
         $file->create();
 
         $themeFile = new ThemeFile();
-        $themeFile->fileId = $file->getIdAsInt();
-        $themeFile->themeId = $this->theme->getIdAsInt();
+        $themeFile->fileId = $file->id;
+        $themeFile->themeId = $this->theme->id;
         $themeFile->name = 'Test';
         $themeFile->create();
 
@@ -224,8 +211,8 @@ class ThemeTest extends ThemeTestCase
         $form->create();
 
         $themeForm = new ThemeForm();
-        $themeForm->formId = $form->getIdAsInt();
-        $themeForm->themeId = $this->theme->getIdAsInt();
+        $themeForm->formId = $form->id;
+        $themeForm->themeId = $this->theme->id;
         $themeForm->name = 'Test';
         $themeForm->create();
 
@@ -240,8 +227,8 @@ class ThemeTest extends ThemeTestCase
         $gallery->create();
 
         $themeGallery = new ThemeGallery();
-        $themeGallery->galleryId = $gallery->getIdAsInt();
-        $themeGallery->themeId = $this->theme->getIdAsInt();
+        $themeGallery->galleryId = $gallery->id;
+        $themeGallery->themeId = $this->theme->id;
         $themeGallery->name = 'Test';
         $themeGallery->create();
 
@@ -256,8 +243,8 @@ class ThemeTest extends ThemeTestCase
         $menu->create();
 
         $themeMenu = new ThemeMenu();
-        $themeMenu->menuId = $menu->getIdAsInt();
-        $themeMenu->themeId = $this->theme->getIdAsInt();
+        $themeMenu->menuId = $menu->id;
+        $themeMenu->themeId = $this->theme->id;
         $themeMenu->name = 'Test';
         $themeMenu->create();
 
@@ -273,8 +260,8 @@ class ThemeTest extends ThemeTestCase
         $simplePage->create();
 
         $themePage = new ThemePage();
-        $themePage->pageId = $simplePage->getIdAsInt();
-        $themePage->themeId = $this->theme->getIdAsInt();
+        $themePage->pageId = $simplePage->id;
+        $themePage->themeId = $this->theme->id;
         $themePage->name = 'Test';
         $themePage->create();
 
@@ -289,8 +276,8 @@ class ThemeTest extends ThemeTestCase
         $segmentPage->create();
 
         $themePage = new ThemeSegmentPage();
-        $themePage->segmentPageId = $segmentPage->getIdAsInt();
-        $themePage->themeId = $this->theme->getIdAsInt();
+        $themePage->segmentPageId = $segmentPage->id;
+        $themePage->themeId = $this->theme->id;
         $themePage->name = 'Test';
         $themePage->create();
 

@@ -41,13 +41,17 @@ class ThemeSyncer
                 $dbTheme->scssVariables = [];
                 $dbTheme->name = $name;
                 $dbTheme->displayName = $config['displayName'] ?? $name;
-                $dbTheme->description = is_array($config['description']) ? $config['description'] : ['en' => $config['description']];
+                $dbTheme->description = is_array(
+                    $config['description']
+                ) ? $config['description'] : ['en' => $config['description']];
                 $dbTheme->hasApiTheme = $config['hasApi'] ?? false;
                 $dbTheme->create();
             } else {
                 $dbTheme = Database\Theme::findByName($name);
                 $dbTheme->displayName = $config['displayName'] ?? $name;
-                $dbTheme->description = is_array($config['description']) ? $config['description'] : ['en' => $config['description']];
+                $dbTheme->description = is_array(
+                    $config['description']
+                ) ? $config['description'] : ['en' => $config['description']];
                 $dbTheme->hasApiTheme = $config['hasApi'] ?? false;
                 $dbTheme->update();
             }

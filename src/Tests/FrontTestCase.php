@@ -5,9 +5,9 @@ namespace App\Tests;
 use App\Database\Menu;
 use App\Database\Theme;
 use App\Database\ThemeMenu;
-use App\Database\Utils\LoadableEntity;
 use App\Theming\ThemeSyncer;
 use Faker\Provider\Uuid;
+use Jinya\Database\Entity;
 use Symfony\Component\Filesystem\Filesystem;
 
 abstract class FrontTestCase extends DatabaseAwareTestCase
@@ -19,8 +19,8 @@ abstract class FrontTestCase extends DatabaseAwareTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        LoadableEntity::executeSqlString('DELETE FROM configuration');
-        LoadableEntity::executeSqlString('INSERT INTO configuration (current_frontend_theme_id) VALUES (null)');
+        Entity::getPDO()->exec('DELETE FROM configuration');
+        Entity::getPDO()->exec('INSERT INTO configuration (current_frontend_theme_id) VALUES (null)');
         self::$name = Uuid::uuid();
         self::$fs = new Filesystem();
 

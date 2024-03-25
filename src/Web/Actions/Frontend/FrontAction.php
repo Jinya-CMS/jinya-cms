@@ -92,13 +92,48 @@ abstract class FrontAction extends Action
         if ($currentThemeHasApi) {
             $acceptHeader = strtolower($this->request->getHeaderLine('Accept'));
             $acceptMimeType = [];
-            preg_match_all('/(?!\s)(?:"(?:[^"\\\\]|\\\\.)*(?:"|\\\\|$)|[^", ]+)+(?<!\s)|\s*(?<separator>[, ])\s*/x', $acceptHeader, $acceptMimeType, PREG_SET_ORDER);
+            preg_match_all(
+                '/(?!\s)(?:"(?:[^"\\\\]|\\\\.)*(?:"|\\\\|$)|[^", ]+)+(?<!\s)|\s*(?<separator>[, ])\s*/x',
+                $acceptHeader,
+                $acceptMimeType,
+                PREG_SET_ORDER
+            );
             if ($acceptMimeType && $acceptMimeType[0][0] === 'application/json') {
                 return true;
             }
         }
 
         return false;
+    }
+
+    /**
+     * Sends the given data as json response
+     * @param string $template
+     * @param array<mixed> $data
+     * @param int $statusCode
+     * @return Response
+     * @throws Throwable
+     */
+    protected function sendApiJson(string $template, array $data, int $statusCode = self::HTTP_OK): Response
+    {
+        $engine = Theming\Engine::getPlatesEngine();
+        $parsedBody = $this->request->getParsedBody();
+        $queryParams = $this->request->getQueryParams();
+        $engine->addData(['body' => $parsedBody, 'queryParams' => $queryParams]);
+        $engine->loadExtension($this->activeTheme);
+        $currentDbTheme = Database\Theme::getActiveTheme();
+        $engine->loadExtension(new Theming\Extensions\MenuExtension());
+        $engine->loadExtension(new Theming\Extensions\LinksExtension($currentDbTheme));
+        $engine->loadExtension(new Theming\Extensions\ThemeExtension($this->activeTheme, $currentDbTheme));
+        $engine->loadExtension(new URI($this->request->getUri()->getPath()));
+
+        $renderResult = $engine
+            ->render(strncasecmp($template, 'api::', 5) === 0 ? $template : "api::$template", $data);
+        $this->response->getBody()->write($renderResult);
+
+        return $this->response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus($statusCode);
     }
 
     /**
@@ -129,36 +164,6 @@ abstract class FrontAction extends Action
 
         return $this->response
             ->withHeader('Content-Type', 'text/html')
-            ->withStatus($statusCode);
-    }
-
-    /**
-     * Sends the given data as json response
-     * @param string $template
-     * @param array<mixed> $data
-     * @param int $statusCode
-     * @return Response
-     * @throws Throwable
-     */
-    protected function sendApiJson(string $template, array $data, int $statusCode = self::HTTP_OK): Response
-    {
-        $engine = Theming\Engine::getPlatesEngine();
-        $parsedBody = $this->request->getParsedBody();
-        $queryParams = $this->request->getQueryParams();
-        $engine->addData(['body' => $parsedBody, 'queryParams' => $queryParams]);
-        $engine->loadExtension($this->activeTheme);
-        $currentDbTheme = Database\Theme::getActiveTheme();
-        $engine->loadExtension(new Theming\Extensions\MenuExtension());
-        $engine->loadExtension(new Theming\Extensions\LinksExtension($currentDbTheme));
-        $engine->loadExtension(new Theming\Extensions\ThemeExtension($this->activeTheme, $currentDbTheme));
-        $engine->loadExtension(new URI($this->request->getUri()->getPath()));
-
-        $renderResult = $engine
-            ->render(strncasecmp($template, 'api::', 5) === 0 ? $template : "api::$template", $data);
-        $this->response->getBody()->write($renderResult);
-
-        return $this->response
-            ->withHeader('Content-Type', 'application/json')
             ->withStatus($statusCode);
     }
 
@@ -229,10 +234,16 @@ abstract class FrontAction extends Action
         if ($menuItem->categoryId !== null) {
             $category = $menuItem->getBlogCategory();
             if ($this->checkForApiRequest()) {
-                return $this->sendApiJson('api::blog-category', ['category' => $category, 'posts' => $category?->getBlogPosts(true, true)]);
+                return $this->sendApiJson(
+                    'api::blog-category',
+                    ['category' => $category, 'posts' => $category?->getBlogPosts(true, true)]
+                );
             }
 
-            return $this->render('theme::blog-category', ['category' => $category, 'posts' => $category?->getBlogPosts(true, true)]);
+            return $this->render(
+                'theme::blog-category',
+                ['category' => $category, 'posts' => $category?->getBlogPosts(true, true)]
+            );
         }
 
         if ($menuItem->blogHomePage) {

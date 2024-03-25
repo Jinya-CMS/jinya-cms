@@ -6,13 +6,13 @@ use App\Authentication\CurrentUser;
 use App\Database\ApiKey;
 use App\Database\Artist;
 use App\Database\File;
-use App\Database\Utils\LoadableEntity;
 use App\Routing\JinyaModelToRouteResolver;
 use App\Tests\DatabaseAwareTestCase;
 use App\Web\Exceptions\MissingFieldsException;
 use DateTime;
 use Faker\Factory;
 use Faker\Provider\Uuid;
+use Jinya\Database\Entity;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
@@ -67,7 +67,11 @@ class JinyaModelToRouteResolverTest extends DatabaseAwareTestCase
         $request = new ServerRequest('DELETE', '', ['JinyaApiKey' => $this->apiKey->apiKey]);
         $response = new Response();
         /** @phpstan-ignore-next-line */
-        $result = JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'file', 'id' => $files->current()->getIdAsInt()]);
+        $result = JinyaModelToRouteResolver::resolveActionWithClassAndId(
+            $request,
+            $response,
+            ['entity' => 'file', 'id' => $files->current()->getIdAsInt()]
+        );
         $result->getBody()->rewind();
         self::assertEquals(204, $result->getStatusCode());
         self::assertEmpty($result->getBody()->getContents());
@@ -92,7 +96,11 @@ class JinyaModelToRouteResolverTest extends DatabaseAwareTestCase
         $request = new ServerRequest('GET', '', ['JinyaApiKey' => $this->apiKey->apiKey]);
         $response = new Response();
         /** @phpstan-ignore-next-line */
-        JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'api-key', 'id' => CurrentUser::$currentUser->getIdAsInt()]);
+        JinyaModelToRouteResolver::resolveActionWithClassAndId(
+            $request,
+            $response,
+            ['entity' => 'api-key', 'id' => CurrentUser::$currentUser->getIdAsInt()]
+        );
     }
 
     public function testResolveActionWithClassAndIdGetById(): void
@@ -102,10 +110,17 @@ class JinyaModelToRouteResolverTest extends DatabaseAwareTestCase
         $request = new ServerRequest('GET', '', ['JinyaApiKey' => $this->apiKey->apiKey]);
         $response = new Response();
         /** @phpstan-ignore-next-line */
-        $result = JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'file', 'id' => $file->getIdAsInt()]);
+        $result = JinyaModelToRouteResolver::resolveActionWithClassAndId(
+            $request,
+            $response,
+            ['entity' => 'file', 'id' => $file->getIdAsInt()]
+        );
         $result->getBody()->rewind();
         self::assertEquals(200, $result->getStatusCode());
-        self::assertJsonStringEqualsJsonString((string)json_encode($file->format(), JSON_THROW_ON_ERROR), $result->getBody()->getContents());
+        self::assertJsonStringEqualsJsonString(
+            (string)json_encode($file->format(), JSON_THROW_ON_ERROR),
+            $result->getBody()->getContents()
+        );
     }
 
     public function testResolveActionWithClassAndIdGetListAll(): void
@@ -137,7 +152,11 @@ class JinyaModelToRouteResolverTest extends DatabaseAwareTestCase
 
         $request = new ServerRequest('GET', '', ['JinyaApiKey' => $this->apiKey->apiKey]);
         $response = new Response();
-        $result = JinyaModelToRouteResolver::resolveActionWithClassAndId($request->withQueryParams(['keyword' => $allFiles->current()->name]), $response, ['entity' => 'file']);
+        $result = JinyaModelToRouteResolver::resolveActionWithClassAndId(
+            $request->withQueryParams(['keyword' => $allFiles->current()->name]),
+            $response,
+            ['entity' => 'file']
+        );
         $result->getBody()->rewind();
         self::assertEquals(200, $result->getStatusCode());
 
@@ -163,7 +182,11 @@ class JinyaModelToRouteResolverTest extends DatabaseAwareTestCase
         $request = new ServerRequest('PUT', '', ['JinyaApiKey' => $this->apiKey->apiKey], $body);
         $response = new Response();
         /** @phpstan-ignore-next-line */
-        $result = JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, ['entity' => 'file', 'id' => $firstFile]);
+        $result = JinyaModelToRouteResolver::resolveActionWithClassAndId(
+            $request,
+            $response,
+            ['entity' => 'file', 'id' => $firstFile]
+        );
         $result->getBody()->rewind();
         self::assertEquals(204, $result->getStatusCode());
         self::assertEmpty($result->getBody()->getContents());
@@ -218,7 +241,7 @@ class JinyaModelToRouteResolverTest extends DatabaseAwareTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        LoadableEntity::executeSqlString('DELETE FROM users');
+        Entity::getPDO()->exec('DELETE FROM users');
         $artist = new Artist();
         $artist->email = 'firstuser@example.com';
         $artist->aboutMe = 'About me';
@@ -255,8 +278,13 @@ class JinyaModelToRouteResolverTest extends DatabaseAwareTestCase
         return $file;
     }
 
-    private function createArtist(bool $isAdmin = true, bool $isWriter = true, bool $isReader = true, bool $enabled = true, string $password = 'test1234'): Artist
-    {
+    private function createArtist(
+        bool $isAdmin = true,
+        bool $isWriter = true,
+        bool $isReader = true,
+        bool $enabled = true,
+        string $password = 'test1234'
+    ): Artist {
         $artist = new Artist();
         $artist->email = Uuid::uuid() . Factory::create()->safeEmail();
         $artist->aboutMe = 'About me';

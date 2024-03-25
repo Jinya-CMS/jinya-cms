@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "6c6fa7b64eae4582a6a85d9a114f99b7",
+  "content-hash": "0f4eecaa1f1ca8f221c6dda1732bc0b7",
   "packages": [
     {
       "name": "aura/sqlquery",
@@ -506,16 +506,16 @@
     },
     {
       "name": "jinya/database",
-      "version": "0.10.0",
+      "version": "0.11.0",
       "source": {
         "type": "git",
         "url": "https://github.com/Jinya-CMS/jinya-database.git",
-        "reference": "7435054d2e2c83eb6ee3aa82ca2c31c19484ea22"
+        "reference": "73bddc69ebec4e94be7b7e239d351529c7166c35"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/Jinya-CMS/jinya-database/zipball/7435054d2e2c83eb6ee3aa82ca2c31c19484ea22",
-        "reference": "7435054d2e2c83eb6ee3aa82ca2c31c19484ea22",
+        "url": "https://api.github.com/repos/Jinya-CMS/jinya-database/zipball/73bddc69ebec4e94be7b7e239d351529c7166c35",
+        "reference": "73bddc69ebec4e94be7b7e239d351529c7166c35",
         "shasum": ""
       },
       "require": {
@@ -553,9 +553,9 @@
       "description": "A simple database struct mapper that resembles some features of an ORM",
       "support": {
         "issues": "https://github.com/Jinya-CMS/jinya-database/issues",
-        "source": "https://github.com/Jinya-CMS/jinya-database/tree/0.10.0"
+        "source": "https://github.com/Jinya-CMS/jinya-database/tree/0.11.0"
       },
-      "time": "2024-03-25T16:16:58+00:00"
+      "time": "2024-03-25T20:13:23+00:00"
     },
     {
       "name": "jinya/pdox",
@@ -729,22 +729,22 @@
     },
     {
       "name": "jinya/router-extensions",
-      "version": "0.7.0",
+      "version": "0.8.0",
       "source": {
         "type": "git",
         "url": "https://github.com/Jinya-CMS/jinya-router-extensions.git",
-        "reference": "8c20020beb5eff1e880146c36f62f0020f222c7c"
+        "reference": "30ed540870983e1d8146d4734e246f154d322488"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/Jinya-CMS/jinya-router-extensions/zipball/8c20020beb5eff1e880146c36f62f0020f222c7c",
-        "reference": "8c20020beb5eff1e880146c36f62f0020f222c7c",
+        "url": "https://api.github.com/repos/Jinya-CMS/jinya-router-extensions/zipball/30ed540870983e1d8146d4734e246f154d322488",
+        "reference": "30ed540870983e1d8146d4734e246f154d322488",
         "shasum": ""
       },
       "require": {
         "ext-pdo": "*",
         "ext-simplexml": "*",
-        "jinya/database": "^0.10.0",
+        "jinya/database": "^0.11.0",
         "jinya/router": "^0.6.0",
         "php": "^8.2"
       },
@@ -774,9 +774,9 @@
       "description": "Official extensions for the Jinya Router",
       "support": {
         "issues": "https://github.com/Jinya-CMS/jinya-router-extensions/issues",
-        "source": "https://github.com/Jinya-CMS/jinya-router-extensions/tree/0.7.0"
+        "source": "https://github.com/Jinya-CMS/jinya-router-extensions/tree/0.8.0"
       },
-      "time": "2024-03-25T16:19:25+00:00"
+      "time": "2024-03-25T20:14:16+00:00"
     },
     {
       "name": "laminas/laminas-diactoros",
@@ -3257,12 +3257,12 @@
       "source": {
         "type": "git",
         "url": "https://github.com/Roave/SecurityAdvisories.git",
-        "reference": "1cd94da9f134cc15fbef701aeb7349c4a50ebbbe"
+        "reference": "98cbbfa55bafb0368a60a5fd6206f07c9dd782eb"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/1cd94da9f134cc15fbef701aeb7349c4a50ebbbe",
-        "reference": "1cd94da9f134cc15fbef701aeb7349c4a50ebbbe",
+        "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/98cbbfa55bafb0368a60a5fd6206f07c9dd782eb",
+        "reference": "98cbbfa55bafb0368a60a5fd6206f07c9dd782eb",
         "shasum": ""
       },
       "conflict": {
@@ -3509,6 +3509,7 @@
         "james-heinrich/phpthumb": "<1.7.12",
         "jasig/phpcas": "<1.3.3",
         "jcbrand/converse.js": "<3.3.3",
+        "johnbillion/wp-crontrol": "<1.16.2",
         "joomla/application": "<1.0.13",
         "joomla/archive": "<1.1.12|>=2,<2.0.1",
         "joomla/filesystem": "<1.6.2|>=2,<2.0.1",
@@ -3630,8 +3631,8 @@
         "oro/commerce": ">=4.1,<5.0.11|>=5.1,<5.1.1",
         "oro/crm": ">=1.7,<1.7.4|>=3.1,<4.1.17|>=4.2,<4.2.7",
         "oro/crm-call-bundle": ">=4.2,<=4.2.5|>=5,<5.0.4|>=5.1,<5.1.1",
-        "oro/customer-portal": ">=4.2,<=4.2.8|>=5,<5.0.11|>=5.1,<5.1.1",
-        "oro/platform": ">=1.7,<1.7.4|>=3.1,<3.1.29|>=4.1,<4.1.17|>=4.2,<=4.2.10|>=5,<5.0.8",
+        "oro/customer-portal": ">=4.1,<=4.1.13|>=4.2,<=4.2.10|>=5,<=5.0.11|>=5.1,<=5.1.3",
+        "oro/platform": ">=1.7,<1.7.4|>=3.1,<3.1.29|>=4.1,<4.1.17|>=4.2,<=4.2.10|>=5,<=5.0.12|>=5.1,<=5.1.3",
         "oxid-esales/oxideshop-ce": "<4.5",
         "packbackbooks/lti-1-3-php-library": "<5",
         "padraic/humbug_get_contents": "<1.1.2",
@@ -3655,7 +3656,7 @@
         "phpmailer/phpmailer": "<6.5",
         "phpmussel/phpmussel": ">=1,<1.6",
         "phpmyadmin/phpmyadmin": "<5.2.1",
-        "phpmyfaq/phpmyfaq": "<3.2.5",
+        "phpmyfaq/phpmyfaq": "<3.2.5|==3.2.5",
         "phpoffice/phpexcel": "<1.8",
         "phpoffice/phpspreadsheet": "<1.16",
         "phpseclib/phpseclib": "<2.0.47|>=3,<3.0.36",
@@ -3991,7 +3992,7 @@
           "type": "tidelift"
         }
       ],
-      "time": "2024-03-25T13:04:38+00:00"
+      "time": "2024-03-25T20:04:17+00:00"
     },
     {
       "name": "symfony/deprecation-contracts",

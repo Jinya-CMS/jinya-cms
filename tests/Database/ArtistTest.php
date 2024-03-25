@@ -130,7 +130,6 @@ class ArtistTest extends DatabaseAwareTestCase
     {
         $artist = $this->createArtist();
         $knownDevice = new KnownDevice();
-        $knownDevice->setDeviceKey();
         $knownDevice->userAgent = 'PHPUnit';
         $knownDevice->remoteAddress = '127.0.0.1';
         $knownDevice->userId = $artist->id;

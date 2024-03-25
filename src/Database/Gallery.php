@@ -11,7 +11,6 @@ use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
 use Jinya\Database\Entity;
 use Jinya\Database\Exception\NotNullViolationException;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
 
 /**
  * This class contains a gallery, galleries are used to arrange files in a list or masonry layout and horizontal or vertical orientation. They can be embedded into segment pages and blog posts

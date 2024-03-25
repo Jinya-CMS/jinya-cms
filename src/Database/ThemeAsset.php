@@ -2,17 +2,34 @@
 
 namespace App\Database;
 
-use App\Database\Utils\ThemeHelperEntity;
 use Iterator;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
+use Jinya\Database\Attributes\Column;
+use Jinya\Database\Attributes\Table;
+use Jinya\Database\Creatable;
+use Jinya\Database\Deletable;
+use Jinya\Database\DeletableEntityTrait;
+use Jinya\Database\EntityTrait;
+use Jinya\Database\Updatable;
 
 /**
  *
  */
-class ThemeAsset extends ThemeHelperEntity
+#[Table('theme_asset')]
+class ThemeAsset implements Creatable, Updatable, Deletable
 {
+    use EntityTrait;
+    use DeletableEntityTrait;
+
+    /** @var string The theme name */
+    #[Column]
+    public string $name = '';
+
+    /** @var int The theme id */
+    #[Column(sqlName: 'theme_id')]
+    public int $themeId = -1;
+
     /** @var string The public path of the asset */
+    #[Column(sqlName: 'public_path')]
     public string $publicPath = '';
 
     /**
@@ -21,17 +38,25 @@ class ThemeAsset extends ThemeHelperEntity
      * @param int $themeId
      * @param string $name
      * @return ThemeAsset|null
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     public static function findByThemeAndName(int $themeId, string $name): ?ThemeAsset
     {
-        /**
-         * @phpstan-ignore-next-line
-         */
-        return self::fetchByThemeAndName($themeId, $name, 'theme_asset', new self());
+        $query = self::getQueryBuilder()
+            ->newSelect()
+            ->from(self::getTableName())
+            ->cols([
+                'theme_id',
+                'name',
+                'public_path',
+            ])
+            ->where('theme_id = :themeId AND name = :name', ['themeId' => $themeId, 'name' => $name]);
+
+        $data = self::executeQuery($query);
+        if (empty($data)) {
+            return null;
+        }
+
+        return self::fromArray($data[0]);
     }
 
     /**
@@ -39,64 +64,53 @@ class ThemeAsset extends ThemeHelperEntity
      *
      * @param int $themeId
      * @return Iterator<ThemeAsset>
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
      */
     public static function findByTheme(int $themeId): Iterator
     {
-        /**
-         * @phpstan-ignore-next-line
-         */
-        return self::fetchByTheme($themeId, 'theme_asset', new self());
+        $query = self::getQueryBuilder()
+            ->newSelect()
+            ->from(self::getTableName())
+            ->cols([
+                'theme_id',
+                'name',
+                'public_path',
+            ])
+            ->where('theme_id = :themeId', ['themeId' => $themeId]);
+
+        $data = self::executeQuery($query);
+        foreach ($data as $item) {
+            yield self::fromArray($item);
+        }
     }
 
     /**
-     * Creates the current theme asset
-     *
-     * @return void
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
+     * @inheritDoc
      */
     public function create(): void
     {
-        $this->internalCreate('theme_asset');
+        $query = self::getQueryBuilder()
+            ->newInsert()
+            ->into(self::getTableName())
+            ->addRow([
+                'theme_id' => $this->themeId,
+                'name' => $this->name,
+                'public_path' => $this->publicPath,
+            ]);
+
+        self::executeQuery($query);
     }
 
     /**
-     * Deletes the current theme asset
-     *
-     * @return void
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     */
-    public function delete(): void
-    {
-        $this->internalDelete('theme_asset');
-    }
-
-    /**
-     * Updates the current theme
-     *
-     * @return void
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
+     * @inheritDoc
      */
     public function update(): void
     {
-        $this->internalUpdate('theme_asset');
-    }
+        $query = self::getQueryBuilder()
+            ->newUpdate()
+            ->table(self::getTableName())
+            ->set('public_path', $this->publicPath)
+            ->where('theme_id = :themeId AND name = :name', ['themeId' => $this->themeId, 'name' => $this->name]);
 
-    /**
-     * Always returns an empty array
-     *
-     * @return array<string>
-     */
-    public function format(): array
-    {
-        return [];
+        self::executeQuery($query);
     }
 }

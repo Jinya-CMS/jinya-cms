@@ -2,18 +2,36 @@
 
 namespace App\Database;
 
-use App\Database\Utils\ThemeHelperEntity;
+use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
+use Jinya\Database\Attributes\Column;
+use Jinya\Database\Attributes\Table;
+use Jinya\Database\Creatable;
+use Jinya\Database\Deletable;
+use Jinya\Database\DeletableEntityTrait;
+use Jinya\Database\EntityTrait;
+use Jinya\Database\Updatable;
 
 /**
  * This class contains a file connected to a theme
  */
-class ThemeFile extends ThemeHelperEntity
+#[Table('theme_file')]
+class ThemeFile implements Creatable, Updatable, Deletable
 {
+    use EntityTrait;
+    use DeletableEntityTrait;
+
+    /** @var string The theme name */
+    #[Column]
+    public string $name = '';
+
+    /** @var int The theme id */
+    #[Column(sqlName: 'theme_id')]
+    public int $themeId = -1;
+
     /** @var int The file ID */
+    #[Column(sqlName: 'file_id')]
     public int $fileId = -1;
 
     /**
@@ -22,42 +40,56 @@ class ThemeFile extends ThemeHelperEntity
      * @param int $themeId
      * @param string $name
      * @return ThemeFile|null
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws Exceptions\UniqueFailedException
-     * @throws NoResultException
-     * @throws NoResultException
      */
     public static function findByThemeAndName(int $themeId, string $name): ?ThemeFile
     {
-        /**
-         * @phpstan-ignore-next-line
-         */
-        return self::fetchByThemeAndName($themeId, $name, 'theme_file', new self());
+        $query = self::getQueryBuilder()
+            ->newSelect()
+            ->from(self::getTableName())
+            ->cols([
+                'theme_id',
+                'name',
+                'file_id',
+            ])
+            ->where('theme_id = :themeId AND name = :name', ['themeId' => $themeId, 'name' => $name]);
+
+        $data = self::executeQuery($query);
+        if (empty($data)) {
+            return null;
+        }
+
+        return self::fromArray($data[0]);
     }
 
     /**
      * Finds the files for the given theme
      *
      * @param int $themeId
-     * @return Iterator
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws Exceptions\UniqueFailedException
+     * @return Iterator<ThemeFile>
      */
     public static function findByTheme(int $themeId): Iterator
     {
-        return self::fetchByTheme($themeId, 'theme_file', new self());
+        $query = self::getQueryBuilder()
+            ->newSelect()
+            ->from(self::getTableName())
+            ->cols([
+                'theme_id',
+                'name',
+                'file_id',
+            ])
+            ->where('theme_id = :themeId', ['themeId' => $themeId]);
+
+        $data = self::executeQuery($query);
+        foreach ($data as $item) {
+            yield self::fromArray($item);
+        }
     }
 
     /**
      * Formats the theme file into an array
      *
      * @return array{'name': string, 'file': array<string, mixed>|null}
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
+     * @throws Exception
      */
     #[ArrayShape(['name' => 'string', 'file' => 'array'])] public function format(): array
     {
@@ -72,10 +104,6 @@ class ThemeFile extends ThemeHelperEntity
      *
      * @return File|null
      *
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     public function getFile(): ?File
     {
@@ -86,38 +114,32 @@ class ThemeFile extends ThemeHelperEntity
      * Create the current theme file
      *
      * @return void
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
      */
     public function create(): void
     {
-        $this->internalCreate('theme_file');
+        $query = self::getQueryBuilder()
+            ->newInsert()
+            ->into(self::getTableName())
+            ->addRow([
+                'theme_id' => $this->themeId,
+                'name' => $this->name,
+                'file_id' => $this->fileId,
+            ]);
+
+        self::executeQuery($query);
     }
 
     /**
-     * Deletes the current theme file
-     *
-     * @return void
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     */
-    public function delete(): void
-    {
-        $this->internalDelete('theme_file');
-    }
-
-    /**
-     * Updates the current theme file
-     *
-     * @return void
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
+     * @inheritDoc
      */
     public function update(): void
     {
-        $this->internalUpdate('theme_file');
+        $query = self::getQueryBuilder()
+            ->newUpdate()
+            ->table(self::getTableName())
+            ->set('file_id', $this->fileId)
+            ->where('theme_id = :themeId AND name = :name', ['themeId' => $this->themeId, 'name' => $this->name]);
+
+        self::executeQuery($query);
     }
 }

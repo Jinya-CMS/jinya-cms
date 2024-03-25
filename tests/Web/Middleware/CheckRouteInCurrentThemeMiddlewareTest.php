@@ -8,12 +8,12 @@ use App\Database\Menu;
 use App\Database\MenuItem;
 use App\Database\Theme;
 use App\Database\ThemeMenu;
-use App\Database\Utils\LoadableEntity;
 use App\Tests\DatabaseAwareTestCase;
 use App\Tests\TestRequestHandler;
 use App\Theming\ThemeSyncer;
 use App\Web\Middleware\CheckRouteInCurrentThemeMiddleware;
 use Faker\Provider\Uuid;
+use Jinya\Database\Entity;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
 use Symfony\Component\Filesystem\Filesystem;
@@ -268,13 +268,12 @@ class CheckRouteInCurrentThemeMiddlewareTest extends DatabaseAwareTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        LoadableEntity::executeSqlString('DELETE FROM configuration');
-        LoadableEntity::executeSqlString('INSERT INTO configuration (current_frontend_theme_id) VALUES (null)');
+        Entity::getPDO()->exec('DELETE FROM configuration');
+        Entity::getPDO()->exec('INSERT INTO configuration (current_frontend_theme_id) VALUES (null)');
     }
 
     protected function tearDown(): void
     {
         parent::tearDown();
-
     }
 }

@@ -69,6 +69,11 @@ abstract class UpdateAction extends Action
      */
     protected function getReleases(): array
     {
-        return json_decode(file_get_contents(getenv('JINYA_UPDATE_SERVER') ?: '') ?: '', true, 512, JSON_THROW_ON_ERROR);
+        return json_decode(
+            file_get_contents(getenv('JINYA_UPDATE_SERVER') ?: '') ?: '',
+            true,
+            512,
+            JSON_THROW_ON_ERROR
+        );
     }
 }

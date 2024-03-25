@@ -34,7 +34,9 @@ class DeactivateArtistAction extends Action
         if ($artist === null) {
             throw new \App\Web\Exceptions\NoResultException($this->request, "Artist doesn't exist");
         }
-        if (in_array(AuthenticationChecker::ROLE_ADMIN, $artist->roles, true) && Artist::countAdmins(CurrentUser::$currentUser->getIdAsInt()) === 1) {
+        if (in_array(AuthenticationChecker::ROLE_ADMIN, $artist->roles, true) && Artist::countAdmins(
+            CurrentUser::$currentUser->getIdAsInt()
+        ) === 1) {
             throw new ConflictException($this->request, 'Cannot disable last admin');
         }
 

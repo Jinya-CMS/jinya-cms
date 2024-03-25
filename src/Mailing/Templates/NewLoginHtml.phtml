@@ -14,32 +14,32 @@ use League\Plates\Template\Template;
 <html lang="en">
 <body>
 <p>
-    Hello <?= $this->e($artistName) ?><br/><br/>
-    there was a new successful login for your account.
+  Hello <?= $this->e($artistName) ?><br /><br />
+  there was a new successful login for your account.
 </p>
 <p>
-    The login was from the IP address <?= $this->e($remoteAddress) ?>.
+  The login was from the IP address <?= $this->e($remoteAddress) ?>.
     <?php
     if (array_key_exists('city', $location) && !empty($location['city'])): ?>
-        Which is located at, <?= $this->e($location['city']) ?>, <?= $this->e($location['region']) ?> in <?= $this->e(
-            $location['country']
-        ) ?>.
+      Which is located at, <?= $this->e($location['city']) ?>, <?= $this->e($location['region']) ?> in <?= $this->e(
+          $location['country']
+      ) ?>.
     <?php
     endif ?>
 </p>
 <?php
 if (!empty($browser)): ?>
-    <p>
-        The browser used was <?= $this->e($browser) ?> on <?= $this->e($platform) ?>
-    </p>
+  <p>
+    The browser used was <?= $this->e($browser) ?> on <?= $this->e($platform) ?>
+  </p>
 <?php
 endif ?>
 <p>
-    Greetings,<br/>
-    Your Jinya Team
+  Greetings,<br />
+  Your Jinya Team
 </p>
 <p>
-    The IP address was located with <?= $this->e($location['providedBy']) ?>.
+  The IP address was located with <?= $this->e($location['providedBy']) ?>.
 </p>
 </body>
 </html>

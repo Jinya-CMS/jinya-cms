@@ -12,8 +12,6 @@ use Jinya\Database\CreatableEntityTrait;
 use Jinya\Database\Deletable;
 use Jinya\Database\DeletableEntityTrait;
 use Jinya\Database\EntityTrait;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
 
 /**
  * This class contains a known device, known devices are used to remove the need for a two-factor code. It is up to the API consumer whether they want to use them or not.

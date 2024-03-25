@@ -63,16 +63,6 @@ use App\Web\Actions\SegmentPage\Segments\CreateHtmlSegmentAction;
 use App\Web\Actions\SegmentPage\Segments\DeleteSegmentAction;
 use App\Web\Actions\SegmentPage\Segments\GetSegmentsAction;
 use App\Web\Actions\SegmentPage\Segments\UpdateSegmentAction;
-use App\Web\Actions\Statistics\GetEntityStatisticsAction;
-use App\Web\Actions\Statistics\GetHistoryStatisticsAction;
-use App\Web\Actions\Statistics\GetSystemStatisticsAction;
-use App\Web\Actions\Statistics\GetVisitsByBrowserAction;
-use App\Web\Actions\Statistics\GetVisitsByCountryAction;
-use App\Web\Actions\Statistics\GetVisitsByDeviceBrandAction;
-use App\Web\Actions\Statistics\GetVisitsByDeviceTypeAction;
-use App\Web\Actions\Statistics\GetVisitsByLanguageAction;
-use App\Web\Actions\Statistics\GetVisitsByOsAction;
-use App\Web\Actions\Statistics\GetVisitsByReferrerAction;
 use App\Web\Actions\Theme\ActivateThemeAction;
 use App\Web\Actions\Theme\CompileThemeAction;
 use App\Web\Actions\Theme\CreateThemeAction;
@@ -149,8 +139,12 @@ return function (App $app) {
         })->add(AuthorizationMiddleware::class);
 
         // Artists
-        $proxy->post('/artist', CreateArtistAction::class)->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_ADMIN));
-        $proxy->put('/artist/{id}', UpdateArtistAction::class)->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_ADMIN));
+        $proxy->post('/artist', CreateArtistAction::class)->add(
+            new AuthorizationMiddleware(AuthenticationChecker::ROLE_ADMIN)
+        );
+        $proxy->put('/artist/{id}', UpdateArtistAction::class)->add(
+            new AuthorizationMiddleware(AuthenticationChecker::ROLE_ADMIN)
+        );
         $proxy->group('/artist/{id}/profilepicture', function (RouteCollectorProxy $proxy) {
             $proxy->get('', GetProfilePictureAction::class)
                 ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_READER));
@@ -167,8 +161,8 @@ return function (App $app) {
             '/me/profilepicture',
             fn (
                 ServerRequestInterface $request,
-                ResponseInterface      $response,
-                array                  $args
+                ResponseInterface $response,
+                array $args
             ) => (new UploadProfilePictureAction())(
                 $request,
                 $response,
@@ -187,7 +181,13 @@ return function (App $app) {
             ->add(AuthorizationMiddleware::class);
         $proxy->post('/login', LoginAction::class)
             ->add(new CheckRequiredFieldsMiddleware(['username', 'password']));
-        $proxy->map(['HEAD'], '/login', fn (ServerRequestInterface $request, ResponseInterface $response) => $response->withStatus(Action::HTTP_NO_CONTENT))
+        $proxy->map(
+            ['HEAD'],
+            '/login',
+            fn (ServerRequestInterface $request, ResponseInterface $response) => $response->withStatus(
+                Action::HTTP_NO_CONTENT
+            )
+        )
             ->add(AuthorizationMiddleware::class);
         $proxy->post('/2fa', TwoFactorAction::class)
             ->add(new CheckRequiredFieldsMiddleware(['username', 'password']));
@@ -214,9 +214,15 @@ return function (App $app) {
 
         // File
         $proxy->group('/media/file/{id}/content', function (RouteCollectorProxy $proxy) {
-            $proxy->put('/finish', FinishUploadAction::class)->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
-            $proxy->put('/{position}', UploadChunkAction::class)->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
-            $proxy->put('', StartUploadAction::class)->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER));
+            $proxy->put('/finish', FinishUploadAction::class)->add(
+                new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER)
+            );
+            $proxy->put('/{position}', UploadChunkAction::class)->add(
+                new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER)
+            );
+            $proxy->put('', StartUploadAction::class)->add(
+                new AuthorizationMiddleware(AuthenticationChecker::ROLE_WRITER)
+            );
             $proxy->get('', GetFileContentAction::class);
         });
 
@@ -316,22 +322,6 @@ return function (App $app) {
                 ->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_READER));
         });
 
-        // Statistics
-        $proxy->group('/statistics', function (RouteCollectorProxy $proxy) {
-            $proxy->get('/entity', GetEntityStatisticsAction::class);
-            $proxy->get('/history/{type}', GetHistoryStatisticsAction::class);
-            $proxy->get('/system', GetSystemStatisticsAction::class);
-            $proxy->group('/visits', function (RouteCollectorProxy $proxy) {
-                $proxy->get('/browser', GetVisitsByBrowserAction::class);
-                $proxy->get('/country', GetVisitsByCountryAction::class);
-                $proxy->get('/brand', GetVisitsByDeviceBrandAction::class);
-                $proxy->get('/type', GetVisitsByDeviceTypeAction::class);
-                $proxy->get('/language', GetVisitsByLanguageAction::class);
-                $proxy->get('/os', GetVisitsByOsAction::class);
-                $proxy->get('/referrer', GetVisitsByReferrerAction::class);
-            });
-        })->add(new AuthorizationMiddleware(AuthenticationChecker::ROLE_READER));
-
         // Theme
         $proxy->get('/theme/{id}/preview', GetPreviewImageAction::class);
         $proxy->group('/theme', function (RouteCollectorProxy $proxy) {
@@ -373,22 +363,31 @@ return function (App $app) {
     }
 
     // Reflection based
-    $app->any('/api/media/{entity}[/{id}]', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
-        return JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, $args);
-    });
-    $app->any('/api/blog/{entity}[/{id}]', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
-        $blogArgs = $args;
-        $blogArgs['entity'] = 'Blog' . ucfirst($blogArgs['entity']);
-        return JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, $blogArgs);
-    });
+    $app->any(
+        '/api/media/{entity}[/{id}]',
+        function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
+            return JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, $args);
+        }
+    );
+    $app->any(
+        '/api/blog/{entity}[/{id}]',
+        function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
+            $blogArgs = $args;
+            $blogArgs['entity'] = 'Blog' . ucfirst($blogArgs['entity']);
+            return JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, $blogArgs);
+        }
+    );
     $app->any('/api/page[/{id}]', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
         $pageArgs = $args;
         $pageArgs['entity'] = 'SimplePage';
         return JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, $pageArgs);
     });
-    $app->any('/api/{entity}[/{id}]', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
-        return JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, $args);
-    });
+    $app->any(
+        '/api/{entity}[/{id}]',
+        function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
+            return JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, $args);
+        }
+    );
 
     // Frontend
     $app->get('/{year:\d\d\d\d}/{month:\d\d}/{day:\d\d}/{slug}', GetBlogFrontAction::class);
