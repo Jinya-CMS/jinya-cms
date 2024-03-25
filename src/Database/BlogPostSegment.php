@@ -109,10 +109,6 @@ class BlogPostSegment
      * The file this segment contains
      *
      * @return File|null
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     public function getFile(): ?File
     {
