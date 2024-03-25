@@ -7,7 +7,9 @@ use Iterator;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
+use Jinya\Database\Creatable;
 use Jinya\Database\CreatableEntityTrait;
+use Jinya\Database\Deletable;
 use Jinya\Database\DeletableEntityTrait;
 use Jinya\Database\EntityTrait;
 
@@ -15,7 +17,7 @@ use Jinya\Database\EntityTrait;
  * This class contains a chunk of an uploading file
  */
 #[Table('uploading_file_chunk')]
-class UploadingFileChunk
+class UploadingFileChunk implements Creatable, Deletable
 {
     use EntityTrait;
     use CreatableEntityTrait;

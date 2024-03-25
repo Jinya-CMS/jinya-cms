@@ -7,13 +7,15 @@ use Exception;
 use Iterator;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Table;
+use Jinya\Database\Creatable;
+use Jinya\Database\Deletable;
 use Jinya\Database\EntityTrait;
 
 /**
  * This class contains and uploading file. Uploading files are temporary entities used to handle the chunked upload feature of Jinya CMS
  */
 #[Table('uploading_file')]
-class UploadingFile
+class UploadingFile implements Creatable, Deletable
 {
     use EntityTrait;
 

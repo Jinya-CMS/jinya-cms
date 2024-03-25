@@ -11,47 +11,16 @@ use RuntimeException;
 
 class KnownDeviceTest extends DatabaseAwareTestCase
 {
-    private function createKnownDevice(bool $execute = true): KnownDevice
+    private function createKnownDevice(): KnownDevice
     {
         $knownDevice = new KnownDevice();
-        $knownDevice->userId = CurrentUser::$currentUser->getIdAsInt();
+        $knownDevice->userId = CurrentUser::$currentUser->id;
         $knownDevice->userAgent = 'PHPUnit';
         $knownDevice->remoteAddress = '127.0.0.1';
-        $knownDevice->setDeviceKey();
 
-        if ($execute) {
-            $knownDevice->create();
-        }
+        $knownDevice->create();
 
         return $knownDevice;
-    }
-
-    public function testFindById(): void
-    {
-        $this->expectException(RuntimeException::class);
-        KnownDevice::findById(1);
-    }
-
-    public function testFindAll(): void
-    {
-        $this->expectException(RuntimeException::class);
-        KnownDevice::findAll();
-    }
-
-    public function testUpdate(): void
-    {
-        $knownDevice = $this->createKnownDevice();
-        $oldKey = $knownDevice->deviceKey;
-        $knownDevice->setDeviceKey();
-        $knownDevice->update();
-
-        $this->assertNotEquals($oldKey, $knownDevice->deviceKey);
-    }
-
-    public function testFindByKeyword(): void
-    {
-        $this->expectException(RuntimeException::class);
-        KnownDevice::findByKeyword('Test');
     }
 
     public function testFormat(): void
@@ -78,7 +47,7 @@ class KnownDeviceTest extends DatabaseAwareTestCase
         $this->createKnownDevice();
         $this->createKnownDevice();
 
-        $found = KnownDevice::findByArtist(CurrentUser::$currentUser->getIdAsInt());
+        $found = KnownDevice::findByArtist(CurrentUser::$currentUser->id);
         $this->assertCount(3, iterator_to_array($found));
     }
 
@@ -88,7 +57,7 @@ class KnownDeviceTest extends DatabaseAwareTestCase
         $this->createKnownDevice();
         $this->createKnownDevice();
 
-        $found = KnownDevice::findByArtist(CurrentUser::$currentUser->getIdAsInt());
+        $found = KnownDevice::findByArtist(CurrentUser::$currentUser->id);
         $this->assertCount(3, iterator_to_array($found));
     }
 
@@ -110,17 +79,8 @@ class KnownDeviceTest extends DatabaseAwareTestCase
         $this->createKnownDevice();
         $this->createKnownDevice();
 
-        $found = KnownDevice::findByArtist($artist->getIdAsInt());
+        $found = KnownDevice::findByArtist($artist->id);
         $this->assertCount(0, iterator_to_array($found));
-    }
-
-    public function testSetDeviceKey(): void
-    {
-        $knownDevice = $this->createKnownDevice();
-        $oldKey = $knownDevice->deviceKey;
-        $knownDevice->setDeviceKey();
-
-        $this->assertNotEquals($oldKey, $knownDevice->deviceKey);
     }
 
     public function testFindByCode(): void

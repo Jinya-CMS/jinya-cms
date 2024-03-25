@@ -6,17 +6,20 @@ use JetBrains\PhpStorm\ArrayShape;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
+use Jinya\Database\Creatable;
 use Jinya\Database\CreatableEntityTrait;
+use Jinya\Database\Deletable;
 use Jinya\Database\DeletableEntityTrait;
 use Jinya\Database\EntityTrait;
 use Jinya\Database\Exception\NotNullViolationException;
+use Jinya\Database\Updatable;
 use Jinya\Database\UpdatableEntityTrait;
 
 /**
  * This class is a mapper class to combine galleries and files, while maintaining a position the file is placed at in the gallery
  */
 #[Table('gallery_file_position')]
-class GalleryFilePosition
+class GalleryFilePosition implements Creatable, Updatable, Deletable
 {
     use EntityTrait;
     use UpdatableEntityTrait;
