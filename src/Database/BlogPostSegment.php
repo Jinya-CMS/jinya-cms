@@ -52,10 +52,6 @@ class BlogPostSegment
      * Formats the blog post segment into an array
      *
      * @return array<string, array<string, int|string|null>|int|string|null>
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     #[ArrayShape([
         'position' => 'int',
@@ -123,10 +119,6 @@ class BlogPostSegment
      * The gallery this segment contains
      *
      * @return Gallery|null
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     public function getGallery(): ?Gallery
     {

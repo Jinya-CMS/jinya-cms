@@ -34,7 +34,7 @@ class BatchSegmentsAction extends Action
             throw new NoResultException($this->request, 'Post not found');
         }
 
-        $post->batchReplaceSegments($this->body['segments']);
+        $post->replaceSegments($this->body['segments']);
 
         return $this->noContent();
     }

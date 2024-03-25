@@ -297,13 +297,13 @@ class BlogPostTest extends DatabaseAwareTestCase
     public function testBatchReplaceSegmentsEmptyArray(): void
     {
         $post = $this->createBlogPost();
-        $post->batchReplaceSegments([
+        $post->replaceSegments([
             ['html' => 'Test segment'],
         ]);
 
         $this->assertCount(1, iterator_to_array($post->getSegments()));
 
-        $post->batchReplaceSegments([]);
+        $post->replaceSegments([]);
         $this->assertCount(0, iterator_to_array($post->getSegments()));
     }
 
@@ -319,7 +319,7 @@ class BlogPostTest extends DatabaseAwareTestCase
     public function testBatchReplaceSegmentsCreateSegments(): void
     {
         $post = $this->createBlogPost();
-        $post->batchReplaceSegments([
+        $post->replaceSegments([
             ['html' => 'Test segment'],
         ]);
 
@@ -327,7 +327,7 @@ class BlogPostTest extends DatabaseAwareTestCase
 
         $file = $this->createFile();
         $gallery = $this->createGallery();
-        $post->batchReplaceSegments([
+        $post->replaceSegments([
             ['html' => 'Test segment'],
             ['file' => $file->id],
             ['file' => $file->id, 'link' => 'https://google.com'],

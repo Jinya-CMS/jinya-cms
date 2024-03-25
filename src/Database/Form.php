@@ -162,7 +162,7 @@ class Form extends Entity
      * @throws TransactionFailedException
      * @throws JsonException
      */
-    public function batchReplaceItems(array $newItems): void
+    public function replaceItems(array $newItems): void
     {
         $pdo = self::getPdo();
         $begin = $pdo->beginTransaction();
@@ -170,31 +170,36 @@ class Form extends Entity
             throw new TransactionFailedException('Transaction could not be initialized');
         }
 
-        $newItemsStatements = [];
+        $newItemQueries = [];
 
         foreach ($newItems as $idx => $newItem) {
-            $newItemsStatements[] = [
-                'query' => 'INSERT INTO form_item (position, type, options, spam_filter, label, help_text, form_id, is_from_address, is_subject, is_required, placeholder) VALUES (:position, :type, :options, :spamFilter, :label, :helpText, :formId, :isFromAddress, :isSubject, :isRequired, :placeholder)',
-                'params' => [
-                    'position' => $newItem->position,
+            $newItemQueries[] = self::getQueryBuilder()
+                ->newInsert()
+                ->into(FormItem::getTableName())
+                ->addRow([
+                    'position' => $idx,
                     'type' => $newItem->type,
                     'options' => json_encode($newItem->options, JSON_THROW_ON_ERROR),
-                    'spamFilter' => json_encode($newItem->spamFilter, JSON_THROW_ON_ERROR),
+                    'spam_filter' => json_encode($newItem->spamFilter, JSON_THROW_ON_ERROR),
                     'label' => $newItem->label,
-                    'helpText' => $newItem->helpText,
-                    'formId' => $this->id,
-                    'isFromAddress' => $newItem->isFromAddress ?: 1,
-                    'isSubject' => $newItem->isSubject ?: 1,
-                    'isRequired' => $newItem->isRequired ?: 1,
+                    'help_text' => $newItem->helpText,
+                    'form_id' => $this->id,
+                    'is_from_address' => $newItem->isFromAddress ?: 1,
+                    'is_subject' => $newItem->isSubject ?: 1,
+                    'is_required' => $newItem->isRequired ?: 1,
                     'placeholder' => $newItem->placeholder,
-                ]
-            ];
+                ]);
         }
 
         try {
-            $pdo->prepare('DELETE FROM form_item WHERE form_id = :id')->execute(['id' => $this->id]);
-            foreach ($newItemsStatements as $newItem) {
-                $pdo->prepare($newItem['query'])->execute($newItem['params']);
+            $query = self::getQueryBuilder()
+                ->newDelete()
+                ->from(MenuItem::getTableName())
+                ->where('form_id = :formId', ['formId' => $this->id]);
+
+            self::executeQuery($query);
+            foreach ($newItemQueries as $newItem) {
+                self::executeQuery($newItem);
             }
 
             $pdo->commit();

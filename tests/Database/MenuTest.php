@@ -25,7 +25,7 @@ class MenuTest extends DatabaseAwareTestCase
     {
         $menu = new Menu();
         $menu->name = $name;
-        $menu->logo = $this->file->getIdAsInt();
+        $menu->logo = $this->file->id;
 
         if ($execute) {
             $menu->create();
@@ -40,7 +40,7 @@ class MenuTest extends DatabaseAwareTestCase
         $menu->name = 'Test';
         $menu->update();
 
-        $found = Menu::findById($menu->getIdAsInt());
+        $found = Menu::findById($menu->id);
         $this->assertEquals($menu, $found);
     }
 
@@ -49,7 +49,7 @@ class MenuTest extends DatabaseAwareTestCase
         $menu = $this->createMenu(execute: false);
         $menu->create();
 
-        $found = Menu::findById($menu->getIdAsInt());
+        $found = Menu::findById($menu->id);
         $this->assertEquals($menu, $found);
     }
 
@@ -58,40 +58,55 @@ class MenuTest extends DatabaseAwareTestCase
         $menu = $this->createMenu(execute: false);
         $menu->logo = null;
         $menu->create();
-        $this->assertEquals(['name' => $menu->name, 'id' => $menu->getIdAsInt()], $menu->format());
+        $this->assertEquals(['name' => $menu->name, 'id' => $menu->id], $menu->format());
     }
 
     public function testFormatWithLogo(): void
     {
         $menu = $this->createMenu();
-        $this->assertEquals(['name' => $menu->name, 'id' => $menu->getIdAsInt(), 'logo' => ['name' => $this->file->name, 'id' => $this->file->id]], $menu->format());
+        $this->assertEquals(
+            [
+                'name' => $menu->name,
+                'id' => $menu->id,
+                'logo' => ['name' => $this->file->name, 'id' => $this->file->id]
+            ],
+            $menu->format()
+        );
     }
 
     public function testGetItems(): void
     {
         $menu = $this->createMenu();
-        $menuItem = new MenuItem();
-        $menuItem->menuId = $menu->getIdAsInt();
-        $menuItem->position = 1;
-        $menuItem->title = 'Testentry';
-        $menuItem->route = '#';
-        $menuItem->create();
 
-        $parent = new MenuItem();
-        $parent->menuId = $menu->getIdAsInt();
-        $parent->position = 2;
-        $parent->title = 'Testentry2';
-        $parent->route = '#';
-        $parent->create();
+        $menuItem = [
+            'route' => '#',
+            'title' => 'Testtitle',
+            'items' => [
+                [
+                    'route' => '#',
+                    'title' => 'Testtitle',
+                ],
+                [
+                    'route' => '#',
+                    'title' => 'Testtitle',
+                ],
+                [
+                    'route' => '#',
+                    'title' => 'Testtitle',
+                    'items' => [
+                        [
+                            'route' => '#',
+                            'title' => 'Testtitle',
+                        ]
+                    ],
+                ],
+            ],
+        ];
 
-        $menuItem = new MenuItem();
-        $menuItem->parentId = $parent->getIdAsInt();
-        $menuItem->position = 1;
-        $menuItem->title = 'Testentry2';
-        $menuItem->route = '#';
-        $menuItem->create();
+        $menu->replaceItems([$menuItem]);
+        $item = $menu->getItems()->current();
 
-        $this->assertCount(2, iterator_to_array($menu->getItems()));
+        $this->assertCount(3, iterator_to_array($item->getItems()));
     }
 
     public function testGetItemsEmpty(): void
@@ -105,7 +120,7 @@ class MenuTest extends DatabaseAwareTestCase
         $menu = $this->createMenu();
         $menu->delete();
 
-        $found = Menu::findById($menu->getIdAsInt());
+        $found = Menu::findById($menu->id);
         $this->assertNull($found);
     }
 
@@ -115,25 +130,14 @@ class MenuTest extends DatabaseAwareTestCase
         $menu->delete();
         $menu->delete();
 
-        $found = Menu::findById($menu->getIdAsInt());
+        $found = Menu::findById($menu->id);
         $this->assertNull($found);
-    }
-
-    public function testFindByKeyword(): void
-    {
-        $this->createMenu();
-        $this->createMenu('Testmenu2');
-        $this->createMenu('Testmenu3');
-        $this->createMenu('Testmenu4');
-
-        $found = Menu::findByKeyword('3');
-        $this->assertCount(1, iterator_to_array($found));
     }
 
     public function testFindById(): void
     {
         $menu = $this->createMenu();
-        $found = Menu::findById($menu->getIdAsInt());
+        $found = Menu::findById($menu->id);
 
         $this->assertEqualsIgnoringCase($menu, $found);
     }

@@ -108,7 +108,7 @@ class BlogPost extends Entity
      * @param array<int, array<string, int|string>> $newSegments The new segments
      * @throws TransactionFailedException
      */
-    public function batchReplaceSegments(array $newSegments): void
+    public function replaceSegments(array $newSegments): void
     {
         $pdo = self::getPdo();
         $begin = $pdo->beginTransaction();
@@ -116,32 +116,49 @@ class BlogPost extends Entity
             throw new TransactionFailedException('Transaction could not be initialized');
         }
 
-        $newSegmentStatements = [];
+        $newSegmentQueries = [];
 
         foreach ($newSegments as $idx => $newSegment) {
             if (array_key_exists('file', $newSegment)) {
-                $query = 'INSERT INTO blog_post_segment (blog_post_id, file_id, position, link) VALUES (:blogPostId, :fileId, :position, :link)';
-                $params = ['fileId' => $newSegment['file'], 'link' => $newSegment['link'] ?? null];
+                $newSegmentQueries[] = self::getQueryBuilder()
+                    ->newInsert()
+                    ->into(BlogPostSegment::getTableName())
+                    ->addRow([
+                        'position' => $idx,
+                        'file_id' => $newSegment['file'],
+                        'link' => $newSegment['link'] ?? null,
+                        'blog_post_id' => $this->id
+                    ]);
             } elseif (array_key_exists('gallery', $newSegment)) {
-                $query = 'INSERT INTO blog_post_segment (blog_post_id, gallery_id, position) VALUES (:blogPostId, :galleryId, :position)';
-                $params = ['galleryId' => $newSegment['gallery']];
+                $newSegmentQueries[] = self::getQueryBuilder()
+                    ->newInsert()
+                    ->into(BlogPostSegment::getTableName())
+                    ->addRow([
+                        'position' => $idx,
+                        'gallery_id' => $newSegment['gallery'],
+                        'blog_post_id' => $this->id
+                    ]);
             } else {
-                $query = 'INSERT INTO blog_post_segment (blog_post_id, html, position) VALUES (:blogPostId, :html, :position)';
-                $params = ['html' => $newSegment['html'] ?? ''];
+                $newSegmentQueries[] = self::getQueryBuilder()
+                    ->newInsert()
+                    ->into(BlogPostSegment::getTableName())
+                    ->addRow([
+                        'position' => $idx,
+                        'html' => $newSegment['html'] ?? '',
+                        'blog_post_id' => $this->id
+                    ]);
             }
-
-            $params['position'] = $idx;
-            $params['blogPostId'] = $this->id;
-            $newSegmentStatements[] = [
-                'query' => $query,
-                'params' => $params,
-            ];
         }
 
         try {
-            $pdo->prepare('DELETE FROM blog_post_segment WHERE blog_post_id = :id')->execute(['id' => $this->id]);
-            foreach ($newSegmentStatements as $newSegment) {
-                $pdo->prepare($newSegment['query'])->execute($newSegment['params']);
+            $query = self::getQueryBuilder()
+                ->newDelete()
+                ->from(BlogPostSegment::getTableName())
+                ->where('blog_post_id = :blogPostId', ['blogPostId' => $this->id]);
+
+            self::executeQuery($query);
+            foreach ($newSegmentQueries as $newItem) {
+                self::executeQuery($newItem);
             }
 
             $pdo->commit();

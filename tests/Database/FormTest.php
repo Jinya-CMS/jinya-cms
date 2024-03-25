@@ -80,7 +80,7 @@ class FormTest extends DatabaseAwareTestCase
         $item->label = 'Label';
         $item->position = 0;
 
-        $form->batchReplaceItems([$item]);
+        $form->replaceItems([$item]);
         $form->delete();
 
         $foundForm = Form::findById($form->id);
@@ -148,7 +148,7 @@ class FormTest extends DatabaseAwareTestCase
         $item->formId = $form->id;
         $item->label = 'Label';
         $item->position = 0;
-        $form->batchReplaceItems([$item]);
+        $form->replaceItems([$item]);
 
         $items = $form->getItems();
         $this->assertCount(1, iterator_to_array($items));
@@ -162,7 +162,7 @@ class FormTest extends DatabaseAwareTestCase
         $item->formId = $form->id;
         $item->label = 'Label';
         $item->position = 0;
-        $form->batchReplaceItems([$item]);
+        $form->replaceItems([$item]);
 
         $form2 = $this->createForm(title: 'Form2');
         $item2 = new FormItem();
@@ -170,7 +170,7 @@ class FormTest extends DatabaseAwareTestCase
         $item2->formId = $form2->id;
         $item2->label = 'Label';
         $item2->position = 0;
-        $form2->batchReplaceItems([$item2]);
+        $form2->replaceItems([$item2]);
 
         $items = $form->getItems();
         $this->assertCount(1, iterator_to_array($items));
