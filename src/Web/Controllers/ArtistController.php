@@ -89,7 +89,7 @@ class ArtistController extends BaseController
 
         try {
             $artist->update();
-        } catch (UniqueFailedException ) {
+        } catch (UniqueFailedException) {
             return $this->json([
                 'success' => false,
                 'error' => [
@@ -97,7 +97,7 @@ class ArtistController extends BaseController
                     'type' => 'unique-failed',
                 ],
             ]);
-        } catch (NotNullViolationException ) {
+        } catch (NotNullViolationException) {
             return $this->json([
                 'success' => false,
                 'error' => [

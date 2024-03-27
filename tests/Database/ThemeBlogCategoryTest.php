@@ -3,7 +3,6 @@
 namespace Jinya\Tests\Database;
 
 use App\Database\BlogCategory;
-use App\Database\Exceptions\UniqueFailedException;
 use App\Database\ThemeBlogCategory;
 use App\Tests\ThemeTestCase;
 use Faker\Provider\Uuid;

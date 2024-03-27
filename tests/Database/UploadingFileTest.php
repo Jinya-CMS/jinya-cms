@@ -2,14 +2,12 @@
 
 namespace Jinya\Tests\Database;
 
-use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Database\UploadingFile;
 use App\Database\UploadingFileChunk;
 use App\Tests\DatabaseAwareTestCase;
 use Faker\Provider\Uuid;
 use PDOException;
-use RuntimeException;
 
 class UploadingFileTest extends DatabaseAwareTestCase
 {

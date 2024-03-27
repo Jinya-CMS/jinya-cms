@@ -2,17 +2,11 @@
 
 namespace Jinya\Tests\Database;
 
-use App\Database\BlogCategory;
-use App\Database\BlogPost;
-use App\Database\BlogPostSection;
 use App\Database\File;
-use App\Database\Form;
 use App\Database\Gallery;
-use App\Database\ModernPageSection;
 use App\Database\ModernPage;
 use App\Tests\DatabaseAwareTestCase;
 use Faker\Provider\Uuid;
-use RuntimeException;
 
 class ModernPageSectionTest extends DatabaseAwareTestCase
 {
@@ -126,8 +120,7 @@ class ModernPageSectionTest extends DatabaseAwareTestCase
         string $html = null,
         int $galleryId = null,
         int $fileId = null
-    ): Section
-    {
+    ): Section {
         $section = new Section();
         $section->id = 0;
         $section->pageId = $pageId;

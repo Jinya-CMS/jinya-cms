@@ -3,7 +3,6 @@
 namespace Jinya\Tests\Database;
 
 use App\Authentication\CurrentUser;
-use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Database\FileTag;
 use App\Database\UploadingFile;

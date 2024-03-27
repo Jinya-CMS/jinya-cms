@@ -32,7 +32,6 @@ use JsonException;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\Stream;
 use Psr\Http\Message\ResponseInterface;
-use ScssPhp\ScssPhp\Exception\SassException;
 use stdClass;
 use ZipArchive;
 

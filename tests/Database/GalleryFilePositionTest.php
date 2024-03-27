@@ -2,14 +2,12 @@
 
 namespace Jinya\Tests\Database;
 
-use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\File;
 use App\Database\Gallery;
 use App\Database\GalleryFilePosition;
 use App\Tests\DatabaseAwareTestCase;
 use App\Utils\UuidGenerator;
 use PDOException;
-use RuntimeException;
 
 class GalleryFilePositionTest extends DatabaseAwareTestCase
 {

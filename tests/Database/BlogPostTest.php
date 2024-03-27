@@ -5,7 +5,6 @@ namespace Jinya\Tests\Database;
 use App\Authentication\CurrentUser;
 use App\Database\BlogCategory;
 use App\Database\BlogPost;
-use App\Database\BlogPostSection;
 use App\Database\File;
 use App\Database\Gallery;
 use App\Tests\DatabaseAwareTestCase;

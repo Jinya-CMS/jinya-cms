@@ -9,7 +9,6 @@ use Jinya\Plates\Extension\ExtensionInterface;
 use JShrink\Minifier;
 use RuntimeException;
 use ScssPhp\ScssPhp\Compiler;
-use ScssPhp\ScssPhp\Exception\SassException;
 use ScssPhp\ScssPhp\Node\Number;
 use ScssPhp\ScssPhp\OutputStyle;
 use ScssPhp\ScssPhp\ValueConverter;

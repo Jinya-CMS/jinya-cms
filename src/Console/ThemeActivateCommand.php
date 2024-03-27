@@ -6,7 +6,6 @@ use App\Database\Theme;
 use App\Theming\ThemeSyncer;
 use Exception;
 use Jinya\Database\Exception\NotNullViolationException;
-use ScssPhp\ScssPhp\Exception\SassException;
 
 /** @codeCoverageIgnore */
 #[JinyaCommand('theme-activate')]

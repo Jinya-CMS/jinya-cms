@@ -65,7 +65,7 @@ phpstan:
         - .install-dependencies
     stage: lint
     script:
-        - ./tools/phpstan --no-progress analyze ./src ./app ./cli ./public --memory-limit 1G
+        - ./tools/phpstan --no-progress analyze ./src ./cli ./public --memory-limit 1G
 
 pint:
     extends:

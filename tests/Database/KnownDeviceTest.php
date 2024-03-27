@@ -7,7 +7,6 @@ use App\Database\Artist;
 use App\Database\KnownDevice;
 use App\Tests\DatabaseAwareTestCase;
 use App\Utils\UuidGenerator;
-use RuntimeException;
 
 class KnownDeviceTest extends DatabaseAwareTestCase
 {

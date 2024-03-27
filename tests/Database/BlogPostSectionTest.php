@@ -9,7 +9,6 @@ use App\Database\File;
 use App\Database\Gallery;
 use App\Tests\DatabaseAwareTestCase;
 use Faker\Provider\Uuid;
-use RuntimeException;
 
 class BlogPostSectionTest extends DatabaseAwareTestCase
 {

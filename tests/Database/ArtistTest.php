@@ -5,15 +5,12 @@ namespace Jinya\Tests\Database;
 use App\Database\ApiKey;
 use App\Database\Artist;
 use App\Database\Exceptions\DeleteLastAdminException;
-use App\Database\Exceptions\UniqueFailedException;
 use App\Database\KnownDevice;
 use App\Tests\DatabaseAwareTestCase;
 use DateTime;
 use InvalidArgumentException;
 
 use PDOException;
-
-use function PHPUnit\Framework\assertFalse;
 
 class ArtistTest extends DatabaseAwareTestCase
 {

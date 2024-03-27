@@ -4,7 +4,6 @@ namespace App\Console;
 
 use App\Database\Theme;
 use Exception;
-use ScssPhp\ScssPhp\Exception\SassException;
 
 /** @codeCoverageIgnore */
 #[JinyaCommand('theme-compile')]

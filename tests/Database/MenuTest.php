@@ -4,7 +4,6 @@ namespace Jinya\Tests\Database;
 
 use App\Database\File;
 use App\Database\Menu;
-use App\Database\MenuItem;
 use App\Tests\DatabaseAwareTestCase;
 use App\Utils\UuidGenerator;
 
