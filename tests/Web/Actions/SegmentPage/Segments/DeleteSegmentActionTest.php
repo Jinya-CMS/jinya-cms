@@ -2,8 +2,8 @@
 
 namespace Jinya\Tests\Web\Actions\SegmentPage\Segments;
 
-use App\Database\Segment;
-use App\Database\SegmentPage;
+use App\Database\ModernPageSection;
+use App\Database\ModernPage;
 use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\SegmentPage\Segments\DeleteSegmentAction;
 use Faker\Provider\Uuid;
@@ -15,11 +15,11 @@ class DeleteSegmentActionTest extends DatabaseAwareTestCase
 {
     public function test__invoke(): void
     {
-        $segmentPage = new SegmentPage();
+        $segmentPage = new ModernPage();
         $segmentPage->name = Uuid::uuid();
         $segmentPage->create();
 
-        $segment = new Segment();
+        $segment = new ModernPageSection();
         $segment->html = '';
         $segment->position = 0;
         $segment->pageId = $segmentPage->getIdAsInt();

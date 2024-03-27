@@ -1,31 +1,41 @@
 <?php
 /** @var array $configuration */
-/** @var \App\Database\BlogCategory $category */
 
-/** @var Iterator<\App\Database\BlogPost> $posts */
+/** @var BlogCategory $category */
 
+/** @var Iterator<BlogPost> $posts */
+
+use App\Database\BlogCategory;
+use App\Database\BlogPost;
 use App\Utils\ImageType;
 
 $this->layout('theme::layout', ['title' => $category->name]);
 ?>
-<?php $this->start('maincontent') ?>
+<?php
+$this->start('maincontent') ?>
 <main class="jinya-post-list">
     <h1 class="jinya-category__title"><?= $this->e($category->name) ?></h1>
-    <?php foreach ($posts
+    <?php
+    foreach ($posts
 
     as $post): ?>
-    <?php /** @var DateTime $postCreate */
+    <?php
+    /** @var DateTime $postCreate */
     $postCreate = $post->createdAt; ?>
     <a class="jinya-post-list__post-link" href="/<?= $postCreate->format('Y/m/d') ?>/<?= $this->e($post->slug) ?>">
-            <div class="jinya-post-list__post">
-                <span class="jinya-post-list__post-title"><?= $this->e($post->title) ?></span>
-                <?php if ($post->headerImageId !== null): ?>
-                <img class="jinya-post-list__post-header" src="<?= $post->getHeaderImage()->path ?>"
-                     alt="<?= $this->e($post->title) ?>" sizes="<?= $this->sizes() ?>"
-                     srcset="<?= $this->srcset($post->getHeaderImage(), ImageType::Webp) ?>>
-                <?php endif ?>
+        <div class="jinya-post-list__post">
+            <span class="jinya-post-list__post-title"><?= $this->e($post->title) ?></span>
+            <?php
+            if ($post->headerImageId !== null): ?>
+            <img class="jinya-post-list__post-header" src="<?= $post->getHeaderImage()->path ?>"
+                 alt="<?= $this->e($post->title) ?>" sizes="<?= $this->sizes() ?>"
+                 srcset="<?= $this->srcset($post->getHeaderImage(), ImageType::Webp) ?>>
+                <?php
+            endif ?>
             </div>
         </a>
-    <?php endforeach ?>
+    <?php
+    endforeach ?>
 </main>
-<?php $this->stop() ?>
+<?php
+    $this->stop() ?>

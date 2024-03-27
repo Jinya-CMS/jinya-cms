@@ -8,7 +8,7 @@ use Jinya\Database\ValueConverter;
 #[Attribute(Attribute::TARGET_PROPERTY)]
 class NullableBooleanConverter implements ValueConverter
 {
-    public function from(mixed $input): mixed
+    public function from(mixed $input): ?bool
     {
         if (is_bool($input)) {
             return $input;
@@ -25,7 +25,7 @@ class NullableBooleanConverter implements ValueConverter
         return null;
     }
 
-    public function to(mixed $input): mixed
+    public function to(mixed $input): ?int
     {
         if ($input === true) {
             return 1;

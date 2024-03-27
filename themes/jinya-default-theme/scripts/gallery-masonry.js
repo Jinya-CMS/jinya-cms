@@ -7,7 +7,8 @@
         const clone = parent.cloneNode(true);
         clone.classList.add('is--modal');
         document.body.classList.add('is--open');
-        clone.querySelector('img').removeEventListener('click', openModal);
+        clone.querySelector('img')
+          .removeEventListener('click', openModal);
         document.body.appendChild(clone);
         const closeModal = () => {
           clone.classList.remove('is--open');

@@ -51,6 +51,7 @@ class ThemeAsset implements Creatable, Updatable, Deletable
             ])
             ->where('theme_id = :themeId AND name = :name', ['themeId' => $themeId, 'name' => $name]);
 
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
         if (empty($data)) {
             return null;
@@ -77,6 +78,7 @@ class ThemeAsset implements Creatable, Updatable, Deletable
             ])
             ->where('theme_id = :themeId', ['themeId' => $themeId]);
 
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
         foreach ($data as $item) {
             yield self::fromArray($item);

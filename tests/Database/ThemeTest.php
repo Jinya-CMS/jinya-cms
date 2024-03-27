@@ -7,8 +7,8 @@ use App\Database\File;
 use App\Database\Form;
 use App\Database\Gallery;
 use App\Database\Menu;
-use App\Database\SegmentPage;
-use App\Database\SimplePage;
+use App\Database\ModernPage;
+use App\Database\ClassicPage;
 use App\Database\Theme;
 use App\Database\ThemeAsset;
 use App\Database\ThemeBlogCategory;
@@ -16,8 +16,8 @@ use App\Database\ThemeFile;
 use App\Database\ThemeForm;
 use App\Database\ThemeGallery;
 use App\Database\ThemeMenu;
-use App\Database\ThemePage;
-use App\Database\ThemeSegmentPage;
+use App\Database\ThemeClassicPage;
+use App\Database\ThemeModernPage;
 use App\Tests\ThemeTestCase;
 use Faker\Provider\Uuid;
 use Jinya\Database\Entity;
@@ -254,34 +254,34 @@ class ThemeTest extends ThemeTestCase
 
     public function testGetPages(): void
     {
-        $simplePage = new SimplePage();
+        $simplePage = new ClassicPage();
         $simplePage->title = Uuid::uuid();
         $simplePage->content = Uuid::uuid();
         $simplePage->create();
 
-        $themePage = new ThemePage();
-        $themePage->pageId = $simplePage->id;
+        $themePage = new ThemeClassicPage();
+        $themePage->classicPageId = $simplePage->id;
         $themePage->themeId = $this->theme->id;
         $themePage->name = 'Test';
         $themePage->create();
 
-        $pages = $this->theme->getPages();
+        $pages = $this->theme->getClassicPages();
         self::assertArrayHasKey($themePage->name, $pages);
     }
 
     public function testGetSegmentPages(): void
     {
-        $segmentPage = new SegmentPage();
+        $segmentPage = new ModernPage();
         $segmentPage->name = Uuid::uuid();
         $segmentPage->create();
 
-        $themePage = new ThemeSegmentPage();
-        $themePage->segmentPageId = $segmentPage->id;
+        $themePage = new ThemeModernPage();
+        $themePage->modernPageId = $segmentPage->id;
         $themePage->themeId = $this->theme->id;
         $themePage->name = 'Test';
         $themePage->create();
 
-        $pages = $this->theme->getSegmentPages();
+        $pages = $this->theme->getModernPages();
         self::assertArrayHasKey($themePage->name, $pages);
     }
 }

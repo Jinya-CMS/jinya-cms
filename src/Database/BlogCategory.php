@@ -3,12 +3,17 @@
 namespace App\Database;
 
 use App\Database\Converter\BooleanConverter;
+use App\Web\Middleware\AuthorizationMiddleware;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
 use Jinya\Database\Entity;
+use Jinya\Router\Extensions\Database\Attributes\Create;
+use Jinya\Router\Extensions\Database\Attributes\Delete;
+use Jinya\Router\Extensions\Database\Attributes\Find;
+use Jinya\Router\Extensions\Database\Attributes\Update;
 use PDO;
 use PDOException;
 
@@ -17,6 +22,10 @@ use PDOException;
  * Categories can contain a webhook URL, this URL is triggered with a POST request whenever a post is created or updated.
  */
 #[Table('blog_category')]
+#[Find('/api/blog-category', new AuthorizationMiddleware(ROLE_READER))]
+#[Create('/api/blog-category', new AuthorizationMiddleware(ROLE_WRITER))]
+#[Update('/api/blog-category', new AuthorizationMiddleware(ROLE_WRITER))]
+#[Delete('/api/blog-category', new AuthorizationMiddleware(ROLE_WRITER))]
 class BlogCategory extends Entity
 {
     #[Id]
@@ -35,7 +44,7 @@ class BlogCategory extends Entity
     #[Column(sqlName: 'parent_id')]
     public ?int $parentId = null;
 
-    /** @var bool Indicates whether the blog post trigger a webhook on create and update */
+    /** @var bool Indicates whether the blog post triggers a webhook on create and update */
     #[Column(sqlName: 'webhook_enabled')]
     #[BooleanConverter]
     public bool $webhookEnabled = false;
@@ -72,7 +81,7 @@ class BlogCategory extends Entity
     }
 
     /**
-     * Gets the categories parent category, if it has no parent the result is null
+     * Gets the category parent category, if it has no parent, the result is null
      *
      * @return BlogCategory|null
      */

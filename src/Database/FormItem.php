@@ -99,6 +99,7 @@ class FormItem
             ])
             ->where('form_id = :id', ['id' => $id]);
 
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
 
         foreach ($data as $item) {

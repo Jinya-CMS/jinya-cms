@@ -12,7 +12,8 @@ use Jinya\Database\Deletable;
 use Jinya\Database\EntityTrait;
 
 /**
- * This class contains and uploading file. Uploading files are temporary entities used to handle the chunked upload feature of Jinya CMS
+ * This class contains an uploading file.
+ * Uploading files are temporary entities used to handle the chunked upload feature of Jinya CMS
  */
 #[Table('uploading_file')]
 class UploadingFile implements Creatable, Deletable
@@ -26,6 +27,9 @@ class UploadingFile implements Creatable, Deletable
     #[Column(sqlName: 'file_id')]
     public int $fileId;
 
+    /**
+     * @throws Exception
+     */
     public function __construct()
     {
         $this->id = UuidGenerator::generateV4();
@@ -59,6 +63,7 @@ class UploadingFile implements Creatable, Deletable
             ])
             ->where('file_id = :fileId', ['fileId' => $fileId]);
 
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
         if (empty($data)) {
             return null;

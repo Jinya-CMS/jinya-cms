@@ -5,17 +5,17 @@
 ?>
 
 <div>
-  <h1><?= $title ?></h1>
-  <table>
-    <tbody>
-    <?php
-    foreach ($data as $key => $item): ?>
-      <tr>
-        <th><?= $key ?></th>
-        <td><?= $item ?></td>
-      </tr>
-    <?php
-    endforeach ?>
-    </tbody>
-  </table>
+    <h1><?= $this->e($title) ?></h1>
+    <table>
+        <tbody>
+        <?php
+        foreach ($data as $key => $item): ?>
+            <tr>
+                <th><?= $this->e($key) ?></th>
+                <td><?= $this->e($item) ?></td>
+            </tr>
+        <?php
+        endforeach ?>
+        </tbody>
+    </table>
 </div>

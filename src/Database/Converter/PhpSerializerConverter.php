@@ -13,7 +13,7 @@ class PhpSerializerConverter implements ValueConverter
         return unserialize($input, ['allowed_classes' => []]);
     }
 
-    public function to(mixed $input): mixed
+    public function to(mixed $input): string
     {
         return serialize($input);
     }

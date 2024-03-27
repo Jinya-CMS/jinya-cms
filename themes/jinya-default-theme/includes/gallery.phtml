@@ -1,36 +1,46 @@
 <?php
 /** @var Gallery $gallery */
+
 /** @var string $extraClass */
 /** @var bool $noCaption */
 
-/** @var \App\Database\GalleryFilePosition $filePosition */
+/** @var GalleryFilePosition $filePosition */
 
 use App\Database\Gallery;
+use App\Database\GalleryFilePosition;
 use App\Utils\ImageType;
 
 ?>
-<?php $bemClassBlock = 'jinya-' . $gallery->orientation . '-gallery' ?>
+<?php
+$bemClassBlock = 'jinya-' . $gallery->orientation . '-gallery' ?>
 <div class="is--<?= $gallery->type ?>">
     <div
         class="<?= $bemClassBlock ?> jinya-gallery--mobile is--<?= $gallery->orientation ?> <?= $extraClass ?>">
-        <?php foreach ($gallery->getFiles() as $filePosition): ?>
-            <?php $file = $filePosition->getFile() ?>
+        <?php
+        foreach ($gallery->getFiles() as $filePosition): ?>
+            <?php
+            $file = $filePosition->getFile() ?>
             <figure class="<?= $bemClassBlock ?>__artwork jinya-gallery__artwork--mobile">
                 <img class="<?= $bemClassBlock ?>-artwork__image jinya-gallery__image--mobile"
                      src="<?= $this->e($file->path) ?>" alt="<?= $this->e($file->name) ?>" sizes="<?= $this->sizes() ?>"
                      srcset="<?= $this->srcset($file, ImageType::Webp) ?>"
-                    <?php if ($gallery->type === Gallery::TYPE_MASONRY): ?>
+                    <?php
+                    if ($gallery->type === Gallery::TYPE_MASONRY): ?>
                         data-action="masonry-click" role="button"
-                    <?php endif ?>>
-                <?php if (!isset($noCaption) || $noCaption === false): ?>
+                    <?php
+                    endif ?>>
+                <?php
+                if (!isset($noCaption) || $noCaption === false): ?>
                     <figcaption class="<?= $bemClassBlock ?>__caption jinya-gallery__caption--mobile">
                         <span
-                                class="<?= $bemClassBlock ?>-caption__title jinya-gallery-caption__title--mobile is--description-empty">
+                            class="<?= $bemClassBlock ?>-caption__title jinya-gallery-caption__title--mobile is--description-empty">
                             <?= $this->e($file->name) ?>
                         </span>
                     </figcaption>
-                <?php endif ?>
+                <?php
+                endif ?>
             </figure>
-        <?php endforeach ?>
+        <?php
+        endforeach ?>
     </div>
 </div>

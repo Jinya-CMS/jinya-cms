@@ -52,6 +52,7 @@ class ThemeBlogCategory implements Creatable, Updatable, Deletable
             ])
             ->where('theme_id = :themeId AND name = :name', ['themeId' => $themeId, 'name' => $name]);
 
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
         if (empty($data)) {
             return null;
@@ -78,6 +79,7 @@ class ThemeBlogCategory implements Creatable, Updatable, Deletable
             ])
             ->where('theme_id = :themeId', ['themeId' => $themeId]);
 
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
         foreach ($data as $item) {
             yield self::fromArray($item);
@@ -111,6 +113,7 @@ class ThemeBlogCategory implements Creatable, Updatable, Deletable
         $query = self::getQueryBuilder()
             ->newUpdate()
             ->table(self::getTableName())
+            /** @phpstan-ignore-next-line */
             ->set('blog_category_id', $this->blogCategoryId)
             ->where('theme_id = :themeId AND name = :name', ['themeId' => $this->themeId, 'name' => $this->name]);
 

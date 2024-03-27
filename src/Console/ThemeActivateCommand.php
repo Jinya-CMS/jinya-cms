@@ -4,11 +4,19 @@ namespace App\Console;
 
 use App\Database\Theme;
 use App\Theming\ThemeSyncer;
+use Exception;
+use Jinya\Database\Exception\NotNullViolationException;
+use ScssPhp\ScssPhp\Exception\SassException;
 
 /** @codeCoverageIgnore */
 #[JinyaCommand('theme-activate')]
 class ThemeActivateCommand extends AbstractCommand
 {
+    /**
+     * @return void
+     * @throws NotNullViolationException
+     * @throws Exception
+     */
     public function run(): void
     {
         $this->climate->arguments->add([

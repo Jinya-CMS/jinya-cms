@@ -3,11 +3,17 @@
 namespace App\Console;
 
 use App\Database\Theme;
+use Exception;
+use ScssPhp\ScssPhp\Exception\SassException;
 
 /** @codeCoverageIgnore */
 #[JinyaCommand('theme-compile')]
 class ThemeCompileCommand extends AbstractCommand
 {
+    /**
+     * @return void
+     * @throws Exception
+     */
     public function run(): void
     {
         $this->climate->arguments->add([

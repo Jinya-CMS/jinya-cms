@@ -63,6 +63,7 @@ class UploadingFileChunk implements Creatable, Deletable
             )
             ->orderBy(['ufc.chunk_position']);
 
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
         foreach ($data as $item) {
             yield self::fromArray($item);

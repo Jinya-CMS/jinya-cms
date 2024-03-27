@@ -5,7 +5,7 @@ namespace Jinya\Tests\Web\Actions\Theme;
 use App\Database\BlogCategory;
 use App\Database\Gallery;
 use App\Database\Menu;
-use App\Database\SegmentPage;
+use App\Database\ModernPage;
 use App\Database\ThemeBlogCategory;
 use App\Tests\ThemeActionTestCase;
 use App\Web\Actions\Theme\PutLinkItemAction;
@@ -46,7 +46,7 @@ class PutLinkItemActionTest extends ThemeActionTestCase
 
     public function test__invokeSegmentPage(): void
     {
-        $segmentPage = new SegmentPage();
+        $segmentPage = new ModernPage();
         $segmentPage->name = Uuid::uuid();
         $segmentPage->create();
 

@@ -66,6 +66,7 @@ class GalleryFilePosition implements Creatable, Updatable, Deletable
             ->where('gallery_id = :parentId AND position = :position', ['parentId' => $id, 'position' => $position])
             ->orderBy(['position']);
 
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
         if (empty($data)) {
             return null;
@@ -108,6 +109,7 @@ class GalleryFilePosition implements Creatable, Updatable, Deletable
             )
             ->orderBy(['position']);
 
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
         $previousPosition = $newPosition;
         foreach ($data as $item) {
@@ -140,6 +142,7 @@ class GalleryFilePosition implements Creatable, Updatable, Deletable
             ->where('gallery_id = :parentId', ['parentId' => $parentId])
             ->orderBy(['position']);
 
+        /** @var array<string, array<string, mixed>> $data */
         $data = self::executeQuery($query);
         foreach ($data as $idx => $item) {
             $query = self::getQueryBuilder()
@@ -177,6 +180,7 @@ class GalleryFilePosition implements Creatable, Updatable, Deletable
     {
         $gallery = $this->getGallery();
         $file = $this->getFile();
+
         return [
             'gallery' => [
                 'id' => $this->galleryId,

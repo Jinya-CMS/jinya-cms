@@ -5,7 +5,7 @@ namespace Jinya\Tests\Database;
 use App\Authentication\CurrentUser;
 use App\Database\BlogCategory;
 use App\Database\BlogPost;
-use App\Database\BlogPostSegment;
+use App\Database\BlogPostSection;
 use App\Database\File;
 use App\Database\Gallery;
 use App\Tests\DatabaseAwareTestCase;
@@ -270,12 +270,12 @@ class BlogPostTest extends DatabaseAwareTestCase
         $this->assertEquals($post->format(), $foundPost->format());
     }
 
-    public function testGetSegmentsNoSegments(): void
+    public function testGetSectionsNoSections(): void
     {
         $post = $this->createBlogPost();
 
-        $segments = $post->getSegments();
-        $this->assertCount(0, iterator_to_array($segments));
+        $sections = $post->getSections();
+        $this->assertCount(0, iterator_to_array($sections));
     }
 
     public function testGetCreator(): void
@@ -285,17 +285,17 @@ class BlogPostTest extends DatabaseAwareTestCase
         $this->assertEquals(CurrentUser::$currentUser, $creator);
     }
 
-    public function testReplaceSegmentsEmptyArray(): void
+    public function testReplaceSectionsEmptyArray(): void
     {
         $post = $this->createBlogPost();
-        $post->replaceSegments([
-            ['html' => 'Test segment'],
+        $post->replaceSections([
+            ['html' => 'Test section'],
         ]);
 
-        $this->assertCount(1, iterator_to_array($post->getSegments()));
+        $this->assertCount(1, iterator_to_array($post->getSections()));
 
-        $post->replaceSegments([]);
-        $this->assertCount(0, iterator_to_array($post->getSegments()));
+        $post->replaceSections([]);
+        $this->assertCount(0, iterator_to_array($post->getSections()));
     }
 
     private function createGallery(): Gallery
@@ -307,48 +307,48 @@ class BlogPostTest extends DatabaseAwareTestCase
         return $gallery;
     }
 
-    public function testReplaceSegmentsCreateSegments(): void
+    public function testReplaceSectionsCreateSections(): void
     {
         $post = $this->createBlogPost();
-        $post->replaceSegments([
-            ['html' => 'Test segment'],
+        $post->replaceSections([
+            ['html' => 'Test section'],
         ]);
 
-        $this->assertCount(1, iterator_to_array($post->getSegments()));
+        $this->assertCount(1, iterator_to_array($post->getSections()));
 
         $file = $this->createFile();
         $gallery = $this->createGallery();
-        $post->replaceSegments([
-            ['html' => 'Test segment'],
+        $post->replaceSections([
+            ['html' => 'Test section'],
             ['file' => $file->id],
             ['file' => $file->id, 'link' => 'https://google.com'],
             ['gallery' => $gallery->id],
         ]);
 
-        $segments = $post->getSegments();
-        $this->assertCount(4, iterator_to_array($segments));
+        $sections = $post->getSections();
+        $this->assertCount(4, iterator_to_array($sections));
 
-        $segments = $post->getSegments();
+        $sections = $post->getSections();
 
-        $segment = $segments->current();
-        $this->assertEquals('Test segment', $segment->html);
-        $this->assertEquals(0, $segment->position);
-        $segments->next();
+        $section = $sections->current();
+        $this->assertEquals('Test section', $section->html);
+        $this->assertEquals(0, $section->position);
+        $sections->next();
 
-        $segment = $segments->current();
-        $this->assertEquals($file->id, $segment->fileId);
-        $this->assertEquals(1, $segment->position);
-        $segments->next();
+        $section = $sections->current();
+        $this->assertEquals($file->id, $section->fileId);
+        $this->assertEquals(1, $section->position);
+        $sections->next();
 
-        $segment = $segments->current();
-        $this->assertEquals($file->id, $segment->fileId);
-        $this->assertEquals('https://google.com', $segment->link);
-        $this->assertEquals(2, $segment->position);
-        $segments->next();
+        $section = $sections->current();
+        $this->assertEquals($file->id, $section->fileId);
+        $this->assertEquals('https://google.com', $section->link);
+        $this->assertEquals(2, $section->position);
+        $sections->next();
 
-        $segment = $segments->current();
-        $this->assertEquals($gallery->id, $segment->galleryId);
-        $this->assertEquals(3, $segment->position);
-        $segments->next();
+        $section = $sections->current();
+        $this->assertEquals($gallery->id, $section->galleryId);
+        $this->assertEquals(3, $section->position);
+        $sections->next();
     }
 }

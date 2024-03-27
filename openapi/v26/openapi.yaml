@@ -207,8 +207,8 @@ paths:
     $ref: paths/api_form.yaml
   /api/form/{id}:
     $ref: paths/api_form_{id}.yaml
-  /api/form/{id}/items:
-    $ref: paths/api_form_{id}_items.yaml
+  /api/form/{id}/item:
+    $ref: paths/api_form_{id}_item.yaml
   /api/gallery:
     $ref: paths/api_gallery.yaml
   /api/gallery/{id}:
@@ -217,9 +217,9 @@ paths:
     $ref: paths/api_gallery_{galleryId}_file.yaml
   /api/gallery/{galleryId}/file/{position}:
     $ref: paths/api_gallery_{galleryId}_file_{position}.yaml
-  /api/known_device:
+  /api/known-device:
     $ref: paths/api_known_device.yaml
-  /api/known_device/{key}:
+  /api/known-device/{key}:
     $ref: paths/api_known_device_{key}.yaml
   /api/ip-location/{ip}:
     $ref: paths/api_ip-location_{ip}.yaml
@@ -227,8 +227,8 @@ paths:
     $ref: paths/api_menu.yaml
   /api/menu/{id}:
     $ref: paths/api_menu_{id}.yaml
-  /api/menu/{menuId}/items:
-    $ref: paths/api_menu_{menuId}_items.yaml
+  /api/menu/{menuId}/item:
+    $ref: paths/api_menu_{menuId}_item.yaml
   /api/me:
     $ref: paths/api_me.yaml
   /api/me/colorscheme:

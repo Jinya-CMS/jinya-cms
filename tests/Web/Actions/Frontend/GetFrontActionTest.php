@@ -8,8 +8,8 @@ use App\Database\BlogPost;
 use App\Database\Form;
 use App\Database\Gallery;
 use App\Database\MenuItem;
-use App\Database\SegmentPage;
-use App\Database\SimplePage;
+use App\Database\ModernPage;
+use App\Database\ClassicPage;
 use App\Tests\FrontTestCase;
 use App\Web\Actions\Frontend\GetFrontAction;
 use Faker\Provider\Uuid;
@@ -63,13 +63,13 @@ class GetFrontActionTest extends FrontTestCase
 
     public function test__invokeSegmentPage(): void
     {
-        $page = new SegmentPage();
+        $page = new ModernPage();
         $page->name = Uuid::uuid();
         $page->create();
 
         $menuItem = new MenuItem();
         $menuItem->menuId = $this->menu->getIdAsInt();
-        $menuItem->segmentPageId = $page->getIdAsInt();
+        $menuItem->modernPageId = $page->getIdAsInt();
         $menuItem->route = 'test';
         $menuItem->title = Uuid::uuid();
         $menuItem->position = 0;
@@ -92,14 +92,14 @@ class GetFrontActionTest extends FrontTestCase
 
     public function test__invokeSimplePage(): void
     {
-        $page = new SimplePage();
+        $page = new ClassicPage();
         $page->title = Uuid::uuid();
         $page->content = '';
         $page->create();
 
         $menuItem = new MenuItem();
         $menuItem->menuId = $this->menu->getIdAsInt();
-        $menuItem->pageId = $page->getIdAsInt();
+        $menuItem->classicPageId = $page->getIdAsInt();
         $menuItem->route = 'test';
         $menuItem->title = Uuid::uuid();
         $menuItem->position = 0;

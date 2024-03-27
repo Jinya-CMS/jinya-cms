@@ -8,8 +8,8 @@ use App\Database\Form;
 use App\Database\Gallery;
 use App\Database\Menu;
 use App\Database\MenuItem;
-use App\Database\SegmentPage;
-use App\Database\SimplePage;
+use App\Database\ModernPage;
+use App\Database\ClassicPage;
 use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\Menu\Items\CreateMenuItemByMenuItemAction;
 use App\Web\Exceptions\NoResultException;
@@ -100,7 +100,7 @@ class CreateMenuItemByMenuItemActionTest extends DatabaseAwareTestCase
         $menu->menuId = $this->menu->getIdAsInt();
         $menu->create();
 
-        $page = new SimplePage();
+        $page = new ClassicPage();
         $page->title = Uuid::uuid();
         $page->content = Uuid::uuid();
         $page->create();
@@ -138,7 +138,7 @@ class CreateMenuItemByMenuItemActionTest extends DatabaseAwareTestCase
         $menu->menuId = $this->menu->getIdAsInt();
         $menu->create();
 
-        $segmentPage = new SegmentPage();
+        $segmentPage = new ModernPage();
         $segmentPage->name = Uuid::uuid();
         $segmentPage->create();
 

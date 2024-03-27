@@ -2,17 +2,26 @@
 
 namespace App\Database;
 
+use App\Web\Middleware\AuthorizationMiddleware;
 use Exception;
 use Iterator;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
 use Jinya\Database\Entity;
+use Jinya\Router\Extensions\Database\Attributes\Create;
+use Jinya\Router\Extensions\Database\Attributes\Delete;
+use Jinya\Router\Extensions\Database\Attributes\Find;
+use Jinya\Router\Extensions\Database\Attributes\Update;
 
 /**
  * This class contains information about the tags of files
  */
 #[Table('file_tag')]
+#[Find('/api/file-tag', new AuthorizationMiddleware(ROLE_READER))]
+#[Create('/api/file-tag', new AuthorizationMiddleware(ROLE_WRITER))]
+#[Update('/api/file-tag', new AuthorizationMiddleware(ROLE_WRITER))]
+#[Delete('/api/file-tag', new AuthorizationMiddleware(ROLE_WRITER))]
 class FileTag extends Entity
 {
     #[Id]
@@ -50,6 +59,7 @@ class FileTag extends Entity
             ])
             ->where('name = :name', ['name' => $name]);
 
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
         if (empty($data)) {
             return null;
@@ -98,6 +108,7 @@ class FileTag extends Entity
                 ['tagId' => $this->id]
             );
 
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
         foreach ($data as $item) {
             yield File::fromArray($item);

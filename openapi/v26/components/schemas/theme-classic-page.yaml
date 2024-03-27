@@ -7,4 +7,4 @@ properties:
     $ref: ./classic-page.yaml
 required:
   - name
-  - page
+  - classicPage

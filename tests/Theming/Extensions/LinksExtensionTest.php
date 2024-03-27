@@ -7,16 +7,16 @@ use App\Database\File;
 use App\Database\Form;
 use App\Database\Gallery;
 use App\Database\Menu;
-use App\Database\SegmentPage;
-use App\Database\SimplePage;
+use App\Database\ModernPage;
+use App\Database\ClassicPage;
 use App\Database\Theme;
 use App\Database\ThemeBlogCategory;
 use App\Database\ThemeFile;
 use App\Database\ThemeForm;
 use App\Database\ThemeGallery;
 use App\Database\ThemeMenu;
-use App\Database\ThemePage;
-use App\Database\ThemeSegmentPage;
+use App\Database\ThemeClassicPage;
+use App\Database\ThemeModernPage;
 use App\Tests\DatabaseAwareTestCase;
 use App\Theming\Engine;
 use App\Theming\Extensions\LinksExtension;
@@ -135,13 +135,13 @@ class LinksExtensionTest extends DatabaseAwareTestCase
 
     public function testSegmentPage(): void
     {
-        $page = new SegmentPage();
+        $page = new ModernPage();
         $page->name = 'Temp';
         $page->create();
 
-        $themePage = new ThemeSegmentPage();
+        $themePage = new ThemeModernPage();
         $themePage->name = 'Test';
-        $themePage->segmentPageId = $page->getIdAsInt();
+        $themePage->modernPageId = $page->getIdAsInt();
         $themePage->themeId = $this->theme->getIdAsInt();
         $themePage->create();
 
@@ -202,14 +202,14 @@ class LinksExtensionTest extends DatabaseAwareTestCase
 
     public function testSimplePage(): void
     {
-        $page = new SimplePage();
+        $page = new ClassicPage();
         $page->title = 'Temp';
         $page->content = '';
         $page->create();
 
-        $themePage = new ThemePage();
+        $themePage = new ThemeClassicPage();
         $themePage->name = 'Test';
-        $themePage->pageId = $page->getIdAsInt();
+        $themePage->classicPageId = $page->getIdAsInt();
         $themePage->themeId = $this->theme->getIdAsInt();
         $themePage->create();
 
@@ -224,13 +224,13 @@ class LinksExtensionTest extends DatabaseAwareTestCase
 
     public function testHasSegmentPage(): void
     {
-        $page = new SegmentPage();
+        $page = new ModernPage();
         $page->name = 'Temp';
         $page->create();
 
-        $themePage = new ThemeSegmentPage();
+        $themePage = new ThemeModernPage();
         $themePage->name = 'Test';
-        $themePage->segmentPageId = $page->getIdAsInt();
+        $themePage->modernPageId = $page->getIdAsInt();
         $themePage->themeId = $this->theme->getIdAsInt();
         $themePage->create();
 
@@ -245,14 +245,14 @@ class LinksExtensionTest extends DatabaseAwareTestCase
 
     public function testHasSimplePage(): void
     {
-        $page = new SimplePage();
+        $page = new ClassicPage();
         $page->title = 'Temp';
         $page->content = '';
         $page->create();
 
-        $themePage = new ThemePage();
+        $themePage = new ThemeClassicPage();
         $themePage->name = 'Test';
-        $themePage->pageId = $page->getIdAsInt();
+        $themePage->classicPageId = $page->getIdAsInt();
         $themePage->themeId = $this->theme->getIdAsInt();
         $themePage->create();
 

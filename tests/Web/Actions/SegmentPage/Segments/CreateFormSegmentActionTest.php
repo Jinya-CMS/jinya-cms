@@ -3,7 +3,7 @@
 namespace Jinya\Tests\Web\Actions\SegmentPage\Segments;
 
 use App\Database\Form;
-use App\Database\SegmentPage;
+use App\Database\ModernPage;
 use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\SegmentPage\Segments\CreateFormSegmentAction;
 use App\Web\Exceptions\NoResultException;
@@ -15,7 +15,7 @@ class CreateFormSegmentActionTest extends DatabaseAwareTestCase
 {
     public function test__invoke(): void
     {
-        $segmentPage = new SegmentPage();
+        $segmentPage = new ModernPage();
         $segmentPage->name = Uuid::uuid();
         $segmentPage->create();
 
@@ -50,7 +50,7 @@ class CreateFormSegmentActionTest extends DatabaseAwareTestCase
     {
         $this->expectExceptionMessage('Form not found');
         $this->expectException(NoResultException::class);
-        $segmentPage = new SegmentPage();
+        $segmentPage = new ModernPage();
         $segmentPage->name = Uuid::uuid();
         $segmentPage->create();
 

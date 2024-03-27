@@ -1,9 +1,15 @@
 <?php
-/** @var \App\Database\SimplePage $page */
+/** @var ClassicPage $page */
+
+use App\Database\ClassicPage;
+
 ?>
-<?php $this->layout('theme::layout', ['title' => $page->name]) ?>
-<?php $this->start('maincontent') ?>
+<?php
+$this->layout('theme::layout', ['title' => $page->name]) ?>
+<?php
+$this->start('maincontent') ?>
 <main>
     <?= $page->content ?>
 </main>
-<?php $this->stop() ?>
+<?php
+$this->stop() ?>

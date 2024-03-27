@@ -4,13 +4,14 @@ namespace App\Database\Analyzer;
 
 use Aura\SqlQuery\Common\SelectInterface;
 use Error;
+use Exception;
 use JetBrains\PhpStorm\ArrayShape;
 use Jinya\Database\Entity;
 use LogicException;
 use PDOException;
 
 /**
- * This class analyzes the database and allows to retrieve several database information
+ * This class analyzes the database and allows to retrieve database information
  */
 class DatabaseAnalyzer
 {
@@ -18,13 +19,14 @@ class DatabaseAnalyzer
      * Gets all tables currently present in the active database
      *
      * @return array<int|string, array<string, mixed|int|string>> An array of the tables and their fields
+     * @throws Exception
      */
     public static function getTables(): array
     {
         $tables = self::executeSqlString('SHOW TABLES');
         $result = [];
         if (!is_array($tables)) {
-            throw new LogicException('Query must return array');
+            throw new LogicException('Query must return an array');
         }
         foreach ($tables as $table) {
             $tableName = $table[array_keys($table)[0]];
@@ -84,6 +86,10 @@ class DatabaseAnalyzer
         return $result;
     }
 
+    /**
+     * @param string $sql
+     * @return array<array-key, mixed>|int
+     */
     private static function executeSqlString(string $sql): array|int
     {
         $pdo = Entity::getPdo();
@@ -98,10 +104,11 @@ class DatabaseAnalyzer
     private static function fetchInt(SelectInterface $query): int
     {
         $entryCount = Entity::executeQuery($query);
-        if (empty($entryCount)) {
-            $entryCount = 0;
-        } else {
+        if (is_array($entryCount)) {
+            /** @var int $entryCount */
             $entryCount = $entryCount[0];
+        } else {
+            $entryCount = 0;
         }
 
         return $entryCount;
@@ -110,7 +117,7 @@ class DatabaseAnalyzer
     /**
      * Gets the information for the current database server. This information includes the version and the OS and architecture the server was compiled on
      *
-     * @return array<string, string> An array containing the version, the comment, the compile machine and the compile OS
+     * @return array<string, string> An array containing the version, the comment, the machine and OS the database was compiled on
      */
     #[ArrayShape(['version' => 'string', 'comment' => 'string', 'compileMachine' => 'string', 'compileOs' => 'string'])]
     public static function getServerInfo(): array
@@ -142,7 +149,7 @@ class DatabaseAnalyzer
         try {
             $variables = self::executeSqlString("SHOW $stringType VARIABLES");
             if (!is_array($variables)) {
-                throw new LogicException('Query must return array');
+                throw new LogicException('Query must return an array');
             }
         } catch (PDOException) {
             $variables = [];

@@ -53,6 +53,7 @@ class ThemeFile implements Creatable, Updatable, Deletable
             ])
             ->where('theme_id = :themeId AND name = :name', ['themeId' => $themeId, 'name' => $name]);
 
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
         if (empty($data)) {
             return null;
@@ -79,6 +80,7 @@ class ThemeFile implements Creatable, Updatable, Deletable
             ])
             ->where('theme_id = :themeId', ['themeId' => $themeId]);
 
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
         foreach ($data as $item) {
             yield self::fromArray($item);
@@ -137,6 +139,7 @@ class ThemeFile implements Creatable, Updatable, Deletable
         $query = self::getQueryBuilder()
             ->newUpdate()
             ->table(self::getTableName())
+            /** @phpstan-ignore-next-line */
             ->set('file_id', $this->fileId)
             ->where('theme_id = :themeId AND name = :name', ['themeId' => $this->themeId, 'name' => $this->name]);
 

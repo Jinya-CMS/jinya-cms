@@ -2,13 +2,10 @@
 
 namespace App\Console;
 
-use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Storage\StorageBaseService;
 use App\Theming\Extensions\FileExtension;
 use Intervention\Image\ImageManager;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Throwable;
 
 /**
@@ -21,9 +18,6 @@ class FileCacheCommand extends AbstractCommand
      * Recreates the file cache
      *
      * @return void
-     * @throws ForeignKeyFailedException
-     * @throws UniqueFailedException
-     * @throws InvalidQueryException
      */
     public function run(): void
     {

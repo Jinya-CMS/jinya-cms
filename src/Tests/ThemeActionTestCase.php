@@ -2,21 +2,15 @@
 
 namespace App\Tests;
 
-use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Theme;
 use App\Theming\ThemeSyncer;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
+use Jinya\Database\Exception\NotNullViolationException;
 
 class ThemeActionTestCase extends DatabaseAwareTestCase
 {
     /**
      * @return Theme|null
-     * @throws ForeignKeyFailedException
-     * @throws UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
+     * @throws NotNullViolationException
      */
     public function getDefaultTheme(): ?Theme
     {

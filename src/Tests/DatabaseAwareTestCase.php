@@ -6,31 +6,30 @@ use App\Authentication\CurrentUser;
 use App\Database\Artist;
 use Error;
 use Jinya\Database\Entity;
+use Jinya\Database\Exception\NotNullViolationException;
 use PHPUnit\Framework\TestCase;
 
 class DatabaseAwareTestCase extends TestCase
 {
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-    }
-
-    public static function tearDownAfterClass(): void
-    {
-        parent::tearDownAfterClass();
-    }
-
     public function expectError(): void
     {
         $this->expectException(Error::class);
     }
 
+    /**
+     * @return void
+     * @throws NotNullViolationException
+     */
     protected function setUp(): void
     {
         parent::setUp();
         $this->createArtist();
     }
 
+    /**
+     * @return void
+     * @throws NotNullViolationException
+     */
     private function createArtist(): void
     {
         $artist = new Artist();

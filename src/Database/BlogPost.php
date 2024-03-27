@@ -6,6 +6,7 @@ use App\Authentication\CurrentUser;
 use App\Database\Converter\BooleanConverter;
 use App\Database\Exceptions\TransactionFailedException;
 use App\Logging\Logger;
+use App\Web\Middleware\AuthorizationMiddleware;
 use DateTime;
 use Exception;
 use Iterator;
@@ -15,6 +16,11 @@ use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
 use Jinya\Database\Entity;
 use Jinya\Database\Exception\NotNullViolationException;
+use Jinya\Router\Extensions\Database\Attributes\ApiIgnore;
+use Jinya\Router\Extensions\Database\Attributes\Create;
+use Jinya\Router\Extensions\Database\Attributes\Delete;
+use Jinya\Router\Extensions\Database\Attributes\Find;
+use Jinya\Router\Extensions\Database\Attributes\Update;
 use League\Uri\Http as HttpUri;
 use PDOException;
 
@@ -22,6 +28,10 @@ use PDOException;
  * This class contains the information of a blog post
  */
 #[Table('blog_post')]
+#[Find('/api/blog-post', new AuthorizationMiddleware(ROLE_READER))]
+#[Create('/api/blog-post', new AuthorizationMiddleware(ROLE_WRITER))]
+#[Update('/api/blog-post', new AuthorizationMiddleware(ROLE_WRITER))]
+#[Delete('/api/blog-post', new AuthorizationMiddleware(ROLE_WRITER))]
 class BlogPost extends Entity
 {
     #[Id]
@@ -47,10 +57,12 @@ class BlogPost extends Entity
 
     /** @var DateTime The time the post was created */
     #[Column(sqlName: 'created_at')]
+    #[ApiIgnore]
     public DateTime $createdAt;
 
     /** @var int The ID of the artist who created the post */
     #[Column(sqlName: 'creator_id')]
+    #[ApiIgnore]
     public int $creatorId;
 
     /** @var int|null The ID of the category this post belongs to */
@@ -69,6 +81,7 @@ class BlogPost extends Entity
             ->from(self::getTableName())
             ->cols(['*'])
             ->where('public = true');
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
 
         foreach ($data as $item) {
@@ -89,6 +102,7 @@ class BlogPost extends Entity
             ->from(self::getTableName())
             ->cols(['*'])
             ->where('slug = :slug', ['slug' => $slug]);
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
 
         if (empty($data)) {
@@ -99,12 +113,24 @@ class BlogPost extends Entity
     }
 
     /**
-     * Replaces all blog post segments with the new segments
+     * Replaces all blog post sections with the new sections
      *
-     * @param array<int, array<string, int|string>> $newSegments The new segments
+     * @param array<int, array<string, int|string>> $newSections The new sections
+     * @throws TransactionFailedException
+     * @deprecated Use replaceSegments instead
+     */
+    public function replaceSegments(array $newSections): void
+    {
+        $this->replaceSections($newSections);
+    }
+
+    /**
+     * Replaces all blog post sections with the new sections
+     *
+     * @param array<int, array<string, int|string>> $newSections The new sections
      * @throws TransactionFailedException
      */
-    public function replaceSegments(array $newSegments): void
+    public function replaceSections(array $newSections): void
     {
         $pdo = self::getPdo();
         $begin = $pdo->beginTransaction();
@@ -114,7 +140,7 @@ class BlogPost extends Entity
 
         $newSegmentQueries = [];
 
-        foreach ($newSegments as $idx => $newSegment) {
+        foreach ($newSections as $idx => $newSegment) {
             $row = [
                 'position' => $idx,
                 'blog_post_id' => $this->id
@@ -131,14 +157,14 @@ class BlogPost extends Entity
 
             $newSegmentQueries[] = self::getQueryBuilder()
                 ->newInsert()
-                ->into(BlogPostSegment::getTableName())
+                ->into(BlogPostSection::getTableName())
                 ->addRow($row);
         }
 
         try {
             $query = self::getQueryBuilder()
                 ->newDelete()
-                ->from(BlogPostSegment::getTableName())
+                ->from(BlogPostSection::getTableName())
                 ->where('blog_post_id = :blogPostId', ['blogPostId' => $this->id]);
 
             self::executeQuery($query);
@@ -347,15 +373,26 @@ class BlogPost extends Entity
     }
 
     /**
-     * Gets all segments of the current post
+     * Gets all sections of the current post
      *
-     * @return Iterator<BlogPostSegment>
+     * @return Iterator<BlogPostSection>
+     * @deprecated Use getSections instead
      */
     public function getSegments(): Iterator
     {
+        return $this->getSections();
+    }
+
+    /**
+     * Gets all sections of the current post
+     *
+     * @return Iterator<BlogPostSection>
+     */
+    public function getSections(): Iterator
+    {
         $query = self::getQueryBuilder()
             ->newSelect()
-            ->from(BlogPostSegment::getTableName())
+            ->from(BlogPostSection::getTableName())
             ->cols([
                 'id',
                 'gallery_id',
@@ -367,10 +404,11 @@ class BlogPost extends Entity
             ])
             ->where('blog_post_id = :postId', ['postId' => $this->id])
             ->orderBy(['position']);
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
 
         foreach ($data as $item) {
-            yield BlogPostSegment::fromArray($item);
+            yield BlogPostSection::fromArray($item);
         }
     }
 }

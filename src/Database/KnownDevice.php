@@ -12,6 +12,7 @@ use Jinya\Database\CreatableEntityTrait;
 use Jinya\Database\Deletable;
 use Jinya\Database\DeletableEntityTrait;
 use Jinya\Database\EntityTrait;
+use Random\RandomException;
 
 /**
  * This class contains a known device, known devices are used to remove the need for a two-factor code. It is up to the API consumer whether they want to use them or not.
@@ -43,6 +44,9 @@ class KnownDevice implements Creatable, Deletable
     #[Column(sqlName: 'remote_address')]
     public string $remoteAddress = '';
 
+    /**
+     * @throws RandomException
+     */
     public function __construct()
     {
         $this->deviceKey = bin2hex(random_bytes(20));
@@ -68,6 +72,7 @@ class KnownDevice implements Creatable, Deletable
             ])
             ->where('user_id = :artistId', ['artistId' => $artistId]);
 
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
 
         foreach ($data as $item) {
@@ -95,6 +100,7 @@ class KnownDevice implements Creatable, Deletable
             ])
             ->where('device_key = :knownDeviceCode', ['knownDeviceCode' => $knownDeviceCode]);
 
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
         if (empty($data)) {
             return null;

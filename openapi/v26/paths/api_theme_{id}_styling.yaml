@@ -42,7 +42,7 @@ get:
 put:
   summary: Update the theme variables and compile the theme
   tags:
-    - design
+    - themes
   responses:
     '204':
       description: Successfully updated the variables and compiled the theme

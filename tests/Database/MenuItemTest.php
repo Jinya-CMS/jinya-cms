@@ -8,8 +8,8 @@ use App\Database\Form;
 use App\Database\Gallery;
 use App\Database\Menu;
 use App\Database\MenuItem;
-use App\Database\SegmentPage;
-use App\Database\SimplePage;
+use App\Database\ModernPage;
+use App\Database\ClassicPage;
 use App\Tests\DatabaseAwareTestCase;
 use Jinya\Database\Exception\NotNullViolationException;
 
@@ -83,9 +83,9 @@ class MenuItemTest extends DatabaseAwareTestCase
         $this->checkFormatFields($found);
     }
 
-    private function createSimplePage(): SimplePage
+    private function createClassicPage(): ClassicPage
     {
-        $page = new SimplePage();
+        $page = new ClassicPage();
         $page->title = 'Test';
         $page->content = 'Test';
         $page->create();
@@ -93,22 +93,22 @@ class MenuItemTest extends DatabaseAwareTestCase
         return $page;
     }
 
-    public function testSimplePage(): void
+    public function testClassicPage(): void
     {
         $menu = $this->createMenu();
 
-        $page = $this->createSimplePage();
+        $page = $this->createClassicPage();
         $menuItem = $this->createMenuItem();
         $menuItem['pageId'] = $page->id;
         $menu->replaceItems([$menuItem]);
 
         /** @var MenuItem $found */
         $found = $menu->getItems()->current();
-        self::assertEquals($page, $found->getPage());
+        self::assertEquals($page, $found->getClassicPage());
 
         $format = $found->format();
 
-        self::assertEquals($page->format(), $found->getPage()->format());
+        self::assertEquals($page->format(), $found->getClassicPage()->format());
 
         self::assertArrayHasKey('page', $format);
         /** @var array<string, string> $formattedPage */
@@ -118,35 +118,35 @@ class MenuItemTest extends DatabaseAwareTestCase
         $this->checkFormatFields($found);
     }
 
-    private function createSegmentPage(): SegmentPage
+    private function createModernPage(): ModernPage
     {
-        $page = new SegmentPage();
+        $page = new ModernPage();
         $page->name = 'Test';
         $page->create();
 
         return $page;
     }
 
-    public function testSegmentPage(): void
+    public function testModernPage(): void
     {
         $menu = $this->createMenu();
 
-        $page = $this->createSegmentPage();
+        $page = $this->createModernPage();
         $menuItem = $this->createMenuItem();
-        $menuItem['segmentPageId'] = $page->id;
+        $menuItem['modernPageId'] = $page->id;
         $menu->replaceItems([$menuItem]);
 
         /** @var MenuItem $found */
         $found = $menu->getItems()->current();
-        self::assertEquals($page, $found->getSegmentPage());
+        self::assertEquals($page, $found->getModernPage());
 
         $format = $found->format();
 
-        self::assertEquals($page->format(), $found->getSegmentPage()->format());
+        self::assertEquals($page->format(), $found->getModernPage()->format());
 
-        self::assertArrayHasKey('segmentPage', $format);
+        self::assertArrayHasKey('modernPage', $format);
         /** @var array<string, string> $formattedPage */
-        $formattedPage = $format['segmentPage'];
+        $formattedPage = $format['modernPage'];
         self::assertArrayHasKey('id', $formattedPage);
         self::assertArrayHasKey('name', $formattedPage);
         $this->checkFormatFields($found);
@@ -494,8 +494,8 @@ class MenuItemTest extends DatabaseAwareTestCase
         $menu->replaceItems([$menuItem]);
         $found = MenuItem::findByMenuAndPosition($menu->id, 0);
 
-        self::assertNull($found->getPage());
-        self::assertNull($found->getSegmentPage());
+        self::assertNull($found->getClassicPage());
+        self::assertNull($found->getModernPage());
         self::assertNull($found->getForm());
         self::assertNull($found->getGallery());
         self::assertNull($found->getArtist());

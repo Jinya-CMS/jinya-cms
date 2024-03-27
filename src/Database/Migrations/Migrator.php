@@ -40,6 +40,6 @@ abstract class Migrator
 
         DatabaseMigrator::migrateUp($migrations, 'migration_state');
 
-        return 0;
+        return 1;
     }
 }

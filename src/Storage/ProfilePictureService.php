@@ -4,10 +4,7 @@ namespace App\Storage;
 
 use App\Database\Artist;
 use App\Database\Exceptions\EmptyResultException;
-use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\UniqueFailedException;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
+use Jinya\Database\Exception\NotNullViolationException;
 use RuntimeException;
 
 /**
@@ -21,10 +18,7 @@ class ProfilePictureService extends StorageBaseService
      * @param int $artistId
      * @param string|resource|null $data
      * @throws EmptyResultException
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     * @throws UniqueFailedException
+     * @throws NotNullViolationException
      */
     public function saveProfilePicture(int $artistId, mixed $data): void
     {
@@ -50,13 +44,10 @@ class ProfilePictureService extends StorageBaseService
     }
 
     /**
-     * Deletes the artists profile picture
+     * Deletes the artists' profile picture
      *
+     * @param int $artistId
      * @throws EmptyResultException
-     * @throws UniqueFailedException
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     public function deleteProfilePicture(int $artistId): void
     {

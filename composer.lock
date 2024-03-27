@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "0f4eecaa1f1ca8f221c6dda1732bc0b7",
+  "content-hash": "eabb75c38134f61a6198c15552e573c8",
   "packages": [
     {
       "name": "aura/sqlquery",
@@ -193,16 +193,16 @@
     },
     {
       "name": "intervention/gif",
-      "version": "4.0.2",
+      "version": "4.1.0",
       "source": {
         "type": "git",
         "url": "https://github.com/Intervention/gif.git",
-        "reference": "c2b07d1f69709e196c8b4ced423449a7e0f3b925"
+        "reference": "3a2b5f8a8856e8877cdab5c47e51aab2d4cb23a3"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/Intervention/gif/zipball/c2b07d1f69709e196c8b4ced423449a7e0f3b925",
-        "reference": "c2b07d1f69709e196c8b4ced423449a7e0f3b925",
+        "url": "https://api.github.com/repos/Intervention/gif/zipball/3a2b5f8a8856e8877cdab5c47e51aab2d4cb23a3",
+        "reference": "3a2b5f8a8856e8877cdab5c47e51aab2d4cb23a3",
         "shasum": ""
       },
       "require": {
@@ -210,7 +210,7 @@
       },
       "require-dev": {
         "phpstan/phpstan": "^1",
-        "phpunit/phpunit": "^9",
+        "phpunit/phpunit": "^10.0",
         "slevomat/coding-standard": "~8.0",
         "squizlabs/php_codesniffer": "^3.8"
       },
@@ -241,7 +241,7 @@
       ],
       "support": {
         "issues": "https://github.com/Intervention/gif/issues",
-        "source": "https://github.com/Intervention/gif/tree/4.0.2"
+        "source": "https://github.com/Intervention/gif/tree/4.1.0"
       },
       "funding": [
         {
@@ -253,7 +253,7 @@
           "type": "github"
         }
       ],
-      "time": "2024-02-18T15:36:58+00:00"
+      "time": "2024-03-26T17:23:47+00:00"
     },
     {
       "name": "intervention/image",
@@ -506,16 +506,16 @@
     },
     {
       "name": "jinya/database",
-      "version": "0.11.0",
+      "version": "0.15.0",
       "source": {
         "type": "git",
         "url": "https://github.com/Jinya-CMS/jinya-database.git",
-        "reference": "73bddc69ebec4e94be7b7e239d351529c7166c35"
+        "reference": "82cbc8eaccd2c36320d5c6d2ab5753e95a500821"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/Jinya-CMS/jinya-database/zipball/73bddc69ebec4e94be7b7e239d351529c7166c35",
-        "reference": "73bddc69ebec4e94be7b7e239d351529c7166c35",
+        "url": "https://api.github.com/repos/Jinya-CMS/jinya-database/zipball/82cbc8eaccd2c36320d5c6d2ab5753e95a500821",
+        "reference": "82cbc8eaccd2c36320d5c6d2ab5753e95a500821",
         "shasum": ""
       },
       "require": {
@@ -553,88 +553,41 @@
       "description": "A simple database struct mapper that resembles some features of an ORM",
       "support": {
         "issues": "https://github.com/Jinya-CMS/jinya-database/issues",
-        "source": "https://github.com/Jinya-CMS/jinya-database/tree/0.11.0"
+        "source": "https://github.com/Jinya-CMS/jinya-database/tree/0.15.0"
       },
-      "time": "2024-03-25T20:13:23+00:00"
-    },
-    {
-      "name": "jinya/pdox",
-      "version": "0.10.1",
-      "source": {
-        "type": "git",
-        "url": "https://github.com/Jinya-CMS/pdox.git",
-        "reference": "20258bc993b90f14c453a0dd480bd0929daa9f22"
-      },
-      "dist": {
-        "type": "zip",
-        "url": "https://api.github.com/repos/Jinya-CMS/pdox/zipball/20258bc993b90f14c453a0dd480bd0929daa9f22",
-        "reference": "20258bc993b90f14c453a0dd480bd0929daa9f22",
-        "shasum": ""
-      },
-      "require": {
-        "ext-pdo": "*",
-        "jetbrains/phpstorm-attributes": "^1.0",
-        "laminas/laminas-hydrator": "^4.14.0",
-        "php": ">=8.1"
-      },
-      "require-dev": {
-        "ext-pdo_sqlite": "*",
-        "ext-sqlite3": "*",
-        "laravel/pint": "v1.13.2",
-        "phpstan/phpstan": "1.10.35",
-        "phpunit/phpunit": "10.3.5"
-      },
-      "type": "library",
-      "autoload": {
-        "psr-4": {
-          "Jinya\\PDOx\\": "src/"
-        }
-      },
-      "notification-url": "https://packagist.org/downloads/",
-      "license": [
-        "MIT"
-      ],
-      "authors": [
-        {
-          "name": "Imanuel Ulbricht",
-          "email": "me@imanuel.dev"
-        }
-      ],
-      "description": "Jinya PDOx is a simple object mapper built around PHPs standard PDO",
-      "support": {
-        "issues": "https://github.com/Jinya-CMS/pdox/issues",
-        "source": "https://github.com/Jinya-CMS/pdox/tree/0.10.1"
-      },
-      "abandoned": true,
-      "time": "2023-09-27T00:20:27+00:00"
+      "time": "2024-03-26T21:43:43+00:00"
     },
     {
       "name": "jinya/plates",
-      "version": "4.1.2",
+      "version": "5.0.0",
       "source": {
         "type": "git",
-        "url": "https://gitlab.imanuel.dev/jinya-cms/plates.git",
-        "reference": "ee33e3b81fb79cb13b0b0fb1a2849bae17915175"
+        "url": "https://github.com/Jinya-CMS/plates.git",
+        "reference": "8047ae8909ac4723a17905591a33e41a9856c916"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/Jinya-CMS/plates/zipball/8047ae8909ac4723a17905591a33e41a9856c916",
+        "reference": "8047ae8909ac4723a17905591a33e41a9856c916",
+        "shasum": ""
       },
       "require": {
         "jetbrains/phpstorm-attributes": "1.0",
-        "php": ">=8.1"
+        "php": ">=8.2"
       },
       "require-dev": {
-        "laravel/pint": "v1.13.2",
-        "mikey179/vfsstream": "v1.6.11",
-        "phpstan/phpstan": "1.10.35",
-        "phpunit/phpunit": "10.3.5"
+        "laravel/pint": "v1.13.8",
+        "mikey179/vfsstream": "v1.6.11"
       },
       "type": "library",
       "extra": {
         "branch-alias": {
-          "dev-main": "4.2-dev"
+          "dev-main": "5.1-dev"
         }
       },
       "autoload": {
         "psr-4": {
-          "League\\Plates\\": "src"
+          "Jinya\\Plates\\": "src"
         }
       },
       "notification-url": "https://packagist.org/downloads/",
@@ -667,7 +620,11 @@
         "templating",
         "views"
       ],
-      "time": "2023-09-26T23:05:01+00:00"
+      "support": {
+        "issues": "https://github.com/Jinya-CMS/plates/issues",
+        "source": "https://github.com/Jinya-CMS/plates/tree/5.0.0"
+      },
+      "time": "2024-01-16T00:59:48+00:00"
     },
     {
       "name": "jinya/router",
@@ -729,27 +686,27 @@
     },
     {
       "name": "jinya/router-extensions",
-      "version": "0.8.0",
+      "version": "0.10.0",
       "source": {
         "type": "git",
         "url": "https://github.com/Jinya-CMS/jinya-router-extensions.git",
-        "reference": "30ed540870983e1d8146d4734e246f154d322488"
+        "reference": "3f8bca484e1f5bf7837d27fa4b7829e7dd740610"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/Jinya-CMS/jinya-router-extensions/zipball/30ed540870983e1d8146d4734e246f154d322488",
-        "reference": "30ed540870983e1d8146d4734e246f154d322488",
+        "url": "https://api.github.com/repos/Jinya-CMS/jinya-router-extensions/zipball/3f8bca484e1f5bf7837d27fa4b7829e7dd740610",
+        "reference": "3f8bca484e1f5bf7837d27fa4b7829e7dd740610",
         "shasum": ""
       },
       "require": {
         "ext-pdo": "*",
         "ext-simplexml": "*",
-        "jinya/database": "^0.11.0",
+        "jinya/database": "^0.15.0",
         "jinya/router": "^0.6.0",
         "php": "^8.2"
       },
       "require-dev": {
-        "laravel/pint": "v1.13.10",
+        "laravel/pint": "v1.14.0",
         "symfony/filesystem": "v7.0.3"
       },
       "suggest": {
@@ -774,9 +731,9 @@
       "description": "Official extensions for the Jinya Router",
       "support": {
         "issues": "https://github.com/Jinya-CMS/jinya-router-extensions/issues",
-        "source": "https://github.com/Jinya-CMS/jinya-router-extensions/tree/0.8.0"
+        "source": "https://github.com/Jinya-CMS/jinya-router-extensions/tree/0.10.0"
       },
-      "time": "2024-03-25T20:14:16+00:00"
+      "time": "2024-03-26T21:46:05+00:00"
     },
     {
       "name": "laminas/laminas-diactoros",
@@ -2101,59 +2058,6 @@
       "time": "2023-11-12T21:59:55+00:00"
     },
     {
-      "name": "psr/container",
-      "version": "2.0.2",
-      "source": {
-        "type": "git",
-        "url": "https://github.com/php-fig/container.git",
-        "reference": "c71ecc56dfe541dbd90c5360474fbc405f8d5963"
-      },
-      "dist": {
-        "type": "zip",
-        "url": "https://api.github.com/repos/php-fig/container/zipball/c71ecc56dfe541dbd90c5360474fbc405f8d5963",
-        "reference": "c71ecc56dfe541dbd90c5360474fbc405f8d5963",
-        "shasum": ""
-      },
-      "require": {
-        "php": ">=7.4.0"
-      },
-      "type": "library",
-      "extra": {
-        "branch-alias": {
-          "dev-master": "2.0.x-dev"
-        }
-      },
-      "autoload": {
-        "psr-4": {
-          "Psr\\Container\\": "src/"
-        }
-      },
-      "notification-url": "https://packagist.org/downloads/",
-      "license": [
-        "MIT"
-      ],
-      "authors": [
-        {
-          "name": "PHP-FIG",
-          "homepage": "https://www.php-fig.org/"
-        }
-      ],
-      "description": "Common Container Interface (PHP FIG PSR-11)",
-      "homepage": "https://github.com/php-fig/container",
-      "keywords": [
-        "PSR-11",
-        "container",
-        "container-interface",
-        "container-interop",
-        "psr"
-      ],
-      "support": {
-        "issues": "https://github.com/php-fig/container/issues",
-        "source": "https://github.com/php-fig/container/tree/2.0.2"
-      },
-      "time": "2021-11-05T16:47:00+00:00"
-    },
-    {
       "name": "psr/http-factory",
       "version": "1.0.2",
       "source": {
@@ -2558,121 +2462,6 @@
         "source": "https://github.com/Seldaek/cli-prompt/tree/1.0.4"
       },
       "time": "2020-12-15T21:32:01+00:00"
-    },
-    {
-      "name": "slim/slim",
-      "version": "4.13.0",
-      "source": {
-        "type": "git",
-        "url": "https://github.com/slimphp/Slim.git",
-        "reference": "038fd5713d5a41636fdff0e8dcceedecdd17fc17"
-      },
-      "dist": {
-        "type": "zip",
-        "url": "https://api.github.com/repos/slimphp/Slim/zipball/038fd5713d5a41636fdff0e8dcceedecdd17fc17",
-        "reference": "038fd5713d5a41636fdff0e8dcceedecdd17fc17",
-        "shasum": ""
-      },
-      "require": {
-        "ext-json": "*",
-        "nikic/fast-route": "^1.3",
-        "php": "^7.4 || ^8.0",
-        "psr/container": "^1.0 || ^2.0",
-        "psr/http-factory": "^1.0",
-        "psr/http-message": "^1.1 || ^2.0",
-        "psr/http-server-handler": "^1.0",
-        "psr/http-server-middleware": "^1.0",
-        "psr/log": "^1.1 || ^2.0 || ^3.0"
-      },
-      "require-dev": {
-        "adriansuter/php-autoload-override": "^1.4",
-        "ext-simplexml": "*",
-        "guzzlehttp/psr7": "^2.6",
-        "httpsoft/http-message": "^1.1",
-        "httpsoft/http-server-request": "^1.1",
-        "laminas/laminas-diactoros": "^2.17 || ^3",
-        "nyholm/psr7": "^1.8",
-        "nyholm/psr7-server": "^1.1",
-        "phpspec/prophecy": "^1.19",
-        "phpspec/prophecy-phpunit": "^2.1",
-        "phpstan/phpstan": "^1.10",
-        "phpunit/phpunit": "^9.6",
-        "slim/http": "^1.3",
-        "slim/psr7": "^1.6",
-        "squizlabs/php_codesniffer": "^3.9"
-      },
-      "suggest": {
-        "ext-simplexml": "Needed to support XML format in BodyParsingMiddleware",
-        "ext-xml": "Needed to support XML format in BodyParsingMiddleware",
-        "php-di/php-di": "PHP-DI is the recommended container library to be used with Slim",
-        "slim/psr7": "Slim PSR-7 implementation. See https://www.slimframework.com/docs/v4/start/installation.html for more information."
-      },
-      "type": "library",
-      "autoload": {
-        "psr-4": {
-          "Slim\\": "Slim"
-        }
-      },
-      "notification-url": "https://packagist.org/downloads/",
-      "license": [
-        "MIT"
-      ],
-      "authors": [
-        {
-          "name": "Josh Lockhart",
-          "email": "hello@joshlockhart.com",
-          "homepage": "https://joshlockhart.com"
-        },
-        {
-          "name": "Andrew Smith",
-          "email": "a.smith@silentworks.co.uk",
-          "homepage": "http://silentworks.co.uk"
-        },
-        {
-          "name": "Rob Allen",
-          "email": "rob@akrabat.com",
-          "homepage": "http://akrabat.com"
-        },
-        {
-          "name": "Pierre Berube",
-          "email": "pierre@lgse.com",
-          "homepage": "http://www.lgse.com"
-        },
-        {
-          "name": "Gabriel Manricks",
-          "email": "gmanricks@me.com",
-          "homepage": "http://gabrielmanricks.com"
-        }
-      ],
-      "description": "Slim is a PHP micro framework that helps you quickly write simple yet powerful web applications and APIs",
-      "homepage": "https://www.slimframework.com",
-      "keywords": [
-        "api",
-        "framework",
-        "micro",
-        "router"
-      ],
-      "support": {
-        "docs": "https://www.slimframework.com/docs/v4/",
-        "forum": "https://discourse.slimframework.com/",
-        "irc": "irc://irc.freenode.net:6667/slimphp",
-        "issues": "https://github.com/slimphp/Slim/issues",
-        "rss": "https://www.slimframework.com/blog/feed.rss",
-        "slack": "https://slimphp.slack.com/",
-        "source": "https://github.com/slimphp/Slim",
-        "wiki": "https://github.com/slimphp/Slim/wiki"
-      },
-      "funding": [
-        {
-          "url": "https://opencollective.com/slimphp",
-          "type": "open_collective"
-        },
-        {
-          "url": "https://tidelift.com/funding/github/packagist/slim/slim",
-          "type": "tidelift"
-        }
-      ],
-      "time": "2024-03-03T21:25:30+00:00"
     },
     {
       "name": "symfony/polyfill-ctype",
@@ -3252,17 +3041,70 @@
       "time": "2024-02-20T17:38:05+00:00"
     },
     {
+      "name": "psr/container",
+      "version": "2.0.2",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/php-fig/container.git",
+        "reference": "c71ecc56dfe541dbd90c5360474fbc405f8d5963"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/php-fig/container/zipball/c71ecc56dfe541dbd90c5360474fbc405f8d5963",
+        "reference": "c71ecc56dfe541dbd90c5360474fbc405f8d5963",
+        "shasum": ""
+      },
+      "require": {
+        "php": ">=7.4.0"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "2.0.x-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Psr\\Container\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "PHP-FIG",
+          "homepage": "https://www.php-fig.org/"
+        }
+      ],
+      "description": "Common Container Interface (PHP FIG PSR-11)",
+      "homepage": "https://github.com/php-fig/container",
+      "keywords": [
+        "PSR-11",
+        "container",
+        "container-interface",
+        "container-interop",
+        "psr"
+      ],
+      "support": {
+        "issues": "https://github.com/php-fig/container/issues",
+        "source": "https://github.com/php-fig/container/tree/2.0.2"
+      },
+      "time": "2021-11-05T16:47:00+00:00"
+    },
+    {
       "name": "roave/security-advisories",
       "version": "dev-latest",
       "source": {
         "type": "git",
         "url": "https://github.com/Roave/SecurityAdvisories.git",
-        "reference": "98cbbfa55bafb0368a60a5fd6206f07c9dd782eb"
+        "reference": "a2c33d8cc3719997b91b628eec3570d725cebf7e"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/98cbbfa55bafb0368a60a5fd6206f07c9dd782eb",
-        "reference": "98cbbfa55bafb0368a60a5fd6206f07c9dd782eb",
+        "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/a2c33d8cc3719997b91b628eec3570d725cebf7e",
+        "reference": "a2c33d8cc3719997b91b628eec3570d725cebf7e",
         "shasum": ""
       },
       "conflict": {
@@ -3673,7 +3515,7 @@
         "pimcore/demo": "<10.3",
         "pimcore/ecommerce-framework-bundle": "<1.0.10",
         "pimcore/perspective-editor": "<1.5.1",
-        "pimcore/pimcore": "<11.1.1",
+        "pimcore/pimcore": "<11.1.6.1-dev|>=11.2,<11.2.2",
         "pixelfed/pixelfed": "<0.11.11",
         "plotly/plotly.js": "<2.25.2",
         "pocketmine/bedrock-protocol": "<8.0.2",
@@ -3839,7 +3681,7 @@
         "thinkcmf/thinkcmf": "<=5.1.7",
         "thorsten/phpmyfaq": "<3.2.2",
         "tikiwiki/tiki-manager": "<=17.1",
-        "tinymce/tinymce": "<5.10.9|>=6,<6.7.3",
+        "tinymce/tinymce": "<7",
         "tinymighty/wiki-seo": "<1.2.2",
         "titon/framework": "<9.9.99",
         "tobiasbg/tablepress": "<=2.0.0.0-RC1",
@@ -3992,7 +3834,7 @@
           "type": "tidelift"
         }
       ],
-      "time": "2024-03-25T20:04:17+00:00"
+      "time": "2024-03-26T22:04:37+00:00"
     },
     {
       "name": "symfony/deprecation-contracts",

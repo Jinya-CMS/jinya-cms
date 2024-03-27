@@ -3,7 +3,7 @@
 namespace Jinya\Tests\Web\Actions\Blog\Post;
 
 use App\Database\BlogPost;
-use App\Database\BlogPostSegment;
+use App\Database\BlogPostSection;
 use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\Blog\Post\GetSegmentsAction;
 use App\Web\Exceptions\NoResultException;
@@ -19,7 +19,7 @@ class GetSegmentsActionTest extends DatabaseAwareTestCase
         $post->slug = 'slug';
         $post->create();
 
-        $segment = new BlogPostSegment();
+        $segment = new BlogPostSection();
         $segment->position = 1;
         $segment->blogPostId = $post->getIdAsInt();
         $segment->create();

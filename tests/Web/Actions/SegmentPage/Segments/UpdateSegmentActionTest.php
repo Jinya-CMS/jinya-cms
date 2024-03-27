@@ -5,8 +5,8 @@ namespace Jinya\Tests\Web\Actions\SegmentPage\Segments;
 use App\Database\File;
 use App\Database\Form;
 use App\Database\Gallery;
-use App\Database\Segment;
-use App\Database\SegmentPage;
+use App\Database\ModernPageSection;
+use App\Database\ModernPage;
 use App\Tests\DatabaseAwareTestCase;
 use App\Web\Actions\SegmentPage\Segments\UpdateSegmentAction;
 use App\Web\Exceptions\NoResultException;
@@ -29,7 +29,7 @@ class UpdateSegmentActionTest extends DatabaseAwareTestCase
 
     public function test__invokeFile(): void
     {
-        $segmentPage = new SegmentPage();
+        $segmentPage = new ModernPage();
         $segmentPage->name = Uuid::uuid();
         $segmentPage->create();
 
@@ -37,7 +37,7 @@ class UpdateSegmentActionTest extends DatabaseAwareTestCase
         $file->name = Uuid::uuid();
         $file->create();
 
-        $segment = new Segment();
+        $segment = new ModernPageSection();
         $segment->fileId = $file->getIdAsInt();
         $segment->position = 0;
         $segment->pageId = $segmentPage->getIdAsInt();
@@ -53,7 +53,7 @@ class UpdateSegmentActionTest extends DatabaseAwareTestCase
 
     public function test__invokeFileLink(): void
     {
-        $segmentPage = new SegmentPage();
+        $segmentPage = new ModernPage();
         $segmentPage->name = Uuid::uuid();
         $segmentPage->create();
 
@@ -61,7 +61,7 @@ class UpdateSegmentActionTest extends DatabaseAwareTestCase
         $file->name = Uuid::uuid();
         $file->create();
 
-        $segment = new Segment();
+        $segment = new ModernPageSection();
         $segment->fileId = $file->getIdAsInt();
         $segment->position = 0;
         $segment->pageId = $segmentPage->getIdAsInt();
@@ -77,7 +77,7 @@ class UpdateSegmentActionTest extends DatabaseAwareTestCase
 
     public function test__invokeFileScript(): void
     {
-        $segmentPage = new SegmentPage();
+        $segmentPage = new ModernPage();
         $segmentPage->name = Uuid::uuid();
         $segmentPage->create();
 
@@ -85,7 +85,7 @@ class UpdateSegmentActionTest extends DatabaseAwareTestCase
         $file->name = Uuid::uuid();
         $file->create();
 
-        $segment = new Segment();
+        $segment = new ModernPageSection();
         $segment->fileId = $file->getIdAsInt();
         $segment->position = 0;
         $segment->pageId = $segmentPage->getIdAsInt();
@@ -103,7 +103,7 @@ class UpdateSegmentActionTest extends DatabaseAwareTestCase
     {
         $this->expectException(NoResultException::class);
         $this->expectExceptionMessage('File not found');
-        $segmentPage = new SegmentPage();
+        $segmentPage = new ModernPage();
         $segmentPage->name = Uuid::uuid();
         $segmentPage->create();
 
@@ -111,7 +111,7 @@ class UpdateSegmentActionTest extends DatabaseAwareTestCase
         $file->name = Uuid::uuid();
         $file->create();
 
-        $segment = new Segment();
+        $segment = new ModernPageSection();
         $segment->fileId = $file->getIdAsInt();
         $segment->position = 0;
         $segment->pageId = $segmentPage->getIdAsInt();
@@ -126,7 +126,7 @@ class UpdateSegmentActionTest extends DatabaseAwareTestCase
 
     public function test__invokeGallery(): void
     {
-        $segmentPage = new SegmentPage();
+        $segmentPage = new ModernPage();
         $segmentPage->name = Uuid::uuid();
         $segmentPage->create();
 
@@ -134,7 +134,7 @@ class UpdateSegmentActionTest extends DatabaseAwareTestCase
         $gallery->name = Uuid::uuid();
         $gallery->create();
 
-        $segment = new Segment();
+        $segment = new ModernPageSection();
         $segment->galleryId = $gallery->getIdAsInt();
         $segment->position = 0;
         $segment->pageId = $segmentPage->getIdAsInt();
@@ -152,7 +152,7 @@ class UpdateSegmentActionTest extends DatabaseAwareTestCase
     {
         $this->expectException(NoResultException::class);
         $this->expectExceptionMessage('Gallery not found');
-        $segmentPage = new SegmentPage();
+        $segmentPage = new ModernPage();
         $segmentPage->name = Uuid::uuid();
         $segmentPage->create();
 
@@ -160,7 +160,7 @@ class UpdateSegmentActionTest extends DatabaseAwareTestCase
         $gallery->name = Uuid::uuid();
         $gallery->create();
 
-        $segment = new Segment();
+        $segment = new ModernPageSection();
         $segment->galleryId = $gallery->getIdAsInt();
         $segment->position = 0;
         $segment->pageId = $segmentPage->getIdAsInt();
@@ -175,11 +175,11 @@ class UpdateSegmentActionTest extends DatabaseAwareTestCase
 
     public function test__invokeHtml(): void
     {
-        $segmentPage = new SegmentPage();
+        $segmentPage = new ModernPage();
         $segmentPage->name = Uuid::uuid();
         $segmentPage->create();
 
-        $segment = new Segment();
+        $segment = new ModernPageSection();
         $segment->html = Uuid::uuid();
         $segment->position = 0;
         $segment->pageId = $segmentPage->getIdAsInt();
@@ -195,7 +195,7 @@ class UpdateSegmentActionTest extends DatabaseAwareTestCase
 
     public function test__invokeForm(): void
     {
-        $segmentPage = new SegmentPage();
+        $segmentPage = new ModernPage();
         $segmentPage->name = Uuid::uuid();
         $segmentPage->create();
 
@@ -204,7 +204,7 @@ class UpdateSegmentActionTest extends DatabaseAwareTestCase
         $form->toAddress = 'noreply@example.com';
         $form->create();
 
-        $segment = new Segment();
+        $segment = new ModernPageSection();
         $segment->formId = $form->getIdAsInt();
         $segment->position = 0;
         $segment->pageId = $segmentPage->getIdAsInt();
@@ -222,7 +222,7 @@ class UpdateSegmentActionTest extends DatabaseAwareTestCase
     {
         $this->expectException(NoResultException::class);
         $this->expectExceptionMessage('Form not found');
-        $segmentPage = new SegmentPage();
+        $segmentPage = new ModernPage();
         $segmentPage->name = Uuid::uuid();
         $segmentPage->create();
 
@@ -231,7 +231,7 @@ class UpdateSegmentActionTest extends DatabaseAwareTestCase
         $form->toAddress = 'noreply@example.com';
         $form->create();
 
-        $segment = new Segment();
+        $segment = new ModernPageSection();
         $segment->formId = $form->getIdAsInt();
         $segment->position = 0;
         $segment->pageId = $segmentPage->getIdAsInt();

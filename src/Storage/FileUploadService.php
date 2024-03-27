@@ -3,15 +3,12 @@
 namespace App\Storage;
 
 use App\Database\Exceptions\EmptyResultException;
-use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Database\UploadingFile;
 use App\Database\UploadingFileChunk;
 use App\Utils\UuidGenerator;
 use Exception;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
+use Jinya\Database\Exception\NotNullViolationException;
 use RuntimeException;
 
 /**
@@ -27,10 +24,7 @@ class FileUploadService extends StorageBaseService
      * @param string|resource|null $data
      * @return UploadingFileChunk
      * @throws EmptyResultException
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     * @throws UniqueFailedException
+     * @throws NotNullViolationException
      * @throws Exception
      */
     public function saveChunk(int $fileId, int $position, mixed $data): UploadingFileChunk
@@ -50,7 +44,7 @@ class FileUploadService extends StorageBaseService
         $chunk = new UploadingFileChunk();
         $chunk->chunkPath = $path;
         $chunk->chunkPosition = $position;
-        $chunk->uploadingFileId = (string)$uploadingFile->id;
+        $chunk->uploadingFileId = $uploadingFile->id;
         $chunk->create();
 
         return $chunk;
@@ -61,16 +55,15 @@ class FileUploadService extends StorageBaseService
      *
      * @param int $fileId
      * @return null|object
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     * @throws UniqueFailedException
+     * @throws EmptyResultException
+     * @throws NotNullViolationException
+     * @throws Exception
      */
     public function finishUpload(int $fileId): object|null
     {
         $file = File::findById($fileId);
         if ($file === null) {
-            throw new NoResultException('File not found');
+            throw new EmptyResultException('File not found');
         }
 
         $chunks = UploadingFileChunk::findByFile($fileId);
@@ -116,9 +109,7 @@ class FileUploadService extends StorageBaseService
             $uploadingFile = UploadingFile::findByFile($fileId);
             $uploadingFile?->delete();
         } finally {
-            if (is_resource($tmpFileHandle)) {
-                @fclose($tmpFileHandle);
-            }
+            @fclose($tmpFileHandle);
         }
 
         return $file;
@@ -127,9 +118,8 @@ class FileUploadService extends StorageBaseService
     /**
      * Removes all chunks for the given file
      *
-     * @throws UniqueFailedException
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
+     * @param int $fileId
+     * @throws Exception
      */
     public function clearChunks(int $fileId): void
     {

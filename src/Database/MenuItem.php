@@ -27,11 +27,12 @@ class MenuItem
     #[Column]
     public int $position;
 
-    /** @var int|null The ID of the menu this menu item belongs to. If the menu item has a menu item as parent this value is null */
+    /** @var int|null The ID of the menu this menu item belongs to. If the menu item has a menu item as parent, this value is null */
     #[Column(sqlName: 'menu_id')]
     public ?int $menuId = null;
 
-    /** @var int|null The ID of the menu item, this menu item has as parent. If the menu item has a menu as parent this value is null */
+    /** @var int|null The ID of the menu item, this menu item has as parent. If the menu item has a menu as parent, this value is null
+     */
     #[Column(sqlName: 'parent_id')]
     public ?int $parentId = null;
 
@@ -43,7 +44,7 @@ class MenuItem
      * @var string|null
      * The link of the menu item. This link can be either an absolute URL, a relative URL or null.
      * Absolute URLs open the link directly, while relative URLs are handled by the frontend controller and will render different entities.
-     * Usually a null value indicates that the menu item is used as a parent item, which has no link but rather opens and shows the sub items
+     * Usually a null value indicates that the menu item is used as a parent item, which has no link but rather opens and shows the subitems
      */
     #[Column]
     public ?string $route = null;
@@ -68,11 +69,11 @@ class MenuItem
 
     /** @var int|null The ID of the segment page this menu item should render */
     #[Column(sqlName: 'segment_page_id')]
-    public ?int $segmentPageId = null;
+    public ?int $modernPageId = null;
 
     /** @var int|null The ID of the page this menu item should render */
     #[Column(sqlName: 'page_id')]
-    public ?int $pageId = null;
+    public ?int $classicPageId = null;
 
     /** @var int|null The ID of the blog category this menu item should render */
     #[Column(sqlName: 'category_id')]
@@ -113,6 +114,7 @@ class MenuItem
             ])
             ->where('menu_id = :menuId AND position = :position', ['menuId' => $menuId, 'position' => $position]);
 
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
 
         if (empty($data)) {
@@ -155,6 +157,7 @@ class MenuItem
                 ['parentId' => $parentId, 'position' => $position]
             );
 
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
 
         if (empty($data)) {
@@ -195,6 +198,8 @@ class MenuItem
                 'route = :route OR route = :routeWithTrailingSlash',
                 ['route' => $route, 'routeWithTrailingSlash' => "/$route"]
             );
+
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
 
         if (empty($data)) {
@@ -234,6 +239,7 @@ class MenuItem
             ->where('menu_id = :menuId', ['menuId' => $menuId])
             ->orderBy(['position']);
 
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
 
         foreach ($data as $item) {
@@ -311,17 +317,17 @@ class MenuItem
                 'artistName' => $artist?->artistName,
                 'email' => $artist?->email,
             ];
-        } elseif (isset($this->pageId)) {
-            $page = $this->getPage();
-            $data['page'] = [
-                'id' => $page?->id,
-                'title' => $page?->title,
+        } elseif (isset($this->classicPageId)) {
+            $classicPage = $this->getClassicPage();
+            $data['classicPage'] = [
+                'id' => $classicPage?->id,
+                'title' => $classicPage?->title,
             ];
-        } elseif (isset($this->segmentPageId)) {
-            $segmentPage = $this->getSegmentPage();
-            $data['segmentPage'] = [
-                'id' => $segmentPage?->id,
-                'name' => $segmentPage?->name,
+        } elseif (isset($this->modernPageId)) {
+            $modernPage = $this->getModernPage();
+            $data['modernPage'] = [
+                'id' => $modernPage?->id,
+                'name' => $modernPage?->name,
             ];
         } elseif (isset($this->galleryId)) {
             $gallery = $this->getGallery();
@@ -371,29 +377,29 @@ class MenuItem
     /**
      * Gets the associated page
      *
-     * @return SimplePage|null
+     * @return ClassicPage|null
      */
-    public function getPage(): ?SimplePage
+    public function getClassicPage(): ?ClassicPage
     {
-        if ($this->pageId === null) {
+        if ($this->classicPageId === null) {
             return null;
         }
 
-        return SimplePage::findById($this->pageId);
+        return ClassicPage::findById($this->classicPageId);
     }
 
     /**
      * Gets the associated segment page
      *
-     * @return SegmentPage|null
+     * @return ModernPage|null
      */
-    public function getSegmentPage(): ?SegmentPage
+    public function getModernPage(): ?ModernPage
     {
-        if ($this->segmentPageId === null) {
+        if ($this->modernPageId === null) {
             return null;
         }
 
-        return SegmentPage::findById($this->segmentPageId);
+        return ModernPage::findById($this->modernPageId);
     }
 
     /**
@@ -480,6 +486,7 @@ class MenuItem
             ->where('parent_id = :parentId', ['parentId' => $parentId])
             ->orderBy(['position']);
 
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
 
         foreach ($data as $item) {

@@ -3,7 +3,6 @@
 namespace Jinya\Tests\Database;
 
 use App\Authentication\CurrentUser;
-use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Form;
 use App\Database\FormItem;
 use App\Tests\DatabaseAwareTestCase;
@@ -74,11 +73,11 @@ class FormTest extends DatabaseAwareTestCase
     public function testDeleteWithItems(): void
     {
         $form = $this->createForm();
-        $item = new FormItem();
-        $item->type = 'text';
-        $item->formId = $form->id;
-        $item->label = 'Label';
-        $item->position = 0;
+        $item = [
+            'type' => 'text',
+            'formId' => $form->id,
+            'label' => 'Label',
+        ];
 
         $form->replaceItems([$item]);
         $form->delete();
@@ -143,11 +142,12 @@ class FormTest extends DatabaseAwareTestCase
     public function testGetItems(): void
     {
         $form = $this->createForm();
-        $item = new FormItem();
-        $item->type = 'text';
-        $item->formId = $form->id;
-        $item->label = 'Label';
-        $item->position = 0;
+        $item = [
+            'type' => 'text',
+            'formId' => $form->id,
+            'label' => 'Label',
+            'position' => 0,
+        ];
         $form->replaceItems([$item]);
 
         $items = $form->getItems();
@@ -157,19 +157,19 @@ class FormTest extends DatabaseAwareTestCase
     public function testGetItemsMultipleForms(): void
     {
         $form = $this->createForm();
-        $item = new FormItem();
-        $item->type = 'text';
-        $item->formId = $form->id;
-        $item->label = 'Label';
-        $item->position = 0;
+        $item = [
+            'type' => 'text',
+            'formId' => $form->id,
+            'label' => 'Label',
+        ];
         $form->replaceItems([$item]);
 
         $form2 = $this->createForm(title: 'Form2');
-        $item2 = new FormItem();
-        $item2->type = 'text';
-        $item2->formId = $form2->id;
-        $item2->label = 'Label';
-        $item2->position = 0;
+        $item2 = [
+            'type' => 'text',
+            'formId' => $form->id,
+            'label' => 'Label',
+        ];
         $form2->replaceItems([$item2]);
 
         $items = $form->getItems();

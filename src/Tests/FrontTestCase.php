@@ -8,6 +8,7 @@ use App\Database\ThemeMenu;
 use App\Theming\ThemeSyncer;
 use Faker\Provider\Uuid;
 use Jinya\Database\Entity;
+use Jinya\Database\Exception\NotNullViolationException;
 use Symfony\Component\Filesystem\Filesystem;
 
 abstract class FrontTestCase extends DatabaseAwareTestCase
@@ -16,6 +17,10 @@ abstract class FrontTestCase extends DatabaseAwareTestCase
     private static Filesystem $fs;
     protected Menu $menu;
 
+    /**
+     * @return void
+     * @throws NotNullViolationException
+     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -36,8 +41,8 @@ abstract class FrontTestCase extends DatabaseAwareTestCase
 
         $themeMenu = new ThemeMenu();
         $themeMenu->name = 'menu1';
-        $themeMenu->themeId = $theme->getIdAsInt();
-        $themeMenu->menuId = $this->menu->getIdAsInt();
+        $themeMenu->themeId = $theme->id;
+        $themeMenu->menuId = $this->menu->id;
         $themeMenu->create();
     }
 

@@ -2,7 +2,6 @@
 
 namespace App\Database;
 
-use App\Database\Exceptions\ForeignKeyFailedException;
 use DateTime;
 use Exception;
 use Iterator;
@@ -13,7 +12,6 @@ use Jinya\Database\Creatable;
 use Jinya\Database\Deletable;
 use Jinya\Database\EntityTrait;
 use Jinya\Database\Updatable;
-use PDOException;
 
 /**
  * This class contains an api key, used to log in to Jinya CMS api
@@ -63,10 +61,7 @@ class ApiKey implements Creatable, Deletable, Updatable
             return null;
         }
 
-        /** @var ApiKey $result */
-        $result = self::fromArray($data[0]);
-
-        return $result;
+        return self::fromArray($data[0]);
     }
 
     /**
@@ -95,10 +90,7 @@ class ApiKey implements Creatable, Deletable, Updatable
         /** @var array<array<array-key, mixed>> $data */
         $data = self::executeQuery($query);
         foreach ($data as $item) {
-            /** @var ApiKey $result */
-            $result = self::fromArray($item);
-
-            yield $result;
+            yield self::fromArray($item);
         }
     }
 
@@ -135,13 +127,7 @@ class ApiKey implements Creatable, Deletable, Updatable
                 'remote_address' => $this->remoteAddress,
             ]);
 
-        try {
-            self::executeQuery($query);
-        } catch (PDOException $exception) {
-            if ($exception->errorInfo[0] === '23000' && $exception->errorInfo[1] === 1452) {
-                throw new ForeignKeyFailedException();
-            }
-        }
+        self::executeQuery($query);
     }
 
     /**

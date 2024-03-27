@@ -3,6 +3,7 @@
 namespace App\Database;
 
 use App\Authentication\CurrentUser;
+use App\Web\Middleware\AuthorizationMiddleware;
 use DateTime;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
@@ -11,11 +12,19 @@ use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
 use Jinya\Database\Entity;
 use Jinya\Database\Exception\NotNullViolationException;
+use Jinya\Router\Extensions\Database\Attributes\Create;
+use Jinya\Router\Extensions\Database\Attributes\Delete;
+use Jinya\Router\Extensions\Database\Attributes\Find;
+use Jinya\Router\Extensions\Database\Attributes\Update;
 
 /**
  * This class contains a gallery, galleries are used to arrange files in a list or masonry layout and horizontal or vertical orientation. They can be embedded into segment pages and blog posts
  */
 #[Table('gallery')]
+#[Find('/api/gallery', new AuthorizationMiddleware(ROLE_READER))]
+#[Create('/api/gallery', new AuthorizationMiddleware(ROLE_WRITER))]
+#[Update('/api/gallery', new AuthorizationMiddleware(ROLE_WRITER))]
+#[Delete('/api/gallery', new AuthorizationMiddleware(ROLE_WRITER))]
 class Gallery extends Entity
 {
     /** @var string Used to mark a gallery for list or sequential layout */
@@ -136,10 +145,10 @@ class Gallery extends Entity
     public function create(): void
     {
         $this->lastUpdatedAt = new DateTime();
-        $this->updatedById = (int)CurrentUser::$currentUser->id;
+        $this->updatedById = CurrentUser::$currentUser->id;
 
         $this->createdAt = new DateTime();
-        $this->creatorId = (int)CurrentUser::$currentUser->id;
+        $this->creatorId = CurrentUser::$currentUser->id;
 
         parent::create();
     }
@@ -153,7 +162,7 @@ class Gallery extends Entity
     public function update(): void
     {
         $this->lastUpdatedAt = new DateTime();
-        $this->updatedById = (int)CurrentUser::$currentUser->id;
+        $this->updatedById = CurrentUser::$currentUser->id;
 
         parent::update();
     }
@@ -161,7 +170,7 @@ class Gallery extends Entity
     /**
      * Get all files in the gallery
      *
-     * @return Iterator<File>
+     * @return Iterator<GalleryFilePosition>
      */
     public function getFiles(): Iterator
     {
@@ -177,6 +186,7 @@ class Gallery extends Entity
             ->where('gallery_id = :parentId', ['parentId' => $this->id])
             ->orderBy(['position']);
 
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
         foreach ($data as $item) {
             yield GalleryFilePosition::fromArray($item);

@@ -14,11 +14,14 @@ class ThemeDescriptionConverter implements ValueConverter
         try {
             return json_decode($input, true, 512, JSON_THROW_ON_ERROR);
         } catch (JsonException) {
-            return ['en' => $value];
+            return ['en' => $input];
         }
     }
 
-    public function to(mixed $input): mixed
+    /**
+     * @throws JsonException
+     */
+    public function to(mixed $input): string|false
     {
         return json_encode($input, JSON_THROW_ON_ERROR);
     }

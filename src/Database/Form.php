@@ -4,6 +4,7 @@ namespace App\Database;
 
 use App\Authentication\CurrentUser;
 use App\Database\Exceptions\TransactionFailedException;
+use App\Web\Middleware\AuthorizationMiddleware;
 use DateTime;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
@@ -12,6 +13,11 @@ use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
 use Jinya\Database\Entity;
 use Jinya\Database\Exception\NotNullViolationException;
+use Jinya\Router\Extensions\Database\Attributes\ApiIgnore;
+use Jinya\Router\Extensions\Database\Attributes\Create;
+use Jinya\Router\Extensions\Database\Attributes\Delete;
+use Jinya\Router\Extensions\Database\Attributes\Find;
+use Jinya\Router\Extensions\Database\Attributes\Update;
 use JsonException;
 use PDOException;
 
@@ -19,6 +25,10 @@ use PDOException;
  * This class contains a form, forms allow artists to receive feedback from their site visitors
  */
 #[Table('form')]
+#[Find('/api/form', new AuthorizationMiddleware(ROLE_READER))]
+#[Create('/api/form', new AuthorizationMiddleware(ROLE_WRITER))]
+#[Update('/api/form', new AuthorizationMiddleware(ROLE_WRITER))]
+#[Delete('/api/form', new AuthorizationMiddleware(ROLE_WRITER))]
 class Form extends Entity
 {
     #[Id]
@@ -27,18 +37,22 @@ class Form extends Entity
 
     /** @var int The ID of the artist who created the form */
     #[Column(sqlName: 'creator_id')]
+    #[ApiIgnore]
     public int $creatorId;
 
     /** @var int The ID of the artist who last touched the form */
     #[Column(sqlName: 'updated_by_id')]
+    #[ApiIgnore]
     public int $updatedById;
 
     /** @var DateTime The time the form was created at */
     #[Column(sqlName: 'created_at')]
+    #[ApiIgnore]
     public DateTime $createdAt;
 
     /** @var DateTime The time the form was last updated at */
     #[Column(sqlName: 'last_updated_at')]
+    #[ApiIgnore]
     public DateTime $lastUpdatedAt;
 
     /** @var string The title of the form */
@@ -72,10 +86,10 @@ class Form extends Entity
     public function create(): void
     {
         $this->lastUpdatedAt = new DateTime();
-        $this->updatedById = (int)CurrentUser::$currentUser->id;
+        $this->updatedById = CurrentUser::$currentUser->id;
 
         $this->createdAt = new DateTime();
-        $this->creatorId = (int)CurrentUser::$currentUser->id;
+        $this->creatorId = CurrentUser::$currentUser->id;
 
         parent::create();
     }
@@ -89,7 +103,7 @@ class Form extends Entity
     public function update(): void
     {
         $this->lastUpdatedAt = new DateTime();
-        $this->updatedById = (int)CurrentUser::$currentUser->id;
+        $this->updatedById = CurrentUser::$currentUser->id;
 
         parent::update();
     }
@@ -158,7 +172,7 @@ class Form extends Entity
     /**
      * Replaces all form items with the new items
      *
-     * @param FormItem[] $newItems
+     * @param array{type: string, options?: string[], spamFilter?: string[], label: string, helpText?: string, placeholder?: string, isFromAddress?: bool, isSubject?: bool, isRequired?: bool}[] $newItems
      * @throws TransactionFailedException
      * @throws JsonException
      */
@@ -178,16 +192,16 @@ class Form extends Entity
                 ->into(FormItem::getTableName())
                 ->addRow([
                     'position' => $idx,
-                    'type' => $newItem->type,
-                    'options' => json_encode($newItem->options, JSON_THROW_ON_ERROR),
-                    'spam_filter' => json_encode($newItem->spamFilter, JSON_THROW_ON_ERROR),
-                    'label' => $newItem->label,
-                    'help_text' => $newItem->helpText,
+                    'type' => $newItem['type'],
+                    'options' => json_encode($newItem['options'] ?? [], JSON_THROW_ON_ERROR),
+                    'spam_filter' => json_encode($newItem['spamFilter'] ?? [], JSON_THROW_ON_ERROR),
+                    'label' => $newItem['label'],
+                    'help_text' => $newItem['helpText'] ?? '',
                     'form_id' => $this->id,
-                    'is_from_address' => $newItem->isFromAddress ?: 1,
-                    'is_subject' => $newItem->isSubject ?: 1,
-                    'is_required' => $newItem->isRequired ?: 1,
-                    'placeholder' => $newItem->placeholder,
+                    'is_from_address' => ($newItem['isFromAddress'] ?? false) === true ? 1 : 0,
+                    'is_subject' => ($newItem['isSubject'] ?? false) === true ? 1 : 0,
+                    'is_required' => ($newItem['isRequired'] ?? false) === true ? 1 : 0,
+                    'placeholder' => $newItem['placeholder'] ?? '',
                 ]);
         }
 

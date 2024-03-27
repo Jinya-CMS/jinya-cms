@@ -3,6 +3,7 @@
 namespace App\Database;
 
 use App\Authentication\CurrentUser;
+use App\Web\Middleware\AuthorizationMiddleware;
 use DateTime;
 use Exception;
 use Iterator;
@@ -12,11 +13,20 @@ use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
 use Jinya\Database\Entity;
 use Jinya\Database\Exception\NotNullViolationException;
+use Jinya\Router\Extensions\Database\Attributes\ApiIgnore;
+use Jinya\Router\Extensions\Database\Attributes\Create;
+use Jinya\Router\Extensions\Database\Attributes\Delete;
+use Jinya\Router\Extensions\Database\Attributes\Find;
+use Jinya\Router\Extensions\Database\Attributes\Update;
 
 /**
  * This class contains information about files stored with the media manager in Jinya CMS
  */
 #[Table('file')]
+#[Find('/api/file', new AuthorizationMiddleware(ROLE_READER))]
+#[Create('/api/file', new AuthorizationMiddleware(ROLE_WRITER))]
+#[Update('/api/file', new AuthorizationMiddleware(ROLE_WRITER))]
+#[Delete('/api/file', new AuthorizationMiddleware(ROLE_WRITER))]
 class File extends Entity
 {
     #[Id]
@@ -25,22 +35,27 @@ class File extends Entity
 
     /** @var int The ID of the files creator */
     #[Column(sqlName: 'creator_id')]
+    #[ApiIgnore]
     public int $creatorId;
 
     /** @var int The ID of the artist who last touched the file */
     #[Column(sqlName: 'updated_by_id')]
+    #[ApiIgnore]
     public int $updatedById;
 
     /** @var DateTime The time the file was created at */
     #[Column(sqlName: 'created_at')]
+    #[ApiIgnore]
     public DateTime $createdAt;
 
     /** @var DateTime The time the file was last updated at */
     #[Column(sqlName: 'last_updated_at')]
+    #[ApiIgnore]
     public DateTime $lastUpdatedAt;
 
     /** @var string The path where the file is stored, this path is relative to the web root directory */
     #[Column]
+    #[ApiIgnore]
     public string $path = '';
 
     /** @var string The name of the file */
@@ -49,6 +64,7 @@ class File extends Entity
 
     /** @var string The type of the file */
     #[Column]
+    #[ApiIgnore]
     public string $type = '';
 
     /** @var string[] The tags of the file */
@@ -74,10 +90,10 @@ class File extends Entity
     public function create(): void
     {
         $this->lastUpdatedAt = new DateTime();
-        $this->updatedById = (int)CurrentUser::$currentUser->id;
+        $this->updatedById = CurrentUser::$currentUser->id;
 
         $this->createdAt = new DateTime();
-        $this->creatorId = (int)CurrentUser::$currentUser->id;
+        $this->creatorId = CurrentUser::$currentUser->id;
 
         parent::create();
 
@@ -124,7 +140,7 @@ class File extends Entity
     public function update(): void
     {
         $this->lastUpdatedAt = new DateTime();
-        $this->updatedById = (int)CurrentUser::$currentUser->id;
+        $this->updatedById = CurrentUser::$currentUser->id;
 
         parent::update();
         $this->setTagsInDatabase();
@@ -134,6 +150,7 @@ class File extends Entity
      * Formats the file into an array
      *
      * @return array{id: int, name: string, type: string, path: string, tags: array<array{name: string, color: string|null, emoji: string|null}>, created: array{by: array{artistName: string|null, email: string|null, profilePicture: string|null}, at: non-falsy-string}, updated: array{by: array{artistName: string|null, email: string|null, profilePicture: string|null}, at: non-falsy-string}}
+     * @throws Exception
      */
     #[ArrayShape([
         'id' => 'int',
@@ -218,6 +235,7 @@ class File extends Entity
                 ['fileId' => $this->id]
             );
 
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
         foreach ($data as $item) {
             yield FileTag::fromArray($item);

@@ -2,13 +2,11 @@
 
 namespace App\Database;
 
-use App\Authentication\AuthenticationChecker;
 use App\Database\Converter\BooleanConverter;
 use App\Database\Converter\NullableBooleanConverter;
 use App\Database\Converter\PhpSerializerConverter;
 use App\Database\Exceptions\DeleteLastAdminException;
-use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\UniqueFailedException;
+use App\Web\Middleware\AuthorizationMiddleware;
 use DateInterval;
 use DateTime;
 use Exception;
@@ -21,13 +19,15 @@ use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
 use Jinya\Database\Entity;
 use Jinya\Database\Exception\NotNullViolationException;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
+use Jinya\Router\Extensions\Database\Attributes\Delete;
+use Jinya\Router\Extensions\Database\Attributes\Find;
 
 /**
  * This class contains all information relevant for an artist. Artists are the users of Jinya CMS
  */
 #[Table('users')]
+#[Find('/api/user', new AuthorizationMiddleware(ROLE_ADMIN))]
+#[Delete('/api/user', new AuthorizationMiddleware(ROLE_ADMIN))]
 class Artist extends Entity
 {
     #[Id]
@@ -68,7 +68,7 @@ class Artist extends Entity
     #[Column(sqlName: 'failed_login_attempts')]
     public ?int $failedLoginAttempts = 0;
 
-    /** @var DateTime|null Contains the time until the login is blocked, if the login is not blocked this field is null */
+    /** @var DateTime|null Contains the time until the login is blocked, if the login is not blocked, this field is null */
     #[Column(sqlName: 'login_blocked_until')]
     public ?DateTime $loginBlockedUntil = null;
 
@@ -77,7 +77,7 @@ class Artist extends Entity
     #[NullableBooleanConverter]
     public ?bool $prefersColorScheme = null;
 
-    /** @var string The artists password */
+    /** @var string The artists' password */
     #[Column]
     public string $password = '';
 
@@ -107,6 +107,7 @@ class Artist extends Entity
             ])
             ->where('email = :email', ['email' => $email]);
 
+        /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
         if (empty($data)) {
             return null;
@@ -172,11 +173,6 @@ class Artist extends Entity
      *
      * @param string $knownDeviceCode The device code to validate
      * @return bool
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws UniqueFailedException
-     * @throws NoResultException
-     * @throws NoResultException
      */
     public function validateDevice(string $knownDeviceCode): bool
     {
@@ -263,7 +259,7 @@ class Artist extends Entity
         $admins = 0;
         foreach ($users as $user) {
             if ($user->enabled && $id !== $user->id && in_array(
-                AuthenticationChecker::ROLE_ADMIN,
+                ROLE_ADMIN,
                 $user->roles,
                 true
             )) {
@@ -275,7 +271,7 @@ class Artist extends Entity
     }
 
     /**
-     * Registers a failed login, after the fifth login failed the login will be blocked for 10 minutes
+     * Registers a failed login. After the fifth login failed, the login will be blocked for 10 minutes
      * @throws NotNullViolationException
      */
     public function registerFailedLogin(): void
