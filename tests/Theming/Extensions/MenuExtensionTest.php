@@ -3,7 +3,6 @@
 namespace Jinya\Tests\Theming\Extensions;
 
 use App\Database\Menu;
-use App\Database\MenuItem;
 use App\Tests\DatabaseAwareTestCase;
 use App\Theming\Engine;
 use App\Theming\Extensions\MenuExtension;
@@ -14,29 +13,27 @@ class MenuExtensionTest extends DatabaseAwareTestCase
     private MenuExtension $extension;
     private Menu $menu;
 
+    private function createMenuItem(string $route): array
+    {
+        return [
+            'route' => $route,
+            'title' => Uuid::uuid(),
+        ];
+    }
+
     public function testIsChildActiveMenuItem(): void
     {
         $_SERVER['REQUEST_URI'] = '/active/sub';
         $parent = $this->createMenuItem('active');
         $child = $this->createMenuItem('active/sub');
-        $child->parentId = $parent->getIdAsInt();
-        $child->menuId = null;
-        $child->update();
 
-        $result = $this->extension->isChildActiveMenuItem($parent);
+        $parent['items'] = [$child];
+        $this->menu->replaceItems($parent);
+
+        $items = $this->menu->getItems();
+
+        $result = $this->extension->isChildActiveMenuItem($items->current());
         self::assertTrue($result);
-    }
-
-    private function createMenuItem(string $route): MenuItem
-    {
-        $menuItem = new MenuItem();
-        $menuItem->route = $route;
-        $menuItem->position = 0;
-        $menuItem->title = Uuid::uuid();
-        $menuItem->menuId = $this->menu->getIdAsInt();
-        $menuItem->create();
-
-        return $menuItem;
     }
 
     public function testIsChildActiveMenuItemParentIsActive(): void
@@ -44,11 +41,13 @@ class MenuExtensionTest extends DatabaseAwareTestCase
         $_SERVER['REQUEST_URI'] = '/active';
         $parent = $this->createMenuItem('active');
         $child = $this->createMenuItem('not-active/sub');
-        $child->parentId = $parent->getIdAsInt();
-        $child->menuId = null;
-        $child->update();
 
-        $result = $this->extension->isChildActiveMenuItem($parent);
+        $parent['items'] = [$child];
+        $this->menu->replaceItems($parent);
+
+        $items = $this->menu->getItems();
+
+        $result = $this->extension->isChildActiveMenuItem($items->current());
         self::assertFalse($result);
     }
 
@@ -57,11 +56,13 @@ class MenuExtensionTest extends DatabaseAwareTestCase
         $_SERVER['REQUEST_URI'] = '/active';
         $parent = $this->createMenuItem('not-active');
         $child = $this->createMenuItem('not-active/sub');
-        $child->parentId = $parent->getIdAsInt();
-        $child->menuId = null;
-        $child->update();
 
-        self::assertFalse($this->extension->isChildActiveMenuItem($parent));
+        $parent['items'] = [$child];
+        $this->menu->replaceItems($parent);
+
+        $items = $this->menu->getItems();
+
+        self::assertFalse($this->extension->isChildActiveMenuItem($items->current()));
     }
 
     public function testIsActiveMenuItem(): void
@@ -69,7 +70,11 @@ class MenuExtensionTest extends DatabaseAwareTestCase
         $_SERVER['REQUEST_URI'] = '/active';
         $parent = $this->createMenuItem('active');
 
-        $result = $this->extension->isActiveMenuItem($parent);
+        $this->menu->replaceItems($parent);
+
+        $items = $this->menu->getItems();
+
+        $result = $this->extension->isActiveMenuItem($items->current());
         self::assertTrue($result);
     }
 
@@ -78,16 +83,24 @@ class MenuExtensionTest extends DatabaseAwareTestCase
         $_SERVER['REQUEST_URI'] = '/active';
         $parent = $this->createMenuItem('not-active');
 
-        self::assertFalse($this->extension->isActiveMenuItem($parent));
+        $this->menu->replaceItems($parent);
+
+        $items = $this->menu->getItems();
+
+        self::assertFalse($this->extension->isActiveMenuItem($items->current()));
     }
 
     public function testGetActiveMenuItem(): void
     {
         $_SERVER['REQUEST_URI'] = '/active';
         $parent = $this->createMenuItem('active');
+
+        $this->menu->replaceItems($parent);
+
         $active = $this->extension->getActiveMenuItem();
-        self::assertEquals($parent->title, $active->title);
-        self::assertEquals($parent->route, $active->route);
+
+        self::assertEquals($parent['title'], $active->title);
+        self::assertEquals($parent['route'], $active->route);
     }
 
     public function testRegister(): void
@@ -95,9 +108,9 @@ class MenuExtensionTest extends DatabaseAwareTestCase
         $engine = Engine::getPlatesEngine();
         $this->extension->register($engine);
 
-        self::assertTrue($engine->doesFunctionExist('getActiveMenuItem'));
-        self::assertTrue($engine->doesFunctionExist('isActiveMenuItem'));
-        self::assertTrue($engine->doesFunctionExist('isChildActiveMenuItem'));
+        self::assertTrue($engine->functions->exists('getActiveMenuItem'));
+        self::assertTrue($engine->functions->exists('isActiveMenuItem'));
+        self::assertTrue($engine->functions->exists('isChildActiveMenuItem'));
     }
 
     protected function setUp(): void

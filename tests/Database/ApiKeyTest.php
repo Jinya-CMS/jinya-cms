@@ -4,31 +4,15 @@ namespace Jinya\Tests\Database;
 
 use App\Database\ApiKey;
 use App\Database\Artist;
-use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Tests\DatabaseAwareTestCase;
 use DateTime;
+use Jinya\Database\Exception\ForeignKeyFailedException;
+use PDOException;
 
 class ApiKeyTest extends DatabaseAwareTestCase
 {
     private ApiKey $testApiKey;
     private Artist $testArtist;
-
-    protected function setUp(): void
-    {
-        $this->testArtist = new Artist();
-        $this->testArtist->create();
-
-        $this->testApiKey = new ApiKey();
-        $this->testApiKey->userId = $this->testArtist->id;
-        $this->testApiKey->setApiKey();
-        $this->testApiKey->validSince = DateTime::createFromFormat(
-            MYSQL_DATE_FORMAT,
-            (new DateTime())->format(MYSQL_DATE_FORMAT)
-        ) ?: new DateTime();
-        $this->testApiKey->userAgent = 'Firefox';
-        $this->testApiKey->remoteAddress = '127.0.0.1';
-        $this->testApiKey->create();
-    }
 
     public function testFormat(): void
     {
@@ -81,7 +65,7 @@ class ApiKeyTest extends DatabaseAwareTestCase
 
     public function testCreateInvalidArtist(): void
     {
-        $this->expectException(ForeignKeyFailedException::class);
+        $this->expectException(PDOException::class);
         $apiKey = new ApiKey();
         $apiKey->userId = -1;
         $apiKey->setApiKey();
@@ -159,5 +143,23 @@ class ApiKeyTest extends DatabaseAwareTestCase
         $apiKey->userId = $this->testArtist->id;
         $apiKey->setApiKey();
         self::assertStringStartsWith("jinya-api-token-$apiKey->userId", $apiKey->apiKey);
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->testArtist = new Artist();
+        $this->testArtist->create();
+
+        $this->testApiKey = new ApiKey();
+        $this->testApiKey->userId = $this->testArtist->id;
+        $this->testApiKey->setApiKey();
+        $this->testApiKey->validSince = DateTime::createFromFormat(
+            MYSQL_DATE_FORMAT,
+            (new DateTime())->format(MYSQL_DATE_FORMAT)
+        ) ?: new DateTime();
+        $this->testApiKey->userAgent = 'Firefox';
+        $this->testApiKey->remoteAddress = '127.0.0.1';
+        $this->testApiKey->create();
     }
 }

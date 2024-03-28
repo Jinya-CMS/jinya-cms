@@ -18,7 +18,7 @@ class SectionPageTest extends DatabaseAwareTestCase
         $page->create();
 
         $foundPage = ModernPage::findById($page->id);
-        $this->assertEquals($page->format(), $foundPage->format());
+        self::assertEquals($page->format(), $foundPage->format());
     }
 
     private function createSectionPage(bool $execute = true, string $name = 'Test'): ModernPage
@@ -33,15 +33,6 @@ class SectionPageTest extends DatabaseAwareTestCase
         return $page;
     }
 
-    private function createFile(): File
-    {
-        $file = new File();
-        $file->name = Uuid::uuid();
-        $file->create();
-
-        return $file;
-    }
-
     public function testCreateDuplicate(): void
     {
         $this->expectException(PDOException::class);
@@ -54,7 +45,7 @@ class SectionPageTest extends DatabaseAwareTestCase
         $page = $this->createSectionPage();
         $page->delete();
 
-        $this->assertNull(ModernPage::findById($page->id));
+        self::assertNull(ModernPage::findById($page->id));
     }
 
     public function testDeleteNotExistent(): void
@@ -67,10 +58,10 @@ class SectionPageTest extends DatabaseAwareTestCase
     public function testFormat(): void
     {
         $page = $this->createSectionPage();
-        $this->assertEquals([
+        self::assertEquals([
             'id' => $page->id,
             'name' => $page->name,
-            'SectionCount' => 0,
+            'sectionCount' => 0,
             'created' => [
                 'at' => $page->createdAt->format(DATE_ATOM),
                 'by' => [
@@ -90,7 +81,6 @@ class SectionPageTest extends DatabaseAwareTestCase
         ], $page->format());
     }
 
-
     public function testFindAll(): void
     {
         $this->createSectionPage(name: 'Test 1');
@@ -98,13 +88,13 @@ class SectionPageTest extends DatabaseAwareTestCase
         $this->createSectionPage(name: 'Test 3');
         $this->createSectionPage(name: 'Test 4');
         $found = ModernPage::findAll();
-        $this->assertCount(4, iterator_to_array($found));
+        self::assertCount(4, iterator_to_array($found));
     }
 
     public function testFindAllNoneCreated(): void
     {
         $found = ModernPage::findAll();
-        $this->assertCount(0, iterator_to_array($found));
+        self::assertCount(0, iterator_to_array($found));
     }
 
     public function testFindById(): void
@@ -112,7 +102,7 @@ class SectionPageTest extends DatabaseAwareTestCase
         $page = $this->createSectionPage();
         $foundPage = ModernPage::findById($page->id);
 
-        $this->assertEquals($page->format(), $foundPage->format());
+        self::assertEquals($page->format(), $foundPage->format());
     }
 
     public function testFindByIdNotExistent(): void
@@ -120,7 +110,7 @@ class SectionPageTest extends DatabaseAwareTestCase
         $this->createSectionPage();
         $foundPage = ModernPage::findById(-100);
 
-        $this->assertNull($foundPage);
+        self::assertNull($foundPage);
     }
 
     public function testUpdate(): void
@@ -130,7 +120,7 @@ class SectionPageTest extends DatabaseAwareTestCase
         $page->update();
 
         $foundPage = ModernPage::findById($page->id);
-        $this->assertEquals($page->format(), $foundPage->format());
+        self::assertEquals($page->format(), $foundPage->format());
     }
 
     public function testGetSectionsNoSections(): void
@@ -138,14 +128,14 @@ class SectionPageTest extends DatabaseAwareTestCase
         $page = $this->createSectionPage();
 
         $sections = $page->getSections();
-        $this->assertCount(0, iterator_to_array($sections));
+        self::assertCount(0, iterator_to_array($sections));
     }
 
     public function testGetCreator(): void
     {
         $page = $this->createSectionPage();
         $creator = $page->getCreator();
-        $this->assertEquals(CurrentUser::$currentUser, $creator);
+        self::assertEquals(CurrentUser::$currentUser, $creator);
     }
 
     public function testReplaceSectionsEmptyArray(): void
@@ -155,19 +145,10 @@ class SectionPageTest extends DatabaseAwareTestCase
             ['html' => 'Test Section'],
         ]);
 
-        $this->assertCount(1, iterator_to_array($page->getSections()));
+        self::assertCount(1, iterator_to_array($page->getSections()));
 
         $page->replaceSections([]);
-        $this->assertCount(0, iterator_to_array($page->getSections()));
-    }
-
-    private function createGallery(): Gallery
-    {
-        $gallery = new Gallery();
-        $gallery->name = 'Gallery';
-        $gallery->create();
-
-        return $gallery;
+        self::assertCount(0, iterator_to_array($page->getSections()));
     }
 
     public function testReplaceSectionsCreateSections(): void
@@ -177,7 +158,7 @@ class SectionPageTest extends DatabaseAwareTestCase
             ['html' => 'Test Section'],
         ]);
 
-        $this->assertCount(1, iterator_to_array($page->getSections()));
+        self::assertCount(1, iterator_to_array($page->getSections()));
 
         $file = $this->createFile();
         $gallery = $this->createGallery();
@@ -190,38 +171,56 @@ class SectionPageTest extends DatabaseAwareTestCase
         ]);
 
         $sections = $page->getSections();
-        $this->assertCount(5, iterator_to_array($sections));
+        self::assertCount(5, iterator_to_array($sections));
 
         $sections = $page->getSections();
 
         $Section = $sections->current();
-        $this->assertEquals('Test Section', $Section->html);
-        $this->assertEquals(0, $Section->position);
+        self::assertEquals('Test Section', $Section->html);
+        self::assertEquals(0, $Section->position);
         $sections->next();
 
         $Section = $sections->current();
-        $this->assertEquals($file->id, $Section->fileId);
-        $this->assertEquals(1, $Section->position);
-        $this->assertEquals('none', $Section->action);
+        self::assertEquals($file->id, $Section->fileId);
+        self::assertEquals(1, $Section->position);
+        self::assertEquals('none', $Section->action);
         $sections->next();
 
         $Section = $sections->current();
-        $this->assertEquals($file->id, $Section->fileId);
-        $this->assertEquals('https://google.com', $Section->target);
-        $this->assertEquals('link', $Section->action);
-        $this->assertEquals(2, $Section->position);
+        self::assertEquals($file->id, $Section->fileId);
+        self::assertEquals('https://google.com', $Section->target);
+        self::assertEquals('link', $Section->action);
+        self::assertEquals(2, $Section->position);
         $sections->next();
 
         $Section = $sections->current();
-        $this->assertEquals($file->id, $Section->fileId);
-        $this->assertEquals('https://google.com', $Section->script);
-        $this->assertEquals('script', $Section->action);
-        $this->assertEquals(3, $Section->position);
+        self::assertEquals($file->id, $Section->fileId);
+        self::assertEquals('https://google.com', $Section->script);
+        self::assertEquals('script', $Section->action);
+        self::assertEquals(3, $Section->position);
         $sections->next();
 
         $Section = $sections->current();
-        $this->assertEquals($gallery->id, $Section->galleryId);
-        $this->assertEquals(4, $Section->position);
+        self::assertEquals($gallery->id, $Section->galleryId);
+        self::assertEquals(4, $Section->position);
         $sections->next();
+    }
+
+    private function createFile(): File
+    {
+        $file = new File();
+        $file->name = Uuid::uuid();
+        $file->create();
+
+        return $file;
+    }
+
+    private function createGallery(): Gallery
+    {
+        $gallery = new Gallery();
+        $gallery->name = 'Gallery';
+        $gallery->create();
+
+        return $gallery;
     }
 }

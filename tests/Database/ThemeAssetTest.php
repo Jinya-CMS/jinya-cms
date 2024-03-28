@@ -66,9 +66,10 @@ class ThemeAssetTest extends ThemeTestCase
         $asset->create();
 
         $asset->publicPath = '/remote';
+        $asset->update();
         $found = ThemeAsset::findByThemeAndName($this->theme->id, 'Test');
         self::assertNotNull($found);
-        self::assertEquals('/remote', $asset->publicPath);
+        self::assertEquals('/remote', $found->publicPath);
     }
 
     public function testCreate(): void

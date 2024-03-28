@@ -15,27 +15,18 @@ class GalleryFilePositionTest extends DatabaseAwareTestCase
     private File $file;
     private File $file2;
 
-    protected function setUp(): void
+    public function testGetGallery(): void
     {
-        parent::setUp();
-        $this->gallery = new Gallery();
-        $this->gallery->description = 'Test description';
-        $this->gallery->name = 'Test Gallery';
-        $this->gallery->create();
-
-        $this->file = new File();
-        $this->file->name = UuidGenerator::generateV4();
-        $this->file->path = UuidGenerator::generateV4();
-        $this->file->create();
-
-        $this->file2 = new File();
-        $this->file2->name = UuidGenerator::generateV4();
-        $this->file2->path = UuidGenerator::generateV4();
-        $this->file2->create();
+        $galleryFilePosition = $this->createGalleryFilePosition();
+        $gallery = $galleryFilePosition->getGallery();
+        self::assertEquals($this->gallery->format(), $gallery->format());
     }
 
-    private function createGalleryFilePosition(int $position = 0, int $file = -1, bool $execute = true): GalleryFilePosition
-    {
+    private function createGalleryFilePosition(
+        int $position = 0,
+        int $file = -1,
+        bool $execute = true
+    ): GalleryFilePosition {
         $galleryFilePosition = new GalleryFilePosition();
         $galleryFilePosition->position = $position;
         $galleryFilePosition->galleryId = $this->gallery->id;
@@ -51,13 +42,6 @@ class GalleryFilePositionTest extends DatabaseAwareTestCase
         return $galleryFilePosition;
     }
 
-    public function testGetGallery(): void
-    {
-        $galleryFilePosition = $this->createGalleryFilePosition();
-        $gallery = $galleryFilePosition->getGallery();
-        $this->assertEquals($this->gallery->format(), $gallery->format());
-    }
-
     public function testUpdate(): void
     {
         $galleryFilePosition = $this->createGalleryFilePosition();
@@ -65,7 +49,7 @@ class GalleryFilePositionTest extends DatabaseAwareTestCase
         $galleryFilePosition->update();
 
         $savedItem = GalleryFilePosition::findByPosition($this->gallery->id, $galleryFilePosition->position);
-        $this->assertEquals($galleryFilePosition->fileId, $savedItem->fileId);
+        self::assertEquals($galleryFilePosition->fileId, $savedItem->fileId);
     }
 
     public function testUpdateNonExistent(): void
@@ -75,12 +59,12 @@ class GalleryFilePositionTest extends DatabaseAwareTestCase
         $galleryFilePosition->update();
 
         $savedItem = GalleryFilePosition::findByPosition($this->gallery->id, $galleryFilePosition->position);
-        $this->assertNull($savedItem);
+        self::assertNull($savedItem);
     }
 
     public function testMove(): void
     {
-        $this->createGalleryFilePosition(0, file: $this->file2->id);
+        $this->createGalleryFilePosition(file: $this->file2->id);
         $this->createGalleryFilePosition(1, file: $this->file2->id);
         $this->createGalleryFilePosition(2);
         $galleryFilePosition = $this->createGalleryFilePosition(3);
@@ -88,10 +72,10 @@ class GalleryFilePositionTest extends DatabaseAwareTestCase
         $galleryFilePosition->move(1);
         /** @var array<GalleryFilePosition> $items */
         $items = iterator_to_array($this->gallery->getFiles());
-        $this->assertEquals($this->file2->id, $items[0]->fileId);
-        $this->assertEquals($this->file->id, $items[1]->fileId);
-        $this->assertEquals($this->file2->id, $items[2]->fileId);
-        $this->assertEquals($this->file->id, $items[3]->fileId);
+        self::assertEquals($this->file2->id, $items[0]->fileId);
+        self::assertEquals($this->file->id, $items[1]->fileId);
+        self::assertEquals($this->file2->id, $items[2]->fileId);
+        self::assertEquals($this->file->id, $items[3]->fileId);
     }
 
     public function testMoveNotExistent(): void
@@ -105,16 +89,16 @@ class GalleryFilePositionTest extends DatabaseAwareTestCase
         $galleryFilePosition->move(2);
         /** @var array<GalleryFilePosition> $items */
         $items = iterator_to_array($this->gallery->getFiles());
-        $this->assertEquals($this->file2->id, $items[0]->fileId);
-        $this->assertEquals($this->file->id, $items[1]->fileId);
-        $this->assertEquals($this->file2->id, $items[2]->fileId);
+        self::assertEquals($this->file2->id, $items[0]->fileId);
+        self::assertEquals($this->file->id, $items[1]->fileId);
+        self::assertEquals($this->file2->id, $items[2]->fileId);
     }
 
     public function testCreate(): void
     {
         $galleryFilePosition = $this->createGalleryFilePosition(execute: false);
         $galleryFilePosition->create();
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testCreateGalleryNotExistent(): void
@@ -135,13 +119,13 @@ class GalleryFilePositionTest extends DatabaseAwareTestCase
 
     public function testFindByPosition(): void
     {
-        $this->createGalleryFilePosition(0);
+        $this->createGalleryFilePosition();
         $this->createGalleryFilePosition(1);
         $this->createGalleryFilePosition(2);
         $galleryFilePosition = $this->createGalleryFilePosition(3);
 
         $foundItem = GalleryFilePosition::findByPosition($this->gallery->id, 3);
-        $this->assertEquals($galleryFilePosition, $foundItem);
+        self::assertEquals($galleryFilePosition, $foundItem);
     }
 
     public function testFindByPositionNotExisting(): void
@@ -152,14 +136,14 @@ class GalleryFilePositionTest extends DatabaseAwareTestCase
         $this->createGalleryFilePosition(4);
 
         $foundItem = GalleryFilePosition::findByPosition($this->gallery->id, 5);
-        $this->assertNull($foundItem);
+        self::assertNull($foundItem);
     }
 
     public function testFormat(): void
     {
         $galleryFilePosition = $this->createGalleryFilePosition();
 
-        $this->assertEquals([
+        self::assertEquals([
             'gallery' => [
                 'id' => $galleryFilePosition->galleryId,
                 'name' => $this->gallery->name,
@@ -182,7 +166,7 @@ class GalleryFilePositionTest extends DatabaseAwareTestCase
         $galleryFilePosition->delete();
 
         $savedItem = GalleryFilePosition::findByPosition($this->gallery->id, $galleryFilePosition->position);
-        $this->assertNull($savedItem);
+        self::assertNull($savedItem);
     }
 
     public function testDeleteNotExistent(): void
@@ -192,6 +176,25 @@ class GalleryFilePositionTest extends DatabaseAwareTestCase
         $galleryFilePosition->delete();
 
         $savedItem = GalleryFilePosition::findByPosition($this->gallery->id, $galleryFilePosition->position);
-        $this->assertNull($savedItem);
+        self::assertNull($savedItem);
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->gallery = new Gallery();
+        $this->gallery->description = 'Test description';
+        $this->gallery->name = 'Test Gallery';
+        $this->gallery->create();
+
+        $this->file = new File();
+        $this->file->name = UuidGenerator::generateV4();
+        $this->file->path = UuidGenerator::generateV4();
+        $this->file->create();
+
+        $this->file2 = new File();
+        $this->file2->name = UuidGenerator::generateV4();
+        $this->file2->path = UuidGenerator::generateV4();
+        $this->file2->create();
     }
 }

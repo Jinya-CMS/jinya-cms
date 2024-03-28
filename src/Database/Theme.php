@@ -125,10 +125,15 @@ class Theme extends Entity
     public function makeActiveTheme(): void
     {
         $query = self::getQueryBuilder()
-            ->newUpdate()
-            ->table('configuration')
-            /** @phpstan-ignore-next-line */
-            ->set('current_frontend_theme_id', $this->id);
+            ->newDelete()
+            ->from('configuration');
+
+        self::executeQuery($query);
+
+        $query = self::getQueryBuilder()
+            ->newInsert()
+            ->into('configuration')
+            ->addRow(['current_frontend_theme_id' => $this->id]);
 
         self::executeQuery($query);
     }

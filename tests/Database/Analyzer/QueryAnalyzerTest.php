@@ -18,13 +18,13 @@ class QueryAnalyzerTest extends TestCase
     {
         $statements = $this->analyzer->getStatements('SELECT * FROM users');
         $queryType = $this->analyzer->getQueryType($statements[0]);
-        $this->assertEquals('SELECT', $queryType);
+        self::assertEquals('SELECT', $queryType);
     }
 
     public function testGetStatements(): void
     {
         $statements = $this->analyzer->getStatements('SELECT * FROM users');
-        $this->assertIsArray($statements);
-        $this->assertCount(1, $statements);
+        self::assertIsArray($statements);
+        self::assertCount(1, $statements);
     }
 }

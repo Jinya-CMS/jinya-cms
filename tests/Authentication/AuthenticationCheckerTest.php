@@ -6,24 +6,25 @@ use App\Authentication\AuthenticationChecker;
 use App\Authentication\CurrentUser;
 use App\Database\ApiKey;
 use App\Tests\DatabaseAwareTestCase;
+use App\Web\Exceptions\ApiKeyInvalidException;
+use App\Web\Exceptions\MissingPermissionsException;
 use DateInterval;
 use DateTime;
 use Nyholm\Psr7\ServerRequest;
-use Slim\Exception\HttpForbiddenException;
 
 class AuthenticationCheckerTest extends DatabaseAwareTestCase
 {
     public function testCheckRequestForUserSuccessfulLogin(): void
     {
         $request = new ServerRequest('POST', '', ['JinyaApiKey' => $this->createApiKey()->apiKey]);
-        $artist = AuthenticationChecker::checkRequestForUser($request, AuthenticationChecker::ROLE_WRITER);
+        $artist = AuthenticationChecker::checkRequestForUser($request, ROLE_WRITER);
         self::assertEquals(CurrentUser::$currentUser->email, $artist->email);
     }
 
     private function createApiKey(): ApiKey
     {
         $apiKey = new ApiKey();
-        $apiKey->userId = CurrentUser::$currentUser->getIdAsInt();
+        $apiKey->userId = CurrentUser::$currentUser->id;
         $apiKey->validSince = (new DateTime())->add(new DateInterval('PT5M'));
         $apiKey->setApiKey();
         $apiKey->remoteAddress = '127.0.0.1';
@@ -36,43 +37,42 @@ class AuthenticationCheckerTest extends DatabaseAwareTestCase
     public function testCheckRequestForUserSuccessfulLoginRoleReaderCascades(): void
     {
         $request = new ServerRequest('POST', '', ['JinyaApiKey' => $this->createApiKey()->apiKey]);
-        $artist = AuthenticationChecker::checkRequestForUser($request, AuthenticationChecker::ROLE_READER);
+        $artist = AuthenticationChecker::checkRequestForUser($request, ROLE_READER);
         self::assertEquals(CurrentUser::$currentUser->email, $artist->email);
     }
 
     public function testCheckRequestForUserInvalidApiKey(): void
     {
-        $this->expectException(HttpForbiddenException::class);
+        $this->expectException(ApiKeyInvalidException::class);
         $request = new ServerRequest('POST', '', ['JinyaApiKey' => 'Invalid API key']);
-        AuthenticationChecker::checkRequestForUser($request, AuthenticationChecker::ROLE_WRITER);
+        AuthenticationChecker::checkRequestForUser($request, ROLE_WRITER);
     }
 
     public function testCheckRequestForUserApiKeyExpired(): void
     {
-        $this->expectException(HttpForbiddenException::class);
+        $this->expectException(ApiKeyInvalidException::class);
         $apiKey = $this->createApiKey();
         $apiKey->validSince = new DateTime('19700101');
         $apiKey->update();
 
         $request = new ServerRequest('POST', '', ['JinyaApiKey' => $apiKey->apiKey]);
-        AuthenticationChecker::checkRequestForUser($request, AuthenticationChecker::ROLE_WRITER);
+        AuthenticationChecker::checkRequestForUser($request, ROLE_WRITER);
     }
 
     public function testCheckRequestForUserUserDisabled(): void
     {
-        $this->expectException(HttpForbiddenException::class);
+        $this->expectException(ApiKeyInvalidException::class);
         CurrentUser::$currentUser->enabled = false;
         CurrentUser::$currentUser->update();
         $apiKey = $this->createApiKey();
         $request = new ServerRequest('POST', '', ['JinyaApiKey' => $apiKey->apiKey]);
-        $artist = AuthenticationChecker::checkRequestForUser($request, AuthenticationChecker::ROLE_WRITER);
-        self::assertEquals(CurrentUser::$currentUser->email, $artist->email);
+        $artist = AuthenticationChecker::checkRequestForUser($request, ROLE_WRITER);
     }
 
     public function testCheckRequestForUserMissingRole(): void
     {
-        $this->expectException(HttpForbiddenException::class);
+        $this->expectException(MissingPermissionsException::class);
         $request = new ServerRequest('POST', '', ['JinyaApiKey' => $this->createApiKey()->apiKey]);
-        AuthenticationChecker::checkRequestForUser($request, AuthenticationChecker::ROLE_ADMIN);
+        AuthenticationChecker::checkRequestForUser($request, ROLE_ADMIN);
     }
 }

@@ -4,37 +4,17 @@ namespace Jinya\Tests\Database;
 
 use App\Authentication\CurrentUser;
 use App\Database\BlogCategory;
+use App\Database\ClassicPage;
 use App\Database\Form;
 use App\Database\Gallery;
 use App\Database\Menu;
 use App\Database\MenuItem;
 use App\Database\ModernPage;
-use App\Database\ClassicPage;
 use App\Tests\DatabaseAwareTestCase;
 use Jinya\Database\Exception\NotNullViolationException;
 
 class MenuItemTest extends DatabaseAwareTestCase
 {
-    private function createMenuItem(): array
-    {
-        return [
-            'route' => '#',
-            'title' => 'Testtitle',
-        ];
-    }
-
-    private function createForm(): Form
-    {
-        $form = new Form();
-        $form->description = 'Test description';
-        $form->title = 'Testform';
-        $form->toAddress = 'noreply@example.com';
-
-        $form->create();
-
-        return $form;
-    }
-
     public function testArtist(): void
     {
         $menu = $this->createMenu();
@@ -56,6 +36,39 @@ class MenuItemTest extends DatabaseAwareTestCase
         self::assertArrayHasKey('artistName', $artist);
         self::assertArrayHasKey('email', $artist);
         $this->checkFormatFields($found);
+    }
+
+    /**
+     * @return Menu
+     * @throws NotNullViolationException
+     */
+    public function createMenu(): Menu
+    {
+        $menu = new Menu();
+        $menu->name = 'Test';
+        $menu->create();
+
+        return $menu;
+    }
+
+    private function createMenuItem(): array
+    {
+        return [
+            'route' => '#',
+            'title' => 'Testtitle',
+        ];
+    }
+
+    /**
+     * @param MenuItem $menuItem
+     */
+    public function checkFormatFields(MenuItem $menuItem): void
+    {
+        self::assertArrayHasKey('id', $menuItem->format());
+        self::assertArrayHasKey('position', $menuItem->format());
+        self::assertArrayHasKey('highlighted', $menuItem->format());
+        self::assertArrayHasKey('title', $menuItem->format());
+        self::assertArrayHasKey('route', $menuItem->format());
     }
 
     public function testForm(): void
@@ -83,14 +96,16 @@ class MenuItemTest extends DatabaseAwareTestCase
         $this->checkFormatFields($found);
     }
 
-    private function createClassicPage(): ClassicPage
+    private function createForm(): Form
     {
-        $page = new ClassicPage();
-        $page->title = 'Test';
-        $page->content = 'Test';
-        $page->create();
+        $form = new Form();
+        $form->description = 'Test description';
+        $form->title = 'Testform';
+        $form->toAddress = 'noreply@example.com';
 
-        return $page;
+        $form->create();
+
+        return $form;
     }
 
     public function testClassicPage(): void
@@ -99,7 +114,7 @@ class MenuItemTest extends DatabaseAwareTestCase
 
         $page = $this->createClassicPage();
         $menuItem = $this->createMenuItem();
-        $menuItem['pageId'] = $page->id;
+        $menuItem['classicPageId'] = $page->id;
         $menu->replaceItems([$menuItem]);
 
         /** @var MenuItem $found */
@@ -110,18 +125,19 @@ class MenuItemTest extends DatabaseAwareTestCase
 
         self::assertEquals($page->format(), $found->getClassicPage()->format());
 
-        self::assertArrayHasKey('page', $format);
+        self::assertArrayHasKey('classicPage', $format);
         /** @var array<string, string> $formattedPage */
-        $formattedPage = $format['page'];
+        $formattedPage = $format['classicPage'];
         self::assertArrayHasKey('id', $formattedPage);
         self::assertArrayHasKey('title', $formattedPage);
         $this->checkFormatFields($found);
     }
 
-    private function createModernPage(): ModernPage
+    private function createClassicPage(): ClassicPage
     {
-        $page = new ModernPage();
-        $page->name = 'Test';
+        $page = new ClassicPage();
+        $page->title = 'Test';
+        $page->content = 'Test';
         $page->create();
 
         return $page;
@@ -152,13 +168,13 @@ class MenuItemTest extends DatabaseAwareTestCase
         $this->checkFormatFields($found);
     }
 
-    private function createGallery(): Gallery
+    private function createModernPage(): ModernPage
     {
-        $gallery = new Gallery();
-        $gallery->name = 'Gallery';
-        $gallery->create();
+        $page = new ModernPage();
+        $page->name = 'Test';
+        $page->create();
 
-        return $gallery;
+        return $page;
     }
 
     public function testGallery(): void
@@ -186,13 +202,13 @@ class MenuItemTest extends DatabaseAwareTestCase
         $this->checkFormatFields($found);
     }
 
-    private function createBlogCategory(): BlogCategory
+    private function createGallery(): Gallery
     {
-        $blogCategory = new BlogCategory();
-        $blogCategory->name = 'BlogCategory';
-        $blogCategory->create();
+        $gallery = new Gallery();
+        $gallery->name = 'Gallery';
+        $gallery->create();
 
-        return $blogCategory;
+        return $gallery;
     }
 
     public function testBlogCategory(): void
@@ -218,6 +234,15 @@ class MenuItemTest extends DatabaseAwareTestCase
         self::assertArrayHasKey('id', $formattedCategory);
         self::assertArrayHasKey('name', $formattedCategory);
         $this->checkFormatFields($found);
+    }
+
+    private function createBlogCategory(): BlogCategory
+    {
+        $blogCategory = new BlogCategory();
+        $blogCategory->name = 'BlogCategory';
+        $blogCategory->create();
+
+        return $blogCategory;
     }
 
     public function testFormatNone(): void
@@ -276,7 +301,7 @@ class MenuItemTest extends DatabaseAwareTestCase
         $menu->replaceItems([$menuItem]);
         $item = $menu->getItems()->current();
 
-        $this->assertCount(3, iterator_to_array($item->getItems()));
+        self::assertCount(3, iterator_to_array($item->getItems()));
     }
 
     public function testFindByMenuItemAndPosition(): void
@@ -437,7 +462,7 @@ class MenuItemTest extends DatabaseAwareTestCase
         self::assertArrayHasKey('items', $formatted);
         /** @var array<string, string> $items */
         $items = $formatted['items'];
-        $this->assertNotEmpty($items);
+        self::assertNotEmpty($items);
     }
 
     public function testFindByMenuAndPosition(): void
@@ -499,30 +524,5 @@ class MenuItemTest extends DatabaseAwareTestCase
         self::assertNull($found->getForm());
         self::assertNull($found->getGallery());
         self::assertNull($found->getArtist());
-    }
-
-    /**
-     * @return Menu
-     * @throws NotNullViolationException
-     */
-    public function createMenu(): Menu
-    {
-        $menu = new Menu();
-        $menu->name = 'Test';
-        $menu->create();
-
-        return $menu;
-    }
-
-    /**
-     * @param MenuItem $menuItem
-     */
-    public function checkFormatFields(MenuItem $menuItem): void
-    {
-        self::assertArrayHasKey('id', $menuItem->format());
-        self::assertArrayHasKey('position', $menuItem->format());
-        self::assertArrayHasKey('highlighted', $menuItem->format());
-        self::assertArrayHasKey('title', $menuItem->format());
-        self::assertArrayHasKey('route', $menuItem->format());
     }
 }

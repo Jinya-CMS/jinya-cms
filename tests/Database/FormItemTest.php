@@ -10,39 +10,29 @@ class FormItemTest extends DatabaseAwareTestCase
 {
     private Form $form;
 
-    protected function setUp(): void
+    public function testGetForm(): void
     {
-        parent::setUp();
-        $this->form = new Form();
-        $this->form->description = 'Test description';
-        $this->form->title = 'Test Form';
-        $this->form->toAddress = 'noreply@example.com';
-        $this->form->create();
+        $formItem = $this->createFormItem();
+        $form = $formItem->getForm();
+        self::assertEquals($this->form->format(), $form->format());
     }
 
-    private function createFormItem(int $position = 0, string $label = 'Label', bool $execute = true): FormItem
+    private function createFormItem(): FormItem
     {
         $formItem = new FormItem();
-        $formItem->label = $label;
-        $formItem->position = $position;
+        $formItem->label = 'Label';
+        $formItem->position = 0;
         $formItem->formId = $this->form->id;
         $formItem->id = 0;
 
         return $formItem;
     }
 
-    public function testGetForm(): void
-    {
-        $formItem = $this->createFormItem();
-        $form = $formItem->getForm();
-        $this->assertEquals($this->form->format(), $form->format());
-    }
-
     public function testFormat(): void
     {
         $formItem = $this->createFormItem();
 
-        $this->assertEquals([
+        self::assertEquals([
             'type' => 'text',
             'options' => [],
             'spamFilter' => [],
@@ -55,5 +45,15 @@ class FormItemTest extends DatabaseAwareTestCase
             'isFromAddress' => false,
             'isSubject' => false,
         ], $formItem->format());
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->form = new Form();
+        $this->form->description = 'Test description';
+        $this->form->title = 'Test Form';
+        $this->form->toAddress = 'noreply@example.com';
+        $this->form->create();
     }
 }

@@ -8,8 +8,12 @@ use Iterator;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Table;
 use Jinya\Database\Creatable;
+use Jinya\Database\CreatableEntityTrait;
 use Jinya\Database\Deletable;
 use Jinya\Database\EntityTrait;
+use Jinya\Database\Exception\ForeignKeyFailedException;
+use Jinya\Database\Exception\UniqueFailedException;
+use PDOException;
 
 /**
  * This class contains an uploading file.
@@ -92,7 +96,20 @@ class UploadingFile implements Creatable, Deletable
                 'file_id' => $this->fileId
             ]);
 
-        self::executeQuery($insert);
+        try {
+            self::executeQuery($insert);
+        } catch (PDOException $exception) {
+            $errorInfo = $exception->errorInfo ?? ['', ''];
+            if ($errorInfo[1] === 1062) {
+                throw new UniqueFailedException($exception, self::getPDO());
+            }
+
+            if ($errorInfo[1] === 1452) {
+                throw new ForeignKeyFailedException($exception, self::getPDO());
+            }
+
+            throw $exception;
+        }
     }
 
     public function delete(): void

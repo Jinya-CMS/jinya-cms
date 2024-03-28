@@ -19,11 +19,6 @@
         </include>
     </source>
 
-    <extensions>
-        <bootstrap class="App\Tests\Extensions\Extension">
-        </bootstrap>
-    </extensions>
-
     <coverage cacheDirectory=".phpunit.cache/code-coverage">
         <report>
             <cobertura outputFile="coverage.cobertura.xml"/>

@@ -110,6 +110,7 @@ readonly class ErrorHandler implements RouterErrorHandler
             'error' => [
                 'message' => $missingFieldsException->getMessage(),
                 'type' => 'missing-fields',
+                'missingFields' => $missingFieldsException->missingFields,
             ],
         ];
 

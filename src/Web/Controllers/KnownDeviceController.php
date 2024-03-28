@@ -57,7 +57,7 @@ class KnownDeviceController extends BaseController
      * @return ResponseInterface
      */
     #[Route(HttpMethod::HEAD, '/api/known-device/{key}')]
-    protected function action(string $key): ResponseInterface
+    public function validateKnownDevice(string $key): ResponseInterface
     {
         if (KnownDevice::findByCode($key)) {
             return $this->noContent();

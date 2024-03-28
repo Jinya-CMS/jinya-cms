@@ -19,14 +19,6 @@ class InitialMigration extends AbstractMigration
     {
         $pdo->exec(
             <<<SQL
-create table if not exists migration_state
-(
-    version varchar(255) primary key
-)
-collate=utf8_unicode_ci;
-
-insert into migration_state (version) values ('initial');
-
 create table if not exists theme
 (
  id int auto_increment

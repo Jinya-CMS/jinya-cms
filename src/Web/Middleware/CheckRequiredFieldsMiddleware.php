@@ -62,7 +62,8 @@ readonly class CheckRequiredFieldsMiddleware implements MiddlewareInterface
         if (count($requiredFields) !== count($intersectBody)) {
             throw new MissingFieldsException(
                 $request,
-                array_values(array_diff($requiredFields, array_values($intersectBody)))
+                array_values(array_diff($requiredFields, array_values($intersectBody))),
+                'There are required fields missing'
             );
         }
     }

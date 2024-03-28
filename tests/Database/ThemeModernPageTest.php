@@ -91,7 +91,7 @@ class ThemeModernPageTest extends ThemeTestCase
         self::assertNotNull(ThemeModernPage::findByThemeAndName($this->theme->id, 'Test'));
     }
 
-    public function testModernPageat(): void
+    public function testCreateModernPage(): void
     {
         $themeModernPage = new ThemeModernPage();
         $themeModernPage->modernPageId = $this->modernPage->id;

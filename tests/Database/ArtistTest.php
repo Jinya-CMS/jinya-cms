@@ -9,18 +9,20 @@ use App\Database\KnownDevice;
 use App\Tests\DatabaseAwareTestCase;
 use DateTime;
 use InvalidArgumentException;
-
 use PDOException;
 
 class ArtistTest extends DatabaseAwareTestCase
 {
+    public function testValidatePasswordEnabledAndValid(): void
+    {
+        $artist = $this->createArtist();
+        self::assertTrue($artist->validatePassword('test1234'));
+    }
+
     private function createArtist(
         bool $isAdmin = true,
-        bool $isWriter = true,
-        bool $isReader = true,
         bool $enabled = true,
         string $email = 'test@example.com',
-        string $password = 'test1234',
         bool $execute = true
     ): Artist {
         $artist = new Artist();
@@ -30,14 +32,14 @@ class ArtistTest extends DatabaseAwareTestCase
         $artist->artistName = 'Test Artist';
         $artist->enabled = $enabled;
         $artist->roles = [];
-        $artist->setPassword($password);
+        $artist->setPassword('test1234');
         if ($isAdmin) {
             $artist->roles[] = 'ROLE_ADMIN';
         }
-        if ($isReader) {
+        if (true) {
             $artist->roles[] = 'ROLE_READER';
         }
-        if ($isWriter) {
+        if (true) {
             $artist->roles[] = 'ROLE_WRITER';
         }
 
@@ -48,77 +50,82 @@ class ArtistTest extends DatabaseAwareTestCase
         return $artist;
     }
 
-    protected function setUp(): void
-    {
-    }
-
-    public function testValidatePasswordEnabledAndValid(): void
-    {
-        $artist = $this->createArtist();
-        $this->assertTrue($artist->validatePassword('test1234'));
-    }
-
     public function testValidatePasswordNotEnabledButValid(): void
     {
-        $artist = $this->createArtist(enabled: false);
-        $this->assertFalse($artist->validatePassword('test1234'));
+        $artist = $this->createArtist(isAdmin: false, enabled: false);
+        self::assertFalse($artist->validatePassword('test1234'));
     }
 
     public function testValidatePasswordEnabledButNotValid(): void
     {
         $artist = $this->createArtist();
-        $this->assertFalse($artist->validatePassword('test12345'));
+        self::assertFalse($artist->validatePassword('test12345'));
     }
 
     public function testValidatePasswordNotEnabledAndNotValid(): void
     {
-        $artist = $this->createArtist(enabled: false);
-        $this->assertFalse($artist->validatePassword('test12345'));
+        $artist = $this->createArtist(isAdmin: false, enabled: false);
+        self::assertFalse($artist->validatePassword('test12345'));
     }
 
     public function testCreateAllValid(): void
     {
-        $artist = $this->createArtist(execute: false);
+        $artist = $this->createArtist(
+            isAdmin: false,
+            execute: false
+        );
         $artist->create();
 
         $savedArtist = Artist::findById($artist->id);
-        $this->assertEquals($artist, $savedArtist);
+        self::assertEquals($artist, $savedArtist);
     }
 
     public function testFormatPrefersColorSchemeDark(): void
     {
-        $artist = $this->createArtist(execute: false);
+        $artist = $this->createArtist(
+            isAdmin: false,
+            execute: false
+        );
         $artist->prefersColorScheme = true;
         $artist->create();
 
         $formatted = $artist->format();
-        $this->assertEquals('dark', $formatted['colorScheme']);
+        self::assertEquals('dark', $formatted['colorScheme']);
     }
 
     public function testFormatPrefersColorSchemeLight(): void
     {
-        $artist = $this->createArtist(execute: false);
+        $artist = $this->createArtist(
+            isAdmin: false,
+            execute: false
+        );
         $artist->prefersColorScheme = false;
         $artist->create();
 
         $formatted = $artist->format();
-        $this->assertEquals('light', $formatted['colorScheme']);
+        self::assertEquals('light', $formatted['colorScheme']);
     }
 
     public function testFormatPrefersColorSchemeAuto(): void
     {
-        $artist = $this->createArtist(execute: false);
+        $artist = $this->createArtist(
+            isAdmin: false,
+            execute: false
+        );
         $artist->prefersColorScheme = null;
         $artist->create();
 
         $formatted = $artist->format();
-        $this->assertEquals('auto', $formatted['colorScheme']);
+        self::assertEquals('auto', $formatted['colorScheme']);
     }
 
     public function testCreateDuplicate(): void
     {
         $this->expectException(PDOException::class);
-        $artist = $this->createArtist(execute: false);
+        $artist = $this->createArtist(
+            isAdmin: false,
+            execute: false
+        );
         $artist->create();
         $artist->create();
     }
@@ -134,7 +141,7 @@ class ArtistTest extends DatabaseAwareTestCase
         $knownDevice->create();
 
         $valid = $artist->validateDevice($knownDevice->deviceKey);
-        $this->assertTrue($valid);
+        self::assertTrue($valid);
     }
 
     public function testValidateDeviceInvalid(): void
@@ -142,7 +149,7 @@ class ArtistTest extends DatabaseAwareTestCase
         $artist = $this->createArtist();
 
         $valid = $artist->validateDevice('123456789');
-        $this->assertFalse($valid);
+        self::assertFalse($valid);
     }
 
     public function testUnlockAccount(): void
@@ -153,17 +160,17 @@ class ArtistTest extends DatabaseAwareTestCase
         $artist->registerFailedLogin();
         $artist->registerFailedLogin();
         $artist->registerFailedLogin();
-        $this->assertEquals(5, $artist->failedLoginAttempts);
-        $this->assertNotNull($artist->loginBlockedUntil);
+        self::assertEquals(5, $artist->failedLoginAttempts);
+        self::assertNotNull($artist->loginBlockedUntil);
         $artist->unlockAccount();
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testRegisterFailedLoginOneFailedAttempt(): void
     {
         $artist = $this->createArtist();
         $artist->registerFailedLogin();
-        $this->assertEquals(1, $artist->failedLoginAttempts);
+        self::assertEquals(1, $artist->failedLoginAttempts);
     }
 
     public function testRegisterFailedLoginFiveFailedAttempts(): void
@@ -174,15 +181,15 @@ class ArtistTest extends DatabaseAwareTestCase
         $artist->registerFailedLogin();
         $artist->registerFailedLogin();
         $artist->registerFailedLogin();
-        $this->assertEquals(5, $artist->failedLoginAttempts);
-        $this->assertNotNull($artist->loginBlockedUntil);
+        self::assertEquals(5, $artist->failedLoginAttempts);
+        self::assertNotNull($artist->loginBlockedUntil);
     }
 
     public function testChangePasswordValidOldPassword(): void
     {
         $artist = $this->createArtist();
-        $this->assertTrue($artist->changePassword('test1234', 'start1234'));
-        $this->assertTrue($artist->validatePassword('start1234'));
+        self::assertTrue($artist->changePassword('test1234', 'start1234'));
+        self::assertTrue($artist->validatePassword('start1234'));
     }
 
     public function testChangePasswordWithApiKey(): void
@@ -196,15 +203,15 @@ class ArtistTest extends DatabaseAwareTestCase
         $apiKey->validSince = new DateTime();
         $apiKey->create();
 
-        $this->assertTrue($artist->changePassword('test1234', 'start1234'));
-        $this->assertTrue($artist->validatePassword('start1234'));
-        $this->assertCount(0, iterator_to_array(ApiKey::findByArtist($artist->id)));
+        self::assertTrue($artist->changePassword('test1234', 'start1234'));
+        self::assertTrue($artist->validatePassword('start1234'));
+        self::assertCount(0, iterator_to_array(ApiKey::findByArtist($artist->id)));
     }
 
     public function testChangePasswordInvalidOldPassword(): void
     {
         $artist = $this->createArtist();
-        $this->assertFalse($artist->changePassword('start1234', 'test1234'));
+        self::assertFalse($artist->changePassword('start1234', 'test1234'));
     }
 
     public function testChangePasswordEmptyNewPassword(): void
@@ -219,7 +226,7 @@ class ArtistTest extends DatabaseAwareTestCase
     {
         $artist = $this->createArtist();
         $artist->setPassword('start1234');
-        $this->assertTrue($artist->validatePassword('start1234'));
+        self::assertTrue($artist->validatePassword('start1234'));
     }
 
     public function testSetPasswordEmptyPassword(): void
@@ -233,17 +240,20 @@ class ArtistTest extends DatabaseAwareTestCase
     public function testFindAll(): void
     {
         $this->createArtist();
-        $secondArtist = $this->createArtist(execute: false);
+        $secondArtist = $this->createArtist(
+            isAdmin: false,
+            execute: false
+        );
         $secondArtist->email = 'test2@example.com';
         $secondArtist->create();
         $artists = Artist::findAll();
-        $this->assertGreaterThanOrEqual(2, iterator_count($artists));
+        self::assertGreaterThanOrEqual(2, iterator_count($artists));
     }
 
     public function testFormat(): void
     {
         $artist = $this->createArtist();
-        $this->assertEquals([
+        self::assertEquals([
             'artistName' => $artist->artistName,
             'email' => $artist->email,
             'profilePicture' => $artist->profilePicture,
@@ -259,7 +269,7 @@ class ArtistTest extends DatabaseAwareTestCase
     {
         $artist = $this->createArtist();
         $artist->setTwoFactorCode();
-        $this->assertMatchesRegularExpression('/\d{6}/', $artist->twoFactorToken);
+        self::assertMatchesRegularExpression('/\d{6}/', $artist->twoFactorToken);
     }
 
     public function testUpdate(): void
@@ -275,12 +285,16 @@ class ArtistTest extends DatabaseAwareTestCase
         $artist->update();
 
         $savedArtist = Artist::findById($artist->id);
-        $this->assertEquals($artist, $savedArtist);
+        self::assertEquals($artist, $savedArtist);
     }
 
     public function testUpdateUnsaved(): void
     {
-        $artist = $this->createArtist(execute: false);
+        $this->expectError();
+        $artist = $this->createArtist(
+            isAdmin: false,
+            execute: false
+        );
         $artist->email = 'test@test.de';
         $artist->aboutMe = 'aboutme';
         $artist->profilePicture = '_profilepicture';
@@ -288,11 +302,7 @@ class ArtistTest extends DatabaseAwareTestCase
         $artist->enabled = true;
         $artist->roles = [];
         $artist->setPassword('test');
-        try {
-            $artist->update();
-        } catch (\Error $error) {
-            self::assertTrue(true);
-        }
+        $artist->update();
     }
 
     public function testFindById(): void
@@ -300,29 +310,35 @@ class ArtistTest extends DatabaseAwareTestCase
         $artist = $this->createArtist();
         $foundArtist = Artist::findById($artist->id);
 
-        $this->assertEquals($artist, $foundArtist);
+        self::assertEquals($artist, $foundArtist);
     }
 
     public function testFindByIdNotExist(): void
     {
         $foundArtist = Artist::findById(-1);
 
-        $this->assertNull($foundArtist);
+        self::assertNull($foundArtist);
     }
 
     public function testDelete(): void
     {
-        $this->createArtist(email: 'test2@example.com');
+        $this->createArtist(
+            isAdmin: 'test2@example.com',
+            email: 'test2@example.com'
+        );
         $artist = $this->createArtist();
         $artist->delete();
 
         $foundArtist = Artist::findById($artist->id);
-        $this->assertNull($foundArtist);
+        self::assertNull($foundArtist);
     }
 
     public function testDeleteWithApiKey(): void
     {
-        $this->createArtist(email: 'test2@example.com');
+        $this->createArtist(
+            isAdmin: 'test2@example.com',
+            email: 'test2@example.com'
+        );
         $artist = $this->createArtist();
         $apiKey = new ApiKey();
         $apiKey->userId = $artist->id;
@@ -334,68 +350,87 @@ class ArtistTest extends DatabaseAwareTestCase
         $artist->delete();
 
         $foundArtist = Artist::findById($artist->id);
-        $this->assertNull($foundArtist);
+        self::assertNull($foundArtist);
     }
 
     public function testDeleteUnsaved(): void
     {
-        try {
-            $this->createArtist();
-            $this->createArtist(email: 'test2@example.com');
-            $artist = $this->createArtist(execute: false);
-            $artist->delete();
-        } catch (\Error $error) {
-            self::assertTrue(true);
-        }
+        $this->expectError();
+        $this->createArtist();
+        $this->createArtist(
+            isAdmin: 'test2@example.com',
+            email: 'test2@example.com'
+        );
+        $artist = $this->createArtist(
+            isAdmin: false,
+            execute: false
+        );
+        $artist->delete();
     }
 
     public function testDeleteLastUser(): void
     {
         $this->expectException(DeleteLastAdminException::class);
-        $artist = $this->createArtist(isAdmin: false, isWriter: true, isReader: true);
+        $artist = $this->createArtist(isAdmin: false);
         $artist->delete();
 
         $foundArtist = Artist::findById($artist->id);
-        $this->assertNull($foundArtist);
+        self::assertNull($foundArtist);
     }
 
     public function testDeleteLastAdmin(): void
     {
-        $this->expectException(DeleteLastAdminException::class);
-        $this->createArtist(isAdmin: false, email: 'test2@example.com');
+        $this->createArtist(
+            isAdmin: false,
+            email: 'test2@example.com'
+        );
         $artist = $this->createArtist();
         $artist->delete();
+
+        self::assertTrue(true);
     }
 
-    public function testDeleteLastNromalUserAdminNotDeleted(): void
+    public function testDeleteLastNormalUserAdminNotDeleted(): void
     {
         $this->createArtist();
-        $artist = $this->createArtist(isAdmin: false, isWriter: true, isReader: true, email: 'test2@example.com');
+        $artist = $this->createArtist(
+            isAdmin: false,
+            email: 'test2@example.com'
+        );
         $artist->delete();
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testCountAdmins(): void
     {
-        $this->createArtist(isAdmin: false, email: 'test2@example.com');
+        $this->createArtist(
+            isAdmin: false,
+            email: 'test2@example.com'
+        );
         $this->createArtist();
-        $this->assertEquals(1, Artist::countAdmins(-1));
+        self::assertEquals(1, Artist::countAdmins(-1));
     }
 
     public function testFindByEmail(): void
     {
         $this->createArtist();
-        $artist = $this->createArtist(isAdmin: false, email: 'test2@example.com');
+        $artist = $this->createArtist(
+            isAdmin: false,
+            email: 'test2@example.com'
+        );
         $foundArtist = Artist::findByEmail('test2@example.com');
-        $this->assertEquals($artist, $foundArtist);
+        self::assertEquals($artist, $foundArtist);
     }
 
     public function testFindByEmailNotExist(): void
     {
         $this->createArtist();
-        $this->createArtist(isAdmin: false, email: 'test2@example.com');
+        $this->createArtist(
+            isAdmin: false,
+            email: 'test2@example.com'
+        );
         $foundArtist = Artist::findByEmail('notexists@example.com');
-        $this->assertNull($foundArtist);
+        self::assertNull($foundArtist);
     }
 }

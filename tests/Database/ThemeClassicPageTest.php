@@ -11,7 +11,7 @@ class ThemeClassicPageTest extends ThemeTestCase
 {
     private ClassicPage $classicPage;
 
-    public function testFindByThemeNoSimplePage(): void
+    public function testFindByThemeNoClassicPage(): void
     {
         $themePages = ThemeClassicPage::findByTheme($this->theme->id);
         self::assertCount(0, iterator_to_array($themePages));
@@ -69,16 +69,16 @@ class ThemeClassicPageTest extends ThemeTestCase
         $themePage->name = 'Test';
         $themePage->create();
 
-        $simplePage = new ClassicPage();
-        $simplePage->title = 'TempClassicPage';
-        $simplePage->content = Uuid::uuid();
-        $simplePage->create();
+        $classicPage = new ClassicPage();
+        $classicPage->title = 'TempClassicPage';
+        $classicPage->content = Uuid::uuid();
+        $classicPage->create();
 
-        $themePage->classicPageId = $simplePage->id;
+        $themePage->classicPageId = $classicPage->id;
         $themePage->update();
         $found = ThemeClassicPage::findByThemeAndName($this->theme->id, 'Test');
         self::assertNotNull($found);
-        self::assertEquals($simplePage->id, $found->classicPageId);
+        self::assertEquals($classicPage->id, $found->classicPageId);
     }
 
     public function testCreate(): void
@@ -92,7 +92,7 @@ class ThemeClassicPageTest extends ThemeTestCase
         self::assertNotNull(ThemeClassicPage::findByThemeAndName($this->theme->id, 'Test'));
     }
 
-    public function testSimplePageat(): void
+    public function testCreateClassicPage(): void
     {
         $themePage = new ThemeClassicPage();
         $themePage->classicPageId = $this->classicPage->id;
@@ -102,18 +102,18 @@ class ThemeClassicPageTest extends ThemeTestCase
 
         self::assertEquals([
             'name' => 'Test',
-            'page' => $this->classicPage->format(),
+            'classicPage' => $this->classicPage->format(),
         ], $themePage->format());
     }
 
     protected function setUp(): void
     {
         parent::setUp();
-        $simplePage = new ClassicPage();
-        $simplePage->title = Uuid::uuid();
-        $simplePage->content = Uuid::uuid();
-        $simplePage->create();
+        $classicPage = new ClassicPage();
+        $classicPage->title = Uuid::uuid();
+        $classicPage->content = Uuid::uuid();
+        $classicPage->create();
 
-        $this->classicPage = $simplePage;
+        $this->classicPage = $classicPage;
     }
 }

@@ -27,7 +27,6 @@ use Jinya\Router\Extensions\Database\Attributes\Find;
  */
 #[Table('users')]
 #[Find('/api/user', new AuthorizationMiddleware(ROLE_ADMIN))]
-#[Delete('/api/user', new AuthorizationMiddleware(ROLE_ADMIN))]
 class Artist extends Entity
 {
     #[Id]
@@ -229,21 +228,6 @@ class Artist extends Entity
         }
         $hash = password_hash($password, PASSWORD_BCRYPT);
         $this->password = $hash;
-    }
-
-    /**
-     * Deletes the current artist
-     *
-     * @return void
-     * @throws DeleteLastAdminException
-     */
-    public function delete(): void
-    {
-        if (self::countAdmins($this->id) >= 1) {
-            parent::delete();
-        } else {
-            throw new DeleteLastAdminException('Cannot delete last admin');
-        }
     }
 
     /**

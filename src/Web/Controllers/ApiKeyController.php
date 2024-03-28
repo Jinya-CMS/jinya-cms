@@ -24,7 +24,7 @@ class ApiKeyController extends BaseController
     {
         $keys = ApiKey::findByArtist(CurrentUser::$currentUser->id);
 
-        return $this->jsonIteratorPlain($keys);
+        return $this->jsonIterator($keys);
     }
 
     /**

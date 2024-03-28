@@ -91,7 +91,7 @@ class ThemeTest extends DatabaseAwareTestCase
     {
         $engine = Theming\Engine::getPlatesEngine();
         $this->theme->register($engine);
-        self::assertTrue($engine->getFolders()->exists('theme'));
+        self::assertArrayHasKey('theme', $engine->getFolders());
     }
 
     public function test__construct(): void

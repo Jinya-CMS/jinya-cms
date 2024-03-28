@@ -76,7 +76,7 @@ class MyJinyaController extends BaseController
     {
         $colorScheme = $this->body['colorScheme'];
         /** @var Artist $currentArtist */
-        $currentArtist = $this->request->getAttribute(AuthorizationMiddleware::LOGGED_IN_ARTIST);
+        $currentArtist = CurrentUser::$currentUser;
 
         if ($colorScheme === 'light') {
             $currentArtist->prefersColorScheme = false;
@@ -99,10 +99,9 @@ class MyJinyaController extends BaseController
     #[Middlewares(new AuthorizationMiddleware())]
     public function uploadProfilePicture(): ResponseInterface
     {
-        $this->profilePictureService->saveProfilePicture(
-            CurrentUser::$currentUser->id,
-            $this->request->getBody()->detach()
-        );
+        $this->request->getBody()->rewind();
+        $data = $this->request->getBody()->getContents();
+        $this->profilePictureService->saveProfilePicture(CurrentUser::$currentUser->id, $data);
 
         return $this->noContent();
     }

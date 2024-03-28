@@ -108,7 +108,9 @@ class FrontendController extends BaseController
     {
         $parsedBody = $this->request->getParsedBody();
         $queryParams = $this->request->getQueryParams();
-        $this->engine->loadExtension(new URI($this->request->getUri()->getPath()));
+        if (!$this->engine->functions->exists('uri')) {
+            $this->engine->loadExtension(new URI($this->request->getUri()->getPath()));
+        }
         $renderResult = $this->engine->render("api::$template", [
             ...$data,
             'body' => $parsedBody,
@@ -130,7 +132,9 @@ class FrontendController extends BaseController
     {
         $parsedBody = $this->request->getParsedBody();
         $queryParams = $this->request->getQueryParams();
-        $this->engine->loadExtension(new URI($this->request->getUri()->getPath()));
+        if (!$this->engine->functions->exists('uri')) {
+            $this->engine->loadExtension(new URI($this->request->getUri()->getPath()));
+        }
         $renderResult = $this->engine->render("theme::$template", [
             ...$data,
             'body' => $parsedBody,
@@ -214,10 +218,10 @@ class FrontendController extends BaseController
         return $this->executeErrorHandled(function () use ($route) {
             if ($route === '' || $route === '/') {
                 if ($this->checkForApiRequest()) {
-                    return $this->sendApiJson('api::home', []);
+                    return $this->sendApiJson('home', []);
                 }
 
-                return $this->renderThemed('theme::home', []);
+                return $this->renderThemed('home', []);
             }
 
             $menuItem = MenuItem::findByRoute($route);
@@ -257,10 +261,10 @@ class FrontendController extends BaseController
 
                     $responseData = ['form' => $form, 'success' => true];
                     if ($this->checkForApiRequest()) {
-                        return $this->sendApiJson('api::form', $responseData, self::HTTP_FOUND);
+                        return $this->sendApiJson('form', $responseData, self::HTTP_FOUND);
                     }
 
-                    return $this->renderThemed('theme::form', $responseData, self::HTTP_FOUND);
+                    return $this->renderThemed('form', $responseData, self::HTTP_FOUND);
                 } catch (MissingFieldsException $exception) {
                     $responseData = [
                         'form' => $form,
@@ -269,10 +273,10 @@ class FrontendController extends BaseController
                     ];
 
                     if ($this->checkForApiRequest()) {
-                        return $this->sendApiJson('api::form', $responseData, self::HTTP_BAD_REQUEST);
+                        return $this->sendApiJson('form', $responseData, self::HTTP_BAD_REQUEST);
                     }
 
-                    return $this->renderThemed('theme::form', $responseData, self::HTTP_BAD_REQUEST);
+                    return $this->renderThemed('form', $responseData, self::HTTP_BAD_REQUEST);
                 }
             }
 
@@ -280,10 +284,10 @@ class FrontendController extends BaseController
         }
 
         if ($this->checkForApiRequest()) {
-            return $this->sendApiJson('api::404', [], self::HTTP_NOT_FOUND);
+            return $this->sendApiJson('404', [], self::HTTP_NOT_FOUND);
         }
 
-        return $this->renderThemed('theme::404', [], self::HTTP_NOT_FOUND);
+        return $this->renderThemed('404', [], self::HTTP_NOT_FOUND);
     }
 
     /**
@@ -299,17 +303,17 @@ class FrontendController extends BaseController
                 $data = ['post' => $blogPost];
 
                 if ($this->checkForApiRequest()) {
-                    return $this->sendApiJson('api::blog-post', $data);
+                    return $this->sendApiJson('blog-post', $data);
                 }
 
-                return $this->renderThemed('theme::blog-post', $data);
+                return $this->renderThemed('blog-post', $data);
             }
 
             if ($this->checkForApiRequest()) {
-                return $this->sendApiJson('api::404', [], self::HTTP_NOT_FOUND);
+                return $this->sendApiJson('404', [], self::HTTP_NOT_FOUND);
             }
 
-            return $this->renderThemed('theme::404', [], self::HTTP_NOT_FOUND);
+            return $this->renderThemed('404', [], self::HTTP_NOT_FOUND);
         });
     }
 

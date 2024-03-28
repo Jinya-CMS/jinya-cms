@@ -16,28 +16,18 @@ class ProfilePictureService extends StorageBaseService
      * Sets and saves the profile picture of the given artist
      *
      * @param int $artistId
-     * @param string|resource|null $data
+     * @param string $data
      * @throws EmptyResultException
      * @throws NotNullViolationException
      */
-    public function saveProfilePicture(int $artistId, mixed $data): void
+    public function saveProfilePicture(int $artistId, string $data): void
     {
-        if ($data === null) {
-            throw new RuntimeException();
-        }
-
         $artist = Artist::findById($artistId);
         if ($artist === null) {
             throw new EmptyResultException('The artist was not found');
         }
 
-        if (is_string($data)) {
-            $fileName = hash('sha256', $data);
-        } elseif (is_resource($data)) {
-            $fileName = $this->getFileHash($data);
-        } else {
-            throw new RuntimeException();
-        }
+        $fileName = hash('sha256', $data);
         file_put_contents(self::SAVE_PATH . $fileName, $data);
         $artist->profilePicture = self::WEB_PATH . $fileName;
         $artist->update();

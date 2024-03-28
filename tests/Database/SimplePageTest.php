@@ -29,7 +29,7 @@ class SimplePageTest extends DatabaseAwareTestCase
     public function testFormat(): void
     {
         $page = $this->createPage();
-        $this->assertEquals([
+        self::assertEquals([
             'id' => $page->id,
             'title' => $page->title,
             'created' => [

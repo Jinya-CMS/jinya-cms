@@ -8,15 +8,28 @@ use App\Database\Gallery;
 use App\Database\GalleryFilePosition;
 use App\Tests\DatabaseAwareTestCase;
 use App\Utils\UuidGenerator;
+use Jinya\Database\Exception\UniqueFailedException;
 use PDOException;
 
 class GalleryTest extends DatabaseAwareTestCase
 {
-    private function createGallery(string $name = 'Gallery', string $description = '', bool $execute = true): Gallery
+    public function testGetFiles(): void
+    {
+        $gallery = $this->createGallery();
+        $this->createPosition(1, $gallery->id);
+        $this->createPosition(2, $gallery->id);
+        $this->createPosition(3, $gallery->id);
+        $this->createPosition(4, $gallery->id);
+        $this->createPosition(5, $gallery->id);
+
+        self::assertCount(5, iterator_to_array($gallery->getFiles()));
+    }
+
+    private function createGallery(string $name = 'Gallery', bool $execute = true): Gallery
     {
         $gallery = new Gallery();
         $gallery->name = $name;
-        $gallery->description = $description;
+        $gallery->description = '';
         if ($execute) {
             $gallery->create();
         }
@@ -39,43 +52,31 @@ class GalleryTest extends DatabaseAwareTestCase
         $filePosition->create();
     }
 
-    public function testGetFiles(): void
-    {
-        $gallery = $this->createGallery();
-        $this->createPosition(1, $gallery->id);
-        $this->createPosition(2, $gallery->id);
-        $this->createPosition(3, $gallery->id);
-        $this->createPosition(4, $gallery->id);
-        $this->createPosition(5, $gallery->id);
-
-        $this->assertCount(5, iterator_to_array($gallery->getFiles()));
-    }
-
     public function testGetFilesNone(): void
     {
         $gallery = $this->createGallery();
 
-        $this->assertCount(0, iterator_to_array($gallery->getFiles()));
+        self::assertCount(0, iterator_to_array($gallery->getFiles()));
     }
 
     public function testGetCreator(): void
     {
         $gallery = $this->createGallery();
-        $this->assertEquals(CurrentUser::$currentUser, $gallery->getCreator());
+        self::assertEquals(CurrentUser::$currentUser, $gallery->getCreator());
     }
 
     public function testCreate(): void
     {
-        $gallery = $this->createGallery(execute: false);
+        $gallery = $this->createGallery(name: false, execute: false);
         $gallery->create();
 
         $foundGallery = Gallery::findById($gallery->id);
-        $this->assertEquals($gallery->format(), $foundGallery->format());
+        self::assertEquals($gallery->format(), $foundGallery->format());
     }
 
     public function testCreateUniqueFailed(): void
     {
-        $this->expectException(PDOException::class);
+        $this->expectException(UniqueFailedException::class);
         $this->createGallery();
         $gallery = $this->createGallery(execute: false);
         $gallery->create();
@@ -88,7 +89,7 @@ class GalleryTest extends DatabaseAwareTestCase
         $gallery->update();
 
         $foundGallery = Gallery::findById($gallery->id);
-        $this->assertEquals('New name', $foundGallery->name);
+        self::assertEquals('New name', $foundGallery->name);
     }
 
     public function testUpdateUniqueFailed(): void
@@ -109,26 +110,26 @@ class GalleryTest extends DatabaseAwareTestCase
         $gallery->update();
 
         $foundGallery = Gallery::findById($gallery->id);
-        $this->assertNull($foundGallery);
+        self::assertNull($foundGallery);
     }
 
     public function testFormat(): void
     {
         $gallery = $this->createGallery();
         $formattedGallery = $gallery->format();
-        $this->assertArrayHasKey('id', $formattedGallery);
-        $this->assertArrayHasKey('name', $formattedGallery);
-        $this->assertArrayHasKey('description', $formattedGallery);
-        $this->assertArrayHasKey('type', $formattedGallery);
-        $this->assertArrayHasKey('orientation', $formattedGallery);
-        $this->assertArrayHasKey('created', $formattedGallery);
-        $this->assertArrayHasKey('updated', $formattedGallery);
+        self::assertArrayHasKey('id', $formattedGallery);
+        self::assertArrayHasKey('name', $formattedGallery);
+        self::assertArrayHasKey('description', $formattedGallery);
+        self::assertArrayHasKey('type', $formattedGallery);
+        self::assertArrayHasKey('orientation', $formattedGallery);
+        self::assertArrayHasKey('created', $formattedGallery);
+        self::assertArrayHasKey('updated', $formattedGallery);
     }
 
     public function testGetUpdatedBy(): void
     {
         $gallery = $this->createGallery();
-        $this->assertEquals(CurrentUser::$currentUser, $gallery->getUpdatedBy());
+        self::assertEquals(CurrentUser::$currentUser, $gallery->getUpdatedBy());
     }
 
     public function testDelete(): void
@@ -137,7 +138,7 @@ class GalleryTest extends DatabaseAwareTestCase
         $gallery->delete();
 
         $foundGallery = Gallery::findById($gallery->id);
-        $this->assertNull($foundGallery);
+        self::assertNull($foundGallery);
     }
 
     public function testDeleteWithGalleryFilePositions(): void
@@ -147,7 +148,7 @@ class GalleryTest extends DatabaseAwareTestCase
         $gallery->delete();
 
         $foundGallery = Gallery::findById($gallery->id);
-        $this->assertNull($foundGallery);
+        self::assertNull($foundGallery);
     }
 
     public function testDeleteNotExisting(): void
@@ -157,7 +158,7 @@ class GalleryTest extends DatabaseAwareTestCase
         $gallery->delete();
 
         $foundGallery = Gallery::findById($gallery->id);
-        $this->assertNull($foundGallery);
+        self::assertNull($foundGallery);
     }
 
     public function testFindAll(): void
@@ -167,7 +168,7 @@ class GalleryTest extends DatabaseAwareTestCase
         $this->createGallery(UuidGenerator::generateV4());
 
         $all = Gallery::findAll();
-        $this->assertCount(3, iterator_to_array($all));
+        self::assertCount(3, iterator_to_array($all));
     }
 
     public function testFindById(): void
@@ -175,6 +176,6 @@ class GalleryTest extends DatabaseAwareTestCase
         $gallery = $this->createGallery();
 
         $foundGallery = Gallery::findById($gallery->id);
-        $this->assertEquals($gallery->format(), $foundGallery->format());
+        self::assertEquals($gallery->format(), $foundGallery->format());
     }
 }

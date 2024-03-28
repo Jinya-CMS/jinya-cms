@@ -100,8 +100,8 @@ class ThemeGalleryTest extends ThemeTestCase
         $themeGallery->create();
 
         self::assertEquals([
-                               'name' => 'Test',
-                               'gallery' => $this->gallery->format(),
+            'name' => 'Test',
+            'gallery' => $this->gallery->format(),
         ], $themeGallery->format());
     }
 

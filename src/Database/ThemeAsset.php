@@ -110,8 +110,9 @@ class ThemeAsset implements Creatable, Updatable, Deletable
         $query = self::getQueryBuilder()
             ->newUpdate()
             ->table(self::getTableName())
-            ->set('public_path', $this->publicPath)
-            ->where('theme_id = :themeId AND name = :name', ['themeId' => $this->themeId, 'name' => $this->name]);
+            ->set('public_path', ':publicPath')
+            ->where('theme_id = :themeId AND name = :name', ['themeId' => $this->themeId, 'name' => $this->name])
+            ->bindValue('publicPath', $this->publicPath);
 
         self::executeQuery($query);
     }

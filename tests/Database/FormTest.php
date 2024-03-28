@@ -9,6 +9,15 @@ use PDOException;
 
 class FormTest extends DatabaseAwareTestCase
 {
+    public function testFindById(): void
+    {
+        $form = $this->createForm();
+        $foundForm = Form::findById($form->id);
+
+        self::assertEquals($form->id, $foundForm->id);
+        self::assertEquals($form->title, $foundForm->title);
+    }
+
     private function createForm(string $title = 'Testform', bool $execute = true): Form
     {
         $form = new Form();
@@ -23,19 +32,10 @@ class FormTest extends DatabaseAwareTestCase
         return $form;
     }
 
-    public function testFindById(): void
-    {
-        $form = $this->createForm();
-        $foundForm = Form::findById($form->id);
-
-        $this->assertEquals($form->id, $foundForm->id);
-        $this->assertEquals($form->title, $foundForm->title);
-    }
-
     public function testFindByIdNotFound(): void
     {
         $foundForm = Form::findById(-1);
-        $this->assertNull($foundForm);
+        self::assertNull($foundForm);
     }
 
     public function testFindAll(): void
@@ -44,20 +44,20 @@ class FormTest extends DatabaseAwareTestCase
         $this->createForm(title: 'Test');
         $this->createForm(title: 'Test32');
 
-        $this->assertCount(3, iterator_to_array(Form::findAll()));
+        self::assertCount(3, iterator_to_array(Form::findAll()));
     }
 
     public function testFindAllNoneFound(): void
     {
         $forms = Form::findAll();
-        $this->assertCount(0, iterator_to_array($forms));
+        self::assertCount(0, iterator_to_array($forms));
     }
 
     public function testGetUpdatedBy(): void
     {
         $form = $this->createForm();
         $updatedBy = $form->getUpdatedBy();
-        $this->assertEquals(CurrentUser::$currentUser, $updatedBy);
+        self::assertEquals(CurrentUser::$currentUser, $updatedBy);
     }
 
     public function testDelete(): void
@@ -66,7 +66,7 @@ class FormTest extends DatabaseAwareTestCase
         $form->delete();
 
         $foundForm = Form::findById($form->id);
-        $this->assertNull($foundForm);
+        self::assertNull($foundForm);
     }
 
     public function testDeleteWithItems(): void
@@ -82,7 +82,7 @@ class FormTest extends DatabaseAwareTestCase
         $form->delete();
 
         $foundForm = Form::findById($form->id);
-        $this->assertNull($foundForm);
+        self::assertNull($foundForm);
     }
 
     public function testDeleteNotExists(): void
@@ -96,23 +96,23 @@ class FormTest extends DatabaseAwareTestCase
     {
         $form = $this->createForm();
         $creator = $form->getCreator();
-        $this->assertEquals(CurrentUser::$currentUser, $creator);
+        self::assertEquals(CurrentUser::$currentUser, $creator);
     }
 
     public function testFormat(): void
     {
         $form = $this->createForm();
-        $this->assertArrayHasKey('id', $form->format());
-        $this->assertArrayHasKey('description', $form->format());
-        $this->assertArrayHasKey('title', $form->format());
-        $this->assertArrayHasKey('toAddress', $form->format());
-        $this->assertArrayHasKey('created', $form->format());
+        self::assertArrayHasKey('id', $form->format());
+        self::assertArrayHasKey('description', $form->format());
+        self::assertArrayHasKey('title', $form->format());
+        self::assertArrayHasKey('toAddress', $form->format());
+        self::assertArrayHasKey('created', $form->format());
     }
 
     public function testUpdate(): void
     {
         $form = $this->createForm();
-        $this->assertEquals('Testform', $form->title);
+        self::assertEquals('Testform', $form->title);
 
         $form->title = 'Update me';
         $form->description = 'Updated desc';
@@ -120,9 +120,9 @@ class FormTest extends DatabaseAwareTestCase
         $form->update();
 
         $foundForm = Form::findById($form->id);
-        $this->assertEquals($form->title, $foundForm->title);
-        $this->assertEquals($form->description, $foundForm->description);
-        $this->assertEquals($form->toAddress, $foundForm->toAddress);
+        self::assertEquals($form->title, $foundForm->title);
+        self::assertEquals($form->description, $foundForm->description);
+        self::assertEquals($form->toAddress, $foundForm->toAddress);
     }
 
     public function testUpdateUniqueFailed(): void
@@ -130,7 +130,7 @@ class FormTest extends DatabaseAwareTestCase
         $this->expectException(PDOException::class);
         $this->createForm(title: 'Test');
         $form = $this->createForm();
-        $this->assertEquals('Testform', $form->title);
+        self::assertEquals('Testform', $form->title);
 
         $form->title = 'Test';
         $form->description = 'Updated desc';
@@ -150,7 +150,7 @@ class FormTest extends DatabaseAwareTestCase
         $form->replaceItems([$item]);
 
         $items = $form->getItems();
-        $this->assertCount(1, iterator_to_array($items));
+        self::assertCount(1, iterator_to_array($items));
     }
 
     public function testGetItemsMultipleForms(): void
@@ -172,7 +172,7 @@ class FormTest extends DatabaseAwareTestCase
         $form2->replaceItems([$item2]);
 
         $items = $form->getItems();
-        $this->assertCount(1, iterator_to_array($items));
+        self::assertCount(1, iterator_to_array($items));
     }
 
     public function testCreate(): void
@@ -181,7 +181,7 @@ class FormTest extends DatabaseAwareTestCase
         $form->create();
 
         $foundForm = Form::findById($form->id);
-        $this->assertNotNull($foundForm);
+        self::assertNotNull($foundForm);
     }
 
     public function testCreateUniqueFailed(): void

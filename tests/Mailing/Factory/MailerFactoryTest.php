@@ -20,6 +20,6 @@ class MailerFactoryTest extends TestCase
         self::assertEquals('test@example.com', $mailer->Username);
         self::assertEquals('start1234', $mailer->Password);
         self::assertEquals('tls', $mailer->SMTPSecure);
-        self::assertEquals(true, $mailer->SMTPAuth);
+        self::assertTrue($mailer->SMTPAuth);
     }
 }

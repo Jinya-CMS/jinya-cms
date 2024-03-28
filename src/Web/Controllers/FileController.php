@@ -6,6 +6,7 @@ use App\Database\Exceptions\EmptyResultException;
 use App\Database\File;
 use App\Database\UploadingFile;
 use App\Storage\FileUploadService;
+use App\Storage\StorageBaseService;
 use App\Web\Middleware\AuthorizationMiddleware;
 use Jinya\Database\Exception\ForeignKeyFailedException;
 use Jinya\Database\Exception\NotNullViolationException;
@@ -37,7 +38,7 @@ class FileController extends BaseController
             return $this->entityNotFound('File not found');
         }
 
-        return $this->file($file->path);
+        return $this->file(StorageBaseService::PUBLIC_PATH . $file->path);
     }
 
     /**
@@ -79,7 +80,7 @@ class FileController extends BaseController
      */
     #[Route(HttpMethod::PUT, '/api/file/{id}/content')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
-    protected function startUpload(int $id): ResponseInterface
+    public function startUpload(int $id): ResponseInterface
     {
         $uploadingFile = new UploadingFile();
         $uploadingFile->fileId = $id;

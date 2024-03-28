@@ -10,6 +10,16 @@ use App\Utils\UuidGenerator;
 
 class KnownDeviceTest extends DatabaseAwareTestCase
 {
+    public function testFormat(): void
+    {
+        $device = $this->createKnownDevice();
+        self::assertEquals([
+            'remoteAddress' => $device->remoteAddress,
+            'userAgent' => $device->userAgent,
+            'key' => $device->deviceKey,
+        ], $device->format());
+    }
+
     private function createKnownDevice(): KnownDevice
     {
         $knownDevice = new KnownDevice();
@@ -22,22 +32,12 @@ class KnownDeviceTest extends DatabaseAwareTestCase
         return $knownDevice;
     }
 
-    public function testFormat(): void
-    {
-        $device = $this->createKnownDevice();
-        $this->assertEquals([
-            'remoteAddress' => $device->remoteAddress,
-            'userAgent' => $device->userAgent,
-            'key' => $device->deviceKey,
-        ], $device->format());
-    }
-
     public function testDelete(): void
     {
         $device = $this->createKnownDevice();
         $device->delete();
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testFindByArtist(): void
@@ -47,7 +47,7 @@ class KnownDeviceTest extends DatabaseAwareTestCase
         $this->createKnownDevice();
 
         $found = KnownDevice::findByArtist(CurrentUser::$currentUser->id);
-        $this->assertCount(3, iterator_to_array($found));
+        self::assertCount(3, iterator_to_array($found));
     }
 
     public function testFindByArtistNotExists(): void
@@ -57,7 +57,7 @@ class KnownDeviceTest extends DatabaseAwareTestCase
         $this->createKnownDevice();
 
         $found = KnownDevice::findByArtist(CurrentUser::$currentUser->id);
-        $this->assertCount(3, iterator_to_array($found));
+        self::assertCount(3, iterator_to_array($found));
     }
 
     public function testCreate(): void
@@ -79,7 +79,7 @@ class KnownDeviceTest extends DatabaseAwareTestCase
         $this->createKnownDevice();
 
         $found = KnownDevice::findByArtist($artist->id);
-        $this->assertCount(0, iterator_to_array($found));
+        self::assertCount(0, iterator_to_array($found));
     }
 
     public function testFindByCode(): void
@@ -89,7 +89,7 @@ class KnownDeviceTest extends DatabaseAwareTestCase
         $this->createKnownDevice();
 
         $foundDevice = KnownDevice::findByCode($knownDevice->deviceKey);
-        $this->assertEquals($knownDevice, $foundDevice);
+        self::assertEquals($knownDevice, $foundDevice);
     }
 
     public function testFindByCodeNotFound(): void
@@ -99,6 +99,6 @@ class KnownDeviceTest extends DatabaseAwareTestCase
         $this->createKnownDevice();
 
         $foundDevice = KnownDevice::findByCode(UuidGenerator::generateV4());
-        $this->assertNull($foundDevice);
+        self::assertNull($foundDevice);
     }
 }

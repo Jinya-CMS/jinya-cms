@@ -18,7 +18,7 @@ class BlogPostSectionTest extends DatabaseAwareTestCase
         $section = $this->createBlogPostSection(1, $post->id);
 
         $sectionPost = $section->getBlogPost();
-        $this->assertEquals($post->format(), $sectionPost->format());
+        self::assertEquals($post->format(), $sectionPost->format());
     }
 
     private function createBlogPost(): BlogPost
@@ -41,8 +41,13 @@ class BlogPostSectionTest extends DatabaseAwareTestCase
         return $category;
     }
 
-    private function createBlogPostSection(int $position, int $blogPostId, bool $execute = true, string $html = null, int $galleryId = null, int $fileId = null): BlogPostSection
-    {
+    private function createBlogPostSection(
+        int $position,
+        int $blogPostId,
+        string $html = null,
+        int $galleryId = null,
+        int $fileId = null
+    ): BlogPostSection {
         $section = new BlogPostSection();
         $section->blogPostId = $blogPostId;
         $section->html = $html;
@@ -58,7 +63,7 @@ class BlogPostSectionTest extends DatabaseAwareTestCase
     {
         $post = $this->createBlogPost();
         $section = $this->createBlogPostSection(0, $post->id, html: 'Test');
-        $this->assertEquals([
+        self::assertEquals([
             'position' => $section->position,
             'id' => $section->id,
             'html' => $section->html,
@@ -70,7 +75,7 @@ class BlogPostSectionTest extends DatabaseAwareTestCase
         $file = $this->createFile();
         $post = $this->createBlogPost();
         $section = $this->createBlogPostSection(0, $post->id, fileId: $file->id);
-        $this->assertEquals([
+        self::assertEquals([
             'position' => $section->position,
             'id' => $section->id,
             'file' => [
@@ -81,15 +86,6 @@ class BlogPostSectionTest extends DatabaseAwareTestCase
             ],
             'link' => $section->link,
         ], $section->format());
-    }
-
-    public function testGetFile(): void
-    {
-        $file = $this->createFile();
-        $post = $this->createBlogPost();
-        $section = $this->createBlogPostSection(0, $post->id, fileId: $file->id);
-        $this->assertEquals($file->name, $section->getFile()->name);
-        self::assertNull($section->getGallery());
     }
 
     private function createFile(): File
@@ -103,12 +99,21 @@ class BlogPostSectionTest extends DatabaseAwareTestCase
         return $file;
     }
 
+    public function testGetFile(): void
+    {
+        $file = $this->createFile();
+        $post = $this->createBlogPost();
+        $section = $this->createBlogPostSection(0, $post->id, fileId: $file->id);
+        self::assertEquals($file->name, $section->getFile()->name);
+        self::assertNull($section->getGallery());
+    }
+
     public function testFormatGallery(): void
     {
         $gallery = $this->createGallery();
         $post = $this->createBlogPost();
         $section = $this->createBlogPostSection(0, $post->id, galleryId: $gallery->id);
-        $this->assertEquals([
+        self::assertEquals([
             'position' => $section->position,
             'id' => $section->id,
             'gallery' => [
@@ -121,15 +126,6 @@ class BlogPostSectionTest extends DatabaseAwareTestCase
         ], $section->format());
     }
 
-    public function testGetGallery(): void
-    {
-        $gallery = $this->createGallery();
-        $post = $this->createBlogPost();
-        $section = $this->createBlogPostSection(0, $post->id, galleryId: $gallery->id);
-        $this->assertEquals($gallery->name, $section->getGallery()->name);
-        self::assertNull($section->getFile());
-    }
-
     private function createGallery(): Gallery
     {
         $gallery = new Gallery();
@@ -138,5 +134,14 @@ class BlogPostSectionTest extends DatabaseAwareTestCase
         $gallery->create();
 
         return $gallery;
+    }
+
+    public function testGetGallery(): void
+    {
+        $gallery = $this->createGallery();
+        $post = $this->createBlogPost();
+        $section = $this->createBlogPostSection(0, $post->id, galleryId: $gallery->id);
+        self::assertEquals($gallery->name, $section->getGallery()->name);
+        self::assertNull($section->getFile());
     }
 }

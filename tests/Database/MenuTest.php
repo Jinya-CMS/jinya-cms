@@ -11,13 +11,14 @@ class MenuTest extends DatabaseAwareTestCase
 {
     private File $file;
 
-    protected function setUp(): void
+    public function testUpdate(): void
     {
-        parent::setUp();
-        $this->file = new File();
-        $this->file->name = UuidGenerator::generateV4();
-        $this->file->path = UuidGenerator::generateV4();
-        $this->file->create();
+        $menu = $this->createMenu();
+        $menu->name = 'Test';
+        $menu->update();
+
+        $found = Menu::findById($menu->id);
+        self::assertEquals($menu, $found);
     }
 
     private function createMenu(string $name = 'Testmenu', bool $execute = true): Menu
@@ -33,23 +34,13 @@ class MenuTest extends DatabaseAwareTestCase
         return $menu;
     }
 
-    public function testUpdate(): void
-    {
-        $menu = $this->createMenu();
-        $menu->name = 'Test';
-        $menu->update();
-
-        $found = Menu::findById($menu->id);
-        $this->assertEquals($menu, $found);
-    }
-
     public function testCreate(): void
     {
         $menu = $this->createMenu(execute: false);
         $menu->create();
 
         $found = Menu::findById($menu->id);
-        $this->assertEquals($menu, $found);
+        self::assertEquals($menu, $found);
     }
 
     public function testFormat(): void
@@ -57,13 +48,13 @@ class MenuTest extends DatabaseAwareTestCase
         $menu = $this->createMenu(execute: false);
         $menu->logo = null;
         $menu->create();
-        $this->assertEquals(['name' => $menu->name, 'id' => $menu->id], $menu->format());
+        self::assertEquals(['name' => $menu->name, 'id' => $menu->id], $menu->format());
     }
 
     public function testFormatWithLogo(): void
     {
         $menu = $this->createMenu();
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'name' => $menu->name,
                 'id' => $menu->id,
@@ -105,13 +96,13 @@ class MenuTest extends DatabaseAwareTestCase
         $menu->replaceItems([$menuItem]);
         $item = $menu->getItems()->current();
 
-        $this->assertCount(3, iterator_to_array($item->getItems()));
+        self::assertCount(3, iterator_to_array($item->getItems()));
     }
 
     public function testGetItemsEmpty(): void
     {
         $menu = $this->createMenu();
-        $this->assertCount(0, iterator_to_array($menu->getItems()));
+        self::assertCount(0, iterator_to_array($menu->getItems()));
     }
 
     public function testDelete(): void
@@ -120,7 +111,7 @@ class MenuTest extends DatabaseAwareTestCase
         $menu->delete();
 
         $found = Menu::findById($menu->id);
-        $this->assertNull($found);
+        self::assertNull($found);
     }
 
     public function testDeleteNotExisting(): void
@@ -130,7 +121,7 @@ class MenuTest extends DatabaseAwareTestCase
         $menu->delete();
 
         $found = Menu::findById($menu->id);
-        $this->assertNull($found);
+        self::assertNull($found);
     }
 
     public function testFindById(): void
@@ -138,20 +129,20 @@ class MenuTest extends DatabaseAwareTestCase
         $menu = $this->createMenu();
         $found = Menu::findById($menu->id);
 
-        $this->assertEqualsIgnoringCase($menu, $found);
+        self::assertEqualsIgnoringCase($menu, $found);
     }
 
     public function testFindByIdNotExistent(): void
     {
         $found = Menu::findById(-1);
 
-        $this->assertNull($found);
+        self::assertNull($found);
     }
 
     public function testGetLogo(): void
     {
         $menu = $this->createMenu();
-        $this->assertEquals($this->file->id, $menu->getLogo()->id);
+        self::assertEquals($this->file->id, $menu->getLogo()->id);
     }
 
     public function testGetLogoNull(): void
@@ -159,7 +150,7 @@ class MenuTest extends DatabaseAwareTestCase
         $menu = $this->createMenu(execute: false);
         $menu->logo = null;
         $menu->create();
-        $this->assertNull($menu->logo);
+        self::assertNull($menu->logo);
     }
 
     public function testFindAll(): void
@@ -170,6 +161,15 @@ class MenuTest extends DatabaseAwareTestCase
         $this->createMenu('Testmenu4');
 
         $all = Menu::findAll();
-        $this->assertCount(4, iterator_to_array($all));
+        self::assertCount(4, iterator_to_array($all));
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->file = new File();
+        $this->file->name = UuidGenerator::generateV4();
+        $this->file->path = UuidGenerator::generateV4();
+        $this->file->create();
     }
 }

@@ -19,11 +19,11 @@ class ProfilePictureServiceTest extends DatabaseAwareTestCase
     public function testSaveAndDeleteProfilePictureString(): void
     {
         $profilePictureAsText = 'Test';
-        $this->service->saveProfilePicture($this->artist->getIdAsInt(), $profilePictureAsText);
+        $this->service->saveProfilePicture($this->artist->id, $profilePictureAsText);
         $loadedArtist = Artist::findByEmail($this->artist->email);
         self::assertFileExists(StorageBaseService::BASE_PATH . '/public/' . $loadedArtist->profilePicture);
 
-        $this->service->deleteProfilePicture($loadedArtist->getIdAsInt());
+        $this->service->deleteProfilePicture($loadedArtist->id);
         self::assertFileDoesNotExist(StorageBaseService::BASE_PATH . '/public/' . $loadedArtist->profilePicture);
     }
 
@@ -33,11 +33,11 @@ class ProfilePictureServiceTest extends DatabaseAwareTestCase
         copy('https://picsum.photos/200/300', $path);
 
         /** @phpstan-ignore-next-line */
-        $this->service->saveProfilePicture($this->artist->getIdAsInt(), fopen($path, 'rb+'));
+        $this->service->saveProfilePicture($this->artist->id, fopen($path, 'rb+'));
         $loadedArtist = Artist::findByEmail($this->artist->email);
         self::assertFileExists(StorageBaseService::BASE_PATH . '/public/' . $loadedArtist->profilePicture);
 
-        $this->service->deleteProfilePicture($loadedArtist->getIdAsInt());
+        $this->service->deleteProfilePicture($loadedArtist->id);
         self::assertFileDoesNotExist(StorageBaseService::BASE_PATH . '/public/' . $loadedArtist->profilePicture);
 
         @unlink($path);
@@ -52,7 +52,7 @@ class ProfilePictureServiceTest extends DatabaseAwareTestCase
     public function testSaveProfilePictureDataNull(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->service->saveProfilePicture($this->artist->getIdAsInt(), null);
+        $this->service->saveProfilePicture($this->artist->id, null);
     }
 
     public function testDeleteProfilePictureArtistNotFound(): void

@@ -49,7 +49,7 @@ class AuthenticationController extends BaseController
                 'message' => 'Bad credentials',
                 'type' => 'bad-credentials'
             ]
-        ], self::HTTP_FORBIDDEN);
+        ], self::HTTP_UNAUTHORIZED);
     }
 
     /**
@@ -70,7 +70,7 @@ class AuthenticationController extends BaseController
                     'message' => 'The old password is wrong',
                     'type' => 'wrong-password'
                 ]
-            ]);
+            ], self::HTTP_FORBIDDEN);
         }
 
         return $this->noContent();
@@ -113,13 +113,7 @@ class AuthenticationController extends BaseController
                     $this->logger->warning($exception->getMessage());
                 }
             } elseif (empty($knownDeviceCode) && !empty($twoFactorCode)) {
-                return $this->json([
-                    'success' => false,
-                    'error' => [
-                        'message' => 'Unknown device',
-                        'type' => 'unknown-device'
-                    ]
-                ], self::HTTP_UNAUTHORIZED);
+                return $this->badCredentialsResponse;
             } else {
                 return $this->badCredentialsResponse;
             }

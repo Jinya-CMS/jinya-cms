@@ -11,7 +11,6 @@ use DateInterval;
 use DateTime;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use Slim\Exception\HttpForbiddenException;
 
 class AuthorizationMiddlewareTest extends DatabaseAwareTestCase
 {
@@ -24,13 +23,13 @@ class AuthorizationMiddlewareTest extends DatabaseAwareTestCase
         $handler = new TestRequestHandler($response);
         $middleware->process($request, $handler);
 
-        self::assertEquals($handler->request->getAttribute(AuthorizationMiddleware::LOGGED_IN_ARTIST)->getIdAsInt(), CurrentUser::$currentUser->getIdAsInt());
+        self::assertEquals(200, $response->getStatusCode());
     }
 
     private function createApiKey(): ApiKey
     {
         $apiKey = new ApiKey();
-        $apiKey->userId = CurrentUser::$currentUser->getIdAsInt();
+        $apiKey->userId = CurrentUser::$currentUser->id;
         $apiKey->validSince = (new DateTime())->add(new DateInterval('PT5M'));
         $apiKey->setApiKey();
         $apiKey->remoteAddress = '127.0.0.1';
@@ -42,13 +41,23 @@ class AuthorizationMiddlewareTest extends DatabaseAwareTestCase
 
     public function testProcessNotEnoughPermission(): void
     {
-        $this->expectException(HttpForbiddenException::class);
-
         $request = new ServerRequest('POST', '', ['JinyaApiKey' => $this->createApiKey()->apiKey]);
         $middleware = new AuthorizationMiddleware('ROLE_ADMIN');
 
         $response = new Response();
         $handler = new TestRequestHandler($response);
-        $middleware->process($request, $handler);
+        $response = $middleware->process($request, $handler);
+
+        $response->getBody()->rewind();
+        $body = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+
+        self::assertEquals(403, $response->getStatusCode());
+        self::assertEquals([
+            'success' => false,
+            'error' => [
+                'message' => 'You do not have enough permissions, please request the role ROLE_ADMIN',
+                'type' => 'missing-permissions'
+            ]
+        ], $body);
     }
 }

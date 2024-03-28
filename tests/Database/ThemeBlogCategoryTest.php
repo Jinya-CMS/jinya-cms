@@ -12,23 +12,13 @@ class ThemeBlogCategoryTest extends ThemeTestCase
 {
     private BlogCategory $category;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $category = new BlogCategory();
-        $category->name = Uuid::uuid();
-        $category->create();
-
-        $this->category = $category;
-    }
-
     public function testFormat(): void
     {
         $themeCat = $this->createThemeBlogCategory();
         $formatted = $themeCat->format();
 
-        $this->assertArrayHasKey('name', $formatted);
-        $this->assertArrayHasKey('blogCategory', $formatted);
+        self::assertArrayHasKey('name', $formatted);
+        self::assertArrayHasKey('blogCategory', $formatted);
     }
 
     public function createThemeBlogCategory(bool $execute = true, string $name = 'Test'): ThemeBlogCategory
@@ -49,7 +39,7 @@ class ThemeBlogCategoryTest extends ThemeTestCase
         $themeCat = $this->createThemeBlogCategory();
         $cat = $themeCat->getBlogCategory();
 
-        $this->assertEquals($this->category, $cat);
+        self::assertEquals($this->category, $cat);
     }
 
     public function testCreate(): void
@@ -58,7 +48,7 @@ class ThemeBlogCategoryTest extends ThemeTestCase
         $themeCat->create();
 
         $foundCat = ThemeBlogCategory::findByThemeAndName($this->theme->id, $themeCat->name);
-        $this->assertEquals($themeCat->format(), $foundCat->format());
+        self::assertEquals($themeCat->format(), $foundCat->format());
     }
 
     public function testCreateNonUniqueName(): void
@@ -80,7 +70,7 @@ class ThemeBlogCategoryTest extends ThemeTestCase
         $themeCat->update();
 
         $foundCat = ThemeBlogCategory::findByThemeAndName($this->theme->id, $themeCat->name);
-        $this->assertEquals($themeCat->format(), $foundCat->format());
+        self::assertEquals($themeCat->format(), $foundCat->format());
     }
 
     public function testFindByThemeAndName(): void
@@ -88,7 +78,7 @@ class ThemeBlogCategoryTest extends ThemeTestCase
         $themeCat = $this->createThemeBlogCategory();
         $foundCat = ThemeBlogCategory::findByThemeAndName($this->theme->id, $themeCat->name);
 
-        $this->assertEquals($themeCat->format(), $foundCat->format());
+        self::assertEquals($themeCat->format(), $foundCat->format());
     }
 
     public function testDelete(): void
@@ -97,7 +87,7 @@ class ThemeBlogCategoryTest extends ThemeTestCase
         $themeCat->delete();
         $foundCat = ThemeBlogCategory::findByThemeAndName($this->theme->id, $themeCat->name);
 
-        $this->assertNull($foundCat);
+        self::assertNull($foundCat);
     }
 
     public function testFindByTheme(): void
@@ -106,6 +96,16 @@ class ThemeBlogCategoryTest extends ThemeTestCase
         $this->createThemeBlogCategory(name: Uuid::uuid());
 
         $found = ThemeBlogCategory::findByTheme($this->theme->id);
-        $this->assertCount(2, iterator_to_array($found));
+        self::assertCount(2, iterator_to_array($found));
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $category = new BlogCategory();
+        $category->name = Uuid::uuid();
+        $category->create();
+
+        $this->category = $category;
     }
 }

@@ -5,6 +5,7 @@ namespace App\Web\Controllers;
 use App\Database\Artist;
 use App\Database\Exceptions\EmptyResultException;
 use App\Storage\ProfilePictureService;
+use App\Storage\StorageBaseService;
 use App\Web\Middleware\AuthorizationMiddleware;
 use Jinya\Database\Exception\NotNullViolationException;
 use Jinya\Database\Exception\UniqueFailedException;
@@ -57,7 +58,7 @@ class ArtistController extends BaseController
             ]);
         }
 
-        return $this->json($artist->format());
+        return $this->json($artist->format(), self::HTTP_CREATED);
     }
 
     /**
@@ -114,6 +115,35 @@ class ArtistController extends BaseController
      * @param int $id
      * @return ResponseInterface
      * @throws JsonException
+     */
+    #[Route(HttpMethod::DELETE, '/api/user/{id}')]
+    #[Middlewares(new AuthorizationMiddleware(ROLE_ADMIN))]
+    public function deleteArtist(int $id): ResponseInterface
+    {
+        $artist = Artist::findById($id);
+        if ($artist === null) {
+            return $this->entityNotFound('Artist not found');
+        }
+
+        if (Artist::countAdmins($id) === 1) {
+            return $this->json([
+                'success' => false,
+                'error' => [
+                    'message' => 'You cannot delete the last admin',
+                    'type' => 'cannot-delete-last-admin',
+                ],
+            ], self::HTTP_CONFLICT);
+        }
+
+        $artist->delete();
+
+        return $this->noContent();
+    }
+
+    /**
+     * @param int $id
+     * @return ResponseInterface
+     * @throws JsonException
      * @throws NotNullViolationException
      */
     #[Route(HttpMethod::PUT, '/api/user/{id}/activation')]
@@ -146,6 +176,16 @@ class ArtistController extends BaseController
             return $this->entityNotFound('Artist not found');
         }
 
+        if (Artist::countAdmins($id) === 1) {
+            return $this->json([
+                'success' => false,
+                'error' => [
+                    'message' => 'You cannot deactivate the last admin',
+                    'type' => 'cannot-deactivate-last-admin',
+                ],
+            ], self::HTTP_CONFLICT);
+        }
+
         $artist->enabled = false;
         $artist->update();
 
@@ -166,7 +206,7 @@ class ArtistController extends BaseController
             return $this->entityNotFound('Artist not found');
         }
 
-        return $this->file($artist->profilePicture);
+        return $this->file(StorageBaseService::PUBLIC_PATH . $artist->profilePicture);
     }
 
     /**
@@ -180,7 +220,9 @@ class ArtistController extends BaseController
     public function uploadProfilePicture(int $id): ResponseInterface
     {
         try {
-            $this->profilePictureService->saveProfilePicture($id, $this->request->getBody()->detach());
+            $this->request->getBody()->rewind();
+            $data = $this->request->getBody()->getContents();
+            $this->profilePictureService->saveProfilePicture($id, $data);
         } catch (EmptyResultException) {
             return $this->entityNotFound('Artist not found');
         }

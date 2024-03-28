@@ -4,7 +4,6 @@ namespace Jinya\Tests\Web\Middleware;
 
 use App\Tests\DatabaseAwareTestCase;
 use App\Tests\TestRequestHandler;
-use App\Web\Exceptions\MissingFieldsException;
 use App\Web\Middleware\CheckRequiredFieldsMiddleware;
 use Faker\Provider\Uuid;
 use Nyholm\Psr7\Response;
@@ -33,10 +32,20 @@ class CheckRequiredFieldsMiddlewareTest extends DatabaseAwareTestCase
 
         $response = new Response();
         $handler = new TestRequestHandler($response);
-        try {
-            $middleware->process($request->withParsedBody([]), $handler);
-        } catch (MissingFieldsException $exception) {
-            self::assertContains('test', $exception->fields);
-        }
+
+        $response = $middleware->process($request->withParsedBody([]), $handler);
+
+        $response->getBody()->rewind();
+        $body = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+
+        self::assertEquals(400, $response->getStatusCode());
+        self::assertEquals($body, [
+            'success' => false,
+            'error' => [
+                'message' => 'There are required fields missing',
+                'type' => 'missing-fields',
+                'missingFields' => ['test'],
+            ],
+        ]);
     }
 }

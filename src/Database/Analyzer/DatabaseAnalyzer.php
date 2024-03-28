@@ -36,7 +36,7 @@ class DatabaseAnalyzer
                 ->newSelect()
                 ->from($tableName)
                 ->cols(['COUNT(*) AS count']);
-            $result[$tableName]['entryCount'] = self::fetchInt($query);
+            $result[$tableName]['entryCount'] = self::fetchInt($query, 'count');
 
             try {
                 $query = Entity::getQueryBuilder()
@@ -44,14 +44,14 @@ class DatabaseAnalyzer
                     ->from('information_schema.TABLES')
                     ->cols(['ROUND((DATA_LENGTH + INDEX_LENGTH)) AS bytes'])
                     ->where('TABLE_NAME = :tableName', ['tableName' => $tableName]);
-                $result[$tableName]['size'] = self::fetchInt($query);
+                $result[$tableName]['size'] = self::fetchInt($query, 'bytes');
 
                 $query = Entity::getQueryBuilder()
                     ->newSelect()
                     ->from('information_schema.TABLES')
                     ->cols(['ENGINE'])
                     ->where('TABLE_NAME = :tableName', ['tableName' => $tableName]);
-                $result[$tableName]['engine'] = self::fetchInt($query);
+                $result[$tableName]['engine'] = self::fetchInt($query, 'ENGINE');
 
                 $query = Entity::getQueryBuilder()
                     ->newSelect()
@@ -101,12 +101,12 @@ class DatabaseAnalyzer
         return $stmt ? $stmt->rowCount() : 0;
     }
 
-    private static function fetchInt(SelectInterface $query): int
+    private static function fetchInt(SelectInterface $query, string $column): int
     {
         $entryCount = Entity::executeQuery($query);
         if (is_array($entryCount)) {
             /** @var int $entryCount */
-            $entryCount = $entryCount[0];
+            $entryCount = $entryCount[0][$column];
         } else {
             $entryCount = 0;
         }

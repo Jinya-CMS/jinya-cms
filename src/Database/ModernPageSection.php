@@ -83,9 +83,18 @@ class ModernPageSection
      * Gets the corresponding segment page
      *
      * @return ModernPage|null
-     *
+     * @deprecated Use getModernPage instead
      */
-    public function getSegmentPage(): ?ModernPage
+    public function getSegmentPage(): ?ModernPage {
+        return $this->getModernPage();
+    }
+
+    /**
+     * Gets the corresponding segment page
+     *
+     * @return ModernPage|null
+     */
+    public function getModernPage(): ?ModernPage
     {
         return ModernPage::findById($this->pageId);
     }

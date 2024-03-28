@@ -4,6 +4,7 @@ namespace App\Tests;
 
 use App\Authentication\CurrentUser;
 use App\Database\Artist;
+use App\Database\Migrations\Migrator;
 use Error;
 use Jinya\Database\Entity;
 use Jinya\Database\Exception\NotNullViolationException;
@@ -23,6 +24,7 @@ class DatabaseAwareTestCase extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        Migrator::migrate();
         $this->createArtist();
     }
 
@@ -55,34 +57,37 @@ class DatabaseAwareTestCase extends TestCase
 
     private function cleanDatabase(): void
     {
-        Entity::getPDO()->exec('DELETE FROM theme_blog_category');
-        Entity::getPDO()->exec('DELETE FROM blog_post_segment');
-        Entity::getPDO()->exec('DELETE FROM blog_post');
-        Entity::getPDO()->exec('DELETE FROM blog_category');
-        Entity::getPDO()->exec('DELETE FROM configuration');
-        Entity::getPDO()->exec('DELETE FROM form_item');
-        Entity::getPDO()->exec('DELETE FROM gallery_file_position');
-        Entity::getPDO()->exec('DELETE FROM known_device');
-        Entity::getPDO()->exec('DELETE FROM menu_item');
-        Entity::getPDO()->exec('DELETE FROM segment');
-        Entity::getPDO()->exec('DELETE FROM theme_asset');
-        Entity::getPDO()->exec('DELETE FROM theme_file');
-        Entity::getPDO()->exec('DELETE FROM theme_form');
-        Entity::getPDO()->exec('DELETE FROM form');
-        Entity::getPDO()->exec('DELETE FROM theme_gallery');
-        Entity::getPDO()->exec('DELETE FROM gallery');
-        Entity::getPDO()->exec('DELETE FROM theme_menu');
-        Entity::getPDO()->exec('DELETE FROM menu');
-        Entity::getPDO()->exec('DELETE FROM theme_page');
-        Entity::getPDO()->exec('DELETE FROM page');
-        Entity::getPDO()->exec('DELETE FROM theme_segment_page');
-        Entity::getPDO()->exec('DELETE FROM segment_page');
-        Entity::getPDO()->exec('DELETE FROM theme');
-        Entity::getPDO()->exec('DELETE FROM uploading_file_chunk');
-        Entity::getPDO()->exec('DELETE FROM uploading_file');
-        Entity::getPDO()->exec('DELETE FROM file_tag_file');
-        Entity::getPDO()->exec('DELETE FROM file_tag');
-        Entity::getPDO()->exec('DELETE FROM file');
-        Entity::getPDO()->exec('DELETE FROM users');
+        Entity::getPDO()->exec('drop table if exists api_key cascade');
+        Entity::getPDO()->exec('drop table if exists blog_post_segment cascade');
+        Entity::getPDO()->exec('drop table if exists blog_post cascade');
+        Entity::getPDO()->exec('drop table if exists configuration cascade');
+        Entity::getPDO()->exec('drop table if exists form_item cascade');
+        Entity::getPDO()->exec('drop table if exists gallery_file_position cascade');
+        Entity::getPDO()->exec('drop table if exists known_device cascade');
+        Entity::getPDO()->exec('drop table if exists menu_item cascade');
+        Entity::getPDO()->exec('drop table if exists migration_state cascade');
+        Entity::getPDO()->exec('drop table if exists segment cascade');
+        Entity::getPDO()->exec('drop table if exists theme_asset cascade');
+        Entity::getPDO()->exec('drop table if exists theme_blog_category cascade');
+        Entity::getPDO()->exec('drop table if exists blog_category cascade');
+        Entity::getPDO()->exec('drop table if exists theme_file cascade');
+        Entity::getPDO()->exec('drop table if exists theme_form cascade');
+        Entity::getPDO()->exec('drop table if exists message cascade');
+        Entity::getPDO()->exec('drop table if exists form cascade');
+        Entity::getPDO()->exec('drop table if exists theme_gallery cascade');
+        Entity::getPDO()->exec('drop table if exists gallery cascade');
+        Entity::getPDO()->exec('drop table if exists theme_menu cascade');
+        Entity::getPDO()->exec('drop table if exists menu cascade');
+        Entity::getPDO()->exec('drop table if exists theme_page cascade');
+        Entity::getPDO()->exec('drop table if exists page cascade');
+        Entity::getPDO()->exec('drop table if exists theme_segment_page cascade');
+        Entity::getPDO()->exec('drop table if exists segment_page cascade');
+        Entity::getPDO()->exec('drop table if exists theme cascade');
+        Entity::getPDO()->exec('drop table if exists uploading_file_chunk cascade');
+        Entity::getPDO()->exec('drop table if exists uploading_file cascade');
+        Entity::getPDO()->exec('drop table if exists file_tag_file cascade');
+        Entity::getPDO()->exec('drop table if exists file_tag cascade');
+        Entity::getPDO()->exec('drop table if exists file cascade');
+        Entity::getPDO()->exec('drop table if exists users cascade');
     }
 }
