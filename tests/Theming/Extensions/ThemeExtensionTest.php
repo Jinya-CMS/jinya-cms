@@ -23,10 +23,10 @@ class ThemeExtensionTest extends DatabaseAwareTestCase
         $engine = Theming\Engine::getPlatesEngine();
         $this->extension->register($engine);
 
-        self::assertTrue($engine->doesFunctionExist('asset'));
-        self::assertTrue($engine->doesFunctionExist('config'));
-        self::assertTrue($engine->doesFunctionExist('styles'));
-        self::assertTrue($engine->doesFunctionExist('scripts'));
+        self::assertTrue($engine->functions->exists('asset'));
+        self::assertTrue($engine->functions->exists('config'));
+        self::assertTrue($engine->functions->exists('styles'));
+        self::assertTrue($engine->functions->exists('scripts'));
     }
 
     public function testScripts(): void

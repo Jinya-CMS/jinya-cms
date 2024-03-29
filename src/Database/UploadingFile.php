@@ -2,44 +2,47 @@
 
 namespace App\Database;
 
-use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Utils\UuidGenerator;
 use Exception;
 use Iterator;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
-use RuntimeException;
+use Jinya\Database\Attributes\Column;
+use Jinya\Database\Attributes\Table;
+use Jinya\Database\Creatable;
+use Jinya\Database\Deletable;
+use Jinya\Database\EntityTrait;
+use Jinya\Database\Exception\ForeignKeyFailedException;
+use Jinya\Database\Exception\UniqueFailedException;
+use PDOException;
 
 /**
- * This class contains and uploading file. Uploading files are temporary entities used to handle the chunked upload feature of Jinya CMS
+ * This class contains an uploading file.
+ * Uploading files are temporary entities used to handle the chunked upload feature of Jinya CMS
  */
-class UploadingFile extends Utils\LoadableEntity
+#[Table('uploading_file')]
+class UploadingFile implements Creatable, Deletable
 {
+    use EntityTrait;
+
+    #[Column]
+    public string $id;
+
     /** @var int The ID of the file the uploading file belongs to */
+    #[Column(sqlName: 'file_id')]
     public int $fileId;
 
     /**
-     * Not implemented
+     * @throws Exception
      */
-    public static function findByKeyword(string $keyword): Iterator
+    public function __construct()
     {
-        throw new RuntimeException('Not implemented');
-    }
-
-    /**
-     * Not implemented
-     */
-    public static function findAll(): Iterator
-    {
-        throw new RuntimeException('Not implemented');
+        $this->id = UuidGenerator::generateV4();
     }
 
     /**
      * Gets all chunks
      *
-     * @throws InvalidQueryException
-     * @throws Exceptions\UniqueFailedException
-     * @throws ForeignKeyFailedException
+     * @return Iterator
+     * @throws Exception
      */
     public function getChunks(): Iterator
     {
@@ -49,97 +52,72 @@ class UploadingFile extends Utils\LoadableEntity
     /**
      * Finds an uploading file by the ID of the connected file
      *
-     * @throws InvalidQueryException
-     * @throws Exceptions\UniqueFailedException
-     * @throws ForeignKeyFailedException
-     * @throws NoResultException
+     * @param int $fileId
+     * @return UploadingFile|null
      */
     public static function findByFile(int $fileId): ?UploadingFile
     {
-        $sql = 'SELECT id, file_id FROM uploading_file WHERE file_id = :fileId';
+        $query = self::getQueryBuilder()
+            ->newSelect()
+            ->from(self::getTableName())
+            ->cols([
+                'id',
+                'file_id'
+            ])
+            ->where('file_id = :fileId', ['fileId' => $fileId]);
 
-        try {
-            return self::getPdo()->fetchObject($sql, new self(), ['fileId' => $fileId]);
-        } catch (InvalidQueryException$exception) {
-            throw self::convertInvalidQueryExceptionToException($exception);
+        /** @var array<string, mixed>[] $data */
+        $data = self::executeQuery($query);
+        if (empty($data)) {
+            return null;
         }
+
+        return self::fromArray($data[0]);
     }
 
     /**
      * Gets the corresponding file
      *
      * @return File|null
-     * @throws Exceptions\UniqueFailedException
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     public function getFile(): ?File
     {
         return File::findById($this->fileId);
     }
 
-    /**
-     * Not implemented
-     */
-    public static function findById(int $id): ?object
-    {
-        throw new RuntimeException('Not implemented');
-    }
-
-    /**
-     * Creates the current uploading file
-     *
-     * @throws Exceptions\UniqueFailedException
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws Exception
-     */
     public function create(): void
     {
-        $this->id = UuidGenerator::generateV4();
-        $sql = 'INSERT INTO uploading_file (id, file_id) VALUES (:id, :fileId)';
-        self::executeStatement($sql, ['id' => $this->id, 'fileId' => $this->fileId]);
+        $insert = self::getQueryBuilder()
+            ->newInsert()
+            ->into(self::getTableName())
+            ->addRow([
+                'id' => $this->id,
+                'file_id' => $this->fileId
+            ]);
+
+        try {
+            self::executeQuery($insert);
+        } catch (PDOException $exception) {
+            $errorInfo = $exception->errorInfo ?? ['', ''];
+            if ($errorInfo[1] === 1062) {
+                throw new UniqueFailedException($exception, self::getPDO());
+            }
+
+            if ($errorInfo[1] === 1452) {
+                throw new ForeignKeyFailedException($exception, self::getPDO());
+            }
+
+            throw $exception;
+        }
     }
 
-    /**
-     * Deletes the current uploading file
-     *
-     * @return void
-     * @throws Exceptions\UniqueFailedException
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     */
     public function delete(): void
     {
-        $this->internalDelete('uploading_file');
-    }
+        $delete = self::getQueryBuilder()
+            ->newDelete()
+            ->from(self::getTableName())
+            ->where('id = :id', ['id' => $this->id]);
 
-    /**
-     * Not implemented
-     */
-    public function update(): void
-    {
-        throw new RuntimeException('Not implemented');
-    }
-
-    /**
-     * Always returns an empty array and is not used
-     *
-     * @return array<string>
-     */
-    public function format(): array
-    {
-        return [];
-    }
-
-    /**
-     * Converts the uploading file ID to string
-     *
-     * @return string
-     */
-    public function getIdAsString(): string
-    {
-        return (string)$this->id;
+        self::executeQuery($delete);
     }
 }

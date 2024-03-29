@@ -4,35 +4,34 @@ namespace App\Tests;
 
 use App\Authentication\CurrentUser;
 use App\Database\Artist;
-use App\Database\Utils\LoadableEntity;
+use App\Database\Migrations\Migrator;
 use Error;
+use Jinya\Database\Entity;
+use Jinya\Database\Exception\NotNullViolationException;
 use PHPUnit\Framework\TestCase;
-
-require_once __DIR__ . '/../../defines.php';
 
 class DatabaseAwareTestCase extends TestCase
 {
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-    }
-
-    public static function tearDownAfterClass(): void
-    {
-        parent::tearDownAfterClass();
-    }
-
     public function expectError(): void
     {
         $this->expectException(Error::class);
     }
 
+    /**
+     * @return void
+     * @throws NotNullViolationException
+     */
     protected function setUp(): void
     {
         parent::setUp();
+        Migrator::migrate();
         $this->createArtist();
     }
 
+    /**
+     * @return void
+     * @throws NotNullViolationException
+     */
     private function createArtist(): void
     {
         $artist = new Artist();
@@ -58,34 +57,37 @@ class DatabaseAwareTestCase extends TestCase
 
     private function cleanDatabase(): void
     {
-        LoadableEntity::executeSqlString('DELETE FROM theme_blog_category');
-        LoadableEntity::executeSqlString('DELETE FROM blog_post_segment');
-        LoadableEntity::executeSqlString('DELETE FROM blog_post');
-        LoadableEntity::executeSqlString('DELETE FROM blog_category');
-        LoadableEntity::executeSqlString('DELETE FROM configuration');
-        LoadableEntity::executeSqlString('DELETE FROM form_item');
-        LoadableEntity::executeSqlString('DELETE FROM gallery_file_position');
-        LoadableEntity::executeSqlString('DELETE FROM known_device');
-        LoadableEntity::executeSqlString('DELETE FROM menu_item');
-        LoadableEntity::executeSqlString('DELETE FROM segment');
-        LoadableEntity::executeSqlString('DELETE FROM theme_asset');
-        LoadableEntity::executeSqlString('DELETE FROM theme_file');
-        LoadableEntity::executeSqlString('DELETE FROM theme_form');
-        LoadableEntity::executeSqlString('DELETE FROM form');
-        LoadableEntity::executeSqlString('DELETE FROM theme_gallery');
-        LoadableEntity::executeSqlString('DELETE FROM gallery');
-        LoadableEntity::executeSqlString('DELETE FROM theme_menu');
-        LoadableEntity::executeSqlString('DELETE FROM menu');
-        LoadableEntity::executeSqlString('DELETE FROM theme_page');
-        LoadableEntity::executeSqlString('DELETE FROM page');
-        LoadableEntity::executeSqlString('DELETE FROM theme_segment_page');
-        LoadableEntity::executeSqlString('DELETE FROM segment_page');
-        LoadableEntity::executeSqlString('DELETE FROM theme');
-        LoadableEntity::executeSqlString('DELETE FROM uploading_file_chunk');
-        LoadableEntity::executeSqlString('DELETE FROM uploading_file');
-        LoadableEntity::executeSqlString('DELETE FROM file_tag_file');
-        LoadableEntity::executeSqlString('DELETE FROM file_tag');
-        LoadableEntity::executeSqlString('DELETE FROM file');
-        LoadableEntity::executeSqlString('DELETE FROM users');
+        Entity::getPDO()->exec('drop table if exists api_key cascade');
+        Entity::getPDO()->exec('drop table if exists blog_post_segment cascade');
+        Entity::getPDO()->exec('drop table if exists blog_post cascade');
+        Entity::getPDO()->exec('drop table if exists configuration cascade');
+        Entity::getPDO()->exec('drop table if exists form_item cascade');
+        Entity::getPDO()->exec('drop table if exists gallery_file_position cascade');
+        Entity::getPDO()->exec('drop table if exists known_device cascade');
+        Entity::getPDO()->exec('drop table if exists menu_item cascade');
+        Entity::getPDO()->exec('drop table if exists migration_state cascade');
+        Entity::getPDO()->exec('drop table if exists segment cascade');
+        Entity::getPDO()->exec('drop table if exists theme_asset cascade');
+        Entity::getPDO()->exec('drop table if exists theme_blog_category cascade');
+        Entity::getPDO()->exec('drop table if exists blog_category cascade');
+        Entity::getPDO()->exec('drop table if exists theme_file cascade');
+        Entity::getPDO()->exec('drop table if exists theme_form cascade');
+        Entity::getPDO()->exec('drop table if exists message cascade');
+        Entity::getPDO()->exec('drop table if exists form cascade');
+        Entity::getPDO()->exec('drop table if exists theme_gallery cascade');
+        Entity::getPDO()->exec('drop table if exists gallery cascade');
+        Entity::getPDO()->exec('drop table if exists theme_menu cascade');
+        Entity::getPDO()->exec('drop table if exists menu cascade');
+        Entity::getPDO()->exec('drop table if exists theme_page cascade');
+        Entity::getPDO()->exec('drop table if exists page cascade');
+        Entity::getPDO()->exec('drop table if exists theme_segment_page cascade');
+        Entity::getPDO()->exec('drop table if exists segment_page cascade');
+        Entity::getPDO()->exec('drop table if exists theme cascade');
+        Entity::getPDO()->exec('drop table if exists uploading_file_chunk cascade');
+        Entity::getPDO()->exec('drop table if exists uploading_file cascade');
+        Entity::getPDO()->exec('drop table if exists file_tag_file cascade');
+        Entity::getPDO()->exec('drop table if exists file_tag cascade');
+        Entity::getPDO()->exec('drop table if exists file cascade');
+        Entity::getPDO()->exec('drop table if exists users cascade');
     }
 }

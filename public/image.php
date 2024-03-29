@@ -4,16 +4,20 @@ declare(strict_types=1);
 
 use App\Database\File;
 use App\Storage\StorageBaseService;
-use App\Utils\AppSettingsInitializer;
 use Intervention\Image\ImageManager;
-use Slim\Factory\ServerRequestCreatorFactory;
+use Nyholm\Psr7\Factory\Psr17Factory;
+use Nyholm\Psr7Server\ServerRequestCreator;
 
-require __DIR__ . '/../defines.php';
-require __ROOT__ . '/vendor/autoload.php';
+require __DIR__ . '/../startup.php';
 
-AppSettingsInitializer::loadDotEnv();
-$serverRequestCreator = ServerRequestCreatorFactory::create();
-$request = $serverRequestCreator->createServerRequestFromGlobals();
+$psr17Factory = new Psr17Factory();
+$creator = new ServerRequestCreator(
+    $psr17Factory, // ServerRequestFactory
+    $psr17Factory, // UriFactory
+    $psr17Factory, // UploadedFileFactory
+    $psr17Factory  // StreamFactory
+);
+$request = $creator->fromGlobals();
 
 $queryParams = $request->getQueryParams();
 $id = $queryParams['id'] ?? false;

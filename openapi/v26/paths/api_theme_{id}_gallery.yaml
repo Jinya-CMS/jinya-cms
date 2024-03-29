@@ -16,7 +16,7 @@ get:
           schema:
             type: object
             additionalProperties:
-              $ref: ../components/schemas/theme-gallery.yaml
+              $ref: ../components/schemas/gallery.yaml
     '401':
       description: Api key missing
       content:

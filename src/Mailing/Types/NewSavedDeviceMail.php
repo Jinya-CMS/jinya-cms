@@ -4,26 +4,26 @@ namespace App\Mailing\Types;
 
 use App\Database\KnownDevice;
 use App\Mailing\Factory\MailerFactory;
+use App\Theming\Engine;
 use Jenssegers\Agent\Agent;
+use Jinya\Plates\Engine as PlatesEngine;
 use JsonException;
-use League\Plates\Engine;
 use PHPMailer\PHPMailer\Exception;
 use Throwable;
 
 /**
  * This class is the new saved device mail and should be sent when a new saved device was registered
  */
-class NewSavedDeviceMail
+readonly class NewSavedDeviceMail
 {
-    /** @var Engine The template engine used for the email */
-    private Engine $templateEngine;
+    private PlatesEngine $templateEngine;
 
     /**
      * NewSavedDeviceMail constructor.
      */
     public function __construct()
     {
-        $this->templateEngine = \App\Theming\Engine::getPlatesEngine();
+        $this->templateEngine = Engine::getPlatesEngine();
     }
 
     /**
@@ -42,10 +42,12 @@ class NewSavedDeviceMail
         $userAgent = new Agent(userAgent: $knownDevice->userAgent ?? '');
         $browser = $userAgent->browser();
         $platform = $userAgent->platform();
-        /**
-         * @phpstan-ignore-next-line
-         */
-        $location = json_decode(file_get_contents("https://ip.jinya.de/?ip=$knownDevice->remoteAddress"), true, 512, JSON_THROW_ON_ERROR);
+        $location = json_decode(
+            file_get_contents("https://ip.jinya.de/?ip=$knownDevice->remoteAddress") ?: '{}',
+            true,
+            512,
+            JSON_THROW_ON_ERROR
+        );
         $renderedHtmlMail = $this->templateEngine->render(
             'mailing::NewSavedDeviceHtml',
             [
@@ -68,7 +70,7 @@ class NewSavedDeviceMail
         );
 
         $mailer = MailerFactory::getMailer();
-        $mailer->Subject = 'New saved device for your account';
+        $mailer->Subject = 'New-saved device for your account';
         $mailer->setFrom(getenv('MAILER_FROM') ?: '');
         $mailer->addAddress($artistEmail);
         $mailer->AltBody = $renderedTextMail;

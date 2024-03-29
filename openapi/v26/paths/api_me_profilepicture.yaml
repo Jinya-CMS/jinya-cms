@@ -50,4 +50,4 @@ put:
           type: string
           format: binary
   tags:
-    - artist
+    - my-profile

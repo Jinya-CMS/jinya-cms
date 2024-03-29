@@ -4,11 +4,16 @@ namespace App\Tests;
 
 use App\Database\Theme;
 use Faker\Provider\Uuid;
+use Jinya\Database\Exception\NotNullViolationException;
 
 abstract class ThemeTestCase extends DatabaseAwareTestCase
 {
     protected Theme $theme;
 
+    /**
+     * @return void
+     * @throws NotNullViolationException
+     */
     protected function setUp(): void
     {
         parent::setUp();

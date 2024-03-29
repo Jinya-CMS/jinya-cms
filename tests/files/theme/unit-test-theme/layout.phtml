@@ -3,24 +3,30 @@
  * This file is technically optional, but it is recommended. You can define your layout in this file and use it for
  * common elements like menus or footers.
  */
-/** @var \League\Plates\Template\Template $this */
+
+/** @var Template $this */
+
+use League\Plates\Template\Template;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>My fancy page<?= isset($title) ? ' – ' . $this->e($title) : '' ?></title>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
-    <meta name="viewport" content="width=device-width"/>
+  <title>My fancy page<?= isset($title) ? ' – ' . $this->e($title) : '' ?></title>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="width=device-width" />
     <?= $this->styles() ?>
 </head>
 <body>
-<?php foreach ($this->menu('menu1')->getItems() as $menuItem): ?>
+<?php
+foreach ($this->menu('menu1')->getItems() as $menuItem): ?>
     <?= $this->fetch('theme::include/menuitem', ['item' => $menuItem]) ?>
-<?php endforeach ?>
+<?php
+endforeach ?>
 <?= $this->section('maincontent') ?>
 <footer>
-    &copy; <?= (new DateTime())->format('Y') ?> Jinya CMS
+  &copy; <?= (new DateTime())->format('Y') ?> Jinya CMS
 </footer>
 <?= $this->scripts() ?>
 </body>

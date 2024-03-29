@@ -7,54 +7,22 @@ use App\Database\UploadingFile;
 use App\Database\UploadingFileChunk;
 use App\Tests\DatabaseAwareTestCase;
 use Faker\Provider\Uuid;
-use RuntimeException;
 
 class UploadingFileChunkTest extends DatabaseAwareTestCase
 {
     private File $testFile;
     private UploadingFile $testUploadingFile;
 
-    public function testUpdate(): void
-    {
-        $this->expectException(RuntimeException::class);
-
-        $chunk = new UploadingFileChunk();
-        $chunk->chunkPosition = 0;
-        $chunk->uploadingFileId = $this->testUploadingFile->getIdAsString();
-        $chunk->chunkPath = '';
-        $chunk->create();
-
-        $chunk->update();
-    }
-
-    public function testFindById(): void
-    {
-        $this->expectException(RuntimeException::class);
-        UploadingFileChunk::findById(0);
-    }
-
-    public function testFindByKeyword(): void
-    {
-        $this->expectException(RuntimeException::class);
-        UploadingFileChunk::findByKeyword('');
-    }
-
-    public function testFindAll(): void
-    {
-        $this->expectException(RuntimeException::class);
-        UploadingFileChunk::findAll();
-    }
-
     public function testDelete(): void
     {
         $chunk = new UploadingFileChunk();
         $chunk->chunkPosition = 0;
-        $chunk->uploadingFileId = $this->testUploadingFile->getIdAsString();
+        $chunk->uploadingFileId = $this->testUploadingFile->id;
         $chunk->chunkPath = '';
         $chunk->create();
         $chunk->delete();
 
-        $chunks = UploadingFileChunk::findByFile($this->testFile->getIdAsInt());
+        $chunks = UploadingFileChunk::findByFile($this->testFile->id);
         self::assertCount(0, iterator_to_array($chunks));
     }
 
@@ -62,11 +30,11 @@ class UploadingFileChunkTest extends DatabaseAwareTestCase
     {
         $chunk = new UploadingFileChunk();
         $chunk->chunkPosition = 0;
-        $chunk->uploadingFileId = $this->testUploadingFile->getIdAsString();
+        $chunk->uploadingFileId = $this->testUploadingFile->id;
         $chunk->chunkPath = '';
         $chunk->create();
 
-        $chunks = UploadingFileChunk::findByFile($this->testFile->getIdAsInt());
+        $chunks = UploadingFileChunk::findByFile($this->testFile->id);
         self::assertCount(1, iterator_to_array($chunks));
     }
 
@@ -74,11 +42,11 @@ class UploadingFileChunkTest extends DatabaseAwareTestCase
     {
         $chunk = new UploadingFileChunk();
         $chunk->chunkPosition = 0;
-        $chunk->uploadingFileId = $this->testUploadingFile->getIdAsString();
+        $chunk->uploadingFileId = $this->testUploadingFile->id;
         $chunk->chunkPath = '';
         $chunk->create();
 
-        $chunks = UploadingFileChunk::findByFile($this->testFile->getIdAsInt());
+        $chunks = UploadingFileChunk::findByFile($this->testFile->id);
         self::assertCount(1, iterator_to_array($chunks));
     }
 
@@ -86,17 +54,6 @@ class UploadingFileChunkTest extends DatabaseAwareTestCase
     {
         $chunks = UploadingFileChunk::findByFile(-1);
         self::assertCount(0, iterator_to_array($chunks));
-    }
-
-    public function testFormat(): void
-    {
-        $chunk = new UploadingFileChunk();
-        $chunk->chunkPosition = 0;
-        $chunk->uploadingFileId = $this->testUploadingFile->getIdAsString();
-        $chunk->chunkPath = '';
-        $chunk->create();
-
-        self::assertEquals([], $chunk->format());
     }
 
     protected function setUp(): void
@@ -118,7 +75,7 @@ class UploadingFileChunkTest extends DatabaseAwareTestCase
     private function createUploadingFile(): void
     {
         $uploadingFile = new UploadingFile();
-        $uploadingFile->fileId = $this->testFile->getIdAsInt();
+        $uploadingFile->fileId = $this->testFile->id;
         $uploadingFile->create();
 
         $this->testUploadingFile = $uploadingFile;

@@ -9,12 +9,6 @@ post:
         application/json:
           schema:
             $ref: ../components/schemas/login-result.yaml
-    '401':
-      description: Unknown Device
-      content:
-        application/json:
-          schema:
-            $ref: ../components/schemas/exception.yaml
     '403':
       description: Bad Credentials
       content:

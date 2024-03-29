@@ -19,9 +19,9 @@ class FileExtensionTest extends DatabaseAwareTestCase
     {
         $engine = Engine::getPlatesEngine();
         $this->extension->register($engine);
-        self::assertTrue($engine->doesFunctionExist('pictureSources'));
-        self::assertTrue($engine->doesFunctionExist('sizes'));
-        self::assertTrue($engine->doesFunctionExist('srcset'));
+        self::assertTrue($engine->functions->exists('pictureSources'));
+        self::assertTrue($engine->functions->exists('sizes'));
+        self::assertTrue($engine->functions->exists('srcset'));
     }
 
     public function testSrcsetWithImagePhp(): void
@@ -43,14 +43,6 @@ class FileExtensionTest extends DatabaseAwareTestCase
         $image = $this->extension->srcset($file, ImageType::Png);
         self::assertStringContainsString('image.php', $image);
         self::assertStringContainsString('png', $image);
-
-        $image = $this->extension->srcset($file, ImageType::Gif);
-        self::assertStringContainsString('image.php', $image);
-        self::assertStringContainsString('gif', $image);
-
-        $image = $this->extension->srcset($file, ImageType::Bmp);
-        self::assertStringContainsString('image.php', $image);
-        self::assertStringContainsString('bmp', $image);
 
         $image = $this->extension->srcset($file);
         self::assertStringContainsString('image.php', $image);
@@ -86,13 +78,16 @@ class FileExtensionTest extends DatabaseAwareTestCase
         $file->path = __ROOT__ . '/tmp/file';
         $file->create();
 
-        $image = $this->extension->pictureSources($file, ImageType::Webp, ImageType::Bmp, ImageType::Jpg, ImageType::Gif, ImageType::Png);
+        $image = $this->extension->pictureSources(
+            $file,
+            ImageType::Webp,
+            ImageType::Jpg,
+            ImageType::Png
+        );
         self::assertStringContainsString('image.php', $image);
         self::assertStringContainsString('webp', $image);
         self::assertStringContainsString('jpg', $image);
         self::assertStringContainsString('png', $image);
-        self::assertStringContainsString('gif', $image);
-        self::assertStringContainsString('bmp', $image);
     }
 
     public function testSizes(): void

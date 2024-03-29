@@ -2,14 +2,10 @@
 
 namespace App\Theming\Extensions;
 
-use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\UniqueFailedException;
 use App\Database\MenuItem;
 use JetBrains\PhpStorm\Pure;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
-use League\Plates\Engine;
-use League\Plates\Extension\BaseExtension;
+use Jinya\Plates\Engine;
+use Jinya\Plates\Extension\BaseExtension;
 
 /**
  * Provides extensions to the Plates engine, adding helper methods for menus
@@ -24,9 +20,9 @@ class MenuExtension extends BaseExtension
      */
     public function register(Engine $engine): void
     {
-        $engine->registerFunction('getActiveMenuItem', [$this, 'getActiveMenuItem']);
-        $engine->registerFunction('isActiveMenuItem', [$this, 'isActiveMenuItem']);
-        $engine->registerFunction('isChildActiveMenuItem', [$this, 'isChildActiveMenuItem']);
+        $engine->functions->add('getActiveMenuItem', [$this, 'getActiveMenuItem']);
+        $engine->functions->add('isActiveMenuItem', [$this, 'isActiveMenuItem']);
+        $engine->functions->add('isChildActiveMenuItem', [$this, 'isChildActiveMenuItem']);
     }
 
     /**
@@ -34,9 +30,6 @@ class MenuExtension extends BaseExtension
      *
      * @param MenuItem $menuItem
      * @return bool
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws UniqueFailedException
      */
     public function isChildActiveMenuItem(MenuItem $menuItem): bool
     {
@@ -64,10 +57,6 @@ class MenuExtension extends BaseExtension
      * Gets the active menu item
      *
      * @return MenuItem|null
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws UniqueFailedException
-     * @throws NoResultException
      */
     public function getActiveMenuItem(): ?MenuItem
     {

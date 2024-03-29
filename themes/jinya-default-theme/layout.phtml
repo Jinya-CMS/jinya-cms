@@ -1,10 +1,15 @@
+<?php
+
+use App\Database\MenuItem;
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title><?= $this->e($this->config('page', 'title')) ?><?= isset($title) ? ' – ' . $this->e($title) : '' ?></title>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
-    <meta name="viewport" content="width=device-width"/>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width" />
     <?= $this->styles() ?>
     <link rel="stylesheet" href="<?= $this->e($this->config('fonts', 'menu')) ?>">
     <link rel="stylesheet" href="<?= $this->e($this->config('fonts', 'heading')) ?>">
@@ -39,14 +44,14 @@
     <nav class="jinya-footer__menu">
         <?php
         if ($this->hasMenu('footer')):
-            /** @var \App\Database\MenuItem $menuItem */
+            /** @var MenuItem $menuItem */
             foreach ($this->menu('footer')->getItems() as $menuItem): ?>
                 <?= $this->insert(
                     'theme::includes/menu_link',
                     [
-                        'item' => $menuItem,
-                        'class' => 'jinya-footer-menu__item',
-                    ]
+                            'item' => $menuItem,
+                            'class' => 'jinya-footer-menu__item',
+                        ]
                 ) ?>
             <?php
             endforeach ?>

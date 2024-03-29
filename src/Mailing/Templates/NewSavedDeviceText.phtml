@@ -8,10 +8,12 @@
  * @var $platform string
  */
 
-use League\Plates\Template\Template; ?>
+use Jinya\Plates\Template\Template;
+
+?>
 Hello <?= $this->e($artistName) ?>
 
-there was a new saved device added to your account.
+There was a new saved device added to your account.
 
 The IP address is <?= $this->e($remoteAddress) ?>.
 <?php

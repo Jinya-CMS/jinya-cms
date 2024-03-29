@@ -16,7 +16,7 @@ get:
           schema:
             type: object
             additionalProperties:
-              $ref: ../components/schemas/theme-classic-page.yaml
+              $ref: ../components/schemas/classic-page.yaml
     '401':
       description: Api key missing
       content:

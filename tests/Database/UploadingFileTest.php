@@ -2,40 +2,24 @@
 
 namespace Jinya\Tests\Database;
 
-use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Database\UploadingFile;
 use App\Database\UploadingFileChunk;
 use App\Tests\DatabaseAwareTestCase;
 use Faker\Provider\Uuid;
-use RuntimeException;
+use PDOException;
 
 class UploadingFileTest extends DatabaseAwareTestCase
 {
     private File $testFile;
 
-    public function testFindByKeyword(): void
-    {
-        $this->expectException(RuntimeException::class);
-        UploadingFile::findByKeyword('');
-    }
-
-    public function testFormat(): void
-    {
-        $uploadingFile = new UploadingFile();
-        $uploadingFile->fileId = $this->testFile->getIdAsInt();
-        $uploadingFile->create();
-
-        self::assertEquals($uploadingFile->format(), []);
-    }
-
     public function testFindByFile(): void
     {
         $uploadingFile = new UploadingFile();
-        $uploadingFile->fileId = $this->testFile->getIdAsInt();
+        $uploadingFile->fileId = $this->testFile->id;
         $uploadingFile->create();
 
-        $found = UploadingFile::findByFile($this->testFile->getIdAsInt());
+        $found = UploadingFile::findByFile($this->testFile->id);
         self::assertEquals($uploadingFile->id, $found->id);
     }
 
@@ -47,7 +31,7 @@ class UploadingFileTest extends DatabaseAwareTestCase
     public function testCreate(): void
     {
         $uploadingFile = new UploadingFile();
-        $uploadingFile->fileId = $this->testFile->getIdAsInt();
+        $uploadingFile->fileId = $this->testFile->id;
         $uploadingFile->create();
 
         $result = UploadingFile::findByFile($uploadingFile->fileId);
@@ -56,13 +40,13 @@ class UploadingFileTest extends DatabaseAwareTestCase
 
     public function testCreateDouble(): void
     {
-        $this->expectException(UniqueFailedException::class);
+        $this->expectException(PDOException::class);
         $uploadingFile = new UploadingFile();
-        $uploadingFile->fileId = $this->testFile->getIdAsInt();
+        $uploadingFile->fileId = $this->testFile->id;
         $uploadingFile->create();
 
         $uploadingFile2 = new UploadingFile();
-        $uploadingFile2->fileId = $this->testFile->getIdAsInt();
+        $uploadingFile2->fileId = $this->testFile->id;
         $uploadingFile2->create();
     }
 
@@ -73,80 +57,48 @@ class UploadingFileTest extends DatabaseAwareTestCase
         $uploadingFile->create();
     }
 
-    public function testGetIdAsString(): void
-    {
-        $uploadingFile = new UploadingFile();
-        $uploadingFile->id = 'Test';
-
-        self::assertEquals('Test', $uploadingFile->getIdAsString());
-    }
-
-    public function testFindAll(): void
-    {
-        $this->expectException(RuntimeException::class);
-        UploadingFile::findAll();
-    }
-
-    public function testUpdate(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $uploadingFile = new UploadingFile();
-        $uploadingFile->fileId = $this->testFile->getIdAsInt();
-        $uploadingFile->create();
-        $uploadingFile->update();
-    }
-
     public function testGetFile(): void
     {
         $uploadingFile = new UploadingFile();
-        $uploadingFile->fileId = $this->testFile->getIdAsInt();
+        $uploadingFile->fileId = $this->testFile->id;
         $uploadingFile->create();
 
         $file = $uploadingFile->getFile();
         self::assertEquals($this->testFile->format(), $file->format());
     }
 
-    public function testFindById(): void
-    {
-        $this->expectException(RuntimeException::class);
-        UploadingFile::findById(0);
-    }
-
     public function testDelete(): void
     {
         $uploadingFile = new UploadingFile();
-        $uploadingFile->fileId = $this->testFile->getIdAsInt();
+        $uploadingFile->fileId = $this->testFile->id;
         $uploadingFile->create();
 
         $uploadingFile->delete();
 
-        $found = UploadingFile::findByFile($this->testFile->getIdAsInt());
+        $found = UploadingFile::findByFile($this->testFile->id);
         self::assertNull($found);
     }
 
     public function testGetChunks(): void
     {
         $uploadingFile = new UploadingFile();
-        $uploadingFile->fileId = $this->testFile->getIdAsInt();
+        $uploadingFile->fileId = $this->testFile->id;
         $uploadingFile->create();
 
         $uploadingFileChunk = new UploadingFileChunk();
         $uploadingFileChunk->chunkPath = '';
-        $uploadingFileChunk->uploadingFileId = $uploadingFile->getIdAsString();
+        $uploadingFileChunk->uploadingFileId = $uploadingFile->id;
         $uploadingFileChunk->chunkPosition = 0;
         $uploadingFileChunk->create();
 
         $chunks = $uploadingFile->getChunks();
         self::assertCount(1, iterator_to_array($chunks));
-
-        $chunks = $uploadingFile->getChunks();
-        self::assertEquals($uploadingFileChunk->format(), $chunks->current()->format());
     }
 
     public function testGetChunksNone(): void
     {
         $uploadingFile = new UploadingFile();
-        $uploadingFile->fileId = $this->testFile->getIdAsInt();
+        $uploadingFile->fileId = $this->testFile->id;
         $uploadingFile->create();
 
         $chunks = $uploadingFile->getChunks();

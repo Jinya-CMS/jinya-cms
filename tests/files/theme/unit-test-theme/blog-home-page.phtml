@@ -4,26 +4,33 @@
  * marked as blog home page.
  */
 
-/** @var Iterator<\App\Database\BlogPost> $posts */
+/** @var Iterator<BlogPost> $posts */
 
+use App\Database\BlogPost;
 use App\Utils\ImageType;
 
 $this->layout('theme::layout');
 ?>
-<?php $this->start('maincontent') ?>
+<?php
+$this->start('maincontent') ?>
 <main>
-    <h1>Welcome to my blog</h1>
-    <div>
-        <?php foreach ($posts as $post): ?>
-            <a href="/<?= $post->createdAt->format('Y/m/d') ?>/<?= $this->e($post->slug) ?>">
-                <span><?= $this->e($post->title) ?></span>
-                <?php if ($post->headerImageId !== null): ?>
-                    <img src="<?= $post->getHeaderImage()->path ?>" alt="<?= $this->e($post->title) ?>"
-                         sizes="<?= $this->sizes() ?>"
-                         srcset="<?= $this->srcset($post->getHeaderImage(), ImageType::Webp) ?>">
-                <?php endif ?>
-            </a>
-        <?php endforeach ?>
-    </div>
+  <h1>Welcome to my blog</h1>
+  <div>
+      <?php
+      foreach ($posts as $post): ?>
+        <a href="/<?= $post->createdAt->format('Y/m/d') ?>/<?= $this->e($post->slug) ?>">
+          <span><?= $this->e($post->title) ?></span>
+            <?php
+            if ($post->headerImageId !== null): ?>
+              <img src="<?= $post->getHeaderImage()->path ?>" alt="<?= $this->e($post->title) ?>"
+                   sizes="<?= $this->sizes() ?>"
+                   srcset="<?= $this->srcset($post->getHeaderImage(), ImageType::Webp) ?>">
+            <?php
+            endif ?>
+        </a>
+      <?php
+      endforeach ?>
+  </div>
 </main>
-<?php $this->stop() ?>
+<?php
+$this->stop() ?>

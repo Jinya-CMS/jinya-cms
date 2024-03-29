@@ -1,48 +1,66 @@
 <?php
-/** @var \App\Database\SegmentPage $page */
+/** @var ModernPage $page */
 
+use App\Database\ModernPage;
+use App\Database\ModernPageSection;
 use App\Utils\ImageType;
 
 ?>
-<?php $this->layout('theme::layout', ['title' => $page->title]) ?>
-<?php $this->start('maincontent') ?>
-    <div class="jinya-segment-page__segment-page">
-        <?php /** @var \App\Database\Segment $segment */ ?>
-        <?php foreach ($page->getSegments() as $segment): ?>
-            <section class="jinya-segment-page__segment">
-                <?php if ($segment->galleryId): ?>
-                    <?= $this->insert('theme::includes/gallery', [
-                        'gallery' => $segment->getGallery(),
-                        'noCaption' => true,
-                        'extraClass' => 'jinya-gallery--segment-page',
-                    ]) ?>
-                <?php elseif ($segment->html): ?>
-                    <div class="jinya-segment-page__html-segment">
-                        <?= $segment->html ?>
-                    </div>
-                <?php elseif ($segment->fileId): ?>
-                <?php $file = $segment->getFile() ?>
-                <?php if ($segment->action === 'none'): ?>
-                <img class="jinya-segment-page__artwork" src="<?= $this->e($file->path) ?>"
-                     alt="<?= $this->e($file->name) ?>">
-                <?php elseif ($segment->action === 'link'): ?>
-                    <a href="<?= $segment->target ?>">
-                        <img class="jinya-segment-page__artwork" src="<?= $this->e($file->path) ?>"
-                             sizes="<?= $this->sizes() ?>" alt="<?= $this->e($file->name) ?>"
-                             srcset="<?= $this->srcset($file, ImageType::Webp) ?>">
-                    </a>
-                <?php elseif ($segment->action === 'script'): ?>
-                <?php $segmentId = uniqid('segment', true) ?>
-                <img class="jinya-segment-page__artwork" id="<?= $segmentId ?>" src="<?= $this->e($file->path) ?>"
-                     alt="<?= $this->e($file->name) ?>" sizes="<?= $this->sizes() ?>"
-                     srcset="<?= $this->srcset($file, ImageType::Webp) ?>">
-                    <script>
-                      var segmentId = '<?= $segmentId ?>';
-                      <?= $segment->script ?>
-                    </script>
-                <?php endif ?>
-                <?php endif ?>
-            </section>
-        <?php endforeach ?>
-    </div>
-<?php $this->stop() ?>
+<?php
+$this->layout('theme::layout', ['title' => $page->title]) ?>
+<?php
+$this->start('maincontent') ?>
+<div class="jinya-segment-page__segment-page">
+    <?php
+    /** @var ModernPageSection $section */ ?>
+    <?php
+    foreach ($page->getSections() as $section): ?>
+        <section class="jinya-segment-page__segment">
+            <?php
+            if ($section->galleryId): ?>
+                <?= $this->insert('theme::includes/gallery', [
+                    'gallery' => $section->getGallery(),
+                    'noCaption' => true,
+                    'extraClass' => 'jinya-gallery--segment-page',
+                ]) ?>
+            <?php
+            elseif ($section->html): ?>
+                <div class="jinya-segment-page__html-segment">
+                    <?= $section->html ?>
+                </div>
+            <?php
+            elseif ($section->fileId): ?>
+            <?php
+            $file = $section->getFile() ?>
+            <?php
+            if ($section->action === 'none'): ?>
+            <img class="jinya-segment-page__artwork" src="<?= $this->e($file->path) ?>"
+                 alt="<?= $this->e($file->name) ?>">
+            <?php
+            elseif ($section->action === 'link'): ?>
+                <a href="<?= $section->target ?>">
+                    <img class="jinya-segment-page__artwork" src="<?= $this->e($file->path) ?>"
+                         sizes="<?= $this->sizes() ?>" alt="<?= $this->e($file->name) ?>"
+                         srcset="<?= $this->srcset($file, ImageType::Webp) ?>">
+                </a>
+            <?php
+            elseif ($section->action === 'script'): ?>
+            <?php
+            $sectionId = uniqid('segment', true) ?>
+            <img class="jinya-segment-page__artwork" id="<?= $sectionId ?>" src="<?= $this->e($file->path) ?>"
+                 alt="<?= $this->e($file->name) ?>" sizes="<?= $this->sizes() ?>"
+                 srcset="<?= $this->srcset($file, ImageType::Webp) ?>">
+                <script>
+                    const segmentId = '<?= $sectionId ?>';
+                    <?= $section->script ?>;
+                </script>
+            <?php
+            endif ?>
+            <?php
+            endif ?>
+        </section>
+    <?php
+    endforeach ?>
+</div>
+<?php
+$this->stop() ?>

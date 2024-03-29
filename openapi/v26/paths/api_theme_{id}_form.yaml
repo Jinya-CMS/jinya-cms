@@ -16,7 +16,7 @@ get:
           schema:
             type: object
             additionalProperties:
-              $ref: ../components/schemas/theme-form.yaml
+              $ref: ../components/schemas/form.yaml
     '401':
       description: Api key missing
       content:

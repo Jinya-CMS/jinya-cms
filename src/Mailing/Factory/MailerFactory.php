@@ -7,7 +7,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 /**
  * A simple factory class to create a new PHPMailer instance
- * @see \PHPMailer\PHPMailer\PHPMailer
+ * @see PHPMailer
  */
 abstract class MailerFactory
 {

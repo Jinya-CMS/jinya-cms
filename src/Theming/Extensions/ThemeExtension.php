@@ -4,10 +4,8 @@ namespace App\Theming\Extensions;
 
 use App\Database;
 use App\Theming;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
-use League\Plates\Engine;
-use League\Plates\Extension\BaseExtension;
+use Jinya\Plates\Engine;
+use Jinya\Plates\Extension\BaseExtension;
 
 /**
  * Provides extensions to the Plates engine, adding helper methods for themes
@@ -39,10 +37,10 @@ class ThemeExtension extends BaseExtension
      */
     public function register(Engine $engine): void
     {
-        $engine->registerFunction('asset', [$this, 'asset']);
-        $engine->registerFunction('config', [$this, 'config']);
-        $engine->registerFunction('styles', [$this, 'styles']);
-        $engine->registerFunction('scripts', [$this, 'scripts']);
+        $engine->functions->add('asset', [$this, 'asset']);
+        $engine->functions->add('config', [$this, 'config']);
+        $engine->functions->add('styles', [$this, 'styles']);
+        $engine->functions->add('scripts', [$this, 'scripts']);
     }
 
     /**
@@ -50,18 +48,14 @@ class ThemeExtension extends BaseExtension
      *
      * @param string $name
      * @return Database\ThemeAsset|null
-     * @throws Database\Exceptions\ForeignKeyFailedException
-     * @throws Database\Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     public function asset(string $name): ?Database\ThemeAsset
     {
-        return Database\ThemeAsset::findByThemeAndName($this->dbTheme->getIdAsInt(), $name);
+        return Database\ThemeAsset::findByThemeAndName($this->dbTheme->id, $name);
     }
 
     /**
-     * Gets a configuration value from the database, if the value is not set in the database the default value will be set
+     * Gets a configuration value from the database, if the value is not set in the database, the default value will be set
      *
      * @param string $group The group the configuration value belongs to
      * @param string $field The field the configuration value belongs to
@@ -81,7 +75,10 @@ class ThemeExtension extends BaseExtension
     {
         if (file_exists(Theming\Theme::BASE_CACHE_PATH . $this->dbTheme->name . '/styles/')) {
             $styleFiles = scandir(Theming\Theme::BASE_CACHE_PATH . $this->dbTheme->name . '/styles/');
-            $styleFiles = array_map(fn ($item) => Theming\Theme::BASE_PUBLIC_PATH . $this->dbTheme->name . "/styles/$item", $styleFiles ?: []);
+            $styleFiles = array_map(
+                fn ($item) => Theming\Theme::BASE_PUBLIC_PATH . $this->dbTheme->name . "/styles/$item",
+                $styleFiles ?: []
+            );
             $styleFiles = array_filter($styleFiles, static fn ($item) => str_ends_with($item, '.css'));
             $tags = '';
             foreach ($styleFiles as $file) {
@@ -103,7 +100,10 @@ class ThemeExtension extends BaseExtension
     {
         if (file_exists(Theming\Theme::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts/')) {
             $scriptFiles = scandir(Theming\Theme::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts/');
-            $scriptFiles = array_map(fn ($item) => Theming\Theme::BASE_PUBLIC_PATH . $this->dbTheme->name . "/scripts/$item", $scriptFiles ?: []);
+            $scriptFiles = array_map(
+                fn ($item) => Theming\Theme::BASE_PUBLIC_PATH . $this->dbTheme->name . "/scripts/$item",
+                $scriptFiles ?: []
+            );
             $scriptFiles = array_filter($scriptFiles, static fn ($item) => str_ends_with($item, '.js'));
             $tags = '';
             foreach ($scriptFiles as $file) {

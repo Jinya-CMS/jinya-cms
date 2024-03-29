@@ -2,15 +2,12 @@
 
 namespace Jinya\Tests\Messaging;
 
-use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Form;
 use App\Database\FormItem;
 use App\Messaging\FormMessageHandler;
 use App\Tests\DatabaseAwareTestCase;
 use App\Theming\Engine;
-use App\Web\Exceptions\MissingFieldsException;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\Router\Extensions\Database\Exceptions\MissingFieldsException;
 use Nyholm\Psr7\ServerRequest;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -50,14 +47,14 @@ class FormMessageHandlerTest extends DatabaseAwareTestCase
             /** @var FormItem $item */
             switch ($item->type) {
                 case 'email':
-                    $data[$item->getIdAsInt()] = 'test@example.com';
+                    $data[$item->id] = 'test@example.com';
                     break;
                 case 'checkbox':
-                    $data[$item->getIdAsInt()] = true;
+                    $data[$item->id] = true;
                     break;
                 case 'text':
                 case 'select':
-                    $data[$item->getIdAsInt()] = 'Test';
+                    $data[$item->id] = 'Test';
                     break;
             }
         }
@@ -75,11 +72,11 @@ class FormMessageHandlerTest extends DatabaseAwareTestCase
             /** @var FormItem $item */
             switch ($item->type) {
                 case 'checkbox':
-                    $data[$item->getIdAsInt()] = true;
+                    $data[$item->id] = true;
                     break;
                 case 'text':
                 case 'select':
-                    $data[$item->getIdAsInt()] = 'Test';
+                    $data[$item->id] = 'Test';
                     break;
             }
         }
@@ -95,14 +92,14 @@ class FormMessageHandlerTest extends DatabaseAwareTestCase
             /** @var FormItem $item */
             switch ($item->type) {
                 case 'email':
-                    $data[$item->getIdAsInt()] = 'test@example.com';
+                    $data[$item->id] = 'test@example.com';
                     break;
                 case 'checkbox':
-                    $data[$item->getIdAsInt()] = true;
+                    $data[$item->id] = true;
                     break;
                 case 'text':
                 case 'select':
-                    $data[$item->getIdAsInt()] = 'Spam';
+                    $data[$item->id] = 'Spam';
                     break;
             }
         }
@@ -139,9 +136,11 @@ class FormMessageHandlerTest extends DatabaseAwareTestCase
         $this->form->toAddress = 'noreply@example.com';
         $this->form->create();
 
+        $items = [];
         foreach (['email', 'checkbox', 'text', 'select'] as $item) {
-            $this->createFormItem($item, $item, $item === 'email', $item === 'email', ['Spam']);
+            $items[] = $this->createFormItem($item, $item, $item === 'email', $item === 'email', ['Spam']);
         }
+        $this->form->replaceItems($items);
 
         $this->request = new ServerRequest('POST', '', []);
     }
@@ -152,23 +151,23 @@ class FormMessageHandlerTest extends DatabaseAwareTestCase
      * @param bool $isRequired
      * @param bool $isFromAddress
      * @param string[] $spamFilter
-     * @return FormItem
-     * @throws ForeignKeyFailedException
-     * @throws UniqueFailedException
-     * @throws InvalidQueryException
+     * @return array
      */
-    private function createFormItem(string $label, string $type, bool $isRequired, bool $isFromAddress, array $spamFilter = []): FormItem
-    {
-        $formItem = new FormItem();
-        $formItem->label = $label;
-        $formItem->position = 0;
-        $formItem->formId = $this->form->getIdAsInt();
-        $formItem->type = $type;
-        $formItem->isRequired = $isRequired;
-        $formItem->isFromAddress = $isFromAddress;
-        $formItem->spamFilter = $spamFilter;
-        $formItem->create();
-
-        return $formItem;
+    private function createFormItem(
+        string $label,
+        string $type,
+        bool $isRequired,
+        bool $isFromAddress,
+        array $spamFilter = []
+    ): array {
+        return [
+            'label' => $label,
+            'position' => 0,
+            'formId' => $this->form->id,
+            'type' => $type,
+            'isRequired' => $isRequired,
+            'isFromAddress' => $isFromAddress,
+            'spamFilter' => $spamFilter,
+        ];
     }
 }

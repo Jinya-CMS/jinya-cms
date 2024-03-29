@@ -1,11 +1,13 @@
 <?php
 
+use App\Theming\Theme;
+
 return [
     'displayName' => 'Jinya Testing Theme',
     'description' => "A simple theme for testing purposes. This theme has no real frontend so don't use it",
     'previewImage' => __DIR__ . '/Preview.jpg',
     'hasApi' => true,
-    'errorBehavior' => \App\Theming\Theme::ERROR_BEHAVIOR_ERROR_PAGE,
+    'errorBehavior' => Theme::ERROR_BEHAVIOR_ERROR_PAGE,
     'styles' => [
         'variables' => __DIR__ . '/styles/_variables.scss',
         'files' => [

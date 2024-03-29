@@ -10,7 +10,7 @@ class TestRequestHandler implements RequestHandlerInterface
 {
     public ServerRequestInterface $request;
 
-    public function __construct(private ResponseInterface $response)
+    public function __construct(private readonly ResponseInterface $response)
     {
     }
 

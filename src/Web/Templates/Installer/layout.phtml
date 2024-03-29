@@ -1,114 +1,115 @@
 <?php
 /** @var string $title */
+
 ?>
 <html lang="en">
 <head>
-    <title><?= $title ?></title>
-    <style>
-        :root {
-            font-size: 16px;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Open Sans", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            --white: #ffffff;
-            --primary: #504a56;
-            --primary-light: #7c7285;
-            --primary-dark: #151417;
-            --invalid-color: #5C0B0B;
-        }
+  <title><?= $title ?></title>
+  <style>
+      :root {
+          font-size: 16px;
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Open Sans", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+          --white: #ffffff;
+          --primary: #504a56;
+          --primary-light: #7c7285;
+          --primary-dark: #151417;
+          --invalid-color: #5C0B0B;
+      }
 
-        .installer-content {
-            display: flex;
-            justify-content: center;
-        }
+      .installer-content {
+          display: flex;
+          justify-content: center;
+      }
 
-        .installer-form {
-            width: auto;
-            background: #eee;
-            padding: 2rem;
-        }
+      .installer-form {
+          width: auto;
+          background: #eee;
+          padding: 2rem;
+      }
 
-        .installer-fieldset {
-            width: 30rem;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-            border: none;
-            padding: 0;
-            display: grid;
-            grid-row-gap: 1rem;
-        }
+      .installer-fieldset {
+          width: 30rem;
+          margin-top: 1rem;
+          margin-bottom: 1rem;
+          border: none;
+          padding: 0;
+          display: grid;
+          grid-row-gap: 1rem;
+      }
 
-        .installer-legend {
-            padding: 0;
-            font-size: 1.5rem;
-            width: 100%;
-            border-bottom: 1px solid var(--primary);
-            margin: 0 0 1rem;
-        }
+      .installer-legend {
+          padding: 0;
+          font-size: 1.5rem;
+          width: 100%;
+          border-bottom: 1px solid var(--primary);
+          margin: 0 0 1rem;
+      }
 
-        .installer-block {
-            display: grid;
-            grid-template-columns: 10rem 20rem;
-            align-items: center;
-        }
+      .installer-block {
+          display: grid;
+          grid-template-columns: 10rem 20rem;
+          align-items: center;
+      }
 
-        .installer-block--checkbox {
-            padding-left: 10rem;
-        }
+      .installer-block--checkbox {
+          padding-left: 10rem;
+      }
 
 
-        .installer-button {
-            float: right;
-            border: none;
-            border-bottom: 2px solid var(--primary);
-            background: var(--primary-light);
-            padding: 0.5rem;
-            cursor: pointer;
-            transition: background 0.3s, box-shadow 0.3s;
-            font-size: 1rem;
-            outline: none;
-            box-sizing: border-box;
-            color: var(--white);
-        }
+      .installer-button {
+          float: right;
+          border: none;
+          border-bottom: 2px solid var(--primary);
+          background: var(--primary-light);
+          padding: 0.5rem;
+          cursor: pointer;
+          transition: background 0.3s, box-shadow 0.3s;
+          font-size: 1rem;
+          outline: none;
+          box-sizing: border-box;
+          color: var(--white);
+      }
 
-        .installer-button:hover,
-        .installer-button:focus {
-            box-shadow: 0 0.25rem 0.25rem 0 var(--primary);
-        }
+      .installer-button:hover,
+      .installer-button:focus {
+          box-shadow: 0 0.25rem 0.25rem 0 var(--primary);
+      }
 
-        .installer-input {
-            flex: 0 0 100%;
-            min-width: 100%;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Open Sans", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            font-size: 1rem;
-            padding: 0.25rem 0.5rem;
-            box-sizing: border-box;
-            background: var(--white);
-            border: none;
-            border-bottom: 2px solid var(--primary);
-            outline: none;
-            transition: box-shadow 0.3s;
-        }
+      .installer-input {
+          flex: 0 0 100%;
+          min-width: 100%;
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Open Sans", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+          font-size: 1rem;
+          padding: 0.25rem 0.5rem;
+          box-sizing: border-box;
+          background: var(--white);
+          border: none;
+          border-bottom: 2px solid var(--primary);
+          outline: none;
+          transition: box-shadow 0.3s;
+      }
 
-        .installer-input:focus {
-            box-shadow: 0 0.25rem 0.25rem 0 var(--primary);
-        }
+      .installer-input:focus {
+          box-shadow: 0 0.25rem 0.25rem 0 var(--primary);
+      }
 
-        .installer-input:invalid {
-            border-bottom: 2px solid var(--invalid-color);
-            box-shadow: none;
-            outline: none;
-        }
+      .installer-input:invalid {
+          border-bottom: 2px solid var(--invalid-color);
+          box-shadow: none;
+          outline: none;
+      }
 
-        .installer-input:invalid:focus {
-            box-shadow: 0 0.25rem 0.25rem 0 var(--invalid-color);
-        }
+      .installer-input:invalid:focus {
+          box-shadow: 0 0.25rem 0.25rem 0 var(--invalid-color);
+      }
 
-        .installer-message--error {
-            box-shadow: 0 0.25rem 0.25rem 0 var(--invalid-color);
-            padding: 1rem;
-            color: var(--invalid-color);
-            border-top: 4px solid var(--invalid-color);
-        }
-    </style>
+      .installer-message--error {
+          box-shadow: 0 0.25rem 0.25rem 0 var(--invalid-color);
+          padding: 1rem;
+          color: var(--invalid-color);
+          border-top: 4px solid var(--invalid-color);
+      }
+  </style>
 </head>
 <body>
 <main class="installer-content">

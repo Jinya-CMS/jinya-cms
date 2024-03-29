@@ -27,7 +27,8 @@
       link?.setAttribute('data-has-children', true);
 
       item?.classList.remove('is--hidden');
-      item?.querySelector('.jinya-menu__link')?.addEventListener('click', openSubmenu, true);
+      item?.querySelector('.jinya-menu__link')
+        ?.addEventListener('click', openSubmenu, true);
     });
 
     menu?.classList.add('is--open');

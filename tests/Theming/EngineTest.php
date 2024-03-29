@@ -10,9 +10,11 @@ class EngineTest extends TestCase
     public function testGetPlatesEngine(): void
     {
         $engine = Engine::getPlatesEngine();
-        self::assertTrue($engine->getFolders()->exists('mailing'));
-        self::assertTrue($engine->getFolders()->exists('emergency'));
-        self::assertEquals(__ROOT__ . '/src/Mailing/Templates', $engine->getFolders()->get('mailing')->getPath());
-        self::assertEquals(__ROOT__ . '/src/Emergency/Templates', $engine->getFolders()->get('emergency')->getPath());
+
+        self::assertArrayHasKey('mailing', $engine->getFolders());
+        self::assertArrayHasKey('emergency', $engine->getFolders());
+
+        self::assertEquals(__ROOT__ . '/src/Mailing/Templates', $engine->getFolders()['mailing']->path);
+        self::assertEquals(__ROOT__ . '/src/Emergency/Templates', $engine->getFolders()['emergency']->path);
     }
 }

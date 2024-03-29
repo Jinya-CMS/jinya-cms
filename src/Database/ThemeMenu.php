@@ -2,18 +2,38 @@
 
 namespace App\Database;
 
-use App\Database\Utils\ThemeHelperEntity;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
+use Jinya\Database\Attributes\Column;
+use Jinya\Database\Attributes\Table;
+use Jinya\Database\Creatable;
+use Jinya\Database\Deletable;
+use Jinya\Database\DeletableEntityTrait;
+use Jinya\Database\EntityTrait;
+use Jinya\Database\Exception\ForeignKeyFailedException;
+use Jinya\Database\Exception\UniqueFailedException;
+use Jinya\Database\Updatable;
+use PDOException;
 
 /**
  * This class contains a menu connected to a theme
  */
-class ThemeMenu extends ThemeHelperEntity
+#[Table('theme_menu')]
+class ThemeMenu implements Creatable, Updatable, Deletable
 {
+    use EntityTrait;
+    use DeletableEntityTrait;
+
+    /** @var string The theme name */
+    #[Column]
+    public string $name = '';
+
+    /** @var int The theme id */
+    #[Column(sqlName: 'theme_id')]
+    public int $themeId = -1;
+
     /** @var int The menu ID */
+    #[Column(sqlName: 'menu_id')]
     public int $menuId = -1;
 
     /**
@@ -22,42 +42,57 @@ class ThemeMenu extends ThemeHelperEntity
      * @param int $themeId
      * @param string $name
      * @return ThemeMenu|null
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws Exceptions\UniqueFailedException
-     * @throws NoResultException
-     * @throws NoResultException
      */
     public static function findByThemeAndName(int $themeId, string $name): ?ThemeMenu
     {
-        /**
-         * @phpstan-ignore-next-line
-         */
-        return self::fetchByThemeAndName($themeId, $name, 'theme_menu', new self());
+        $query = self::getQueryBuilder()
+            ->newSelect()
+            ->from(self::getTableName())
+            ->cols([
+                'theme_id',
+                'name',
+                'menu_id',
+            ])
+            ->where('theme_id = :themeId AND name = :name', ['themeId' => $themeId, 'name' => $name]);
+
+        /** @var array<string, mixed>[] $data */
+        $data = self::executeQuery($query);
+        if (empty($data)) {
+            return null;
+        }
+
+        return self::fromArray($data[0]);
     }
 
     /**
      * Finds the menus for the given theme
      *
      * @param int $themeId
-     * @return Iterator
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws Exceptions\UniqueFailedException
+     * @return Iterator<ThemeMenu>
      */
     public static function findByTheme(int $themeId): Iterator
     {
-        return self::fetchByTheme($themeId, 'theme_menu', new self());
+        $query = self::getQueryBuilder()
+            ->newSelect()
+            ->from(self::getTableName())
+            ->cols([
+                'theme_id',
+                'name',
+                'menu_id',
+            ])
+            ->where('theme_id = :themeId', ['themeId' => $themeId]);
+
+        /** @var array<string, mixed>[] $data */
+        $data = self::executeQuery($query);
+        foreach ($data as $item) {
+            yield self::fromArray($item);
+        }
     }
 
     /**
      * Formats the theme menu into an array
      *
      * @return array<string, array<string, array<string, int|string>|int|string>|string|null>
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     #[ArrayShape(['name' => 'string', 'menu' => 'array'])] public function format(): array
     {
@@ -71,10 +106,6 @@ class ThemeMenu extends ThemeHelperEntity
      * Gets the menu of the theme menu
      *
      * @return Menu|null
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     public function getMenu(): ?Menu
     {
@@ -85,38 +116,59 @@ class ThemeMenu extends ThemeHelperEntity
      * Creates the current theme menu
      *
      * @return void
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
      */
     public function create(): void
     {
-        $this->internalCreate('theme_menu');
+        $query = self::getQueryBuilder()
+            ->newInsert()
+            ->into(self::getTableName())
+            ->addRow([
+                'theme_id' => $this->themeId,
+                'name' => $this->name,
+                'menu_id' => $this->menuId,
+            ]);
+
+        try {
+            self::executeQuery($query);
+        } catch (PDOException $exception) {
+            $errorInfo = $exception->errorInfo ?? ['', ''];
+            if ($errorInfo[1] === 1062) {
+                throw new UniqueFailedException($exception, self::getPDO());
+            }
+
+            if ($errorInfo[1] === 1452) {
+                throw new ForeignKeyFailedException($exception, self::getPDO());
+            }
+
+            throw $exception;
+        }
     }
 
     /**
-     * Deletes the current theme menu
-     *
-     * @return void
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     */
-    public function delete(): void
-    {
-        $this->internalDelete('theme_menu');
-    }
-
-    /**
-     * Updates the current theme menu
-     *
-     * @return void
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
+     * @inheritDoc
      */
     public function update(): void
     {
-        $this->internalUpdate('theme_menu');
+        $query = self::getQueryBuilder()
+            ->newUpdate()
+            ->table(self::getTableName())
+            /** @phpstan-ignore-next-line */
+            ->set('menu_id', $this->menuId)
+            ->where('theme_id = :themeId AND name = :name', ['themeId' => $this->themeId, 'name' => $this->name]);
+
+        try {
+            self::executeQuery($query);
+        } catch (PDOException $exception) {
+            $errorInfo = $exception->errorInfo ?? ['', ''];
+            if ($errorInfo[1] === 1062) {
+                throw new UniqueFailedException($exception, self::getPDO());
+            }
+
+            if ($errorInfo[1] === 1452) {
+                throw new ForeignKeyFailedException($exception, self::getPDO());
+            }
+
+            throw $exception;
+        }
     }
 }

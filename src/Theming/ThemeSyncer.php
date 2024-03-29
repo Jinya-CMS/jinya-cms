@@ -3,11 +3,11 @@
 namespace App\Theming;
 
 use App\Database;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
+use Exception;
+use Jinya\Database\Exception\NotNullViolationException;
 
 /**
- * Helper class to synchronise the themes in the file system with the database
+ * Helper class to synchronize the themes in the file system with the database
  */
 class ThemeSyncer
 {
@@ -16,11 +16,8 @@ class ThemeSyncer
 
     /**
      * Syncs the themes from the local file system into the database
-     *
-     * @throws Database\Exceptions\ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws Database\Exceptions\UniqueFailedException
-     * @throws NoResultException
+     * @throws NotNullViolationException
+     * @throws Exception
      */
     public function syncThemes(): void
     {
@@ -41,13 +38,17 @@ class ThemeSyncer
                 $dbTheme->scssVariables = [];
                 $dbTheme->name = $name;
                 $dbTheme->displayName = $config['displayName'] ?? $name;
-                $dbTheme->description = is_array($config['description']) ? $config['description'] : ['en' => $config['description']];
+                $dbTheme->description = is_array(
+                    $config['description']
+                ) ? $config['description'] : ['en' => $config['description']];
                 $dbTheme->hasApiTheme = $config['hasApi'] ?? false;
                 $dbTheme->create();
             } else {
                 $dbTheme = Database\Theme::findByName($name);
                 $dbTheme->displayName = $config['displayName'] ?? $name;
-                $dbTheme->description = is_array($config['description']) ? $config['description'] : ['en' => $config['description']];
+                $dbTheme->description = is_array(
+                    $config['description']
+                ) ? $config['description'] : ['en' => $config['description']];
                 $dbTheme->hasApiTheme = $config['hasApi'] ?? false;
                 $dbTheme->update();
             }
@@ -62,8 +63,7 @@ class ThemeSyncer
         $defaultTheme = Database\Theme::findByName('jinya-default-theme');
         foreach ($nonExistingThemes as $nonExistingTheme) {
             if ($activeTheme === null || $nonExistingTheme->name === $activeTheme->name) {
-                /* @noinspection NullPointerExceptionInspection */
-                $defaultTheme->makeActiveTheme();
+                $defaultTheme?->makeActiveTheme();
             }
             $nonExistingTheme->delete();
         }
