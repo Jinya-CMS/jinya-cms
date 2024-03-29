@@ -7,18 +7,17 @@ use App\Database\File;
 use App\Storage\StorageBaseService;
 use App\Tests\DatabaseAwareTestCase;
 use App\Utils\UuidGenerator;
-use Throwable;
+use Faker\Provider\Uuid;
 
 class FileCacheCommandTest extends DatabaseAwareTestCase
 {
-    private string $tmpFileName;
-
     public function testRun(): void
     {
-        $tmpPath = StorageBaseService::BASE_PATH . '/public/' . $this->tmpFileName;
+        $tmpFileName = Uuid::uuid();
+        $tmpPath = StorageBaseService::BASE_PATH . '/public/' . $tmpFileName;
         copy('https://picsum.photos/4320/2160', $tmpPath);
         $file = new File();
-        $file->path = $this->tmpFileName;
+        $file->path = $tmpFileName;
         $file->name = 'Testimage';
         $file->type = (string)mime_content_type($tmpPath);
         $file->create();

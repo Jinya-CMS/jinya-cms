@@ -6,9 +6,6 @@ use App\Authentication\CurrentUser;
 use App\Database\KnownDevice;
 use App\Tests\DatabaseAwareTestCase;
 use App\Web\Controllers\KnownDeviceController;
-use App\Web\Middleware\AuthorizationMiddleware;
-use Nyholm\Psr7\Response;
-use Nyholm\Psr7\ServerRequest;
 
 class KnownDeviceControllerTest extends DatabaseAwareTestCase
 {

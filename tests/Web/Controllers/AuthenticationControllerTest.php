@@ -177,7 +177,7 @@ class AuthenticationControllerTest extends DatabaseAwareTestCase
         CurrentUser::$currentUser->update();
 
         $controller = $this->getController(
-            ['password' => 'start1234', 'username' => 'test@example.com', 'twoFactorCode' => '123457'],
+            ['password' => 'start1234', 'username' => CurrentUser::$currentUser->email, 'twoFactorCode' => '123457'],
             true
         );
         $result = $controller->login();
@@ -227,7 +227,7 @@ class AuthenticationControllerTest extends DatabaseAwareTestCase
         CurrentUser::$currentUser->update();
 
         $controller = $this->getController(
-            ['password' => 'start1234', 'username' => 'test@example.com'],
+            ['password' => 'start1234', 'username' => CurrentUser::$currentUser->email],
             true,
             '1'
         );
@@ -251,7 +251,7 @@ class AuthenticationControllerTest extends DatabaseAwareTestCase
         CurrentUser::$currentUser->setPassword('start1234');
         CurrentUser::$currentUser->update();
 
-        $controller = $this->getController(['password' => 'start1234', 'username' => 'test@example.com'], true);
+        $controller = $this->getController(['password' => 'start1234', 'username' =>  CurrentUser::$currentUser->email], true);
         $result = $controller->login();
 
         $result->getBody()->rewind();

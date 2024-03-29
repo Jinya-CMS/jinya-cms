@@ -6,7 +6,6 @@ use App\Database\ApiKey;
 use App\Database\Artist;
 use App\Tests\DatabaseAwareTestCase;
 use DateTime;
-use Jinya\Database\Exception\ForeignKeyFailedException;
 use PDOException;
 
 class ApiKeyTest extends DatabaseAwareTestCase

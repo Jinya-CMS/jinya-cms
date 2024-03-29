@@ -8,7 +8,6 @@ use Iterator;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Table;
 use Jinya\Database\Creatable;
-use Jinya\Database\CreatableEntityTrait;
 use Jinya\Database\Deletable;
 use Jinya\Database\EntityTrait;
 use Jinya\Database\Exception\ForeignKeyFailedException;

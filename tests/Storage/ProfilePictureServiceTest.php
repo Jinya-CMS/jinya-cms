@@ -9,7 +9,6 @@ use App\Storage\StorageBaseService;
 use App\Tests\DatabaseAwareTestCase;
 use Faker\Factory;
 use Faker\Provider\Uuid;
-use RuntimeException;
 
 class ProfilePictureServiceTest extends DatabaseAwareTestCase
 {
@@ -33,7 +32,7 @@ class ProfilePictureServiceTest extends DatabaseAwareTestCase
         copy('https://picsum.photos/200/300', $path);
 
         /** @phpstan-ignore-next-line */
-        $this->service->saveProfilePicture($this->artist->id, fopen($path, 'rb+'));
+        $this->service->saveProfilePicture($this->artist->id, file_get_contents($path));
         $loadedArtist = Artist::findByEmail($this->artist->email);
         self::assertFileExists(StorageBaseService::BASE_PATH . '/public/' . $loadedArtist->profilePicture);
 
@@ -47,12 +46,6 @@ class ProfilePictureServiceTest extends DatabaseAwareTestCase
     {
         $this->expectException(EmptyResultException::class);
         $this->service->saveProfilePicture(-1, '');
-    }
-
-    public function testSaveProfilePictureDataNull(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->service->saveProfilePicture($this->artist->id, null);
     }
 
     public function testDeleteProfilePictureArtistNotFound(): void

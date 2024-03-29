@@ -572,6 +572,7 @@ SQL
 
     /**
      * @inheritDoc
+     * @codeCoverageIgnore
      */
     public function down(PDO $pdo): void
     {

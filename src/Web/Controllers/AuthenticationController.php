@@ -97,7 +97,7 @@ class AuthenticationController extends BaseController
             $remoteAddress = $this->getHeader('X-Forwarded-For') ?: $this->request->getServerParams()['REMOTE_ADDR'];
             if (!empty($knownDeviceCode) && $artist->validateDevice($knownDeviceCode)) {
                 $knownDevice = KnownDevice::findByCode($knownDeviceCode);
-            } elseif ($artist->twoFactorToken !== null && $artist->twoFactorToken !== '' && $artist->twoFactorToken === $twoFactorCode) {
+            } elseif (!empty($artist->twoFactorToken) && $artist->twoFactorToken === $twoFactorCode) {
                 $knownDevice = new KnownDevice();
                 $knownDevice->userId = $artist->id;
                 $knownDevice->remoteAddress = $remoteAddress;
@@ -112,8 +112,6 @@ class AuthenticationController extends BaseController
                 } catch (Throwable $exception) {
                     $this->logger->warning($exception->getMessage());
                 }
-            } elseif (empty($knownDeviceCode) && !empty($twoFactorCode)) {
-                return $this->badCredentialsResponse;
             } else {
                 return $this->badCredentialsResponse;
             }
@@ -178,6 +176,10 @@ class AuthenticationController extends BaseController
         return $this->badCredentialsResponse;
     }
 
+    /**
+     * @return ResponseInterface
+     * @codeCoverageIgnore
+     */
     #[Route(HttpMethod::HEAD, '/api/login')]
     #[Middlewares(new AuthorizationMiddleware())]
     public function validateLogin(): ResponseInterface

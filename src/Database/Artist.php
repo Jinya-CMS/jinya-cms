@@ -5,7 +5,6 @@ namespace App\Database;
 use App\Database\Converter\BooleanConverter;
 use App\Database\Converter\NullableBooleanConverter;
 use App\Database\Converter\PhpSerializerConverter;
-use App\Database\Exceptions\DeleteLastAdminException;
 use App\Web\Middleware\AuthorizationMiddleware;
 use DateInterval;
 use DateTime;
@@ -19,7 +18,6 @@ use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
 use Jinya\Database\Entity;
 use Jinya\Database\Exception\NotNullViolationException;
-use Jinya\Router\Extensions\Database\Attributes\Delete;
 use Jinya\Router\Extensions\Database\Attributes\Find;
 
 /**

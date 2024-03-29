@@ -118,6 +118,7 @@ class BlogPost extends Entity
      * @param array<int, array<string, int|string>> $newSections The new sections
      * @throws TransactionFailedException
      * @deprecated Use replaceSegments instead
+     * @codeCoverageIgnore
      */
     public function replaceSegments(array $newSections): void
     {

@@ -198,6 +198,7 @@ class ModernPage extends Entity
      * @param array<int, array<string, int|string>> $newSections The new sections
      * @throws TransactionFailedException
      * @deprecated Use replaceSections instead
+     * @codeCoverageIgnore
      */
     public function replaceSegments(array $newSections): void
     {

@@ -49,9 +49,9 @@ class DatabaseAnalyzer
                 $query = Entity::getQueryBuilder()
                     ->newSelect()
                     ->from('information_schema.TABLES')
-                    ->cols(['ENGINE'])
+                    ->cols(['ENGINE AS engine'])
                     ->where('TABLE_NAME = :tableName', ['tableName' => $tableName]);
-                $result[$tableName]['engine'] = self::fetchInt($query, 'ENGINE');
+                $result[$tableName]['engine'] = self::fetchInt($query, 'engine');
 
                 $query = Entity::getQueryBuilder()
                     ->newSelect()

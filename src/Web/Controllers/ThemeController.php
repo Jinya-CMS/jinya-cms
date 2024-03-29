@@ -16,6 +16,8 @@ use App\Database\ThemeFile;
 use App\Database\ThemeForm;
 use App\Database\ThemeGallery;
 use App\Database\ThemeMenu;
+use App\Database\ThemeModernPage;
+use App\Logging\Logger;
 use App\Theming\Theme;
 use App\Theming\ThemeSyncer;
 use App\Utils\UuidGenerator;
@@ -32,14 +34,18 @@ use JsonException;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\Stream;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 use stdClass;
 use ZipArchive;
 
 #[Controller]
 class ThemeController extends BaseController
 {
+    private readonly LoggerInterface $logger;
+
     public function __construct(private readonly ThemeSyncer $themeSyncer = new ThemeSyncer())
     {
+        $this->logger = Logger::getLogger();
     }
 
     /**
@@ -58,8 +64,34 @@ class ThemeController extends BaseController
             file_put_contents($tmpFile, $this->request->getBody()->detach());
 
             $zipArchive = new ZipArchive();
-            $zipArchive->open($tmpFile);
-            $zipArchive->extractTo(ThemeSyncer::THEME_BASE_PATH . $themeName);
+            $openRes = $zipArchive->open($tmpFile);
+            if ($openRes !== true) {
+                $this->logger->error(
+                    'The zip could not be opened. Check the docs here, https://www.php.net/manual/en/ziparchive.open.php'
+                );
+                $this->logger->error('Error message: ' . $zipArchive->getStatusString());
+                $this->logger->error("Errorcode: $openRes");
+
+                return $this->json([
+                    'success' => false,
+                    'error' => [
+                        'message' => 'Failed to open the zip file',
+                        'type' => 'open-failed',
+                    ],
+                ], self::HTTP_INTERNAL_SERVER_ERROR);
+            }
+            if (!$zipArchive->extractTo(ThemeSyncer::THEME_BASE_PATH . $themeName)) {
+                $this->logger->error('The zip could not be extracted');
+                $this->logger->error('Error message: ' . $zipArchive->getStatusString());
+
+                return $this->json([
+                    'success' => false,
+                    'error' => [
+                        'message' => 'Failed to extract the zip file',
+                        'type' => 'extract-failed',
+                    ],
+                ], self::HTTP_INTERNAL_SERVER_ERROR);
+            }
             $this->themeSyncer->syncThemes();
 
             unlink($tmpFile);
@@ -87,8 +119,34 @@ class ThemeController extends BaseController
             file_put_contents($tmpFile, $this->request->getBody()->detach());
 
             $zipArchive = new ZipArchive();
-            $zipArchive->open($tmpFile);
-            $zipArchive->extractTo(ThemeSyncer::THEME_BASE_PATH . $theme->name);
+            $openRes = $zipArchive->open($tmpFile);
+            if ($openRes !== true) {
+                $this->logger->error(
+                    'The zip could not be opened. Check the docs here, https://www.php.net/manual/en/ziparchive.open.php'
+                );
+                $this->logger->error('Error message: ' . $zipArchive->getStatusString());
+                $this->logger->error("Errorcode: $openRes");
+
+                return $this->json([
+                    'success' => false,
+                    'error' => [
+                        'message' => 'Failed to open the zip file',
+                        'type' => 'open-failed',
+                    ],
+                ], self::HTTP_INTERNAL_SERVER_ERROR);
+            }
+            if (!$zipArchive->extractTo(ThemeSyncer::THEME_BASE_PATH . $theme->name)) {
+                $this->logger->error('The zip could not be extracted');
+                $this->logger->error('Error message: ' . $zipArchive->getStatusString());
+
+                return $this->json([
+                    'success' => false,
+                    'error' => [
+                        'message' => 'Failed to extract the zip file',
+                        'type' => 'extract-failed',
+                    ],
+                ], self::HTTP_INTERNAL_SERVER_ERROR);
+            }
             $themeSyncer = new ThemeSyncer();
             $themeSyncer->syncThemes();
 
@@ -240,7 +298,7 @@ class ThemeController extends BaseController
      */
     #[Route(HttpMethod::PUT, '/api/theme/{id}/styling')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
-    public function putStyleVariables(int $id): ResponseInterface
+    public function updateStyleVariables(int $id): ResponseInterface
     {
         $this->themeSyncer->syncThemes();
         $dbTheme = DatabaseTheme::findById($id);
@@ -287,6 +345,27 @@ class ThemeController extends BaseController
     }
 
     /**
+     * @param array<string, BlogCategory|ClassicPage|File|Form|Gallery|Menu|ModernPage> $links
+     * @return ResponseInterface
+     * @throws JsonException
+     * @throws Exception
+     */
+    private function formatThemeLinks(array $links): ResponseInterface
+    {
+        $result = [];
+
+        foreach ($links as $key => $link) {
+            $result[$key] = $link->format();
+        }
+
+        if (empty($result)) {
+            $result = new stdClass();
+        }
+
+        return $this->json($result);
+    }
+
+    /**
      * @throws JsonException
      */
     #[Route(HttpMethod::GET, '/api/theme/{id}/blog-category')]
@@ -301,27 +380,6 @@ class ThemeController extends BaseController
         $links = $theme->getCategories();
 
         return $this->formatThemeLinks($links);
-    }
-
-    /**
-     * @param array<string, BlogCategory|ClassicPage|File|Form|Gallery|Menu|ModernPage> $links
-     * @return ResponseInterface
-     * @throws JsonException
-     * @throws Exception
-     */
-    public function formatThemeLinks(array $links): ResponseInterface
-    {
-        $result = [];
-
-        foreach ($links as $key => $link) {
-            $result[$key] = $link->format();
-        }
-
-        if (empty($result)) {
-            $result = new stdClass();
-        }
-
-        return $this->json($result);
     }
 
     /**
@@ -403,7 +461,7 @@ class ThemeController extends BaseController
                 $link->create();
             }
         } catch (ForeignKeyFailedException) {
-            return $this->entityNotFound('Blog category not found');
+            return $this->entityNotFound('Classic page not found');
         }
 
         return $this->noContent();
@@ -628,5 +686,39 @@ class ThemeController extends BaseController
         $links = $theme->getModernPages();
 
         return $this->formatThemeLinks($links);
+    }
+
+    /**
+     * @param int $id
+     * @param string $name
+     * @return ResponseInterface
+     * @throws JsonException
+     */
+    #[Route(HttpMethod::PUT, '/api/theme/{id}/modern-page/{name}')]
+    #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER), new CheckRequiredFieldsMiddleware(['modernPage']))]
+    public function updateThemeModernPage(int $id, string $name): ResponseInterface
+    {
+        $theme = DatabaseTheme::findById($id);
+        if (!$theme) {
+            return $this->entityNotFound('Theme not found');
+        }
+
+        $link = ThemeModernPage::findByThemeAndName($id, $name);
+        try {
+            if ($link) {
+                $link->modernPageId = $this->body['modernPage'];
+                $link->update();
+            } else {
+                $link = new ThemeModernPage();
+                $link->name = $name;
+                $link->themeId = $id;
+                $link->modernPageId = $this->body['modernPage'];
+                $link->create();
+            }
+        } catch (ForeignKeyFailedException) {
+            return $this->entityNotFound('Modern page not found');
+        }
+
+        return $this->noContent();
     }
 }

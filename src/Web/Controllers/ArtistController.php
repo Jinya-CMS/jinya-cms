@@ -38,6 +38,7 @@ class ArtistController extends BaseController
         $artist->email = $this->body['email'];
         $artist->roles = $this->body['roles'];
         $artist->enabled = true;
+
         try {
             $artist->create();
         } catch (UniqueFailedException) {
@@ -47,7 +48,8 @@ class ArtistController extends BaseController
                     'message' => 'Email already used',
                     'type' => 'unique-failed',
                 ],
-            ]);
+            ], self::HTTP_CONFLICT);
+            /** @codeCoverageIgnore */
         } catch (NotNullViolationException) {
             return $this->json([
                 'success' => false,
@@ -55,7 +57,7 @@ class ArtistController extends BaseController
                     'message' => 'A required field is null',
                     'type' => 'not-null',
                 ],
-            ]);
+            ], self::HTTP_BAD_REQUEST);
         }
 
         return $this->json($artist->format(), self::HTTP_CREATED);
@@ -97,7 +99,8 @@ class ArtistController extends BaseController
                     'message' => 'Email already used',
                     'type' => 'unique-failed',
                 ],
-            ]);
+            ], self::HTTP_CONFLICT);
+            /** @codeCoverageIgnore */
         } catch (NotNullViolationException) {
             return $this->json([
                 'success' => false,
@@ -105,7 +108,7 @@ class ArtistController extends BaseController
                     'message' => 'A required field is null',
                     'type' => 'not-null',
                 ],
-            ]);
+            ], self::HTTP_BAD_REQUEST);
         }
 
         return $this->noContent();

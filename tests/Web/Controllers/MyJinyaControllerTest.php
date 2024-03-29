@@ -3,12 +3,13 @@
 namespace Jinya\Tests\Web\Controllers;
 
 use App\Authentication\CurrentUser;
+use App\Database\Artist;
+use App\Storage\StorageBaseService;
 use App\Tests\DatabaseAwareTestCase;
 use App\Web\Controllers\MyJinyaController;
-use App\Web\Middleware\AuthorizationMiddleware;
-use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
 use Nyholm\Psr7\Stream;
+use Psr\Http\Message\StreamInterface;
 
 class MyJinyaControllerTest extends DatabaseAwareTestCase
 {
@@ -16,6 +17,9 @@ class MyJinyaControllerTest extends DatabaseAwareTestCase
     {
         $controller = new MyJinyaController();
         $controller->request = (new ServerRequest('', ''));
+        if ($body instanceof StreamInterface) {
+            $controller->request = $controller->request->withBody($body);
+        }
         $controller->body = $body;
 
         return $controller;
@@ -74,5 +78,15 @@ class MyJinyaControllerTest extends DatabaseAwareTestCase
 
         self::assertEquals(204, $result->getStatusCode());
         self::assertTrue(CurrentUser::$currentUser->prefersColorScheme);
+    }
+
+    public function testUploadProfilePicture(): void
+    {
+        $controller = $this->getController(Stream::create('Test'));
+        $result = $controller->uploadProfilePicture();
+        $user = Artist::findById(CurrentUser::$currentUser->id);
+
+        self::assertEquals('Test', file_get_contents(StorageBaseService::PUBLIC_PATH . $user->profilePicture));
+        self::assertEquals(204, $result->getStatusCode());
     }
 }

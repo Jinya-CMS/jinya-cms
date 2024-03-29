@@ -5,7 +5,6 @@ namespace App\Storage;
 use App\Database\Artist;
 use App\Database\Exceptions\EmptyResultException;
 use Jinya\Database\Exception\NotNullViolationException;
-use RuntimeException;
 
 /**
  * A simple helper to handle profile picture uploads

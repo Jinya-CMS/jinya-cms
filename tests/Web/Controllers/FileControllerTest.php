@@ -7,7 +7,6 @@ use App\Storage\StorageBaseService;
 use App\Tests\DatabaseAwareTestCase;
 use App\Web\Controllers\FileController;
 use Faker\Provider\Uuid;
-use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
 use Nyholm\Psr7\Stream;
 

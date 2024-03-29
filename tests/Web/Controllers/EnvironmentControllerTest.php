@@ -4,8 +4,6 @@ namespace Jinya\Tests\Web\Controllers;
 
 use App\Tests\DatabaseAwareTestCase;
 use App\Web\Controllers\EnvironmentController;
-use Nyholm\Psr7\Response;
-use Nyholm\Psr7\ServerRequest;
 
 class EnvironmentControllerTest extends DatabaseAwareTestCase
 {

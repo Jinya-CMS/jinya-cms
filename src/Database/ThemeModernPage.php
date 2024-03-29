@@ -10,7 +10,10 @@ use Jinya\Database\Creatable;
 use Jinya\Database\Deletable;
 use Jinya\Database\DeletableEntityTrait;
 use Jinya\Database\EntityTrait;
+use Jinya\Database\Exception\ForeignKeyFailedException;
+use Jinya\Database\Exception\UniqueFailedException;
 use Jinya\Database\Updatable;
+use PDOException;
 
 /**
  * This class contains a segment page connected to a theme
@@ -125,7 +128,20 @@ class ThemeModernPage implements Creatable, Updatable, Deletable
                 'segment_page_id' => $this->modernPageId,
             ]);
 
-        self::executeQuery($query);
+        try {
+            self::executeQuery($query);
+        } catch (PDOException $exception) {
+            $errorInfo = $exception->errorInfo ?? ['', ''];
+            if ($errorInfo[1] === 1062) {
+                throw new UniqueFailedException($exception, self::getPDO());
+            }
+
+            if ($errorInfo[1] === 1452) {
+                throw new ForeignKeyFailedException($exception, self::getPDO());
+            }
+
+            throw $exception;
+        }
     }
 
     /**
@@ -140,6 +156,19 @@ class ThemeModernPage implements Creatable, Updatable, Deletable
             ->set('segment_page_id', $this->modernPageId)
             ->where('theme_id = :themeId AND name = :name', ['themeId' => $this->themeId, 'name' => $this->name]);
 
-        self::executeQuery($query);
+        try {
+            self::executeQuery($query);
+        } catch (PDOException $exception) {
+            $errorInfo = $exception->errorInfo ?? ['', ''];
+            if ($errorInfo[1] === 1062) {
+                throw new UniqueFailedException($exception, self::getPDO());
+            }
+
+            if ($errorInfo[1] === 1452) {
+                throw new ForeignKeyFailedException($exception, self::getPDO());
+            }
+
+            throw $exception;
+        }
     }
 }

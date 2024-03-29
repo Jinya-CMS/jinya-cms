@@ -11,7 +11,10 @@ use Jinya\Database\Creatable;
 use Jinya\Database\Deletable;
 use Jinya\Database\DeletableEntityTrait;
 use Jinya\Database\EntityTrait;
+use Jinya\Database\Exception\ForeignKeyFailedException;
+use Jinya\Database\Exception\UniqueFailedException;
 use Jinya\Database\Updatable;
+use PDOException;
 
 /**
  * This class contains a file connected to a theme
@@ -128,7 +131,20 @@ class ThemeFile implements Creatable, Updatable, Deletable
                 'file_id' => $this->fileId,
             ]);
 
-        self::executeQuery($query);
+        try {
+            self::executeQuery($query);
+        } catch (PDOException $exception) {
+            $errorInfo = $exception->errorInfo ?? ['', ''];
+            if ($errorInfo[1] === 1062) {
+                throw new UniqueFailedException($exception, self::getPDO());
+            }
+
+            if ($errorInfo[1] === 1452) {
+                throw new ForeignKeyFailedException($exception, self::getPDO());
+            }
+
+            throw $exception;
+        }
     }
 
     /**
@@ -143,6 +159,19 @@ class ThemeFile implements Creatable, Updatable, Deletable
             ->set('file_id', $this->fileId)
             ->where('theme_id = :themeId AND name = :name', ['themeId' => $this->themeId, 'name' => $this->name]);
 
-        self::executeQuery($query);
+        try {
+            self::executeQuery($query);
+        } catch (PDOException $exception) {
+            $errorInfo = $exception->errorInfo ?? ['', ''];
+            if ($errorInfo[1] === 1062) {
+                throw new UniqueFailedException($exception, self::getPDO());
+            }
+
+            if ($errorInfo[1] === 1452) {
+                throw new ForeignKeyFailedException($exception, self::getPDO());
+            }
+
+            throw $exception;
+        }
     }
 }

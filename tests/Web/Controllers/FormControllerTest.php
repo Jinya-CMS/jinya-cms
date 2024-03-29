@@ -2,36 +2,43 @@
 
 namespace Jinya\Tests\Web\Controllers;
 
-use App\Database\ModernPage;
+use App\Database\Form;
 use App\Tests\DatabaseAwareTestCase;
-use App\Web\Controllers\ModernPageController;
+use App\Web\Controllers\FormController;
+use Faker\Provider\Uuid;
 use Nyholm\Psr7\ServerRequest;
 
-class ModernPageControllerTest extends DatabaseAwareTestCase
+class FormControllerTest extends DatabaseAwareTestCase
 {
-    private function getController(array $body): ModernPageController
+    private function getController(array $body): FormController
     {
-        $controller = new ModernPageController();
+        $controller = new FormController();
         $controller->request = (new ServerRequest('', ''))->withParsedBody($body);
         $controller->body = $body;
 
         return $controller;
     }
 
-    public function testGetSections(): void
+    public function testGetItems(): void
     {
-        $page = new ModernPage();
-        $page->name = 'Title';
-        $page->create();
+        $form = new Form();
+        $form->title = 'Title';
+        $form->toAddress = 'test@example.com';
+        $form->create();
 
-        $page->replaceSections([
+        $form->replaceItems([
             [
-                'html' => 'Test'
+                'formId' => $form->id,
+                'label' => Uuid::uuid(),
+                'isFromAddress' => true,
+                'isSubject' => true,
+                'isRequired' => true,
+                'type' => 'text',
             ]
         ]);
 
         $controller = $this->getController([]);
-        $result = $controller->getSections($page->id);
+        $result = $controller->getItems($form->id);
         $result->getBody()->rewind();
         $body = json_decode($result->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
 
@@ -39,10 +46,10 @@ class ModernPageControllerTest extends DatabaseAwareTestCase
         self::assertCount(1, $body);
     }
 
-    public function testGetSectionsPostNotFound(): void
+    public function testGetItemsPostNotFound(): void
     {
         $controller = $this->getController([]);
-        $result = $controller->getSections(-1);
+        $result = $controller->getItems(-1);
 
         $result->getBody()->rewind();
         $body = json_decode($result->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
@@ -51,7 +58,7 @@ class ModernPageControllerTest extends DatabaseAwareTestCase
         self::assertEquals([
             'success' => false,
             'error' => [
-                'message' => 'Modern page not found',
+                'message' => 'Form not found',
                 'type' => 'not-found',
             ],
         ], $body);
@@ -59,16 +66,22 @@ class ModernPageControllerTest extends DatabaseAwareTestCase
 
     public function testReplaceSegments(): void
     {
-        $page = new ModernPage();
-        $page->name = 'Title';
-        $page->create();
+        $form = new Form();
+        $form->title = 'Title';
+        $form->toAddress = 'test@example.com';
+        $form->create();
 
         $controller = $this->getController([
             [
-                'html' => 'Test'
+                'formId' => $form->id,
+                'label' => Uuid::uuid(),
+                'isFromAddress' => true,
+                'isSubject' => true,
+                'isRequired' => true,
+                'type' => 'text',
             ]
         ]);
-        $result = $controller->replaceSections($page->id);
+        $result = $controller->replaceItems($form->id);
 
         self::assertEquals(204, $result->getStatusCode());
     }
@@ -76,7 +89,7 @@ class ModernPageControllerTest extends DatabaseAwareTestCase
     public function testReplaceSegmentsPostNotFound(): void
     {
         $controller = $this->getController([]);
-        $result = $controller->replaceSections(-1);
+        $result = $controller->replaceItems(-1);
 
         $result->getBody()->rewind();
         $body = json_decode($result->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
@@ -85,7 +98,7 @@ class ModernPageControllerTest extends DatabaseAwareTestCase
         self::assertEquals([
             'success' => false,
             'error' => [
-                'message' => 'Modern page not found',
+                'message' => 'Form not found',
                 'type' => 'not-found',
             ],
         ], $body);

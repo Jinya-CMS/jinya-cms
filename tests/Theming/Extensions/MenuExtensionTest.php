@@ -28,7 +28,7 @@ class MenuExtensionTest extends DatabaseAwareTestCase
         $child = $this->createMenuItem('active/sub');
 
         $parent['items'] = [$child];
-        $this->menu->replaceItems($parent);
+        $this->menu->replaceItems([$parent]);
 
         $items = $this->menu->getItems();
 
@@ -43,7 +43,7 @@ class MenuExtensionTest extends DatabaseAwareTestCase
         $child = $this->createMenuItem('not-active/sub');
 
         $parent['items'] = [$child];
-        $this->menu->replaceItems($parent);
+        $this->menu->replaceItems([$parent]);
 
         $items = $this->menu->getItems();
 
@@ -58,7 +58,7 @@ class MenuExtensionTest extends DatabaseAwareTestCase
         $child = $this->createMenuItem('not-active/sub');
 
         $parent['items'] = [$child];
-        $this->menu->replaceItems($parent);
+        $this->menu->replaceItems([$parent]);
 
         $items = $this->menu->getItems();
 
@@ -70,7 +70,7 @@ class MenuExtensionTest extends DatabaseAwareTestCase
         $_SERVER['REQUEST_URI'] = '/active';
         $parent = $this->createMenuItem('active');
 
-        $this->menu->replaceItems($parent);
+        $this->menu->replaceItems([$parent]);
 
         $items = $this->menu->getItems();
 
@@ -83,7 +83,7 @@ class MenuExtensionTest extends DatabaseAwareTestCase
         $_SERVER['REQUEST_URI'] = '/active';
         $parent = $this->createMenuItem('not-active');
 
-        $this->menu->replaceItems($parent);
+        $this->menu->replaceItems([$parent]);
 
         $items = $this->menu->getItems();
 
@@ -95,7 +95,7 @@ class MenuExtensionTest extends DatabaseAwareTestCase
         $_SERVER['REQUEST_URI'] = '/active';
         $parent = $this->createMenuItem('active');
 
-        $this->menu->replaceItems($parent);
+        $this->menu->replaceItems([$parent]);
 
         $active = $this->extension->getActiveMenuItem();
 
@@ -120,11 +120,5 @@ class MenuExtensionTest extends DatabaseAwareTestCase
         $this->menu = new Menu();
         $this->menu->name = 'Test';
         $this->menu->create();
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        $this->menu->delete();
     }
 }

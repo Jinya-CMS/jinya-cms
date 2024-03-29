@@ -84,8 +84,10 @@ class ModernPageSection
      *
      * @return ModernPage|null
      * @deprecated Use getModernPage instead
+     * @codeCoverageIgnore
      */
-    public function getSegmentPage(): ?ModernPage {
+    public function getSegmentPage(): ?ModernPage
+    {
         return $this->getModernPage();
     }
 

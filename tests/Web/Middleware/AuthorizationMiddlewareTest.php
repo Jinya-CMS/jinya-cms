@@ -60,4 +60,30 @@ class AuthorizationMiddlewareTest extends DatabaseAwareTestCase
             ]
         ], $body);
     }
+
+    public function testProcessApiKeyInvalid(): void
+    {
+        $apiKey = $this->createApiKey();
+        $apiKey->validSince = DateTime::createFromFormat('Y-m-d\TH:i:s', '1970-01-01T00:00:00');
+        $apiKey->update();
+
+        $request = new ServerRequest('POST', '', ['JinyaApiKey' => $apiKey->apiKey]);
+        $middleware = new AuthorizationMiddleware('ROLE_ADMIN');
+
+        $response = new Response();
+        $handler = new TestRequestHandler($response);
+        $response = $middleware->process($request, $handler);
+
+        $response->getBody()->rewind();
+        $body = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+
+        self::assertEquals(401, $response->getStatusCode());
+        self::assertEquals([
+            'success' => false,
+            'error' => [
+                'message' => 'API key is invalid',
+                'type' => 'invalid-api-key'
+            ]
+        ], $body);
+    }
 }

@@ -8,7 +8,6 @@ use App\Tests\DatabaseAwareTestCase;
 use App\Web\Controllers\BlogController;
 use Faker\Factory;
 use Faker\Provider\Uuid;
-use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
 
 class BlogControllerTest extends DatabaseAwareTestCase

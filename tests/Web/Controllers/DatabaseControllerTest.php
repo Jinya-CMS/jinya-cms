@@ -4,7 +4,6 @@ namespace Jinya\Tests\Web\Controllers;
 
 use App\Tests\DatabaseAwareTestCase;
 use App\Web\Controllers\DatabaseController;
-use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
 
 class DatabaseControllerTest extends DatabaseAwareTestCase
@@ -12,7 +11,7 @@ class DatabaseControllerTest extends DatabaseAwareTestCase
     private function getController(mixed $body): DatabaseController
     {
         $controller = new DatabaseController();
-        $controller->request = (new ServerRequest('',''))->withParsedBody($body);
+        $controller->request = (new ServerRequest('', ''))->withParsedBody($body);
         $controller->body = $body;
 
         return $controller;

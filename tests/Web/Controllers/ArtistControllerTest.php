@@ -216,6 +216,32 @@ class ArtistControllerTest extends DatabaseAwareTestCase
         ], $body);
     }
 
+    public function testUpdateArtistUniqueFailed(): void
+    {
+        $artist = new Artist();
+        $artist->artistName = 'test';
+        $artist->email = 'test@test.de';
+        $artist->setPassword('test');
+        $artist->create();
+
+        $controller = $this->getController(
+            ['artistName' => 'test', 'password' => 'test', 'email' => CurrentUser::$currentUser->email, 'roles' => ['ROLE_READER']]
+        );
+        $result = $controller->updateArtist($artist->id);
+
+        $result->getBody()->rewind();
+        $body = json_decode($result->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+
+        self::assertEquals(409, $result->getStatusCode());
+        self::assertEquals([
+            'success' => false,
+            'error' => [
+                'message' => 'Email already used',
+                'type' => 'unique-failed',
+            ],
+        ], $body);
+    }
+
     public function testCreate(): void
     {
         $controller = $this->getController(
@@ -229,6 +255,26 @@ class ArtistControllerTest extends DatabaseAwareTestCase
         self::assertEquals('test', $user->artistName);
         self::assertEquals('test@test.de', $user->email);
         self::assertEquals(['ROLE_READER'], $user->roles);
+    }
+
+    public function testCreateArtistUniqueFailed(): void
+    {
+        $controller = $this->getController(
+            ['artistName' => 'test', 'password' => 'test', 'email' => CurrentUser::$currentUser->email, 'roles' => ['ROLE_READER']]
+        );
+        $result = $controller->createArtist();
+
+        $result->getBody()->rewind();
+        $body = json_decode($result->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+
+        self::assertEquals(409, $result->getStatusCode());
+        self::assertEquals([
+            'success' => false,
+            'error' => [
+                'message' => 'Email already used',
+                'type' => 'unique-failed',
+            ],
+        ], $body);
     }
 
     public function testGetProfilePicture(): void

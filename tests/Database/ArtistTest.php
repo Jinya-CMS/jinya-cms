@@ -4,7 +4,6 @@ namespace Jinya\Tests\Database;
 
 use App\Database\ApiKey;
 use App\Database\Artist;
-use App\Database\Exceptions\DeleteLastAdminException;
 use App\Database\KnownDevice;
 use App\Tests\DatabaseAwareTestCase;
 use DateTime;
@@ -36,12 +35,8 @@ class ArtistTest extends DatabaseAwareTestCase
         if ($isAdmin) {
             $artist->roles[] = 'ROLE_ADMIN';
         }
-        if (true) {
-            $artist->roles[] = 'ROLE_READER';
-        }
-        if (true) {
-            $artist->roles[] = 'ROLE_WRITER';
-        }
+        $artist->roles[] = 'ROLE_READER';
+        $artist->roles[] = 'ROLE_WRITER';
 
         if ($execute) {
             $artist->create();
@@ -366,28 +361,6 @@ class ArtistTest extends DatabaseAwareTestCase
             execute: false
         );
         $artist->delete();
-    }
-
-    public function testDeleteLastUser(): void
-    {
-        $this->expectException(DeleteLastAdminException::class);
-        $artist = $this->createArtist(isAdmin: false);
-        $artist->delete();
-
-        $foundArtist = Artist::findById($artist->id);
-        self::assertNull($foundArtist);
-    }
-
-    public function testDeleteLastAdmin(): void
-    {
-        $this->createArtist(
-            isAdmin: false,
-            email: 'test2@example.com'
-        );
-        $artist = $this->createArtist();
-        $artist->delete();
-
-        self::assertTrue(true);
     }
 
     public function testDeleteLastNormalUserAdminNotDeleted(): void

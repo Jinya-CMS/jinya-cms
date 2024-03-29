@@ -78,6 +78,7 @@ class MenuItemTest extends DatabaseAwareTestCase
         $form = $this->createForm();
         $menuItem = $this->createMenuItem();
         $menuItem['formId'] = $form->id;
+        $menuItem['items'] = [$menuItem];
         $menu->replaceItems([$menuItem]);
 
         /** @var MenuItem $found */
@@ -115,6 +116,7 @@ class MenuItemTest extends DatabaseAwareTestCase
         $page = $this->createClassicPage();
         $menuItem = $this->createMenuItem();
         $menuItem['classicPageId'] = $page->id;
+        $menuItem['items'] = [$menuItem];
         $menu->replaceItems([$menuItem]);
 
         /** @var MenuItem $found */
@@ -150,6 +152,7 @@ class MenuItemTest extends DatabaseAwareTestCase
         $page = $this->createModernPage();
         $menuItem = $this->createMenuItem();
         $menuItem['modernPageId'] = $page->id;
+        $menuItem['items'] = [$menuItem];
         $menu->replaceItems([$menuItem]);
 
         /** @var MenuItem $found */
@@ -184,6 +187,7 @@ class MenuItemTest extends DatabaseAwareTestCase
         $gallery = $this->createGallery();
         $menuItem = $this->createMenuItem();
         $menuItem['galleryId'] = $gallery->id;
+        $menuItem['items'] = [$menuItem];
         $menu->replaceItems([$menuItem]);
 
         /** @var MenuItem $found */
@@ -218,6 +222,7 @@ class MenuItemTest extends DatabaseAwareTestCase
         $category = $this->createBlogCategory();
         $menuItem = $this->createMenuItem();
         $menuItem['categoryId'] = $category->id;
+        $menuItem['items'] = [$menuItem];
         $menu->replaceItems([$menuItem]);
 
         /** @var MenuItem $found */
