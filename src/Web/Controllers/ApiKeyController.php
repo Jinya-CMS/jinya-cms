@@ -30,7 +30,7 @@ class ApiKeyController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::DELETE, '/api/api-key/{key}')]
+    #[Route(HttpMethod::DELETE, 'api/api-key/{key}')]
     public function deleteApiKey(string $key): ResponseInterface
     {
         $apiKey = ApiKey::findByApiKey($key);

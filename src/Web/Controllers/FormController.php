@@ -18,7 +18,7 @@ class FormController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/form/{id}/item')]
+    #[Route(HttpMethod::GET, 'api/form/{id}/item')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_READER))]
     public function getItems(int $id): ResponseInterface
     {
@@ -36,7 +36,7 @@ class FormController extends BaseController
      * @throws TransactionFailedException
      * @throws JsonException
      */
-    #[Route(HttpMethod::PUT, '/api/form/{id}/item')]
+    #[Route(HttpMethod::PUT, 'api/form/{id}/item')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function replaceItems(int $id): ResponseInterface
     {

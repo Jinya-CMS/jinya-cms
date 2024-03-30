@@ -23,7 +23,7 @@ class PhpInfoController extends BaseController
      * @return ResponseInterface
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/php-info')]
+    #[Route(HttpMethod::GET, 'api/php-info')]
     public function getPhpInfo(): ResponseInterface
     {
         $info = $this->phpinfo2array();

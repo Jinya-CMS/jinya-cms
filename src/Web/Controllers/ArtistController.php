@@ -28,7 +28,7 @@ class ArtistController extends BaseController
      * @return ResponseInterface
      * @throws JsonException
      */
-    #[Route(HttpMethod::POST, '/api/user')]
+    #[Route(HttpMethod::POST, 'api/user')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_ADMIN))]
     public function createArtist(): ResponseInterface
     {
@@ -68,7 +68,7 @@ class ArtistController extends BaseController
      * @return ResponseInterface
      * @throws JsonException
      */
-    #[Route(HttpMethod::PUT, '/api/user/{id}')]
+    #[Route(HttpMethod::PUT, 'api/user/{id}')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_ADMIN))]
     public function updateArtist(int $id): ResponseInterface
     {
@@ -119,7 +119,7 @@ class ArtistController extends BaseController
      * @return ResponseInterface
      * @throws JsonException
      */
-    #[Route(HttpMethod::DELETE, '/api/user/{id}')]
+    #[Route(HttpMethod::DELETE, 'api/user/{id}')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_ADMIN))]
     public function deleteArtist(int $id): ResponseInterface
     {
@@ -149,7 +149,7 @@ class ArtistController extends BaseController
      * @throws JsonException
      * @throws NotNullViolationException
      */
-    #[Route(HttpMethod::PUT, '/api/user/{id}/activation')]
+    #[Route(HttpMethod::PUT, 'api/user/{id}/activation')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_ADMIN))]
     public function activateArtist(int $id): ResponseInterface
     {
@@ -170,7 +170,7 @@ class ArtistController extends BaseController
      * @throws JsonException
      * @throws NotNullViolationException
      */
-    #[Route(HttpMethod::DELETE, '/api/user/{id}/activation')]
+    #[Route(HttpMethod::DELETE, 'api/user/{id}/activation')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_ADMIN))]
     public function deactivateArtist(int $id): ResponseInterface
     {
@@ -200,7 +200,7 @@ class ArtistController extends BaseController
      * @return ResponseInterface
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/user/{id}/profilepicture')]
+    #[Route(HttpMethod::GET, 'api/user/{id}/profilepicture')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_READER))]
     public function getProfilePicture(int $id): ResponseInterface
     {
@@ -218,7 +218,7 @@ class ArtistController extends BaseController
      * @throws JsonException
      * @throws NotNullViolationException
      */
-    #[Route(HttpMethod::PUT, '/api/user/{id}/profilepicture')]
+    #[Route(HttpMethod::PUT, 'api/user/{id}/profilepicture')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_ADMIN))]
     public function uploadProfilePicture(int $id): ResponseInterface
     {
@@ -238,7 +238,7 @@ class ArtistController extends BaseController
      * @return ResponseInterface
      * @throws JsonException
      */
-    #[Route(HttpMethod::DELETE, '/api/user/{id}/profilepicture')]
+    #[Route(HttpMethod::DELETE, 'api/user/{id}/profilepicture')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_ADMIN))]
     public function deleteProfilePicture(int $id): ResponseInterface
     {

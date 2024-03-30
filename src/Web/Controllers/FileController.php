@@ -29,7 +29,7 @@ class FileController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/file/{id}/content')]
+    #[Route(HttpMethod::GET, 'api/file/{id}/content')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_READER))]
     public function getFileContent(int $id): ResponseInterface
     {
@@ -45,7 +45,7 @@ class FileController extends BaseController
      * @throws NotNullViolationException
      * @throws JsonException
      */
-    #[Route(HttpMethod::PUT, '/api/file/{id}/content/{position}')]
+    #[Route(HttpMethod::PUT, 'api/file/{id}/content/{position}')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function uploadChunk(int $id, int $position): ResponseInterface
     {
@@ -62,7 +62,7 @@ class FileController extends BaseController
      * @throws NotNullViolationException
      * @throws JsonException
      */
-    #[Route(HttpMethod::PUT, '/api/file/{id}/content/finish')]
+    #[Route(HttpMethod::PUT, 'api/file/{id}/content/finish')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function finishUpload(int $id): ResponseInterface
     {
@@ -78,7 +78,7 @@ class FileController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::PUT, '/api/file/{id}/content')]
+    #[Route(HttpMethod::PUT, 'api/file/{id}/content')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function startUpload(int $id): ResponseInterface
     {

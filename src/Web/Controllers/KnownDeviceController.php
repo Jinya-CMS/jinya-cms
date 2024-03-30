@@ -22,7 +22,7 @@ class KnownDeviceController extends BaseController
      * @return ResponseInterface
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/known-device')]
+    #[Route(HttpMethod::GET, 'api/known-device')]
     #[Middlewares(new AuthorizationMiddleware())]
     public function getKnownDevices(): ResponseInterface
     {
@@ -36,7 +36,7 @@ class KnownDeviceController extends BaseController
      * @return ResponseInterface
      * @throws JsonException
      */
-    #[Route(HttpMethod::DELETE, '/api/known-device/{key}')]
+    #[Route(HttpMethod::DELETE, 'api/known-device/{key}')]
     #[Middlewares(new AuthorizationMiddleware())]
     public function deleteKnownDevice(string $key): ResponseInterface
     {
@@ -56,7 +56,7 @@ class KnownDeviceController extends BaseController
      * @param string $key
      * @return ResponseInterface
      */
-    #[Route(HttpMethod::HEAD, '/api/known-device/{key}')]
+    #[Route(HttpMethod::HEAD, 'api/known-device/{key}')]
     public function validateKnownDevice(string $key): ResponseInterface
     {
         if (KnownDevice::findByCode($key)) {

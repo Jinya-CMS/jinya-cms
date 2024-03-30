@@ -57,7 +57,7 @@ class InstallController extends BaseController
      * Renders the installer page
      * @throws Throwable
      */
-    #[Route(HttpMethod::GET, '/install')]
+    #[Route(HttpMethod::GET, 'install')]
     public function getInstall(): ResponseInterface
     {
         return $this->renderThemed('install::set-config', ['data' => []]);
@@ -69,7 +69,7 @@ class InstallController extends BaseController
      * @throws Throwable
      * @throws Throwable
      */
-    #[Route(HttpMethod::POST, '/installer')]
+    #[Route(HttpMethod::POST, 'installer')]
     public function postInstall(): ResponseInterface
     {
         $body = $_POST;

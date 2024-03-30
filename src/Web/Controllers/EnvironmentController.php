@@ -17,7 +17,7 @@ class EnvironmentController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/environment')]
+    #[Route(HttpMethod::GET, 'api/environment')]
     public function getEnvironment(): ResponseInterface
     {
         $env = array_filter(

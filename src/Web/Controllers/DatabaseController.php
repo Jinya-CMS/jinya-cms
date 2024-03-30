@@ -23,7 +23,7 @@ class DatabaseController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::POST, '/api/maintenance/database/query')]
+    #[Route(HttpMethod::POST, 'api/maintenance/database/query')]
     #[Middlewares(new CheckRequiredFieldsMiddleware(['query']))]
     public function queryDatabase(): ResponseInterface
     {
@@ -70,7 +70,7 @@ class DatabaseController extends BaseController
      * @throws JsonException
      * @throws Exception
      */
-    #[Route(HttpMethod::GET, '/api/maintenance/database/analyze')]
+    #[Route(HttpMethod::GET, 'api/maintenance/database/analyze')]
     public function analyzeDatabase(): ResponseInterface
     {
         $tables = DatabaseAnalyzer::getTables();

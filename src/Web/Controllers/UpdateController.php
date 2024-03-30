@@ -20,7 +20,7 @@ class UpdateController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/version')]
+    #[Route(HttpMethod::GET, 'api/version')]
     public function getVersionInfo(): ResponseInterface
     {
         return $this->json([
@@ -48,7 +48,7 @@ class UpdateController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::PUT, '/api/update')]
+    #[Route(HttpMethod::PUT, 'api/update')]
     public function updateJinya(): ResponseInterface
     {
         $updatePath = __ROOT__ . '/var/update.zip';

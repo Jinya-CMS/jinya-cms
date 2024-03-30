@@ -212,7 +212,7 @@ class FrontendController extends BaseController
      * @return ResponseInterface
      * @throws Throwable
      */
-    #[Route(HttpMethod::GET, '/[{route:.*}]')]
+    #[Route(HttpMethod::GET, '[{route:(?!api\/)}]')]
     public function frontend(string $route = ''): ResponseInterface
     {
         return $this->executeErrorHandled(function () use ($route) {
@@ -241,7 +241,7 @@ class FrontendController extends BaseController
      * @throws Throwable
      * @throws Exception
      */
-    #[Route(HttpMethod::POST, '/[{route:.*}]')]
+    #[Route(HttpMethod::POST, '[{route:(?!api\/)}]')]
     public function postForm(string $route): ResponseInterface
     {
         $menuItem = MenuItem::findByRoute($route);
@@ -294,7 +294,7 @@ class FrontendController extends BaseController
      * Displays the given blog post or returns a 404 page
      * @throws Throwable
      */
-    #[Route(HttpMethod::GET, '/{year:\d\d\d\d}/{month:\d\d}/{day:\d\d}/{slug}')]
+    #[Route(HttpMethod::GET, '{year:\d\d\d\d}/{month:\d\d}/{day:\d\d}/{slug}')]
     public function blogFrontend(string $slug): ResponseInterface
     {
         return $this->executeErrorHandled(function () use ($slug) {
@@ -321,7 +321,7 @@ class FrontendController extends BaseController
      * @throws Throwable
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/frontend/links')]
+    #[Route(HttpMethod::GET, 'api/frontend/links')]
     public function getLinks(): ResponseInterface
     {
         if (!Database\Theme::getActiveTheme()->hasApiTheme) {

@@ -18,7 +18,7 @@ class LocateIpController extends BaseController
      * Locates the given IP
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/ip-location/{ip}')]
+    #[Route(HttpMethod::GET, 'api/ip-location/{ip}')]
     public function locateIp(string $ip): ResponseInterface
     {
         /** @phpstan-ignore-next-line */

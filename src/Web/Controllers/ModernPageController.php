@@ -18,7 +18,7 @@ class ModernPageController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/modern-page/{id}/section')]
+    #[Route(HttpMethod::GET, 'api/modern-page/{id}/section')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_READER))]
     public function getSections(int $id): ResponseInterface
     {
@@ -36,7 +36,7 @@ class ModernPageController extends BaseController
      * @throws TransactionFailedException
      * @throws JsonException
      */
-    #[Route(HttpMethod::PUT, '/api/modern-page/{id}/section')]
+    #[Route(HttpMethod::PUT, 'api/modern-page/{id}/section')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function replaceSections(int $id): ResponseInterface
     {

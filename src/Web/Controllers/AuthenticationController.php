@@ -57,7 +57,7 @@ class AuthenticationController extends BaseController
      * @throws NotNullViolationException
      * @throws JsonException
      */
-    #[Route(HttpMethod::PUT, '/api/account/password')]
+    #[Route(HttpMethod::PUT, 'api/account/password')]
     #[Middlewares(new AuthorizationMiddleware(), new CheckRequiredFieldsMiddleware(['password', 'oldPassword']))]
     public function changePassword(): ResponseInterface
     {
@@ -82,7 +82,7 @@ class AuthenticationController extends BaseController
      * @throws NotNullViolationException
      * @throws \Exception
      */
-    #[Route(HttpMethod::POST, '/api/login')]
+    #[Route(HttpMethod::POST, 'api/login')]
     #[Middlewares(new CheckRequiredFieldsMiddleware(['password', 'username']))]
     public function login(): ResponseInterface
     {
@@ -154,7 +154,7 @@ class AuthenticationController extends BaseController
      * @throws Exception
      * @throws Throwable
      */
-    #[Route(HttpMethod::POST, '/api/2fa')]
+    #[Route(HttpMethod::POST, 'api/2fa')]
     #[Middlewares(new CheckRequiredFieldsMiddleware(['password', 'username']))]
     public function twoFactorCode(): ResponseInterface
     {
@@ -180,7 +180,7 @@ class AuthenticationController extends BaseController
      * @return ResponseInterface
      * @codeCoverageIgnore
      */
-    #[Route(HttpMethod::HEAD, '/api/login')]
+    #[Route(HttpMethod::HEAD, 'api/login')]
     #[Middlewares(new AuthorizationMiddleware())]
     public function validateLogin(): ResponseInterface
     {
