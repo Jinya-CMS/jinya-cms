@@ -2,13 +2,14 @@
 
 namespace Jinya\Cms\Web\Controllers;
 
+use Dotenv\Dotenv;
 use Jinya\Cms\Database\Artist;
 use Jinya\Cms\Database\Migrations\Migrator;
 use Jinya\Cms\Logging\Logger;
 use Jinya\Cms\Theming\Engine;
 use Jinya\Cms\Theming\ThemeSyncer;
 use Jinya\Cms\Web\Middleware\RedirectInstallerMiddleware;
-use Dotenv\Dotenv;
+use Jinya\Database\Entity;
 use Jinya\Plates\Engine as PlatesEngine;
 use Jinya\Plates\Extension\URI;
 use Jinya\Router\Attributes\Controller;
@@ -16,10 +17,14 @@ use Jinya\Router\Attributes\HttpMethod;
 use Jinya\Router\Attributes\Middlewares;
 use Jinya\Router\Attributes\Route;
 use Nyholm\Psr7\Response;
+use Nyholm\Psr7\Stream;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
+/**
+ * @codeCoverageIgnore
+ */
 #[Controller]
 #[Middlewares(new RedirectInstallerMiddleware())]
 class InstallController extends BaseController
@@ -60,49 +65,12 @@ class InstallController extends BaseController
     #[Route(HttpMethod::GET, 'install')]
     public function getInstall(): ResponseInterface
     {
-        return $this->renderThemed('install::set-config', ['data' => []]);
+        return $this->renderThemed('install::installer', ['data' => []]);
     }
 
-    /**
-     * Executes the post for the installer. This creates the first admin and .env file
-     * @throws Throwable
-     * @throws Throwable
-     * @throws Throwable
-     */
-    #[Route(HttpMethod::POST, 'installer')]
-    public function postInstall(): ResponseInterface
+    #[Route(HttpMethod::POST, 'api/install/configuration')]
+    public function createConfiguration(): ResponseInterface
     {
-        $body = $_POST;
-        if (isset($body['action'])) {
-            $artist = new Artist();
-            $artist->email = $body['email'];
-            $artist->setPassword($body['password']);
-            $artist->artistName = $body['artistname'];
-            $artist->roles = [
-                ROLE_READER,
-                ROLE_WRITER,
-                ROLE_ADMIN,
-            ];
-            $artist->enabled = true;
-            try {
-                $themeSyncer = new ThemeSyncer();
-                $themeSyncer->syncThemes();
-                $artist->create();
-
-                touch(__ROOT__ . '/installed.lock');
-
-                return new Response(self::HTTP_MOVED_PERMANENTLY, ['Location' => '/designer']);
-            } catch (Throwable $exception) {
-                return $this->renderThemed(
-                    'install::first-admin',
-                    [
-                        'data' => $this->body,
-                        'error' => $exception->getMessage(),
-                    ]
-                );
-            }
-        }
-
         $dotenv = <<<'DOTENV'
 APP_ENV=prod
 
@@ -111,27 +79,77 @@ JINYA_UPDATE_SERVER=https://releases.jinya.de/cms
 
 DOTENV;
 
-        $data = array_map(static fn (string $key, string $value) => "$key=$value", array_keys($body), $body);
-
-        $dotenv .= PHP_EOL . implode(PHP_EOL, $data);
-
-        file_put_contents(__ROOT__ . '/.env', $dotenv);
-
-        $dotenvUtil = Dotenv::createUnsafeImmutable(__ROOT__);
-        $dotenvUtil->load();
+        $dotenv .= 'MYSQL_HOST=' . $this->body['mysql']['host'] . "\n";
+        $dotenv .= 'MYSQL_PORT=' . $this->body['mysql']['port'] . "\n";
+        $dotenv .= 'MYSQL_DATABASE=' . $this->body['mysql']['database'] . "\n";
+        $dotenv .= 'MYSQL_USER=' . $this->body['mysql']['username'] . "\n";
+        $dotenv .= 'MYSQL_PASSWORD=' . $this->body['mysql']['password'] . "\n";
+        $dotenv .= "\n";
+        $dotenv .= 'MAILER_HOST=' . $this->body['mailing']['host'] . "\n";
+        $dotenv .= 'MAILER_PORT=' . $this->body['mailing']['port'] . "\n";
+        $dotenv .= 'MAILER_USERNAME=' . $this->body['mailing']['username'] . "\n";
+        $dotenv .= 'MAILER_PASSWORD=' . $this->body['mailing']['password'] . "\n";
+        $dotenv .= 'MAILER_ENCRYPTION=' . $this->body['mailing']['encryption'] . "\n";
+        $dotenv .= 'MAILER_FROM=' . $this->body['mailing']['from'] . "\n";
+        $dotenv .= 'MAILER_SMTP_AUTH=' . $this->body['mailing']['authRequired'] . "\n";
 
         try {
+            file_put_contents(__ROOT__ . '/.env', $dotenv);
+
+            $dotenvUtil = Dotenv::createUnsafeImmutable(__ROOT__);
+            $dotenvUtil->load();
+        } catch (Throwable) {
+            return new Response(500, body: Stream::create('Failed to save the environment variables'));
+        }
+
+        try {
+            Entity::getPDO()->exec('SELECT 1');
+        } catch (Throwable) {
+            @unlink(__ROOT__ . '/.env');
+            return new Response(500, body: Stream::create('We were not possible to connect to the database'));
+        }
+
+        return $this->noContent();
+    }
+
+    #[Route(HttpMethod::POST, 'api/install/database')]
+    public function createDatabase(): ResponseInterface
+    {
+        try {
             Migrator::migrate();
+            $themeSyncer = new ThemeSyncer();
+            $themeSyncer->syncThemes();
         } catch (Throwable $exception) {
             $this->logger->error($exception->getMessage());
             $this->logger->error($exception->getTraceAsString());
 
-            return $this->renderThemed(
-                'install::set-config',
-                ['data' => $body, 'error' => $exception->getMessage()]
-            );
+            return new Response(500, body: Stream::create($exception->getMessage()));
         }
 
-        return $this->renderThemed('install::first-admin', []);
+        return $this->noContent();
+    }
+
+    #[Route(HttpMethod::POST, 'api/install/admin')]
+    public function createAdmin(): ResponseInterface
+    {
+        $artist = new Artist();
+        $artist->email = $this->body['email'];
+        $artist->setPassword($this->body['password']);
+        $artist->artistName = $this->body['artistName'];
+        $artist->roles = [
+            ROLE_READER,
+            ROLE_WRITER,
+            ROLE_ADMIN,
+        ];
+        $artist->enabled = true;
+        try {
+            $artist->create();
+
+            touch(__ROOT__ . '/installed.lock');
+
+            return $this->noContent();
+        } catch (Throwable $exception) {
+            return new Response(500, body: Stream::create($exception->getMessage()));
+        }
     }
 }
