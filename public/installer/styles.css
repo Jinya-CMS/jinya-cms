@@ -1,0 +1,136 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url("/lib/images/background.webp");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.installer {
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    color: var(--white);
+}
+
+.installer-container {
+    justify-self: center;
+    align-self: center;
+    background: hsla(var(--primary-hue), var(--primary-saturation), var(--primary-lightness-base), .25);
+    padding: 2rem 4rem;
+    backdrop-filter: blur(24px) saturate(90%);
+    box-sizing: border-box;
+    margin-top: 1.25rem;
+    max-width: 40rem;
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-flow: column;
+    gap: 1rem;
+    max-height: calc(100vh - 2.5rem);
+    overflow: auto;
+}
+
+.cosmo-input,
+.cosmo-select {
+    background: hsla(var(--primary-hue), var(--primary-saturation), calc(var(--primary-lightness-base) * 10), .25);
+    backdrop-filter: blur(24px) saturate(90%);
+    color: var(--white);
+    --border-indicator-color: hsla(var(--primary-hue), var(--primary-saturation), var(--primary-lightness-base), .25);
+    --control-border-color: hsla(var(--primary-hue), var(--primary-saturation), var(--primary-lightness-base), .25);
+}
+
+.cosmo-message,
+.cosmo-message__header {
+    color: var(--white);
+}
+
+.cosmo-modal {
+    --modal-background: hsla(var(--primary-hue), var(--primary-saturation), var(--primary-lightness-base), .5);
+}
+
+.cosmo-modal__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dots {
+    width: 8rem;
+    height: 8rem;
+    position: relative;
+}
+
+.dot {
+    width: 8rem;
+    height: 8rem;
+    animation: dwl-dot-spin 5s infinite linear both;
+    animation-delay: calc(var(--i) * 1s / 8 * -1);
+    rotate: calc(var(--i) * 60deg / 7);
+    position: absolute;
+
+    &::before {
+        content: '';
+        display: block;
+        width: 0.75rem;
+        height: 0.75rem;
+        background-color: var(--white);
+        border-radius: 50%;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        bottom: 0;
+        left: 50%;
+    }
+}
+
+@keyframes dwl-dot-spin {
+    0% {
+        transform: rotate(0deg);
+        animation-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
+        opacity: 1;
+    }
+
+    2% {
+        transform: rotate(20deg);
+        animation-timing-function: linear;
+        opacity: 1;
+    }
+
+    30% {
+        transform: rotate(180deg);
+        animation-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+        opacity: 1;
+    }
+
+    41% {
+        transform: rotate(380deg);
+        animation-timing-function: linear;
+        opacity: 1;
+    }
+
+    69% {
+        transform: rotate(520deg);
+        animation-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+        opacity: 1;
+    }
+
+    76% {
+        opacity: 1;
+    }
+
+    76.1% {
+        opacity: 0;
+    }
+
+    80% {
+        transform: rotate(720deg);
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+[x-cloak] {
+    display: none;
+}

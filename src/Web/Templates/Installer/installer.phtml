@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Jinya CMS – Installer</title>
+    <link href="/lib/cosmo/alert.css" rel="stylesheet">
+    <link href="/lib/cosmo/buttons.css" rel="stylesheet">
+    <link href="/lib/cosmo/form.css" rel="stylesheet">
+    <link href="/lib/cosmo/layout.css" rel="stylesheet">
+    <link href="/lib/cosmo/list.css" rel="stylesheet">
+    <link href="/lib/cosmo/modal.css" rel="stylesheet">
+    <link href="/lib/cosmo/normalize.css" rel="stylesheet">
+    <link href="/lib/cosmo/progress.css" rel="stylesheet">
+    <link href="/lib/cosmo/scrollbars.css" rel="stylesheet">
+    <link href="/lib/cosmo/tab.css" rel="stylesheet">
+    <link href="/lib/cosmo/table.css" rel="stylesheet">
+    <link href="/lib/cosmo/toolbar.css" rel="stylesheet">
+    <link href="/lib/cosmo/typography.css" rel="stylesheet">
+    <link href="/lib/cosmo/variables.css" rel="stylesheet">
+
+    <link href="/lib/cosmo/fonts/albert-sans.css" rel="stylesheet">
+    <link href="/lib/cosmo/fonts/oxygen-mono.css" rel="stylesheet">
+    <link href="/lib/cosmo/fonts/urbanist.css" rel="stylesheet">
+
+    <link href="/installer/styles.css" rel="stylesheet">
+
+    <link href="/lib/favicons/favicon-light.png" rel="icon" type="image/png" />
+    <link href="/lib/favicons/favicon-dark.png" media="(prefers-color-scheme: dark)" rel="icon" type="image/png" />
+    <link href="/lib/favicons/favicon.svg" rel="icon" type="image/svg+xml" />
+    <link href="/lib/favicons/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+
+    <link color="#19324c" href="/lib/favicons/safari-pinned-tab.svg" rel="mask-icon">
+
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="Jinya CMS Installer" name="apple-mobile-web-app-title" />
+    <meta content="Jinya CMS Installer" name="application-name" />
+    <meta content="#19324c" name="msapplication-TileColor" />
+    <meta content="#19324c" name="theme-color" />
+</head>
+<body>
+<main class="installer" x-cloak x-data="data">
+    <div class="installer-container">
+        <h1 class="cosmo-title">Jinya CMS installer</h1>
+        <template x-if="state === 'configuration'">
+            <form @submit.prevent="saveConfiguration">
+                <div class="cosmo-message is--negative" x-show="error.hasError">
+                    <span class="cosmo-message__header">Error saving configuration</span>
+                    <p class="cosmo-message__message" x-html="error.message"></p>
+                </div>
+                <div class="cosmo-input__group">
+                    <span class="cosmo-input__header">Mysql Database</span>
+                    <label class="cosmo-label" for="MYSQL_HOST">Server</label>
+                    <input x-model="mysql.host" class="cosmo-input" type="text" id="MYSQL_HOST" required>
+                    <label class="cosmo-label" for="MYSQL_PORT">Port</label>
+                    <input x-model.number="mysql.port" class="cosmo-input" type="number" min="1" max="65535"
+                           id="MYSQL_PORT" required>
+                    <label class="cosmo-label" for="MYSQL_DATABASE">Database</label>
+                    <input x-model="mysql.database" class="cosmo-input" type="text" id="MYSQL_DATABASE" required>
+                    <label class="cosmo-label" for="MYSQL_USER">Username</label>
+                    <input x-model="mysql.username" class="cosmo-input" type="text" id="MYSQL_USER" required>
+                    <label class="cosmo-label" for="MYSQL_PASSWORD">Password</label>
+                    <input x-model="mysql.password" class="cosmo-input" type="password" id="MYSQL_PASSWORD" required>
+                    <span class="cosmo-input__header">Mailing</span>
+                    <label class="cosmo-label" for="MAILER_HOST">Server</label>
+                    <input x-model="mailing.host" class="cosmo-input" type="text" id="MAILER_HOST" required>
+                    <label class="cosmo-label" for="MAILER_PORT">Port</label>
+                    <input x-model.number="mailing.port" class="cosmo-input" type="number" min="1" max="65535"
+                           id="MAILER_PORT" required>
+                    <label class="cosmo-label" for="MAILER_USERNAME">Username</label>
+                    <input x-model="mailing.username" class="cosmo-input" type="text" name="MAILER_USERNAME"
+                           id="MAILER_USERNAME">
+                    <label class="cosmo-label" for="MAILER_PASSWORD">Password</label>
+                    <input x-model="mailing.password" class="cosmo-input" type="password" name="MAILER_PASSWORD"
+                           id="MAILER_PASSWORD">
+                    <label class="cosmo-label" for="MAILER_ENCRYPTION">Encryption</label>
+                    <select x-model="mailing.encryption" class="cosmo-select" name="MAILER_ENCRYPTION"
+                            id="MAILER_ENCRYPTION">
+                        <option value="" selected>None</option>
+                        <option value="tls">STARTTLS</option>
+                        <option value="ssl">SMTPS</option>
+                    </select>
+                    <div class="cosmo-input__group is--checkbox">
+                        <input x-model="mailing.authRequired" type="checkbox" name="MAILER_SMTP_AUTH"
+                               id="MAILER_SMTP_AUTH" class="cosmo-checkbox">
+                        <label for="MAILER_SMTP_AUTH">SMTP Authentication</label>
+                    </div>
+                    <label class="cosmo-label" for="MAILER_FROM">From address</label>
+                    <input x-model="mailing.from" class="cosmo-input" type="email" id="MAILER_FROM" required>
+                </div>
+                <div class="cosmo-button__container">
+                    <button class="cosmo-button is--primary">Save configuration</button>
+                </div>
+            </form>
+        </template>
+        <template x-if="state === 'database'">
+            <div class="cosmo-message is--negative" x-show="error.hasError">
+                <span class="cosmo-message__header">Error creating database</span>
+                <p class="cosmo-message__message" x-html="error.message"></p>
+            </div>
+        </template>
+        <template x-if="state === 'database'">
+            <div class="cosmo-message is--information">
+                <span class="cosmo-message__header">Create database</span>
+                <p class="cosmo-message__message">
+                    Your configuration was saved successfully, now the database needs to be created. Click the button to
+                    start the setup.
+                </p>
+                <div class="cosmo-button__container">
+                    <button class="cosmo-button is--primary" @click="createDatabase" type="button">Create database
+                    </button>
+                </div>
+            </div>
+        </template>
+        <template x-if="state === 'first-admin'">
+            <form @submit.prevent="createFirstAdmin">
+                <div class="cosmo-message is--negative" x-show="error.hasError">
+                    <span class="cosmo-message__header">Error creating first admin</span>
+                    <p class="cosmo-message__message" x-html="error.message"></p>
+                </div>
+                <div class="cosmo-input__group">
+                    <label class="cosmo-label" for="artistName">Artist name</label>
+                    <input x-model="firstAdmin.artistName" class="cosmo-input" type="text" name="artistName"
+                           id="artistName">
+                    <label class="cosmo-label" for="email">Email</label>
+                    <input x-model="firstAdmin.email" class="cosmo-input" type="text" name="email" id="email">
+                    <label class="cosmo-label" for="password">Password</label>
+                    <input x-model="firstAdmin.password" class="cosmo-input" type="password" name="password"
+                           id="password">
+                </div>
+                <div class="cosmo-button__container">
+                    <button class="cosmo-button is--primary">Create first admin</button>
+                </div>
+            </form>
+        </template>
+        <template x-if="state === 'finish'">
+            <div class="cosmo-message is--information">
+                <span class="cosmo-message__header">Setup successful</span>
+                <p class="cosmo-message__message">
+                    Jinya CMS was installed successfully. You can now head to the designer and start building your
+                    portfolio.
+                </p>
+                <div class="cosmo-button__container">
+                    <a class="cosmo-button is--primary" href="/designer" type="button">Go to designer</a>
+                </div>
+            </div>
+        </template>
+    </div>
+    <div class="cosmo-modal__container" x-show="loading">
+        <div class="cosmo-modal is--information">
+            <h1 class="cosmo-modal__title">Please wait</h1>
+            <div class="cosmo-modal__content">
+                <div class="dots">
+                    <div style="--i: 0" class="dot"></div>
+                    <div style="--i: 1" class="dot"></div>
+                    <div style="--i: 2" class="dot"></div>
+                    <div style="--i: 3" class="dot"></div>
+                    <div style="--i: 4" class="dot"></div>
+                    <div style="--i: 5" class="dot"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="/installer/installer.js" type="module"></script>
+</body>
+</html>
