@@ -100,7 +100,7 @@ class FileExtension extends BaseExtension
                 ImageType::Jpg => 'jpg',
             };
             foreach (self::RESOLUTIONS_FOR_SOURCE as $width) {
-                $sources[] = "<source srcset='image.php?id=$file->id&width=$width&type=$typeAsString' media='(min-width: {$width}px)' type='$type'>";
+                $sources[] = "<source srcset='/image.php?id=$file->id&width=$width&type=$typeAsString' media='(min-width: {$width}px)' type='$type'>";
             }
         }
 
