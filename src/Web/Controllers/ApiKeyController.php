@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Authentication\CurrentUser;
-use App\Database\ApiKey;
-use App\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Database\ApiKey;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Jinya\Router\Attributes\Controller;
 use Jinya\Router\Attributes\HttpMethod;
 use Jinya\Router\Attributes\Middlewares;

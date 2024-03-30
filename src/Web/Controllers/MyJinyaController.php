@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Authentication\CurrentUser;
-use App\Database\Artist;
-use App\Database\Exceptions\EmptyResultException;
-use App\Storage\ProfilePictureService;
-use App\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Database\Artist;
+use Jinya\Cms\Database\Exceptions\EmptyResultException;
+use Jinya\Cms\Storage\ProfilePictureService;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Jinya\Database\Exception\NotNullViolationException;
 use Jinya\Router\Attributes\Controller;
 use Jinya\Router\Attributes\HttpMethod;

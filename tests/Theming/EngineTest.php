@@ -1,8 +1,8 @@
 <?php
 
-namespace Jinya\Tests\Theming;
+namespace Jinya\Cms\Theming;
 
-use App\Theming\Engine;
+use Jinya\Cms\Theming\Engine;
 use PHPUnit\Framework\TestCase;
 
 class EngineTest extends TestCase

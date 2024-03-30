@@ -1,12 +1,12 @@
 <?php
 
-namespace Jinya\Tests\Messaging;
+namespace Jinya\Cms\Messaging;
 
-use App\Database\Form;
-use App\Database\FormItem;
-use App\Messaging\FormMessageHandler;
-use App\Tests\DatabaseAwareTestCase;
-use App\Theming\Engine;
+use Jinya\Cms\Database\Form;
+use Jinya\Cms\Database\FormItem;
+use Jinya\Cms\Messaging\FormMessageHandler;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Theming\Engine;
 use Jinya\Router\Extensions\Database\Exceptions\MissingFieldsException;
 use Nyholm\Psr7\ServerRequest;
 use Psr\Http\Message\ServerRequestInterface;

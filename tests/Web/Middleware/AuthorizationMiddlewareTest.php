@@ -1,12 +1,12 @@
 <?php
 
-namespace Jinya\Tests\Web\Middleware;
+namespace Jinya\Cms\Web\Middleware;
 
-use App\Authentication\CurrentUser;
-use App\Database\ApiKey;
-use App\Tests\DatabaseAwareTestCase;
-use App\Tests\TestRequestHandler;
-use App\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Database\ApiKey;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Tests\TestRequestHandler;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use DateInterval;
 use DateTime;
 use Nyholm\Psr7\Response;

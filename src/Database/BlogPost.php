@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Database;
+namespace Jinya\Cms\Database;
 
-use App\Authentication\CurrentUser;
-use App\Database\Converter\BooleanConverter;
-use App\Database\Exceptions\TransactionFailedException;
-use App\Logging\Logger;
-use App\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Database\Converter\BooleanConverter;
+use Jinya\Cms\Database\Exceptions\TransactionFailedException;
+use Jinya\Cms\Logging\Logger;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use DateTime;
 use Exception;
 use Iterator;

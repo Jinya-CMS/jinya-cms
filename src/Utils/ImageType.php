@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Utils;
+namespace Jinya\Cms\Utils;
 
 /**
  * Helper enum to differentiate between image file types

@@ -1,8 +1,8 @@
 <?php
 
-namespace Jinya\Tests\Utils;
+namespace Jinya\Cms\Utils;
 
-use App\Utils\UuidGenerator;
+use Jinya\Cms\Utils\UuidGenerator;
 use Exception;
 use PHPUnit\Framework\TestCase;
 

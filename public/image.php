@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Database\File;
-use App\Storage\StorageBaseService;
+use Jinya\Cms\Database\File;
+use Jinya\Cms\Storage\StorageBaseService;
 use Intervention\Image\ImageManager;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7Server\ServerRequestCreator;

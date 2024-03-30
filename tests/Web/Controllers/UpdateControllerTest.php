@@ -1,9 +1,9 @@
 <?php
 
-namespace Jinya\Tests\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Tests\DatabaseAwareTestCase;
-use App\Web\Controllers\UpdateController;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Web\Controllers\UpdateController;
 
 class UpdateControllerTest extends DatabaseAwareTestCase
 {

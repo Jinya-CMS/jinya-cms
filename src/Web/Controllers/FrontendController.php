@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Database;
-use App\Database\BlogPost;
-use App\Database\MenuItem;
-use App\Database\Theme;
-use App\Logging\Logger;
-use App\Messaging\FormMessageHandler;
-use App\Theming;
+use Jinya\Cms\Database;
+use Jinya\Cms\Database\BlogPost;
+use Jinya\Cms\Database\MenuItem;
+use Jinya\Cms\Database\Theme;
+use Jinya\Cms\Logging\Logger;
+use Jinya\Cms\Messaging\FormMessageHandler;
+use Jinya\Cms\Theming;
 use Jinya\Plates\Engine;
 use Jinya\Plates\Extension\URI;
 use Jinya\Router\Attributes\Controller;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Jinya\Tests\Console;
+namespace Jinya\Cms\Console;
 
-use App\Console\JinyaCommand;
+use Jinya\Cms\Console\JinyaCommand;
 use PHPUnit\Framework\TestCase;
 
 class JinyaCommandTest extends TestCase

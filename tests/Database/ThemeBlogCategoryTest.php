@@ -1,10 +1,10 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\BlogCategory;
-use App\Database\ThemeBlogCategory;
-use App\Tests\ThemeTestCase;
+use Jinya\Cms\Database\BlogCategory;
+use Jinya\Cms\Database\ThemeBlogCategory;
+use Jinya\Cms\Tests\ThemeTestCase;
 use Faker\Provider\Uuid;
 use PDOException;
 

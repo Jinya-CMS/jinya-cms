@@ -1,14 +1,14 @@
 <?php
 
-namespace Jinya\Tests\Theming\Extensions;
+namespace Jinya\Cms\Theming\Extensions;
 
-use App\Console\FileCacheCommand;
-use App\Database\File;
-use App\Storage\StorageBaseService;
-use App\Tests\DatabaseAwareTestCase;
-use App\Theming\Engine;
-use App\Theming\Extensions\FileExtension;
-use App\Utils\ImageType;
+use Jinya\Cms\Console\FileCacheCommand;
+use Jinya\Cms\Database\File;
+use Jinya\Cms\Storage\StorageBaseService;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Theming\Engine;
+use Jinya\Cms\Theming\Extensions\FileExtension;
+use Jinya\Cms\Utils\ImageType;
 use Faker\Provider\Uuid;
 
 class FileExtensionTest extends DatabaseAwareTestCase

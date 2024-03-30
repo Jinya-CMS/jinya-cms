@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Theming\Extensions;
+namespace Jinya\Cms\Theming\Extensions;
 
-use App\Database\MenuItem;
+use Jinya\Cms\Database\MenuItem;
 use JetBrains\PhpStorm\Pure;
 use Jinya\Plates\Engine;
 use Jinya\Plates\Extension\BaseExtension;

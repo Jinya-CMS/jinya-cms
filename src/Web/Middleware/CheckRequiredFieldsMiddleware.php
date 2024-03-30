@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Web\Middleware;
+namespace Jinya\Cms\Web\Middleware;
 
-use App\Web\Handlers\ErrorHandler;
+use Jinya\Cms\Web\Handlers\ErrorHandler;
 use Jinya\Router\Extensions\Database\Exceptions\MissingFieldsException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface;

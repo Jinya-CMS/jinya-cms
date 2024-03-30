@@ -1,9 +1,9 @@
 <?php
 
-namespace Jinya\Tests\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Tests\DatabaseAwareTestCase;
-use App\Web\Controllers\LocateIpController;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Web\Controllers\LocateIpController;
 
 class LocateIpControllerTest extends DatabaseAwareTestCase
 {

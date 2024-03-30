@@ -1,10 +1,10 @@
 <?php
 
-namespace Jinya\Tests\Theming;
+namespace Jinya\Cms\Theming;
 
-use App\Database\Theme;
-use App\Tests\DatabaseAwareTestCase;
-use App\Theming\ThemeSyncer;
+use Jinya\Cms\Database\Theme;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Theming\ThemeSyncer;
 use Faker\Provider\Uuid;
 use Symfony\Component\Filesystem\Filesystem;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Jinya\Tests\Console;
+namespace Jinya\Cms\Console;
 
-use App\Console\MigrationCommand;
-use App\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Console\MigrationCommand;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Jinya\Database\Entity;
 
 class MigrationCommandTest extends DatabaseAwareTestCase

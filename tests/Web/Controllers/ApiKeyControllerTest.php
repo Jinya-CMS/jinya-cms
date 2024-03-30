@@ -1,11 +1,11 @@
 <?php
 
-namespace Jinya\Tests\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Authentication\CurrentUser;
-use App\Database\ApiKey;
-use App\Tests\DatabaseAwareTestCase;
-use App\Web\Controllers\ApiKeyController;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Database\ApiKey;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Web\Controllers\ApiKeyController;
 use DateTime;
 use Nyholm\Psr7\ServerRequest;
 

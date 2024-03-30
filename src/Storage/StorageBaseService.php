@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Storage;
+namespace Jinya\Cms\Storage;
 
 /**
  * Provides helpers for storage services. It contains several constants and a helper method for hashing files

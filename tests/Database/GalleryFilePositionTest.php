@@ -1,12 +1,12 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\File;
-use App\Database\Gallery;
-use App\Database\GalleryFilePosition;
-use App\Tests\DatabaseAwareTestCase;
-use App\Utils\UuidGenerator;
+use Jinya\Cms\Database\File;
+use Jinya\Cms\Database\Gallery;
+use Jinya\Cms\Database\GalleryFilePosition;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Utils\UuidGenerator;
 use PDOException;
 
 class GalleryFilePositionTest extends DatabaseAwareTestCase

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Database\File;
-use App\Database\Gallery;
-use App\Database\GalleryFilePosition;
-use App\Web\Middleware\AuthorizationMiddleware;
-use App\Web\Middleware\CheckRequiredFieldsMiddleware;
+use Jinya\Cms\Database\File;
+use Jinya\Cms\Database\Gallery;
+use Jinya\Cms\Database\GalleryFilePosition;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Web\Middleware\CheckRequiredFieldsMiddleware;
 use Jinya\Database\Exception\NotNullViolationException;
 use Jinya\Router\Attributes\Controller;
 use Jinya\Router\Attributes\HttpMethod;

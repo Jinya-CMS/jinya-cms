@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Theming;
+namespace Jinya\Cms\Theming;
 
-use App\Database;
+use Jinya\Cms\Database;
 use Exception;
 use Jinya\Database\Exception\NotNullViolationException;
 

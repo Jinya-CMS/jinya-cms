@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Database\Converter;
+namespace Jinya\Cms\Database\Converter;
 
 use Attribute;
 use Jinya\Database\ValueConverter;

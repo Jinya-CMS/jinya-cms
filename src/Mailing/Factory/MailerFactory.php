@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Mailing\Factory;
+namespace Jinya\Cms\Mailing\Factory;
 
-use App\Logging\Logger;
+use Jinya\Cms\Logging\Logger;
 use PHPMailer\PHPMailer\PHPMailer;
 
 /**

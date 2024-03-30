@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\Converter\BooleanConverter;
-use App\Database\Converter\NullableBooleanConverter;
-use App\Database\Converter\PhpSerializerConverter;
-use App\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Database\Converter\BooleanConverter;
+use Jinya\Cms\Database\Converter\NullableBooleanConverter;
+use Jinya\Cms\Database\Converter\PhpSerializerConverter;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use DateInterval;
 use DateTime;
 use Exception;

@@ -1,11 +1,11 @@
 <?php
 
-namespace Jinya\Tests\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Database\File;
-use App\Storage\StorageBaseService;
-use App\Tests\DatabaseAwareTestCase;
-use App\Web\Controllers\FileController;
+use Jinya\Cms\Database\File;
+use Jinya\Cms\Storage\StorageBaseService;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Web\Controllers\FileController;
 use Faker\Provider\Uuid;
 use Nyholm\Psr7\ServerRequest;
 use Nyholm\Psr7\Stream;

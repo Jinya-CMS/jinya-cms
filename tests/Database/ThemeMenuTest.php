@@ -1,10 +1,10 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\Menu;
-use App\Database\ThemeMenu;
-use App\Tests\ThemeTestCase;
+use Jinya\Cms\Database\Menu;
+use Jinya\Cms\Database\ThemeMenu;
+use Jinya\Cms\Tests\ThemeTestCase;
 use Faker\Provider\Uuid;
 
 class ThemeMenuTest extends ThemeTestCase

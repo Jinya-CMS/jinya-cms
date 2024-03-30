@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Authentication;
+namespace Jinya\Cms\Authentication;
 
-use App\Database\Artist;
+use Jinya\Cms\Database\Artist;
 
 /**
  * Small helper class for the currently logged-in user

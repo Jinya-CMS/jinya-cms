@@ -1,8 +1,8 @@
 <?php
 
-namespace Jinya\Tests\Mailing\Types;
+namespace Jinya\Cms\Mailing\Types;
 
-use App\Mailing\Types\TwoFactorMail;
+use Jinya\Cms\Mailing\Types\TwoFactorMail;
 use PHPUnit\Framework\TestCase;
 
 class TwoFactorMailTest extends TestCase

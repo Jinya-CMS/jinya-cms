@@ -1,13 +1,13 @@
 <?php
 
-namespace Jinya\Tests\Storage;
+namespace Jinya\Cms\Storage;
 
-use App\Database\Exceptions\EmptyResultException;
-use App\Database\File;
-use App\Database\UploadingFile;
-use App\Storage\FileUploadService;
-use App\Storage\StorageBaseService;
-use App\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Database\Exceptions\EmptyResultException;
+use Jinya\Cms\Database\File;
+use Jinya\Cms\Database\UploadingFile;
+use Jinya\Cms\Storage\FileUploadService;
+use Jinya\Cms\Storage\StorageBaseService;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use RuntimeException;
 
 class FileUploadServiceTest extends DatabaseAwareTestCase

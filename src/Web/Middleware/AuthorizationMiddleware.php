@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Web\Middleware;
+namespace Jinya\Cms\Web\Middleware;
 
-use App\Authentication\AuthenticationChecker;
-use App\Authentication\CurrentUser;
-use App\Web\Exceptions\ApiKeyInvalidException;
-use App\Web\Exceptions\MissingPermissionsException;
+use Jinya\Cms\Authentication\AuthenticationChecker;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Web\Exceptions\ApiKeyInvalidException;
+use Jinya\Cms\Web\Exceptions\MissingPermissionsException;
 use JsonException;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;

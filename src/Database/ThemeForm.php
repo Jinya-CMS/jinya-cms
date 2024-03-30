@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Database;
+namespace Jinya\Cms\Database;
 
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;

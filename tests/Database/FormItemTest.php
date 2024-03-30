@@ -1,10 +1,10 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\Form;
-use App\Database\FormItem;
-use App\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Database\Form;
+use Jinya\Cms\Database\FormItem;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 
 class FormItemTest extends DatabaseAwareTestCase
 {

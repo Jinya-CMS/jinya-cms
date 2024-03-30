@@ -48,13 +48,13 @@
   },
   "autoload": {
     "psr-4": {
-      "App\\": "src/",
-      "Migrations\\": "migrations/"
+      "Jinya\\Cms\\": "src/",
+      "Jinya\\Cms\\Migrations\\": "migrations/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Jinya\\Tests\\": "tests/"
+      "Jinya\\Cms\\": "tests/"
     }
   },
   "scripts": {

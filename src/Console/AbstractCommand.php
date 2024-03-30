@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console;
+namespace Jinya\Cms\Console;
 
 use League\CLImate\CLImate;
 

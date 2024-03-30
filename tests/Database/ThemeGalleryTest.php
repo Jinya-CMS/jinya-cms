@@ -1,10 +1,10 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\Gallery;
-use App\Database\ThemeGallery;
-use App\Tests\ThemeTestCase;
+use Jinya\Cms\Database\Gallery;
+use Jinya\Cms\Database\ThemeGallery;
+use Jinya\Cms\Tests\ThemeTestCase;
 use Faker\Provider\Uuid;
 
 class ThemeGalleryTest extends ThemeTestCase

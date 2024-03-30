@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Database\Exceptions\EmptyResultException;
-use App\Database\File;
-use App\Database\UploadingFile;
-use App\Storage\FileUploadService;
-use App\Storage\StorageBaseService;
-use App\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Database\Exceptions\EmptyResultException;
+use Jinya\Cms\Database\File;
+use Jinya\Cms\Database\UploadingFile;
+use Jinya\Cms\Storage\FileUploadService;
+use Jinya\Cms\Storage\StorageBaseService;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Jinya\Database\Exception\ForeignKeyFailedException;
 use Jinya\Database\Exception\NotNullViolationException;
 use Jinya\Database\Exception\UniqueFailedException;

@@ -1,10 +1,10 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\File;
-use App\Database\ThemeFile;
-use App\Tests\ThemeTestCase;
+use Jinya\Cms\Database\File;
+use Jinya\Cms\Database\ThemeFile;
+use Jinya\Cms\Tests\ThemeTestCase;
 use Faker\Provider\Uuid;
 
 class ThemeFileTest extends ThemeTestCase

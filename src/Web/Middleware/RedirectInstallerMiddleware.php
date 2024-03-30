@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Web\Middleware;
+namespace Jinya\Cms\Web\Middleware;
 
 use Jinya\Router\Http\AbstractController;
 use Nyholm\Psr7\Response;

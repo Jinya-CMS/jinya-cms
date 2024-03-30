@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Database\Exceptions\TransactionFailedException;
-use App\Database\ModernPage;
-use App\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Database\Exceptions\TransactionFailedException;
+use Jinya\Cms\Database\ModernPage;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Jinya\Router\Attributes\Controller;
 use Jinya\Router\Attributes\HttpMethod;
 use Jinya\Router\Attributes\Middlewares;

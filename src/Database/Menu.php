@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\Exceptions\TransactionFailedException;
-use App\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Database\Exceptions\TransactionFailedException;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Iterator;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;

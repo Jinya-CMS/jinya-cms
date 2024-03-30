@@ -85,6 +85,7 @@ phpunit:
         MYSQL_PASSWORD: "jinya"
         MYSQL_USER: "jinya"
         MYSQL_PORT: "3306"
+        MYSQL_HOST: "database"
         MYSQL_DATABASE: "jinya"
         MYSQL_CHARSET: "utf8mb4"
         MAILER_HOST: "mailer"
@@ -98,7 +99,7 @@ phpunit:
         JINYA_UPDATE_SERVER: "https://releases.jinya.de/cms"
         INSTALLED_VERSION: "phpunit"
     script:
-        - sleep 60
+        - sleep 30
         - ./tools/phpunit --no-progress --log-junit report.xml --configuration phpunit.ci.xml --coverage-cobertura=coverage.cobertura.xml
     artifacts:
         when: always
@@ -123,13 +124,21 @@ phpunit:
     parallel:
         matrix:
             -   DATABASE_IMAGE: library/mysql:8.0
+                TAG: 8.2-cli
             -   DATABASE_IMAGE: library/mysql:8.3
+                TAG: 8.2-cli
             -   DATABASE_IMAGE: library/mariadb:10.11
+                TAG: 8.2-cli
             -   DATABASE_IMAGE: library/mariadb:11.3
+                TAG: 8.2-cli
             -   DATABASE_IMAGE: library/mysql:8.0
+                TAG: 8.3-cli
             -   DATABASE_IMAGE: library/mysql:8.3
+                TAG: 8.3-cli
             -   DATABASE_IMAGE: library/mariadb:10.11
+                TAG: 8.3-cli
             -   DATABASE_IMAGE: library/mariadb:11.3
+                TAG: 8.3-cli
 
 deploy-tag-package:
     extends:

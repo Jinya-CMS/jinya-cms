@@ -1,9 +1,9 @@
 <?php
 
-namespace Jinya\Tests\Console;
+namespace Jinya\Cms\Console;
 
-use App\Console\ThemeSyncCommand;
-use App\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Console\ThemeSyncCommand;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 
 class ThemeSyncCommandTest extends DatabaseAwareTestCase
 {

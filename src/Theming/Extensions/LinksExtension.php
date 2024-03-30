@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Theming\Extensions;
+namespace Jinya\Cms\Theming\Extensions;
 
-use App\Database\BlogCategory;
-use App\Database\File;
-use App\Database\Form;
-use App\Database\Gallery;
-use App\Database\Menu;
-use App\Database\ModernPage;
-use App\Database\ClassicPage;
-use App\Database\Theme;
+use Jinya\Cms\Database\BlogCategory;
+use Jinya\Cms\Database\File;
+use Jinya\Cms\Database\Form;
+use Jinya\Cms\Database\Gallery;
+use Jinya\Cms\Database\Menu;
+use Jinya\Cms\Database\ModernPage;
+use Jinya\Cms\Database\ClassicPage;
+use Jinya\Cms\Database\Theme;
 use Jinya\Plates\Engine;
 use Jinya\Plates\Extension\BaseExtension;
 

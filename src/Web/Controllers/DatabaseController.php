@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Database\Analyzer\DatabaseAnalyzer;
-use App\Database\Analyzer\QueryAnalyzer;
-use App\Database\Analyzer\VariablesType;
-use App\Web\Middleware\AuthorizationMiddleware;
-use App\Web\Middleware\CheckRequiredFieldsMiddleware;
+use Jinya\Cms\Database\Analyzer\DatabaseAnalyzer;
+use Jinya\Cms\Database\Analyzer\QueryAnalyzer;
+use Jinya\Cms\Database\Analyzer\VariablesType;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Web\Middleware\CheckRequiredFieldsMiddleware;
 use Exception;
 use Jinya\Database\Entity;
 use Jinya\Router\Attributes\Controller;

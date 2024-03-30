@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Web\Handlers\ErrorHandler;
+use Jinya\Cms\Web\Handlers\ErrorHandler;
 use Jinya\Router\Extensions\JinyaDatabaseExtension;
 use Nyholm\Psr7\Response;
 

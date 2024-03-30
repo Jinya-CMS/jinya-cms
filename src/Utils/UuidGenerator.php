@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Utils;
+namespace Jinya\Cms\Utils;
 
 use Exception;
 

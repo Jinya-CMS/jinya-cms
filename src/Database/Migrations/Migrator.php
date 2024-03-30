@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Database\Migrations;
+namespace Jinya\Cms\Database\Migrations;
 
 use Jinya\Database\Migration\Migrator as DatabaseMigrator;
-use Migrations\ApiThemeOption;
-use Migrations\ArtistDarkLightSwitch;
-use Migrations\Blog;
-use Migrations\BruteForcePrevention;
-use Migrations\CategoryNameNotUnique;
-use Migrations\CategoryWebhook;
-use Migrations\CollationUtf8Mb4;
-use Migrations\FileTags;
-use Migrations\FormItemBoolColumns;
+use Jinya\Cms\Migrations\ApiThemeOption;
+use Jinya\Cms\Migrations\ArtistDarkLightSwitch;
+use Jinya\Cms\Migrations\Blog;
+use Jinya\Cms\Migrations\BruteForcePrevention;
+use Jinya\Cms\Migrations\CategoryNameNotUnique;
+use Jinya\Cms\Migrations\CategoryWebhook;
+use Jinya\Cms\Migrations\CollationUtf8Mb4;
+use Jinya\Cms\Migrations\FileTags;
+use Jinya\Cms\Migrations\FormItemBoolColumns;
 
 /**
  * Abstract static class to migrate the Jinya database to the most recent state

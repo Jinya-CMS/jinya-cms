@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
 use Iterator;
 use Jinya\Router\Http\AbstractController;

@@ -1,13 +1,13 @@
 <?php
 
-namespace Jinya\Tests\Authentication;
+namespace Jinya\Cms\Authentication;
 
-use App\Authentication\AuthenticationChecker;
-use App\Authentication\CurrentUser;
-use App\Database\ApiKey;
-use App\Tests\DatabaseAwareTestCase;
-use App\Web\Exceptions\ApiKeyInvalidException;
-use App\Web\Exceptions\MissingPermissionsException;
+use Jinya\Cms\Authentication\AuthenticationChecker;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Database\ApiKey;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Web\Exceptions\ApiKeyInvalidException;
+use Jinya\Cms\Web\Exceptions\MissingPermissionsException;
 use DateInterval;
 use DateTime;
 use Nyholm\Psr7\ServerRequest;

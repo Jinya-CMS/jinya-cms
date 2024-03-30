@@ -1,13 +1,13 @@
 <?php
 
-namespace Jinya\Tests\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Authentication\CurrentUser;
-use App\Database\Artist;
-use App\Storage\ProfilePictureService;
-use App\Storage\StorageBaseService;
-use App\Tests\DatabaseAwareTestCase;
-use App\Web\Controllers\ArtistController;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Database\Artist;
+use Jinya\Cms\Storage\ProfilePictureService;
+use Jinya\Cms\Storage\StorageBaseService;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Web\Controllers\ArtistController;
 use Nyholm\Psr7\ServerRequest;
 use Nyholm\Psr7\Stream;
 use Psr\Http\Message\StreamInterface;

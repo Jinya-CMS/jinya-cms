@@ -1,25 +1,25 @@
 <?php
 
-namespace Jinya\Tests\Theming\Extensions;
+namespace Jinya\Cms\Theming\Extensions;
 
-use App\Database\BlogCategory;
-use App\Database\ClassicPage;
-use App\Database\File;
-use App\Database\Form;
-use App\Database\Gallery;
-use App\Database\Menu;
-use App\Database\ModernPage;
-use App\Database\Theme;
-use App\Database\ThemeBlogCategory;
-use App\Database\ThemeClassicPage;
-use App\Database\ThemeFile;
-use App\Database\ThemeForm;
-use App\Database\ThemeGallery;
-use App\Database\ThemeMenu;
-use App\Database\ThemeModernPage;
-use App\Tests\DatabaseAwareTestCase;
-use App\Theming\Engine;
-use App\Theming\Extensions\LinksExtension;
+use Jinya\Cms\Database\BlogCategory;
+use Jinya\Cms\Database\ClassicPage;
+use Jinya\Cms\Database\File;
+use Jinya\Cms\Database\Form;
+use Jinya\Cms\Database\Gallery;
+use Jinya\Cms\Database\Menu;
+use Jinya\Cms\Database\ModernPage;
+use Jinya\Cms\Database\Theme;
+use Jinya\Cms\Database\ThemeBlogCategory;
+use Jinya\Cms\Database\ThemeClassicPage;
+use Jinya\Cms\Database\ThemeFile;
+use Jinya\Cms\Database\ThemeForm;
+use Jinya\Cms\Database\ThemeGallery;
+use Jinya\Cms\Database\ThemeMenu;
+use Jinya\Cms\Database\ThemeModernPage;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Theming\Engine;
+use Jinya\Cms\Theming\Extensions\LinksExtension;
 use Faker\Factory;
 
 class LinksExtensionTest extends DatabaseAwareTestCase

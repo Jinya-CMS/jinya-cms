@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Messaging;
+namespace Jinya\Cms\Messaging;
 
-use App\Database\Form;
-use App\Database\FormItem;
-use App\Mailing\Factory\MailerFactory;
-use App\Theming\Engine;
+use Jinya\Cms\Database\Form;
+use Jinya\Cms\Database\FormItem;
+use Jinya\Cms\Mailing\Factory\MailerFactory;
+use Jinya\Cms\Theming\Engine;
 use Jinya\Plates\Engine as PlatesEngine;
 use Jinya\Router\Extensions\Database\Exceptions\MissingFieldsException;
 use PHPMailer\PHPMailer\Exception;

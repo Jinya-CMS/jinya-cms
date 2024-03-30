@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Database;
+namespace Jinya\Cms\Database;
 
-use App\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Exception;
 use Iterator;
 use Jinya\Database\Attributes\Column;

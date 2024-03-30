@@ -1,9 +1,9 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\ThemeAsset;
-use App\Tests\ThemeTestCase;
+use Jinya\Cms\Database\ThemeAsset;
+use Jinya\Cms\Tests\ThemeTestCase;
 
 class ThemeAssetTest extends ThemeTestCase
 {

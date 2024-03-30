@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Tests;
+namespace Jinya\Cms\Tests;
 
-use App\Database\Menu;
-use App\Database\Theme;
-use App\Database\ThemeMenu;
-use App\Theming\ThemeSyncer;
+use Jinya\Cms\Database\Menu;
+use Jinya\Cms\Database\Theme;
+use Jinya\Cms\Database\ThemeMenu;
+use Jinya\Cms\Theming\ThemeSyncer;
 use Faker\Provider\Uuid;
 use Jinya\Database\Entity;
 use Jinya\Database\Exception\NotNullViolationException;

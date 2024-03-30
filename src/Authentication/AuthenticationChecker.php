@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Authentication;
+namespace Jinya\Cms\Authentication;
 
-use App\Database\ApiKey;
-use App\Database\Artist;
-use App\Web\Exceptions\ApiKeyInvalidException;
-use App\Web\Exceptions\MissingPermissionsException;
+use Jinya\Cms\Database\ApiKey;
+use Jinya\Cms\Database\Artist;
+use Jinya\Cms\Web\Exceptions\ApiKeyInvalidException;
+use Jinya\Cms\Web\Exceptions\MissingPermissionsException;
 use DateInterval;
 use DateTime;
 use Psr\Http\Message\ServerRequestInterface as Request;

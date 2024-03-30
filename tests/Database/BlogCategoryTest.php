@@ -1,11 +1,11 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Authentication\CurrentUser;
-use App\Database\BlogCategory;
-use App\Database\BlogPost;
-use App\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Database\BlogCategory;
+use Jinya\Cms\Database\BlogPost;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 
 class BlogCategoryTest extends DatabaseAwareTestCase
 {

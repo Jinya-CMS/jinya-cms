@@ -1,10 +1,10 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\ApiKey;
-use App\Database\Artist;
-use App\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Database\ApiKey;
+use Jinya\Cms\Database\Artist;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use DateTime;
 use PDOException;
 

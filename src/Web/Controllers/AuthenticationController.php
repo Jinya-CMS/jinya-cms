@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Authentication\CurrentUser;
-use App\Database\ApiKey;
-use App\Database\Artist;
-use App\Database\KnownDevice;
-use App\Logging\Logger;
-use App\Mailing\Types\NewLoginMail;
-use App\Mailing\Types\NewSavedDeviceMail;
-use App\Mailing\Types\TwoFactorMail;
-use App\Web\Middleware\AuthorizationMiddleware;
-use App\Web\Middleware\CheckRequiredFieldsMiddleware;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Database\ApiKey;
+use Jinya\Cms\Database\Artist;
+use Jinya\Cms\Database\KnownDevice;
+use Jinya\Cms\Logging\Logger;
+use Jinya\Cms\Mailing\Types\NewLoginMail;
+use Jinya\Cms\Mailing\Types\NewSavedDeviceMail;
+use Jinya\Cms\Mailing\Types\TwoFactorMail;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Web\Middleware\CheckRequiredFieldsMiddleware;
 use DateTime;
 use Jinya\Database\Exception\NotNullViolationException;
 use Jinya\Router\Attributes\Controller;

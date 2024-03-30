@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Storage;
+namespace Jinya\Cms\Storage;
 
-use App\Database\Artist;
-use App\Database\Exceptions\EmptyResultException;
+use Jinya\Cms\Database\Artist;
+use Jinya\Cms\Database\Exceptions\EmptyResultException;
 use Jinya\Database\Exception\NotNullViolationException;
 
 /**

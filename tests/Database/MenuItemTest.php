@@ -1,16 +1,16 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Authentication\CurrentUser;
-use App\Database\BlogCategory;
-use App\Database\ClassicPage;
-use App\Database\Form;
-use App\Database\Gallery;
-use App\Database\Menu;
-use App\Database\MenuItem;
-use App\Database\ModernPage;
-use App\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Database\BlogCategory;
+use Jinya\Cms\Database\ClassicPage;
+use Jinya\Cms\Database\Form;
+use Jinya\Cms\Database\Gallery;
+use Jinya\Cms\Database\Menu;
+use Jinya\Cms\Database\MenuItem;
+use Jinya\Cms\Database\ModernPage;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Jinya\Database\Exception\NotNullViolationException;
 
 class MenuItemTest extends DatabaseAwareTestCase

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Theming\Extensions;
+namespace Jinya\Cms\Theming\Extensions;
 
-use App\Database\File;
-use App\Storage\StorageBaseService;
-use App\Utils\ImageType;
+use Jinya\Cms\Database\File;
+use Jinya\Cms\Storage\StorageBaseService;
+use Jinya\Cms\Utils\ImageType;
 use Jinya\Plates\Engine;
 use Jinya\Plates\Extension\BaseExtension;
 use RuntimeException;
