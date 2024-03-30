@@ -5,7 +5,6 @@ namespace Jinya\Cms\Web\Controllers;
 use Jinya\Cms\Database\File;
 use Jinya\Cms\Storage\StorageBaseService;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
-use Jinya\Cms\Web\Controllers\FileController;
 use Faker\Provider\Uuid;
 use Nyholm\Psr7\ServerRequest;
 use Nyholm\Psr7\Stream;

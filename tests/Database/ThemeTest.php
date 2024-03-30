@@ -2,22 +2,6 @@
 
 namespace Jinya\Cms\Database;
 
-use Jinya\Cms\Database\BlogCategory;
-use Jinya\Cms\Database\ClassicPage;
-use Jinya\Cms\Database\File;
-use Jinya\Cms\Database\Form;
-use Jinya\Cms\Database\Gallery;
-use Jinya\Cms\Database\Menu;
-use Jinya\Cms\Database\ModernPage;
-use Jinya\Cms\Database\Theme;
-use Jinya\Cms\Database\ThemeAsset;
-use Jinya\Cms\Database\ThemeBlogCategory;
-use Jinya\Cms\Database\ThemeClassicPage;
-use Jinya\Cms\Database\ThemeFile;
-use Jinya\Cms\Database\ThemeForm;
-use Jinya\Cms\Database\ThemeGallery;
-use Jinya\Cms\Database\ThemeMenu;
-use Jinya\Cms\Database\ThemeModernPage;
 use Jinya\Cms\Tests\ThemeTestCase;
 use Faker\Provider\Uuid;
 use Jinya\Database\Entity;

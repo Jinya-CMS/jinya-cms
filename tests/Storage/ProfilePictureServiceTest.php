@@ -4,8 +4,6 @@ namespace Jinya\Cms\Storage;
 
 use Jinya\Cms\Database\Artist;
 use Jinya\Cms\Database\Exceptions\EmptyResultException;
-use Jinya\Cms\Storage\ProfilePictureService;
-use Jinya\Cms\Storage\StorageBaseService;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Faker\Factory;
 use Faker\Provider\Uuid;

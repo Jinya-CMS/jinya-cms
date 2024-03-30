@@ -10,7 +10,6 @@ use Jinya\Cms\Database\Form;
 use Jinya\Cms\Database\Gallery;
 use Jinya\Cms\Database\ModernPage;
 use Jinya\Cms\Tests\FrontTestCase;
-use Jinya\Cms\Web\Controllers\FrontendController;
 use Faker\Provider\Uuid;
 use Nyholm\Psr7\ServerRequest;
 

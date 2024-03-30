@@ -2,7 +2,6 @@
 
 namespace Jinya\Cms\Database;
 
-use Jinya\Cms\Database\ThemeAsset;
 use Jinya\Cms\Tests\ThemeTestCase;
 
 class ThemeAssetTest extends ThemeTestCase

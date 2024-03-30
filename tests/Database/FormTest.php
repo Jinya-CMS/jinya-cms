@@ -3,7 +3,6 @@
 namespace Jinya\Cms\Database;
 
 use Jinya\Cms\Authentication\CurrentUser;
-use Jinya\Cms\Database\Form;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use PDOException;
 

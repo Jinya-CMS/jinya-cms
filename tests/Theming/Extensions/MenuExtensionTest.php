@@ -5,7 +5,6 @@ namespace Jinya\Cms\Theming\Extensions;
 use Jinya\Cms\Database\Menu;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Jinya\Cms\Theming\Engine;
-use Jinya\Cms\Theming\Extensions\MenuExtension;
 use Faker\Provider\Uuid;
 
 class MenuExtensionTest extends DatabaseAwareTestCase

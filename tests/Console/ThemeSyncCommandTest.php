@@ -2,7 +2,6 @@
 
 namespace Jinya\Cms\Console;
 
-use Jinya\Cms\Console\ThemeSyncCommand;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 
 class ThemeSyncCommandTest extends DatabaseAwareTestCase

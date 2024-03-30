@@ -2,7 +2,6 @@
 
 namespace Jinya\Cms\Console;
 
-use Jinya\Cms\Console\MigrationCommand;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Jinya\Database\Entity;
 

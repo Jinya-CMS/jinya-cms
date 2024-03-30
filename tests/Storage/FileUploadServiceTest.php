@@ -5,8 +5,6 @@ namespace Jinya\Cms\Storage;
 use Jinya\Cms\Database\Exceptions\EmptyResultException;
 use Jinya\Cms\Database\File;
 use Jinya\Cms\Database\UploadingFile;
-use Jinya\Cms\Storage\FileUploadService;
-use Jinya\Cms\Storage\StorageBaseService;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use RuntimeException;
 

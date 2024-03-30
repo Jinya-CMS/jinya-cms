@@ -3,7 +3,6 @@
 namespace Jinya\Cms\Web\Controllers;
 
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
-use Jinya\Cms\Web\Controllers\LocateIpController;
 
 class LocateIpControllerTest extends DatabaseAwareTestCase
 {

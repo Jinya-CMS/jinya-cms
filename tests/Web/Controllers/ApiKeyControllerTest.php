@@ -5,7 +5,6 @@ namespace Jinya\Cms\Web\Controllers;
 use Jinya\Cms\Authentication\CurrentUser;
 use Jinya\Cms\Database\ApiKey;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
-use Jinya\Cms\Web\Controllers\ApiKeyController;
 use DateTime;
 use Nyholm\Psr7\ServerRequest;
 

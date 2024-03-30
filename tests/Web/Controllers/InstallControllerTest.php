@@ -3,7 +3,6 @@
 namespace Jinya\Cms\Web\Controllers;
 
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
-use Jinya\Cms\Web\Controllers\InstallController;
 use Jinya\Database\Cache\KeyCache;
 use Nyholm\Psr7\ServerRequest;
 use PDO;

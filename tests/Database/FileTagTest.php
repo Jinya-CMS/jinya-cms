@@ -2,8 +2,6 @@
 
 namespace Jinya\Cms\Database;
 
-use Jinya\Cms\Database\File;
-use Jinya\Cms\Database\FileTag;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Jinya\Cms\Utils\UuidGenerator;
 use PDOException;

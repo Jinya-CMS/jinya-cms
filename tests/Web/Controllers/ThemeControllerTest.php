@@ -21,7 +21,6 @@ use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Jinya\Cms\Theming\Theme;
 use Jinya\Cms\Theming\ThemeSyncer;
 use Jinya\Cms\Utils\UuidGenerator;
-use Jinya\Cms\Web\Controllers\ThemeController;
 use Faker\Provider\Uuid;
 use Nyholm\Psr7\ServerRequest;
 use Nyholm\Psr7\Stream;

@@ -3,7 +3,6 @@
 namespace Jinya\Cms\Database;
 
 use Jinya\Cms\Authentication\CurrentUser;
-use Jinya\Cms\Database\ClassicPage;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 
 class SimplePageTest extends DatabaseAwareTestCase

@@ -2,7 +2,6 @@
 
 namespace Jinya\Cms\Database\Analyzer;
 
-use Jinya\Cms\Database\Analyzer\QueryAnalyzer;
 use PHPUnit\Framework\TestCase;
 
 class QueryAnalyzerTest extends TestCase

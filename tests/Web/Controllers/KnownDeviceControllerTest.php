@@ -5,7 +5,6 @@ namespace Jinya\Cms\Web\Controllers;
 use Jinya\Cms\Authentication\CurrentUser;
 use Jinya\Cms\Database\KnownDevice;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
-use Jinya\Cms\Web\Controllers\KnownDeviceController;
 
 class KnownDeviceControllerTest extends DatabaseAwareTestCase
 {

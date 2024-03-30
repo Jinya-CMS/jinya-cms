@@ -4,7 +4,6 @@ namespace Jinya\Cms\Web\Middleware;
 
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Jinya\Cms\Tests\TestRequestHandler;
-use Jinya\Cms\Web\Middleware\CheckRequiredFieldsMiddleware;
 use Faker\Provider\Uuid;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;

@@ -3,7 +3,6 @@
 namespace Jinya\Cms\Web\Controllers;
 
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
-use Jinya\Cms\Web\Controllers\DatabaseController;
 use Nyholm\Psr7\ServerRequest;
 
 class DatabaseControllerTest extends DatabaseAwareTestCase

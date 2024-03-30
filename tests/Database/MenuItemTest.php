@@ -3,13 +3,6 @@
 namespace Jinya\Cms\Database;
 
 use Jinya\Cms\Authentication\CurrentUser;
-use Jinya\Cms\Database\BlogCategory;
-use Jinya\Cms\Database\ClassicPage;
-use Jinya\Cms\Database\Form;
-use Jinya\Cms\Database\Gallery;
-use Jinya\Cms\Database\Menu;
-use Jinya\Cms\Database\MenuItem;
-use Jinya\Cms\Database\ModernPage;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Jinya\Database\Exception\NotNullViolationException;
 

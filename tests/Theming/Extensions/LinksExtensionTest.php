@@ -19,7 +19,6 @@ use Jinya\Cms\Database\ThemeMenu;
 use Jinya\Cms\Database\ThemeModernPage;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Jinya\Cms\Theming\Engine;
-use Jinya\Cms\Theming\Extensions\LinksExtension;
 use Faker\Factory;
 
 class LinksExtensionTest extends DatabaseAwareTestCase

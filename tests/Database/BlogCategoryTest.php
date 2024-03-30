@@ -3,8 +3,6 @@
 namespace Jinya\Cms\Database;
 
 use Jinya\Cms\Authentication\CurrentUser;
-use Jinya\Cms\Database\BlogCategory;
-use Jinya\Cms\Database\BlogPost;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 
 class BlogCategoryTest extends DatabaseAwareTestCase

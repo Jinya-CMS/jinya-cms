@@ -2,8 +2,6 @@
 
 namespace Jinya\Cms\Database;
 
-use Jinya\Cms\Database\Menu;
-use Jinya\Cms\Database\ThemeMenu;
 use Jinya\Cms\Tests\ThemeTestCase;
 use Faker\Provider\Uuid;
 

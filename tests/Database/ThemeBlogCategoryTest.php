@@ -2,8 +2,6 @@
 
 namespace Jinya\Cms\Database;
 
-use Jinya\Cms\Database\BlogCategory;
-use Jinya\Cms\Database\ThemeBlogCategory;
 use Jinya\Cms\Tests\ThemeTestCase;
 use Faker\Provider\Uuid;
 use PDOException;

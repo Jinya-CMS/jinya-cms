@@ -3,8 +3,6 @@
 namespace Jinya\Cms\Database;
 
 use Jinya\Cms\Authentication\CurrentUser;
-use Jinya\Cms\Database\Artist;
-use Jinya\Cms\Database\KnownDevice;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Jinya\Cms\Utils\UuidGenerator;
 

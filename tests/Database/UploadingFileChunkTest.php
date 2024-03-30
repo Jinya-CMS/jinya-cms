@@ -2,9 +2,6 @@
 
 namespace Jinya\Cms\Database;
 
-use Jinya\Cms\Database\File;
-use Jinya\Cms\Database\UploadingFile;
-use Jinya\Cms\Database\UploadingFileChunk;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Faker\Provider\Uuid;
 

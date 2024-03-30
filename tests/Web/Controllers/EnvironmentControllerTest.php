@@ -3,7 +3,6 @@
 namespace Jinya\Cms\Web\Controllers;
 
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
-use Jinya\Cms\Web\Controllers\EnvironmentController;
 
 class EnvironmentControllerTest extends DatabaseAwareTestCase
 {

@@ -3,7 +3,6 @@
 namespace Jinya\Cms\Mailing\Types;
 
 use Jinya\Cms\Database\KnownDevice;
-use Jinya\Cms\Mailing\Types\NewSavedDeviceMail;
 use Faker;
 use PHPUnit\Framework\TestCase;
 

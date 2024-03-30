@@ -2,7 +2,6 @@
 
 namespace Jinya\Cms\Console;
 
-use Jinya\Cms\Console\FileCacheCommand;
 use Jinya\Cms\Database\File;
 use Jinya\Cms\Storage\StorageBaseService;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;

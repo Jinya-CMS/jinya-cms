@@ -3,7 +3,6 @@
 namespace Jinya\Cms\Mailing\Types;
 
 use Jinya\Cms\Database\ApiKey;
-use Jinya\Cms\Mailing\Types\NewLoginMail;
 use Faker;
 use PHPUnit\Framework\TestCase;
 

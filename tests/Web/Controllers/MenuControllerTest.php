@@ -4,7 +4,6 @@ namespace Jinya\Cms\Web\Controllers;
 
 use Jinya\Cms\Database\Menu;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
-use Jinya\Cms\Web\Controllers\MenuController;
 use Nyholm\Psr7\ServerRequest;
 
 class MenuControllerTest extends DatabaseAwareTestCase

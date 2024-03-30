@@ -6,7 +6,6 @@ use Jinya\Cms\Authentication\CurrentUser;
 use Jinya\Cms\Database\Artist;
 use Jinya\Cms\Storage\StorageBaseService;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
-use Jinya\Cms\Web\Controllers\MyJinyaController;
 use Nyholm\Psr7\ServerRequest;
 use Nyholm\Psr7\Stream;
 use Psr\Http\Message\StreamInterface;

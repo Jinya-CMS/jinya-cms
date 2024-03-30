@@ -3,9 +3,6 @@
 namespace Jinya\Cms\Database;
 
 use Jinya\Cms\Authentication\CurrentUser;
-use Jinya\Cms\Database\File;
-use Jinya\Cms\Database\Gallery;
-use Jinya\Cms\Database\GalleryFilePosition;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Jinya\Cms\Utils\UuidGenerator;
 use Jinya\Database\Exception\UniqueFailedException;

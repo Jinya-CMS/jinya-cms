@@ -6,7 +6,6 @@ use Jinya\Cms\Authentication\CurrentUser;
 use Jinya\Cms\Database\Artist;
 use Jinya\Cms\Database\KnownDevice;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
-use Jinya\Cms\Web\Controllers\AuthenticationController;
 use Nyholm\Psr7\ServerRequest;
 
 class AuthenticationControllerTest extends DatabaseAwareTestCase

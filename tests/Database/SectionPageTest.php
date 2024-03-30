@@ -3,9 +3,6 @@
 namespace Jinya\Cms\Database;
 
 use Jinya\Cms\Authentication\CurrentUser;
-use Jinya\Cms\Database\File;
-use Jinya\Cms\Database\Gallery;
-use Jinya\Cms\Database\ModernPage;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Faker\Provider\Uuid;
 use PDOException;

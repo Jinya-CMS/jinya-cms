@@ -4,7 +4,6 @@ namespace Jinya\Cms\Web\Controllers;
 
 use Jinya\Cms\Database\Form;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
-use Jinya\Cms\Web\Controllers\FormController;
 use Faker\Provider\Uuid;
 use Nyholm\Psr7\ServerRequest;
 

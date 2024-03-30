@@ -6,7 +6,6 @@ use Jinya\Cms\Database\File;
 use Jinya\Cms\Database\Gallery;
 use Jinya\Cms\Database\GalleryFilePosition;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
-use Jinya\Cms\Web\Controllers\GalleryController;
 
 class GalleryControllerTest extends DatabaseAwareTestCase
 {

@@ -2,9 +2,6 @@
 
 namespace Jinya\Cms\Database;
 
-use Jinya\Cms\Database\ApiKey;
-use Jinya\Cms\Database\Artist;
-use Jinya\Cms\Database\KnownDevice;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use DateTime;
 use InvalidArgumentException;

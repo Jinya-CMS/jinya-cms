@@ -5,7 +5,6 @@ namespace Jinya\Cms\Web\Controllers;
 use Jinya\Cms\Database\BlogCategory;
 use Jinya\Cms\Database\BlogPost;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
-use Jinya\Cms\Web\Controllers\BlogController;
 use Faker\Factory;
 use Faker\Provider\Uuid;
 use Nyholm\Psr7\ServerRequest;

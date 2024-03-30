@@ -5,7 +5,6 @@ namespace Jinya\Cms\Theming\Extensions;
 use Jinya\Cms\Database;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Jinya\Cms\Theming;
-use Jinya\Cms\Theming\Extensions\ThemeExtension;
 use Jinya\Cms\Theming\ThemeSyncer;
 use Faker\Provider\Uuid;
 use Symfony\Component\Filesystem\Filesystem;

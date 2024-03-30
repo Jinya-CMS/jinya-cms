@@ -7,7 +7,6 @@ use Jinya\Cms\Database\File;
 use Jinya\Cms\Storage\StorageBaseService;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Jinya\Cms\Theming\Engine;
-use Jinya\Cms\Theming\Extensions\FileExtension;
 use Jinya\Cms\Utils\ImageType;
 use Faker\Provider\Uuid;
 

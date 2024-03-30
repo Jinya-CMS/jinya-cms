@@ -6,7 +6,6 @@ use Jinya\Cms\Authentication\CurrentUser;
 use Jinya\Cms\Database\ApiKey;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Jinya\Cms\Tests\TestRequestHandler;
-use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use DateInterval;
 use DateTime;
 use Nyholm\Psr7\Response;

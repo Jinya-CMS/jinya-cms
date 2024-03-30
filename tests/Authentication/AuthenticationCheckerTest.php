@@ -2,8 +2,6 @@
 
 namespace Jinya\Cms\Authentication;
 
-use Jinya\Cms\Authentication\AuthenticationChecker;
-use Jinya\Cms\Authentication\CurrentUser;
 use Jinya\Cms\Database\ApiKey;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Jinya\Cms\Web\Exceptions\ApiKeyInvalidException;

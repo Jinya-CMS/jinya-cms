@@ -2,8 +2,6 @@
 
 namespace Jinya\Cms\Database;
 
-use Jinya\Cms\Database\File;
-use Jinya\Cms\Database\ThemeFile;
 use Jinya\Cms\Tests\ThemeTestCase;
 use Faker\Provider\Uuid;
 
