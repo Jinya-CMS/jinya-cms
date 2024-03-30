@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Console;
+namespace Jinya\Cms\Console;
 
-use App\Database\File;
-use App\Storage\StorageBaseService;
-use App\Theming\Extensions\FileExtension;
+use Jinya\Cms\Database\File;
+use Jinya\Cms\Storage\StorageBaseService;
+use Jinya\Cms\Theming\Extensions\FileExtension;
 use Intervention\Image\ImageManager;
 use Throwable;
 

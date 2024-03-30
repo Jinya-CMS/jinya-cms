@@ -2,7 +2,7 @@
 
 /** @var BlogPost[] $posts */
 
-use App\Database\BlogPost;
+use Jinya\Cms\Database\BlogPost;
 
 $data = array_map(static function (BlogPost $post): array {
     $headerImage = $post->getHeaderImage();

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Jinya\Router\Attributes\Controller;
 use Jinya\Router\Attributes\HttpMethod;
 use Jinya\Router\Attributes\Middlewares;
@@ -18,7 +18,7 @@ class LocateIpController extends BaseController
      * Locates the given IP
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/ip-location/{ip}')]
+    #[Route(HttpMethod::GET, 'api/ip-location/{ip}')]
     public function locateIp(string $ip): ResponseInterface
     {
         /** @phpstan-ignore-next-line */

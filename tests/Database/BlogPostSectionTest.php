@@ -1,13 +1,8 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\BlogCategory;
-use App\Database\BlogPost;
-use App\Database\BlogPostSection;
-use App\Database\File;
-use App\Database\Gallery;
-use App\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Faker\Provider\Uuid;
 
 class BlogPostSectionTest extends DatabaseAwareTestCase

@@ -1,9 +1,8 @@
 <?php
 
-namespace Jinya\Tests\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Tests\DatabaseAwareTestCase;
-use App\Web\Controllers\EnvironmentController;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 
 class EnvironmentControllerTest extends DatabaseAwareTestCase
 {

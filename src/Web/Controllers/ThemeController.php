@@ -1,28 +1,28 @@
 <?php
 
-namespace App\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Database\BlogCategory;
-use App\Database\ClassicPage;
-use App\Database\File;
-use App\Database\Form;
-use App\Database\Gallery;
-use App\Database\Menu;
-use App\Database\ModernPage;
-use App\Database\Theme as DatabaseTheme;
-use App\Database\ThemeBlogCategory;
-use App\Database\ThemeClassicPage;
-use App\Database\ThemeFile;
-use App\Database\ThemeForm;
-use App\Database\ThemeGallery;
-use App\Database\ThemeMenu;
-use App\Database\ThemeModernPage;
-use App\Logging\Logger;
-use App\Theming\Theme;
-use App\Theming\ThemeSyncer;
-use App\Utils\UuidGenerator;
-use App\Web\Middleware\AuthorizationMiddleware;
-use App\Web\Middleware\CheckRequiredFieldsMiddleware;
+use Jinya\Cms\Database\BlogCategory;
+use Jinya\Cms\Database\ClassicPage;
+use Jinya\Cms\Database\File;
+use Jinya\Cms\Database\Form;
+use Jinya\Cms\Database\Gallery;
+use Jinya\Cms\Database\Menu;
+use Jinya\Cms\Database\ModernPage;
+use Jinya\Cms\Database\Theme as DatabaseTheme;
+use Jinya\Cms\Database\ThemeBlogCategory;
+use Jinya\Cms\Database\ThemeClassicPage;
+use Jinya\Cms\Database\ThemeFile;
+use Jinya\Cms\Database\ThemeForm;
+use Jinya\Cms\Database\ThemeGallery;
+use Jinya\Cms\Database\ThemeMenu;
+use Jinya\Cms\Database\ThemeModernPage;
+use Jinya\Cms\Logging\Logger;
+use Jinya\Cms\Theming\Theme;
+use Jinya\Cms\Theming\ThemeSyncer;
+use Jinya\Cms\Utils\UuidGenerator;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Web\Middleware\CheckRequiredFieldsMiddleware;
 use Exception;
 use Jinya\Database\Exception\ForeignKeyFailedException;
 use Jinya\Database\Exception\NotNullViolationException;
@@ -54,7 +54,7 @@ class ThemeController extends BaseController
      * @return ResponseInterface
      * @throws Exception
      */
-    #[Route(HttpMethod::POST, '/api/theme')]
+    #[Route(HttpMethod::POST, 'api/theme')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function uploadTheme(): ResponseInterface
     {
@@ -109,7 +109,7 @@ class ThemeController extends BaseController
      * @throws NotNullViolationException
      * @throws Exception
      */
-    #[Route(HttpMethod::PUT, '/api/theme/{id}')]
+    #[Route(HttpMethod::PUT, 'api/theme/{id}')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function updateTheme(int $id): ResponseInterface
     {
@@ -165,7 +165,7 @@ class ThemeController extends BaseController
      * @return ResponseInterface
      * @throws JsonException
      */
-    #[Route(HttpMethod::PUT, '/api/theme/{id}/active')]
+    #[Route(HttpMethod::PUT, 'api/theme/{id}/active')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function activateTheme(int $id): ResponseInterface
     {
@@ -189,7 +189,7 @@ class ThemeController extends BaseController
      * @throws Exception
      * @throws Exception
      */
-    #[Route(HttpMethod::PUT, '/api/theme/{id}/assets')]
+    #[Route(HttpMethod::PUT, 'api/theme/{id}/assets')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function compileTheme(int $id): ResponseInterface
     {
@@ -214,7 +214,7 @@ class ThemeController extends BaseController
      * @throws JsonException
      * @throws NotNullViolationException
      */
-    #[Route(HttpMethod::PUT, '/api/theme/{id}/configuration')]
+    #[Route(HttpMethod::PUT, 'api/theme/{id}/configuration')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function updateConfiguration(int $id): ResponseInterface
     {
@@ -236,7 +236,7 @@ class ThemeController extends BaseController
      * Gets the structure of the configuration for the given theme
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/theme/{id}/configuration/structure')]
+    #[Route(HttpMethod::GET, 'api/theme/{id}/configuration/structure')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function getConfigurationStructure(int $id): ResponseInterface
     {
@@ -254,7 +254,7 @@ class ThemeController extends BaseController
      * Gets the default configuration values by theme ID
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/theme/{id}/configuration/default')]
+    #[Route(HttpMethod::GET, 'api/theme/{id}/configuration/default')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function getDefaultConfiguration(int $id): ResponseInterface
     {
@@ -273,7 +273,7 @@ class ThemeController extends BaseController
      * Gets the SCSS variables from the given theme
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/theme/{id}/styling')]
+    #[Route(HttpMethod::GET, 'api/theme/{id}/styling')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function getStyleVariables(int $id): ResponseInterface
     {
@@ -296,7 +296,7 @@ class ThemeController extends BaseController
      * @throws JsonException
      * @throws NotNullViolationException
      */
-    #[Route(HttpMethod::PUT, '/api/theme/{id}/styling')]
+    #[Route(HttpMethod::PUT, 'api/theme/{id}/styling')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function updateStyleVariables(int $id): ResponseInterface
     {
@@ -324,7 +324,7 @@ class ThemeController extends BaseController
      * @return ResponseInterface
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/theme/{id}/preview')]
+    #[Route(HttpMethod::GET, 'api/theme/{id}/preview')]
     public function getPreviewImage(int $id): ResponseInterface
     {
         $dbTheme = DatabaseTheme::findById($id);
@@ -368,7 +368,7 @@ class ThemeController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/theme/{id}/blog-category')]
+    #[Route(HttpMethod::GET, 'api/theme/{id}/blog-category')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function getThemeBlogCategories(int $id): ResponseInterface
     {
@@ -388,7 +388,7 @@ class ThemeController extends BaseController
      * @return ResponseInterface
      * @throws JsonException
      */
-    #[Route(HttpMethod::PUT, '/api/theme/{id}/blog-category/{name}')]
+    #[Route(HttpMethod::PUT, 'api/theme/{id}/blog-category/{name}')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER), new CheckRequiredFieldsMiddleware(['blogCategory']))]
     public function updateThemeBlogCategory(int $id, string $name): ResponseInterface
     {
@@ -419,7 +419,7 @@ class ThemeController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/theme/{id}/classic-page')]
+    #[Route(HttpMethod::GET, 'api/theme/{id}/classic-page')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function getThemeClassicPages(int $id): ResponseInterface
     {
@@ -439,7 +439,7 @@ class ThemeController extends BaseController
      * @return ResponseInterface
      * @throws JsonException
      */
-    #[Route(HttpMethod::PUT, '/api/theme/{id}/classic-page/{name}')]
+    #[Route(HttpMethod::PUT, 'api/theme/{id}/classic-page/{name}')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER), new CheckRequiredFieldsMiddleware(['classicPage']))]
     public function updateThemeClassicPage(int $id, string $name): ResponseInterface
     {
@@ -470,7 +470,7 @@ class ThemeController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/theme/{id}/file')]
+    #[Route(HttpMethod::GET, 'api/theme/{id}/file')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function getThemeFiles(int $id): ResponseInterface
     {
@@ -490,7 +490,7 @@ class ThemeController extends BaseController
      * @return ResponseInterface
      * @throws JsonException
      */
-    #[Route(HttpMethod::PUT, '/api/theme/{id}/file/{name}')]
+    #[Route(HttpMethod::PUT, 'api/theme/{id}/file/{name}')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER), new CheckRequiredFieldsMiddleware(['file']))]
     public function updateThemeFile(int $id, string $name): ResponseInterface
     {
@@ -521,7 +521,7 @@ class ThemeController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/theme/{id}/form')]
+    #[Route(HttpMethod::GET, 'api/theme/{id}/form')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function getThemeForms(int $id): ResponseInterface
     {
@@ -541,7 +541,7 @@ class ThemeController extends BaseController
      * @return ResponseInterface
      * @throws JsonException
      */
-    #[Route(HttpMethod::PUT, '/api/theme/{id}/form/{name}')]
+    #[Route(HttpMethod::PUT, 'api/theme/{id}/form/{name}')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER), new CheckRequiredFieldsMiddleware(['form']))]
     public function updateThemeForm(int $id, string $name): ResponseInterface
     {
@@ -572,7 +572,7 @@ class ThemeController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/theme/{id}/gallery')]
+    #[Route(HttpMethod::GET, 'api/theme/{id}/gallery')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function getThemeGalleries(int $id): ResponseInterface
     {
@@ -592,7 +592,7 @@ class ThemeController extends BaseController
      * @return ResponseInterface
      * @throws JsonException
      */
-    #[Route(HttpMethod::PUT, '/api/theme/{id}/gallery/{name}')]
+    #[Route(HttpMethod::PUT, 'api/theme/{id}/gallery/{name}')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER), new CheckRequiredFieldsMiddleware(['gallery']))]
     public function updateThemeGallery(int $id, string $name): ResponseInterface
     {
@@ -623,7 +623,7 @@ class ThemeController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/theme/{id}/menu')]
+    #[Route(HttpMethod::GET, 'api/theme/{id}/menu')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function getThemeMenus(int $id): ResponseInterface
     {
@@ -643,7 +643,7 @@ class ThemeController extends BaseController
      * @return ResponseInterface
      * @throws JsonException
      */
-    #[Route(HttpMethod::PUT, '/api/theme/{id}/menu/{name}')]
+    #[Route(HttpMethod::PUT, 'api/theme/{id}/menu/{name}')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER), new CheckRequiredFieldsMiddleware(['menu']))]
     public function updateThemeMenu(int $id, string $name): ResponseInterface
     {
@@ -674,7 +674,7 @@ class ThemeController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/theme/{id}/modern-page')]
+    #[Route(HttpMethod::GET, 'api/theme/{id}/modern-page')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function getThemeModernPages(int $id): ResponseInterface
     {
@@ -694,7 +694,7 @@ class ThemeController extends BaseController
      * @return ResponseInterface
      * @throws JsonException
      */
-    #[Route(HttpMethod::PUT, '/api/theme/{id}/modern-page/{name}')]
+    #[Route(HttpMethod::PUT, 'api/theme/{id}/modern-page/{name}')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER), new CheckRequiredFieldsMiddleware(['modernPage']))]
     public function updateThemeModernPage(int $id, string $name): ResponseInterface
     {

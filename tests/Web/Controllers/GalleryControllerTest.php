@@ -1,12 +1,11 @@
 <?php
 
-namespace Jinya\Tests\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Database\File;
-use App\Database\Gallery;
-use App\Database\GalleryFilePosition;
-use App\Tests\DatabaseAwareTestCase;
-use App\Web\Controllers\GalleryController;
+use Jinya\Cms\Database\File;
+use Jinya\Cms\Database\Gallery;
+use Jinya\Cms\Database\GalleryFilePosition;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 
 class GalleryControllerTest extends DatabaseAwareTestCase
 {

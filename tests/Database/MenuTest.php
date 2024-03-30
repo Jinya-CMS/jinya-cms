@@ -1,11 +1,9 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\File;
-use App\Database\Menu;
-use App\Tests\DatabaseAwareTestCase;
-use App\Utils\UuidGenerator;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Utils\UuidGenerator;
 
 class MenuTest extends DatabaseAwareTestCase
 {

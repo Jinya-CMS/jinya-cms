@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Database\BlogCategory;
-use App\Database\BlogPost;
-use App\Database\Exceptions\TransactionFailedException;
-use App\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Database\BlogCategory;
+use Jinya\Cms\Database\BlogPost;
+use Jinya\Cms\Database\Exceptions\TransactionFailedException;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Jinya\Router\Attributes\Controller;
 use Jinya\Router\Attributes\HttpMethod;
 use Jinya\Router\Attributes\Middlewares;
@@ -19,7 +19,7 @@ class BlogController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/blog-category/{id}/post')]
+    #[Route(HttpMethod::GET, 'api/blog-category/{id}/post')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_READER))]
     public function getPostsByCategory(int $id): ResponseInterface
     {
@@ -36,7 +36,7 @@ class BlogController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/blog-post/{id}/section')]
+    #[Route(HttpMethod::GET, 'api/blog-post/{id}/section')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_READER))]
     public function getSections(int $id): ResponseInterface
     {
@@ -54,7 +54,7 @@ class BlogController extends BaseController
      * @throws JsonException
      * @throws TransactionFailedException
      */
-    #[Route(HttpMethod::PUT, '/api/blog-post/{id}/section')]
+    #[Route(HttpMethod::PUT, 'api/blog-post/{id}/section')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function replaceSections(int $id): ResponseInterface
     {

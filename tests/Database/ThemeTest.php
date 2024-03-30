@@ -1,24 +1,8 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\BlogCategory;
-use App\Database\ClassicPage;
-use App\Database\File;
-use App\Database\Form;
-use App\Database\Gallery;
-use App\Database\Menu;
-use App\Database\ModernPage;
-use App\Database\Theme;
-use App\Database\ThemeAsset;
-use App\Database\ThemeBlogCategory;
-use App\Database\ThemeClassicPage;
-use App\Database\ThemeFile;
-use App\Database\ThemeForm;
-use App\Database\ThemeGallery;
-use App\Database\ThemeMenu;
-use App\Database\ThemeModernPage;
-use App\Tests\ThemeTestCase;
+use Jinya\Cms\Tests\ThemeTestCase;
 use Faker\Provider\Uuid;
 use Jinya\Database\Entity;
 use stdClass;

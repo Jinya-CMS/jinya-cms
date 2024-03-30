@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Mailing\Types;
+namespace Jinya\Cms\Mailing\Types;
 
-use App\Mailing\Factory\MailerFactory;
-use App\Theming\Engine;
+use Jinya\Cms\Mailing\Factory\MailerFactory;
+use Jinya\Cms\Theming\Engine;
 use Jinya\Plates\Engine as PlatesEngine;
 use PHPMailer\PHPMailer\Exception;
 use Throwable;

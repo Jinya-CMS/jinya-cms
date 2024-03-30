@@ -1,11 +1,8 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\File;
-use App\Database\UploadingFile;
-use App\Database\UploadingFileChunk;
-use App\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Faker\Provider\Uuid;
 use PDOException;
 

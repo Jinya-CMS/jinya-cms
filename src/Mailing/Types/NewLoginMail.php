@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Mailing\Types;
+namespace Jinya\Cms\Mailing\Types;
 
-use App\Database\ApiKey;
-use App\Mailing\Factory\MailerFactory;
-use App\Theming\Engine;
+use Jinya\Cms\Database\ApiKey;
+use Jinya\Cms\Mailing\Factory\MailerFactory;
+use Jinya\Cms\Theming\Engine;
 use Jenssegers\Agent\Agent;
 use Jinya\Plates\Engine as PlatesEngine;
 use JsonException;

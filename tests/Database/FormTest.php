@@ -1,10 +1,9 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Authentication\CurrentUser;
-use App\Database\Form;
-use App\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use PDOException;
 
 class FormTest extends DatabaseAwareTestCase

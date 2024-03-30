@@ -3,9 +3,9 @@
  * The file blog-post.phtml gets the variables below passed. The $post contains the post for this route.
  */
 
-/** @var \App\Database\BlogPost $post */
+/** @var \Jinya\Cms\Database\BlogPost $post */
 
-use App\Utils\ImageType;
+use Jinya\Cms\Utils\ImageType;
 
 $this->layout('theme::layout', ['title' => $post->title]);
 ?>

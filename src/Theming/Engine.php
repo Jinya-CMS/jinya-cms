@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Theming;
+namespace Jinya\Cms\Theming;
 
 use Jinya\Plates\Engine as PlatesEngine;
 

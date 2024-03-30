@@ -1,10 +1,9 @@
 <?php
 
-namespace Jinya\Tests\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Database\ModernPage;
-use App\Tests\DatabaseAwareTestCase;
-use App\Web\Controllers\ModernPageController;
+use Jinya\Cms\Database\ModernPage;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Nyholm\Psr7\ServerRequest;
 
 class ModernPageControllerTest extends DatabaseAwareTestCase

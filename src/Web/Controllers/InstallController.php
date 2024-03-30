@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Database\Artist;
-use App\Database\Migrations\Migrator;
-use App\Logging\Logger;
-use App\Theming\Engine;
-use App\Theming\ThemeSyncer;
-use App\Web\Middleware\RedirectInstallerMiddleware;
+use Jinya\Cms\Database\Artist;
+use Jinya\Cms\Database\Migrations\Migrator;
+use Jinya\Cms\Logging\Logger;
+use Jinya\Cms\Theming\Engine;
+use Jinya\Cms\Theming\ThemeSyncer;
+use Jinya\Cms\Web\Middleware\RedirectInstallerMiddleware;
 use Dotenv\Dotenv;
 use Jinya\Plates\Engine as PlatesEngine;
 use Jinya\Plates\Extension\URI;
@@ -57,7 +57,7 @@ class InstallController extends BaseController
      * Renders the installer page
      * @throws Throwable
      */
-    #[Route(HttpMethod::GET, '/install')]
+    #[Route(HttpMethod::GET, 'install')]
     public function getInstall(): ResponseInterface
     {
         return $this->renderThemed('install::set-config', ['data' => []]);
@@ -69,7 +69,7 @@ class InstallController extends BaseController
      * @throws Throwable
      * @throws Throwable
      */
-    #[Route(HttpMethod::POST, '/installer')]
+    #[Route(HttpMethod::POST, 'installer')]
     public function postInstall(): ResponseInterface
     {
         $body = $_POST;

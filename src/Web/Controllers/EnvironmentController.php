@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Jinya\Router\Attributes\Controller;
 use Jinya\Router\Attributes\HttpMethod;
 use Jinya\Router\Attributes\Middlewares;
@@ -17,7 +17,7 @@ class EnvironmentController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/environment')]
+    #[Route(HttpMethod::GET, 'api/environment')]
     public function getEnvironment(): ResponseInterface
     {
         $env = array_filter(

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Database\Analyzer\DatabaseAnalyzer;
-use App\Database\Analyzer\QueryAnalyzer;
-use App\Database\Analyzer\VariablesType;
-use App\Web\Middleware\AuthorizationMiddleware;
-use App\Web\Middleware\CheckRequiredFieldsMiddleware;
+use Jinya\Cms\Database\Analyzer\DatabaseAnalyzer;
+use Jinya\Cms\Database\Analyzer\QueryAnalyzer;
+use Jinya\Cms\Database\Analyzer\VariablesType;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Web\Middleware\CheckRequiredFieldsMiddleware;
 use Exception;
 use Jinya\Database\Entity;
 use Jinya\Router\Attributes\Controller;
@@ -23,7 +23,7 @@ class DatabaseController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::POST, '/api/maintenance/database/query')]
+    #[Route(HttpMethod::POST, 'api/maintenance/database/query')]
     #[Middlewares(new CheckRequiredFieldsMiddleware(['query']))]
     public function queryDatabase(): ResponseInterface
     {
@@ -70,7 +70,7 @@ class DatabaseController extends BaseController
      * @throws JsonException
      * @throws Exception
      */
-    #[Route(HttpMethod::GET, '/api/maintenance/database/analyze')]
+    #[Route(HttpMethod::GET, 'api/maintenance/database/analyze')]
     public function analyzeDatabase(): ResponseInterface
     {
         $tables = DatabaseAnalyzer::getTables();

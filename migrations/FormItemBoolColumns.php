@@ -1,6 +1,6 @@
 <?php
 
-namespace Migrations;
+namespace Jinya\Cms\Migrations;
 
 use Jinya\Database\Migration\AbstractMigration;
 use PDO;

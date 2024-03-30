@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Database;
+namespace Jinya\Cms\Database;
 
-use App\Authentication\CurrentUser;
-use App\Database\Exceptions\TransactionFailedException;
-use App\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Database\Exceptions\TransactionFailedException;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use DateTime;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;

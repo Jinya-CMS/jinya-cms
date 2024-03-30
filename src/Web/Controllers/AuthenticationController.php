@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Authentication\CurrentUser;
-use App\Database\ApiKey;
-use App\Database\Artist;
-use App\Database\KnownDevice;
-use App\Logging\Logger;
-use App\Mailing\Types\NewLoginMail;
-use App\Mailing\Types\NewSavedDeviceMail;
-use App\Mailing\Types\TwoFactorMail;
-use App\Web\Middleware\AuthorizationMiddleware;
-use App\Web\Middleware\CheckRequiredFieldsMiddleware;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Database\ApiKey;
+use Jinya\Cms\Database\Artist;
+use Jinya\Cms\Database\KnownDevice;
+use Jinya\Cms\Logging\Logger;
+use Jinya\Cms\Mailing\Types\NewLoginMail;
+use Jinya\Cms\Mailing\Types\NewSavedDeviceMail;
+use Jinya\Cms\Mailing\Types\TwoFactorMail;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Web\Middleware\CheckRequiredFieldsMiddleware;
 use DateTime;
 use Jinya\Database\Exception\NotNullViolationException;
 use Jinya\Router\Attributes\Controller;
@@ -57,7 +57,7 @@ class AuthenticationController extends BaseController
      * @throws NotNullViolationException
      * @throws JsonException
      */
-    #[Route(HttpMethod::PUT, '/api/account/password')]
+    #[Route(HttpMethod::PUT, 'api/account/password')]
     #[Middlewares(new AuthorizationMiddleware(), new CheckRequiredFieldsMiddleware(['password', 'oldPassword']))]
     public function changePassword(): ResponseInterface
     {
@@ -82,7 +82,7 @@ class AuthenticationController extends BaseController
      * @throws NotNullViolationException
      * @throws \Exception
      */
-    #[Route(HttpMethod::POST, '/api/login')]
+    #[Route(HttpMethod::POST, 'api/login')]
     #[Middlewares(new CheckRequiredFieldsMiddleware(['password', 'username']))]
     public function login(): ResponseInterface
     {
@@ -154,7 +154,7 @@ class AuthenticationController extends BaseController
      * @throws Exception
      * @throws Throwable
      */
-    #[Route(HttpMethod::POST, '/api/2fa')]
+    #[Route(HttpMethod::POST, 'api/2fa')]
     #[Middlewares(new CheckRequiredFieldsMiddleware(['password', 'username']))]
     public function twoFactorCode(): ResponseInterface
     {
@@ -180,7 +180,7 @@ class AuthenticationController extends BaseController
      * @return ResponseInterface
      * @codeCoverageIgnore
      */
-    #[Route(HttpMethod::HEAD, '/api/login')]
+    #[Route(HttpMethod::HEAD, 'api/login')]
     #[Middlewares(new AuthorizationMiddleware())]
     public function validateLogin(): ResponseInterface
     {

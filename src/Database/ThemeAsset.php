@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Database;
+namespace Jinya\Cms\Database;
 
 use Iterator;
 use Jinya\Database\Attributes\Column;

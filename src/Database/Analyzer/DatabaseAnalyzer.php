@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Database\Analyzer;
+namespace Jinya\Cms\Database\Analyzer;
 
 use Aura\SqlQuery\Common\SelectInterface;
 use Error;

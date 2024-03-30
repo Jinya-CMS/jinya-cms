@@ -3,8 +3,8 @@
 
 declare(strict_types=1);
 
-use App\Console\AbstractCommand;
-use App\Console\JinyaCommand;
+use Jinya\Cms\Console\AbstractCommand;
+use Jinya\Cms\Console\JinyaCommand;
 use League\CLImate\CLImate;
 
 require __DIR__ . '/../startup.php';
@@ -19,7 +19,7 @@ foreach ($files as $file) {
     }
 }
 foreach ($classesWithFullPath as $path) {
-    $class = 'App' . str_replace('.php', '', implode('\\', explode('/', explode('src', $path)[1])));
+    $class = 'Jinya\Cms' . str_replace('.php', '', implode('\\', explode('/', explode('src', $path)[1])));
     class_exists($class, true);
 }
 

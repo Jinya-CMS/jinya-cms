@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Database;
+namespace Jinya\Cms\Database;
 
-use App\Utils\UuidGenerator;
+use Jinya\Cms\Utils\UuidGenerator;
 use Exception;
 use Iterator;
 use Jinya\Database\Attributes\Column;

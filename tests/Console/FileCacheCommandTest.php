@@ -1,12 +1,11 @@
 <?php
 
-namespace Jinya\Tests\Console;
+namespace Jinya\Cms\Console;
 
-use App\Console\FileCacheCommand;
-use App\Database\File;
-use App\Storage\StorageBaseService;
-use App\Tests\DatabaseAwareTestCase;
-use App\Utils\UuidGenerator;
+use Jinya\Cms\Database\File;
+use Jinya\Cms\Storage\StorageBaseService;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Utils\UuidGenerator;
 use Faker\Provider\Uuid;
 
 class FileCacheCommandTest extends DatabaseAwareTestCase

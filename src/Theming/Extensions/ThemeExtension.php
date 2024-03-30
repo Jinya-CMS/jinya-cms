@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Theming\Extensions;
+namespace Jinya\Cms\Theming\Extensions;
 
-use App\Database;
-use App\Theming;
+use Jinya\Cms\Database;
+use Jinya\Cms\Theming;
 use Jinya\Plates\Engine;
 use Jinya\Plates\Extension\BaseExtension;
 

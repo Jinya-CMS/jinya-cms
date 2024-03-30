@@ -1,9 +1,7 @@
 <?php
 
-namespace Jinya\Tests\Database\Analyzer;
+namespace Jinya\Cms\Database\Analyzer;
 
-use App\Database\Analyzer\DatabaseAnalyzer;
-use App\Database\Analyzer\VariablesType;
 use PHPUnit\Framework\TestCase;
 
 class DatabaseAnalyzerTest extends TestCase

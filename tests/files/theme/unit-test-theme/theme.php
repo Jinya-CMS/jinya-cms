@@ -1,6 +1,6 @@
 <?php
 
-use App\Theming\Theme;
+use Jinya\Cms\Theming\Theme;
 
 return [
     'displayName' => 'Jinya Testing Theme',

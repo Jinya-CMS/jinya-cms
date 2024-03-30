@@ -1,12 +1,9 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Authentication\CurrentUser;
-use App\Database\File;
-use App\Database\Gallery;
-use App\Database\ModernPage;
-use App\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Faker\Provider\Uuid;
 use PDOException;
 

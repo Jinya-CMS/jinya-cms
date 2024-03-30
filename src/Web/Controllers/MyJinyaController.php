@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Authentication\CurrentUser;
-use App\Database\Artist;
-use App\Database\Exceptions\EmptyResultException;
-use App\Storage\ProfilePictureService;
-use App\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Database\Artist;
+use Jinya\Cms\Database\Exceptions\EmptyResultException;
+use Jinya\Cms\Storage\ProfilePictureService;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Jinya\Database\Exception\NotNullViolationException;
 use Jinya\Router\Attributes\Controller;
 use Jinya\Router\Attributes\HttpMethod;
@@ -30,7 +30,7 @@ class MyJinyaController extends BaseController
      * @return ResponseInterface
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/me')]
+    #[Route(HttpMethod::GET, 'api/me')]
     public function getMyProfile(): ResponseInterface
     {
         return $this->json(CurrentUser::$currentUser->format());
@@ -42,7 +42,7 @@ class MyJinyaController extends BaseController
      * @return ResponseInterface
      * @throws NotNullViolationException
      */
-    #[Route(HttpMethod::PUT, '/api/me')]
+    #[Route(HttpMethod::PUT, 'api/me')]
     public function updateMyProfile(): ResponseInterface
     {
         /** @var Artist $currentArtist */
@@ -71,7 +71,7 @@ class MyJinyaController extends BaseController
      * @return ResponseInterface
      * @throws NotNullViolationException
      */
-    #[Route(HttpMethod::PUT, '/api/me/colorscheme')]
+    #[Route(HttpMethod::PUT, 'api/me/colorscheme')]
     public function updateColorScheme(): ResponseInterface
     {
         $colorScheme = $this->body['colorScheme'];
@@ -95,7 +95,7 @@ class MyJinyaController extends BaseController
      * @throws NotNullViolationException
      * @throws EmptyResultException
      */
-    #[Route(HttpMethod::PUT, '/api/me/profilepicture')]
+    #[Route(HttpMethod::PUT, 'api/me/profilepicture')]
     #[Middlewares(new AuthorizationMiddleware())]
     public function uploadProfilePicture(): ResponseInterface
     {

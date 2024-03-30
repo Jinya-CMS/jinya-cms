@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Console;
+namespace Jinya\Cms\Console;
 
-use App\Authentication\CurrentUser;
-use App\Database\Artist;
-use App\Database\BlogPostSection;
-use App\Database\ClassicPage;
-use App\Database\File;
-use App\Database\ModernPageSection;
-use App\Storage\StorageBaseService;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Database\Artist;
+use Jinya\Cms\Database\BlogPostSection;
+use Jinya\Cms\Database\ClassicPage;
+use Jinya\Cms\Database\File;
+use Jinya\Cms\Database\ModernPageSection;
+use Jinya\Cms\Storage\StorageBaseService;
 
 /**
  * @codeCoverageIgnore I really don't know how to unit test this, but it has undergone rigid by hand testing

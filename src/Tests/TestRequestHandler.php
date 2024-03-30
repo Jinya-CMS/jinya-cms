@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests;
+namespace Jinya\Cms\Tests;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

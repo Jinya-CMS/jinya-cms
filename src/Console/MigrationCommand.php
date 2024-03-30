@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Console;
+namespace Jinya\Cms\Console;
 
-use App\Database\Migrations\Migrator;
+use Jinya\Cms\Database\Migrations\Migrator;
 
 /**
  * This command migrates the Jinya CMS database to the most recent version

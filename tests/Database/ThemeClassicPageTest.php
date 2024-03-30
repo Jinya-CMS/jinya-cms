@@ -1,10 +1,8 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\ClassicPage;
-use App\Database\ThemeClassicPage;
-use App\Tests\ThemeTestCase;
+use Jinya\Cms\Tests\ThemeTestCase;
 use Faker\Provider\Uuid;
 
 class ThemeClassicPageTest extends ThemeTestCase

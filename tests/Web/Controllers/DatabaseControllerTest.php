@@ -1,9 +1,8 @@
 <?php
 
-namespace Jinya\Tests\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Tests\DatabaseAwareTestCase;
-use App\Web\Controllers\DatabaseController;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Nyholm\Psr7\ServerRequest;
 
 class DatabaseControllerTest extends DatabaseAwareTestCase

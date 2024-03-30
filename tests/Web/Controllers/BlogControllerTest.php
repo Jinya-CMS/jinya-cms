@@ -1,11 +1,10 @@
 <?php
 
-namespace Jinya\Tests\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Database\BlogCategory;
-use App\Database\BlogPost;
-use App\Tests\DatabaseAwareTestCase;
-use App\Web\Controllers\BlogController;
+use Jinya\Cms\Database\BlogCategory;
+use Jinya\Cms\Database\BlogPost;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Faker\Factory;
 use Faker\Provider\Uuid;
 use Nyholm\Psr7\ServerRequest;

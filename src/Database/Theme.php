@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\Converter\BooleanConverter;
-use App\Database\Converter\JsonConverter;
-use App\Database\Converter\ThemeDescriptionConverter;
-use App\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Database\Converter\BooleanConverter;
+use Jinya\Cms\Database\Converter\JsonConverter;
+use Jinya\Cms\Database\Converter\ThemeDescriptionConverter;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Exception;
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;

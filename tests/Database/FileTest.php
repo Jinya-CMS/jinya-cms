@@ -1,13 +1,9 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Authentication\CurrentUser;
-use App\Database\File;
-use App\Database\FileTag;
-use App\Database\UploadingFile;
-use App\Database\UploadingFileChunk;
-use App\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use PDOException;
 
 class FileTest extends DatabaseAwareTestCase

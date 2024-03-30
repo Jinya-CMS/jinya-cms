@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\Converter\BooleanConverter;
-use App\Database\Converter\NullableBooleanConverter;
+use Jinya\Cms\Database\Converter\BooleanConverter;
+use Jinya\Cms\Database\Converter\NullableBooleanConverter;
 use Iterator;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;

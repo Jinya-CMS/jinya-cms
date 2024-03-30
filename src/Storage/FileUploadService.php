@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Storage;
+namespace Jinya\Cms\Storage;
 
-use App\Database\Exceptions\EmptyResultException;
-use App\Database\File;
-use App\Database\UploadingFile;
-use App\Database\UploadingFileChunk;
-use App\Utils\UuidGenerator;
+use Jinya\Cms\Database\Exceptions\EmptyResultException;
+use Jinya\Cms\Database\File;
+use Jinya\Cms\Database\UploadingFile;
+use Jinya\Cms\Database\UploadingFileChunk;
+use Jinya\Cms\Utils\UuidGenerator;
 use Exception;
 use Jinya\Database\Exception\NotNullViolationException;
 use RuntimeException;

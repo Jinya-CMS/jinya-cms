@@ -1,10 +1,9 @@
 <?php
 
-namespace Jinya\Tests\Web\Middleware;
+namespace Jinya\Cms\Web\Middleware;
 
-use App\Tests\DatabaseAwareTestCase;
-use App\Tests\TestRequestHandler;
-use App\Web\Middleware\CheckRequiredFieldsMiddleware;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Tests\TestRequestHandler;
 use Faker\Provider\Uuid;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;

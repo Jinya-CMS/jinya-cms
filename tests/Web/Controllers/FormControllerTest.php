@@ -1,10 +1,9 @@
 <?php
 
-namespace Jinya\Tests\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Database\Form;
-use App\Tests\DatabaseAwareTestCase;
-use App\Web\Controllers\FormController;
+use Jinya\Cms\Database\Form;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Faker\Provider\Uuid;
 use Nyholm\Psr7\ServerRequest;
 

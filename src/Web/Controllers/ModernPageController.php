@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Database\Exceptions\TransactionFailedException;
-use App\Database\ModernPage;
-use App\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Database\Exceptions\TransactionFailedException;
+use Jinya\Cms\Database\ModernPage;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Jinya\Router\Attributes\Controller;
 use Jinya\Router\Attributes\HttpMethod;
 use Jinya\Router\Attributes\Middlewares;
@@ -18,7 +18,7 @@ class ModernPageController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/modern-page/{id}/section')]
+    #[Route(HttpMethod::GET, 'api/modern-page/{id}/section')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_READER))]
     public function getSections(int $id): ResponseInterface
     {
@@ -36,7 +36,7 @@ class ModernPageController extends BaseController
      * @throws TransactionFailedException
      * @throws JsonException
      */
-    #[Route(HttpMethod::PUT, '/api/modern-page/{id}/section')]
+    #[Route(HttpMethod::PUT, 'api/modern-page/{id}/section')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function replaceSections(int $id): ResponseInterface
     {

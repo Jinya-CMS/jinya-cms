@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Tests;
+namespace Jinya\Cms\Tests;
 
-use App\Authentication\CurrentUser;
-use App\Database\Artist;
-use App\Database\Migrations\Migrator;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Database\Artist;
+use Jinya\Cms\Database\Migrations\Migrator;
 use Error;
 use Jinya\Database\Entity;
 use Jinya\Database\Exception\NotNullViolationException;

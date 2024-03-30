@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Web\Handlers;
+namespace Jinya\Cms\Web\Handlers;
 
-use App\Logging\Logger;
+use Jinya\Cms\Logging\Logger;
 use Jinya\Router\Extensions\Database\ErrorHandler as RouterErrorHandler;
 use Jinya\Router\Extensions\Database\Exceptions\CreateColumnIsNullException;
 use Jinya\Router\Extensions\Database\Exceptions\CreateReferenceFailedException;

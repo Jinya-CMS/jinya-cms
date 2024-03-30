@@ -1,9 +1,8 @@
 <?php
 
-namespace Jinya\Tests\Mailing\Types;
+namespace Jinya\Cms\Mailing\Types;
 
-use App\Database\KnownDevice;
-use App\Mailing\Types\NewSavedDeviceMail;
+use Jinya\Cms\Database\KnownDevice;
 use Faker;
 use PHPUnit\Framework\TestCase;
 

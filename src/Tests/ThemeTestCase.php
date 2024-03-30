@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests;
+namespace Jinya\Cms\Tests;
 
-use App\Database\Theme;
+use Jinya\Cms\Database\Theme;
 use Faker\Provider\Uuid;
 use Jinya\Database\Exception\NotNullViolationException;
 

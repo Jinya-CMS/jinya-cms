@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Database\Exceptions\TransactionFailedException;
-use App\Database\Menu;
-use App\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Database\Exceptions\TransactionFailedException;
+use Jinya\Cms\Database\Menu;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Jinya\Router\Attributes\Controller;
 use Jinya\Router\Attributes\HttpMethod;
 use Jinya\Router\Attributes\Middlewares;
@@ -18,7 +18,7 @@ class MenuController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/menu/{id}/item')]
+    #[Route(HttpMethod::GET, 'api/menu/{id}/item')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_READER))]
     public function getItems(int $id): ResponseInterface
     {
@@ -36,7 +36,7 @@ class MenuController extends BaseController
      * @throws TransactionFailedException
      * @throws JsonException
      */
-    #[Route(HttpMethod::PUT, '/api/menu/{id}/item')]
+    #[Route(HttpMethod::PUT, 'api/menu/{id}/item')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function replaceItems(int $id): ResponseInterface
     {

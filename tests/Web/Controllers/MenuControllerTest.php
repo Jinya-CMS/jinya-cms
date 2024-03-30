@@ -1,10 +1,9 @@
 <?php
 
-namespace Jinya\Tests\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Database\Menu;
-use App\Tests\DatabaseAwareTestCase;
-use App\Web\Controllers\MenuController;
+use Jinya\Cms\Database\Menu;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Nyholm\Psr7\ServerRequest;
 
 class MenuControllerTest extends DatabaseAwareTestCase

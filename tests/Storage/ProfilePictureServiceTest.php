@@ -1,12 +1,10 @@
 <?php
 
-namespace Jinya\Tests\Storage;
+namespace Jinya\Cms\Storage;
 
-use App\Database\Artist;
-use App\Database\Exceptions\EmptyResultException;
-use App\Storage\ProfilePictureService;
-use App\Storage\StorageBaseService;
-use App\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Database\Artist;
+use Jinya\Cms\Database\Exceptions\EmptyResultException;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Faker\Factory;
 use Faker\Provider\Uuid;
 

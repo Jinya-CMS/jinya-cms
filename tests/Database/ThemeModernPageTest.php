@@ -1,10 +1,8 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\ModernPage;
-use App\Database\ThemeModernPage;
-use App\Tests\ThemeTestCase;
+use Jinya\Cms\Tests\ThemeTestCase;
 use Faker\Provider\Uuid;
 
 class ThemeModernPageTest extends ThemeTestCase

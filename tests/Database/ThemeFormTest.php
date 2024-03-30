@@ -1,10 +1,8 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\Form;
-use App\Database\ThemeForm;
-use App\Tests\ThemeTestCase;
+use Jinya\Cms\Tests\ThemeTestCase;
 use Faker\Provider\Uuid;
 
 class ThemeFormTest extends ThemeTestCase

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Database\Migrations\Migrator;
-use App\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Database\Migrations\Migrator;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Jinya\Router\Attributes\Controller;
 use Jinya\Router\Attributes\HttpMethod;
 use Jinya\Router\Attributes\Middlewares;
@@ -20,7 +20,7 @@ class UpdateController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, '/api/version')]
+    #[Route(HttpMethod::GET, 'api/version')]
     public function getVersionInfo(): ResponseInterface
     {
         return $this->json([
@@ -48,7 +48,7 @@ class UpdateController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(HttpMethod::PUT, '/api/update')]
+    #[Route(HttpMethod::PUT, 'api/update')]
     public function updateJinya(): ResponseInterface
     {
         $updatePath = __ROOT__ . '/var/update.zip';

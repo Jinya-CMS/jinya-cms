@@ -1,8 +1,7 @@
 <?php
 
-namespace Jinya\Tests\Mailing\Factory;
+namespace Jinya\Cms\Mailing\Factory;
 
-use App\Mailing\Factory\MailerFactory;
 use PHPUnit\Framework\TestCase;
 
 class MailerFactoryTest extends TestCase

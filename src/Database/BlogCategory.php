@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\Converter\BooleanConverter;
-use App\Web\Middleware\AuthorizationMiddleware;
+use Jinya\Cms\Database\Converter\BooleanConverter;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Jinya\Database\Attributes\Column;

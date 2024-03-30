@@ -1,12 +1,8 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\File;
-use App\Database\Gallery;
-use App\Database\ModernPage;
-use App\Database\ModernPageSection;
-use App\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Faker\Provider\Uuid;
 
 class ModernPageSectionTest extends DatabaseAwareTestCase

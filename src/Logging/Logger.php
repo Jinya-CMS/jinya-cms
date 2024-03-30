@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Logging;
+namespace Jinya\Cms\Logging;
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Processor\UidProcessor;

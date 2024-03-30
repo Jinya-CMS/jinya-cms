@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\Converter\BooleanConverter;
-use App\Database\Converter\JsonConverter;
+use Jinya\Cms\Database\Converter\BooleanConverter;
+use Jinya\Cms\Database\Converter\JsonConverter;
 use Iterator;
 use JetBrains\PhpStorm\Pure;
 use Jinya\Database\Attributes\Column;

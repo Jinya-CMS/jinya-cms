@@ -1,16 +1,15 @@
 <?php
 
-namespace Jinya\Tests\Web\Controllers;
+namespace Jinya\Cms\Web\Controllers;
 
-use App\Authentication\CurrentUser;
-use App\Database\BlogCategory;
-use App\Database\BlogPost;
-use App\Database\ClassicPage;
-use App\Database\Form;
-use App\Database\Gallery;
-use App\Database\ModernPage;
-use App\Tests\FrontTestCase;
-use App\Web\Controllers\FrontendController;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Database\BlogCategory;
+use Jinya\Cms\Database\BlogPost;
+use Jinya\Cms\Database\ClassicPage;
+use Jinya\Cms\Database\Form;
+use Jinya\Cms\Database\Gallery;
+use Jinya\Cms\Database\ModernPage;
+use Jinya\Cms\Tests\FrontTestCase;
 use Faker\Provider\Uuid;
 use Nyholm\Psr7\ServerRequest;
 

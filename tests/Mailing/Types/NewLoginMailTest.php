@@ -1,9 +1,8 @@
 <?php
 
-namespace Jinya\Tests\Mailing\Types;
+namespace Jinya\Cms\Mailing\Types;
 
-use App\Database\ApiKey;
-use App\Mailing\Types\NewLoginMail;
+use Jinya\Cms\Database\ApiKey;
 use Faker;
 use PHPUnit\Framework\TestCase;
 
