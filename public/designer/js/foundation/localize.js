@@ -9,13 +9,15 @@ import en from '../../lang/en.js';
  * @param def {string}
  * @return {string}
  */
-function getByPath({
-                     obj,
-                     path = '',
-                     def = '',
-                   }) {
+function getByPath({ obj, path = '', def = '' }) {
   let current = obj;
-  const splitPath = path.split('.');
+  let splitPath = [];
+  if (path.includes('.')) {
+    splitPath = path.split('.');
+  } else {
+    splitPath = path.split('-');
+  }
+
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < splitPath.length; ++i) {
     if (!current[splitPath[i]]) return def;
@@ -31,10 +33,7 @@ function getByPath({
  * @param values {Object}
  * @return string
  */
-export default function localize({
-                                   key,
-                                   values = {},
-                                 }) {
+export default function localize({ key, values = {} }) {
   let localized = key;
   if (navigator.language.startsWith('de')) {
     localized = getByPath({

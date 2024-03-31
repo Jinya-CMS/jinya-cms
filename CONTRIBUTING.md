@@ -1,4 +1,5 @@
 # How to Contribute
+
 Good to hear, that you want to contribute.
 
 If you want to provide a new feature, improvement or bug fix, simply fork this repository and make your changes. After that send a small pull request to this repository to the main branch.

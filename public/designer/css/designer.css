@@ -1,184 +1,184 @@
 .jinya-designer {
-    display: grid;
-    grid-template-rows: [header] 2.75rem 1.25rem [toolbar] 2rem 2rem [content] 1fr;
+  display: grid;
+  grid-template-rows: [header] 2.75rem 1.25rem [toolbar] 2rem 2rem [content] 1fr;
 }
 
 .jinya-designer__title {
-    grid-row: header;
+  grid-row: header;
 }
 
 .cosmo-toolbar--designer {
-    grid-row: toolbar;
+  grid-row: toolbar;
 }
 
 .jinya-designer__content {
-    display: grid;
-    grid-row: content;
-    grid-template-columns: [content] 1fr [toolbox] 29rem;
-    max-height: calc(var(--page-height) - 2.75rem - 1.25rem - 2rem - 2rem - 0.25rem);
+  display: grid;
+  grid-row: content;
+  grid-template-columns: [content] 1fr [toolbox] 29rem;
+  max-height: calc(var(--page-height) - 2.75rem - 1.25rem - 2rem - 2rem - 0.25rem);
 }
 
 .jinya-designer__result {
-    grid-column: content;
-    display: flex;
-    box-sizing: border-box;
-    border-right: 0.0625rem solid var(--control-border-color);
-    padding-right: 1rem;
-    margin-right: 1rem;
-    overflow-y: auto;
-    max-height: 100%;
-    gap: 1rem;
-    flex-flow: row wrap;
-    align-content: baseline;
-    justify-content: flex-start;
+  grid-column: content;
+  display: flex;
+  box-sizing: border-box;
+  border-right: 0.0625rem solid var(--control-border-color);
+  padding-right: 1rem;
+  margin-right: 1rem;
+  overflow-y: auto;
+  max-height: 100%;
+  gap: 1rem;
+  flex-flow: row wrap;
+  align-content: baseline;
+  justify-content: flex-start;
 }
 
 .jinya-designer__result--horizontal {
-    flex-flow: row wrap;
-    gap: 1rem;
-    align-content: flex-start;
+  flex-flow: row wrap;
+  gap: 1rem;
+  align-content: flex-start;
 }
 
 .jinya-designer__toolbox-container {
-    grid-column: toolbox;
-    display: grid;
-    grid-template-rows: auto 1fr;
-    max-height: calc(var(--page-height) - 2.75rem - 1.25rem - 2rem - 2rem);
-    gap: 1rem;
+  grid-column: toolbox;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  max-height: calc(var(--page-height) - 2.75rem - 1.25rem - 2rem - 2rem);
+  gap: 1rem;
 }
 
 .jinya-designer__toolbox-container .jinya-designer__toolbox {
-    grid-column: unset;
+  grid-column: unset;
 }
 
 .jinya-designer__toolbox {
-    grid-column: toolbox;
-    overflow-y: auto;
-    display: flex;
-    flex-flow: row wrap;
-    gap: 0.5rem;
-    max-height: 100%;
-    align-content: flex-start;
+  grid-column: toolbox;
+  overflow-y: auto;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 0.5rem;
+  max-height: 100%;
+  align-content: flex-start;
 }
 
 .jinya-designer__tags {
-    display: flex;
-    margin-left: -0.75rem;
-    flex-flow: row wrap;
-    row-gap: 0.5rem;
+  display: flex;
+  margin-left: -0.75rem;
+  flex-flow: row wrap;
+  row-gap: 0.5rem;
 }
 
 .jinya-designer__drag-handle {
-    cursor: move;
-    position: relative;
-    width: 1.5rem;
-    height: 1.5rem;
-    display: block;
+  cursor: move;
+  position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: block;
 }
 
 .jinya-designer__drag-handle::after,
 .jinya-designer__drag-handle::before {
-    content: '';
-    display: block;
-    height: 0.0625rem;
-    width: 1.25rem;
-    background: var(--black);
-    position: absolute;
-    left: 0;
+  content: '';
+  display: block;
+  height: 0.0625rem;
+  width: 1.25rem;
+  background: var(--black);
+  position: absolute;
+  left: 0;
 }
 
 .jinya-designer__drag-handle::after {
-    top: 0.75rem;
+  top: 0.75rem;
 }
 
 .jinya-designer__drag-handle::before {
-    top: 0.5rem;
+  top: 0.5rem;
 }
 
 .jinya-designer-item {
-    display: grid;
-    min-width: 100%;
-    flex: 0 0 100%;
-    grid-template-rows: [title] auto [content] auto;
-    border: 0.0625rem solid var(--control-border-color);
-    box-sizing: border-box;
-    padding: 1rem;
-    gap: 0.5rem;
-    cursor: move;
-    border-radius: var(--border-radius);
+  display: grid;
+  min-width: 100%;
+  flex: 0 0 100%;
+  grid-template-rows: [title] auto [content] auto;
+  border: 0.0625rem solid var(--control-border-color);
+  box-sizing: border-box;
+  padding: 1rem;
+  gap: 0.5rem;
+  cursor: move;
+  border-radius: var(--border-radius);
 }
 
 .jinya-designer-item--menu {
-    flex: 1 1 100%;
-    min-width: unset;
+  flex: 1 1 100%;
+  min-width: unset;
 }
 
 .jinya-designer-item--selected {
-    border: 0.25rem solid var(--primary-color);
-    padding: 0.75rem;
-    position: relative;
-    box-sizing: border-box;
+  border: 0.25rem solid var(--primary-color);
+  padding: 0.75rem;
+  position: relative;
+  box-sizing: border-box;
 }
 
 .jinya-designer-item--selected::after {
-    content: '';
-    border: 0.75rem solid transparent;
-    border-left-color: var(--primary-color);
-    border-top-color: var(--primary-color);
-    position: absolute;
-    top: 0;
-    left: 0;
+  content: '';
+  border: 0.75rem solid transparent;
+  border-left-color: var(--primary-color);
+  border-top-color: var(--primary-color);
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .jinya-designer-item--file {
-    grid-template-columns: [image] 13rem [details] 1fr;
-    grid-template-rows: unset;
-    height: 9rem;
-    padding: unset;
-    gap: unset;
+  grid-template-columns: [image] 13rem [details] 1fr;
+  grid-template-rows: unset;
+  height: 9rem;
+  padding: unset;
+  gap: unset;
 }
 
 .jinya-designer-item--file-selected {
-    grid-template-columns: [image] 13rem [details] 1fr;
+  grid-template-columns: [image] 13rem [details] 1fr;
 }
 
 .jinya-designer-item__details {
-    grid-row: content;
+  grid-row: content;
 }
 
 .jinya-designer-item__details--file {
-    grid-column: details;
-    grid-row: unset;
-    padding: 0.75rem;
+  grid-column: details;
+  grid-row: unset;
+  padding: 0.75rem;
 }
 
 .jinya-designer-item__details--file-selected {
-    padding-top: 0.5rem;
+  padding-top: 0.5rem;
 }
 
 .jinya-designer-item__title {
-    text-transform: uppercase;
-    font-weight: var(--font-weight-light);
-    font-size: 1rem;
-    line-height: 1rem;
-    vertical-align: text-top;
-    grid-row: title;
+  text-transform: uppercase;
+  font-weight: var(--font-weight-light);
+  font-size: 1rem;
+  line-height: 1rem;
+  vertical-align: text-top;
+  grid-row: title;
 }
 
 .jinya-designer-item__title--file {
-    grid-row: unset;
+  grid-row: unset;
 }
 
 .jinya-designer-item__template {
-    display: flex;
-    flex: 0 0 100%;
-    min-width: 100%;
-    border: 0.0625rem solid var(--control-border-color);
-    box-sizing: border-box;
-    padding: 0.75rem;
-    gap: 0.5rem;
-    text-transform: uppercase;
-    font-weight: var(--font-weight-light);
-    align-items: flex-start;
-    border-radius: var(--border-radius);
+  display: flex;
+  flex: 0 0 100%;
+  min-width: 100%;
+  border: 0.0625rem solid var(--control-border-color);
+  box-sizing: border-box;
+  padding: 0.75rem;
+  gap: 0.5rem;
+  text-transform: uppercase;
+  font-weight: var(--font-weight-light);
+  align-items: flex-start;
+  border-radius: var(--border-radius);
 }

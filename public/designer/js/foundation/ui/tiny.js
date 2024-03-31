@@ -44,10 +44,7 @@ function getContentCss() {
  * @param height
  * @return {Promise<Editor>}
  */
-export default async function getEditor({
-                                          element,
-                                          height = '500px',
-                                        }) {
+export default async function getEditor({ element, height = '500px' }) {
   // eslint-disable-next-line no-undef
   return (
     await tinymce.init({

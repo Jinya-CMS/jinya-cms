@@ -8,6 +8,10 @@ class TagElement extends HTMLElement {
     this.root = this.attachShadow({ mode: 'closed' });
   }
 
+  static get observedAttributes() {
+    return ['name', 'emoji', 'color', 'tagId', 'editable', 'deletable'];
+  }
+
   get tagId() {
     return parseInt(this.getAttribute('tag-id'), 10);
   }

@@ -1,0 +1,50 @@
+<div class="jinya-login__container">
+  <div class="jinya-login" x-data="loginData">
+    <h1 class="cosmo-title" x-localize:login-menu-title></h1>
+    <form @submit.prevent="needsTwoFactorCode && !twoFactorCodeRequested ? requestTwoFactorCode : login">
+      <div class="cosmo-message is--login is--negative" x-show="errorMessage">
+        <span class="cosmo-message__header is--login" x-localize:login-error-login_failed-title></span>
+        <p class="cosmo-message__message is--login" x-text="errorMessage"></p>
+      </div>
+      <div class="cosmo-input__group">
+        <label class="cosmo-label is--login" for="username" x-localize:login-page-label-email></label>
+        <input
+          class="cosmo-input is--login"
+          type="email"
+          id="username"
+          x-model="email"
+          :disabled="twoFactorCodeRequested"
+        />
+        <label class="cosmo-label is--login" for="password" x-localize:login-page-label-password></label>
+        <input
+          class="cosmo-input is--login"
+          type="password"
+          id="password"
+          x-model="password"
+          :disabled="twoFactorCodeRequested"
+        />
+        <label
+          class="cosmo-label is--login"
+          for="two_factor_code"
+          x-show="twoFactorCodeRequested"
+          x-localize:login-page-label-two_factor_code
+        ></label>
+        <input
+          class="cosmo-input is--login"
+          type="text"
+          id="two_factor_code"
+          x-model="twoFactorCode"
+          x-show="twoFactorCodeRequested"
+        />
+      </div>
+      <div class="cosmo-button__container">
+        <template x-if="needsTwoFactorCode && !twoFactorCodeRequested">
+          <button class="cosmo-button is--primary" type="submit" x-localize:login-page-action-request></button>
+        </template>
+        <template x-if="!needsTwoFactorCode || twoFactorCodeRequested">
+          <button class="cosmo-button is--primary" type="submit" x-localize:login-page-action-login></button>
+        </template>
+      </div>
+    </form>
+  </div>
+</div>

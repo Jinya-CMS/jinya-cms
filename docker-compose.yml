@@ -35,8 +35,8 @@ services:
   jinya-mailer:
     image: axllent/mailpit:latest
     environment:
-      MP_SMTP_AUTH_ACCEPT_ANY: "true"
-      MP_SMTP_AUTH_ALLOW_INSECURE: "true"
+      MP_SMTP_AUTH_ACCEPT_ANY: 'true'
+      MP_SMTP_AUTH_ALLOW_INSECURE: 'true'
     ports:
       - 8525:8025
       - 1525:1025

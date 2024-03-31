@@ -1,31 +1,31 @@
 .jinya-picker__name {
-    display: flex;
-    overflow-x: clip;
-    text-overflow: ellipsis;
-    white-space: normal;
+  display: flex;
+  overflow-x: clip;
+  text-overflow: ellipsis;
+  white-space: normal;
 }
 
 .jinya-picker__selected-file {
-    grid-column: 2/3;
-    width: 320px;
-    object-fit: scale-down;
+  grid-column: 2/3;
+  width: 320px;
+  object-fit: scale-down;
 }
 
 .jinya-picker__tag-list {
-    display: flex;
-    flex-flow: row wrap;
-    row-gap: 8px;
-    column-gap: 16px;
+  display: flex;
+  flex-flow: row wrap;
+  row-gap: 8px;
+  column-gap: 16px;
 }
 
 .jinya-picker__tag-list cms-tag {
-    margin-left: -10px;
+  margin-left: -10px;
 }
 
 .cosmo-modal__container--file-picker {
-    z-index: 1000000;
+  z-index: 1000000;
 }
 
 .cosmo-modal--file-picker {
-    max-width: 1000px;
+  max-width: 1000px;
 }

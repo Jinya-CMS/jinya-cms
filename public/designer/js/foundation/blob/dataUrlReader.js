@@ -5,11 +5,7 @@
  * @param end {number}
  * @returns {Promise<string>}
  */
-export default async function dataUrlReader({
-                                              file: blob,
-                                              start = 0,
-                                              end = -1,
-                                            }) {
+export default async function dataUrlReader({ file: blob, start = 0, end = -1 }) {
   return new Promise((resolve) => {
     if (!blob) {
       throw new Error('Blob must be not null');
