@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "3bc45440e04419e05d4a33dc3f1dbcbe",
+  "content-hash": "fdf8767cc9d23202c8888220423185e7",
   "packages": [
     {
       "name": "aura/sqlquery",
@@ -686,16 +686,16 @@
     },
     {
       "name": "jinya/router-extensions",
-      "version": "0.18.0",
+      "version": "0.20.0",
       "source": {
         "type": "git",
         "url": "https://github.com/Jinya-CMS/jinya-router-extensions.git",
-        "reference": "430edb23bb8bbff564b57c7c4a71ad92229d1daa"
+        "reference": "061aaaa22130f6c1584b8a185120ab7f0a07bf14"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/Jinya-CMS/jinya-router-extensions/zipball/430edb23bb8bbff564b57c7c4a71ad92229d1daa",
-        "reference": "430edb23bb8bbff564b57c7c4a71ad92229d1daa",
+        "url": "https://api.github.com/repos/Jinya-CMS/jinya-router-extensions/zipball/061aaaa22130f6c1584b8a185120ab7f0a07bf14",
+        "reference": "061aaaa22130f6c1584b8a185120ab7f0a07bf14",
         "shasum": ""
       },
       "require": {
@@ -734,9 +734,9 @@
       "description": "Official extensions for the Jinya Router",
       "support": {
         "issues": "https://github.com/Jinya-CMS/jinya-router-extensions/issues",
-        "source": "https://github.com/Jinya-CMS/jinya-router-extensions/tree/0.18.0"
+        "source": "https://github.com/Jinya-CMS/jinya-router-extensions/tree/0.20.0"
       },
-      "time": "2024-03-31T13:44:40+00:00"
+      "time": "2024-03-31T23:12:34+00:00"
     },
     {
       "name": "laminas/laminas-diactoros",

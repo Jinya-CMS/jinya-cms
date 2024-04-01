@@ -141,9 +141,9 @@ export default {
       },
       details: {
         type: 'Typ',
-        uploadedBy: 'Hochgeladen von',
-        lastChangedBy: 'Zuletzt geändert von',
-        downloadFile: 'Datei herunterladen',
+        uploaded_by: 'Hochgeladen von',
+        last_changed_by: 'Zuletzt geändert von',
+        download_file: 'Datei herunterladen',
         types: {
           font: 'Schriftart',
           'image/jpeg': 'JPEG Bild',
@@ -1019,11 +1019,12 @@ export default {
     logout: 'Abmelden',
   },
   bottom_bar: {
-    upload_title: {
-      uploading: 'Dateien werden hochgeladen…',
-      uploaded: 'Alle Dateien wurden hochgeladen',
+    status: 'Datei {name} wird hochgeladen',
+    uploading: 'Dateien werden hochgeladen…',
+    error: {
+      conflict: 'Datei {name} existiert',
+      generic: '{name} konnte nicht hochgeladen werden',
     },
-    upload_progress: '{filesUploaded} vom {filesToUpload} Dateien hochgeladen',
   },
   statistics: {
     menu: {

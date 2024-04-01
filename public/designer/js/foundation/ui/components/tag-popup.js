@@ -1,7 +1,34 @@
-import html from '../../../../lib/jinya-html.js';
 import localize from '../../localize.js';
 import './emoji-picker.js';
-import TagPopupSubmitEvent from './events/TagPopupSubmitEvent.js';
+
+class TagPopupSubmitEvent extends Event {
+  name = '';
+
+  emoji = '';
+
+  color = '';
+
+  constructor(name, color, emoji) {
+    super('submit', {
+      bubbles: true,
+      cancelable: false,
+      composed: true,
+    });
+    this.name = name;
+    this.emoji = emoji;
+    this.color = color;
+  }
+}
+
+class TagPopupCloseEvent extends Event {
+  constructor() {
+    super('close', {
+      bubbles: true,
+      cancelable: false,
+      composed: true,
+    });
+  }
+}
 
 class TagPopupElement extends HTMLElement {
   constructor() {
@@ -11,17 +38,28 @@ class TagPopupElement extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['popup-title', 'name', 'emoji', 'color', 'open', 'save-label', 'cancel-label', 'target'];
+    return ['popup-title', 'name', 'emoji', 'color', 'open', 'save-label', 'cancel-label', 'target', 'error'];
   }
 
-  get title() {
+  get popupTitle() {
     return this.getAttribute('popup-title');
   }
 
-  set title(value) {
+  set popupTitle(value) {
     this.setAttribute('popup-title', value);
     if (this.root.querySelector('legend')) {
       this.root.querySelector('legend').textContent = value;
+    }
+  }
+
+  get error() {
+    return this.getAttribute('error');
+  }
+
+  set error(value) {
+    this.setAttribute('error', value);
+    if (this.root.getElementById('error')) {
+      this.root.getElementById('error').textContent = value;
     }
   }
 
@@ -73,8 +111,8 @@ class TagPopupElement extends HTMLElement {
 
   set saveLabel(value) {
     this.setAttribute('save-label', value);
-    if (this.root?.getElementById('save-label')) {
-      this.root.getElementById('save-label').textContent = value;
+    if (this.root.getElementById('save-button')) {
+      this.root.getElementById('save-button').textContent = value;
     }
   }
 
@@ -84,8 +122,8 @@ class TagPopupElement extends HTMLElement {
 
   set cancelLabel(value) {
     this.setAttribute('cancel-label', value);
-    if (this.root.getElementById('cancel-label')) {
-      this.root.getElementById('cancel-label').textContent = value;
+    if (this.root.getElementById('cancel-button')) {
+      this.root.getElementById('cancel-button').textContent = value;
     }
   }
 
@@ -120,14 +158,15 @@ class TagPopupElement extends HTMLElement {
   }
 
   connectedCallback() {
-    this.root.innerHTML = html`
+    this.root.innerHTML = `
       <style id="target-position"></style>
       <style>
-        @import "/designer/cosmo/form.css";
-        @import "/designer/cosmo/buttons.css";
+        @import "/lib/cosmo/form.css";
+        @import "/lib/cosmo/buttons.css";
 
-        :host::selection {
+        :host *::selection {
           background: var(--primary-color);
+          color: var(--white);
         }
 
         :host {
@@ -176,24 +215,25 @@ class TagPopupElement extends HTMLElement {
           margin-bottom: 0.75rem;
         }
 
-        .cosmo-input--emoji::part(popup) {
+        .is--emoji::part(popup) {
           margin-left: -0.5rem;
           margin-bottom: 0.25rem;
         }
       </style>
       <form>
         <fieldset>
-          <legend>${this.title}</legend>
+          <legend>${this.popupTitle}</legend>
           <div class="cosmo-input__group">
             <label class="cosmo-label"
                    for="name">${localize({ key: 'media.files.tags.popup.name' })}</label>
             <input type="text" class="cosmo-input" required id="name">
+            <span class="cosmo-input__message is--negative" id="error">${this.error ?? ''}</span>
             <label class="cosmo-label"
                    for="color">${localize({ key: 'media.files.tags.popup.color' })}</label>
             <input type="color" value="${this.color}" class="cosmo-input" id="color">
             <label class="cosmo-label"
                    for="emoji">${localize({ key: 'media.files.tags.popup.emoji' })}</label>
-            <cms-emoji-picker emoji="${this.emoji}" class="cosmo-input cosmo-input--emoji" id="emoji">
+            <cms-emoji-picker emoji="${this.emoji}" class="cosmo-input is--emoji" id="emoji">
           </div>
           <div class="cosmo-button__container">
             <button id="cancel-button" class="cosmo-button" type="button">${this.cancelLabel}</button>
@@ -201,23 +241,31 @@ class TagPopupElement extends HTMLElement {
           </div>
         </fieldset>
       </form>`;
-    this.root.querySelector('form').addEventListener('submit', (evt) => {
-      evt.preventDefault();
-      this.dispatchEvent(new TagPopupSubmitEvent(this.name, this.color, this.emoji));
-    });
-    this.root.getElementById('cancel-button').addEventListener('click', (evt) => {
-      evt.preventDefault();
-      this.open = false;
-    });
-    this.root.getElementById('name').addEventListener('input', (evt) => {
-      this.name = evt.currentTarget.value;
-    });
-    this.root.getElementById('color').addEventListener('input', (evt) => {
-      this.color = evt.currentTarget.value;
-    });
-    this.root.getElementById('emoji').addEventListener('input', (evt) => {
-      this.emoji = evt.currentTarget.emoji;
-    });
+    this.root.querySelector('form')
+      .addEventListener('submit', (evt) => {
+        evt.preventDefault();
+        this.dispatchEvent(new TagPopupSubmitEvent(this.name, this.color, this.emoji));
+      });
+    this.root.getElementById('cancel-button')
+      .addEventListener('click', (evt) => {
+        evt.preventDefault();
+        this.dispatchEvent(new TagPopupCloseEvent());
+      });
+    this.root.getElementById('name')
+      .addEventListener('input', (evt) => {
+        this.name = evt.currentTarget.value;
+        this.error = '';
+      });
+    this.root.getElementById('color')
+      .addEventListener('input', (evt) => {
+        this.color = evt.currentTarget.value;
+        this.error = '';
+      });
+    this.root.getElementById('emoji')
+      .addEventListener('input', (evt) => {
+        this.emoji = evt.currentTarget.emoji;
+        this.error = '';
+      });
   }
 
   attributeChangedCallback(property, oldValue, newValue) {
@@ -225,7 +273,8 @@ class TagPopupElement extends HTMLElement {
       return;
     }
 
-    this[property] = newValue;
+    const propertyName = property.replace(/-([a-z])/g, (m, w) => w.toUpperCase());
+    this[propertyName] = newValue;
   }
 }
 

@@ -4,28 +4,38 @@ import { needsLogin, needsLogout } from './foundation/router.js';
 import localize from './foundation/localize.js';
 import { getMyProfile, setColorScheme } from './foundation/api/my-jinya.js';
 import { logout } from './foundation/api/authentication.js';
+import dataUrlReader from './foundation/blob/dataUrlReader.js';
+import FileUploadedEvent from './frontstage/media/uploading/FileUploadedEvent.js';
+import { getJinyaApiKey } from './foundation/storage.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   Alpine.plugin(PineconeRouter);
 
-  Alpine.directive('localize', (el, {
-    value,
-    expression,
-  }, {
-                                  evaluateLater,
-                                  effect,
-                                }) => {
-    const getValues = expression ? evaluateLater(expression) : (load) => load();
-    effect(() => {
-      getValues((values) => {
-        // eslint-disable-next-line no-param-reassign
-        el.innerText = localize({
-          key: value,
-          values,
+  Alpine.directive(
+    'localize',
+    (
+      el,
+      {
+        value,
+        expression,
+      },
+      {
+        evaluateLater,
+        effect,
+      },
+    ) => {
+      const getValues = expression ? evaluateLater(expression) : (load) => load();
+      effect(() => {
+        getValues((values) => {
+          // eslint-disable-next-line no-param-reassign
+          el.innerText = localize({
+            key: value,
+            values,
+          });
         });
       });
-    });
-  });
+    },
+  );
   Alpine.directive(
     'active-route',
     (
@@ -50,6 +60,27 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else {
           el.classList.remove('is--active');
         }
+      });
+    },
+  );
+  Alpine.directive(
+    'blob-src',
+    (
+      el,
+      {
+        expression,
+      },
+      {
+        evaluateLater,
+        effect,
+      },
+    ) => {
+      const getValues = expression ? evaluateLater(expression) : (load) => load();
+      effect(() => {
+        getValues(async (values) => {
+          // eslint-disable-next-line no-param-reassign
+          el.src = await dataUrlReader({ file: values });
+        });
       });
     },
   );
@@ -188,6 +219,71 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   Alpine.store('loaded', true);
+  Alpine.store('uploadProgress', {
+    filesUploaded: 0,
+    filesToUpload: 0,
+    errorMessage: '',
+    status: '',
+    uploaded(file) {
+      document.dispatchEvent(new FileUploadedEvent({ file }));
+      this.filesUploaded += 1;
+    },
+    start(name) {
+      this.status = localize({
+        key: 'bottom_bar.status',
+        values: { name },
+      });
+    },
+    failed(error, name) {
+      if (error.status === 409) {
+        this.errorMessage = localize({
+          key: 'bottom_bar.error.conflict',
+          values: { name },
+        });
+      } else {
+        console.error(error);
+        this.errorMessage = localize({
+          key: 'bottom_bar.error.generic',
+          values: { name },
+        });
+      }
+      this.filesUploaded += 1;
+    },
+    addFiles(count) {
+      this.filesToUpload += count;
+    },
+  });
+
+  const fileUploadWorker = new Worker('/designer/js/frontstage/media/uploading/UploadWorker.js');
+  fileUploadWorker.addEventListener('message', (e) => {
+    const {
+      type,
+      file,
+      error,
+      name,
+    } = e.data;
+    if (type === 'upload-finish') {
+      Alpine.store('uploadProgress')
+        .uploaded(file);
+    } else if (type === 'upload-failed') {
+      Alpine.store('uploadProgress')
+        .failed(error, name);
+    } else if (type === 'upload-start') {
+      Alpine.store('uploadProgress')
+        .start(name);
+    }
+  });
+  fileUploadWorker.postMessage({
+    apiKey: getJinyaApiKey(),
+  });
+  document.addEventListener('enqueue-files', (e) => {
+    Alpine.store('uploadProgress')
+        .addFiles(e.files.length);
+    fileUploadWorker.postMessage({
+      files: e.files,
+      tags: e.tags,
+    });
+  });
 
   window.Alpine = Alpine;
 });

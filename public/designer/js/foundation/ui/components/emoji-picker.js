@@ -1,5 +1,4 @@
 import Emojis from '../../../../lib/emojis.js';
-import html from '../../../../lib/jinya-html.js';
 
 class EmojiPickerElement extends HTMLElement {
   constructor() {
@@ -80,7 +79,7 @@ class EmojiPickerElement extends HTMLElement {
   }
 
   renderButton() {
-    this.root.innerHTML = html`
+    this.root.innerHTML = `
       <style>
         :host {
           height: auto;
@@ -123,7 +122,7 @@ class EmojiPickerElement extends HTMLElement {
         }
 
         .emoji-picker__tab-item:hover:after,
-        .emoji-picker__tab-item--active::after {
+        .emoji-picker__tab-item.is--active::after {
           content: '';
           position: absolute;
           bottom: 0;
@@ -146,7 +145,7 @@ class EmojiPickerElement extends HTMLElement {
           box-sizing: border-box;
         }
 
-        .emoji-picker__tab-content--active {
+        .emoji-picker__tab-content.is--active {
           display: grid;
         }
 
@@ -181,27 +180,27 @@ class EmojiPickerElement extends HTMLElement {
       <div class="emoji-picker__popup" part="popup">
         <div class="emoji-picker__tab-bar">
           ${Emojis.map(
-            (item, idx) => html`
+            (item, idx) => `
               <a
-                class="emoji-picker__tab-item ${idx === 0 ? 'emoji-picker__tab-item--active' : ''}"
+                class="emoji-picker__tab-item ${idx === 0 ? 'is--active' : ''}"
                 title="${item.name}"
                 >${item.emojis[0]}</a
               >
             `,
-          )}
+          ).join('')}
         </div>
         ${Emojis.map(
-          (item, idx) => html`
+          (item, idx) => `
             <div
               data-tab="${item.name}"
-              class="emoji-picker__tab-content ${idx === 0 ? 'emoji-picker__tab-content--active' : ''}"
+              class="emoji-picker__tab-content ${idx === 0 ? 'is--active' : ''}"
             >
               ${item.emojis.map(
-                (emoji) => html` <input value="${emoji}" type="radio" name="emoji" class="emoji-picker__button" /> `,
-              )}
+                (emoji) => ` <input value="${emoji}" type="radio" name="emoji" class="emoji-picker__button" /> `,
+              ).join('')}
             </div>
           `,
-        )}
+          ).join('')}
       </div>
     `;
     this.addEventListener('click', (evt) => {
@@ -220,15 +219,15 @@ class EmojiPickerElement extends HTMLElement {
       elem.addEventListener('click', (evt) => {
         evt.stopPropagation();
         this.root
-          .querySelectorAll('.emoji-picker__tab-item--active')
-          .forEach((tab) => tab.classList.remove('emoji-picker__tab-item--active'));
+          .querySelectorAll('.is--active')
+          .forEach((tab) => tab.classList.remove('is--active'));
         this.root
-          .querySelectorAll('.emoji-picker__tab-content--active')
-          .forEach((tab) => tab.classList.remove('emoji-picker__tab-content--active'));
-        evt.currentTarget.classList.add('emoji-picker__tab-item--active');
+          .querySelectorAll('.is--active')
+          .forEach((tab) => tab.classList.remove('is--active'));
+        evt.currentTarget.classList.add('is--active');
         this.root
           .querySelector(`[data-tab="${evt.currentTarget.title}"]`)
-          .classList.add('emoji-picker__tab-content--active');
+          .classList.add('is--active');
       });
     });
     document.addEventListener('click', this.clickOutside);

@@ -45,7 +45,7 @@ class FileController extends BaseController
      * @throws NotNullViolationException
      * @throws JsonException
      */
-    #[Route(HttpMethod::PUT, 'api/file/{id}/content/{position}')]
+    #[Route(HttpMethod::PUT, 'api/file/{id}/content/{position:\d+}')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function uploadChunk(int $id, int $position): ResponseInterface
     {

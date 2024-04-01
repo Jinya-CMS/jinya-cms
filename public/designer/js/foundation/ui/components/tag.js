@@ -1,4 +1,3 @@
-import html from '../../../../lib/jinya-html.js';
 import TagEvent from './events/TagEvent.js';
 
 class TagElement extends HTMLElement {
@@ -89,7 +88,7 @@ class TagElement extends HTMLElement {
   }
 
   connectedCallback() {
-    this.root.innerHTML = html`
+    this.root.innerHTML = `
       <style>
         :host {
           display: inline-flex;
@@ -217,7 +216,8 @@ class TagElement extends HTMLElement {
       return;
     }
 
-    this[property] = newValue;
+    const propertyName = property.replace(/-([a-z])/g, (m, w) => w.toUpperCase());
+    this[propertyName] = newValue;
   }
 }
 

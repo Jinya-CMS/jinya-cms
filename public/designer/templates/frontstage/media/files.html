@@ -1,0 +1,430 @@
+<div class="jinya-media-view" x-data="filesData">
+  <div class="cosmo-toolbar is--media">
+    <div class="cosmo-toolbar__group">
+      <button
+        :disabled="loading"
+        class="cosmo-button"
+        @click="openUploadSingleFileDialog"
+        type="button"
+        x-localize:media-files-action-upload_single_file
+      ></button>
+      <button
+        :disabled="loading"
+        class="cosmo-button"
+        @click="openUploadMultipleFilesDialog"
+        type="button"
+        x-localize:media-files-action-upload_multiple_file
+      ></button>
+    </div>
+    <div class="cosmo-toolbar__group">
+      <button
+        :disabled="!selectedFile"
+        class="cosmo-button"
+        @click="openEditFileDialog"
+        type="button"
+        x-localize:media-files-action-edit_file
+      ></button>
+      <button
+        :disabled="!selectedFile"
+        class="cosmo-button"
+        @click="deleteFile"
+        type="button"
+        x-localize:media-files-action-delete_file
+      ></button>
+    </div>
+    <div class="cosmo-toolbar__group">
+      <button
+        :disabled="loading"
+        class="cosmo-button"
+        @click="openManageTagsDialog"
+        type="button"
+        x-localize:media-files-action-manage_tags
+      ></button>
+    </div>
+  </div>
+  <div class="jinya-tags is--media">
+    <cms-tag
+      class="jinya-tag is--file"
+      emoji=""
+      :name="defaultTagName"
+      color="#19324c"
+      tag-id="-1"
+      id="show-all-tags"
+      :active="activeTags.size === 0"
+      @click="clearTags"
+    ></cms-tag>
+    <template x-for="tag in tags" :key="tag.id">
+      <cms-tag
+        class="jinya-tag is--file"
+        :emoji="tag.emoji"
+        :name="tag.name"
+        :color="tag.color"
+        :tag-id="tag.id"
+        :active="activeTags.has(tag.id)"
+        @click="toggleTag(tag)"
+      ></cms-tag>
+    </template>
+  </div>
+  <template x-if="loading">
+    <div class="jinya-media-view__loader jinya-loader__container">
+      <cms-loader></cms-loader>
+    </div>
+  </template>
+  <template x-if="!loading">
+    <div class="jinya-media-view__container">
+      <div class="jinya-media-tile__container">
+        <template x-for="file in filteredFiles" :key="file.id">
+          <div
+            :data-title="file.id + ' ' + file.name"
+            :class="'jinya-media-tile ' + (file.id === selectedFile?.id ? 'is--selected' : '')"
+            @click="selectedFile = file"
+          >
+            <div class="jinya-media-tile__img">
+              <img :src="file.path" :alt="file.name" />
+            </div>
+            <ul class="jinya-tile__tags">
+              <template x-for="tag in file.tags ?? []" :key="tag.id">
+                <li :style="getTagStyle(tag)" class="jinya-tile__tag">
+                  <span class="jinya-tile__tag-arrow"></span>
+                  <span class="jinya-tile__tag-emoji" x-text="tag.emoji"></span>
+                </li>
+              </template>
+            </ul>
+          </div>
+        </template>
+      </div>
+      <div class="jinya-media-view__details">
+        <template x-if="selectedFile !== null">
+          <div>
+            <span class="cosmo-title" x-text="selectedFile.name"></span>
+            <template x-if="selectedFile.type.startsWith('image')">
+              <img :alt="selectedFile.name" :src="selectedFile.path" class="jinya-media-details__image" />
+            </template>
+            <template x-if="selectedFile.type.startsWith('video')">
+              <video controls class="jinya-media-details__image">
+                <source :src="selectedFile.path" :type="selectedFile.type" />
+              </video>
+            </template>
+            <template x-if="selectedFile.type.startsWith('audio')">
+              <audio controls class="jinya-media-details__image">
+                <source :src="selectedFile.path" :type="selectedFile.type" />
+              </audio>
+            </template>
+            <dl class="cosmo-list is--key-value">
+              <dd class="cosmo-list__value is--tags">
+                <template x-for="tag in selectedFile.tags ?? []">
+                  <cms-tag
+                    class="jinya-tag is--file"
+                    :emoji="tag.emoji"
+                    :name="tag.name"
+                    :color="tag.color"
+                    :tag-id="tag.id"
+                    active
+                  ></cms-tag>
+                </template>
+              </dd>
+              <dt x-localize:media-files-details-type></dt>
+              <dd :title="selectedFile.type" x-text="detailsFileType"></dd>
+              <dt x-localize:media-files-details-uploaded_by></dt>
+              <dd>
+                <span x-text="selectedFile.created.by.artistName"></span>
+                <small>
+                  <a :href="'mailto:' + selectedFile.created.by.email"
+                     x-text="selectedFile.created.by.email"></a>
+                </small>
+              </dd>
+              <dt x-localize:media-files-details-last_changed_by></dt>
+              <dd>
+                <span x-text="selectedFile.updated.by.artistName"></span>
+                <small>
+                  <a :href="'mailto:' + selectedFile.updated.by.email"
+                     x-text="selectedFile.updated.by.email"></a>
+                </small>
+              </dd>
+            </dl>
+            <a
+              class="cosmo-button"
+              :download="selectedFile.name"
+              :href="detailsDownloadPath"
+              x-localize:media-files-details-download_file
+            >
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </template>
+  <template x-if="edit.open">
+    <form class="cosmo-modal__container" @submit.prevent="updateFile">
+      <div class="cosmo-modal is--files">
+        <h1 class="cosmo-modal__title" x-localize:media-files-edit-title></h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-message is--negative" x-show="edit.error.hasError">
+            <span class="cosmo-message__header" x-text="edit.error.title"></span>
+            <p class="cosmo-message__message" x-text="edit.error.message"></p>
+          </div>
+          <div class="cosmo-input__group">
+            <label for="editFileName" class="cosmo-label" x-localize:media-files-edit-name></label>
+            <input required type="text" id="editFileName" class="cosmo-input" x-model="edit.name" />
+            <label for="editFileFile" class="cosmo-label" x-localize:media-files-edit-file></label>
+            <input class="cosmo-input" type="file" id="editFileFile" @change="edit.selectFile($event.target.files)" />
+            <label class="cosmo-label" x-localize:media-files-edit-tags></label>
+            <div class="jinya-tags is--details">
+              <template x-for="tag in tags" :key="tag.id">
+                <cms-tag
+                  class="jinya-tag is--file"
+                  :emoji="tag.emoji"
+                  :name="tag.name"
+                  :color="tag.color"
+                  :tag-id="tag.id"
+                  :active="edit.tags.has(tag.name)"
+                  @click="edit.toggleTag(tag)"
+                ></cms-tag>
+              </template>
+              <button class="cosmo-button is--small is--circle is--primary" id="new-tag-open-button" type="button"
+                      @click="edit.tagPopupOpen = true">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M5 12h14" />
+                  <path d="M12 5v14" />
+                </svg>
+              </button>
+            </div>
+            <cms-tag-popup
+              :popup-title="tagPopupTitle"
+              :save-label="tagPopupSaveLabel"
+              :cancel-label="tagPopupCancelLabel"
+              :color="randomColor"
+              :emoji="randomEmoji"
+              :open="edit.tagPopupOpen"
+              :error="edit.error.tagError"
+              @submit="createEditTag($event)"
+              @close="edit.tagPopupOpen = false"
+              target="#new-tag-open-button"
+            ></cms-tag-popup>
+          </div>
+        </div>
+        <div class="cosmo-modal__button-bar">
+          <button type="button" class="cosmo-button" x-localize:media-files-edit-cancel
+                  @click="edit.open = false"></button>
+          <button type="submit" class="cosmo-button" x-localize:media-files-edit-save></button>
+        </div>
+      </div>
+    </form>
+  </template>
+  <template x-if="uploadSingleFile.open">
+    <form class="cosmo-modal__container" @submit.prevent="uploadFile">
+      <div class="cosmo-modal is--files">
+        <h1 class="cosmo-modal__title" x-localize:media-files-upload_single_file-title></h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-message is--negative" x-show="uploadSingleFile.error.hasError">
+            <span class="cosmo-message__header" x-text="uploadSingleFile.error.title"></span>
+            <p class="cosmo-message__message" x-text="uploadSingleFile.error.message"></p>
+          </div>
+          <div class="cosmo-input__group">
+            <label for="uploadSingleFileName" class="cosmo-label"
+                   x-localize:media-files-upload_single_file-name></label>
+            <input required type="text" id="uploadSingleFileName" class="cosmo-input" x-model="uploadSingleFile.name" />
+            <label for="uploadSingleFileFile" class="cosmo-label"
+                   x-localize:media-files-upload_single_file-file></label>
+            <input required class="cosmo-input" type="file" id="uploadSingleFileFile"
+                   @change="uploadSingleFile.selectFile($event.target.files)" />
+            <label class="cosmo-label" x-localize:media-files-upload_single_file-tags></label>
+            <div class="jinya-tags is--details">
+              <template x-for="tag in tags" :key="tag.id">
+                <cms-tag
+                  class="jinya-tag is--file"
+                  :emoji="tag.emoji"
+                  :name="tag.name"
+                  :color="tag.color"
+                  :tag-id="tag.id"
+                  :active="uploadSingleFile.tags.has(tag.name)"
+                  @click="uploadSingleFile.toggleTag(tag)"
+                  @close="uploadSingleFile.tagPopupOpen = false"
+                ></cms-tag>
+              </template>
+              <button class="cosmo-button is--small is--circle is--primary" id="new-tag-open-button" type="button"
+                      @click="uploadSingleFile.tagPopupOpen = true">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M5 12h14" />
+                  <path d="M12 5v14" />
+                </svg>
+              </button>
+            </div>
+            <cms-tag-popup
+              :popup-title="tagPopupTitle"
+              :save-label="tagPopupSaveLabel"
+              :cancel-label="tagPopupCancelLabel"
+              :color="randomColor"
+              :emoji="randomEmoji"
+              :open="uploadSingleFile.tagPopupOpen"
+              :error="uploadSingleFile.error.tagError"
+              @submit="createUploadSingleFileTag($event)"
+              @close="uploadSingleFile.tagPopupOpen = false"
+              target="#new-tag-open-button"
+            ></cms-tag-popup>
+          </div>
+        </div>
+        <div class="cosmo-modal__button-bar">
+          <button type="button" class="cosmo-button" x-localize:media-files-upload_single_file-cancel
+                  @click="uploadSingleFile.open = false"></button>
+          <button type="submit" class="cosmo-button" x-localize:media-files-upload_single_file-upload></button>
+        </div>
+      </div>
+    </form>
+  </template>
+  <template x-if="uploadMultipleFiles.open">
+    <form class="cosmo-modal__container" @submit.prevent="enqueueFiles">
+      <div class="cosmo-modal is--files">
+        <h1 class="cosmo-modal__title" x-localize:media-files-upload_multiple_files-title></h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-message is--negative" x-show="uploadMultipleFiles.error.hasError">
+            <span class="cosmo-message__header" x-text="uploadMultipleFiles.error.title"></span>
+            <p class="cosmo-message__message" x-text="uploadMultipleFiles.error.message"></p>
+          </div>
+          <div class="cosmo-input__group">
+            <label for="uploadMultipleFilesFiles" class="cosmo-label"
+                   x-localize:media-files-upload_multiple_files-files></label>
+            <input required class="cosmo-input" type="file" multiple id="uploadMultipleFilesFiles"
+                   @change="uploadMultipleFiles.selectFiles($event.target.files)" />
+            <label class="cosmo-label" x-localize:media-files-upload_multiple_files-tags></label>
+            <div class="jinya-tags is--details">
+              <template x-for="tag in tags" :key="tag.id">
+                <cms-tag
+                  class="jinya-tag is--file"
+                  :emoji="tag.emoji"
+                  :name="tag.name"
+                  :color="tag.color"
+                  :tag-id="tag.id"
+                  :active="uploadMultipleFiles.tags.has(tag.name)"
+                  @click="uploadMultipleFiles.toggleTag(tag)"
+                ></cms-tag>
+              </template>
+              <button class="cosmo-button is--small is--circle is--primary" id="new-tag-open-button" type="button"
+                      @click="uploadMultipleFiles.tagPopupOpen = true">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M5 12h14" />
+                  <path d="M12 5v14" />
+                </svg>
+              </button>
+            </div>
+            <cms-tag-popup
+              :popup-title="tagPopupTitle"
+              :save-label="tagPopupSaveLabel"
+              :cancel-label="tagPopupCancelLabel"
+              :color="randomColor"
+              :emoji="randomEmoji"
+              :open="uploadMultipleFiles.tagPopupOpen"
+              :error="uploadMultipleFiles.error.tagError"
+              @submit="createUploadMultipleFilesTag($event)"
+              @close="uploadMultipleFiles.tagPopupOpen = false"
+              target="#new-tag-open-button"
+            ></cms-tag-popup>
+          </div>
+          <div class="jinya-media-tile__container is--modal">
+            <template x-for="file in uploadMultipleFiles.files">
+              <div class="jinya-media-tile is--small">
+                <img class="jinya-media-tile__img is--small" x-blob-src="file">
+              </div>
+            </template>
+          </div>
+        </div>
+        <div class="cosmo-modal__button-bar">
+          <button type="button" class="cosmo-button" x-localize:media-files-upload_multiple_files-cancel
+                  @click="uploadMultipleFiles.open = false"></button>
+          <button type="submit" class="cosmo-button" x-localize:media-files-upload_multiple_files-upload></button>
+        </div>
+      </div>
+    </form>
+  </template>
+  <template x-if="manageTags.open">
+    <div class="cosmo-modal__container">
+      <div class="cosmo-modal cosmo-modal--tags">
+        <h1 class="cosmo-modal__title" x-localize:media-files-tags-manage-title></h1>
+        <div class="cosmo-modal__content">
+          <div class="jinya-tags">
+            <template x-for="tag in manageTags.tags" :key="tag.id">
+              <cms-tag
+                class="jinya-tag"
+                :emoji="tag.emoji"
+                :name="tag.name"
+                :color="tag.color"
+                :tag-id="tag.id"
+                :id="'tag-' + tag.id"
+                deletable="deletable"
+                editable="editable"
+                @edit="openEditTag(tag.id)"
+                @delete="deleteTag(tag)"
+              ></cms-tag>
+            </template>
+            <template x-for="tag in manageTags.tags" :key="tag.id">
+              <cms-tag-popup
+                :popup-title="manageTags.tagPopupUpdateTitle"
+                :save-label="manageTags.tagPopupUpdateSaveLabel"
+                :cancel-label="manageTags.tagPopupUpdateCancelLabel"
+                :name="tag.name"
+                :color="tag.color"
+                :emoji="tag.emoji"
+                :open="manageTags.editOpenId == tag.id"
+                :error="manageTags.error.tagError"
+                :target="'#tag-' + tag.id"
+                @submit="saveTag(tag, $event)"
+                @close="manageTags.editOpenId = null"
+              ></cms-tag-popup>
+            </template>
+            <button class="cosmo-button is--small is--circle is--primary" id="new-tag-open-button" type="button"
+                    @click="manageTags.tagPopupOpen = true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M5 12h14" />
+                <path d="M12 5v14" />
+              </svg>
+            </button>
+          </div>
+          <cms-tag-popup
+            :popup-title="tagPopupTitle"
+            :save-label="tagPopupSaveLabel"
+            :cancel-label="tagPopupCancelLabel"
+            :color="randomColor"
+            :emoji="randomEmoji"
+            :open="manageTags.tagPopupOpen"
+            :error="manageTags.error.tagError"
+            @submit="createManageTagsTag($event)"
+            @close="manageTags.tagPopupOpen = false"
+            target="#new-tag-open-button"
+          ></cms-tag-popup>
+        </div>
+        <div class="cosmo-modal__button-bar">
+          <button @click="manageTags.open = false" type="button" class="cosmo-button"
+                  x-localize:media-files-tags-manage-close></button>
+        </div>
+      </div>
+    </div>
+  </template>
+</div>

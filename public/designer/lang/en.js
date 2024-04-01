@@ -27,7 +27,7 @@ export default {
     error: {
       login_failed: {
         title: 'Login failed',
-        message: "Your email and password don't match, please use a different combination.",
+        message: 'Your email and password don\'t match, please use a different combination.',
       },
       '2fa_failed': {
         title: 'Login failed',
@@ -141,9 +141,9 @@ export default {
       },
       details: {
         type: 'Type',
-        uploadedBy: 'Uploaded by',
-        lastChangedBy: 'Last changed by',
-        downloadFile: 'Download file',
+        uploaded_by: 'Uploaded by',
+        last_changed_by: 'Last changed by',
+        download_file: 'Download file',
         types: {
           font: 'Font file',
           'image/jpeg': 'JPEG image',
@@ -676,7 +676,7 @@ export default {
         title: 'Activate theme',
         message: 'Do you want to activate the theme {displayName}?',
         approve: 'Activate theme',
-        decline: "Don't activate theme",
+        decline: 'Don\'t activate theme',
         success: {
           title: 'Activate theme',
           message: 'The theme {displayName} was activated successfully',
@@ -797,11 +797,11 @@ export default {
         change: 'Change password',
         error: {
           forbidden: 'The old password is wrong',
-          generic: "Changing the password didn't work, please contact your administrator",
+          generic: 'Changing the password didn\'t work, please contact your administrator',
           title: 'Error changing password',
         },
         not_match: {
-          title: "Passwords don't match",
+          title: 'Passwords don\'t match',
           message: 'The new passwords need to match, please correct.',
         },
       },
@@ -1018,11 +1018,12 @@ export default {
     logout: 'Logout',
   },
   bottom_bar: {
-    upload_title: {
-      uploading: 'File upload pending…',
-      uploaded: 'File upload done',
+    status: 'Uploading file {name}',
+    uploading: 'File upload pending…',
+    error: {
+      conflict: 'File {name} exists',
+      generic: 'Error uploading file {name}',
     },
-    upload_progress: 'Uploaded {filesUploaded} of {filesToUpload} files',
   },
   statistics: {
     menu: {

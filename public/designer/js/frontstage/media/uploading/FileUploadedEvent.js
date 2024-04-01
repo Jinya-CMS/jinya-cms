@@ -4,7 +4,7 @@ export default class FileUploadedEvent extends CustomEvent {
    * @param file {{id: number, path: string, name: string}}
    */
   constructor({ file }) {
-    super('fileUploaded');
+    super('file-uploaded');
     this.file = file;
   }
 }

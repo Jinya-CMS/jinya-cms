@@ -1,4 +1,3 @@
-import html from '../../../lib/jinya-html.js';
 import localize from '../localize.js';
 
 /**
@@ -11,12 +10,12 @@ import localize from '../localize.js';
  * @return {Promise<void>}
  */
 export default async function alert({
-  title = window.location.href,
-  message,
-  buttonLabel = null,
-  negative = false,
-  positive = false,
-}) {
+                                      title = window.location.href,
+                                      message,
+                                      buttonLabel = null,
+                                      negative = false,
+                                      positive = false,
+                                    }) {
   if (buttonLabel === null) {
     // eslint-disable-next-line no-param-reassign
     buttonLabel = localize({ key: 'alert.dismiss' });
@@ -26,22 +25,24 @@ export default async function alert({
     document.body.appendChild(container);
     const modalId = crypto.randomUUID();
 
-    container.innerHTML = html` <div class="cosmo-modal__container">
-      <div class="cosmo-modal ${negative ? 'is--negative' : ''} ${positive ? 'is--positive' : ''}">
-        <h1 class="cosmo-modal__title">${title}</h1>
-        <p class="cosmo-modal__content">${message}</p>
-        <div class="cosmo-modal__button-bar">
-          <button id="${modalId}DismissButton" class="cosmo-button">${buttonLabel}</button>
+    container.innerHTML = `
+      <div class="cosmo-modal__container">
+        <div class="cosmo-modal ${negative ? 'is--negative' : ''} ${positive ? 'is--positive' : ''}">
+          <h1 class="cosmo-modal__title">${title}</h1>
+          <p class="cosmo-modal__content">${message}</p>
+          <div class="cosmo-modal__button-bar">
+            <button id="${modalId}DismissButton" class="cosmo-button">${buttonLabel}</button>
+          </div>
         </div>
-      </div>
-    </div>`;
+      </div>`;
 
     document.body.appendChild(container);
 
-    document.getElementById(`${modalId}DismissButton`).addEventListener('click', (e) => {
-      e.preventDefault();
-      container.remove();
-      resolve();
-    });
+    document.getElementById(`${modalId}DismissButton`)
+      .addEventListener('click', (e) => {
+        e.preventDefault();
+        container.remove();
+        resolve();
+      });
   });
 }

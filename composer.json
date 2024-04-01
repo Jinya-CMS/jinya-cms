@@ -18,7 +18,7 @@
     "jinya/database": "0.17.0",
     "jinya/plates": "5.0.0",
     "jinya/router": "0.10.0",
-    "jinya/router-extensions": "0.18.0",
+    "jinya/router-extensions": "0.20.0",
     "league/climate": "3.8.2",
     "league/uri": "7.4.0",
     "laminas/laminas-hydrator": "4.15.0",

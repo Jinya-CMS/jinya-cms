@@ -17,7 +17,7 @@ async function sendRequest({
                            }) {
   const headers = {
     JinyaApiKey: apiKey,
-    ContentType: contentType,
+    'Content-Type': contentType,
   };
 
   const request = {
@@ -62,68 +62,84 @@ onmessage = async (e) => {
     tags: pushedTags,
     apiKey: pushedApiKey,
   } = e.data;
-  files.push(...[...pushedFiles].map((file) => ({
-    file,
-    tags: pushedTags,
-  })));
-  apiKey = pushedApiKey;
+  if (pushedFiles && pushedTags) {
+    files.push(
+      ...[...pushedFiles].map((file) => ({
+        file,
+        tags: pushedTags,
+      })),
+    );
+  }
+  if (pushedApiKey) {
+    apiKey = pushedApiKey;
+  }
 };
 
 (async () => {
   while (true) {
-    try {
-      if (files.length === 0) {
-        // eslint-disable-next-line no-await-in-loop
-        await wait({ time: 1000 });
-        // eslint-disable-next-line no-continue
-        continue;
-      }
+    if (files.length === 0) {
+      // eslint-disable-next-line no-await-in-loop
+      await wait({ time: 1000 });
+      // eslint-disable-next-line no-continue
+      continue;
+    }
 
-      const {
-        file,
-        tags,
-      } = files.pop();
+    const {
+      file,
+      tags,
+    } = files.pop();
+
+    const name = file.name.split('.')
+      .reverse()
+      .slice(1)
+      .reverse()
+      .join('.');
+    postMessage({
+      type: 'upload-start',
+      name,
+    });
+    try {
       // eslint-disable-next-line no-await-in-loop
       const postResult = await sendRequest({
         contentType: 'application/json',
         verb: 'POST',
-        url: '/api/media/file',
+        url: '/api/file',
         data: {
-          name: file.name.split('.')
-            .reverse()
-            .slice(1)
-            .reverse()
-            .join('.'),
+          name,
           tags,
         },
       });
       // eslint-disable-next-line no-await-in-loop
       await sendRequest({
         verb: 'PUT',
-        url: `/api/media/file/${postResult.id}/content`,
+        url: `/api/file/${postResult.id}/content`,
       });
       // eslint-disable-next-line no-await-in-loop
       await sendRequest({
         verb: 'PUT',
-        url: `/api/media/file/${postResult.id}/content/0`,
+        url: `/api/file/${postResult.id}/content/0`,
         data: file,
       });
       // eslint-disable-next-line no-await-in-loop
       await sendRequest({
         verb: 'PUT',
-        url: `/api/media/file/${postResult.id}/content/finish`,
+        url: `/api/file/${postResult.id}/content/finish`,
       });
       // eslint-disable-next-line no-await-in-loop
       const uploadedFile = await sendRequest({
         verb: 'GET',
-        url: `/api/media/file/${postResult.id}`,
+        url: `/api/file/${postResult.id}`,
       });
       postMessage({
-        type: 'file-uploaded',
+        type: 'upload-finish',
         file: uploadedFile,
       });
     } catch (e) {
-      postMessage({ type: 'file-uploaded-failed' });
+      postMessage({
+        type: 'upload-failed',
+        error: e,
+        name,
+      });
     }
   }
 })();
