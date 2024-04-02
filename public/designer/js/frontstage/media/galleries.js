@@ -1,10 +1,12 @@
 import { Alpine } from '../../../../lib/alpine.js';
 import {
-  addFileToGallery,
-  deleteFileFromGallery,
-  getFiles, getFilesByGallery, getGalleries, getTags, moveFileInGallery,
+  addFileToGallery, createGallery,
+  deleteFileFromGallery, deleteGallery,
+  getFiles, getFilesByGallery, getGalleries, getGallery, getTags, moveFileInGallery, updateGallery,
 } from '../../foundation/api/media.js';
 import localize from '../../foundation/localize.js';
+import confirm from '../../foundation/ui/confirm.js';
+import alert from '../../foundation/ui/alert.js';
 
 import '../../foundation/ui/components/tag.js';
 import '../../foundation/ui/components/tag-popup.js';
@@ -18,18 +20,20 @@ Alpine.data('galleriesData', () => ({
   designerFiles: [],
   activeTags: new Set(),
   selectedGallery: null,
-  designerSortable: null,
-  toolboxSortable: null,
   loading: true,
   draggingOverDesigner: true,
   draggingOverToolbox: false,
   fromToolbox: null,
   draggedItem: null,
-  dropPosition: null,
   dragPosition: null,
   prevDragOver: null,
-  defaultTagName: localize({ key: 'media.files.action.show_all_tags' }),
-  get selectedTypeAndOrientation() {
+  get defaultTagName() {
+    return localize({ key: 'media.files.action.show_all_tags' });
+  },
+  get title() {
+    return `#${this.selectedGallery.id} ${this.selectedGallery.name}`;
+  },
+  get typeAndOrientation() {
     return localize({
       key: `media.galleries.designer.title.${this.selectedGallery.orientation.toLowerCase()}_${this.selectedGallery.type.toLowerCase()}`,
     });
@@ -63,12 +67,8 @@ Alpine.data('galleriesData', () => ({
     };
   },
   dragOver(file) {
+    this.draggingOverDesigner = true;
     if (this.prevDragOver !== file.id && this.draggedItem) {
-      this.draggingOverDesigner = true;
-      if (this.fromToolbox) {
-        this.fromToolbox = false;
-      }
-
       const newPosition = this.designerFiles.findIndex((f) => f.id === file.id);
       this.rearrangeItemsInDesigner(newPosition);
       this.prevDragOver = file.id;
@@ -76,13 +76,12 @@ Alpine.data('galleriesData', () => ({
   },
   async endDesignerDrag(file) {
     if (this.dragPosition !== null) {
-      if (this.draggingOverDesigner) {
-        const targetPosition = this.designerFiles.findIndex((f) => f.id === file.id);
-        await moveFileInGallery(this.selectedGallery.id, file.position, targetPosition);
-      } else if (this.draggingOverToolbox) {
+      if (this.draggingOverToolbox) {
         await deleteFileFromGallery(this.selectedGallery.id, file.position);
         this.designerFiles = this.designerFiles.filter((f) => f.id !== file.id);
-        this.draggingOverToolbox = false;
+      } else if (this.draggingOverDesigner) {
+        const targetPosition = this.designerFiles.findIndex((f) => f.id === file.id);
+        await moveFileInGallery(this.selectedGallery.id, file.position, targetPosition);
       }
 
       this.dragPosition = null;
@@ -102,7 +101,6 @@ Alpine.data('galleriesData', () => ({
         this.toolboxFiles = this.toolboxFiles.filter((f) => f.id !== file.id);
         this.dragPosition = null;
         this.draggedItem = null;
-        this.draggingOverToolbox = false;
       }
 
       this.resetPositions();
@@ -111,6 +109,74 @@ Alpine.data('galleriesData', () => ({
     this.draggingOverToolbox = false;
     this.draggingOverDesigner = false;
   },
+  async createGallery() {
+    try {
+      const newGallery = await createGallery(this.create.name, this.create.orientation, this.create.type, this.create.description);
+      this.galleries.push(newGallery);
+      await this.selectGallery(newGallery);
+      this.create.open = false;
+    } catch (err) {
+      this.create.error.hasError = true;
+      this.create.error.title = localize({ key: 'media.galleries.create.error.title' });
+      if (err.status === 409) {
+        this.create.error.message = localize({ key: 'media.galleries.create.error.conflict' });
+      } else {
+        this.create.error.message = localize({ key: 'media.galleries.create.error.generic' });
+      }
+    }
+  },
+  async updateGallery() {
+    try {
+      await updateGallery(this.selectedGallery.id, this.edit.name, this.edit.orientation, this.edit.type, this.edit.description);
+      const savedGallery = await getGallery(this.selectedGallery.id);
+      this.edit.open = false;
+      this.galleries[this.galleries.indexOf(this.selectedGallery)] = savedGallery;
+      this.selectGallery(savedGallery);
+    } catch (err) {
+      this.edit.error.hasError = true;
+      this.edit.error.title = localize({ key: 'media.galleries.edit.error.title' });
+      if (err.status === 409) {
+        this.edit.error.message = localize({ key: 'media.galleries.edit.error.conflict' });
+      } else {
+        this.edit.error.message = localize({ key: 'media.galleries.edit.error.generic' });
+      }
+    }
+  },
+  async deleteGallery() {
+    const confirmation = await confirm({
+      title: localize({ key: 'media.galleries.delete.title' }),
+      message: localize({
+        key: 'media.galleries.delete.message',
+        values: this.selectedGallery,
+      }),
+      declineLabel: localize({ key: 'media.galleries.delete.keep' }),
+      approveLabel: localize({ key: 'media.galleries.delete.delete' }),
+      negative: true,
+    });
+    if (confirmation) {
+      try {
+        await deleteGallery(this.selectedGallery.id);
+        this.galleries = this.galleries.filter((gallery) => gallery.id !== this.selectedGallery.id);
+        if (this.galleries.length > 0) {
+          await this.selectGallery(this.galleries[0]);
+        } else {
+          this.selectedGallery = null;
+        }
+      } catch (e) {
+        let message = '';
+        if (e.status === 409) {
+          message = localize({ key: 'media.galleries.delete.error.conflict' });
+        } else {
+          message = localize({ key: 'media.galleries.delete.error.generic' });
+        }
+        await alert({
+          title: localize({ key: 'media.galleries.delete.error.title' }),
+          message,
+          negative: true,
+        });
+      }
+    }
+  },
   rearrangeItemsInDesigner(newPosition) {
     if (this.dragPosition !== null) {
       this.designerFiles.splice(this.dragPosition, 1);
@@ -118,8 +184,13 @@ Alpine.data('galleriesData', () => ({
     this.designerFiles.splice(newPosition, 0, this.draggedItem);
     this.dragPosition = newPosition;
   },
-  toolboxDragOver() {
+  toolboxDragEnter() {
     this.draggingOverToolbox = true;
+    this.draggingOverDesigner = false;
+  },
+  designerDragEnter() {
+    this.draggingOverToolbox = false;
+    this.draggingOverDesigner = true;
   },
   resetPositions() {
     this.designerFiles = this.designerFiles.map((file, idx) => ({
@@ -204,5 +275,45 @@ Alpine.data('galleriesData', () => ({
     }
 
     this.toolboxFiles = filteredFiles;
+  },
+  openCreateDialog() {
+    this.create.error.hasError = false;
+    this.create.name = '';
+    this.create.description = '';
+    this.create.orientation = 'horizontal';
+    this.create.type = 'masonry';
+    this.create.open = true;
+  },
+  openEditDialog() {
+    this.edit.error.hasError = false;
+    this.edit.name = this.selectedGallery.name;
+    this.edit.description = this.selectedGallery.description;
+    this.edit.orientation = this.selectedGallery.orientation;
+    this.edit.type = this.selectedGallery.type;
+    this.edit.open = true;
+  },
+  create: {
+    error: {
+      hasError: false,
+      title: '',
+      message: '',
+    },
+    name: '',
+    orientation: 'horizontal',
+    type: 'masonry',
+    description: '',
+    open: false,
+  },
+  edit: {
+    error: {
+      hasError: false,
+      title: '',
+      message: '',
+    },
+    name: '',
+    orientation: 'horizontal',
+    type: 'masonry',
+    description: '',
+    open: false,
   },
 }));

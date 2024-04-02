@@ -6,32 +6,29 @@
          :class="{ 'is--active': selectedGallery?.id === gallery.id }"
          @click="selectGallery(gallery)"></a>
     </template>
-    <button class="cosmo-button is--full-width" x-localize:media-galleries-action-new></button>
+    <button class="cosmo-button is--full-width" x-localize:media-galleries-action-new @click="openCreateDialog"></button>
   </nav>
   <template x-if="selectedGallery">
     <div class="cosmo-side-list__content jinya-designer">
       <div class="jinya-designer__title">
-      <span class="cosmo-title">
-        #<span x-text="selectedGallery.id"></span>
-        <span x-text="selectedGallery.name"></span>
-      </span>
-        <span class="cosmo-title" x-text="selectedTypeAndOrientation"></span>
+        <span class="cosmo-title" x-text="title"></span>
+        <span class="cosmo-title" x-text="typeAndOrientation"></span>
       </div>
       <div class="cosmo-toolbar cosmo-toolbar--designer">
         <div class="cosmo-toolbar__group">
-          <button id="edit-gallery-button" class="cosmo-button" x-localize:media-galleries-action-edit></button>
-          <button id="delete-gallery-button" class="cosmo-button" x-localize:media-galleries-action-delete></button>
+          <button class="cosmo-button" x-localize:media-galleries-action-edit @click="openEditDialog"></button>
+          <button class="cosmo-button" x-localize:media-galleries-action-delete @click="deleteGallery"></button>
         </div>
       </div>
       <div class="jinya-designer__content">
-        <div class="jinya-designer__result">
+        <div class="jinya-designer__result" @dragenter="designerDragEnter">
           <template x-for="file in designerFiles" :key="file.id">
             <img :src="file.file.path" class="jinya-media-tile is--designer is--draggable" :alt="file.file.name"
-                 draggable="true" @dragstart="startFromDesigner(file)" @dragover="dragOver(file)"
+                 draggable="true" @dragstart="startFromDesigner(file)" @dragover.prevent="dragOver(file)"
                  @dragend="endDesignerDrag(file)">
           </template>
         </div>
-        <div class="jinya-designer__toolbox-container">
+        <div class="jinya-designer__toolbox-container" @dragenter="toolboxDragEnter">
           <div class="jinya-designer__tags">
             <cms-tag
               class="jinya-tag is--file"
@@ -55,13 +52,13 @@
               ></cms-tag>
             </template>
           </div>
-          <div class="jinya-designer__toolbox" @dragover="toolboxDragOver">
+          <div class="jinya-designer__toolbox">
             <template x-for="file in toolboxFiles" :key="file.id">
               <img :src="file.path" class="jinya-media-tile is--designer is--medium is--draggable" :alt="file.name"
                    draggable="true" @dragstart="startFromToolbox(file)" @dragend="endToolboxDrag(file)">
             </template>
           </div>
-          <template x-if="draggingOverToolbox && !draggingOverDesigner && draggedItem && !fromToolbox">
+          <template x-if="draggingOverToolbox && draggedItem && !fromToolbox">
             <div class="jinya-designer__delete">
               <svg xmlns="http://www.w3.org/2000/svg" width="5rem" height="5rem" viewBox="0 0 24 24" fill="none"
                    stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -74,5 +71,139 @@
         </div>
       </div>
     </div>
+  </template>
+  <template x-if="create.open">
+    <form class="cosmo-modal__container" @submit.prevent="createGallery">
+      <div class="cosmo-modal">
+        <h1 class="cosmo-modal__title" x-localize:media-galleries-create-title></h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-message is--negative" x-show="create.error.hasError">
+            <span class="cosmo-message__header" x-text="create.error.title"></span>
+            <p class="cosmo-message__message" x-text="create.error.message"></p>
+          </div>
+          <div class="cosmo-input__group">
+            <label for="createGalleryName" class="cosmo-label" x-localize:media-galleries-create-name></label>
+            <input required type="text" id="createGalleryName" class="cosmo-input" x-model="create.name" />
+            <span class="cosmo-label is--radio" x-localize:media-galleries-create-orientation></span>
+            <div class="cosmo-input__group is--radio">
+              <input
+                name="orientation"
+                class="cosmo-radio"
+                type="radio"
+                id="createGalleryOrientationHorizontal"
+                value="horizontal"
+                x-model="create.orientation"
+              />
+              <label for="createGalleryOrientationHorizontal" x-localize:media-galleries-create-horizontal></label>
+              <input
+                name="orientation"
+                class="cosmo-radio"
+                type="radio"
+                id="createGalleryOrientationVertical"
+                value="vertical"
+                x-model="create.orientation"
+              />
+              <label for="createGalleryOrientationVertical" x-localize:media-galleries-create-vertical></label>
+            </div>
+            <span class="cosmo-label is--radio" x-localize:media-galleries-create-type></span>
+            <div class="cosmo-input__group is--radio">
+              <input
+                name="type"
+                class="cosmo-radio"
+                type="radio"
+                id="createGalleryTypeMasonry"
+                value="masonry"
+                x-model="create.type"
+              />
+              <label for="createGalleryTypeMasonry" x-localize:media-galleries-create-masonry></label>
+              <input
+                name="type"
+                class="cosmo-radio"
+                type="radio"
+                id="createGalleryTypeSequence"
+                value="sequence"
+                x-model="create.type"
+              />
+              <label for="createGalleryTypeSequence" x-localize:media-galleries-create-sequence></label>
+            </div>
+            <label for="createGalleryDescription" class="cosmo-label is--textarea"
+                   x-localize:media-galleries-create-description></label>
+            <textarea rows="5" id="createGalleryDescription" class="cosmo-textarea" x-model="create.description"></textarea>
+          </div>
+        </div>
+        <div class="cosmo-modal__button-bar">
+          <button type="button" class="cosmo-button" x-localize:media-galleries-create-cancel
+                  @click="create.open = false"></button>
+          <button type="submit" class="cosmo-button" x-localize:media-galleries-create-create></button>
+        </div>
+      </div>
+    </form>
+  </template>
+  <template x-if="edit.open">
+    <form class="cosmo-modal__container" @submit.prevent="updateGallery">
+      <div class="cosmo-modal">
+        <h1 class="cosmo-modal__title" x-localize:media-galleries-edit-title></h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-message is--negative" x-show="edit.error.hasError">
+            <span class="cosmo-message__header" x-text="edit.error.title"></span>
+            <p class="cosmo-message__message" x-text="edit.error.message"></p>
+          </div>
+          <div class="cosmo-input__group">
+            <label for="editGalleryName" class="cosmo-label" x-localize:media-galleries-edit-name></label>
+            <input required type="text" id="editGalleryName" class="cosmo-input" x-model="edit.name" />
+            <span class="cosmo-label is--radio" x-localize:media-galleries-edit-orientation></span>
+            <div class="cosmo-input__group is--radio">
+              <input
+                name="orientation"
+                class="cosmo-radio"
+                type="radio"
+                id="editGalleryOrientationHorizontal"
+                value="horizontal"
+                x-model="edit.orientation"
+              />
+              <label for="editGalleryOrientationHorizontal" x-localize:media-galleries-edit-horizontal></label>
+              <input
+                name="orientation"
+                class="cosmo-radio"
+                type="radio"
+                id="editGalleryOrientationVertical"
+                value="vertical"
+                x-model="edit.orientation"
+              />
+              <label for="editGalleryOrientationVertical" x-localize:media-galleries-edit-vertical></label>
+            </div>
+            <span class="cosmo-label is--radio" x-localize:media-galleries-edit-type></span>
+            <div class="cosmo-input__group is--radio">
+              <input
+                name="type"
+                class="cosmo-radio"
+                type="radio"
+                id="editGalleryTypeMasonry"
+                value="masonry"
+                x-model="edit.type"
+              />
+              <label for="editGalleryTypeMasonry" x-localize:media-galleries-edit-masonry></label>
+              <input
+                name="type"
+                class="cosmo-radio"
+                type="radio"
+                id="editGalleryTypeSequence"
+                value="sequence"
+                x-model="edit.type"
+              />
+              <label for="editGalleryTypeSequence" x-localize:media-galleries-edit-sequence></label>
+            </div>
+            <label for="editGalleryDescription" class="cosmo-label is--textarea"
+                   x-localize:media-galleries-edit-description></label>
+            <textarea rows="5" id="editGalleryDescription" class="cosmo-textarea" x-model="edit.description"></textarea>
+          </div>
+        </div>
+        <div class="cosmo-modal__button-bar">
+          <button type="button" class="cosmo-button" x-localize:media-galleries-edit-cancel
+                  @click="edit.open = false"></button>
+          <button type="submit" class="cosmo-button" x-localize:media-galleries-edit-update></button>
+        </div>
+      </div>
+    </form>
   </template>
 </div>
