@@ -79,3 +79,23 @@ export async function createFile(name, tags, file) {
 
   return getFile(savedFile.id);
 }
+
+export function getGalleries() {
+  return get('/api/gallery');
+}
+
+export function getFilesByGallery(galleryId) {
+  return get(`/api/gallery/${galleryId}/file`);
+}
+
+export async function deleteFileFromGallery(galleryId, position) {
+  await httpDelete(`/api/gallery/${galleryId}/file/${position}`);
+}
+
+export async function moveFileInGallery(galleryId, oldPosition, newPosition) {
+  await put(`/api/gallery/${galleryId}/file/${oldPosition}`, { newPosition });
+}
+
+export function addFileToGallery(galleryId, position, file) {
+  return post(`/api/gallery/${galleryId}/file`, { position, file });
+}

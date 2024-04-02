@@ -1,0 +1,78 @@
+<div class="cosmo-side-list" x-data="galleriesData">
+  <nav class="cosmo-side-list__items">
+    <template x-for="gallery in galleries" :key="gallery.id">
+      <a x-text="gallery.name"
+         class="cosmo-side-list__item"
+         :class="{ 'is--active': selectedGallery?.id === gallery.id }"
+         @click="selectGallery(gallery)"></a>
+    </template>
+    <button class="cosmo-button is--full-width" x-localize:media-galleries-action-new></button>
+  </nav>
+  <template x-if="selectedGallery">
+    <div class="cosmo-side-list__content jinya-designer">
+      <div class="jinya-designer__title">
+      <span class="cosmo-title">
+        #<span x-text="selectedGallery.id"></span>
+        <span x-text="selectedGallery.name"></span>
+      </span>
+        <span class="cosmo-title" x-text="selectedTypeAndOrientation"></span>
+      </div>
+      <div class="cosmo-toolbar cosmo-toolbar--designer">
+        <div class="cosmo-toolbar__group">
+          <button id="edit-gallery-button" class="cosmo-button" x-localize:media-galleries-action-edit></button>
+          <button id="delete-gallery-button" class="cosmo-button" x-localize:media-galleries-action-delete></button>
+        </div>
+      </div>
+      <div class="jinya-designer__content">
+        <div class="jinya-designer__result">
+          <template x-for="file in designerFiles" :key="file.id">
+            <img :src="file.file.path" class="jinya-media-tile is--designer is--draggable" :alt="file.file.name"
+                 draggable="true" @dragstart="startFromDesigner(file)" @dragover="dragOver(file)"
+                 @dragend="endDesignerDrag(file)">
+          </template>
+        </div>
+        <div class="jinya-designer__toolbox-container">
+          <div class="jinya-designer__tags">
+            <cms-tag
+              class="jinya-tag is--file"
+              emoji=""
+              :name="defaultTagName"
+              color="#19324c"
+              tag-id="-1"
+              id="show-all-tags"
+              :active="activeTags.size === 0"
+              @click="clearTags"
+            ></cms-tag>
+            <template x-for="tag in tags" :key="tag.id">
+              <cms-tag
+                class="jinya-tag is--file"
+                :emoji="tag.emoji"
+                :name="tag.name"
+                :color="tag.color"
+                :tag-id="tag.id"
+                :active="activeTags.has(tag.id)"
+                @click="toggleTag(tag)"
+              ></cms-tag>
+            </template>
+          </div>
+          <div class="jinya-designer__toolbox" @dragover="toolboxDragOver">
+            <template x-for="file in toolboxFiles" :key="file.id">
+              <img :src="file.path" class="jinya-media-tile is--designer is--medium is--draggable" :alt="file.name"
+                   draggable="true" @dragstart="startFromToolbox(file)" @dragend="endToolboxDrag(file)">
+            </template>
+          </div>
+          <template x-if="draggingOverToolbox && !draggingOverDesigner && draggedItem && !fromToolbox">
+            <div class="jinya-designer__delete">
+              <svg xmlns="http://www.w3.org/2000/svg" width="5rem" height="5rem" viewBox="0 0 24 24" fill="none"
+                   stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 6h18" />
+                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+              </svg>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+  </template>
+</div>

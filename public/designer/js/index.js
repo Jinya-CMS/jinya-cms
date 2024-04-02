@@ -4,7 +4,7 @@ import { needsLogin, needsLogout } from './foundation/router.js';
 import localize from './foundation/localize.js';
 import { getMyProfile, setColorScheme } from './foundation/api/my-jinya.js';
 import { logout } from './foundation/api/authentication.js';
-import dataUrlReader from './foundation/blob/dataUrlReader.js';
+import { dataUrlReader } from './foundation/utils/blob.js';
 import FileUploadedEvent from './frontstage/media/uploading/FileUploadedEvent.js';
 import { getJinyaApiKey } from './foundation/storage.js';
 
@@ -278,7 +278,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
   document.addEventListener('enqueue-files', (e) => {
     Alpine.store('uploadProgress')
-        .addFiles(e.files.length);
+      .addFiles(e.files.length);
     fileUploadWorker.postMessage({
       files: e.files,
       tags: e.tags,

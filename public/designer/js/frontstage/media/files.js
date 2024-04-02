@@ -11,10 +11,10 @@ import { getRandomEmoji } from '../../foundation/utils/text.js';
 import confirm from '../../foundation/ui/confirm.js';
 import alert from '../../foundation/ui/alert.js';
 import EnqueueFileEvent from './uploading/EnqueueFileEvent.js';
+import { getRandomColor, lightenDarkenColor } from '../../foundation/utils/color.js';
 
 import '../../foundation/ui/components/tag.js';
 import '../../foundation/ui/components/tag-popup.js';
-import { getRandomColor, lightenDarkenColor } from '../../foundation/utils/color.js';
 
 Alpine.data('filesData', () => ({
   files: [],

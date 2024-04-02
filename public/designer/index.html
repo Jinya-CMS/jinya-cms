@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" x-data x-bind:class="$store.colorScheme.bodyClass">
+<html lang="en" x-data :class="$store.colorScheme.bodyClass">
 <head>
   <meta charset="UTF-8" />
   <title>Jinya CMS Designer</title>
@@ -58,7 +58,7 @@
   <meta content="#19324c" name="msapplication-TileColor" />
   <meta content="#19324c" name="theme-color" />
 </head>
-<body x-bind:class="($store.authentication.loggedIn && $store.loaded) || !$store.loaded ? '' : 'is--login'">
+<body :class="{ 'is--login': !($store.authentication.loggedIn && $store.loaded) || !$store.loaded }">
 <main class="cosmo-page">
   <template x-if="$store.authentication.loggedIn">
     <div class="cosmo-menu is--top">
@@ -333,7 +333,7 @@
       </template>
     </div>
   </template>
-  <div x-bind:class="$store.authentication.loggedIn && $store.loaded ? 'cosmo-page__body' : ''" id="app">
+  <div :class="{ 'cosmo-page__body': $store.authentication.loggedIn && $store.loaded }" id="app">
     <template
       x-route="/login"
       x-handler="$store.authentication.needsLogout"
@@ -344,7 +344,12 @@
       x-route="/frontstage/media/files"
       x-handler="$store.authentication.needsLogin"
       x-template="/designer/templates/frontstage/media/files.html"
-    ></template>
+      ></template>
+      <template
+        x-route="/frontstage/media/galleries"
+        x-handler="$store.authentication.needsLogin"
+        x-template="/designer/templates/frontstage/media/galleries.html"
+      ></template>
   </div>
   <template x-if="$store.authentication.loggedIn">
     <div class="cosmo-bottom-bar is--three-column">

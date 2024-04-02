@@ -76,7 +76,8 @@
         <template x-for="file in filteredFiles" :key="file.id">
           <div
             :data-title="file.id + ' ' + file.name"
-            :class="'jinya-media-tile ' + (file.id === selectedFile?.id ? 'is--selected' : '')"
+            class="jinya-media-tile"
+            :class="{ 'is--selected': file.id === selectedFile?.id }"
             @click="selectedFile = file"
           >
             <div class="jinya-media-tile__img">
