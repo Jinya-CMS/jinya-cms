@@ -6,7 +6,7 @@ import {
   deleteFile, deleteTag,
   getFile,
   getFiles, getTags, updateFile, updateTag, uploadFile,
-} from '../../foundation/api/media.js';
+} from '../../foundation/api/files.js';
 import { getRandomEmoji } from '../../foundation/utils/text.js';
 import confirm from '../../foundation/ui/confirm.js';
 import alert from '../../foundation/ui/alert.js';

@@ -2,8 +2,9 @@ import { Alpine } from '../../../../lib/alpine.js';
 import {
   addFileToGallery, createGallery,
   deleteFileFromGallery, deleteGallery,
-  getFiles, getFilesByGallery, getGalleries, getGallery, getTags, moveFileInGallery, updateGallery,
-} from '../../foundation/api/media.js';
+  getFilesByGallery, getGalleries, getGallery, moveFileInGallery, updateGallery,
+} from '../../foundation/api/galleries.js';
+import { getTags, getFiles } from '../../foundation/api/files.js';
 import localize from '../../foundation/localize.js';
 import confirm from '../../foundation/ui/confirm.js';
 import alert from '../../foundation/ui/alert.js';
@@ -197,60 +198,6 @@ Alpine.data('galleriesData', () => ({
       ...file,
       position: idx,
     }));
-  },
-  setupSortable() {
-//    this.toolboxSortable = Sortable.create(this.$refs.toolboxSortable, {
-//      group: 'gallery',
-//      sort: false,
-//      onAdd: async (e) => {
-//        e.item.classList.add('is--medium');
-//        await deleteFileFromGallery(this.selectedGallery.id, e.oldIndex);
-//
-//        const toolboxFiles = Alpine.raw(this.toolboxFiles);
-//        toolboxFiles.splice(e.oldIndex, 0, this.designerFiles.at(e.oldIndex).file);
-//        this.sortableHack(toolboxFiles, this.toolboxSortable);
-//
-//        const designerFiles = Alpine.raw(this.designerFiles);
-//        designerFiles.splice(e.oldIndex, 1);
-//        this.sortableHack(designerFiles, this.designerSortable);
-//      },
-//    });
-//    this.designerSortable = Sortable.create(this.$refs.designerSortable, {
-//      group: 'gallery',
-//      sort: true,
-//      onAdd: async (e) => {
-//        e.item.classList.remove('is--medium');
-//        const position = e.newIndex;
-//
-//        const fileId = this.toolboxFiles[e.oldIndex].id;
-//        const newPosition = await addFileToGallery(this.selectedGallery.id, position, fileId);
-//
-//        const toolboxFiles = Alpine.raw(this.toolboxFiles);
-//        this.toolboxFiles.splice(e.oldIndex, 1);
-//        this.sortableHack(toolboxFiles, this.toolboxSortable);
-//
-//        const designerFiles = Alpine.raw(this.designerFiles);
-//        designerFiles.splice(e.newIndex, 0, newPosition);
-//        this.sortableHack(designerFiles, this.designerSortable);
-//      },
-//      onUpdate: async (e) => {
-//        const oldPosition = e.oldIndex;
-//        const dropIdx = e.newIndex;
-//        await moveFileInGallery(this.selectedGallery.id, oldPosition, dropIdx);
-//        const designerFiles = Alpine.raw(this.designerFiles);
-//        const movedFile = designerFiles.splice(e.oldIndex, 1)[0];
-//        movedFile.position = dropIdx;
-//        designerFiles.splice(e.newIndex, 0, movedFile);
-//
-//        // HACK update prevKeys to new sort order
-//        const keys = [];
-//        for (const file of designerFiles) {
-//          keys.push(file.id);
-//        }
-//        // eslint-disable-next-line no-underscore-dangle
-//        this.$refs.designerSortable._x_prevKeys = keys;
-//      },
-//    });
   },
   clearTags() {
     this.activeTags.clear();
