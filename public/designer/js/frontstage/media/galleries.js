@@ -132,7 +132,7 @@ Alpine.data('galleriesData', () => ({
       const savedGallery = await getGallery(this.selectedGallery.id);
       this.edit.open = false;
       this.galleries[this.galleries.indexOf(this.selectedGallery)] = savedGallery;
-      this.selectGallery(savedGallery);
+      await this.selectGallery(savedGallery);
     } catch (err) {
       this.edit.error.hasError = true;
       this.edit.error.title = localize({ key: 'media.galleries.edit.error.title' });

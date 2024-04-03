@@ -234,11 +234,11 @@ export default {
   pages_and_forms: {
     menu: {
       title: 'Seiten & Formulare',
-      simple_pages: 'Einfache Seiten',
-      segment_pages: 'Segmentseiten',
+      classic_pages: 'Klassische Seiten',
+      modern_pages: 'Moderne Seiten',
       forms: 'Formulare',
     },
-    simple: {
+    classic: {
       action: {
         new: 'Seite erstellen',
         edit: 'Titel ändern',
@@ -267,6 +267,10 @@ export default {
           conflict: 'Eine Seite mit dem gewählten Titel existiert bereits.',
           generic: 'Ein unbekannter Fehler ist aufgetreten, bitte kontaktiere deinen Administrator',
         },
+        saved: {
+          title: 'Speichern erfolgreich',
+          content: 'Die Seite wurde erfolgreich gespeichert.',
+        },
       },
       delete: {
         title: 'Seite löschen',
@@ -280,7 +284,7 @@ export default {
         },
       },
     },
-    segment: {
+    modern: {
       action: {
         new: 'Seite erstellen',
         edit: 'Titel ändern',

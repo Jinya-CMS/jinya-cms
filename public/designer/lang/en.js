@@ -234,11 +234,11 @@ export default {
   pages_and_forms: {
     menu: {
       title: 'Pages & Forms',
-      simple_pages: 'Simple pages',
-      segment_pages: 'Segment pages',
+      classic_pages: 'Classic pages',
+      modern_pages: 'Modern pages',
       forms: 'Forms',
     },
-    simple: {
+    classic: {
       action: {
         new: 'Create page',
         edit: 'Change title',
@@ -267,6 +267,10 @@ export default {
           conflict: 'A page with the chosen title already exists.',
           generic: 'An unknown error occurred, please contact your administrator',
         },
+        saved: {
+          title: 'Update successful',
+          content: 'The page was saved successfully.',
+        },
       },
       delete: {
         title: 'Delete page',
@@ -280,7 +284,7 @@ export default {
         },
       },
     },
-    segment: {
+    modern: {
       action: {
         new: 'Create page',
         edit: 'Change title',

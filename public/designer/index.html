@@ -111,7 +111,7 @@
             >
             </a>
             <a
-              href="/designer/frontstage/pages-and-forms/simple-pages"
+              href="/designer/frontstage/pages-and-forms/classic-pages"
               class="cosmo-menu__item"
               x-localize:pages_and_forms-menu-title
               x-active-route.area="pages-and-forms"
@@ -160,17 +160,17 @@
           <template x-if="$store.navigation.area === 'pages-and-forms'">
             <div class="cosmo-menu__row is--sub">
               <a
-                href="/designer/frontstage/pages-and-forms/simple-pages"
+                href="/designer/frontstage/pages-and-forms/classic-pages"
                 class="cosmo-menu__item"
-                x-localize:pages_and_forms-menu-simple_pages
-                x-active-route="simple-pages"
+                x-localize:pages_and_forms-menu-classic_pages
+                x-active-route="classic-pages"
               >
               </a>
               <a
-                href="/designer/frontstage/pages-and-forms/segment-pages"
+                href="/designer/frontstage/pages-and-forms/modern-pages"
                 class="cosmo-menu__item"
-                x-localize:pages_and_forms-menu-segment_pages
-                x-active-route="segment-pages"
+                x-localize:pages_and_forms-menu-modern_pages
+                x-active-route="modern-pages"
               >
               </a>
               <a
@@ -336,20 +336,25 @@
   <div :class="{ 'cosmo-page__body': $store.authentication.loggedIn && $store.loaded }" id="app">
     <template
       x-route="/login"
-      x-handler="$store.authentication.needsLogout"
+      x-handler="[$store.authentication.needsLogout, $store.navigation.fetchScript]"
       x-template="/designer/templates/authentication/login.html"
     ></template>
     <template x-route="notfound" x-handler="(ctx) => ctx.redirect('/frontstage/media/files')"></template>
     <template
       x-route="/frontstage/media/files"
-      x-handler="$store.authentication.needsLogin"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
       x-template="/designer/templates/frontstage/media/files.html"
-      ></template>
-      <template
-        x-route="/frontstage/media/galleries"
-        x-handler="$store.authentication.needsLogin"
-        x-template="/designer/templates/frontstage/media/galleries.html"
-      ></template>
+    ></template>
+    <template
+      x-route="/frontstage/media/galleries"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/media/galleries.html"
+    ></template>
+    <template
+      x-route="/frontstage/pages-and-forms/classic-pages"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/pages-and-forms/classic-pages.html"
+    ></template>
   </div>
   <template x-if="$store.authentication.loggedIn">
     <div class="cosmo-bottom-bar is--three-column">
@@ -395,8 +400,6 @@
 <script src="/designer/vs/loader.js"></script>
 <script src="/designer/vs/editor/editor.main.nls.js"></script>
 <script src="/designer/vs/editor/editor.main.js"></script>
-
-<script src="/designer/lib/tinymce/tinymce.min.js"></script>
 
 <script src="/designer/js/index.js" type="module"></script>
 </body>

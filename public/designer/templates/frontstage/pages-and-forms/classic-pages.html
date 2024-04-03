@@ -1,0 +1,82 @@
+<div class="cosmo-side-list" x-data="classicPagesData">
+  <nav class="cosmo-side-list__items">
+    <template x-for="page in pages" :key="page.id">
+      <a x-text="page.title"
+         class="cosmo-side-list__item"
+         :class="{ 'is--active': selectedPage?.id === page.id }"
+         @click="selectPage(page)"></a>
+    </template>
+    <button class="cosmo-button is--full-width" x-localize:pages_and_forms-classic-action-new
+            @click="openCreateDialog"></button>
+  </nav>
+  <template x-if="selectedPage">
+    <div class="cosmo-side-list__content jinya-designer">
+      <div class="jinya-designer__title">
+        <span class="cosmo-title" x-text="title"></span>
+      </div>
+      <div class="cosmo-toolbar cosmo-toolbar--designer">
+        <div class="cosmo-toolbar__group">
+          <button class="cosmo-button" x-localize:pages_and_forms-classic-action-edit @click="openEditDialog"></button>
+          <button class="cosmo-button" x-localize:pages_and_forms-classic-action-delete @click="deletePage"></button>
+        </div>
+      </div>
+      <div class="jinya-designer__content is--simple-pages">
+        <div class="cosmo-message is--simple-pages" :class="{ 'is--negative': messageError, 'is--positive': !messageError }" x-show="hasMessage">
+          <span class="cosmo-message__header" x-text="messageTitle"></span>
+          <p class="cosmo-message__message" x-text="messageContent"></p>
+        </div>
+        <div x-ref="tiny" class="jinya-tiny"></div>
+        <div class="cosmo-button__container is--simple-pages">
+          <button id="discard-changes" class="cosmo-button"
+                  x-localize:pages_and_forms-classic-action-discard_content @click="selectPage(selectedPage)"></button>
+          <button id="save-changes" class="cosmo-button is--primary"
+                  x-localize:pages_and_forms-classic-action-save_content @click="savePage"></button>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template x-if="create.open">
+    <form class="cosmo-modal__container" @submit.prevent="createPage">
+      <div class="cosmo-modal is--files">
+        <h1 class="cosmo-modal__title" x-localize:pages_and_forms-classic-create-title></h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-message is--negative" x-show="create.error.hasError">
+            <span class="cosmo-message__header" x-text="create.error.title"></span>
+            <p class="cosmo-message__message" x-text="create.error.message"></p>
+          </div>
+          <div class="cosmo-input__group">
+            <label for="createPageTitle" class="cosmo-label" x-localize:pages_and_forms-classic-create-page_title></label>
+            <input required type="text" id="createPageTitle" class="cosmo-input" x-model="create.title" />
+          </div>
+        </div>
+        <div class="cosmo-modal__button-bar">
+          <button type="button" class="cosmo-button" x-localize:pages_and_forms-classic-create-cancel
+                  @click="create.open = false"></button>
+          <button type="submit" class="cosmo-button" x-localize:pages_and_forms-classic-create-create></button>
+        </div>
+      </div>
+    </form>
+  </template>
+  <template x-if="edit.open">
+    <form class="cosmo-modal__container" @submit.prevent="updatePage">
+      <div class="cosmo-modal is--files">
+        <h1 class="cosmo-modal__title" x-localize:pages_and_forms-classic-edit-title></h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-message is--negative" x-show="edit.error.hasError">
+            <span class="cosmo-message__header" x-text="edit.error.title"></span>
+            <p class="cosmo-message__message" x-text="edit.error.message"></p>
+          </div>
+          <div class="cosmo-input__group">
+            <label for="editPageTitle" class="cosmo-label" x-localize:pages_and_forms-classic-edit-page_title></label>
+            <input required type="text" id="editPageTitle" class="cosmo-input" x-model="edit.title" />
+          </div>
+        </div>
+        <div class="cosmo-modal__button-bar">
+          <button type="button" class="cosmo-button" x-localize:pages_and_forms-classic-edit-cancel
+                  @click="edit.open = false"></button>
+          <button type="submit" class="cosmo-button" x-localize:pages_and_forms-classic-edit-update></button>
+        </div>
+      </div>
+    </form>
+  </template>
+</div>

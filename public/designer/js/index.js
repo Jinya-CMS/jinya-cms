@@ -1,6 +1,6 @@
 import { Alpine } from '../../lib/alpine.js';
 import PineconeRouter from '../../lib/pinecone-router.js';
-import { needsLogin, needsLogout } from './foundation/router.js';
+import { fetchScript, needsLogin, needsLogout } from './foundation/router.js';
 import localize from './foundation/localize.js';
 import { getMyProfile, setColorScheme } from './foundation/api/my-jinya.js';
 import { logout } from './foundation/api/authentication.js';
@@ -122,6 +122,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     },
   });
   Alpine.store('navigation', {
+    fetchScript,
     stage: 'frontstage',
     area: 'media',
     page: 'files',
@@ -181,24 +182,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.addEventListener('alpine:init', () => {
     window.PineconeRouter.settings.basePath = '/designer';
     window.PineconeRouter.settings.templateTargetId = 'app';
-    document.addEventListener('pinecone-start', async () => {
-      const { path } = window.PineconeRouter.context;
-      if (path.startsWith('/login') || path.startsWith('/designer/login')) {
-        // eslint-disable-next-line
-        await import('/designer/js/login/login.js');
-      } else {
-        const [, , stage, area, page] = path.split('/');
-        if (stage && area) {
-          await import(`/designer/js/${stage}/${area}/${page ?? 'index'}.js`);
-          Alpine.store('navigation')
-            .navigate({
-              stage,
-              area,
-              page: page ?? 'index',
-            });
-        }
-      }
-    });
   });
 
   Alpine.start();

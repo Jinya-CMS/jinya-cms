@@ -1,9 +1,3 @@
-.jinya-page-content--login {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .jinya-profile-view {
   display: grid;
   grid-template-rows: [toolbar] 2rem 2rem [content] 1fr;

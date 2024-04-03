@@ -30,3 +30,21 @@ export async function needsLogout(context) {
 
   return null;
 }
+
+export async function fetchScript({ path }) {
+  if (path.startsWith('/login') || path.startsWith('/designer/login')) {
+    // eslint-disable-next-line
+    await import('/designer/js/login/login.js');
+  } else {
+    const [, , stage, area, page] = path.split('/');
+    if (stage && area) {
+      await import(`/designer/js/${stage}/${area}/${page ?? 'index'}.js`);
+      Alpine.store('navigation')
+        .navigate({
+          stage,
+          area,
+          page: page ?? 'index',
+        });
+    }
+  }
+}
