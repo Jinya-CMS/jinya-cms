@@ -39,6 +39,8 @@ put:
         schema:
           type: object
           additionalProperties:
-            oneOf:
-              - type: string
-              - type: boolean
+            type: object
+            additionalProperties:
+              oneOf:
+                - type: string
+                - type: boolean

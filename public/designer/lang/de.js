@@ -715,6 +715,7 @@ export default {
         preview: 'Themevorschau',
       },
       variables: {
+        help_text: 'Kann in anderen Variablen mit {variable} benutzt werden',
         save: 'Variablen speichern',
         discard: 'Änderungen verwerfen',
         error: {
@@ -741,11 +742,18 @@ export default {
       links: {
         files: 'Dateien',
         galleries: 'Galerien',
-        pages: 'Einfache Seiten',
-        segment_pages: 'Segmentseiten',
+        classic_pages: 'Klassische Seiten',
+        modern_pages: 'Moderne Seiten',
         forms: 'Formulare',
         menus: 'Menüs',
-        categories: 'Kategorien',
+        blog_categories: 'Blogkategorien',
+        no_file: 'Keine Datei gewählt',
+        no_gallery: 'Keine Galerie gewählt',
+        no_classic_page: 'Keine klassische Seite gewählt',
+        no_modern_page: 'Keine moderne Seite gewählt',
+        no_form: 'Kein Formular gewählt',
+        no_menu: 'Kein Menü gewählt',
+        no_blog_category: 'Keine Blogkategorie gewählt',
         save: 'Links speichern',
         discard: 'Änderungen verwerfen',
         error: {

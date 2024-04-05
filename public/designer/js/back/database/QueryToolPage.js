@@ -14,18 +14,17 @@ export default class QueryToolPage extends JinyaDesignerPage {
 
   // eslint-disable-next-line class-methods-use-this
   toString() {
-    return html`
-      <div class="jinya-horizontal-split">
-        <div class="jinya-code-editor__container">
-          <div class="jinya-code-editor"></div>
-          <div class="cosmo-button__container jinya-code-editor__execute">
-            <button class="cosmo-button" id="execute">${localize({ key: 'database.query_tool.execute' })}</button>
-          </div>
+    return html` <div class="jinya-horizontal-split">
+      <div class="jinya-code-editor__container">
+        <div class="jinya-code-editor"></div>
+        <div class="cosmo-button__container jinya-code-editor__execute">
+          <button class="cosmo-button" id="execute">${localize({ key: 'database.query_tool.execute' })}</button>
         </div>
-        <div class="jinya-code-editor__result">
-          <div class="cosmo-tab-control cosmo-tab-control--query-tool"></div>
-        </div>
-      </div>`;
+      </div>
+      <div class="jinya-code-editor__result">
+        <div class="cosmo-tab-control cosmo-tab-control--query-tool"></div>
+      </div>
+    </div>`;
   }
 
   async displayed() {
@@ -53,14 +52,11 @@ export default class QueryToolPage extends JinyaDesignerPage {
       }
       tabElem.innerText = result.statement;
       tabElem.addEventListener('click', () => {
-        document
-          .querySelectorAll('.cosmo-tab__link.is--active')
-          .forEach((item) => item.classList.remove('is--active'));
-        document.querySelectorAll('.cosmo-tab__content')
-          .forEach((item) => {
-            // eslint-disable-next-line no-param-reassign
-            item.style.display = 'none';
-          });
+        document.querySelectorAll('.cosmo-tab__link.is--active').forEach((item) => item.classList.remove('is--active'));
+        document.querySelectorAll('.cosmo-tab__content').forEach((item) => {
+          // eslint-disable-next-line no-param-reassign
+          item.style.display = 'none';
+        });
         tabElem.classList.add('is--active');
         document.getElementById(result.statement).style.display = 'flex';
       });
@@ -79,15 +75,14 @@ export default class QueryToolPage extends JinyaDesignerPage {
         contentElem.innerText = localize({ key: 'database.query_tool.no_result' });
       } else if (result.result.length > 0) {
         const keys = Object.keys(result.result[0]);
-        contentElem.innerHTML = html`
-          <table class="cosmo-table">
-            <thead>
+        contentElem.innerHTML = html` <table class="cosmo-table">
+          <thead>
             <tr>
               ${keys.map((key) => `<th>${key}</th>`)}
             </tr>
-            </thead>
-            <tbody></tbody>
-          </table>`;
+          </thead>
+          <tbody></tbody>
+        </table>`;
         for (const row of result.result) {
           const tr = document.createElement('tr');
           for (const key of keys) {
@@ -95,8 +90,7 @@ export default class QueryToolPage extends JinyaDesignerPage {
             td.innerText = row[key];
             tr.append(td);
           }
-          contentElem.querySelector('tbody')
-            .append(tr);
+          contentElem.querySelector('tbody').append(tr);
         }
       } else if (!Number.isNaN(result.result)) {
         contentElem.innerText = localize({
@@ -110,19 +104,18 @@ export default class QueryToolPage extends JinyaDesignerPage {
 
   bindEvents() {
     super.bindEvents();
-    document.getElementById('execute')
-      .addEventListener('click', async () => {
-        const query = this.editor.getValue();
-        try {
-          this.queryResult = await post('/api/maintenance/database/query', { query });
-          this.displayQueryResult();
-        } catch (e) {
-          await alert({
-            title: localize({ key: 'database.query_tool.error.title' }),
-            message: localize({ key: 'database.query_tool.error.message' }),
-            negative: true,
-          });
-        }
-      });
+    document.getElementById('execute').addEventListener('click', async () => {
+      const query = this.editor.getValue();
+      try {
+        this.queryResult = await post('/api/maintenance/database/query', { query });
+        this.displayQueryResult();
+      } catch (e) {
+        await alert({
+          title: localize({ key: 'database.query_tool.error.title' }),
+          message: localize({ key: 'database.query_tool.error.message' }),
+          negative: true,
+        });
+      }
+    });
   }
 }

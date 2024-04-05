@@ -39,18 +39,18 @@ class LinksExtension extends BaseExtension
      */
     public function register(Engine $engine): void
     {
-        $engine->functions->add('segmentPage', [$this, 'segmentPage']);
-        $engine->functions->add('page', [$this, 'simplePage']);
-        $engine->functions->add('simplePage', [$this, 'simplePage']);
+        $engine->functions->add('modernPage', [$this, 'modernPage']);
+        $engine->functions->add('page', [$this, 'classicPage']);
+        $engine->functions->add('classicPage', [$this, 'classicPage']);
         $engine->functions->add('file', [$this, 'file']);
         $engine->functions->add('menu', [$this, 'menu']);
         $engine->functions->add('gallery', [$this, 'gallery']);
         $engine->functions->add('form', [$this, 'form']);
         $engine->functions->add('blogCategory', [$this, 'blogCategory']);
 
-        $engine->functions->add('hasSegmentPage', [$this, 'hasSegmentPage']);
-        $engine->functions->add('hasPage', [$this, 'hasSimplePage']);
-        $engine->functions->add('hasSimplePage', [$this, 'hasSimplePage']);
+        $engine->functions->add('hasModernPage', [$this, 'hasModernPage']);
+        $engine->functions->add('hasPage', [$this, 'hasClassicPage']);
+        $engine->functions->add('hasClassicPage', [$this, 'hasClassicPage']);
         $engine->functions->add('hasFile', [$this, 'hasFile']);
         $engine->functions->add('hasGallery', [$this, 'hasGallery']);
         $engine->functions->add('hasMenu', [$this, 'hasMenu']);
@@ -64,7 +64,7 @@ class LinksExtension extends BaseExtension
      * @param string $name
      * @return bool
      */
-    public function hasSegmentPage(string $name): bool
+    public function hasModernPage(string $name): bool
     {
         return isset($this->dbTheme->getModernPages()[$name]);
     }
@@ -75,7 +75,7 @@ class LinksExtension extends BaseExtension
      * @param string $name
      * @return bool
      */
-    public function hasSimplePage(string $name): bool
+    public function hasClassicPage(string $name): bool
     {
         return isset($this->dbTheme->getClassicPages()[$name]);
     }
@@ -141,7 +141,7 @@ class LinksExtension extends BaseExtension
      * @param string $name
      * @return ModernPage|null
      */
-    public function segmentPage(string $name): ?ModernPage
+    public function modernPage(string $name): ?ModernPage
     {
         return $this->dbTheme->getModernPages()[$name] ?? null;
     }
@@ -152,7 +152,7 @@ class LinksExtension extends BaseExtension
      * @param string $name
      * @return ClassicPage|null
      */
-    public function simplePage(string $name): ?ClassicPage
+    public function classicPage(string $name): ?ClassicPage
     {
         return $this->dbTheme->getClassicPages()[$name] ?? null;
     }

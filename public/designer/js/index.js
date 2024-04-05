@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           artistName: '',
           colorScheme: '',
         });
-      logout();
+      logout(true);
       window.PineconeRouter.context.navigate('/login');
       this.loggedIn = false;
       this.roles = [];

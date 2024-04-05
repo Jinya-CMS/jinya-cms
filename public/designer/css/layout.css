@@ -1,34 +1,3 @@
-.jinya-profile-view {
-  display: grid;
-  grid-template-rows: [toolbar] 2rem 2rem [content] 1fr;
-  height: 100%;
-}
-
-.jinya-media-view {
-  display: grid;
-  grid-template-rows: [toolbar] 2rem 2rem [tags] 2rem 2rem [content] 1fr;
-  height: 100%;
-}
-
-.jinya-media-view__loader {
-  grid-row: content;
-}
-
-.jinya-designer__content--key-value-list {
-  align-items: start;
-}
-
-.jinya-progress {
-  display: flex;
-  align-items: center;
-  flex-flow: column;
-}
-
-.jinya-page-body--app .cosmo-list .cosmo-button.cosmo-button--full-width {
-  position: sticky;
-  bottom: 0;
-}
-
 :root {
   --background: url('/designer/background.webp');
 }
@@ -53,4 +22,10 @@ body {
   background: var(--background);
   background-size: cover;
   background-position-y: bottom;
+}
+
+.jinya-progress {
+    display: flex;
+    align-items: center;
+    flex-flow: column;
 }

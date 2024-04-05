@@ -1,3 +1,9 @@
+.jinya-profile-view {
+    display: grid;
+    grid-template-rows: [toolbar] 2rem 2rem [content] 1fr;
+    height: 100%;
+}
+
 .jinya-profile__container {
   grid-row: content;
   display: grid;

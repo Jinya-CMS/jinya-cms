@@ -234,3 +234,13 @@
   border-left-color: var(--tag-after-color);
   border-top-color: var(--tag-after-color);
 }
+
+.jinya-media-view {
+    display: grid;
+    grid-template-rows: [toolbar] 2rem 2rem [tags] 2rem 2rem [content] 1fr;
+    height: 100%;
+}
+
+.jinya-media-view__loader {
+    grid-row: content;
+}

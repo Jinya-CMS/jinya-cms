@@ -17,17 +17,17 @@ export default class EditEmailItemDialog {
    * @param newItem {boolean}
    */
   constructor({
-                onHide,
-                id,
-                formId,
-                label,
-                position,
-                placeholder,
-                helpText,
-                isRequired,
-                isFromAddress,
-                newItem = false,
-              }) {
+    onHide,
+    id,
+    formId,
+    label,
+    position,
+    placeholder,
+    helpText,
+    isRequired,
+    isFromAddress,
+    newItem = false,
+  }) {
     this.onHide = onHide;
     this.position = position;
     this.newItem = newItem;
@@ -41,118 +41,110 @@ export default class EditEmailItemDialog {
   }
 
   show() {
-    const content = html`
-      <form class="cosmo-modal__container" id="edit-dialog-form">
-        <div class="cosmo-modal">
-          <h1 class="cosmo-modal__title">${localize({ key: 'pages_and_forms.form.designer.edit.title' })}</h1>
-          <div class="cosmo-modal__content">
-            <div class="cosmo-input__group">
-              <label for="editItemLabel" class="cosmo-label">
-                ${localize({ key: 'pages_and_forms.form.designer.edit.label' })}
-              </label>
+    const content = html` <form class="cosmo-modal__container" id="edit-dialog-form">
+      <div class="cosmo-modal">
+        <h1 class="cosmo-modal__title">${localize({ key: 'pages_and_forms.form.designer.edit.title' })}</h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-input__group">
+            <label for="editItemLabel" class="cosmo-label">
+              ${localize({ key: 'pages_and_forms.form.designer.edit.label' })}
+            </label>
+            <input
+              value="${this.newItem ? '' : this.label}"
+              required
+              type="text"
+              id="editItemLabel"
+              class="cosmo-input"
+            />
+            <label for="editItemPlaceholder" class="cosmo-label">
+              ${localize({ key: 'pages_and_forms.form.designer.edit.placeholder' })}
+            </label>
+            <input
+              value="${this.newItem ? '' : this.placeholder}"
+              type="text"
+              id="editItemPlaceholder"
+              class="cosmo-input"
+            />
+            <label for="editItemHelpText" class="cosmo-label">
+              ${localize({ key: 'pages_and_forms.form.designer.edit.help_text' })}
+            </label>
+            <input value="${this.newItem ? '' : this.helpText}" type="text" id="editItemHelpText" class="cosmo-input" />
+            <div class="cosmo-input__group is--checkbox">
               <input
-                value="${this.newItem ? '' : this.label}"
-                required
-                type="text"
-                id="editItemLabel"
-                class="cosmo-input"
+                type="checkbox"
+                id="editItemIsFromAddress"
+                class="cosmo-checkbox"
+                ${this.isFromAddress ? 'checked' : ''}
               />
-              <label for="editItemPlaceholder" class="cosmo-label">
-                ${localize({ key: 'pages_and_forms.form.designer.edit.placeholder' })}
+              <label for="editItemIsFromAddress">
+                ${localize({ key: 'pages_and_forms.form.designer.edit.is_from_address' })}
               </label>
+            </div>
+            <div class="cosmo-input__group is--checkbox">
               <input
-                value="${this.newItem ? '' : this.placeholder}"
-                type="text"
-                id="editItemPlaceholder"
-                class="cosmo-input"
+                type="checkbox"
+                id="editItemIsRequired"
+                class="cosmo-checkbox"
+                ${this.isRequired ? 'checked' : ''}
               />
-              <label for="editItemHelpText" class="cosmo-label">
-                ${localize({ key: 'pages_and_forms.form.designer.edit.help_text' })}
+              <label for="editItemIsRequired">
+                ${localize({ key: 'pages_and_forms.form.designer.edit.is_required' })}
               </label>
-              <input
-                value="${this.newItem ? '' : this.helpText}"
-                type="text"
-                id="editItemHelpText"
-                class="cosmo-input"
-              />
-              <div class="cosmo-input__group is--checkbox">
-                <input
-                  type="checkbox"
-                  id="editItemIsFromAddress"
-                  class="cosmo-checkbox"
-                  ${this.isFromAddress ? 'checked' : ''}
-                />
-                <label for="editItemIsFromAddress">
-                  ${localize({ key: 'pages_and_forms.form.designer.edit.is_from_address' })}
-                </label>
-              </div>
-              <div class="cosmo-input__group is--checkbox">
-                <input
-                  type="checkbox"
-                  id="editItemIsRequired"
-                  class="cosmo-checkbox"
-                  ${this.isRequired ? 'checked' : ''}
-                />
-                <label for="editItemIsRequired">
-                  ${localize({ key: 'pages_and_forms.form.designer.edit.is_required' })}
-                </label>
-              </div>
             </div>
           </div>
-          <div class="cosmo-modal__button-bar">
-            <button class="cosmo-button" id="cancel-edit-dialog">
-              ${localize({ key: 'pages_and_forms.form.designer.edit.cancel' })}
-            </button>
-            <button class="cosmo-button" id="update-edit-dialog">
-              ${localize({ key: 'pages_and_forms.form.designer.edit.update' })}
-            </button>
-          </div>
         </div>
-      </form>`;
+        <div class="cosmo-modal__button-bar">
+          <button class="cosmo-button" id="cancel-edit-dialog">
+            ${localize({ key: 'pages_and_forms.form.designer.edit.cancel' })}
+          </button>
+          <button class="cosmo-button" id="update-edit-dialog">
+            ${localize({ key: 'pages_and_forms.form.designer.edit.update' })}
+          </button>
+        </div>
+      </div>
+    </form>`;
 
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
-    document.getElementById('cancel-edit-dialog')
-      .addEventListener('click', () => {
-        container.remove();
-      });
-    document.getElementById('edit-dialog-form')
-      .addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const label = document.getElementById('editItemLabel').value;
-        const placeholder = document.getElementById('editItemPlaceholder').value;
-        const helpText = document.getElementById('editItemHelpText').value;
-        const isRequired = document.getElementById('editItemIsRequired').checked;
-        const isFromAddress = document.getElementById('editItemIsFromAddress').checked;
-        if (this.newItem) {
-          const item = await post(`/api/form/${this.formId}/item`, {
-            label,
-            placeholder,
-            helpText,
-            isRequired,
-            isFromAddress,
-            position: this.position,
-            type: 'email',
-          });
-          this.onHide({ item });
-        } else {
-          await put(`/api/form/${this.formId}/item/${this.position}`, {
-            label,
-            placeholder,
-            helpText,
-            isRequired,
-            isFromAddress,
-          });
-          this.onHide({
-            label,
-            placeholder,
-            helpText,
-            isRequired,
-            isFromAddress,
-          });
-        }
-        container.remove();
-      });
+    document.getElementById('cancel-edit-dialog').addEventListener('click', () => {
+      container.remove();
+    });
+    document.getElementById('edit-dialog-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const label = document.getElementById('editItemLabel').value;
+      const placeholder = document.getElementById('editItemPlaceholder').value;
+      const helpText = document.getElementById('editItemHelpText').value;
+      const isRequired = document.getElementById('editItemIsRequired').checked;
+      const isFromAddress = document.getElementById('editItemIsFromAddress').checked;
+      if (this.newItem) {
+        const item = await post(`/api/form/${this.formId}/item`, {
+          label,
+          placeholder,
+          helpText,
+          isRequired,
+          isFromAddress,
+          position: this.position,
+          type: 'email',
+        });
+        this.onHide({ item });
+      } else {
+        await put(`/api/form/${this.formId}/item/${this.position}`, {
+          label,
+          placeholder,
+          helpText,
+          isRequired,
+          isFromAddress,
+        });
+        this.onHide({
+          label,
+          placeholder,
+          helpText,
+          isRequired,
+          isFromAddress,
+        });
+      }
+      container.remove();
+    });
   }
 }

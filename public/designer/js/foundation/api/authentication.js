@@ -43,13 +43,15 @@ export async function requestTwoFactor(email, password) {
   });
 }
 
-export async function logout() {
+export async function logout(fully = false) {
   try {
     await httpDelete(`/api/api-key/${getJinyaApiKey()}`);
   } catch {
     console.log('Failed to revoke api key, logging out anyway');
   } finally {
-    deleteDeviceCode();
     deleteJinyaApiKey();
+    if (fully) {
+      deleteDeviceCode();
+    }
   }
 }
