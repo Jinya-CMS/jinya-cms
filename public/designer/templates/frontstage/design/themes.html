@@ -9,7 +9,7 @@
     <button class="cosmo-button is--full-width" x-localize:design-themes-action-create
             @click="openCreateDialog"></button>
   </nav>
-  <template x-if="selectedTheme">
+  <template x-if="themeSelected">
     <div class="cosmo-side-list__content is--theme">
       <div class="jinya-designer__title">
         <span class="cosmo-title" x-text="title"></span>
@@ -27,7 +27,7 @@
                class="cosmo-tab__link" x-localize:design-themes-tabs-variables></a>
           </div>
           <div class="cosmo-tab__content is--details is--theme" x-show="activeTab === 'details'">
-            <div class="cosmo-toolbar cosmo-toolbar is--designer">
+            <div class="cosmo-toolbar is--designer">
               <div class="cosmo-toolbar__group">
                 <button class="cosmo-button" x-localize:design-themes-action-activate @click="activate"></button>
                 <button class="cosmo-button" x-localize:design-themes-action-compile_assets

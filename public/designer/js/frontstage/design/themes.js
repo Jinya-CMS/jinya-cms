@@ -1,6 +1,7 @@
 import { Alpine } from '../../../../lib/alpine.js';
 import { getClassicPages } from '../../foundation/api/classic-pages.js';
 import {
+  getTheme,
   getThemeBlogCategories, getThemeClassicPages,
   getThemeConfigurationStructure,
   getThemeDefaultConfiguration, getThemeFiles, getThemeForms, getThemeGalleries, getThemeMenus, getThemeModernPages,
@@ -18,6 +19,7 @@ Alpine.data('themesData', () => ({
   themes: [],
   linksLoaded: false,
   selectedTheme: null,
+  themeSelected: false,
   activeTab: 'details',
   tiny: null,
   getValueForCurrentLanguage(data) {
@@ -81,18 +83,16 @@ Alpine.data('themesData', () => ({
     this.edit.open = true;
   },
   loadThemeConfiguration() {
-    const { configuration } = this.selectedTheme;
+    const configuration = Array.isArray(this.selectedTheme.configuration) ? {} : this.selectedTheme.configuration;
 
-    Object
-      .keys(this.selectedThemeData.defaultConfiguration)
-      .forEach((item) => {
-        configuration[item] = configuration[item] ?? {};
-      });
+    for (const group of this.selectedThemeData.configurationStructure.groups) {
+      configuration[group.name] = configuration[group.name] ?? {};
+    }
 
     this.selectedThemeData.configuration = configuration;
   },
   loadThemeVariables() {
-    this.selectedThemeData.scssVariables = this.selectedTheme.scssVariables;
+    this.selectedThemeData.scssVariables = Array.isArray(this.selectedTheme.scssVariables) ? {} : this.selectedTheme.scssVariables;
   },
   async loadLinks() {
     const [
@@ -137,6 +137,8 @@ Alpine.data('themesData', () => ({
     this.selectedThemeData.configurationStructure = configurationStructure;
   },
   async selectTheme(theme) {
+    this.activeTab = 'details';
+
     if (!this.linksLoaded) {
       const [
         galleries,
@@ -166,13 +168,13 @@ Alpine.data('themesData', () => ({
       this.linksLoaded = true;
     }
 
-    this.selectedTheme = theme;
+    this.selectedTheme = await getTheme(theme.id);
+    await Promise.all([this.loadConfigurationStructure(), this.loadLinks()]);
 
     this.loadThemeConfiguration();
     this.loadThemeVariables();
-    await Promise.all([this.loadConfigurationStructure(), this.loadLinks()]);
 
-    this.activeTab = 'details';
+    this.themeSelected = true;
   },
   async saveConfiguration() {
     try {
@@ -194,18 +196,18 @@ Alpine.data('themesData', () => ({
   async saveVariables() {
     try {
       await updateThemeVariables(this.selectedTheme.id, this.selectedThemeData.scssVariables);
-      this.configuration.message.title = localize({ key: 'design.themes.configuration.success.title' });
-      this.configuration.message.content = localize({ key: 'design.themes.configuration.success.message' });
-      this.configuration.message.hasError = false;
-      this.configuration.message.hasMessage = true;
+      this.variables.message.title = localize({ key: 'design.themes.variables.success.title' });
+      this.variables.message.content = localize({ key: 'design.themes.variables.success.message' });
+      this.variables.message.hasError = false;
+      this.variables.message.hasMessage = true;
       setTimeout(() => {
-        this.configuration.message.hasMessage = false;
+        this.variables.message.hasMessage = false;
       }, 30000);
     } catch (e) {
-      this.configuration.message.title = localize({ key: 'design.themes.configuration.error.title' });
-      this.configuration.message.content = localize({ key: 'design.themes.configuration.error.message' });
-      this.configuration.message.hasError = true;
-      this.configuration.message.hasMessage = true;
+      this.variables.message.title = localize({ key: 'design.themes.variables.error.title' });
+      this.variables.message.content = localize({ key: 'design.themes.variables.error.message' });
+      this.variables.message.hasError = true;
+      this.variables.message.hasMessage = true;
     }
   },
   create: {
@@ -239,6 +241,22 @@ Alpine.data('themesData', () => ({
     },
   },
   configuration: {
+    message: {
+      title: '',
+      content: '',
+      hasError: false,
+      hasMessage: false,
+    },
+  },
+  links: {
+    message: {
+      title: '',
+      content: '',
+      hasError: false,
+      hasMessage: false,
+    },
+  },
+  variables: {
     message: {
       title: '',
       content: '',

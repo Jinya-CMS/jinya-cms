@@ -284,9 +284,8 @@ class ThemeController extends BaseController
 
         $theme = new Theme($dbTheme);
         $vars = $theme->getStyleVariables();
-        $dbVars = $dbTheme->scssVariables;
 
-        return $this->json(array_merge($vars, $dbVars));
+        return $this->json($vars);
     }
 
     /**

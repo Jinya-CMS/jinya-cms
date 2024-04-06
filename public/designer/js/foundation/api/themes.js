@@ -4,6 +4,10 @@ export function getThemes() {
   return get('/api/theme');
 }
 
+export function getTheme(id) {
+  return get(`/api/theme/${id}`);
+}
+
 export function getThemeModernPages(id) {
   return get(`/api/theme/${id}/modern-page`);
 }
@@ -45,9 +49,9 @@ export function getThemeConfigurationStructure(id) {
 }
 
 export function updateThemeConfiguration(id, configuration) {
-  return put(`/api/theme/${id}/configuration`, configuration);
+  return put(`/api/theme/${id}/configuration`, { configuration });
 }
 
 export function updateThemeVariables(id, variables) {
-  return put(`/api/theme/${id}/styling`, variables);
+  return put(`/api/theme/${id}/styling`, { variables });
 }

@@ -10,18 +10,22 @@
 
 .cosmo-tab__content.is--details {
     display: grid;
-    grid-template-columns: [image] 50rem [description] 1fr;
+    grid-template-columns: 50rem 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "toolbar toolbar"
+        "image description";
     gap: 0.75rem;
 }
 
 .jinya-theme-details__preview {
-    grid-column: image;
+    grid-area: image;
     width: 100%;
     height: auto;
 }
 
 .jinya-theme-details__description {
-    grid-column: description;
+    grid-area: description;
 }
 
 .cosmo-tab.is--theme {
@@ -29,11 +33,15 @@
 }
 
 .cosmo-tab__content.is--theme {
-    max-height: calc(100vh - 64px - 80px - 32px - 36px - 20px - 28px - 30px - 28px - 68px - 20px - 10px);
+    max-height: calc(var(--page-height) - 2.75rem - 2rem - 2rem);
 }
 
 .cosmo-button__container.is--sticky-bottom {
     position: sticky;
     bottom: 0;
     background: var(--white);
+}
+
+.cosmo-toolbar.is--designer {
+    grid-area: toolbar;
 }
