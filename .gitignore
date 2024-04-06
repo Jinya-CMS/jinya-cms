@@ -156,3 +156,4 @@ installed.lock
 tmp/*
 /tools/
 /.env
+var
