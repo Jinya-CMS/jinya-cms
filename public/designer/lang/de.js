@@ -766,17 +766,25 @@ export default {
         },
       },
       create: {
-        name: 'Themename',
         file: 'ZIP Archiv',
         title: 'Theme hochladen',
         cancel: 'Hochladen abbrechen',
         save: 'Hochladen',
+        error: {
+          title: 'Fehler beim Hochladen',
+          conflict: 'Ein Theme mit dem gleichen Namen existiert bereits.',
+          generic: 'Das Theme konnte nicht hochgeladen werden, bitte kontaktiere deinen Administrator.',
+        },
       },
-      update: {
+      edit: {
         file: 'ZIP Archiv',
         title: 'Theme updaten',
         cancel: 'Update abbrechen',
         save: 'Update starten',
+        error: {
+          title: 'Fehler beim Hochladen',
+          message: 'Das Theme konnte nicht gespeichert werden, bitte kontaktiere deinen Administrator.',
+        },
       },
     },
   },

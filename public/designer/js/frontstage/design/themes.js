@@ -1,11 +1,31 @@
 import { Alpine } from '../../../../lib/alpine.js';
 import { getClassicPages } from '../../foundation/api/classic-pages.js';
 import {
+  activateTheme,
+  compileThemeAssets,
   getTheme,
-  getThemeBlogCategories, getThemeClassicPages,
+  getThemeBlogCategories,
+  getThemeClassicPages,
   getThemeConfigurationStructure,
-  getThemeDefaultConfiguration, getThemeFiles, getThemeForms, getThemeGalleries, getThemeMenus, getThemeModernPages,
-  getThemes, getThemeStyleVariables, updateThemeConfiguration, updateThemeVariables,
+  getThemeDefaultConfiguration,
+  getThemeFiles,
+  getThemeForms,
+  getThemeGalleries,
+  getThemeMenus,
+  getThemeModernPages,
+  getThemes,
+  getThemeStyleVariables,
+  updateTheme,
+  updateThemeBlogCategory,
+  updateThemeClassicPage,
+  updateThemeConfiguration,
+  updateThemeFile,
+  updateThemeForm,
+  updateThemeGallery,
+  updateThemeMenu,
+  updateThemeModernPage,
+  updateThemeVariables,
+  uploadTheme,
 } from '../../foundation/api/themes.js';
 import { getForms } from '../../foundation/api/forms.js';
 import { getGalleries } from '../../foundation/api/galleries.js';
@@ -14,6 +34,7 @@ import { getModernPages } from '../../foundation/api/modern-pages.js';
 import { getMenus } from '../../foundation/api/menus.js';
 import { getBlogCategories } from '../../foundation/api/blog-categories.js';
 import localize from '../../foundation/localize.js';
+import confirm from '../../foundation/ui/confirm.js';
 
 Alpine.data('themesData', () => ({
   themes: [],
@@ -73,13 +94,13 @@ Alpine.data('themesData', () => ({
     configuration: {},
   },
   openCreateDialog() {
-    this.create.error.reset();
-    this.create.title = '';
-    this.create.open = true;
+    this.upload.error.reset();
+    this.upload.file = null;
+    this.upload.open = true;
   },
   openEditDialog() {
     this.edit.error.reset();
-    this.edit.title = this.selectedPage.title;
+    this.edit.file = null;
     this.edit.open = true;
   },
   loadThemeConfiguration() {
@@ -87,6 +108,9 @@ Alpine.data('themesData', () => ({
 
     for (const group of this.selectedThemeData.configurationStructure.groups) {
       configuration[group.name] = configuration[group.name] ?? {};
+      for (const field of group.fields) {
+        configuration[group.name][field.name] = configuration[group.name][field.name] ?? null;
+      }
     }
 
     this.selectedThemeData.configuration = configuration;
@@ -113,13 +137,40 @@ Alpine.data('themesData', () => ({
       getThemeBlogCategories(this.selectedTheme.id),
     ]);
 
-    this.selectedThemeData.modernPages = modernPages;
-    this.selectedThemeData.classicPages = classicPages;
-    this.selectedThemeData.forms = forms;
-    this.selectedThemeData.menus = menus;
-    this.selectedThemeData.galleries = galleries;
-    this.selectedThemeData.files = files;
-    this.selectedThemeData.blogCategories = blogCategories;
+    this.selectedThemeData.modernPages = {};
+    for (const [key, item] of Object.entries(modernPages)) {
+      this.selectedThemeData.modernPages[key] = item.id;
+    }
+
+    this.selectedThemeData.classicPages = {};
+    for (const [key, item] of Object.entries(classicPages)) {
+      this.selectedThemeData.classicPages[key] = item.id;
+    }
+
+    this.selectedThemeData.forms = {};
+    for (const [key, item] of Object.entries(forms)) {
+      this.selectedThemeData.forms[key] = item.id;
+    }
+
+    this.selectedThemeData.menus = {};
+    for (const [key, item] of Object.entries(menus)) {
+      this.selectedThemeData.menus[key] = item.id;
+    }
+
+    this.selectedThemeData.galleries = {};
+    for (const [key, item] of Object.entries(galleries)) {
+      this.selectedThemeData.galleries[key] = item.id;
+    }
+
+    this.selectedThemeData.files = {};
+    for (const [key, item] of Object.entries(files)) {
+      this.selectedThemeData.files[key] = item.id;
+    }
+
+    this.selectedThemeData.blogCategories = {};
+    for (const [key, item] of Object.entries(blogCategories)) {
+      this.selectedThemeData.blogCategories[key] = item.id;
+    }
   },
   async loadConfigurationStructure() {
     const [
@@ -210,19 +261,162 @@ Alpine.data('themesData', () => ({
       this.variables.message.hasMessage = true;
     }
   },
-  create: {
+  async saveLinks() {
+    const {
+      modernPages,
+      classicPages,
+      forms,
+      menus,
+      galleries,
+      files,
+      blogCategories,
+    } = this.selectedThemeData;
+    const { id } = this.selectedTheme;
+    try {
+      await Promise.all([
+        ...Object.entries(modernPages)
+          .map(([name, link]) => updateThemeModernPage(id, name, link === 'null' ? null : link)),
+        ...Object.entries(classicPages)
+          .map(([name, link]) => updateThemeClassicPage(id, name, link === 'null' ? null : link)),
+        ...Object.entries(forms)
+          .map(([name, link]) => updateThemeForm(id, name, link === 'null' ? null : link)),
+        ...Object.entries(menus)
+          .map(([name, link]) => updateThemeMenu(id, name, link === 'null' ? null : link)),
+        ...Object.entries(galleries)
+          .map(([name, link]) => updateThemeGallery(id, name, link === 'null' ? null : link)),
+        ...Object.entries(files)
+          .map(([name, link]) => updateThemeFile(id, name, link === 'null' ? null : link)),
+        ...Object.entries(blogCategories)
+          .map(([name, link]) => updateThemeBlogCategory(id, name, link === 'null' ? null : link)),
+      ]);
+
+      this.links.message.title = localize({ key: 'design.themes.links.success.title' });
+      this.links.message.content = localize({ key: 'design.themes.links.success.message' });
+      this.links.message.hasError = false;
+      this.links.message.hasMessage = true;
+      setTimeout(() => {
+        this.links.message.hasMessage = false;
+      }, 30000);
+    } catch (e) {
+      this.links.message.title = localize({ key: 'design.themes.links.error.title' });
+      this.links.message.content = localize({ key: 'design.themes.links.error.message' });
+      this.links.message.hasError = true;
+      this.links.message.hasMessage = true;
+    }
+  },
+  async activate() {
+    const confirmed = await confirm({
+      title: localize({ key: 'design.themes.activate.title' }),
+      message: localize({
+        key: 'design.themes.activate.message',
+        values: this.selectedTheme,
+      }),
+      approveLabel: localize({ key: 'design.themes.activate.approve' }),
+      declineLabel: localize({ key: 'design.themes.activate.decline' }),
+    });
+    if (confirmed) {
+      try {
+        await activateTheme(this.selectedTheme.id);
+        this.details.message.title = localize({ key: 'design.themes.activate.success.title' });
+        this.details.message.content = localize({
+          key: 'design.themes.activate.success.message',
+          values: this.selectedTheme,
+        });
+        this.details.message.hasError = false;
+        this.details.message.hasMessage = true;
+        setTimeout(() => {
+          this.details.message.hasMessage = false;
+        }, 30000);
+      } catch (e) {
+        this.details.message.title = localize({ key: 'design.themes.activate.error.title' });
+        this.details.message.content = localize({
+          key: 'design.themes.activate.error.message',
+          values: this.selectedTheme,
+        });
+        this.details.message.hasError = true;
+        this.details.message.hasMessage = true;
+      }
+    }
+  },
+  async compileAssets() {
+    const confirmed = await confirm({
+      title: localize({ key: 'design.themes.assets.title' }),
+      message: localize({
+        key: 'design.themes.assets.message',
+        values: this.selectedTheme,
+      }),
+      approveLabel: localize({ key: 'design.themes.assets.approve' }),
+      declineLabel: localize({ key: 'design.themes.assets.decline' }),
+    });
+    if (confirmed) {
+      try {
+        await compileThemeAssets(this.selectedTheme.id);
+        this.details.message.title = localize({ key: 'design.themes.assets.success.title' });
+        this.details.message.content = localize({
+          key: 'design.themes.assets.success.message',
+          values: this.selectedTheme,
+        });
+        this.details.message.hasError = false;
+        this.details.message.hasMessage = true;
+        setTimeout(() => {
+          this.details.message.hasMessage = false;
+        }, 30000);
+      } catch (e) {
+        this.details.message.title = localize({ key: 'design.themes.assets.error.title' });
+        this.details.message.content = localize({
+          key: 'design.themes.assets.error.message',
+          values: this.selectedTheme,
+        });
+        this.details.message.hasError = true;
+        this.details.message.hasMessage = true;
+      }
+    }
+  },
+  async uploadTheme() {
+    try {
+      const theme = await uploadTheme(this.upload.file);
+      this.themes.push(theme);
+      await this.selectTheme(theme);
+      this.upload.open = false;
+    } catch (e) {
+      this.upload.error.hasError = true;
+      this.upload.error.title = localize({ key: 'design.themes.create.error.title' });
+      if (e.status === 409) {
+        this.upload.error.message = localize({ key: 'design.themes.create.error.conflict' });
+      } else {
+        this.upload.error.message = localize({ key: 'design.themes.create.error.generic' });
+      }
+      this.upload.error.hasError = true;
+    }
+  },
+  async updateTheme() {
+    try {
+      await updateTheme(this.selectedTheme.id, this.edit.file);
+      this.edit.open = false;
+    } catch (e) {
+      this.edit.error.hasError = true;
+      this.edit.error.title = localize({ key: 'design.themes.edit.error.title' });
+      this.edit.error.message = localize({ key: 'design.themes.edit.error.message' });
+      this.edit.error.hasError = true;
+    }
+  },
+  upload: {
     open: false,
-    title: '',
+    file: null,
     error: {
       title: '',
       message: '',
-      tagError: '',
       hasError: false,
       reset() {
         this.title = '';
         this.message = '';
         this.hasError = false;
       },
+    },
+    selectFile(files) {
+      if (files.length >= 1) {
+        this.file = files.item(0);
+      }
     },
   },
   edit: {
@@ -231,13 +425,17 @@ Alpine.data('themesData', () => ({
     error: {
       title: '',
       message: '',
-      tagError: '',
       hasError: false,
       reset() {
         this.title = '';
         this.message = '';
         this.hasError = false;
       },
+    },
+    selectFile(files) {
+      if (files.length >= 1) {
+        this.file = files.item(0);
+      }
     },
   },
   configuration: {
@@ -257,6 +455,14 @@ Alpine.data('themesData', () => ({
     },
   },
   variables: {
+    message: {
+      title: '',
+      content: '',
+      hasError: false,
+      hasMessage: false,
+    },
+  },
+  details: {
     message: {
       title: '',
       content: '',

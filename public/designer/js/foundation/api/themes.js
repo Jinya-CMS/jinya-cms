@@ -1,4 +1,4 @@
-import { get, put } from './request.js';
+import { get, put, upload, uploadPost } from './request.js';
 
 export function getThemes() {
   return get('/api/theme');
@@ -54,4 +54,48 @@ export function updateThemeConfiguration(id, configuration) {
 
 export function updateThemeVariables(id, variables) {
   return put(`/api/theme/${id}/styling`, { variables });
+}
+
+export function updateThemeModernPage(id, name, page) {
+  return put(`/api/theme/${id}/modern-page/${name}`, { modernPage: page });
+}
+
+export function updateThemeClassicPage(id, name, page) {
+  return put(`/api/theme/${id}/classic-page/${name}`, { classicPage: page });
+}
+
+export function updateThemeForm(id, name, form) {
+  return put(`/api/theme/${id}/form/${name}`, { form });
+}
+
+export function updateThemeMenu(id, name, menu) {
+  return put(`/api/theme/${id}/menu/${name}`, { menu });
+}
+
+export function updateThemeGallery(id, name, gallery) {
+  return put(`/api/theme/${id}/gallery/${name}`, { gallery });
+}
+
+export function updateThemeFile(id, name, file) {
+  return put(`/api/theme/${id}/file/${name}`, { file });
+}
+
+export function updateThemeBlogCategory(id, name, blogCategory) {
+  return put(`/api/theme/${id}/blog-category/${name}`, { blogCategory });
+}
+
+export function compileThemeAssets(id) {
+  return put(`/api/theme/${id}/assets`);
+}
+
+export function activateTheme(id) {
+  return put(`/api/theme/${id}/active`);
+}
+
+export function uploadTheme(file) {
+  return uploadPost('/api/theme', file);
+}
+
+export function updateTheme(id, file) {
+  return upload(`/api/theme/${id}`, file);
 }

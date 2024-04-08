@@ -761,21 +761,29 @@ export default {
         },
         success: {
           title: 'Save links',
-          message: 'The links  were successfully saved',
+          message: 'The links were successfully saved',
         },
       },
-      update: {
+      edit: {
         title: 'Update theme',
         file: 'ZIP archive',
         cancel: 'Cancel update',
         save: 'Update',
+        error: {
+          title: 'Error uploading theme',
+          message: 'The theme could not be saved, please contact your administrator.',
+        },
       },
       create: {
         title: 'Upload theme',
-        name: 'Theme name',
         file: 'ZIP archive',
         cancel: 'Cancel upload',
         save: 'Upload',
+        error: {
+          title: 'Error uploading theme',
+          conflict: 'A theme with this name exists already.',
+          generic: 'The theme could not be uploaded, please contact your administrator.',
+        },
       },
     },
   },
