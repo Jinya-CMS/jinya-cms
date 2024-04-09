@@ -1,4 +1,4 @@
-import { head, httpDelete, post, put } from './request.js';
+import { get, head, httpDelete, post, put } from './request.js';
 import { deleteDeviceCode, deleteJinyaApiKey, getJinyaApiKey, setDeviceCode, setJinyaApiKey } from '../storage.js';
 
 export async function checkLogin() {
@@ -43,9 +43,13 @@ export async function requestTwoFactor(email, password) {
   });
 }
 
+export async function deleteApiKey(apiKey) {
+  await httpDelete(`/api/api-key/${apiKey}`);
+}
+
 export async function logout(fully = false) {
   try {
-    await httpDelete(`/api/api-key/${getJinyaApiKey()}`);
+    await deleteApiKey(getJinyaApiKey());
   } catch {
     console.log('Failed to revoke api key, logging out anyway');
   } finally {
@@ -61,4 +65,12 @@ export async function changePassword(oldPassword, newPassword) {
     oldPassword,
     password: newPassword,
   });
+}
+
+export function getApiKeys() {
+  return get('/api/api-key');
+}
+
+export function locateIp(ip) {
+  return get(`/api/ip-location/${ip}`);
 }

@@ -364,6 +364,11 @@
       x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
       x-template="/designer/templates/frontstage/my-jinya/my-profile.html"
     ></template>
+    <template
+      x-route="/frontstage/my-jinya/active-sessions"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/my-jinya/active-sessions.html"
+    ></template>
   </div>
   <template x-if="$store.authentication.loggedIn">
     <div class="cosmo-bottom-bar is--three-column">

@@ -19,7 +19,7 @@ class ApiKeyController extends BaseController
     /**
      * @throws JsonException
      */
-    #[Route(route: '/api/api-key')]
+    #[Route(HttpMethod::GET, 'api/api-key')]
     public function getApiKeys(): ResponseInterface
     {
         $keys = ApiKey::findByArtist(CurrentUser::$currentUser->id);

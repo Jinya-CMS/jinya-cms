@@ -802,11 +802,17 @@ export default {
         discard_profile: 'Discard changes',
       },
       edit: {
+        save_profile: 'Save profile',
+        discard_profile: 'Discard changes',
         title: 'Update profile',
+        email: 'Email',
+        artist_name: 'Artist name',
+        profile_picture: 'Profile picture',
+        error: {
+          title: 'Error saving',
+          message: 'Your profile couldn\'t be saved, please contact your administrator',
+        },
       },
-      email: 'Email',
-      artist_name: 'Artist name',
-      profile_picture: 'Profile picture',
       change_password: {
         title: 'Change password',
         new_password_repeat: 'Repeat password',
