@@ -1,0 +1,16 @@
+<table class="cosmo-table" x-data="environmentData">
+  <thead>
+  <tr>
+    <th x-localize:maintenance-configuration-key></th>
+    <th x-localize:maintenance-configuration-value></th>
+  </tr>
+  </thead>
+  <tbody>
+  <template x-for="[key, value] in Object.entries(variables)">
+    <tr>
+      <td x-text="key"></td>
+      <td x-text="value"></td>
+    </tr>
+  </template>
+  </tbody>
+</table>
