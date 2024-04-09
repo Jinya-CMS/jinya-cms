@@ -21,13 +21,14 @@ export default class MySqlInfoPage extends JinyaDesignerPage {
           </tr>
         </thead>
         <tbody>
-          ${Object.keys(variables).map(
-            (variable) =>
-              html` <tr>
+          ${Object.keys(variables)
+        .map(
+          (variable) =>
+            html` <tr>
                 <td>${variable}</td>
                 <td>${variables[variable]}</td>
               </tr>`,
-          )}
+        )}
         </tbody>
       </table>`;
     let content = '';
@@ -56,8 +57,11 @@ export default class MySqlInfoPage extends JinyaDesignerPage {
       default:
         break;
     }
-    document.querySelectorAll('.cosmo-side-list__item.is--active').forEach((tag) => tag.classList.remove('is--active'));
-    document.querySelector(`[data-tab="${this.selectedTab}"]`).classList.add('is--active');
+    document.querySelectorAll('.cosmo-side-list__item.is--active')
+      .forEach((tag) => tag.classList.remove('is--active'));
+    document.querySelector(`[data-tab="${this.selectedTab}"]`)
+      .classList
+      .add('is--active');
 
     const container = document.getElementById('mysql-content');
     clearChildren({ parent: container });
@@ -87,12 +91,13 @@ export default class MySqlInfoPage extends JinyaDesignerPage {
 
   bindEvents() {
     super.bindEvents();
-    document.querySelectorAll('.cosmo-side-list__item').forEach((item) =>
-      item.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.selectedTab = e.target.getAttribute('data-tab');
-        this.displaySelectedTab();
-      }),
-    );
+    document.querySelectorAll('.cosmo-side-list__item')
+      .forEach((item) =>
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          this.selectedTab = e.target.getAttribute('data-tab');
+          this.displaySelectedTab();
+        }),
+      );
   }
 }

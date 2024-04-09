@@ -3,7 +3,10 @@ import { upload } from '../../../foundation/http/request.js';
 import localize from '../../../foundation/localize.js';
 
 export default class UpdateThemeDialog {
-  constructor({ onHide, id }) {
+  constructor({
+                onHide,
+                id,
+              }) {
     this.id = id;
     this.onHide = onHide;
   }
@@ -29,15 +32,17 @@ export default class UpdateThemeDialog {
     </form>`;
     document.body.append(container);
 
-    document.getElementById('cancel-update').addEventListener('click', () => container.remove());
-    document.getElementById('update-dialog').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const { files } = document.getElementById('updateThemeZip');
-      const [zip] = files;
+    document.getElementById('cancel-update')
+      .addEventListener('click', () => container.remove());
+    document.getElementById('update-dialog')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const { files } = document.getElementById('updateThemeZip');
+        const [zip] = files;
 
-      await upload(`/api/theme/${this.id}`, zip);
-      container.remove();
-      this.onHide();
-    });
+        await upload(`/api/theme/${this.id}`, zip);
+        container.remove();
+        this.onHide();
+      });
   }
 }

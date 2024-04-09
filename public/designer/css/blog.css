@@ -1,86 +1,86 @@
 .jinya-blog-tile__container {
-  display: flex;
-  flex-flow: row wrap;
-  gap: 1.5rem;
-  height: calc(var(--page-height) - 2.75rem - 1.25rem - 2rem - 2rem);
-  grid-row: content;
-  overflow-y: auto;
-  align-content: start;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1.5rem;
+    height: calc(var(--page-height) - 2.75rem - 1.25rem - 2rem - 2rem);
+    grid-row: content;
+    overflow-y: auto;
+    align-content: start;
 }
 
 .jinya-blog-view__loader {
-  grid-row: content;
+    grid-row: content;
 }
 
 .jinya-blog-tile {
-  width: 23rem;
-  height: 15rem;
-  display: grid;
-  position: relative;
-  box-sizing: border-box;
-  object-fit: cover;
-  grid-template-rows: auto [title] 1fr [img];
+    width: 23rem;
+    height: 15rem;
+    display: grid;
+    position: relative;
+    box-sizing: border-box;
+    object-fit: cover;
+    grid-template-rows: auto [title] 1fr [img];
 }
 
 .jinya-blog-tile--selected {
-  border: 0.25rem solid var(--primary-color);
-  position: relative;
-  box-sizing: border-box;
+    border: 0.25rem solid var(--primary-color);
+    position: relative;
+    box-sizing: border-box;
 }
 
 .jinya-blog-tile--selected::after {
-  content: '';
-  border: 0.75rem solid transparent;
-  border-left-color: var(--primary-color);
-  border-top-color: var(--primary-color);
-  position: absolute;
-  top: 0;
-  left: 0;
+    content: '';
+    border: 0.75rem solid transparent;
+    border-left-color: var(--primary-color);
+    border-top-color: var(--primary-color);
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .jinya-blog-tile__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background: var(--control-border-color);
-  grid-row: img;
-  max-height: 13rem;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: var(--control-border-color);
+    grid-row: img;
+    max-height: 13rem;
 }
 
 .jinya-blog-tile--selected .jinya-blog-tile__img {
-  max-height: 12.5rem;
+    max-height: 12.5rem;
 }
 
 .jinya-blog-tile__img:hover {
-  object-fit: scale-down;
+    object-fit: scale-down;
 }
 
 .jinya-blog-tile__title {
-  grid-row: title;
-  font-size: 1.5rem;
-  font-weight: var(--font-weight-light);
-  background: var(--control-border-color);
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+    grid-row: title;
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-light);
+    background: var(--control-border-color);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .jinya-designer__content--blog,
 .jinya-designer__result--blog {
-  --height: calc(
-    99vh - var(--modal-border-width) - var(--modal-border-width) - var(--modal-title-font-size) -
-      var(--modal-title-margin-top) - var(--modal-title-margin-bottom) - var(--modal-padding-top) -
-      var(--modal-padding-bottom) - 2.75rem - 1.25rem - 1rem
-  );
-  max-height: var(--height);
-  min-height: var(--height);
+    --height: calc(
+        99vh - var(--modal-border-width) - var(--modal-border-width) - var(--modal-title-font-size) -
+        var(--modal-title-margin-top) - var(--modal-title-margin-bottom) - var(--modal-padding-top) -
+        var(--modal-padding-bottom) - 2.75rem - 1.25rem - 1rem
+    );
+    max-height: var(--height);
+    min-height: var(--height);
 }
 
 .cosmo-toolbar--blog {
-  margin-bottom: 0.75rem;
+    margin-bottom: 0.75rem;
 }
 
 .jinya-designer__modal--blog {
-  width: 99vw;
-  height: 99vh;
+    width: 99vw;
+    height: 99vh;
 }

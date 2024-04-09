@@ -1,5 +1,5 @@
 tinymce.Resource.add('tinymce.html-i18n.help-keynav.da',
-'<h1>Start tastaturnavigation</h1>\n' +
+  '<h1>Start tastaturnavigation</h1>\n' +
   '\n' +
   '<dl>\n' +
   '  <dt>Fokuser på menulinjen</dt>\n' +
@@ -65,7 +65,7 @@ tinymce.Resource.add('tinymce.html-i18n.help-keynav.da',
   '\n' +
   '<p>For at lukke en åben menu, en åben undermenu eller en åben genvejsmenu trykkes der på <strong>Esc</strong>-tasten.</p>\n' +
   '\n' +
-  "<p>Hvis det aktuelle fokus er i 'toppen' af en bestemt UI-sektion, vil tryk på <strong>Esc</strong>-tasten også afslutte\n" +
+  '<p>Hvis det aktuelle fokus er i \'toppen\' af en bestemt UI-sektion, vil tryk på <strong>Esc</strong>-tasten også afslutte\n' +
   '  tastaturnavigationen helt.</p>\n' +
   '\n' +
   '<h1>Udfør et menupunkt eller en værktøjslinjeknap</h1>\n' +

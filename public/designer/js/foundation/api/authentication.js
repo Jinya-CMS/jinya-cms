@@ -1,4 +1,4 @@
-import { head, httpDelete, post } from './request.js';
+import { head, httpDelete, post, put } from './request.js';
 import { deleteDeviceCode, deleteJinyaApiKey, getJinyaApiKey, setDeviceCode, setJinyaApiKey } from '../storage.js';
 
 export async function checkLogin() {
@@ -54,4 +54,11 @@ export async function logout(fully = false) {
       deleteDeviceCode();
     }
   }
+}
+
+export async function changePassword(oldPassword, newPassword) {
+  await put('/api/account/password', {
+    oldPassword,
+    password: newPassword,
+  });
 }

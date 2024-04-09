@@ -15,7 +15,16 @@ export default class EditCategoryDialog {
    * @param webhookEnabled {boolean}
    * @param onHide {function({id: number, name: string, description: string, webhookUrl: string, parent: {id: number, name: string}, webhookEnabled: boolean})}
    */
-  constructor({ categories, id, name, description, webhookUrl, parent, webhookEnabled, onHide }) {
+  constructor({
+                categories,
+                id,
+                name,
+                description,
+                webhookUrl,
+                parent,
+                webhookEnabled,
+                onHide,
+              }) {
     this.onHide = onHide;
     this.categories = categories;
     this.id = id;
@@ -44,14 +53,14 @@ export default class EditCategoryDialog {
                 ${localize({ key: 'blog.categories.edit.parent_none' })}
               </option>
               ${this.categories.map(
-                (category) =>
-                  html` <option
+      (category) =>
+        html` <option
                     ${this.parent && this.parent?.id === category.id ? 'selected' : ''}
                     value=${category.id}
                   >
                     #${category.id} ${category.name}
                   </option>`,
-              )}
+    )}
             </select>
             <label for="editCategoryDescription" class="cosmo-label is--textarea">
               ${localize({ key: 'blog.categories.edit.description' })}
@@ -87,50 +96,52 @@ export default class EditCategoryDialog {
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
-    document.getElementById('cancel-edit-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('edit-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('editCategoryName').value;
-      const description = document.getElementById('editCategoryDescription').value;
-      const webhookUrl = document.getElementById('editCategoryWebhookUrl').value;
-      let parent = document.getElementById('editCategoryParent').value;
-      const webhookEnabled = document.getElementById('editCategoryWebhookEnabled').checked;
-      if (parent === 'null') {
-        parent = null;
-      }
-      try {
-        await put(`/api/blog/category/${this.id}`, {
-          name,
-          description,
-          webhookUrl,
-          parentId: parent,
-          webhookEnabled,
-        });
-        this.onHide({
-          name,
-          description,
-          webhookUrl,
-          parent: this.categories.find((c) => c.id === parseInt(parent, 10)),
-          webhookEnabled,
-        });
+    document.getElementById('cancel-edit-dialog')
+      .addEventListener('click', () => {
         container.remove();
-      } catch (err) {
-        if (err.status === 409) {
-          await alert({
-            title: localize({ key: 'blog.categories.edit.error.title' }),
-            message: localize({ key: 'blog.categories.edit.error.conflict' }),
-            negative: true,
-          });
-        } else {
-          await alert({
-            title: localize({ key: 'blog.categories.edit.error.title' }),
-            message: localize({ key: 'blog.categories.edit.error.generic' }),
-            negative: true,
-          });
+      });
+    document.getElementById('edit-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('editCategoryName').value;
+        const description = document.getElementById('editCategoryDescription').value;
+        const webhookUrl = document.getElementById('editCategoryWebhookUrl').value;
+        let parent = document.getElementById('editCategoryParent').value;
+        const webhookEnabled = document.getElementById('editCategoryWebhookEnabled').checked;
+        if (parent === 'null') {
+          parent = null;
         }
-      }
-    });
+        try {
+          await put(`/api/blog/category/${this.id}`, {
+            name,
+            description,
+            webhookUrl,
+            parentId: parent,
+            webhookEnabled,
+          });
+          this.onHide({
+            name,
+            description,
+            webhookUrl,
+            parent: this.categories.find((c) => c.id === parseInt(parent, 10)),
+            webhookEnabled,
+          });
+          container.remove();
+        } catch (err) {
+          if (err.status === 409) {
+            await alert({
+              title: localize({ key: 'blog.categories.edit.error.title' }),
+              message: localize({ key: 'blog.categories.edit.error.conflict' }),
+              negative: true,
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'blog.categories.edit.error.title' }),
+              message: localize({ key: 'blog.categories.edit.error.generic' }),
+              negative: true,
+            });
+          }
+        }
+      });
   }
 }

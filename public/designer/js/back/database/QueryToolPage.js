@@ -52,11 +52,13 @@ export default class QueryToolPage extends JinyaDesignerPage {
       }
       tabElem.innerText = result.statement;
       tabElem.addEventListener('click', () => {
-        document.querySelectorAll('.cosmo-tab__link.is--active').forEach((item) => item.classList.remove('is--active'));
-        document.querySelectorAll('.cosmo-tab__content').forEach((item) => {
-          // eslint-disable-next-line no-param-reassign
-          item.style.display = 'none';
-        });
+        document.querySelectorAll('.cosmo-tab__link.is--active')
+          .forEach((item) => item.classList.remove('is--active'));
+        document.querySelectorAll('.cosmo-tab__content')
+          .forEach((item) => {
+            // eslint-disable-next-line no-param-reassign
+            item.style.display = 'none';
+          });
         tabElem.classList.add('is--active');
         document.getElementById(result.statement).style.display = 'flex';
       });
@@ -90,7 +92,8 @@ export default class QueryToolPage extends JinyaDesignerPage {
             td.innerText = row[key];
             tr.append(td);
           }
-          contentElem.querySelector('tbody').append(tr);
+          contentElem.querySelector('tbody')
+            .append(tr);
         }
       } else if (!Number.isNaN(result.result)) {
         contentElem.innerText = localize({
@@ -104,18 +107,19 @@ export default class QueryToolPage extends JinyaDesignerPage {
 
   bindEvents() {
     super.bindEvents();
-    document.getElementById('execute').addEventListener('click', async () => {
-      const query = this.editor.getValue();
-      try {
-        this.queryResult = await post('/api/maintenance/database/query', { query });
-        this.displayQueryResult();
-      } catch (e) {
-        await alert({
-          title: localize({ key: 'database.query_tool.error.title' }),
-          message: localize({ key: 'database.query_tool.error.message' }),
-          negative: true,
-        });
-      }
-    });
+    document.getElementById('execute')
+      .addEventListener('click', async () => {
+        const query = this.editor.getValue();
+        try {
+          this.queryResult = await post('/api/maintenance/database/query', { query });
+          this.displayQueryResult();
+        } catch (e) {
+          await alert({
+            title: localize({ key: 'database.query_tool.error.title' }),
+            message: localize({ key: 'database.query_tool.error.message' }),
+            negative: true,
+          });
+        }
+      });
   }
 }

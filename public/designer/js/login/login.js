@@ -12,13 +12,14 @@ Alpine.data('loginData', () => ({
   twoFactorCode: '',
   errorMessage: null,
   twoFactorCodeRequested: false,
-  async needsTwoFactorCode() {
+  needsTwoFactor: true,
+  async init() {
     const deviceCode = getDeviceCode();
     if (deviceCode) {
-      return checkKnownDevice(deviceCode);
+      this.needsTwoFactor = !(await checkKnownDevice(deviceCode));
+    } else {
+      this.needsTwoFactor = true;
     }
-
-    return true;
   },
   async requestTwoFactorCode() {
     try {

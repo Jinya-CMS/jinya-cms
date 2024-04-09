@@ -30,16 +30,18 @@ export default class UploadThemeDialog {
     </form>`;
     document.body.append(container);
 
-    document.getElementById('cancel-update').addEventListener('click', () => container.remove());
-    document.getElementById('update-dialog').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const { files } = document.getElementById('createThemeZip');
-      const [zip] = files;
-      const name = document.getElementById('createThemeName').value;
+    document.getElementById('cancel-update')
+      .addEventListener('click', () => container.remove());
+    document.getElementById('update-dialog')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const { files } = document.getElementById('createThemeZip');
+        const [zip] = files;
+        const name = document.getElementById('createThemeName').value;
 
-      await uploadPost(`/api/theme?name=${name}`, zip);
-      container.remove();
-      this.onHide({ name });
-    });
+        await uploadPost(`/api/theme?name=${name}`, zip);
+        container.remove();
+        this.onHide({ name });
+      });
   }
 }

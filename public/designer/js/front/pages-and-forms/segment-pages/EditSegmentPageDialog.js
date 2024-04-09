@@ -10,7 +10,11 @@ export default class EditSegmentPageDialog {
    * @param name {string}
    * @param id {number}
    */
-  constructor({ onHide, name, id }) {
+  constructor({
+                onHide,
+                name,
+                id,
+              }) {
     this.onHide = onHide;
     this.name = name;
     this.id = id;
@@ -41,36 +45,38 @@ export default class EditSegmentPageDialog {
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
-    document.getElementById('cancel-edit-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('edit-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('editPageName').value;
-      try {
-        await put(`/api/segment-page/${this.id}`, {
-          name,
-        });
-        this.onHide({
-          name,
-          id: this.id,
-        });
+    document.getElementById('cancel-edit-dialog')
+      .addEventListener('click', () => {
         container.remove();
-      } catch (err) {
-        if (err.status === 409) {
-          await alert({
-            title: localize({ key: 'pages_and_forms.segment.create.error.title' }),
-            message: localize({ key: 'pages_and_forms.segment.create.error.conflict' }),
-            negative: true,
+      });
+    document.getElementById('edit-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('editPageName').value;
+        try {
+          await put(`/api/segment-page/${this.id}`, {
+            name,
           });
-        } else {
-          await alert({
-            title: localize({ key: 'pages_and_forms.segment.create.error.title' }),
-            message: localize({ key: 'pages_and_forms.segment.create.error.generic' }),
-            negative: true,
+          this.onHide({
+            name,
+            id: this.id,
           });
+          container.remove();
+        } catch (err) {
+          if (err.status === 409) {
+            await alert({
+              title: localize({ key: 'pages_and_forms.segment.create.error.title' }),
+              message: localize({ key: 'pages_and_forms.segment.create.error.conflict' }),
+              negative: true,
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'pages_and_forms.segment.create.error.title' }),
+              message: localize({ key: 'pages_and_forms.segment.create.error.generic' }),
+              negative: true,
+            });
+          }
         }
-      }
-    });
+      });
   }
 }

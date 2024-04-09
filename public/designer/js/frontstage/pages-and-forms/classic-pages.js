@@ -1,6 +1,7 @@
 import { Alpine } from '../../../../lib/alpine.js';
 import {
-  createClassicPage, deleteClassicPage,
+  createClassicPage,
+  deleteClassicPage,
   getClassicPage,
   getClassicPages,
   updateClassicPage,

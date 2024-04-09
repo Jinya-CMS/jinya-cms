@@ -1,15 +1,19 @@
 var M = class {
+    params = {};
+    path;
+    handlers = [];
+
     constructor(o, f = {}) {
-      this.params = {};
-      this.handlers = [];
-      this.template = '';
-      this.programmaticTemplate = !1;
-      this.handlersDone = !1;
       this.path = o, Object.keys(f)
         .forEach(l => {
           this[l] = f[l];
         }), f.template && (this.programmaticTemplate = !0);
     }
+
+    template = '';
+    programmaticTemplate = !1;
+    handlersDone = !1;
+    cancelHandlers;
   },
   C = M;
 
@@ -60,7 +64,7 @@ function k(i, o) {
 }
 
 function T(i, ...o) {
-  if (!!window.PineconeRouterMiddlewares) {
+  if (window.PineconeRouterMiddlewares) {
     for (let f in window.PineconeRouterMiddlewares) {
       let l = window.PineconeRouterMiddlewares[f];
       if (l[i] == null) return;
@@ -75,7 +79,7 @@ function D(i) {
 
 function S(i) {
   let o = i.reactive({
-    version: '4.3.0',
+    version: '4.3.1',
     name: 'pinecone-router',
     settings: {
       hash: !1,
@@ -119,7 +123,7 @@ function S(i) {
       if (w.has(n)) return;
       w.add(n);
       let t = e.content.cloneNode(!0).firstElementChild;
-      !t || (i.addScopeToNode(t, {}, e), i.mutateDom(() => {
+      t && (i.addScopeToNode(t, {}, e), i.mutateDom(() => {
         r != null ? r.appendChild(t) : e.after(t), i.initTree(t);
       }), e._x_PineconeRouter_CurrentTemplate = t, e._x_PineconeRouter_undoTemplate = () => {
         t.remove(), delete e._x_PineconeRouter_CurrentTemplate;
@@ -223,7 +227,7 @@ function S(i) {
       if (!(!r || !r.match(/^\//g) || t && !t.match(/^_?self$/i))) return typeof r != 'string' && r.url && (r = r.url), r;
     }
 
-    window.document.body.addEventListener('click', function (n) {
+    window.document.body.addEventListener('click', function(n) {
       if (n.ctrlKey || n.metaKey || n.altKey || n.shiftKey || n.button || n.defaultPrevented) return;
       let r = o.routes[R(o.context.route)] ?? o.notfound;
       r.handlersDone || (r.cancelHandlers = !0, u());
@@ -314,4 +318,4 @@ function S(i) {
 
 var q = S;
 export { q as default };
-//# sourceMappingURL=router.esm.js.map
+//# sourceMappingURL=pinecone-router.js.map

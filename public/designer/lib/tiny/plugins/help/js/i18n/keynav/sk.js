@@ -1,5 +1,5 @@
 tinymce.Resource.add('tinymce.html-i18n.help-keynav.sk',
-'<h1>Začíname s navigáciou pomocou klávesnice</h1>\n' +
+  '<h1>Začíname s navigáciou pomocou klávesnice</h1>\n' +
   '\n' +
   '<dl>\n' +
   '  <dt>Prejsť na panel s ponukami</dt>\n' +

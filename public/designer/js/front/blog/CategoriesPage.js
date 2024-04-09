@@ -57,25 +57,27 @@ export default class CategoriesPage extends JinyaDesignerPage {
                 <button id="new-category-button" class="cosmo-button is--full-width">
                     ${localize({ key: 'blog.categories.action.new' })}
                 </button>`;
-    document.querySelectorAll('.cosmo-side-list__item').forEach((item) => {
-      item.addEventListener('click', async () => {
-        this.selectCategory({ id: item.getAttribute('data-id') });
-        this.displaySelectedCategory();
+    document.querySelectorAll('.cosmo-side-list__item')
+      .forEach((item) => {
+        item.addEventListener('click', async () => {
+          this.selectCategory({ id: item.getAttribute('data-id') });
+          this.displaySelectedCategory();
+        });
       });
-    });
-    document.getElementById('new-category-button').addEventListener('click', async () => {
-      const { default: AddCategoryDialog } = await import('./categories/AddCategoryDialog.js');
-      const dialog = new AddCategoryDialog({
-        onHide: async (category) => {
-          this.categories.push(category);
-          this.displayCategories();
-          this.selectCategory({ id: category.id });
-          await this.displaySelectedCategory();
-        },
-        categories: this.categories,
+    document.getElementById('new-category-button')
+      .addEventListener('click', async () => {
+        const { default: AddCategoryDialog } = await import('./categories/AddCategoryDialog.js');
+        const dialog = new AddCategoryDialog({
+          onHide: async (category) => {
+            this.categories.push(category);
+            this.displayCategories();
+            this.selectCategory({ id: category.id });
+            await this.displaySelectedCategory();
+          },
+          categories: this.categories,
+        });
+        dialog.show();
       });
-      dialog.show();
-    });
   }
 
   displaySelectedCategory() {
@@ -87,9 +89,11 @@ export default class CategoriesPage extends JinyaDesignerPage {
       this.selectedCategory.parent?.name ?? localize({ key: 'blog.categories.details.parent_none' });
     if (this.selectedCategory.webhookEnabled) {
       document.getElementById('category-webhook').innerText = this.selectedCategory.webhookUrl;
-      document.querySelectorAll('[data-type="webhook"]').forEach((item) => item.removeAttribute('hidden'));
+      document.querySelectorAll('[data-type="webhook"]')
+        .forEach((item) => item.removeAttribute('hidden'));
     } else {
-      document.querySelectorAll('[data-type="webhook"]').forEach((item) => item.setAttribute('hidden', 'hidden'));
+      document.querySelectorAll('[data-type="webhook"]')
+        .forEach((item) => item.setAttribute('hidden', 'hidden'));
     }
   }
 
@@ -100,7 +104,9 @@ export default class CategoriesPage extends JinyaDesignerPage {
     document
       .querySelectorAll('.cosmo-side-list__item.is--active')
       .forEach((item) => item.classList.remove('is--active'));
-    document.querySelector(`[data-id="${id}"]`).classList.add('is--active');
+    document.querySelector(`[data-id="${id}"]`)
+      .classList
+      .add('is--active');
   }
 
   async displayed() {
@@ -117,68 +123,76 @@ export default class CategoriesPage extends JinyaDesignerPage {
 
   bindEvents() {
     super.bindEvents();
-    document.getElementById('delete-category').addEventListener('click', async () => {
-      const confirmation = await confirm({
-        title: localize({ key: 'blog.categories.delete.title' }),
-        message: localize({
-          key: 'blog.categories.delete.message',
-          values: this.selectedCategory,
-        }),
-        declineLabel: localize({ key: 'blog.categories.delete.keep' }),
-        approveLabel: localize({ key: 'blog.categories.delete.delete' }),
-        negative: true,
-      });
-      if (confirmation) {
-        try {
-          await httpDelete(`/api/blog/category/${this.selectedCategory.id}`);
-          this.categories = this.categories.filter((category) => category.id !== this.selectedCategory.id);
-          this.displayCategories();
-          if (this.categories.length > 0) {
-            this.selectCategory({ id: this.categories[0].id });
-            await this.displaySelectedCategory();
-          } else {
-            this.selectedCategory = null;
-            document.getElementById('page-title').innerText = '';
-          }
-        } catch (e) {
-          if (e.status === 409) {
-            await alert({
-              title: localize({ key: 'blog.categories.delete.error.title' }),
-              message: localize({ key: 'blog.categories.delete.error.conflict' }),
-              negative: true,
-            });
-          } else {
-            await alert({
-              title: localize({ key: 'blog.categories.delete.error.title' }),
-              message: localize({ key: 'blog.categories.delete.error.generic' }),
-              negative: true,
-            });
+    document.getElementById('delete-category')
+      .addEventListener('click', async () => {
+        const confirmation = await confirm({
+          title: localize({ key: 'blog.categories.delete.title' }),
+          message: localize({
+            key: 'blog.categories.delete.message',
+            values: this.selectedCategory,
+          }),
+          declineLabel: localize({ key: 'blog.categories.delete.keep' }),
+          approveLabel: localize({ key: 'blog.categories.delete.delete' }),
+          negative: true,
+        });
+        if (confirmation) {
+          try {
+            await httpDelete(`/api/blog/category/${this.selectedCategory.id}`);
+            this.categories = this.categories.filter((category) => category.id !== this.selectedCategory.id);
+            this.displayCategories();
+            if (this.categories.length > 0) {
+              this.selectCategory({ id: this.categories[0].id });
+              await this.displaySelectedCategory();
+            } else {
+              this.selectedCategory = null;
+              document.getElementById('page-title').innerText = '';
+            }
+          } catch (e) {
+            if (e.status === 409) {
+              await alert({
+                title: localize({ key: 'blog.categories.delete.error.title' }),
+                message: localize({ key: 'blog.categories.delete.error.conflict' }),
+                negative: true,
+              });
+            } else {
+              await alert({
+                title: localize({ key: 'blog.categories.delete.error.title' }),
+                message: localize({ key: 'blog.categories.delete.error.generic' }),
+                negative: true,
+              });
+            }
           }
         }
-      }
-    });
-    document.getElementById('edit-category').addEventListener('click', async () => {
-      const { default: EditCategoryDialog } = await import('./categories/EditCategoryDialog.js');
-      const dialog = new EditCategoryDialog({
-        onHide: async ({ name, description, webhookUrl, parent, webhookEnabled }) => {
-          const category = this.categories.find((c) => c.id === this.selectedCategory.id);
-          category.name = name;
-          category.description = description;
-          category.webhookUrl = webhookUrl;
-          if (parent) {
-            category.parent = this.categories.find((c) => c.id === parent.id);
-          } else {
-            category.parent = null;
-          }
-          category.webhookEnabled = webhookEnabled;
-          this.displayCategories();
-          this.selectCategory({ id: this.selectedCategory.id });
-          await this.displaySelectedCategory();
-        },
-        categories: this.categories,
-        ...this.selectedCategory,
       });
-      dialog.show();
-    });
+    document.getElementById('edit-category')
+      .addEventListener('click', async () => {
+        const { default: EditCategoryDialog } = await import('./categories/EditCategoryDialog.js');
+        const dialog = new EditCategoryDialog({
+          onHide: async ({
+                           name,
+                           description,
+                           webhookUrl,
+                           parent,
+                           webhookEnabled,
+                         }) => {
+            const category = this.categories.find((c) => c.id === this.selectedCategory.id);
+            category.name = name;
+            category.description = description;
+            category.webhookUrl = webhookUrl;
+            if (parent) {
+              category.parent = this.categories.find((c) => c.id === parent.id);
+            } else {
+              category.parent = null;
+            }
+            category.webhookEnabled = webhookEnabled;
+            this.displayCategories();
+            this.selectCategory({ id: this.selectedCategory.id });
+            await this.displaySelectedCategory();
+          },
+          categories: this.categories,
+          ...this.selectedCategory,
+        });
+        dialog.show();
+      });
   }
 }

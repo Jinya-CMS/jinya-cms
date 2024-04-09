@@ -1,5 +1,5 @@
 tinymce.Resource.add('tinymce.html-i18n.help-keynav.ms',
-'<h1>Mulakan navigasi papan kekunci</h1>\n' +
+  '<h1>Mulakan navigasi papan kekunci</h1>\n' +
   '\n' +
   '<dl>\n' +
   '  <dt>Fokus bar Menu</dt>\n' +
@@ -65,7 +65,7 @@ tinymce.Resource.add('tinymce.html-i18n.help-keynav.ms',
   '\n' +
   '<p>Untuk menutup menu buka, submenu terbuka atau menu timbul terbuka, tekan kekunci <strong>Esc</strong>.</p>\n' +
   '\n' +
-  "<p>Jika fokus semasa berada di bahagian 'atas' bahagian UI tertentu, menekan kekunci <strong>Esc</strong> juga akan keluar daripada\n" +
+  '<p>Jika fokus semasa berada di bahagian \'atas\' bahagian UI tertentu, menekan kekunci <strong>Esc</strong> juga akan keluar daripada\n' +
   '  navigasi papan kekunci sepenuhnya.</p>\n' +
   '\n' +
   '<h1>Laksanakan item menu atau butang bar alat</h1>\n' +

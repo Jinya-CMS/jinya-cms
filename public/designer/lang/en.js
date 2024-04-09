@@ -807,7 +807,6 @@ export default {
       email: 'Email',
       artist_name: 'Artist name',
       profile_picture: 'Profile picture',
-      about_me: 'About me',
       change_password: {
         title: 'Change password',
         new_password_repeat: 'Repeat password',
@@ -819,10 +818,17 @@ export default {
           forbidden: 'The old password is wrong',
           generic: 'Changing the password didn\'t work, please contact your administrator',
           title: 'Error changing password',
+          not_match: 'The new passwords need to match',
         },
-        not_match: {
-          title: 'Passwords don\'t match',
-          message: 'The new passwords need to match, please correct.',
+      },
+      about_me: {
+        success: {
+          title: 'Profile saved',
+          message: 'Your profile was saved successfully',
+        },
+        error: {
+          title: 'Error saving',
+          message: 'Your profile couldn\'t be saved, please contact your administrator',
         },
       },
     },

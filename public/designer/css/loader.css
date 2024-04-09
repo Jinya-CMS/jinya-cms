@@ -1,7 +1,7 @@
 .jinya-loader__container {
-  display: flex;
-  height: var(--page-height);
-  width: 100%;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    height: var(--page-height);
+    width: 100%;
+    justify-content: center;
+    align-items: center;
 }

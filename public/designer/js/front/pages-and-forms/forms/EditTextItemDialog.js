@@ -18,18 +18,18 @@ export default class EditTextItemDialog {
    * @param newItem {boolean}
    */
   constructor({
-    onHide,
-    id,
-    formId,
-    label,
-    position,
-    placeholder,
-    helpText,
-    isRequired,
-    isSubject,
-    spamFilter,
-    newItem = false,
-  }) {
+                onHide,
+                id,
+                formId,
+                label,
+                position,
+                placeholder,
+                helpText,
+                isRequired,
+                isSubject,
+                spamFilter,
+                newItem = false,
+              }) {
     this.onHide = onHide;
     this.position = position;
     this.newItem = newItem;
@@ -111,48 +111,52 @@ ${this.newItem ? '' : this.spamFilter.join('\n')}</textarea
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
-    document.getElementById('cancel-edit-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('edit-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const label = document.getElementById('editItemLabel').value;
-      const placeholder = document.getElementById('editItemPlaceholder').value;
-      const helpText = document.getElementById('editItemHelpText').value;
-      const isRequired = document.getElementById('editItemIsRequired').checked;
-      const isSubject = document.getElementById('editItemIsSubject').checked;
-      const spamFilter = document.getElementById('editItemSpamFilter').value.split(/\n|\r|\r\n/gm);
-      if (this.newItem) {
-        const item = await post(`/api/form/${this.formId}/item`, {
-          label,
-          placeholder,
-          helpText,
-          isRequired,
-          isSubject,
-          spamFilter,
-          position: this.position,
-          type: 'text',
-        });
-        this.onHide({ item });
-      } else {
-        await put(`/api/form/${this.formId}/item/${this.position}`, {
-          label,
-          placeholder,
-          helpText,
-          isSubject,
-          isRequired,
-          spamFilter,
-        });
-        this.onHide({
-          label,
-          placeholder,
-          helpText,
-          isSubject,
-          isRequired,
-          spamFilter,
-        });
-      }
-      container.remove();
-    });
+    document.getElementById('cancel-edit-dialog')
+      .addEventListener('click', () => {
+        container.remove();
+      });
+    document.getElementById('edit-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const label = document.getElementById('editItemLabel').value;
+        const placeholder = document.getElementById('editItemPlaceholder').value;
+        const helpText = document.getElementById('editItemHelpText').value;
+        const isRequired = document.getElementById('editItemIsRequired').checked;
+        const isSubject = document.getElementById('editItemIsSubject').checked;
+        const spamFilter = document.getElementById('editItemSpamFilter')
+          .value
+          .split(/\n|\r|\r\n/gm);
+        if (this.newItem) {
+          const item = await post(`/api/form/${this.formId}/item`, {
+            label,
+            placeholder,
+            helpText,
+            isRequired,
+            isSubject,
+            spamFilter,
+            position: this.position,
+            type: 'text',
+          });
+          this.onHide({ item });
+        } else {
+          await put(`/api/form/${this.formId}/item/${this.position}`, {
+            label,
+            placeholder,
+            helpText,
+            isSubject,
+            isRequired,
+            spamFilter,
+          });
+          this.onHide({
+            label,
+            placeholder,
+            helpText,
+            isSubject,
+            isRequired,
+            spamFilter,
+          });
+        }
+        container.remove();
+      });
   }
 }

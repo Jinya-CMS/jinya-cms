@@ -1,5 +1,5 @@
 tinymce.Resource.add('tinymce.html-i18n.help-keynav.zh_TW',
-'<h1>開始鍵盤瀏覽</h1>\n' +
+  '<h1>開始鍵盤瀏覽</h1>\n' +
   '\n' +
   '<dl>\n' +
   '  <dt>跳至功能表列</dt>\n' +

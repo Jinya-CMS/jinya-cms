@@ -73,8 +73,12 @@ class EmojiPickerElement extends HTMLElement {
       this.root
         .querySelectorAll('.emoji-picker__tab-content--active')
         .forEach((tab) => tab.classList.remove('emoji-picker__tab-content--active'));
-      this.root.querySelector(`[data-tab="${category.name}"]`)?.classList.add('emoji-picker__tab-content--active');
-      this.root.querySelector(`[title="${category.name}"]`)?.classList.add('emoji-picker__tab-item--active');
+      this.root.querySelector(`[data-tab="${category.name}"]`)
+        ?.classList
+        .add('emoji-picker__tab-content--active');
+      this.root.querySelector(`[title="${category.name}"]`)
+        ?.classList
+        .add('emoji-picker__tab-item--active');
     }
   }
 
@@ -180,61 +184,68 @@ class EmojiPickerElement extends HTMLElement {
       <div class="emoji-picker__popup" part="popup">
         <div class="emoji-picker__tab-bar">
           ${Emojis.map(
-            (item, idx) => `
+      (item, idx) => `
               <a
                 class="emoji-picker__tab-item ${idx === 0 ? 'is--active' : ''}"
                 title="${item.name}"
                 >${item.emojis[0]}</a
               >
             `,
-          ).join('')}
+    )
+      .join('')}
         </div>
         ${Emojis.map(
-          (item, idx) => `
+      (item, idx) => `
             <div
               data-tab="${item.name}"
               class="emoji-picker__tab-content ${idx === 0 ? 'is--active' : ''}"
             >
               ${item.emojis.map(
-                (emoji) => ` <input value="${emoji}" type="radio" name="emoji" class="emoji-picker__button" /> `,
-              ).join('')}
+        (emoji) => ` <input value="${emoji}" type="radio" name="emoji" class="emoji-picker__button" /> `,
+      )
+        .join('')}
             </div>
           `,
-          ).join('')}
+    )
+      .join('')}
       </div>
     `;
     this.addEventListener('click', (evt) => {
       evt.stopPropagation();
       this.open = !this.open;
     });
-    this.root.querySelectorAll('input').forEach((elem) => {
-      elem.addEventListener('click', (evt) => {
-        const newValue = evt.currentTarget.value;
-        this.internals.setFormValue(newValue);
-        this.dispatchEvent(new InputEvent('input'));
-        this.emoji = newValue;
+    this.root.querySelectorAll('input')
+      .forEach((elem) => {
+        elem.addEventListener('click', (evt) => {
+          const newValue = evt.currentTarget.value;
+          this.internals.setFormValue(newValue);
+          this.dispatchEvent(new InputEvent('input'));
+          this.emoji = newValue;
+        });
       });
-    });
-    this.root.querySelectorAll('.emoji-picker__tab-item').forEach((elem) => {
-      elem.addEventListener('click', (evt) => {
-        evt.stopPropagation();
-        this.root
-          .querySelectorAll('.is--active')
-          .forEach((tab) => tab.classList.remove('is--active'));
-        this.root
-          .querySelectorAll('.is--active')
-          .forEach((tab) => tab.classList.remove('is--active'));
-        evt.currentTarget.classList.add('is--active');
-        this.root
-          .querySelector(`[data-tab="${evt.currentTarget.title}"]`)
-          .classList.add('is--active');
+    this.root.querySelectorAll('.emoji-picker__tab-item')
+      .forEach((elem) => {
+        elem.addEventListener('click', (evt) => {
+          evt.stopPropagation();
+          this.root
+            .querySelectorAll('.is--active')
+            .forEach((tab) => tab.classList.remove('is--active'));
+          this.root
+            .querySelectorAll('.is--active')
+            .forEach((tab) => tab.classList.remove('is--active'));
+          evt.currentTarget.classList.add('is--active');
+          this.root
+            .querySelector(`[data-tab="${evt.currentTarget.title}"]`)
+            .classList
+            .add('is--active');
+        });
       });
-    });
     document.addEventListener('click', this.clickOutside);
   }
 
   clickOutside(evt) {
-    if (this.open && !evt?.composedPath().includes(this)) {
+    if (this.open && !evt?.composedPath()
+      .includes(this)) {
       this.open = false;
     }
   }

@@ -20,19 +20,19 @@ export default class EditMenuItemDialog {
    * @param newItem {boolean}
    */
   constructor({
-    onHide,
-    id: menuItemId,
-    position,
-    items,
-    selectedItem,
-    type,
-    route,
-    title,
-    highlighted,
-    parentId = null,
-    menuId = null,
-    newItem = false,
-  }) {
+                onHide,
+                id: menuItemId,
+                position,
+                items,
+                selectedItem,
+                type,
+                route,
+                title,
+                highlighted,
+                parentId = null,
+                menuId = null,
+                newItem = false,
+              }) {
     this.onHide = onHide;
     this.position = position;
     this.newItem = newItem;
@@ -60,28 +60,28 @@ export default class EditMenuItemDialog {
               <input value="${this.title ?? ''}" required type="text" id="editMenuItemTitle"
                      class="cosmo-input">
               ${
-                this.type === 'group'
-                  ? ''
-                  : html` <label for="editMenuItemRoute" class="cosmo-label">
+      this.type === 'group'
+        ? ''
+        : html` <label for="editMenuItemRoute" class="cosmo-label">
                         ${localize({ key: 'design.menus.designer.edit.route' })}
                       </label>
                       <input value="${this.route ?? ''}" type="text" id="editMenuItemRoute" class="cosmo-input" />`
-              }
+    }
               ${
-                this.type !== 'group' && this.type !== 'blog_home_page' && this.type !== 'external_link'
-                  ? html` <label for="editMenuElement" class="cosmo-label">
+      this.type !== 'group' && this.type !== 'blog_home_page' && this.type !== 'external_link'
+        ? html` <label for="editMenuElement" class="cosmo-label">
                         ${localize({ key: `design.menus.designer.type_${this.type}` })}
                       </label>
                       <select required id="editMenuElement" class="cosmo-select">
                         ${this.items.map(
-                          (item) =>
-                            html` <option ${this.selectedItem === item.id ? 'selected' : ''} value="${item.id}">
+          (item) =>
+            html` <option ${this.selectedItem === item.id ? 'selected' : ''} value="${item.id}">
                               #${item.id} ${item.name ?? item.title ?? item.artistName}
                             </option>`,
-                        )}
+        )}
                       </select>`
-                  : ''
-              }
+        : ''
+    }
               <div class="cosmo-input__group is--checkbox">
                 <input ${this.highlighted ? 'checked' : ''} type="checkbox" id="editMenuItemIsHighlighted"
                        class="cosmo-checkbox">
@@ -103,115 +103,117 @@ export default class EditMenuItemDialog {
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
-    document.getElementById('cancel-edit-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('edit-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const title = document.getElementById('editMenuItemTitle').value;
-      const route = document.getElementById('editMenuItemRoute')?.value;
-      const selectedItem = parseInt(document.getElementById('editMenuElement')?.value ?? '-1', 10);
-      const highlighted = document.getElementById('editMenuItemIsHighlighted').checked;
-      const data = {
-        title,
-        route,
-        highlighted,
-      };
-
-      // eslint-disable-next-line default-case
-      switch (this.type) {
-        case 'gallery':
-          data.gallery = selectedItem;
-          break;
-        case 'page':
-          data.page = selectedItem;
-          break;
-        case 'segment_page':
-          data.segmentPage = selectedItem;
-          break;
-        case 'form':
-          data.form = selectedItem;
-          break;
-        case 'artist':
-          data.artist = selectedItem;
-          break;
-        case 'blog_home_page':
-          data.blogHomePage = true;
-          break;
-        case 'blog_category':
-          data.category = selectedItem;
-          break;
-      }
-
-      if (!data.blogHomePage) {
-        data.blogHomePage = false;
-      }
-      try {
-        if (this.newItem) {
-          let url = '';
-          if (Number.isInteger(this.parentId)) {
-            url = `/api/menu-item/${this.parentId}/item`;
-          } else {
-            url = `/api/menu/${this.menuId}/item`;
-          }
-          const item = await post(url, {
-            ...data,
-            position: this.position,
-          });
-          this.onHide(item);
-        } else {
-          await put(`/api/menu-item/${this.menuItemId}`, data);
-          const result = {
-            id: this.menuItemId,
-            position: this.position,
-            title,
-            route,
-            highlighted,
-          };
-
-          const selectedItemByType = this.items.find((g) => g.id === selectedItem);
-          // eslint-disable-next-line default-case
-          switch (this.type) {
-            case 'gallery':
-              result.gallery = selectedItemByType;
-              break;
-            case 'page':
-              result.page = selectedItemByType;
-              break;
-            case 'segment_page':
-              result.segmentPage = selectedItemByType;
-              break;
-            case 'form':
-              result.form = selectedItemByType;
-              break;
-            case 'artist':
-              result.artist = selectedItemByType;
-              break;
-            case 'blog_home_page':
-              result.blogHomePage = true;
-              break;
-            case 'blog_category':
-              result.category = selectedItemByType;
-              break;
-          }
-          this.onHide(result);
-        }
+    document.getElementById('cancel-edit-dialog')
+      .addEventListener('click', () => {
         container.remove();
-      } catch (err) {
-        if (err.status === 409) {
-          await alert({
-            title: localize({ key: 'pages_and_forms.segment.create.error.title' }),
-            message: localize({ key: 'pages_and_forms.segment.create.error.conflict' }),
-            negative: true,
-          });
-        } else {
-          await alert({
-            title: localize({ key: 'pages_and_forms.segment.create.error.title' }),
-            message: localize({ key: 'pages_and_forms.segment.create.error.generic' }),
-            negative: true,
-          });
+      });
+    document.getElementById('edit-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const title = document.getElementById('editMenuItemTitle').value;
+        const route = document.getElementById('editMenuItemRoute')?.value;
+        const selectedItem = parseInt(document.getElementById('editMenuElement')?.value ?? '-1', 10);
+        const highlighted = document.getElementById('editMenuItemIsHighlighted').checked;
+        const data = {
+          title,
+          route,
+          highlighted,
+        };
+
+        // eslint-disable-next-line default-case
+        switch (this.type) {
+          case 'gallery':
+            data.gallery = selectedItem;
+            break;
+          case 'page':
+            data.page = selectedItem;
+            break;
+          case 'segment_page':
+            data.segmentPage = selectedItem;
+            break;
+          case 'form':
+            data.form = selectedItem;
+            break;
+          case 'artist':
+            data.artist = selectedItem;
+            break;
+          case 'blog_home_page':
+            data.blogHomePage = true;
+            break;
+          case 'blog_category':
+            data.category = selectedItem;
+            break;
         }
-      }
-    });
+
+        if (!data.blogHomePage) {
+          data.blogHomePage = false;
+        }
+        try {
+          if (this.newItem) {
+            let url = '';
+            if (Number.isInteger(this.parentId)) {
+              url = `/api/menu-item/${this.parentId}/item`;
+            } else {
+              url = `/api/menu/${this.menuId}/item`;
+            }
+            const item = await post(url, {
+              ...data,
+              position: this.position,
+            });
+            this.onHide(item);
+          } else {
+            await put(`/api/menu-item/${this.menuItemId}`, data);
+            const result = {
+              id: this.menuItemId,
+              position: this.position,
+              title,
+              route,
+              highlighted,
+            };
+
+            const selectedItemByType = this.items.find((g) => g.id === selectedItem);
+            // eslint-disable-next-line default-case
+            switch (this.type) {
+              case 'gallery':
+                result.gallery = selectedItemByType;
+                break;
+              case 'page':
+                result.page = selectedItemByType;
+                break;
+              case 'segment_page':
+                result.segmentPage = selectedItemByType;
+                break;
+              case 'form':
+                result.form = selectedItemByType;
+                break;
+              case 'artist':
+                result.artist = selectedItemByType;
+                break;
+              case 'blog_home_page':
+                result.blogHomePage = true;
+                break;
+              case 'blog_category':
+                result.category = selectedItemByType;
+                break;
+            }
+            this.onHide(result);
+          }
+          container.remove();
+        } catch (err) {
+          if (err.status === 409) {
+            await alert({
+              title: localize({ key: 'pages_and_forms.segment.create.error.title' }),
+              message: localize({ key: 'pages_and_forms.segment.create.error.conflict' }),
+              negative: true,
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'pages_and_forms.segment.create.error.title' }),
+              message: localize({ key: 'pages_and_forms.segment.create.error.generic' }),
+              negative: true,
+            });
+          }
+        }
+      });
   }
 }

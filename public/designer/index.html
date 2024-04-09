@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" x-data :class="$store.colorScheme.bodyClass">
+<html :class="$store.colorScheme.bodyClass" lang="en" x-data>
 <head>
   <meta charset="UTF-8" />
   <title>Jinya CMS Designer</title>
@@ -31,7 +31,6 @@
   <link href="/designer/css/profile.css" rel="stylesheet" />
   <link href="/designer/css/update.css" rel="stylesheet" />
   <link href="/designer/css/query-tool.css" rel="stylesheet" />
-  <link href="/designer/css/stats.css" rel="stylesheet" />
   <link href="/designer/css/blog.css" rel="stylesheet" />
   <link href="/designer/css/loader.css" rel="stylesheet" />
   <link href="/designer/css/tiny.css" rel="stylesheet" />
@@ -63,94 +62,94 @@
       <template x-if="$store.navigation.stage === 'frontstage'">
         <div class="cosmo-menu__row">
           <a
-            href="/designer/backstage/maintenance/updates"
             class="cosmo-menu__item"
+            href="/designer/backstage/maintenance/updates"
             x-localize:maintenance-menu-title
           ></a>
-          <a href="/designer/backstage/database/mysql-info" class="cosmo-menu__item" x-localize:database-menu-title>
+          <a class="cosmo-menu__item" href="/designer/backstage/database/mysql-info" x-localize:database-menu-title>
           </a>
-          <a href="/designer/backstage/artists/index" class="cosmo-menu__item" x-localize:artists-menu-title> </a>
+          <a class="cosmo-menu__item" href="/designer/backstage/artists/index" x-localize:artists-menu-title> </a>
         </div>
       </template>
       <template x-if="$store.navigation.stage === 'backstage'">
         <div class="cosmo-menu__row">
-          <a href="/designer/frontstage/media/files" x-localize:media-menu-title class="cosmo-menu__item"> </a>
+          <a class="cosmo-menu__item" href="/designer/frontstage/media/files" x-localize:media-menu-title> </a>
           <a
-            href="/designer/frontstage/pages-and-forms/simple-pages"
             class="cosmo-menu__item"
+            href="/designer/frontstage/pages-and-forms/simple-pages"
             x-localize:pages_and_forms-menu-title
           >
           </a>
-          <a href="/designer/frontstage/blog/categories" class="cosmo-menu__item" x-localize:blog-menu-title> </a>
-          <a href="/designer/frontstage/design/menus" class="cosmo-menu__item" x-localize:design-menu-title> </a>
+          <a class="cosmo-menu__item" href="/designer/frontstage/blog/categories" x-localize:blog-menu-title> </a>
+          <a class="cosmo-menu__item" href="/designer/frontstage/design/menus" x-localize:design-menu-title> </a>
           <a
-            href="/designer/frontstage/my-jinya/my-profile"
             class="cosmo-menu__item"
+            href="/designer/frontstage/my-jinya/my-profile"
             x-localize:my_jinya-menu-title
           >
           </a>
         </div>
       </template>
-      <img :src="$store.artist.profilePicture" class="cosmo-profile-picture" :alt="$store.artist.artistName" />
-      <a class="cosmo-menu__item is--right" x-localize:top_menu-logout @click="$store.authentication.logout"></a>
+      <img :alt="$store.artist.artistName" :src="$store.artist.profilePicture" class="cosmo-profile-picture" />
+      <a @click="$store.authentication.logout(true)" class="cosmo-menu__item is--right" x-localize:top_menu-logout></a>
     </div>
   </template>
   <template x-if="$store.authentication.loggedIn">
     <div class="cosmo-menu">
-      <button type="button" class="cosmo-back-button"></button>
+      <button class="cosmo-back-button" type="button"></button>
       <template x-if="$store.navigation.stage === 'frontstage'">
         <nav class="cosmo-menu__collection">
           <div class="cosmo-menu__row is--main">
             <a
+              class="cosmo-menu__item"
               href="/designer/frontstage/media/files"
-              x-localize:media-menu-title
-              class="cosmo-menu__item"
               x-active-route.area="media"
+              x-localize:media-menu-title
             >
             </a>
             <a
+              class="cosmo-menu__item"
               href="/designer/frontstage/pages-and-forms/classic-pages"
-              class="cosmo-menu__item"
-              x-localize:pages_and_forms-menu-title
               x-active-route.area="pages-and-forms"
+              x-localize:pages_and_forms-menu-title
             >
             </a>
             <a
+              class="cosmo-menu__item"
               href="/designer/frontstage/blog/categories"
-              class="cosmo-menu__item"
-              x-localize:blog-menu-title
               x-active-route.area="blog"
+              x-localize:blog-menu-title
             >
             </a>
             <a
+              class="cosmo-menu__item"
               href="/designer/frontstage/design/menus"
-              class="cosmo-menu__item"
-              x-localize:design-menu-title
               x-active-route.area="design"
+              x-localize:design-menu-title
             >
             </a>
             <a
-              href="/designer/frontstage/my-jinya/my-profile"
               class="cosmo-menu__item"
-              x-localize:my_jinya-menu-title
+              href="/designer/frontstage/my-jinya/my-profile"
               x-active-route.area="my-jinya"
+              x-localize:my_jinya-menu-title
             >
             </a>
           </div>
           <template x-if="$store.navigation.area === 'media'">
             <div class="cosmo-menu__row is--sub">
               <a
-                href="/designer/frontstage/media/files"
                 class="cosmo-menu__item"
-                x-localize:media-menu-files
+                href="/designer/frontstage/media/files"
                 x-active-route="files"
+                x-localize:media-menu-files
               >
               </a>
               <a
-                href="/designer/frontstage/media/galleries"
                 class="cosmo-menu__item"
-                x-localize:media-menu-galleries
+                href="/designer/frontstage/media/galleries"
                 x-active-route="galleries"
+                x-localize:media-menu-galleries
               >
               </a>
             </div>
@@ -158,24 +157,24 @@
           <template x-if="$store.navigation.area === 'pages-and-forms'">
             <div class="cosmo-menu__row is--sub">
               <a
+                class="cosmo-menu__item"
                 href="/designer/frontstage/pages-and-forms/classic-pages"
-                class="cosmo-menu__item"
-                x-localize:pages_and_forms-menu-classic_pages
                 x-active-route="classic-pages"
+                x-localize:pages_and_forms-menu-classic_pages
               >
               </a>
               <a
+                class="cosmo-menu__item"
                 href="/designer/frontstage/pages-and-forms/modern-pages"
-                class="cosmo-menu__item"
-                x-localize:pages_and_forms-menu-modern_pages
                 x-active-route="modern-pages"
+                x-localize:pages_and_forms-menu-modern_pages
               >
               </a>
               <a
-                href="/designer/frontstage/pages-and-forms/forms"
                 class="cosmo-menu__item"
-                x-localize:pages_and_forms-menu-forms
+                href="/designer/frontstage/pages-and-forms/forms"
                 x-active-route="forms"
+                x-localize:pages_and_forms-menu-forms
               >
               </a>
             </div>
@@ -183,17 +182,17 @@
           <template x-if="$store.navigation.area === 'blog'">
             <div class="cosmo-menu__row is--sub">
               <a
-                href="/designer/frontstage/blog/categories"
                 class="cosmo-menu__item"
-                x-localize:blog-menu-categories
+                href="/designer/frontstage/blog/categories"
                 x-active-route="categories"
+                x-localize:blog-menu-categories
               >
               </a>
               <a
-                href="/designer/frontstage/blog/posts"
                 class="cosmo-menu__item"
-                x-localize:blog-menu-posts
+                href="/designer/frontstage/blog/posts"
                 x-active-route="posts"
+                x-localize:blog-menu-posts
               >
               </a>
             </div>
@@ -201,17 +200,17 @@
           <template x-if="$store.navigation.area === 'design'">
             <div class="cosmo-menu__row is--sub">
               <a
-                href="/designer/frontstage/design/menu"
                 class="cosmo-menu__item"
-                x-localize:design-menu-menus
+                href="/designer/frontstage/design/menu"
                 x-active-route="menu"
+                x-localize:design-menu-menus
               >
               </a>
               <a
-                href="/designer/frontstage/desing/themes"
                 class="cosmo-menu__item"
-                x-localize:design-menu-themes
+                href="/designer/frontstage/desing/themes"
                 x-active-route="themes"
+                x-localize:design-menu-themes
               >
               </a>
             </div>
@@ -219,24 +218,24 @@
           <template x-if="$store.navigation.area === 'my-jinya'">
             <div class="cosmo-menu__row is--sub">
               <a
+                class="cosmo-menu__item"
                 href="/designer/frontstage/my-jinya/my-profile"
-                class="cosmo-menu__item"
-                x-localize:my_jinya-menu-my_profile
                 x-active-route="my-profile"
+                x-localize:my_jinya-menu-my_profile
               >
               </a>
               <a
+                class="cosmo-menu__item"
                 href="/designer/frontstage/my-jinya/active-sessions"
-                class="cosmo-menu__item"
-                x-localize:my_jinya-menu-active_sessions
                 x-active-route="active-sessions"
+                x-localize:my_jinya-menu-active_sessions
               >
               </a>
               <a
-                href="/designer/frontstage/my-jinya/active-devices"
                 class="cosmo-menu__item"
-                x-localize:my_jinya-menu-active_devices
+                href="/designer/frontstage/my-jinya/active-devices"
                 x-active-route="active-devices"
+                x-localize:my_jinya-menu-active_devices
               >
               </a>
             </div>
@@ -247,46 +246,46 @@
         <nav class="cosmo-menu__collection">
           <div class="cosmo-menu__row is--main">
             <a
-              href="/designer/backstage/maintenance/updates"
               class="cosmo-menu__item"
-              x-localize:maintenance-menu-title
+              href="/designer/backstage/maintenance/updates"
               x-active-route.area="maintenance"
+              x-localize:maintenance-menu-title
             ></a>
             <a
-              href="/designer/backstage/database/mysql-info"
               class="cosmo-menu__item"
-              x-localize:database-menu-title
+              href="/designer/backstage/database/mysql-info"
               x-active-route.area="database"
+              x-localize:database-menu-title
             >
             </a>
             <a
-              href="/designer/backstage/artists/index"
               class="cosmo-menu__item"
-              x-localize:artists-menu-title
+              href="/designer/backstage/artists/index"
               x-active-route.area="artists"
+              x-localize:artists-menu-title
             ></a>
           </div>
           <template x-if="$store.navigation.area === 'maintenance'">
             <div class="cosmo-menu__row is--sub">
               <a
+                class="cosmo-menu__item"
                 href="/designer/backstage/maintenance/updates"
-                class="cosmo-menu__item"
-                x-localize:maintenance-menu-update
                 x-active-route="updates"
+                x-localize:maintenance-menu-update
               >
               </a>
               <a
+                class="cosmo-menu__item"
                 href="/designer/backstage/maintenance/environment"
-                class="cosmo-menu__item"
-                x-localize:maintenance-menu-app_config
                 x-active-route="environment"
+                x-localize:maintenance-menu-app_config
               >
               </a>
               <a
-                href="/designer/backstage/maintenance/php-info"
                 class="cosmo-menu__item"
-                x-localize:maintenance-menu-php_info
+                href="/designer/backstage/maintenance/php-info"
                 x-active-route="php-info"
+                x-localize:maintenance-menu-php_info
               >
               </a>
             </div>
@@ -294,24 +293,24 @@
           <template x-if="$store.navigation.area === 'database'">
             <div class="cosmo-menu__row is--sub">
               <a
+                class="cosmo-menu__item"
                 href="/designer/backstage/database/mysql-info"
-                class="cosmo-menu__item"
-                x-localize:maintenance-menu-mysql_info
                 x-active-route="mysql-info"
+                x-localize:maintenance-menu-mysql_info
               >
               </a>
               <a
+                class="cosmo-menu__item"
                 href="/designer/backstage/database/tables"
-                class="cosmo-menu__item"
-                x-localize:maintenance-menu-tables
                 x-active-route="tables"
+                x-localize:maintenance-menu-tables
               >
               </a>
               <a
-                href="/designer/backstage/database/query-tool"
                 class="cosmo-menu__item"
-                x-localize:maintenance-menu-query_tool
+                href="/designer/backstage/database/query-tool"
                 x-active-route="query-tool"
+                x-localize:maintenance-menu-query_tool
               >
               </a>
             </div>
@@ -319,10 +318,10 @@
           <template x-if="$store.navigation.area === 'artist'">
             <div class="cosmo-menu__row is--sub">
               <a
-                href="/designer/backstage/artist/index"
                 class="cosmo-menu__item"
-                x-localize:artists-menu-artists
+                href="/designer/backstage/artist/index"
                 x-active-route.area="artists"
+                x-localize:artists-menu-artists
               >
               </a>
             </div>
@@ -337,7 +336,9 @@
       x-handler="[$store.authentication.needsLogout, $store.navigation.fetchScript]"
       x-template="/designer/templates/authentication/login.html"
     ></template>
-    <template x-route="notfound" x-handler="(ctx) => ctx.redirect('/frontstage/media/files')"></template>
+    <template
+      x-route="notfound"
+      x-handler="(ctx) => ctx.redirect('/frontstage/media/files')"></template>
     <template
       x-route="/frontstage/media/files"
       x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
@@ -358,6 +359,11 @@
       x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
       x-template="/designer/templates/frontstage/design/themes.html"
     ></template>
+    <template
+      x-route="/frontstage/my-jinya/my-profile"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/my-jinya/my-profile.html"
+    ></template>
   </div>
   <template x-if="$store.authentication.loggedIn">
     <div class="cosmo-bottom-bar is--three-column">
@@ -367,17 +373,17 @@
       <div class="cosmo-bottom-bar__item is--center jinya-progress"
            x-show="$store.uploadProgress.filesUploaded !== $store.uploadProgress.filesToUpload">
         <span class="cosmo-progress-bar__label" x-localize:bottom_bar-uploading></span>
-        <progress class="cosmo-progress-bar" :value="$store.uploadProgress.filesUploaded"
-                  :max="$store.uploadProgress.filesToUpload"></progress>
+        <progress :max="$store.uploadProgress.filesToUpload" :value="$store.uploadProgress.filesUploaded"
+                  class="cosmo-progress-bar"></progress>
         <span class="cosmo-progress-bar__label" id="file-upload-progress-bottom-label"
               x-text="$store.uploadProgress.status"></span>
       </div>
       <div class="cosmo-bottom-bar__item is--right">
         <button
-          id="toggle-theme-button"
-          class="cosmo-button is--circle is--large is--primary"
-          x-html="$store.colorScheme.button"
           @click="$store.colorScheme.updateTheme"
+          class="cosmo-button is--circle is--large is--primary"
+          id="toggle-theme-button"
+          x-html="$store.colorScheme.button"
         ></button>
       </div>
     </div>
@@ -387,22 +393,22 @@
   </div>
 </main>
 
-<script>
-  let require = {
-    paths: { vs: '/designer/vs' },
-    config: {
-      '/designer/vs/nls': {
-        availableLanguages: {
-          '*': 'de',
-        },
-      },
-    },
-  };
-</script>
+<!--<script>-->
+<!--  let require = {-->
+<!--    paths: { vs: '/designer/vs' },-->
+<!--    config: {-->
+<!--      '/designer/vs/nls': {-->
+<!--        availableLanguages: {-->
+<!--          '*': 'de',-->
+<!--        },-->
+<!--      },-->
+<!--    },-->
+<!--  };-->
+<!--</script>-->
 
-<script src="/designer/vs/loader.js"></script>
-<script src="/designer/vs/editor/editor.main.nls.js"></script>
-<script src="/designer/vs/editor/editor.main.js"></script>
+<!--<script src="/designer/vs/loader.js"></script>-->
+<!--<script src="/designer/vs/editor/editor.main.nls.js"></script>-->
+<!--<script src="/designer/vs/editor/editor.main.js"></script>-->
 
 <script src="/designer/js/index.js" type="module"></script>
 </body>

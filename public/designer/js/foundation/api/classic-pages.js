@@ -1,6 +1,4 @@
-import {
- get, httpDelete, post, put,
-} from './request.js';
+import { get, httpDelete, post, put } from './request.js';
 
 export function getClassicPages() {
   return get('/api/classic-page');

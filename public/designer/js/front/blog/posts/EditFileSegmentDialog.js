@@ -11,7 +11,12 @@ export default class EditFileSegmentDialog {
    * @param link {string}
    * @param position {number}
    */
-  constructor({ onHide, fileId, position, link }) {
+  constructor({
+                onHide,
+                fileId,
+                position,
+                link,
+              }) {
     this.onHide = onHide;
     this.position = position;
     this.fileId = fileId;
@@ -74,40 +79,44 @@ export default class EditFileSegmentDialog {
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
-    document.getElementById('editSegmentFilePicker').addEventListener('click', async (e) => {
-      e.preventDefault();
-      const selectedFileId = parseInt(document.getElementById('editSegmentFile').value, 10);
-      const fileResult = await filePicker({
-        title: localize({ key: 'blog.posts.create.header_image' }),
-        selectedFileId,
-      });
-      if (fileResult) {
-        document.getElementById('selectedFile').src = fileResult.path;
-        document.getElementById('selectedFile').alt = fileResult.name;
-        document.getElementById('selectedFile').hidden = false;
+    document.getElementById('editSegmentFilePicker')
+      .addEventListener('click', async (e) => {
+        e.preventDefault();
+        const selectedFileId = parseInt(document.getElementById('editSegmentFile').value, 10);
+        const fileResult = await filePicker({
+          title: localize({ key: 'blog.posts.create.header_image' }),
+          selectedFileId,
+        });
+        if (fileResult) {
+          document.getElementById('selectedFile').src = fileResult.path;
+          document.getElementById('selectedFile').alt = fileResult.name;
+          document.getElementById('selectedFile').hidden = false;
 
-        document.getElementById('editSegmentFile').value = fileResult.id;
-        document.getElementById('editSegmentFilePicker').innerText = fileResult.name;
-      }
-    });
-    document.getElementById('cancel-edit-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('editSegmentHasLink').addEventListener('change', () => {
-      const hasLink = document.getElementById('editSegmentHasLink').checked;
-      document.getElementById('editSegmentLink').hidden = !hasLink;
-      document.querySelector('[for="editSegmentLink"]').hidden = !hasLink;
-    });
-    document.getElementById('edit-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const fileId = parseInt(document.getElementById('editSegmentFile').value, 10);
-      const link = document.getElementById('editSegmentLink').value;
-      this.onHide({
-        position: this.position,
-        file: files.find((g) => g.id === fileId),
-        link,
+          document.getElementById('editSegmentFile').value = fileResult.id;
+          document.getElementById('editSegmentFilePicker').innerText = fileResult.name;
+        }
       });
-      container.remove();
-    });
+    document.getElementById('cancel-edit-dialog')
+      .addEventListener('click', () => {
+        container.remove();
+      });
+    document.getElementById('editSegmentHasLink')
+      .addEventListener('change', () => {
+        const hasLink = document.getElementById('editSegmentHasLink').checked;
+        document.getElementById('editSegmentLink').hidden = !hasLink;
+        document.querySelector('[for="editSegmentLink"]').hidden = !hasLink;
+      });
+    document.getElementById('edit-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const fileId = parseInt(document.getElementById('editSegmentFile').value, 10);
+        const link = document.getElementById('editSegmentLink').value;
+        this.onHide({
+          position: this.position,
+          file: files.find((g) => g.id === fileId),
+          link,
+        });
+        container.remove();
+      });
   }
 }

@@ -1,27 +1,27 @@
 :root {
-  --background: url('/designer/background.webp');
+    --background: url('/designer/background.webp');
 }
 
 @media screen and (prefers-color-scheme: dark) {
-  :root {
-    --background: url('/designer/background-dark.webp');
-  }
+    :root {
+        --background: url('/designer/background-dark.webp');
+    }
 }
 
 .is--dark {
-  --background: url('/designer/background-dark.webp');
+    --background: url('/designer/background-dark.webp');
 }
 
 .is--light {
-  --background: url('/designer/background.webp');
+    --background: url('/designer/background.webp');
 }
 
 body {
-  height: 100vh;
-  width: 100vw;
-  background: var(--background);
-  background-size: cover;
-  background-position-y: bottom;
+    height: 100vh;
+    width: 100vw;
+    background: var(--background);
+    background-size: cover;
+    background-position-y: bottom;
 }
 
 .jinya-progress {

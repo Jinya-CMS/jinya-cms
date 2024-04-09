@@ -47,51 +47,53 @@ export default class AddArtistDialog {
     </form>`;
     document.body.append(container);
 
-    document.getElementById('cancel-artist-dialog').addEventListener('click', () => container.remove());
-    document.getElementById('create-artist-dialog').addEventListener('submit', async () => {
-      const artistName = document.getElementById('createArtistName').value;
-      const password = document.getElementById('createArtistPassword').value;
-      const email = document.getElementById('createArtistEmail').value;
-      const isReader = document.getElementById('createArtistIsReader').checked;
-      const isWriter = document.getElementById('createArtistIsWriter').checked;
-      const isAdmin = document.getElementById('createArtistIsAdmin').checked;
+    document.getElementById('cancel-artist-dialog')
+      .addEventListener('click', () => container.remove());
+    document.getElementById('create-artist-dialog')
+      .addEventListener('submit', async () => {
+        const artistName = document.getElementById('createArtistName').value;
+        const password = document.getElementById('createArtistPassword').value;
+        const email = document.getElementById('createArtistEmail').value;
+        const isReader = document.getElementById('createArtistIsReader').checked;
+        const isWriter = document.getElementById('createArtistIsWriter').checked;
+        const isAdmin = document.getElementById('createArtistIsAdmin').checked;
 
-      const roles = [];
-      if (isReader) {
-        roles.push('ROLE_READER');
-      }
-      if (isWriter) {
-        roles.push('ROLE_WRITER');
-      }
-      if (isAdmin) {
-        roles.push('ROLE_ADMIN');
-      }
-      try {
-        const artist = await post('/api/artist', {
-          artistName,
-          email,
-          password,
-          roles,
-        });
-        await put(`/api/artist/${artist.id}/activation`);
-        artist.enabled = true;
-        this.onHide(artist);
-        container.remove();
-      } catch (e) {
-        if (e.status === 409) {
-          await alert({
-            title: localize({ key: 'artists.create.error.title' }),
-            message: localize({ key: 'artists.create.error.conflict' }),
-            negative: true,
-          });
-        } else {
-          await alert({
-            title: localize({ key: 'artists.create.error.title' }),
-            message: localize({ key: 'artists.create.error.generic' }),
-            negative: true,
-          });
+        const roles = [];
+        if (isReader) {
+          roles.push('ROLE_READER');
         }
-      }
-    });
+        if (isWriter) {
+          roles.push('ROLE_WRITER');
+        }
+        if (isAdmin) {
+          roles.push('ROLE_ADMIN');
+        }
+        try {
+          const artist = await post('/api/artist', {
+            artistName,
+            email,
+            password,
+            roles,
+          });
+          await put(`/api/artist/${artist.id}/activation`);
+          artist.enabled = true;
+          this.onHide(artist);
+          container.remove();
+        } catch (e) {
+          if (e.status === 409) {
+            await alert({
+              title: localize({ key: 'artists.create.error.title' }),
+              message: localize({ key: 'artists.create.error.conflict' }),
+              negative: true,
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'artists.create.error.title' }),
+              message: localize({ key: 'artists.create.error.generic' }),
+              negative: true,
+            });
+          }
+        }
+      });
   }
 }

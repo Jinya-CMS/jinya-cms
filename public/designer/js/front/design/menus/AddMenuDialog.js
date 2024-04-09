@@ -47,55 +47,58 @@ export default class AddMenuDialog {
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
-    document.getElementById('createMenuLogoPicker').addEventListener('click', async (e) => {
-      e.preventDefault();
-      const selectedFileId = parseInt(document.getElementById('createMenuLogo').value, 10);
-      const fileResult = await filePicker({
-        title: localize({ key: 'design.menus.create.logo' }),
-        selectedFileId,
+    document.getElementById('createMenuLogoPicker')
+      .addEventListener('click', async (e) => {
+        e.preventDefault();
+        const selectedFileId = parseInt(document.getElementById('createMenuLogo').value, 10);
+        const fileResult = await filePicker({
+          title: localize({ key: 'design.menus.create.logo' }),
+          selectedFileId,
+        });
+        if (fileResult) {
+          document.getElementById('selectedFile').src = fileResult.path;
+          document.getElementById('selectedFile').alt = fileResult.name;
+          document.getElementById('selectedFile').hidden = false;
+
+          document.getElementById('createMenuLogo').value = fileResult.id;
+          document.getElementById('createMenuLogoPicker').innerText = fileResult.name;
+        }
       });
-      if (fileResult) {
-        document.getElementById('selectedFile').src = fileResult.path;
-        document.getElementById('selectedFile').alt = fileResult.name;
-        document.getElementById('selectedFile').hidden = false;
 
-        document.getElementById('createMenuLogo').value = fileResult.id;
-        document.getElementById('createMenuLogoPicker').innerText = fileResult.name;
-      }
-    });
-
-    document.getElementById('cancel-add-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('create-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('createMenuName').value;
-      const logo = parseInt(document.getElementById('createMenuLogo').value, 10);
-      try {
-        const data = {
-          name,
-        };
-        if (logo !== -1) {
-          data.logo = logo;
-        }
-        const saved = await post('/api/menu', data);
-        this.onHide(saved);
+    document.getElementById('cancel-add-dialog')
+      .addEventListener('click', () => {
         container.remove();
-      } catch (err) {
-        if (err.status === 409) {
-          await alert({
-            title: localize({ key: 'design.menus.create.error.title' }),
-            message: localize({ key: 'design.menus.create.error.conflict' }),
-            negative: true,
-          });
-        } else {
-          await alert({
-            title: localize({ key: 'design.menus.create.error.title' }),
-            message: localize({ key: 'design.menus.create.error.generic' }),
-            negative: true,
-          });
+      });
+    document.getElementById('create-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('createMenuName').value;
+        const logo = parseInt(document.getElementById('createMenuLogo').value, 10);
+        try {
+          const data = {
+            name,
+          };
+          if (logo !== -1) {
+            data.logo = logo;
+          }
+          const saved = await post('/api/menu', data);
+          this.onHide(saved);
+          container.remove();
+        } catch (err) {
+          if (err.status === 409) {
+            await alert({
+              title: localize({ key: 'design.menus.create.error.title' }),
+              message: localize({ key: 'design.menus.create.error.conflict' }),
+              negative: true,
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'design.menus.create.error.title' }),
+              message: localize({ key: 'design.menus.create.error.generic' }),
+              negative: true,
+            });
+          }
         }
-      }
-    });
+      });
   }
 }

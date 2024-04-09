@@ -9,7 +9,11 @@ import en from '../../lang/en.js';
  * @param def {string}
  * @return {string}
  */
-function getByPath({ obj, path = '', def = '' }) {
+function getByPath({
+                     obj,
+                     path = '',
+                     def = '',
+                   }) {
   let current = obj;
   let splitPath = [];
   if (path.includes('.')) {
@@ -33,7 +37,10 @@ function getByPath({ obj, path = '', def = '' }) {
  * @param values {Object}
  * @return string
  */
-export default function localize({ key, values = {} }) {
+export default function localize({
+                                   key,
+                                   values = {},
+                                 }) {
   let localized = key;
   if (navigator.language.startsWith('de')) {
     localized = getByPath({

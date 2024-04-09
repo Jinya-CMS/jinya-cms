@@ -10,7 +10,10 @@ export default class AddCategoryDialog {
    * @param id {number}
    * @param onHide {function({id: number, name: string, description: string, webhookUrl: string, parent: {id: number, name: string}, webhookEnabled: boolean})}
    */
-  constructor({ categories, onHide }) {
+  constructor({
+                categories,
+                onHide,
+              }) {
     this.onHide = onHide;
     this.categories = categories;
   }
@@ -31,8 +34,8 @@ export default class AddCategoryDialog {
             <select required id="createCategoryParent" class="cosmo-select">
               <option selected value="null">${localize({ key: 'blog.categories.create.parent_none' })}</option>
               ${this.categories.map(
-                (category) => html` <option value=${category.id}>#${category.id} ${category.name}</option>`,
-              )}
+      (category) => html` <option value=${category.id}>#${category.id} ${category.name}</option>`,
+    )}
             </select>
             <label for="createCategoryDescription" class="cosmo-label is--textarea">
               ${localize({ key: 'blog.categories.create.description' })}
@@ -63,44 +66,46 @@ export default class AddCategoryDialog {
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
-    document.getElementById('cancel-create-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('create-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('createCategoryName').value;
-      const description = document.getElementById('createCategoryDescription').value;
-      const webhookUrl = document.getElementById('createCategoryWebhookUrl').value;
-      let parent = document.getElementById('createCategoryParent').value;
-      const webhookEnabled = document.getElementById('createCategoryWebhookEnabled').checked;
-      if (parent === 'null') {
-        parent = null;
-      }
-      try {
-        const saved = await post('/api/blog/category', {
-          name,
-          description,
-          webhookUrl,
-          parentId: parent,
-          webhookEnabled,
-        });
-        this.onHide(saved);
+    document.getElementById('cancel-create-dialog')
+      .addEventListener('click', () => {
         container.remove();
-      } catch (err) {
-        if (err.status === 409) {
-          await alert({
-            title: localize({ key: 'blog.categories.create.error.title' }),
-            message: localize({ key: 'blog.categories.create.error.conflict' }),
-            negative: true,
-          });
-        } else {
-          await alert({
-            title: localize({ key: 'blog.categories.create.error.title' }),
-            message: localize({ key: 'blog.categories.create.error.generic' }),
-            negative: true,
-          });
+      });
+    document.getElementById('create-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('createCategoryName').value;
+        const description = document.getElementById('createCategoryDescription').value;
+        const webhookUrl = document.getElementById('createCategoryWebhookUrl').value;
+        let parent = document.getElementById('createCategoryParent').value;
+        const webhookEnabled = document.getElementById('createCategoryWebhookEnabled').checked;
+        if (parent === 'null') {
+          parent = null;
         }
-      }
-    });
+        try {
+          const saved = await post('/api/blog/category', {
+            name,
+            description,
+            webhookUrl,
+            parentId: parent,
+            webhookEnabled,
+          });
+          this.onHide(saved);
+          container.remove();
+        } catch (err) {
+          if (err.status === 409) {
+            await alert({
+              title: localize({ key: 'blog.categories.create.error.title' }),
+              message: localize({ key: 'blog.categories.create.error.conflict' }),
+              negative: true,
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'blog.categories.create.error.title' }),
+              message: localize({ key: 'blog.categories.create.error.generic' }),
+              negative: true,
+            });
+          }
+        }
+      });
   }
 }

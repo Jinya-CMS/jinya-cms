@@ -38,20 +38,23 @@ export default class TablesPage extends JinyaDesignerPage {
     }
     clearChildren({ parent: document.getElementById('table-list') });
     document.getElementById('table-list').innerHTML = list;
-    document.querySelectorAll('.cosmo-side-list__item').forEach((item) =>
-      item.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.selectedTable = e.currentTarget.getAttribute('data-name');
-        this.displaySelectedTable();
-      }),
-    );
+    document.querySelectorAll('.cosmo-side-list__item')
+      .forEach((item) =>
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          this.selectedTable = e.currentTarget.getAttribute('data-name');
+          this.displaySelectedTable();
+        }),
+      );
   }
 
   displaySelectedTable() {
     document
       .querySelectorAll('.cosmo-side-list__item.is--active')
       .forEach((item) => item.classList.remove('is--active'));
-    document.querySelector(`[data-name="${this.selectedTable}"]`).classList.add('is--active');
+    document.querySelector(`[data-name="${this.selectedTable}"]`)
+      .classList
+      .add('is--active');
 
     const table = this.databaseInfo.tables[this.selectedTable];
     const details = document.getElementById('details');
@@ -82,8 +85,8 @@ export default class TablesPage extends JinyaDesignerPage {
         </thead>
         <tbody>
           ${table.structure.map(
-            (row) =>
-              html` <tr>
+      (row) =>
+        html` <tr>
                 <td>${row.Field}</td>
                 <td>${row.Type}</td>
                 <td>${row.Null}</td>
@@ -91,7 +94,7 @@ export default class TablesPage extends JinyaDesignerPage {
                 <td>${row.Default}</td>
                 <td>${row.Extra}</td>
               </tr>`,
-          )}
+    )}
         </tbody>
       </table>`;
     constraints.innerHTML = html` <span class="cosmo-title">${localize({ key: 'database.constraints.title' })}</span>
@@ -110,8 +113,8 @@ export default class TablesPage extends JinyaDesignerPage {
         </thead>
         <tbody>
           ${table.constraints.map(
-            (row) =>
-              html` <tr>
+      (row) =>
+        html` <tr>
                 <td>${row.CONSTRAINT_NAME}</td>
                 <td>${row.CONSTRAINT_TYPE}</td>
                 <td>${row.COLUMN_NAME}</td>
@@ -121,7 +124,7 @@ export default class TablesPage extends JinyaDesignerPage {
                 <td>${row.DELETE_RULE ?? localize({ key: 'database.constraints.none' })}</td>
                 <td>${row.UPDATE_RULE ?? localize({ key: 'database.constraints.none' })}</td>
               </tr>`,
-          )}
+    )}
         </tbody>
       </table>`;
     indexes.innerHTML = html` <span class="cosmo-title">${localize({ key: 'database.structure' })}</span>
@@ -138,8 +141,8 @@ export default class TablesPage extends JinyaDesignerPage {
         </thead>
         <tbody>
           ${table.indexes.map(
-            (row) =>
-              html` <tr>
+      (row) =>
+        html` <tr>
                 <td>${row.Key_name}</td>
                 <td>${row.Column_name}</td>
                 <td>${row.Cardinality}</td>
@@ -147,7 +150,7 @@ export default class TablesPage extends JinyaDesignerPage {
                 <td>${row.Collation}</td>
                 <td>${row.Non_unique === 0}</td>
               </tr>`,
-          )}
+    )}
         </tbody>
       </table>`;
   }
@@ -162,18 +165,20 @@ export default class TablesPage extends JinyaDesignerPage {
 
   bindEvents() {
     super.bindEvents();
-    document.querySelectorAll('.cosmo-tab__link').forEach((tab) =>
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.cosmo-tab__content').forEach((tabContent) => {
-          // eslint-disable-next-line no-param-reassign
-          tabContent.hidden = true;
-        });
-        document
-          .querySelectorAll('.cosmo-tab__link.is--active')
-          .forEach((tabLink) => tabLink.classList.remove('is--active'));
-        document.getElementById(tab.getAttribute('data-tab')).hidden = false;
-        tab.classList.add('is--active');
-      }),
-    );
+    document.querySelectorAll('.cosmo-tab__link')
+      .forEach((tab) =>
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.cosmo-tab__content')
+            .forEach((tabContent) => {
+              // eslint-disable-next-line no-param-reassign
+              tabContent.hidden = true;
+            });
+          document
+            .querySelectorAll('.cosmo-tab__link.is--active')
+            .forEach((tabLink) => tabLink.classList.remove('is--active'));
+          document.getElementById(tab.getAttribute('data-tab')).hidden = false;
+          tab.classList.add('is--active');
+        }),
+      );
   }
 }

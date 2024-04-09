@@ -9,6 +9,8 @@ import FileUploadedEvent from './frontstage/media/uploading/FileUploadedEvent.js
 import { getJinyaApiKey } from './foundation/storage.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
+  window.Alpine = Alpine;
+
   Alpine.plugin(PineconeRouter);
 
   Alpine.directive(
@@ -94,14 +96,16 @@ document.addEventListener('DOMContentLoaded', async () => {
       this.loggedIn = true;
       this.roles = roles;
     },
-    logout() {
+    logout(fully = false) {
       Alpine.store('artist')
         .setArtist({
           profilePicture: '',
           artistName: '',
+          email: '',
+          aboutMe: '',
           colorScheme: '',
         });
-      logout(true);
+      logout(fully);
       window.PineconeRouter.context.navigate('/login');
       this.loggedIn = false;
       this.roles = [];
@@ -111,13 +115,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     profilePicture: '',
     artistName: '',
     colorScheme: '',
+    email: '',
+    aboutMe: '',
     setArtist({
                 profilePicture,
                 artistName,
+                email,
+                aboutMe,
                 colorScheme,
               }) {
       this.profilePicture = profilePicture;
       this.artistName = artistName;
+      this.email = email;
+      this.aboutMe = aboutMe;
       this.colorScheme = colorScheme;
     },
   });
@@ -267,6 +277,4 @@ document.addEventListener('DOMContentLoaded', async () => {
       tags: e.tags,
     });
   });
-
-  window.Alpine = Alpine;
 });

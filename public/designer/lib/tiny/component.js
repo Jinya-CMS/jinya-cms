@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   const Global = typeof window !== 'undefined' ? window : Function('return this;')();
@@ -43,7 +43,7 @@
   const createState = () => ({
     listeners: [],
     scriptId: generate('tiny-script'),
-    scriptLoaded: false
+    scriptLoaded: false,
   });
   const CreateScriptLoader = () => {
     let state = createState();
@@ -80,13 +80,13 @@
     };
     return {
       load,
-      reinitialize
+      reinitialize,
     };
   };
   const ScriptLoader = CreateScriptLoader();
 
   var Status;
-  (function (Status) {
+  (function(Status) {
     Status[Status['Raw'] = 0] = 'Raw';
     Status[Status['Initializing'] = 1] = 'Initializing';
     Status[Status['Ready'] = 2] = 'Ready';
@@ -109,7 +109,7 @@
   const parseFalseOrString = lookup({ 'false': false });
   const parseBooleanOrString = lookup({
     'true': true,
-    'false': false
+    'false': false,
   });
   const parseNumberOrString = value => /^\d+$/.test(value) ? Number.parseInt(value, 10) : value;
   const configAttributes = {
@@ -139,14 +139,16 @@
     images_reuse_filename: parseBooleanOrString,
     icons: parseString,
     icons_url: parseString,
-    promotion: parseBooleanOrString
+    promotion: parseBooleanOrString,
   };
   const configRenames = {};
+
   class TinyMceEditor extends HTMLElement {
     static get formAssociated() {
       return true;
     }
-  static get observedAttributes() {
+
+    static get observedAttributes() {
       const nativeEvents = [
         'on-BeforePaste',
         'on-Blur',
@@ -175,7 +177,7 @@
         'on-MouseOver',
         'on-MouseUp',
         'on-Paste',
-        'on-SelectionChange'
+        'on-SelectionChange',
       ];
       const tinyEvents = [
         'on-Activate',
@@ -211,21 +213,24 @@
         'on-Show',
         'on-Submit',
         'on-Undo',
-        'on-VisualAid'
+        'on-VisualAid',
       ];
       return [
         'form',
         'readonly',
         'autofocus',
-        'placeholder'
-      ].concat(nativeEvents).concat(tinyEvents);
+        'placeholder',
+      ].concat(nativeEvents)
+        .concat(tinyEvents);
     }
-  constructor() {
+
+    constructor() {
       super();
       this._eventAttrHandler = records => {
         records.forEach(record => {
           var _a;
-          if (record.type === 'attributes' && record.target === this && ((_a = record.attributeName) === null || _a === void 0 ? void 0 : _a.toLowerCase().startsWith('on-'))) {
+          if (record.type === 'attributes' && record.target === this && ((_a = record.attributeName) === null || _a === void 0 ? void 0 : _a.toLowerCase()
+            .startsWith('on-'))) {
             this._updateEventAttr(record.attributeName, this.getAttribute(record.attributeName));
           }
         });
@@ -246,8 +251,10 @@
       this._eventHandlers = {};
       this._mutationObserver = new MutationObserver(this._eventAttrHandler);
     }
-  _updateEventAttr(attrKey, attrValue) {
-      const event = attrKey.substring('on-'.length).toLowerCase();
+
+    _updateEventAttr(attrKey, attrValue) {
+      const event = attrKey.substring('on-'.length)
+        .toLowerCase();
       const resolved = attrValue !== null ? resolve(attrValue) : undefined;
       const handler = typeof resolved === 'function' ? resolved : undefined;
       if (this._eventHandlers[event] !== handler) {
@@ -264,7 +271,8 @@
         }
       }
     }
-  _updateForm() {
+
+    _updateForm() {
       if (this.isConnected) {
         const formId = this.getAttribute('form');
         const form = formId !== null ? this.ownerDocument.querySelector('form#' + formId) : closestRecursive('form', this);
@@ -284,11 +292,14 @@
         }
       }
     }
-  _getTinymce() {
+
+    _getTinymce() {
       return Global.tinymce;
     }
-  _getConfig() {
-      var _a, _b;
+
+    _getConfig() {
+      var _a,
+        _b;
       const config = (_b = parseGlobal((_a = this.getAttribute('config')) !== null && _a !== void 0 ? _a : '')) !== null && _b !== void 0 ? _b : {};
       for (let i = 0; i < this.attributes.length; i++) {
         const attr = this.attributes.item(i);
@@ -299,23 +310,26 @@
           }
         }
       }
-    if (this.readonly) {
-      config.readonly = true;
+      if (this.readonly) {
+        config.readonly = true;
+      }
+      if (this.autofocus) {
+        config.auto_focus = true;
+      }
+      delete config.target;
+      delete config.selector;
+      return config;
     }
-    if (this.autofocus) {
-      config.auto_focus = true;
-    }
-    delete config.target;
-    delete config.selector;
-    return config;
-    }
-  _getEventHandlers() {
+
+    _getEventHandlers() {
       const handlers = {};
       for (let i = 0; i < this.attributes.length; i++) {
         const attr = this.attributes.item(i);
         if (attr !== null) {
-          if (attr.name.toLowerCase().startsWith('on-')) {
-            const event = attr.name.toLowerCase().substring('on-'.length);
+          if (attr.name.toLowerCase()
+            .startsWith('on-')) {
+            const event = attr.name.toLowerCase()
+              .substring('on-'.length);
             const handler = resolve(attr.value);
             if (typeof handler === 'function') {
               handlers[event] = handler;
@@ -323,10 +337,12 @@
           }
         }
       }
-    return handlers;
+      return handlers;
     }
-  _doInit() {
-      var _a, _b;
+
+    _doInit() {
+      var _a,
+        _b;
       this._status = Status.Initializing;
       const target = document.createElement('textarea');
       target.value = (_a = this.textContent) !== null && _a !== void 0 ? _a : '';
@@ -334,51 +350,55 @@
       if (attrId) {
         target.id = attrId;
       }
-    if (this.placeholder !== null) {
-      target.placeholder = this.placeholder;
-    }
-    this._shadowDom.appendChild(target);
-    const baseConfig = this._getConfig();
-    const conf = Object.assign(Object.assign({}, baseConfig), {
-      target,
-      setup: editor => {
-        this._editor = editor;
-        editor.on('init', _e => {
-          this._status = Status.Ready;
-        });
-        editor.on('SwitchMode', _e => {
-          this.readonly = this.readonly;
-        });
-        each(this._eventHandlers, (handler, event) => {
-          if (handler !== undefined) {
-            editor.on(event, handler);
-          }
-        });
-        if (typeof baseConfig.setup === 'function') {
-          baseConfig.setup(editor);
-        }
+      if (this.placeholder !== null) {
+        target.placeholder = this.placeholder;
       }
-    });
-    this._getTinymce().init(conf);
+      this._shadowDom.appendChild(target);
+      const baseConfig = this._getConfig();
+      const conf = Object.assign(Object.assign({}, baseConfig), {
+        target,
+        setup: editor => {
+          this._editor = editor;
+          editor.on('init', _e => {
+            this._status = Status.Ready;
+          });
+          editor.on('SwitchMode', _e => {
+            this.readonly = this.readonly;
+          });
+          each(this._eventHandlers, (handler, event) => {
+            if (handler !== undefined) {
+              editor.on(event, handler);
+            }
+          });
+          if (typeof baseConfig.setup === 'function') {
+            baseConfig.setup(editor);
+          }
+        },
+      });
+      this._getTinymce()
+        .init(conf);
     }
-  _getTinymceSrc() {
+
+    _getTinymceSrc() {
       var _a;
       const src = this.getAttribute('src');
       if (src) {
         return src;
       }
-    const channel = (_a = this.getAttribute('channel')) !== null && _a !== void 0 ? _a : '6';
+      const channel = (_a = this.getAttribute('channel')) !== null && _a !== void 0 ? _a : '6';
       const apiKey = this.hasAttribute('api-key') ? this.getAttribute('api-key') : 'no-api-key';
-      return `https://cdn.tiny.cloud/1/${ apiKey }/tinymce/${ channel }/tinymce.min.js`;
+      return `https://cdn.tiny.cloud/1/${apiKey}/tinymce/${channel}/tinymce.min.js`;
     }
-  _loadTinyDoInit() {
+
+    _loadTinyDoInit() {
       if (this._getTinymce()) {
         this._doInit();
       } else {
         ScriptLoader.load(this.ownerDocument, this._getTinymceSrc(), () => this._doInit());
       }
     }
-  attributeChangedCallback(attribute, oldValue, newValue) {
+
+    attributeChangedCallback(attribute, oldValue, newValue) {
       if (oldValue !== newValue) {
         if (attribute === 'form') {
           this._updateForm();
@@ -388,45 +408,53 @@
           this.autofocus = newValue !== null;
         } else if (attribute === 'placeholder') {
           this.placeholder = newValue;
-        } else if (attribute.toLowerCase().startsWith('on-')) {
+        } else if (attribute.toLowerCase()
+          .startsWith('on-')) {
           this._updateEventAttr(attribute, newValue);
         }
       }
     }
-  connectedCallback() {
+
+    connectedCallback() {
       this._eventHandlers = this._getEventHandlers();
       this._mutationObserver.observe(this, {
         attributes: true,
         childList: false,
-        subtree: false
+        subtree: false,
       });
       this._updateForm();
       if (this._status === Status.Raw) {
         this._loadTinyDoInit();
       }
     }
-  disconnectedCallback() {
+
+    disconnectedCallback() {
       this._mutationObserver.disconnect();
       this._updateForm();
     }
-  get value() {
-      var _a, _b;
+
+    get value() {
+      var _a,
+        _b;
       return (_b = this._status === Status.Ready ? (_a = this._editor) === null || _a === void 0 ? void 0 : _a.getContent() : undefined) !== null && _b !== void 0 ? _b : null;
     }
-  set value(newValue) {
+
+    set value(newValue) {
       var _a;
       if (this._status === Status.Ready && newValue != null) {
         (_a = this._editor) === null || _a === void 0 ? void 0 : _a.setContent(newValue);
       }
     }
-  get readonly() {
+
+    get readonly() {
       if (this._editor) {
         return this._editor.mode.get() === 'readonly';
       } else {
         return this.hasAttribute('readonly');
       }
     }
-  set readonly(value) {
+
+    set readonly(value) {
       if (value) {
         if (this._editor && this._editor.mode.get() !== 'readonly') {
           this._editor.mode.set('readonly');
@@ -443,10 +471,12 @@
         }
       }
     }
-  get placeholder() {
+
+    get placeholder() {
       return this.getAttribute('placeholder');
     }
-  set placeholder(value) {
+
+    set placeholder(value) {
       if (this._editor) {
         const target = this._editor.getElement();
         if (target !== null) {
@@ -457,20 +487,22 @@
           }
         }
       }
-    if (value !== null) {
-      if (this.getAttribute('placeholder') !== value) {
-        this.setAttribute('placeholder', value);
-      }
-    } else {
-      if (this.hasAttribute('placeholder')) {
-        this.removeAttribute('placeholder');
+      if (value !== null) {
+        if (this.getAttribute('placeholder') !== value) {
+          this.setAttribute('placeholder', value);
+        }
+      } else {
+        if (this.hasAttribute('placeholder')) {
+          this.removeAttribute('placeholder');
+        }
       }
     }
-    }
-  get autofocus() {
+
+    get autofocus() {
       return this.hasAttribute('autofocus');
     }
-  set autofocus(value) {
+
+    set autofocus(value) {
       if (value) {
         if (!this.hasAttribute('autofocus')) {
           this.setAttribute('autofocus', '');
@@ -481,16 +513,20 @@
         }
       }
     }
-  get form() {
+
+    get form() {
       return this._form;
     }
-  get name() {
+
+    get name() {
       return this.getAttribute('name');
     }
-  get type() {
+
+    get type() {
       return this.localName;
     }
   }
+
   var Editor = () => {
     window.customElements.define('tinymce-editor', TinyMceEditor);
   };

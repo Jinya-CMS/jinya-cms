@@ -1,0 +1,93 @@
+<div class="jinya-profile-view" x-data="profileData">
+  <div class="jinya-profile__sidebar">
+    <img :src="$store.artist.profilePicture" class="jinya-profile__picture" alt="$store.artist.artistName" />
+  </div>
+  <div class="cosmo-title is--profile">
+    <span x-text="$store.artist.artistName"></span>
+    (<span x-text="$store.artist.email"></span>)
+  </div>
+  <div class="cosmo-toolbar is--profile">
+    <div class="cosmo-toolbar__group">
+      <button class="cosmo-button" type="button" x-localize:my_jinya-my_profile-action-edit_profile
+              @click="openProfileDialog"></button>
+    </div>
+    <div class="cosmo-toolbar__group">
+      <button class="cosmo-button" type="button" x-localize:my_jinya-my_profile-action-change_password
+              @click="openChangePasswordDialog"></button>
+    </div>
+  </div>
+  <div class="cosmo-message is--profile" x-show="aboutMe.message.hasMessage"
+       :class="{ 'is--negative': aboutMe.message.isNegative, 'is--positive': !aboutMe.message.isNegative }">
+    <span class="cosmo-message__header" x-text="aboutMe.message.title"></span>
+    <p class="cosmo-message__message" x-text="aboutMe.message.content"></p>
+  </div>
+  <div x-ref="tiny"></div>
+  <div class="cosmo-button__container is--profile">
+    <button class="cosmo-button" type="button" x-localize:my_jinya-my_profile-action-discard_profile></button>
+    <button class="cosmo-button is--primary" type="button" x-localize:my_jinya-my_profile-action-save_profile
+            @click="saveAboutMe"></button>
+  </div>
+  <template x-if="changePassword.open">
+    <form class="cosmo-modal__container" @submit.prevent="updatePassword">
+      <div class="cosmo-modal">
+        <h1 class="cosmo-modal__title" x-localize:my_jinya-my_profile-change_password-title></h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-message is--negative" x-show="changePassword.error.hasError">
+            <span class="cosmo-message__header" x-text="changePassword.error.title"></span>
+            <p class="cosmo-message__message" x-text="changePassword.error.message"></p>
+          </div>
+          <div class="cosmo-input__group">
+            <label for="oldPassword" class="cosmo-label"
+                   x-localize:my_jinya-my_profile-change_password-old_password></label>
+            <input required type="password" id="oldPassword" class="cosmo-input" x-model="changePassword.oldPassword" />
+            <label for="newPassword" class="cosmo-label"
+                   x-localize:my_jinya-my_profile-change_password-new_password></label>
+            <input required type="password" id="newPassword" class="cosmo-input" x-model="changePassword.newPassword" />
+            <label for="newPasswordRepeat" class="cosmo-label"
+                   x-localize:my_jinya-my_profile-change_password-new_password_repeat></label>
+            <input required type="password" id="newPasswordRepeat" class="cosmo-input"
+                   x-model="changePassword.newPasswordRepeat" />
+            <span x-show="changePassword.newPassword !== changePassword.newPasswordRepeat"
+                  class="cosmo-input__message is--negative"
+                  x-localize:my_jinya-my_profile-change_password-error-not_match></span>
+          </div>
+        </div>
+        <div class="cosmo-modal__button-bar">
+          <button class="cosmo-button" type="button" x-localize:my_jinya-my_profile-change_password-keep
+                  @click="changePassword.open = false"></button>
+          <button :disabled="changePassword.newPassword !== changePassword.newPasswordRepeat" class="cosmo-button"
+                  type="submit" x-localize:my_jinya-my_profile-change_password-change></button>
+        </div>
+      </div>
+    </form>
+  </template>
+  <template x-if="edit.open">
+    <form class="cosmo-modal__container" @submit.prevent="updateProfile">
+      <div class="cosmo-modal">
+        <h1 class="cosmo-modal__title" x-localize:my_jinya-my_profile-edit-title></h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-message is--negative" x-show="edit.error.hasError">
+            <span class="cosmo-message__header" x-text="edit.error.title"></span>
+            <p class="cosmo-message__message" x-text="edit.error.message"></p>
+          </div>
+          <div class="cosmo-input__group">
+            <label for="artistName" class="cosmo-label" x-localize:my_jinya-my_profile-edit-artist_name></label>
+            <input required x-model="edit.artistName" type="text" id="artistName" class="cosmo-input" />
+            <label for="email" class="cosmo-label" x-localize:my_jinya-my_profile-edit-email></label>
+            <input required x-model="edit.email" type="email" id="email" class="cosmo-input" />
+            <label for="profilePictureFile" class="cosmo-label"
+                   x-localize:my_jinya-my_profile-edit-profile_picture></label>
+            <input @change="edit.selectProfilePicture($event.target.files)" type="file" class="cosmo-input"
+                   id="profilePictureFile" />
+          </div>
+        </div>
+        <div class="cosmo-modal__button-bar">
+          <button class="cosmo-button" type="button" x-localize:my_jinya-my_profile-edit-discard_profile
+                  @click="edit.open = false"></button>
+          <button class="cosmo-button"
+                  type="submit" x-localize:my_jinya-my_profile-edit-save_profile></button>
+        </div>
+      </div>
+    </form>
+  </template>
+</div>

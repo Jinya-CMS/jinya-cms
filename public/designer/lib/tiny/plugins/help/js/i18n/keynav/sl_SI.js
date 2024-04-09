@@ -1,5 +1,5 @@
 tinymce.Resource.add('tinymce.html-i18n.help-keynav.sl_SI',
-'<h1>Začetek krmarjenja s tipkovnico</h1>\n' +
+  '<h1>Začetek krmarjenja s tipkovnico</h1>\n' +
   '\n' +
   '<dl>\n' +
   '  <dt>Fokus na menijsko vrstico</dt>\n' +

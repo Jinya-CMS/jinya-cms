@@ -1,5 +1,5 @@
 tinymce.Resource.add('tinymce.html-i18n.help-keynav.pt_PT',
-'<h1>Iniciar navegação com teclado</h1>\n' +
+  '<h1>Iniciar navegação com teclado</h1>\n' +
   '\n' +
   '<dl>\n' +
   '  <dt>Foco na barra de menu</dt>\n' +

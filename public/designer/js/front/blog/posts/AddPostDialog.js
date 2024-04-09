@@ -11,7 +11,11 @@ export default class AddPostDialog {
    * @param categories {{id: number, name: string}[]}
    * @param onHide {function()}
    */
-  constructor({ category, categories, onHide }) {
+  constructor({
+                category,
+                categories,
+                onHide,
+              }) {
     this.category = category;
     this.categories = categories;
     this.onHide = onHide;
@@ -35,9 +39,9 @@ export default class AddPostDialog {
             </label>
             <select required id="createPostCategory" class="cosmo-select">
               ${this.categories.map(
-                (cat) =>
-                  `<option ${cat.id === this.category ? 'selected' : ''} value="${cat.id}">#${cat.id} ${cat.name}</option>`,
-              )}
+      (cat) =>
+        `<option ${cat.id === this.category ? 'selected' : ''} value="${cat.id}">#${cat.id} ${cat.name}</option>`,
+    )}
             </select>
             <label for="createPostHeaderImage" class="cosmo-label">
               ${localize({ key: 'blog.posts.create.header_image' })}
@@ -71,72 +75,77 @@ export default class AddPostDialog {
     const container = document.createElement('div');
     container.innerHTML = content;
     document.body.append(container);
-    document.getElementById('createPostHeaderImagePicker').addEventListener('click', async (e) => {
-      e.preventDefault();
-      const selectedFileId = parseInt(document.getElementById('createPostHeaderImage').value, 10);
-      const fileResult = await filePicker({
-        title: localize({ key: 'blog.posts.create.header_image' }),
-        selectedFileId,
-      });
-      if (fileResult) {
-        document.getElementById('selectedFile').src = fileResult.path;
-        document.getElementById('selectedFile').alt = fileResult.name;
-        document.getElementById('selectedFile').hidden = false;
-
-        document.getElementById('createPostHeaderImage').value = fileResult.id;
-        document.getElementById('createPostHeaderImagePicker').innerText = fileResult.name;
-      }
-    });
-
-    document.getElementById('cancel-create-dialog').addEventListener('click', () => {
-      container.remove();
-    });
-    document.getElementById('create-dialog-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const title = document.getElementById('createPostTitle').value;
-      const slug = document.getElementById('createPostSlug').value;
-      const postPublic = document.getElementById('createPostPublic').checked;
-      const headerImageId = parseInt(document.getElementById('createPostHeaderImage').value, 10);
-      const categoryId = parseInt(document.getElementById('createPostCategory').value, 10);
-      try {
-        const data = {
-          title,
-          slug,
-          public: postPublic,
-          categoryId,
-        };
-        if (headerImageId !== -1) {
-          data.headerImageId = headerImageId;
-        }
-        const saved = await post('/api/blog/post', data);
-        this.onHide(saved);
-        container.remove();
-      } catch (err) {
-        let msg = 'generic';
-        if (err.status === 409 && err.message.includes('slug')) {
-          msg = 'slug_exists';
-        } else if (err.status === 409 && err.message.includes('title')) {
-          msg = 'title_exists';
-        }
-        await alert({
-          title: localize({ key: 'blog.posts.edit.error.title' }),
-          message: localize({ key: `blog.posts.edit.error.${msg}` }),
-          negative: true,
+    document.getElementById('createPostHeaderImagePicker')
+      .addEventListener('click', async (e) => {
+        e.preventDefault();
+        const selectedFileId = parseInt(document.getElementById('createPostHeaderImage').value, 10);
+        const fileResult = await filePicker({
+          title: localize({ key: 'blog.posts.create.header_image' }),
+          selectedFileId,
         });
-      }
-    });
-    document.getElementById('createPostSlug').addEventListener('input', () => {
-      slugManuallyEdited = true;
-    });
-    document.getElementById('createPostTitle').addEventListener('input', (e) => {
-      if (!slugManuallyEdited) {
-        document.getElementById('createPostSlug').value = e.currentTarget.value
-          .toLowerCase()
-          .trim()
-          .replace(/[^\w\s-]/g, '')
-          .replace(/[\s_-]+/g, '-')
-          .replace(/^-+|-+$/g, '');
-      }
-    });
+        if (fileResult) {
+          document.getElementById('selectedFile').src = fileResult.path;
+          document.getElementById('selectedFile').alt = fileResult.name;
+          document.getElementById('selectedFile').hidden = false;
+
+          document.getElementById('createPostHeaderImage').value = fileResult.id;
+          document.getElementById('createPostHeaderImagePicker').innerText = fileResult.name;
+        }
+      });
+
+    document.getElementById('cancel-create-dialog')
+      .addEventListener('click', () => {
+        container.remove();
+      });
+    document.getElementById('create-dialog-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const title = document.getElementById('createPostTitle').value;
+        const slug = document.getElementById('createPostSlug').value;
+        const postPublic = document.getElementById('createPostPublic').checked;
+        const headerImageId = parseInt(document.getElementById('createPostHeaderImage').value, 10);
+        const categoryId = parseInt(document.getElementById('createPostCategory').value, 10);
+        try {
+          const data = {
+            title,
+            slug,
+            public: postPublic,
+            categoryId,
+          };
+          if (headerImageId !== -1) {
+            data.headerImageId = headerImageId;
+          }
+          const saved = await post('/api/blog/post', data);
+          this.onHide(saved);
+          container.remove();
+        } catch (err) {
+          let msg = 'generic';
+          if (err.status === 409 && err.message.includes('slug')) {
+            msg = 'slug_exists';
+          } else if (err.status === 409 && err.message.includes('title')) {
+            msg = 'title_exists';
+          }
+          await alert({
+            title: localize({ key: 'blog.posts.edit.error.title' }),
+            message: localize({ key: `blog.posts.edit.error.${msg}` }),
+            negative: true,
+          });
+        }
+      });
+    document.getElementById('createPostSlug')
+      .addEventListener('input', () => {
+        slugManuallyEdited = true;
+      });
+    document.getElementById('createPostTitle')
+      .addEventListener('input', (e) => {
+        if (!slugManuallyEdited) {
+          document.getElementById('createPostSlug').value = e.currentTarget.value
+            .toLowerCase()
+            .trim()
+            .replace(/[^\w\s-]/g, '')
+            .replace(/[\s_-]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+        }
+      });
   }
 }

@@ -1,5 +1,5 @@
 tinymce.Resource.add('tinymce.html-i18n.help-keynav.sv_SE',
-'<h1>Påbörja tangentbordsnavigering</h1>\n' +
+  '<h1>Påbörja tangentbordsnavigering</h1>\n' +
   '\n' +
   '<dl>\n' +
   '  <dt>Fokusera på menyraden</dt>\n' +

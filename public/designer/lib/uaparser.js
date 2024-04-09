@@ -41,7 +41,7 @@ var AMAZON = 'Amazon',
   XIAOMI = 'Xiaomi',
   ZEBRA = 'Zebra',
   FACEBOOK = 'Facebook';
-var extend = function (regexes, extensions) {
+var extend = function(regexes, extensions) {
     var mergedRegexes = {};
     for (var i in regexes) {
       if (extensions[i] && extensions[i].length % 2 === 0) {
@@ -52,29 +52,32 @@ var extend = function (regexes, extensions) {
     }
     return mergedRegexes;
   },
-  enumerize = function (arr) {
+  enumerize = function(arr) {
     var enums = {};
     for (var i = 0; i < arr.length; i++) {
       enums[arr[i].toUpperCase()] = arr[i];
     }
     return enums;
   },
-  has = function (str1, str2) {
-    return typeof str1 === STR_TYPE ? lowerize(str2).indexOf(lowerize(str1)) !== -1 : false;
+  has = function(str1, str2) {
+    return typeof str1 === STR_TYPE ? lowerize(str2)
+      .indexOf(lowerize(str1)) !== -1 : false;
   },
-  lowerize = function (str) {
+  lowerize = function(str) {
     return str.toLowerCase();
   },
-  majorize = function (version) {
-    return typeof version === STR_TYPE ? version.replace(/[^\d\.]/g, EMPTY).split('.')[0] : undefined;
+  majorize = function(version) {
+    return typeof version === STR_TYPE ? version.replace(/[^\d\.]/g, EMPTY)
+      .split('.')[0] : undefined;
   },
-  trim = function (str, len) {
+  trim = function(str, len) {
     if (typeof str === STR_TYPE) {
-      str = str.replace(/^\s\s*/, EMPTY).replace(/\s\s*$/, EMPTY);
+      str = str.replace(/^\s\s*/, EMPTY)
+        .replace(/\s\s*$/, EMPTY);
       return typeof len === UNDEF_TYPE ? str : str.substring(0, UA_MAX_LENGTH);
     }
   };
-var rgxMapper = function (ua, arrays) {
+var rgxMapper = function(ua, arrays) {
     var i = 0,
       j,
       k,
@@ -117,7 +120,7 @@ var rgxMapper = function (ua, arrays) {
       i += 2;
     }
   },
-  strMapper = function (str, map) {
+  strMapper = function(str, map) {
     for (var i in map) {
       if (typeof map[i] === OBJ_TYPE && map[i].length > 0) {
         for (var j = 0; j < map[i].length; j++) {
@@ -616,7 +619,7 @@ var regexes = {
     [NAME, VERSION],
   ],
 };
-var UAParser = function (ua, extensions) {
+var UAParser = function(ua, extensions) {
   if (typeof ua === OBJ_TYPE) {
     extensions = ua;
     ua = undefined;
@@ -630,7 +633,7 @@ var UAParser = function (ua, extensions) {
       ? window.navigator.userAgent
       : EMPTY);
   var _rgxmap = extensions ? extend(regexes, extensions) : regexes;
-  this.getBrowser = function () {
+  this.getBrowser = function() {
     var _browser = {};
     _browser[NAME] = undefined;
     _browser[VERSION] = undefined;
@@ -638,13 +641,13 @@ var UAParser = function (ua, extensions) {
     _browser.major = majorize(_browser.version);
     return _browser;
   };
-  this.getCPU = function () {
+  this.getCPU = function() {
     var _cpu = {};
     _cpu[ARCHITECTURE] = undefined;
     rgxMapper.call(_cpu, _ua, _rgxmap.cpu);
     return _cpu;
   };
-  this.getDevice = function () {
+  this.getDevice = function() {
     var _device = {};
     _device[VENDOR] = undefined;
     _device[MODEL] = undefined;
@@ -652,21 +655,21 @@ var UAParser = function (ua, extensions) {
     rgxMapper.call(_device, _ua, _rgxmap.device);
     return _device;
   };
-  this.getEngine = function () {
+  this.getEngine = function() {
     var _engine = {};
     _engine[NAME] = undefined;
     _engine[VERSION] = undefined;
     rgxMapper.call(_engine, _ua, _rgxmap.engine);
     return _engine;
   };
-  this.getOS = function () {
+  this.getOS = function() {
     var _os = {};
     _os[NAME] = undefined;
     _os[VERSION] = undefined;
     rgxMapper.call(_os, _ua, _rgxmap.os);
     return _os;
   };
-  this.getResult = function () {
+  this.getResult = function() {
     return {
       ua: this.getUA(),
       browser: this.getBrowser(),
@@ -676,10 +679,10 @@ var UAParser = function (ua, extensions) {
       cpu: this.getCPU(),
     };
   };
-  this.getUA = function () {
+  this.getUA = function() {
     return _ua;
   };
-  this.setUA = function (ua) {
+  this.setUA = function(ua) {
     _ua = typeof ua === STR_TYPE && ua.length > UA_MAX_LENGTH ? trim(ua, UA_MAX_LENGTH) : ua;
     return this;
   };

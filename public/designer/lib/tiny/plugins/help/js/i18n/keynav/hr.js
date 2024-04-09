@@ -1,5 +1,5 @@
 tinymce.Resource.add('tinymce.html-i18n.help-keynav.hr',
-'<h1>Početak navigacije na tipkovnici</h1>\n' +
+  '<h1>Početak navigacije na tipkovnici</h1>\n' +
   '\n' +
   '<dl>\n' +
   '  <dt>Fokusiranje trake izbornika</dt>\n' +

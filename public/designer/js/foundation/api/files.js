@@ -1,6 +1,4 @@
-import {
-  get, httpDelete, post, put, upload,
-} from './request.js';
+import { get, httpDelete, post, put, upload } from './request.js';
 
 export function getTags() {
   return get('/api/file-tag');

@@ -1,5 +1,5 @@
 tinymce.Resource.add('tinymce.html-i18n.help-keynav.ro',
-'<h1>Începeți navigarea de la tastatură</h1>\n' +
+  '<h1>Începeți navigarea de la tastatură</h1>\n' +
   '\n' +
   '<dl>\n' +
   '  <dt>Focalizare pe bara de meniu</dt>\n' +

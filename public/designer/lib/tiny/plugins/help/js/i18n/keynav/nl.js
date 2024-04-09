@@ -1,5 +1,5 @@
 tinymce.Resource.add('tinymce.html-i18n.help-keynav.nl',
-'<h1>Toetsenbordnavigatie starten</h1>\n' +
+  '<h1>Toetsenbordnavigatie starten</h1>\n' +
   '\n' +
   '<dl>\n' +
   '  <dt>Focus op de menubalk instellen</dt>\n' +
@@ -48,7 +48,7 @@ tinymce.Resource.add('tinymce.html-i18n.help-keynav.nl',
   '<p>Met de pijltjestoetsen <strong>Links</strong> en <strong>Rechts</strong></p>\n' +
   '\n' +
   '<ul>\n' +
-  "  <li>wissel je tussen menu's in de menubalk.</li>\n" +
+  '  <li>wissel je tussen menu\'s in de menubalk.</li>\n' +
   '  <li>open je een submenu in een menu.</li>\n' +
   '  <li>wissel je tussen knoppen in een werkbalkgroep.</li>\n' +
   '  <li>wissel je tussen items in het elementenpad in de voettekst.</li>\n' +
@@ -65,7 +65,7 @@ tinymce.Resource.add('tinymce.html-i18n.help-keynav.nl',
   '\n' +
   '<p>Druk op de toets <strong>Esc</strong> om een geopend menu, submenu of pop-upmenu te sluiten.</p>\n' +
   '\n' +
-  "<p>Als de huidige focus is ingesteld 'bovenaan' een bepaalde UI-sectie, kun je op de toets <strong>Esc</strong> drukken\n" +
+  '<p>Als de huidige focus is ingesteld \'bovenaan\' een bepaalde UI-sectie, kun je op de toets <strong>Esc</strong> drukken\n' +
   '  om de toetsenbordnavigatie af te sluiten.</p>\n' +
   '\n' +
   '<h1>Een menu-item of werkbalkknop uitvoeren</h1>\n' +

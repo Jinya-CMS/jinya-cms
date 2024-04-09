@@ -1,5 +1,5 @@
 tinymce.Resource.add('tinymce.html-i18n.help-keynav.id',
-'<h1>Memulai navigasi keyboard</h1>\n' +
+  '<h1>Memulai navigasi keyboard</h1>\n' +
   '\n' +
   '<dl>\n' +
   '  <dt>Fokus pada bilah Menu</dt>\n' +

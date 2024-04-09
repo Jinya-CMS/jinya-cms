@@ -2,10 +2,16 @@ import { Alpine } from '../../../../lib/alpine.js';
 import localize from '../../foundation/localize.js';
 import MimeTypes from '../../../lib/mime/types.js';
 import {
-  createFile, createTag,
-  deleteFile, deleteTag,
+  createFile,
+  createTag,
+  deleteFile,
+  deleteTag,
   getFile,
-  getFiles, getTags, updateFile, updateTag, uploadFile,
+  getFiles,
+  getTags,
+  updateFile,
+  updateTag,
+  uploadFile,
 } from '../../foundation/api/files.js';
 import { getRandomEmoji } from '../../foundation/utils/text.js';
 import confirm from '../../foundation/ui/confirm.js';

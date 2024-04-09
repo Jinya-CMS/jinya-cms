@@ -803,27 +803,39 @@ export default {
         discard_profile: 'Änderungen verwerfen',
       },
       edit: {
+        save_profile: 'Profil speichern',
+        discard_profile: 'Änderungen verwerfen',
         title: 'Profil bearbeiten',
+        email: 'Email',
+        artist_name: 'Künstlername',
+        profile_picture: 'Profilbild',
+        error: {
+          title: 'Fehler beim Speichern',
+          message: 'Dein Profil konnte leider nicht gespeichert werden, bitte wende dich an deinen Administrator',
+        },
       },
-      email: 'Email',
-      artist_name: 'Künstlername',
-      about_me: 'Über mich',
-      profile_picture: 'Profilbild',
       change_password: {
         title: 'Passwort ändern',
         new_password_repeat: 'Passwort wiederholen',
         new_password: 'Neues Passwort',
-        old_password: 'Altes passwort',
-        keep: 'Alter Passwort behalten',
+        old_password: 'Altes Passwort',
+        keep: 'Altes Passwort behalten',
         change: 'Passwort ändern',
         error: {
           forbidden: 'Das alte Passwort ist falsch',
           generic: 'Das Passwort konnte nicht geändert werden, bitte wende dich an deinen Administrator',
           title: 'Passwort ändern fehlgeschlagen',
+          not_match: 'Die neuen Passwörte müssen die gleichen sein',
         },
-        not_match: {
-          title: 'Passwörter unterscheiden sich',
-          message: 'Die neuen Passwörte müssen die gleichen sein.',
+      },
+      about_me: {
+        success: {
+          title: 'Profil gespeichert',
+          message: 'Dein Profil wurde erfolgreich gespeichert',
+        },
+        error: {
+          title: 'Fehler beim Speichern',
+          message: 'Dein Profil konnte leider nicht gespeichert werden, bitte wende dich an deinen Administrator',
         },
       },
     },

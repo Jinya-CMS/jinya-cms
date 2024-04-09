@@ -1,5 +1,5 @@
 tinymce.Resource.add('tinymce.html-i18n.help-keynav.cs',
-'<h1>Začínáme navigovat pomocí klávesnice</h1>\n' +
+  '<h1>Začínáme navigovat pomocí klávesnice</h1>\n' +
   '\n' +
   '<dl>\n' +
   '  <dt>Přejít na řádek nabídek</dt>\n' +

@@ -1,5 +1,5 @@
 tinymce.Resource.add('tinymce.html-i18n.help-keynav.ko_KR',
-'<h1>키보드 탐색 시작</h1>\n' +
+  '<h1>키보드 탐색 시작</h1>\n' +
   '\n' +
   '<dl>\n' +
   '  <dt>메뉴 모음 포커스 표시</dt>\n' +
@@ -65,7 +65,7 @@ tinymce.Resource.add('tinymce.html-i18n.help-keynav.ko_KR',
   '\n' +
   '<p>열려 있는 메뉴, 열려 있는 하위 메뉴 또는 열려 있는 팝업 메뉴를 닫으려면 <strong>Esc</strong> 키를 누릅니다.</p>\n' +
   '\n' +
-  "<p>현재 포커스 표시가 특정 UI 섹션 '상단'에 있는 경우 이때도 <strong>Esc</strong> 키를 누르면\n" +
+  '<p>현재 포커스 표시가 특정 UI 섹션 \'상단\'에 있는 경우 이때도 <strong>Esc</strong> 키를 누르면\n' +
   '  키보드 탐색이 완전히 종료됩니다.</p>\n' +
   '\n' +
   '<h1>메뉴 항목 또는 도구 모음 버튼 실행</h1>\n' +
