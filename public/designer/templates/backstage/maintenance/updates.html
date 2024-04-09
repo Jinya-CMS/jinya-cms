@@ -1,0 +1,23 @@
+<div x-data="updatesData">
+  <template x-if="versionData.currentVersion !== versionData.mostRecentVersion">
+    <div style="display: contents">
+      <div class="jinya-update__text" x-localize:maintenance-update-version_text.html="versionData"></div>
+      <button class="cosmo-button" x-localize:maintenance-update-update_now @click="openUpdate"></button>
+    </div>
+  </template>
+  <template x-if="versionData.currentVersion === versionData.mostRecentVersion">
+    <div class="jinya-update__text" x-localize:maintenance-update-version_text_no_update.html="versionData"></div>
+  </template>
+  <template x-if="update.open">
+    <div class="cosmo-modal__container">
+      <div class="cosmo-modal">
+        <h1 class="cosmo-modal__title" x-localize:maintenance-update-perform_update-updating></h1>
+        <div class="cosmo-modal__content">
+          <div class="jinya-loader__container" style="height: 12rem">
+            <cms-loader></cms-loader>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+</div>

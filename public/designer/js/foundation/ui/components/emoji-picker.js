@@ -251,4 +251,6 @@ class EmojiPickerElement extends HTMLElement {
   }
 }
 
-customElements.define('cms-emoji-picker', EmojiPickerElement);
+if (!customElements.get('cms-emoji-picker')) {
+  customElements.define('cms-emoji-picker', EmojiPickerElement);
+}

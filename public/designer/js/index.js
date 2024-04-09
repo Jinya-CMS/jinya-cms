@@ -1,6 +1,6 @@
 import { Alpine } from '../../lib/alpine.js';
 import PineconeRouter from '../../lib/pinecone-router.js';
-import { fetchScript, needsLogin, needsLogout } from './foundation/router.js';
+import { fetchScript, needsAdmin, needsLogin, needsLogout } from './foundation/router.js';
 import localize from './foundation/localize.js';
 import { getMyProfile, setColorScheme } from './foundation/api/my-jinya.js';
 import { logout } from './foundation/api/authentication.js';
@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       {
         value,
         expression,
+        modifiers,
       },
       {
         evaluateLater,
@@ -29,11 +30,19 @@ document.addEventListener('DOMContentLoaded', async () => {
       const getValues = expression ? evaluateLater(expression) : (load) => load();
       effect(() => {
         getValues((values) => {
-          // eslint-disable-next-line no-param-reassign
-          el.innerText = localize({
-            key: value,
-            values,
-          });
+          if (modifiers.includes('html')) {
+            // eslint-disable-next-line no-param-reassign
+            el.innerHTML = localize({
+              key: value,
+              values,
+            });
+          } else {
+            // eslint-disable-next-line no-param-reassign
+            el.textContent = localize({
+              key: value,
+              values,
+            });
+          }
         });
       });
     },
@@ -90,6 +99,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   Alpine.store('authentication', {
     needsLogin,
     needsLogout,
+    needsAdmin,
     loggedIn: false,
     roles: [],
     login({ roles }) {

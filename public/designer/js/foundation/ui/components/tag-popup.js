@@ -278,4 +278,6 @@ class TagPopupElement extends HTMLElement {
   }
 }
 
-customElements.define('cms-tag-popup', TagPopupElement);
+if (!customElements.get('cms-tag-popup')) {
+  customElements.define('cms-tag-popup', TagPopupElement);
+}

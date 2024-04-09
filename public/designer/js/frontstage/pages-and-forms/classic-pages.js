@@ -30,7 +30,11 @@ Alpine.data('classicPagesData', () => ({
     }
   },
   destroy() {
-    this.tiny?.destroy();
+    try {
+      this.tiny?.destroy();
+    } catch (e) {
+      /* empty */
+    }
   },
   openCreateDialog() {
     this.create.error.reset();

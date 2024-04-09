@@ -221,4 +221,6 @@ class TagElement extends HTMLElement {
   }
 }
 
-customElements.define('cms-tag', TagElement);
+if (!customElements.get('cms-tag')) {
+  customElements.define('cms-tag', TagElement);
+}

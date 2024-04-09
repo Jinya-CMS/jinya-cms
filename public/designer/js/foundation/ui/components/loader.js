@@ -93,4 +93,6 @@ class LoaderElement extends HTMLElement {
   }
 }
 
-customElements.define('cms-loader', LoaderElement);
+if (!customElements.get('cms-loader')) {
+  customElements.define('cms-loader', LoaderElement);
+}
