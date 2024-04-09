@@ -1,5 +1,12 @@
 import { get, head, httpDelete, post, put } from './request.js';
-import { deleteDeviceCode, deleteJinyaApiKey, getJinyaApiKey, setDeviceCode, setJinyaApiKey } from '../storage.js';
+import {
+  deleteDeviceCode,
+  deleteJinyaApiKey,
+  getDeviceCode,
+  getJinyaApiKey,
+  setDeviceCode,
+  setJinyaApiKey,
+} from '../storage.js';
 
 export async function checkLogin() {
   try {
@@ -43,8 +50,24 @@ export async function requestTwoFactor(email, password) {
   });
 }
 
+export function getApiKeys() {
+  return get('/api/api-key');
+}
+
 export async function deleteApiKey(apiKey) {
   await httpDelete(`/api/api-key/${apiKey}`);
+}
+
+export function getKnownDevices() {
+  return get('/api/known-device');
+}
+
+export function deleteKnownDevice(device) {
+  return httpDelete(`/api/known-device/${device}`);
+}
+
+export function locateIp(ip) {
+  return get(`/api/ip-location/${ip}`);
 }
 
 export async function logout(fully = false) {
@@ -55,7 +78,13 @@ export async function logout(fully = false) {
   } finally {
     deleteJinyaApiKey();
     if (fully) {
-      deleteDeviceCode();
+      try {
+        await deleteKnownDevice(getDeviceCode());
+      } catch {
+        console.log('Failed to forget device, logging out anyway');
+      } finally {
+        deleteDeviceCode();
+      }
     }
   }
 }
@@ -65,12 +94,4 @@ export async function changePassword(oldPassword, newPassword) {
     oldPassword,
     password: newPassword,
   });
-}
-
-export function getApiKeys() {
-  return get('/api/api-key');
-}
-
-export function locateIp(ip) {
-  return get(`/api/ip-location/${ip}`);
 }

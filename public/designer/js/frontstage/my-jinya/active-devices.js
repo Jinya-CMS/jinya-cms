@@ -1,16 +1,14 @@
 import { Alpine } from '../../../../lib/alpine.js';
-import { deleteApiKey, getApiKeys, locateIp } from '../../foundation/api/authentication.js';
+import { deleteKnownDevice, getKnownDevices, locateIp } from '../../foundation/api/authentication.js';
 import { getJinyaApiKey } from '../../foundation/storage.js';
 import UAParser from '../../../lib/uaparser.js';
 import localize from '../../foundation/localize.js';
 
-Alpine.data('sessionsData', () => ({
-  sessions: [],
-  currentApiKey: '',
+Alpine.data('devicesData', () => ({
+  devices: [],
   async init() {
-    const apiKeys = await getApiKeys();
-    this.sessions = apiKeys.items;
-    this.currentApiKey = getJinyaApiKey();
+    const devices = await getKnownDevices();
+    this.devices = devices.items;
   },
   getBrowser(userAgent) {
     const parser = new UAParser(userAgent);
@@ -30,7 +28,7 @@ Alpine.data('sessionsData', () => ({
     const parser = new UAParser(userAgent);
     if (parser.getDevice().vendor) {
       return localize({
-        key: 'my_jinya.sessions.device',
+        key: 'my_jinya.devices.device',
         values: {
           vendor: parser.getDevice().vendor,
           model: parser.getDevice().model,
@@ -38,7 +36,7 @@ Alpine.data('sessionsData', () => ({
       });
     }
 
-    return localize({ key: 'my_jinya.sessions.unknown_device' });
+    return localize({ key: 'my_jinya.devices.unknown_device' });
   },
   getValidSince(validSince) {
     const date = new Date(Date.parse(validSince.toLocaleString()));
@@ -51,10 +49,10 @@ Alpine.data('sessionsData', () => ({
       return `${location.city} ${location.region} ${location.country}`;
     }
 
-    return localize({ key: 'my_jinya.sessions.unknown' });
+    return localize({ key: 'my_jinya.devices.unknown' });
   },
-  async logout(key) {
-    await deleteApiKey(key);
-    this.sessions = this.sessions.filter((k) => k.key !== key);
+  async forget(key) {
+    await deleteKnownDevice(key);
+    this.devices = this.devices.filter((k) => k.key !== key);
   },
 }));

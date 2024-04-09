@@ -862,6 +862,7 @@ export default {
       browser: '{browser} auf {os}',
       device: '{vendor} {model}',
       unknown_device: 'Unbekanntes Gerät',
+      unknown_browser: 'Unbekannter Browser',
       action: {
         forget: 'Vergessen',
       },
