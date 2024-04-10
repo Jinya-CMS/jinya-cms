@@ -4,6 +4,7 @@ import { post } from '../../foundation/http/request.js';
 import JinyaDesignerPage from '../../foundation/JinyaDesignerPage.js';
 import localize from '../../foundation/localize.js';
 import alert from '../../foundation/ui/alert.js';
+import getTheme from '../../foundation/utils/theme.js';
 
 export default class QueryToolPage extends JinyaDesignerPage {
   constructor({ layout }) {
@@ -31,7 +32,7 @@ export default class QueryToolPage extends JinyaDesignerPage {
     await super.displayed();
     this.editor = monaco.editor.create(document.querySelector('.jinya-code-editor'), {
       language: 'mysql',
-      theme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'hc-black' : 'vs',
+      theme: getTheme() ? 'hc-black' : 'vs',
       fontFamily: 'Oxygen Mono',
     });
   }

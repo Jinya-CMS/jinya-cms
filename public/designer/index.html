@@ -36,8 +36,7 @@
   <link href="/designer/css/tiny.css" rel="stylesheet" />
   <link href="/designer/css/file-picker.css" rel="stylesheet" />
   <link href="/designer/css/login.css" rel="stylesheet" />
-
-  <link href="/designer/vs/editor/editor.main.css" rel="stylesheet" />
+  <link href="/designer/css/ace.css" rel="stylesheet" />
 
   <script src="/designer/js/foundation/ui/components/loader.js"></script>
 
@@ -405,6 +404,11 @@
       x-handler="[$store.authentication.needsAdmin, $store.navigation.fetchScript]"
       x-template="/designer/templates/backstage/database/tables.html"
     ></template>
+    <template
+      x-route="/backstage/database/query-tool"
+      x-handler="[$store.authentication.needsAdmin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/backstage/database/query-tool.html"
+    ></template>
   </div>
   <template x-if="$store.authentication.loggedIn">
     <div class="cosmo-bottom-bar is--three-column">
@@ -433,23 +437,6 @@
     <cms-loader></cms-loader>
   </div>
 </main>
-
-<!--<script>-->
-<!--  let require = {-->
-<!--    paths: { vs: '/designer/vs' },-->
-<!--    config: {-->
-<!--      '/designer/vs/nls': {-->
-<!--        availableLanguages: {-->
-<!--          '*': 'de',-->
-<!--        },-->
-<!--      },-->
-<!--    },-->
-<!--  };-->
-<!--</script>-->
-
-<!--<script src="/designer/vs/loader.js"></script>-->
-<!--<script src="/designer/vs/editor/editor.main.nls.js"></script>-->
-<!--<script src="/designer/vs/editor/editor.main.js"></script>-->
 
 <script src="/designer/js/index.js" type="module"></script>
 </body>

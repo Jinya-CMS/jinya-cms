@@ -2,18 +2,19 @@
 
 namespace Jinya\Cms\Web\Controllers;
 
+use Exception;
 use Jinya\Cms\Database\Analyzer\DatabaseAnalyzer;
 use Jinya\Cms\Database\Analyzer\QueryAnalyzer;
 use Jinya\Cms\Database\Analyzer\VariablesType;
 use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Jinya\Cms\Web\Middleware\CheckRequiredFieldsMiddleware;
-use Exception;
 use Jinya\Database\Entity;
 use Jinya\Router\Attributes\Controller;
 use Jinya\Router\Attributes\HttpMethod;
 use Jinya\Router\Attributes\Middlewares;
 use Jinya\Router\Attributes\Route;
 use JsonException;
+use PDOException;
 use Psr\Http\Message\ResponseInterface;
 
 #[Controller]
@@ -36,16 +37,23 @@ class DatabaseController extends BaseController
         $result = [];
         foreach ($statements as $statement) {
             $builtStatement = $statement->build();
-            $result[] = match ($queryAnalyzer->getQueryType($statement)) {
-                'UPDATE', 'DELETE', 'INSERT', 'SELECT', 'EXPLAIN', 'SHOW' => [
+            try {
+                $result[] = match ($queryAnalyzer->getQueryType($statement)) {
+                    'UPDATE', 'DELETE', 'INSERT', 'SELECT', 'EXPLAIN', 'SHOW' => [
+                        'statement' => $builtStatement,
+                        'result' => $this->executeSqlString($builtStatement),
+                    ],
+                    default => [
+                        'statement' => $builtStatement,
+                        'result' => "Query hasn't been allowed",
+                    ],
+                };
+            } catch (PDOException $exception) {
+                $result[] = [
                     'statement' => $builtStatement,
-                    'result' => $this->executeSqlString($builtStatement),
-                ],
-                default => [
-                    'statement' => $builtStatement,
-                    'result' => "Query hasn't been allowed",
-                ],
-            };
+                    'result' => 'Query is invalid: ' . $exception->getMessage(),
+                ];
+            }
         }
 
         return $this->json($result);

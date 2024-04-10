@@ -1,42 +1,26 @@
 import filePicker from './filePicker.js';
 import localize from '../localize.js';
 import { getFiles } from '../api/files.js';
+import getTheme from '../utils/theme.js';
 
 import '../../../lib/tiny/tinymce.min.js';
 
-function getTheme() {
-  if (document.body.classList.contains('is--light')) {
-    return 'light';
-  }
-  if (document.body.classList.contains('is--dark')) {
-    return 'dark';
-  }
-
-  return 'auto';
-}
-
 function getSkin() {
   const themeMode = getTheme();
-  switch (themeMode) {
-    case 'dark':
-      return 'oxide-dark';
-    case 'light':
-      return 'oxide';
-    default:
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'oxide-dark' : 'oxide';
+  if (themeMode === 'dark') {
+    return 'oxide-dark';
   }
+
+  return 'oxide';
 }
 
 function getContentCss() {
   const themeMode = getTheme();
-  switch (themeMode) {
-    case 'dark':
-      return 'dark';
-    case 'light':
-      return 'default';
-    default:
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default';
+  if (themeMode === 'dark') {
+    return 'dark';
   }
+
+  return 'default';
 }
 
 /**
