@@ -384,6 +384,11 @@
       x-handler="[$store.authentication.needsAdmin, $store.navigation.fetchScript]"
       x-template="/designer/templates/backstage/maintenance/environment.html"
     ></template>
+    <template
+      x-route="/backstage/maintenance/php-info"
+      x-handler="[$store.authentication.needsAdmin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/backstage/maintenance/php-info.html"
+    ></template>
   </div>
   <template x-if="$store.authentication.loggedIn">
     <div class="cosmo-bottom-bar is--three-column">
