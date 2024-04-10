@@ -51,7 +51,7 @@ class DatabaseAnalyzer
                     ->from('information_schema.TABLES')
                     ->cols(['ENGINE AS engine'])
                     ->where('TABLE_NAME = :tableName', ['tableName' => $tableName]);
-                $result[$tableName]['engine'] = self::fetchInt($query, 'engine');
+                $result[$tableName]['engine'] = self::fetchString($query, 'engine');
 
                 $query = Entity::getQueryBuilder()
                     ->newSelect()
@@ -74,7 +74,7 @@ class DatabaseAnalyzer
                         'information_schema.REFERENTIAL_CONSTRAINTS rc',
                         'rc.CONSTRAINT_NAME = kcu.CONSTRAINT_NAME'
                     )
-                    ->where('TABLE_NAME = :tableName', ['tableName' => $tableName]);
+                    ->where('tc.TABLE_NAME = :tableName', ['tableName' => $tableName]);
                 $result[$tableName]['constraints'] = Entity::executeQuery($query);
                 $result[$tableName]['indexes'] = self::executeSqlString("SHOW INDEXES FROM $tableName");
             } catch (Error) {
@@ -103,15 +103,28 @@ class DatabaseAnalyzer
 
     private static function fetchInt(SelectInterface $query, string $column): int
     {
-        $entryCount = Entity::executeQuery($query);
-        if (is_array($entryCount)) {
-            /** @var int $entryCount */
-            $entryCount = $entryCount[0][$column];
+        $result = Entity::executeQuery($query);
+        if (is_array($result)) {
+            /** @var int $result */
+            $result = $result[0][$column];
         } else {
-            $entryCount = 0;
+            $result = 0;
         }
 
-        return $entryCount;
+        return $result;
+    }
+
+    private static function fetchString(SelectInterface $query, string $column): string
+    {
+        $result = Entity::executeQuery($query);
+        if (is_array($result)) {
+            /** @var int $result */
+            $result = $result[0][$column];
+        } else {
+            $result = '';
+        }
+
+        return $result;
     }
 
     /**

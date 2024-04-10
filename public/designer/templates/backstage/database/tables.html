@@ -1,0 +1,162 @@
+<div class="cosmo-side-list" x-data="tablesData">
+  <nav class="cosmo-side-list__items">
+    <template x-for="table in Object.keys(tables)" :key="table">
+      <a class="cosmo-side-list__item" :class="{ 'is--active': table === selectedTable }" x-text="table"
+         @click="selectedTable = table"></a>
+    </template>
+  </nav>
+  <template x-if="selectedTable">
+    <div class="cosmo-side-list__content">
+      <div class="cosmo-tab">
+        <div class="cosmo-tab__links">
+          <a :class="{ 'is--active': selectedTab === 'details' }" class="cosmo-tab__link"
+             x-localize:database-details @click="selectedTab = 'details'"></a>
+          <a :class="{ 'is--active': selectedTab === 'structure' }" class="cosmo-tab__link"
+             x-localize:database-structure @click="selectedTab = 'structure'"></a>
+          <a :class="{ 'is--active': selectedTab === 'constraints' }" class="cosmo-tab__link"
+             x-localize:database-constraints-title @click="selectedTab = 'constraints'"></a>
+          <a :class="{ 'is--active': selectedTab === 'indexes' }" class="cosmo-tab__link"
+             x-localize:database-indexes-title @click="selectedTab = 'indexes'"></a>
+        </div>
+        <div class="cosmo-tab__content">
+          <template x-if="selectedTab === 'details'">
+            <div style="display: contents">
+              <span class="cosmo-title" x-localize:database-details></span>
+              <dl class="cosmo-list is--key-value">
+                <dt x-localize:database-entry_count></dt>
+                <dd x-text="table.entryCount"></dd>
+                <dt x-localize:database-engine></dt>
+                <dd x-text="table.engine"></dd>
+                <dt x-localize:database-size></dt>
+                <dd x-text="tableSize"></dd>
+              </dl>
+            </div>
+          </template>
+          <template x-if="selectedTab === 'structure'">
+            <div style="display: contents">
+              <span class="cosmo-title" x-localize:database-structure></span>
+              <table class="cosmo-table">
+                <thead>
+                <tr>
+                  <th x-localize:database-tables-field></th>
+                  <th x-localize:database-tables-type></th>
+                  <th x-localize:database-tables-null></th>
+                  <th x-localize:database-tables-key></th>
+                  <th x-localize:database-tables-default></th>
+                  <th x-localize:database-tables-extra></th>
+                </tr>
+                </thead>
+                <tbody>
+                <template x-for="row in table.structure" :key="row.Field">
+                  <tr>
+                    <td x-text="row.Field"></td>
+                    <td x-text="row.Type"></td>
+                    <td>
+                      <template x-if="row.Null.toLowerCase() === 'no'">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="var(--negative-color)" stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round">
+                          <path d="M18 6 6 18" />
+                          <path d="m6 6 12 12" />
+                        </svg>
+                      </template>
+                      <template x-if="row.Null.toLowerCase() === 'yes'">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="var(--positive-color)" stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round">
+                          <path d="M20 6 9 17l-5-5" />
+                        </svg>
+                      </template>
+                    </td>
+                    <td x-text="row.Key"></td>
+                    <td x-text="row.Default"></td>
+                    <td x-text="row.Extra"></td>
+                  </tr>
+                </template>
+                </tbody>
+              </table>
+            </div>
+          </template>
+          <template x-if="selectedTab === 'constraints'">
+            <div style="display: contents"><span
+              class="cosmo-title" x-localize:database-constraints-title></span>
+              <table class="cosmo-table">
+                <thead>
+                <tr>
+                  <th x-localize:database-constraints-constraint_name></th>
+                  <th x-localize:database-constraints-constraint_type></th>
+                  <th x-localize:database-constraints-column_name></th>
+                  <th x-localize:database-constraints-referenced_table_name></th>
+                  <th x-localize:database-constraints-referenced_column_name></th>
+                  <th x-localize:database-constraints-position_in_unique_constraint></th>
+                  <th x-localize:database-constraints-delete_rule></th>
+                  <th x-localize:database-constraints-update_rule></th>
+                </tr>
+                </thead>
+                <tbody>
+                <template x-for="row in table.constraints">
+                  <tr>
+                    <td x-text="row.CONSTRAINT_NAME"></td>
+                    <td x-text="row.CONSTRAINT_TYPE"></td>
+                    <td x-text="row.COLUMN_NAME"></td>
+                    <td x-text="getEmptySaveConstraintValue(row.REFERENCED_TABLE_NAME)"></td>
+                    <td x-text="getEmptySaveConstraintValue(row.REFERENCED_COLUMN_NAME)"></td>
+                    <td x-text="getEmptySaveConstraintValue(row.POSITION_IN_UNIQUE_CONSTRAINT)"></td>
+                    <td x-text="getEmptySaveConstraintValue(row.DELETE_RULE)"></td>
+                    <td x-text="getEmptySaveConstraintValue(row.UPDATE_RULE)"></td>
+                  </tr>
+                </template>
+                </tbody>
+              </table>
+            </div>
+          </template>
+          <template x-if="selectedTab === 'indexes'">
+            <div style="display: contents">
+              <span class="cosmo-title" x-localize:database-structure></span>
+              <table class="cosmo-table">
+                <thead>
+                <tr>
+                  <th x-localize:database-indexes-key_name></th>
+                  <th x-localize:database-indexes-column_name></th>
+                  <th x-localize:database-indexes-cardinality></th>
+                  <th x-localize:database-indexes-index_type></th>
+                  <th x-localize:database-indexes-collation></th>
+                  <th x-localize:database-indexes-unique></th>
+                </tr>
+                </thead>
+                <tbody>
+                <template x-for="row in table.indexes">
+                  <tr>
+                    <td x-text="row.Key_name"></td>
+                    <td x-text="row.Column_name"></td>
+                    <td x-text="row.Cardinality"></td>
+                    <td x-text="row.Index_type"></td>
+                    <td x-text="row.Collation"></td>
+                    <td>
+                      <template x-if="row.Non_unique === 0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="var(--negative-color)" stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round">
+                          <path d="M18 6 6 18" />
+                          <path d="m6 6 12 12" />
+                        </svg>
+                      </template>
+                      <template x-if="row.Non_unique !== 0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="var(--positive-color)" stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round">
+                          <path d="M20 6 9 17l-5-5" />
+                        </svg>
+                      </template>
+                    </td>
+                  </tr>
+                </template>
+                </tbody>
+              </table>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+  </template>
+</div>
