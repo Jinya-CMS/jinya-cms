@@ -14,5 +14,3 @@ properties:
     type: object
     additionalProperties:
       type: string
-additionalProperties:
-  type: string

@@ -296,21 +296,21 @@
                 class="cosmo-menu__item"
                 href="/designer/backstage/database/mysql-info"
                 x-active-route="mysql-info"
-                x-localize:maintenance-menu-mysql_info
+                x-localize:database-menu-mysql_info
               >
               </a>
               <a
                 class="cosmo-menu__item"
                 href="/designer/backstage/database/tables"
                 x-active-route="tables"
-                x-localize:maintenance-menu-tables
+                x-localize:database-menu-tables
               >
               </a>
               <a
                 class="cosmo-menu__item"
                 href="/designer/backstage/database/query-tool"
                 x-active-route="query-tool"
-                x-localize:maintenance-menu-query_tool
+                x-localize:database-menu-query_tool
               >
               </a>
             </div>
@@ -339,6 +339,7 @@
     <template
       x-route="notfound"
       x-handler="(ctx) => ctx.redirect('/frontstage/media/files')"></template>
+
     <template
       x-route="/frontstage/media/files"
       x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
@@ -349,16 +350,19 @@
       x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
       x-template="/designer/templates/frontstage/media/galleries.html"
     ></template>
+
     <template
       x-route="/frontstage/pages-and-forms/classic-pages"
       x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
       x-template="/designer/templates/frontstage/pages-and-forms/classic-pages.html"
     ></template>
+
     <template
       x-route="/frontstage/design/themes"
       x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
       x-template="/designer/templates/frontstage/design/themes.html"
     ></template>
+
     <template
       x-route="/frontstage/my-jinya/my-profile"
       x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
@@ -374,6 +378,7 @@
       x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
       x-template="/designer/templates/frontstage/my-jinya/active-devices.html"
     ></template>
+
     <template
       x-route="/backstage/maintenance/updates"
       x-handler="[$store.authentication.needsAdmin, $store.navigation.fetchScript]"
@@ -388,6 +393,12 @@
       x-route="/backstage/maintenance/php-info"
       x-handler="[$store.authentication.needsAdmin, $store.navigation.fetchScript]"
       x-template="/designer/templates/backstage/maintenance/php-info.html"
+    ></template>
+
+    <template
+      x-route="/backstage/database/mysql-info"
+      x-handler="[$store.authentication.needsAdmin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/backstage/database/mysql-info.html"
     ></template>
   </div>
   <template x-if="$store.authentication.loggedIn">
