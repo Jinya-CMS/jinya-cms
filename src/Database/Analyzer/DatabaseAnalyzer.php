@@ -118,7 +118,7 @@ class DatabaseAnalyzer
     {
         $result = Entity::executeQuery($query);
         if (is_array($result)) {
-            /** @var int $result */
+            /** @var string $result */
             $result = $result[0][$column];
         } else {
             $result = '';
