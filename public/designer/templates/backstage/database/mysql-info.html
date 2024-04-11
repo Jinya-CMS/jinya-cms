@@ -1,0 +1,44 @@
+<div class="cosmo-side-list" x-data="mysqlInfoData">
+  <nav class="cosmo-side-list__items">
+    <a :class="{ 'is--active': selectedItem === 'server'}" class="cosmo-side-list__item"
+       x-localize:database-mysql-system_and_server @click="selectedItem = 'server'"></a>
+    <a :class="{ 'is--active': selectedItem === 'global'}" class="cosmo-side-list__item"
+       x-localize:database-mysql-global_variables @click="selectedItem = 'global'"></a>
+    <a :class="{ 'is--active': selectedItem === 'local'}" class="cosmo-side-list__item"
+       x-localize:database-mysql-local_variables @click="selectedItem = 'local'"></a>
+    <a :class="{ 'is--active': selectedItem === 'session'}" class="cosmo-side-list__item"
+       x-localize:database-mysql-session_variables @click="selectedItem = 'session'"></a>
+  </nav>
+  <div class="cosmo-side-list__content">
+    <template x-if="selectedItem === 'server'">
+      <dl class="cosmo-list is--key-value">
+        <dt x-localize:database-mysql-server_type></dt>
+        <dd x-text="databaseInfo.server.comment"></dd>
+        <dt x-localize:database-mysql-server_version></dt>
+        <dd x-text="databaseInfo.server.version">${this.databaseInfo.server.version}</dd>
+        <dt x-localize:database-mysql-compile_machine></dt>
+        <dd x-text="databaseInfo.server.compileMachine">${this.databaseInfo.server.compileMachine}</dd>
+        <dt x-localize:database-mysql-compile_os></dt>
+        <dd x-text="databaseInfo.server.compileOs">${this.databaseInfo.server.compileOs}</dd>
+      </dl>
+    </template>
+    <template x-if="selectedItem !== 'server'">
+      <table class="cosmo-table">
+        <thead>
+        <tr>
+          <th x-localize:database-mysql-name></th>
+          <th x-localize:database-mysql-value></th>
+        </tr>
+        </thead>
+        <tbody>
+        <template x-for="[key, value] in Object.entries(databaseInfo.variables[selectedItem])">
+          <tr>
+            <td x-text="key"></td>
+            <td x-text="value"></td>
+          </tr>
+        </template>
+        </tbody>
+      </table>
+    </template>
+  </div>
+</div>

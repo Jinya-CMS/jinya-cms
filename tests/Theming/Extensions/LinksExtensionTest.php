@@ -132,7 +132,7 @@ class LinksExtensionTest extends DatabaseAwareTestCase
         self::assertFalse($result);
     }
 
-    public function testSegmentPage(): void
+    public function testModernPage(): void
     {
         $page = new ModernPage();
         $page->name = 'Temp';
@@ -144,12 +144,12 @@ class LinksExtensionTest extends DatabaseAwareTestCase
         $themePage->themeId = $this->theme->id;
         $themePage->create();
 
-        self::assertNotNull($this->extension->segmentPage('Test'));
+        self::assertNotNull($this->extension->modernPage('Test'));
     }
 
-    public function testSegmentPageNotExisting(): void
+    public function testModernPageNotExisting(): void
     {
-        $result = $this->extension->segmentPage('Not existing');
+        $result = $this->extension->modernPage('Not existing');
         self::assertNull($result);
     }
 
@@ -180,18 +180,18 @@ class LinksExtensionTest extends DatabaseAwareTestCase
         $engine = Engine::getPlatesEngine();
         $this->extension->register($engine);
 
-        self::assertTrue($engine->functions->exists('segmentPage'));
+        self::assertTrue($engine->functions->exists('modernPage'));
         self::assertTrue($engine->functions->exists('page'));
-        self::assertTrue($engine->functions->exists('simplePage'));
+        self::assertTrue($engine->functions->exists('classicPage'));
         self::assertTrue($engine->functions->exists('file'));
         self::assertTrue($engine->functions->exists('menu'));
         self::assertTrue($engine->functions->exists('gallery'));
         self::assertTrue($engine->functions->exists('form'));
         self::assertTrue($engine->functions->exists('blogCategory'));
 
-        self::assertTrue($engine->functions->exists('hasSegmentPage'));
+        self::assertTrue($engine->functions->exists('hasModernPage'));
         self::assertTrue($engine->functions->exists('hasPage'));
-        self::assertTrue($engine->functions->exists('hasSimplePage'));
+        self::assertTrue($engine->functions->exists('hasClassicPage'));
         self::assertTrue($engine->functions->exists('hasFile'));
         self::assertTrue($engine->functions->exists('hasGallery'));
         self::assertTrue($engine->functions->exists('hasMenu'));
@@ -199,7 +199,7 @@ class LinksExtensionTest extends DatabaseAwareTestCase
         self::assertTrue($engine->functions->exists('hasBlogCategory'));
     }
 
-    public function testSimplePage(): void
+    public function testClassicPage(): void
     {
         $page = new ClassicPage();
         $page->title = 'Temp';
@@ -212,16 +212,16 @@ class LinksExtensionTest extends DatabaseAwareTestCase
         $themePage->themeId = $this->theme->id;
         $themePage->create();
 
-        self::assertNotNull($this->extension->simplePage('Test'));
+        self::assertNotNull($this->extension->classicPage('Test'));
     }
 
-    public function testSimplePageNotExisting(): void
+    public function testClassicPageNotExisting(): void
     {
-        $result = $this->extension->simplePage('Not existing');
+        $result = $this->extension->classicPage('Not existing');
         self::assertNull($result);
     }
 
-    public function testHasSegmentPage(): void
+    public function testHasModernPage(): void
     {
         $page = new ModernPage();
         $page->name = 'Temp';
@@ -233,16 +233,16 @@ class LinksExtensionTest extends DatabaseAwareTestCase
         $themePage->themeId = $this->theme->id;
         $themePage->create();
 
-        self::assertTrue($this->extension->hasSegmentPage('Test'));
+        self::assertTrue($this->extension->hasModernPage('Test'));
     }
 
-    public function testHasSegmentPageNotExisting(): void
+    public function testHasModernPageNotExisting(): void
     {
-        $result = $this->extension->hasSegmentPage('Not existing');
+        $result = $this->extension->hasModernPage('Not existing');
         self::assertFalse($result);
     }
 
-    public function testHasSimplePage(): void
+    public function testHasClassicPage(): void
     {
         $page = new ClassicPage();
         $page->title = 'Temp';
@@ -255,12 +255,12 @@ class LinksExtensionTest extends DatabaseAwareTestCase
         $themePage->themeId = $this->theme->id;
         $themePage->create();
 
-        self::assertTrue($this->extension->hasSimplePage('Test'));
+        self::assertTrue($this->extension->hasClassicPage('Test'));
     }
 
-    public function testHasSimplePageNotExisting(): void
+    public function testHasClassicPageNotExisting(): void
     {
-        $result = $this->extension->hasSimplePage('Not existing');
+        $result = $this->extension->hasClassicPage('Not existing');
         self::assertFalse($result);
     }
 

@@ -27,7 +27,7 @@ export default {
     error: {
       login_failed: {
         title: 'Login failed',
-        message: "Your email and password don't match, please use a different combination.",
+        message: 'Your email and password don\'t match, please use a different combination.',
       },
       '2fa_failed': {
         title: 'Login failed',
@@ -141,9 +141,9 @@ export default {
       },
       details: {
         type: 'Type',
-        uploadedBy: 'Uploaded by',
-        lastChangedBy: 'Last changed by',
-        downloadFile: 'Download file',
+        uploaded_by: 'Uploaded by',
+        last_changed_by: 'Last changed by',
+        download_file: 'Download file',
         types: {
           font: 'Font file',
           'image/jpeg': 'JPEG image',
@@ -234,11 +234,11 @@ export default {
   pages_and_forms: {
     menu: {
       title: 'Pages & Forms',
-      simple_pages: 'Simple pages',
-      segment_pages: 'Segment pages',
+      classic_pages: 'Classic pages',
+      modern_pages: 'Modern pages',
       forms: 'Forms',
     },
-    simple: {
+    classic: {
       action: {
         new: 'Create page',
         edit: 'Change title',
@@ -267,6 +267,10 @@ export default {
           conflict: 'A page with the chosen title already exists.',
           generic: 'An unknown error occurred, please contact your administrator',
         },
+        saved: {
+          title: 'Update successful',
+          content: 'The page was saved successfully.',
+        },
       },
       delete: {
         title: 'Delete page',
@@ -280,7 +284,7 @@ export default {
         },
       },
     },
-    segment: {
+    modern: {
       action: {
         new: 'Create page',
         edit: 'Change title',
@@ -676,7 +680,7 @@ export default {
         title: 'Activate theme',
         message: 'Do you want to activate the theme {displayName}?',
         approve: 'Activate theme',
-        decline: "Don't activate theme",
+        decline: 'Don\'t activate theme',
         success: {
           title: 'Activate theme',
           message: 'The theme {displayName} was activated successfully',
@@ -710,6 +714,7 @@ export default {
         preview: 'Theme preview',
       },
       variables: {
+        help_text: 'Can be referenced in other variables using {variable}',
         save: 'Save variables',
         discard: 'Discard changes',
         error: {
@@ -736,11 +741,18 @@ export default {
       links: {
         files: 'Files',
         galleries: 'Galleries',
-        pages: 'Simple pages',
-        segment_pages: 'Segment pages',
+        classic_pages: 'Classic pages',
+        modern_pages: 'Modern pages',
         forms: 'Forms',
         menus: 'Menus',
-        categories: 'Categories',
+        blog_categories: 'Blog categories',
+        no_file: 'No file selected',
+        no_gallery: 'No gallery selected',
+        no_classic_page: 'No classic page selected',
+        no_modern_page: 'No modern page selected',
+        no_form: 'No form selected',
+        no_menu: 'No menu selected',
+        no_blog_category: 'No blog category selected',
         save: 'Save links',
         discard: 'Discard changes',
         error: {
@@ -749,21 +761,29 @@ export default {
         },
         success: {
           title: 'Save links',
-          message: 'The links  were successfully saved',
+          message: 'The links were successfully saved',
         },
       },
-      update: {
+      edit: {
         title: 'Update theme',
         file: 'ZIP archive',
         cancel: 'Cancel update',
         save: 'Update',
+        error: {
+          title: 'Error uploading theme',
+          message: 'The theme could not be saved, please contact your administrator.',
+        },
       },
       create: {
         title: 'Upload theme',
-        name: 'Theme name',
         file: 'ZIP archive',
         cancel: 'Cancel upload',
         save: 'Upload',
+        error: {
+          title: 'Error uploading theme',
+          conflict: 'A theme with this name exists already.',
+          generic: 'The theme could not be uploaded, please contact your administrator.',
+        },
       },
     },
   },
@@ -782,12 +802,17 @@ export default {
         discard_profile: 'Discard changes',
       },
       edit: {
+        save_profile: 'Save profile',
+        discard_profile: 'Discard changes',
         title: 'Update profile',
+        email: 'Email',
+        artist_name: 'Artist name',
+        profile_picture: 'Profile picture',
+        error: {
+          title: 'Error saving',
+          message: 'Your profile couldn\'t be saved, please contact your administrator',
+        },
       },
-      email: 'Email',
-      artist_name: 'Artist name',
-      profile_picture: 'Profile picture',
-      about_me: 'About me',
       change_password: {
         title: 'Change password',
         new_password_repeat: 'Repeat password',
@@ -797,12 +822,19 @@ export default {
         change: 'Change password',
         error: {
           forbidden: 'The old password is wrong',
-          generic: "Changing the password didn't work, please contact your administrator",
+          generic: 'Changing the password didn\'t work, please contact your administrator',
           title: 'Error changing password',
+          not_match: 'The new passwords need to match',
         },
-        not_match: {
-          title: "Passwords don't match",
-          message: 'The new passwords need to match, please correct.',
+      },
+      about_me: {
+        success: {
+          title: 'Profile saved',
+          message: 'Your profile was saved successfully',
+        },
+        error: {
+          title: 'Error saving',
+          message: 'Your profile couldn\'t be saved, please contact your administrator',
         },
       },
     },
@@ -829,6 +861,7 @@ export default {
       browser: '{browser} on {os}',
       device: '{vendor} {model}',
       unknown_device: 'Unknown device',
+      unknown_browser: 'Unknown browser',
       action: {
         forget: 'Forget',
       },
@@ -916,27 +949,27 @@ export default {
     structure: 'Structure',
     constraints: {
       title: 'Constraints',
-      constraintName: 'Name',
-      constraintType: 'Constraint type',
-      columnName: 'Column name',
-      referencedTableName: 'Referenced table',
-      referencedColumnName: 'Referenced column',
-      positionInUniqueConstraint: 'Position in unique constraint',
-      deleteRule: 'Action on delete',
-      updateRule: 'Action on update',
+      constraint_name: 'Name',
+      constraint_type: 'Constraint type',
+      column_name: 'Column name',
+      referenced_table_name: 'Referenced table',
+      referenced_column_name: 'Referenced column',
+      position_in_unique_constraint: 'Position in unique constraint',
+      delete_rule: 'Action on delete',
+      update_rule: 'Action on update',
       none: 'Not applicable',
     },
     indexes: {
       title: 'Indexes',
-      keyName: 'Key name',
-      columnName: 'Column name',
+      key_name: 'Key name',
+      column_name: 'Column name',
       cardinality: 'Cardinality',
-      indexType: 'Index type',
+      index_type: 'Index type',
       collation: 'Collation',
       unique: 'Unique',
     },
     details: 'Details',
-    entryCount: 'Entry count',
+    entry_count: 'Entry count',
     size: 'Table size in KB',
     engine: 'Storage engine',
     query_tool: {
@@ -991,8 +1024,8 @@ export default {
       is_admin: 'Admin',
       error: {
         title: 'Update failed',
-        conflict: 'A artist with the chosen email already exists.',
-        generic: 'An unknown error occurred, please contact your administrator',
+        conflict: 'An artist with the chosen email already exists.',
+        generic: 'An unknown error occurred, please check the log files',
       },
     },
     delete: {
@@ -1000,29 +1033,42 @@ export default {
       message: 'Do you really want to delete the artist {artistName}?',
       keep: 'Keep artist',
       delete: 'Delete artist',
+      error: {
+        title: 'Delete failed',
+        message: 'The artist could not be deleted, please check the log files',
+      },
     },
     disable: {
       title: 'Disable artist',
       message: 'Do you really want to disable the artist {artistName}?',
       keep: 'Keep artist enabled',
       delete: 'Disable artist',
+      error: {
+        title: 'Disable failed',
+        message: 'The artist could not be disabled, please check the log files',
+      },
     },
     enable: {
       title: 'Enable artist',
       message: 'Do you really want to enable the artist {artistName}?',
       keep: 'Keep artist disabled',
       delete: 'Enable artist',
+      error: {
+        title: 'Enable failed',
+        message: 'The artist could not be enabled, please check the log files',
+      },
     },
   },
   top_menu: {
     logout: 'Logout',
   },
   bottom_bar: {
-    upload_title: {
-      uploading: 'File upload pending…',
-      uploaded: 'File upload done',
+    status: 'Uploading file {name}',
+    uploading: 'File upload pending…',
+    error: {
+      conflict: 'File {name} exists',
+      generic: 'Error uploading file {name}',
     },
-    upload_progress: 'Uploaded {filesUploaded} of {filesToUpload} files',
   },
   statistics: {
     menu: {

@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "0bd6200cb655dbc4f00321178b4022ab",
+  "content-hash": "fdf8767cc9d23202c8888220423185e7",
   "packages": [
     {
       "name": "aura/sqlquery",
@@ -506,16 +506,16 @@
     },
     {
       "name": "jinya/database",
-      "version": "0.16.0",
+      "version": "0.17.0",
       "source": {
         "type": "git",
         "url": "https://github.com/Jinya-CMS/jinya-database.git",
-        "reference": "a6e20821cd3045ae2365305225f3747ec9bb5f4a"
+        "reference": "d68d2f2d150d46d0f8a42c06138ea7e15bf1e9ea"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/Jinya-CMS/jinya-database/zipball/a6e20821cd3045ae2365305225f3747ec9bb5f4a",
-        "reference": "a6e20821cd3045ae2365305225f3747ec9bb5f4a",
+        "url": "https://api.github.com/repos/Jinya-CMS/jinya-database/zipball/d68d2f2d150d46d0f8a42c06138ea7e15bf1e9ea",
+        "reference": "d68d2f2d150d46d0f8a42c06138ea7e15bf1e9ea",
         "shasum": ""
       },
       "require": {
@@ -553,9 +553,9 @@
       "description": "A simple database struct mapper that resembles some features of an ORM",
       "support": {
         "issues": "https://github.com/Jinya-CMS/jinya-database/issues",
-        "source": "https://github.com/Jinya-CMS/jinya-database/tree/0.16.0"
+        "source": "https://github.com/Jinya-CMS/jinya-database/tree/0.17.0"
       },
-      "time": "2024-03-30T22:50:45+00:00"
+      "time": "2024-03-31T03:14:49+00:00"
     },
     {
       "name": "jinya/plates",
@@ -686,22 +686,22 @@
     },
     {
       "name": "jinya/router-extensions",
-      "version": "0.15.0",
+      "version": "0.20.0",
       "source": {
         "type": "git",
         "url": "https://github.com/Jinya-CMS/jinya-router-extensions.git",
-        "reference": "0d40575aa37b51462e7e6f469c7bec49b199528d"
+        "reference": "061aaaa22130f6c1584b8a185120ab7f0a07bf14"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/Jinya-CMS/jinya-router-extensions/zipball/0d40575aa37b51462e7e6f469c7bec49b199528d",
-        "reference": "0d40575aa37b51462e7e6f469c7bec49b199528d",
+        "url": "https://api.github.com/repos/Jinya-CMS/jinya-router-extensions/zipball/061aaaa22130f6c1584b8a185120ab7f0a07bf14",
+        "reference": "061aaaa22130f6c1584b8a185120ab7f0a07bf14",
         "shasum": ""
       },
       "require": {
         "ext-pdo": "*",
         "ext-simplexml": "*",
-        "jinya/database": "^0.16.0",
+        "jinya/database": "^0.17.0",
         "jinya/router": "^0.10.0",
         "php": "^8.2"
       },
@@ -714,6 +714,9 @@
       },
       "type": "library",
       "autoload": {
+        "files": [
+          "src/Database/routing_handler_utils.php"
+        ],
         "psr-4": {
           "Jinya\\Router\\Extensions\\": "src/"
         }
@@ -731,9 +734,9 @@
       "description": "Official extensions for the Jinya Router",
       "support": {
         "issues": "https://github.com/Jinya-CMS/jinya-router-extensions/issues",
-        "source": "https://github.com/Jinya-CMS/jinya-router-extensions/tree/0.15.0"
+        "source": "https://github.com/Jinya-CMS/jinya-router-extensions/tree/0.20.0"
       },
-      "time": "2024-03-30T22:58:59+00:00"
+      "time": "2024-03-31T23:12:34+00:00"
     },
     {
       "name": "laminas/laminas-diactoros",

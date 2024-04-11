@@ -1,0 +1,27 @@
+<table class="cosmo-table" x-data="sessionsData">
+  <thead>
+  <tr>
+    <th x-localize:my_jinya-sessions-table-valid_since></th>
+    <th x-localize:my_jinya-sessions-table-browser></th>
+    <th x-localize:my_jinya-sessions-table-device></th>
+    <th x-localize:my_jinya-sessions-table-place></th>
+    <th x-localize:my_jinya-sessions-table-ip></th>
+    <th x-localize:my_jinya-sessions-table-actions></th>
+  </tr>
+  </thead>
+  <tbody>
+  <template x-for="session in sessions" :key="session.key">
+    <tr>
+      <td x-text="getValidSince(session.validSince)"></td>
+      <td x-text="getBrowser(session.userAgent)"></td>
+      <td x-text="getDevice(session.userAgent)"></td>
+      <td x-text="getLocation(session.remoteAddress)"></td>
+      <td x-text="session.remoteAddress"></td>
+      <td>
+        <button :disabled="currentApiKey === session.key" class="cosmo-button" @click="logout(session.key)"
+                x-localize:my_jinya-sessions-action-logout></button>
+      </td>
+    </tr>
+  </template>
+  </tbody>
+</table>

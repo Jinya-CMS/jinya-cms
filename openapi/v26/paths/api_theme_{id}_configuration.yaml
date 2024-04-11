@@ -37,8 +37,4 @@ put:
     content:
       application/json:
         schema:
-          type: object
-          additionalProperties:
-            oneOf:
-              - type: string
-              - type: boolean
+          $ref: ../components/schemas/update-theme-configuration-request.yaml

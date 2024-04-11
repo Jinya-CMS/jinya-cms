@@ -1,4 +1,3 @@
-import html from '../../../../lib/jinya-html.js';
 import TagEvent from './events/TagEvent.js';
 
 class TagElement extends HTMLElement {
@@ -6,6 +5,10 @@ class TagElement extends HTMLElement {
     super();
 
     this.root = this.attachShadow({ mode: 'closed' });
+  }
+
+  static get observedAttributes() {
+    return ['name', 'emoji', 'color', 'tagId', 'editable', 'deletable'];
   }
 
   get tagId() {
@@ -85,7 +88,7 @@ class TagElement extends HTMLElement {
   }
 
   connectedCallback() {
-    this.root.innerHTML = html`
+    this.root.innerHTML = `
       <style>
         :host {
           display: inline-flex;
@@ -198,14 +201,12 @@ class TagElement extends HTMLElement {
       </button>`;
     this.style.setProperty('--primary-color', this.color);
     this.style.setProperty('--control-border-color', this.color);
-    this.root.getElementById('edit-button')
-      .addEventListener('click', () => {
-        this.dispatchEvent(new TagEvent('edit', this.tagId, this.name, this.color, this.emoji));
-      });
-    this.root.getElementById('delete-button')
-      .addEventListener('click', () => {
-        this.dispatchEvent(new TagEvent('delete', this.tagId, this.name, this.color, this.emoji));
-      });
+    this.root.getElementById('edit-button').addEventListener('click', () => {
+      this.dispatchEvent(new TagEvent('edit', this.tagId, this.name, this.color, this.emoji));
+    });
+    this.root.getElementById('delete-button').addEventListener('click', () => {
+      this.dispatchEvent(new TagEvent('delete', this.tagId, this.name, this.color, this.emoji));
+    });
   }
 
   attributeChangedCallback(property, oldValue, newValue) {
@@ -213,8 +214,11 @@ class TagElement extends HTMLElement {
       return;
     }
 
-    this[property] = newValue;
+    const propertyName = property.replace(/-([a-z])/g, (m, w) => w.toUpperCase());
+    this[propertyName] = newValue;
   }
 }
 
-customElements.define('cms-tag', TagElement);
+if (!customElements.get('cms-tag')) {
+  customElements.define('cms-tag', TagElement);
+}

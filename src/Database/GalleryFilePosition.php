@@ -96,6 +96,10 @@ class GalleryFilePosition implements Creatable, Updatable, Deletable
      */
     protected function internalRearrange(int $parentId, int $newPosition): void
     {
+        $target = $newPosition;
+        if ($newPosition > $this->position) {
+            ++$target;
+        }
         $query = self::getQueryBuilder()
             ->newSelect()
             ->from(self::getTableName())
@@ -105,13 +109,13 @@ class GalleryFilePosition implements Creatable, Updatable, Deletable
             ])
             ->where(
                 'position >= :newPosition AND gallery_id = :parentId',
-                ['newPosition' => $newPosition, 'parentId' => $parentId]
+                ['newPosition' => $target, 'parentId' => $parentId]
             )
             ->orderBy(['position']);
 
         /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
-        $previousPosition = $newPosition;
+        $previousPosition = $target;
         foreach ($data as $item) {
             ++$previousPosition;
             $query = self::getQueryBuilder()
@@ -122,7 +126,7 @@ class GalleryFilePosition implements Creatable, Updatable, Deletable
             self::executeQuery($query);
         }
 
-        $this->position = $newPosition;
+        $this->position = $target;
     }
 
     /**
@@ -227,8 +231,10 @@ class GalleryFilePosition implements Creatable, Updatable, Deletable
      */
     public function move(int $newPosition): void
     {
-        $this->internalRearrange($this->galleryId, $newPosition);
-        $this->update();
-        $this->resetOrder($this->galleryId);
+        if ($newPosition !== $this->position) {
+            $this->internalRearrange($this->galleryId, $newPosition);
+            $this->update();
+            $this->resetOrder($this->galleryId);
+        }
     }
 }

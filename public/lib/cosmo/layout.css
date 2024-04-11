@@ -56,12 +56,11 @@ hr {
 .cosmo-page {
 	display: grid;
 	grid-template-rows:
-		[top-menu] var(--top-menu-height) [main-menu] calc(
-			var(--main-menu-height) + var(--menu-gap) + var(--sub-menu-height)
-		)
-		[top-spacing] var(--page-top-spacing) [content] var(--page-height) [bottom-spacing] var(
-			--bottom-bar-spacing
-		)
+		[top-menu] var(--top-menu-height)
+        [main-menu] calc(var(--main-menu-height) + var(--menu-gap) + var(--sub-menu-height))
+		[top-spacing] var(--page-top-spacing)
+        [content] var(--page-height)
+        [bottom-spacing] var(--bottom-bar-spacing)
 		[bottom-bar] var(--bottom-bar-height);
 }
 

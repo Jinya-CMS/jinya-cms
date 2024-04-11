@@ -28,14 +28,10 @@ class EnvironmentController extends BaseController
             ),
             ARRAY_FILTER_USE_KEY
         );
-        $data = array_map(
-            static fn ($key, $value) => [
-                'key' => $key,
-                'value' => stripos($key, 'password') === false ? $value : '••••••',
-            ],
-            array_keys($env),
-            array_values($env)
-        );
+        $data = [];
+        foreach ($env as $key => $value) {
+            $data[$key] = stripos($key, 'password') === false ? $value : '••••••';
+        }
 
         return $this->json($data);
     }

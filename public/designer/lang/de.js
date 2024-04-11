@@ -141,9 +141,9 @@ export default {
       },
       details: {
         type: 'Typ',
-        uploadedBy: 'Hochgeladen von',
-        lastChangedBy: 'Zuletzt geändert von',
-        downloadFile: 'Datei herunterladen',
+        uploaded_by: 'Hochgeladen von',
+        last_changed_by: 'Zuletzt geändert von',
+        download_file: 'Datei herunterladen',
         types: {
           font: 'Schriftart',
           'image/jpeg': 'JPEG Bild',
@@ -234,11 +234,11 @@ export default {
   pages_and_forms: {
     menu: {
       title: 'Seiten & Formulare',
-      simple_pages: 'Einfache Seiten',
-      segment_pages: 'Segmentseiten',
+      classic_pages: 'Klassische Seiten',
+      modern_pages: 'Moderne Seiten',
       forms: 'Formulare',
     },
-    simple: {
+    classic: {
       action: {
         new: 'Seite erstellen',
         edit: 'Titel ändern',
@@ -267,6 +267,10 @@ export default {
           conflict: 'Eine Seite mit dem gewählten Titel existiert bereits.',
           generic: 'Ein unbekannter Fehler ist aufgetreten, bitte kontaktiere deinen Administrator',
         },
+        saved: {
+          title: 'Speichern erfolgreich',
+          content: 'Die Seite wurde erfolgreich gespeichert.',
+        },
       },
       delete: {
         title: 'Seite löschen',
@@ -280,7 +284,7 @@ export default {
         },
       },
     },
-    segment: {
+    modern: {
       action: {
         new: 'Seite erstellen',
         edit: 'Titel ändern',
@@ -711,6 +715,7 @@ export default {
         preview: 'Themevorschau',
       },
       variables: {
+        help_text: 'Kann in anderen Variablen mit {variable} benutzt werden',
         save: 'Variablen speichern',
         discard: 'Änderungen verwerfen',
         error: {
@@ -737,11 +742,18 @@ export default {
       links: {
         files: 'Dateien',
         galleries: 'Galerien',
-        pages: 'Einfache Seiten',
-        segment_pages: 'Segmentseiten',
+        classic_pages: 'Klassische Seiten',
+        modern_pages: 'Moderne Seiten',
         forms: 'Formulare',
         menus: 'Menüs',
-        categories: 'Kategorien',
+        blog_categories: 'Blogkategorien',
+        no_file: 'Keine Datei gewählt',
+        no_gallery: 'Keine Galerie gewählt',
+        no_classic_page: 'Keine klassische Seite gewählt',
+        no_modern_page: 'Keine moderne Seite gewählt',
+        no_form: 'Kein Formular gewählt',
+        no_menu: 'Kein Menü gewählt',
+        no_blog_category: 'Keine Blogkategorie gewählt',
         save: 'Links speichern',
         discard: 'Änderungen verwerfen',
         error: {
@@ -754,17 +766,25 @@ export default {
         },
       },
       create: {
-        name: 'Themename',
         file: 'ZIP Archiv',
         title: 'Theme hochladen',
         cancel: 'Hochladen abbrechen',
         save: 'Hochladen',
+        error: {
+          title: 'Fehler beim Hochladen',
+          conflict: 'Ein Theme mit dem gleichen Namen existiert bereits.',
+          generic: 'Das Theme konnte nicht hochgeladen werden, bitte kontaktiere deinen Administrator.',
+        },
       },
-      update: {
+      edit: {
         file: 'ZIP Archiv',
         title: 'Theme updaten',
         cancel: 'Update abbrechen',
         save: 'Update starten',
+        error: {
+          title: 'Fehler beim Hochladen',
+          message: 'Das Theme konnte nicht gespeichert werden, bitte kontaktiere deinen Administrator.',
+        },
       },
     },
   },
@@ -783,27 +803,39 @@ export default {
         discard_profile: 'Änderungen verwerfen',
       },
       edit: {
+        save_profile: 'Profil speichern',
+        discard_profile: 'Änderungen verwerfen',
         title: 'Profil bearbeiten',
+        email: 'Email',
+        artist_name: 'Künstlername',
+        profile_picture: 'Profilbild',
+        error: {
+          title: 'Fehler beim Speichern',
+          message: 'Dein Profil konnte leider nicht gespeichert werden, bitte wende dich an deinen Administrator',
+        },
       },
-      email: 'Email',
-      artist_name: 'Künstlername',
-      about_me: 'Über mich',
-      profile_picture: 'Profilbild',
       change_password: {
         title: 'Passwort ändern',
         new_password_repeat: 'Passwort wiederholen',
         new_password: 'Neues Passwort',
-        old_password: 'Altes passwort',
-        keep: 'Alter Passwort behalten',
+        old_password: 'Altes Passwort',
+        keep: 'Altes Passwort behalten',
         change: 'Passwort ändern',
         error: {
           forbidden: 'Das alte Passwort ist falsch',
           generic: 'Das Passwort konnte nicht geändert werden, bitte wende dich an deinen Administrator',
           title: 'Passwort ändern fehlgeschlagen',
+          not_match: 'Die neuen Passwörte müssen die gleichen sein',
         },
-        not_match: {
-          title: 'Passwörter unterscheiden sich',
-          message: 'Die neuen Passwörte müssen die gleichen sein.',
+      },
+      about_me: {
+        success: {
+          title: 'Profil gespeichert',
+          message: 'Dein Profil wurde erfolgreich gespeichert',
+        },
+        error: {
+          title: 'Fehler beim Speichern',
+          message: 'Dein Profil konnte leider nicht gespeichert werden, bitte wende dich an deinen Administrator',
         },
       },
     },
@@ -830,6 +862,7 @@ export default {
       browser: '{browser} auf {os}',
       device: '{vendor} {model}',
       unknown_device: 'Unbekanntes Gerät',
+      unknown_browser: 'Unbekannter Browser',
       action: {
         forget: 'Vergessen',
       },
@@ -916,28 +949,28 @@ export default {
     },
     constraints: {
       title: 'Constraints',
-      constraintName: 'Name',
-      constraintType: 'Constrainttyp',
-      columnName: 'Spalten Name',
-      referencedTableName: 'Referenzierte Tabelle',
-      referencedColumnName: 'Referenzierte Spalte',
-      positionInUniqueConstraint: 'Position in Unique Constraint',
-      deleteRule: 'Aktion bei Löschen',
-      updateRule: 'Aktion bei Update',
+      constraint_name: 'Name',
+      constraint_type: 'Constrainttyp',
+      column_name: 'Spalten Name',
+      referenced_table_name: 'Referenzierte Tabelle',
+      referenced_column_name: 'Referenzierte Spalte',
+      position_in_unique_constraint: 'Position in Unique Constraint',
+      delete_rule: 'Aktion bei Löschen',
+      update_rule: 'Aktion bei Update',
       none: 'Nicht anwendbar',
     },
     indexes: {
       title: 'Indexes',
-      keyName: 'Schlüsselname',
-      columnName: 'Spalten Name',
+      key_name: 'Schlüsselname',
+      column_name: 'Spalten Name',
       cardinality: 'Kardinalität',
-      indexType: 'Indextyp',
+      index_type: 'Indextyp',
       collation: 'Collation',
       unique: 'Einzigartig',
     },
     structure: 'Struktur',
     details: 'Details',
-    entryCount: 'Anzahl Einträge',
+    entry_count: 'Anzahl Einträge',
     size: 'Tabellengröße in KB',
     engine: 'Speicher Engine',
     query_tool: {
@@ -970,9 +1003,9 @@ export default {
       email: 'Email',
       password: 'Passwort',
       roles: 'Rollen',
-      is_reader: 'Reader',
-      is_writer: 'Writer',
-      is_admin: 'Admin',
+      is_reader: 'Kann lesen',
+      is_writer: 'Kann schreiben',
+      is_admin: 'Administrator',
       error: {
         title: 'Erstellen fehlgeschlagen',
         conflict: 'Ein Künstler mit der gewählten Emailadresse existiert bereits.',
@@ -987,9 +1020,9 @@ export default {
       email: 'Email',
       password: 'Passwort',
       roles: 'Rollen',
-      is_reader: 'Reader',
-      is_writer: 'Writer',
-      is_admin: 'Admin',
+      is_reader: 'Kann lesen',
+      is_writer: 'Kann schreiben',
+      is_admin: 'Administrator',
       error: {
         title: 'Speichern fehlgeschlagen',
         conflict: 'Ein Künstler mit der gewählten Emailadresse existiert bereits.',
@@ -1001,29 +1034,42 @@ export default {
       message: 'Soll der Künstler {artistName} wirklich gelöscht werden?',
       keep: 'Künstler behalten',
       delete: 'Künstler löschen',
+      error: {
+        title: 'Löschen fehlgeschlagen',
+        message: 'Der Künstler konnte leider nicht gelöscht werden, bitte prüfe die Protokolle.',
+      },
     },
     disable: {
       title: 'Künstler deaktivieren',
       message: 'Soll der Künstler {artistName} wirklich deaktiviert werden?',
       keep: 'Künstler aktiviert lassen',
       delete: 'Künstler deaktivieren',
+      error: {
+        title: 'Deaktivieren fehlgeschlagen',
+        message: 'Der Künstler konnte leider nicht deaktiviert werden, bitte prüfe die Protokolle.',
+      },
     },
     enable: {
       title: 'Künstler aktivieren',
       message: 'Soll der Künstler {artistName} wirklich aktiviert werden?',
       keep: 'Künstler deaktiviert lassen',
       delete: 'Künstler aktivieren',
+      error: {
+        title: 'Aktivieren fehlgeschlagen',
+        message: 'Der Künstler konnte leider nicht aktiviert werden, bitte prüfe die Protokolle.',
+      },
     },
   },
   top_menu: {
     logout: 'Abmelden',
   },
   bottom_bar: {
-    upload_title: {
-      uploading: 'Dateien werden hochgeladen…',
-      uploaded: 'Alle Dateien wurden hochgeladen',
+    status: 'Datei {name} wird hochgeladen',
+    uploading: 'Dateien werden hochgeladen…',
+    error: {
+      conflict: 'Datei {name} existiert',
+      generic: '{name} konnte nicht hochgeladen werden',
     },
-    upload_progress: '{filesUploaded} vom {filesToUpload} Dateien hochgeladen',
   },
   statistics: {
     menu: {

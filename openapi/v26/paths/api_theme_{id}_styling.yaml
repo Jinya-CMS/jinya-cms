@@ -74,6 +74,4 @@ put:
     content:
       application/json:
         schema:
-          type: object
-          additionalProperties:
-            type: string
+          $ref: ../components/schemas/update-theme-variables-request.yaml

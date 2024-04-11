@@ -2,6 +2,7 @@
 
 namespace Jinya\Cms\Web\Controllers;
 
+use Exception;
 use Jinya\Cms\Database\BlogCategory;
 use Jinya\Cms\Database\ClassicPage;
 use Jinya\Cms\Database\File;
@@ -23,7 +24,6 @@ use Jinya\Cms\Theming\ThemeSyncer;
 use Jinya\Cms\Utils\UuidGenerator;
 use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Jinya\Cms\Web\Middleware\CheckRequiredFieldsMiddleware;
-use Exception;
 use Jinya\Database\Exception\ForeignKeyFailedException;
 use Jinya\Database\Exception\NotNullViolationException;
 use Jinya\Router\Attributes\Controller;
@@ -58,7 +58,7 @@ class ThemeController extends BaseController
     #[Middlewares(new AuthorizationMiddleware(ROLE_WRITER))]
     public function uploadTheme(): ResponseInterface
     {
-        $themeName = $this->getQueryParameter('name');
+        $themeName = UuidGenerator::generateV4();
         if ($themeName) {
             $tmpFile = __JINYA_TEMP . UuidGenerator::generateV4();
             file_put_contents($tmpFile, $this->request->getBody()->detach());
@@ -97,7 +97,9 @@ class ThemeController extends BaseController
             unlink($tmpFile);
         }
 
-        return $this->noContent();
+        $theme = DatabaseTheme::findByName($themeName);
+
+        return $this->json($theme);
     }
 
     /**
@@ -284,9 +286,8 @@ class ThemeController extends BaseController
 
         $theme = new Theme($dbTheme);
         $vars = $theme->getStyleVariables();
-        $dbVars = $dbTheme->scssVariables;
 
-        return $this->json(array_merge($vars, $dbVars));
+        return $this->json($vars);
     }
 
     /**
@@ -400,8 +401,12 @@ class ThemeController extends BaseController
         $link = ThemeBlogCategory::findByThemeAndName($id, $name);
         try {
             if ($link) {
-                $link->blogCategoryId = $this->body['blogCategory'];
-                $link->update();
+                if ($this->body['blogCategory']) {
+                    $link->blogCategoryId = $this->body['blogCategory'];
+                    $link->update();
+                } else {
+                    $link->delete();
+                }
             } else {
                 $link = new ThemeBlogCategory();
                 $link->name = $name;
@@ -451,8 +456,12 @@ class ThemeController extends BaseController
         $link = ThemeClassicPage::findByThemeAndName($id, $name);
         try {
             if ($link) {
-                $link->classicPageId = $this->body['classicPage'];
-                $link->update();
+                if ($this->body['classicPage']) {
+                    $link->classicPageId = $this->body['classicPage'];
+                    $link->update();
+                } else {
+                    $link->delete();
+                }
             } else {
                 $link = new ThemeClassicPage();
                 $link->name = $name;
@@ -502,8 +511,12 @@ class ThemeController extends BaseController
         $link = ThemeFile::findByThemeAndName($id, $name);
         try {
             if ($link) {
-                $link->fileId = $this->body['file'];
-                $link->update();
+                if ($this->body['file']) {
+                    $link->fileId = $this->body['file'];
+                    $link->update();
+                } else {
+                    $link->delete();
+                }
             } else {
                 $link = new ThemeFile();
                 $link->name = $name;
@@ -553,8 +566,12 @@ class ThemeController extends BaseController
         $link = ThemeForm::findByThemeAndName($id, $name);
         try {
             if ($link) {
-                $link->formId = $this->body['form'];
-                $link->update();
+                if ($this->body['form']) {
+                    $link->formId = $this->body['form'];
+                    $link->update();
+                } else {
+                    $link->delete();
+                }
             } else {
                 $link = new ThemeForm();
                 $link->name = $name;
@@ -604,8 +621,12 @@ class ThemeController extends BaseController
         $link = ThemeGallery::findByThemeAndName($id, $name);
         try {
             if ($link) {
-                $link->galleryId = $this->body['gallery'];
-                $link->update();
+                if ($this->body['gallery']) {
+                    $link->galleryId = $this->body['gallery'];
+                    $link->update();
+                } else {
+                    $link->delete();
+                }
             } else {
                 $link = new ThemeGallery();
                 $link->name = $name;
@@ -655,8 +676,12 @@ class ThemeController extends BaseController
         $link = ThemeMenu::findByThemeAndName($id, $name);
         try {
             if ($link) {
-                $link->menuId = $this->body['menu'];
-                $link->update();
+                if ($this->body['menu']) {
+                    $link->menuId = $this->body['menu'];
+                    $link->update();
+                } else {
+                    $link->delete();
+                }
             } else {
                 $link = new ThemeMenu();
                 $link->name = $name;
@@ -706,8 +731,12 @@ class ThemeController extends BaseController
         $link = ThemeModernPage::findByThemeAndName($id, $name);
         try {
             if ($link) {
-                $link->modernPageId = $this->body['modernPage'];
-                $link->update();
+                if ($this->body['modernPage']) {
+                    $link->modernPageId = $this->body['modernPage'];
+                    $link->update();
+                } else {
+                    $link->delete();
+                }
             } else {
                 $link = new ThemeModernPage();
                 $link->name = $name;

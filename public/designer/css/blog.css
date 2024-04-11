@@ -67,7 +67,12 @@
 
 .jinya-designer__content--blog,
 .jinya-designer__result--blog {
-    --height: calc(99vh - var(--modal-border-width) - var(--modal-border-width) - var(--modal-title-font-size) - var(--modal-title-margin-top) - var(--modal-title-margin-bottom) - var(--modal-padding-top) - var(--modal-padding-bottom) - 2.75rem - 1.25rem - 1rem);
+    --height: calc(
+        99vh - var(--modal-border-width) - var(--modal-border-width) - var(--modal-title-font-size) -
+        var(--modal-title-margin-top) - var(--modal-title-margin-bottom) - var(--modal-padding-top) -
+        var(--modal-padding-bottom) - 2.75rem - 1.25rem - 1rem
+    );
+
     max-height: var(--height);
     min-height: var(--height);
 }

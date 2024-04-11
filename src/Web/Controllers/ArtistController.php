@@ -179,7 +179,7 @@ class ArtistController extends BaseController
             return $this->entityNotFound('Artist not found');
         }
 
-        if (Artist::countAdmins($id) === 1) {
+        if (Artist::countAdmins($id) === 0) {
             return $this->json([
                 'success' => false,
                 'error' => [

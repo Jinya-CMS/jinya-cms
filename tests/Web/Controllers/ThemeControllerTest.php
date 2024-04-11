@@ -114,7 +114,7 @@ class ThemeControllerTest extends DatabaseAwareTestCase
             );
             $result = $controller->uploadTheme();
 
-            self::assertEquals(204, $result->getStatusCode());
+            self::assertEquals(200, $result->getStatusCode());
         } finally {
             $fs = new Filesystem();
             $fs->remove(__ROOT__ . '/themes/' . $name);

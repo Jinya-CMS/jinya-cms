@@ -2,13 +2,14 @@
 
 namespace Jinya\Cms\Database;
 
+use Exception;
+use JetBrains\PhpStorm\ArrayShape;
+use JetBrains\PhpStorm\Pure;
 use Jinya\Cms\Database\Converter\BooleanConverter;
 use Jinya\Cms\Database\Converter\JsonConverter;
 use Jinya\Cms\Database\Converter\ThemeDescriptionConverter;
 use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
-use Exception;
-use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\Pure;
+use Jinya\Cms\Web\Middleware\ThemeSyncMiddleware;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
@@ -21,7 +22,7 @@ use stdClass;
  * Apart from the database side, there is also filesystem theme information.
  */
 #[Table('theme')]
-#[Find('/api/theme', new AuthorizationMiddleware(ROLE_READER))]
+#[Find('/api/theme', new AuthorizationMiddleware(ROLE_READER), new ThemeSyncMiddleware())]
 class Theme extends Entity
 {
     #[Id]

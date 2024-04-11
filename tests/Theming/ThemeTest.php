@@ -146,7 +146,7 @@ class ThemeTest extends DatabaseAwareTestCase
                 ],
             ],
             'links' => [
-                'segment_pages' => [
+                'section_pages' => [
                     'segmentPage1' => 'Segment Page 1',
                     'segmentPage2' => 'Segment Page 2',
                     'segmentPage3' => 'Segment Page 3',
