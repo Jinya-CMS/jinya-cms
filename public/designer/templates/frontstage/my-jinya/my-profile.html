@@ -1,6 +1,6 @@
 <div class="jinya-profile-view" x-data="profileData">
   <div class="jinya-profile__sidebar">
-    <img :src="$store.artist.profilePicture" class="jinya-profile__picture" alt="$store.artist.artistName" />
+    <img :src="$store.artist.profilePicture" class="jinya-profile__picture" :alt="$store.artist.artistName" />
   </div>
   <div class="cosmo-title is--profile">
     <span x-text="$store.artist.artistName"></span>

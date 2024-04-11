@@ -1,7 +1,7 @@
 import { Alpine } from '../../../../lib/alpine.js';
 import getEditor from '../../foundation/ui/tiny.js';
 import { changePassword, logout } from '../../foundation/api/authentication.js';
-import localize from '../../foundation/localize.js';
+import localize from '../../foundation/utils/localize.js';
 import { getMyProfile, updateAboutMe, updateProfile, updateProfilePicture } from '../../foundation/api/my-jinya.js';
 
 Alpine.data('profileData', () => ({

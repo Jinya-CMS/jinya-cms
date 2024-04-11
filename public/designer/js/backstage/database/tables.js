@@ -1,6 +1,6 @@
 import { Alpine } from '../../../../lib/alpine.js';
 import { analyzeDatabase } from '../../foundation/api/mysql.js';
-import localize from '../../foundation/localize.js';
+import localize from '../../foundation/utils/localize.js';
 
 Alpine.data('tablesData', () => ({
   selectedTable: '',

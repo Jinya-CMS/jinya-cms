@@ -5,7 +5,7 @@ import alert from '../../foundation/ui/alert.js';
 import '../../../lib/ace/ace.js';
 import '../../../lib/ace/jinya.js';
 import '../../../lib/ace/mysql.js';
-import localize from '../../foundation/localize.js';
+import localize from '../../foundation/utils/localize.js';
 
 Alpine.data('queryToolData', () => ({
   ace: null,

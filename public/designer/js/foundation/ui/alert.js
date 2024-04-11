@@ -1,4 +1,4 @@
-import localize from '../localize.js';
+import localize from '../utils/localize.js';
 
 /**
  * Displays an alert modal dialog

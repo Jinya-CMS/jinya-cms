@@ -1,5 +1,5 @@
 import { Alpine } from '../../../../lib/alpine.js';
-import localize from '../../foundation/localize.js';
+import localize from '../../foundation/utils/localize.js';
 import MimeTypes from '../../../lib/mime/types.js';
 import {
   createFile,

@@ -1,34 +1,7 @@
-import localize from '../../localize.js';
+import localize from '../../utils/localize.js';
 import './emoji-picker.js';
-
-class TagPopupSubmitEvent extends Event {
-  name = '';
-
-  emoji = '';
-
-  color = '';
-
-  constructor(name, color, emoji) {
-    super('submit', {
-      bubbles: true,
-      cancelable: false,
-      composed: true,
-    });
-    this.name = name;
-    this.emoji = emoji;
-    this.color = color;
-  }
-}
-
-class TagPopupCloseEvent extends Event {
-  constructor() {
-    super('close', {
-      bubbles: true,
-      cancelable: false,
-      composed: true,
-    });
-  }
-}
+import TagPopupSubmitEvent from './events/TagPopupSubmitEvent.js';
+import TagPopupCloseEvent from './events/TagPopupCloseEvent.js';
 
 class TagPopupElement extends HTMLElement {
   constructor() {

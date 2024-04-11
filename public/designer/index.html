@@ -409,6 +409,12 @@
       x-handler="[$store.authentication.needsAdmin, $store.navigation.fetchScript]"
       x-template="/designer/templates/backstage/database/query-tool.html"
     ></template>
+
+    <template
+      x-route="/backstage/artists/index"
+      x-handler="[$store.authentication.needsAdmin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/backstage/artists/index.html"
+    ></template>
   </div>
   <template x-if="$store.authentication.loggedIn">
     <div class="cosmo-bottom-bar is--three-column">

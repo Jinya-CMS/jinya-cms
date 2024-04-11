@@ -1,5 +1,5 @@
-import { checkLogin } from './api/authentication.js';
-import { Alpine } from '../../../lib/alpine.js';
+import { checkLogin } from '../api/authentication.js';
+import { Alpine } from '../../../../lib/alpine.js';
 import { setRedirect } from './storage.js';
 
 export async function needsLogin(context) {

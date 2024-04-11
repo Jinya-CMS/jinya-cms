@@ -1,5 +1,5 @@
 import filePicker from './filePicker.js';
-import localize from '../localize.js';
+import localize from '../utils/localize.js';
 import { getFiles } from '../api/files.js';
 import getTheme from '../utils/theme.js';
 

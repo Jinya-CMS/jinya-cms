@@ -1,7 +1,7 @@
 import { Alpine } from '../../../../lib/alpine.js';
 import { getVersion, performUpdate } from '../../foundation/api/updates.js';
 import confirm from '../../foundation/ui/confirm.js';
-import localize from '../../foundation/localize.js';
+import localize from '../../foundation/utils/localize.js';
 
 Alpine.data('updatesData', () => ({
   versionData: {

@@ -1,12 +1,12 @@
 import { Alpine } from '../../lib/alpine.js';
 import PineconeRouter from '../../lib/pinecone-router.js';
-import { fetchScript, needsAdmin, needsLogin, needsLogout } from './foundation/router.js';
-import localize from './foundation/localize.js';
+import { fetchScript, needsAdmin, needsLogin, needsLogout } from './foundation/utils/router.js';
+import localize from './foundation/utils/localize.js';
 import { getMyProfile, setColorScheme } from './foundation/api/my-jinya.js';
 import { logout } from './foundation/api/authentication.js';
 import { dataUrlReader } from './foundation/utils/blob.js';
 import FileUploadedEvent from './frontstage/media/uploading/FileUploadedEvent.js';
-import { getJinyaApiKey } from './foundation/storage.js';
+import { getJinyaApiKey } from './foundation/utils/storage.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   window.Alpine = Alpine;

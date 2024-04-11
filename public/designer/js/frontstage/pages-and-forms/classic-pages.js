@@ -7,7 +7,7 @@ import {
   updateClassicPage,
 } from '../../foundation/api/classic-pages.js';
 import getEditor from '../../foundation/ui/tiny.js';
-import localize from '../../foundation/localize.js';
+import localize from '../../foundation/utils/localize.js';
 import alert from '../../foundation/ui/alert.js';
 import confirm from '../../foundation/ui/confirm.js';
 

@@ -1024,8 +1024,8 @@ export default {
       is_admin: 'Admin',
       error: {
         title: 'Update failed',
-        conflict: 'A artist with the chosen email already exists.',
-        generic: 'An unknown error occurred, please contact your administrator',
+        conflict: 'An artist with the chosen email already exists.',
+        generic: 'An unknown error occurred, please check the log files',
       },
     },
     delete: {
@@ -1033,18 +1033,30 @@ export default {
       message: 'Do you really want to delete the artist {artistName}?',
       keep: 'Keep artist',
       delete: 'Delete artist',
+      error: {
+        title: 'Delete failed',
+        message: 'The artist could not be deleted, please check the log files',
+      },
     },
     disable: {
       title: 'Disable artist',
       message: 'Do you really want to disable the artist {artistName}?',
       keep: 'Keep artist enabled',
       delete: 'Disable artist',
+      error: {
+        title: 'Disable failed',
+        message: 'The artist could not be disabled, please check the log files',
+      },
     },
     enable: {
       title: 'Enable artist',
       message: 'Do you really want to enable the artist {artistName}?',
       keep: 'Keep artist disabled',
       delete: 'Enable artist',
+      error: {
+        title: 'Enable failed',
+        message: 'The artist could not be enabled, please check the log files',
+      },
     },
   },
   top_menu: {

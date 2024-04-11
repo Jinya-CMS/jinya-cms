@@ -11,7 +11,7 @@ import {
   updateGallery,
 } from '../../foundation/api/galleries.js';
 import { getFiles, getTags } from '../../foundation/api/files.js';
-import localize from '../../foundation/localize.js';
+import localize from '../../foundation/utils/localize.js';
 import confirm from '../../foundation/ui/confirm.js';
 import alert from '../../foundation/ui/alert.js';
 

@@ -6,7 +6,7 @@ import {
   getJinyaApiKey,
   setDeviceCode,
   setJinyaApiKey,
-} from '../storage.js';
+} from '../utils/storage.js';
 
 export async function checkLogin() {
   try {

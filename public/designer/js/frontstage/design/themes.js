@@ -33,7 +33,7 @@ import { getFiles } from '../../foundation/api/files.js';
 import { getModernPages } from '../../foundation/api/modern-pages.js';
 import { getMenus } from '../../foundation/api/menus.js';
 import { getBlogCategories } from '../../foundation/api/blog-categories.js';
-import localize from '../../foundation/localize.js';
+import localize from '../../foundation/utils/localize.js';
 import confirm from '../../foundation/ui/confirm.js';
 
 Alpine.data('themesData', () => ({

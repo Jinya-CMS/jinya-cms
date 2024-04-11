@@ -1003,9 +1003,9 @@ export default {
       email: 'Email',
       password: 'Passwort',
       roles: 'Rollen',
-      is_reader: 'Reader',
-      is_writer: 'Writer',
-      is_admin: 'Admin',
+      is_reader: 'Kann lesen',
+      is_writer: 'Kann schreiben',
+      is_admin: 'Administrator',
       error: {
         title: 'Erstellen fehlgeschlagen',
         conflict: 'Ein Künstler mit der gewählten Emailadresse existiert bereits.',
@@ -1020,9 +1020,9 @@ export default {
       email: 'Email',
       password: 'Passwort',
       roles: 'Rollen',
-      is_reader: 'Reader',
-      is_writer: 'Writer',
-      is_admin: 'Admin',
+      is_reader: 'Kann lesen',
+      is_writer: 'Kann schreiben',
+      is_admin: 'Administrator',
       error: {
         title: 'Speichern fehlgeschlagen',
         conflict: 'Ein Künstler mit der gewählten Emailadresse existiert bereits.',
@@ -1034,18 +1034,30 @@ export default {
       message: 'Soll der Künstler {artistName} wirklich gelöscht werden?',
       keep: 'Künstler behalten',
       delete: 'Künstler löschen',
+      error: {
+        title: 'Löschen fehlgeschlagen',
+        message: 'Der Künstler konnte leider nicht gelöscht werden, bitte prüfe die Protokolle.',
+      },
     },
     disable: {
       title: 'Künstler deaktivieren',
       message: 'Soll der Künstler {artistName} wirklich deaktiviert werden?',
       keep: 'Künstler aktiviert lassen',
       delete: 'Künstler deaktivieren',
+      error: {
+        title: 'Deaktivieren fehlgeschlagen',
+        message: 'Der Künstler konnte leider nicht deaktiviert werden, bitte prüfe die Protokolle.',
+      },
     },
     enable: {
       title: 'Künstler aktivieren',
       message: 'Soll der Künstler {artistName} wirklich aktiviert werden?',
       keep: 'Künstler deaktiviert lassen',
       delete: 'Künstler aktivieren',
+      error: {
+        title: 'Aktivieren fehlgeschlagen',
+        message: 'Der Künstler konnte leider nicht aktiviert werden, bitte prüfe die Protokolle.',
+      },
     },
   },
   top_menu: {

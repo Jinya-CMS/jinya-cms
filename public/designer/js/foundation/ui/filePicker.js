@@ -1,4 +1,4 @@
-import localize from '../localize.js';
+import localize from '../utils/localize.js';
 import { getFiles, getTags } from '../api/files.js';
 
 import './components/tag.js';

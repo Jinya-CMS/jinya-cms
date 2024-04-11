@@ -1,4 +1,4 @@
-import { getDeviceCode, getJinyaApiKey, hasDeviceCode, hasJinyaApiKey } from '../storage.js';
+import { getDeviceCode, getJinyaApiKey, hasDeviceCode, hasJinyaApiKey } from '../utils/storage.js';
 
 export function send(verb, url, data, contentType, additionalHeaders = {}, plain = false) {
   const headers = { 'Content-Type': contentType, ...additionalHeaders };

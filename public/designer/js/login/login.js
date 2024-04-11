@@ -1,7 +1,7 @@
 import { Alpine } from '../../../lib/alpine.js';
 import { checkKnownDevice, login, requestTwoFactor } from '../foundation/api/authentication.js';
-import { deleteRedirect, getDeviceCode, getRedirect } from '../foundation/storage.js';
-import localize from '../foundation/localize.js';
+import { deleteRedirect, getDeviceCode, getRedirect } from '../foundation/utils/storage.js';
+import localize from '../foundation/utils/localize.js';
 import { getMyProfile } from '../foundation/api/my-jinya.js';
 
 Alpine.store('authentication')

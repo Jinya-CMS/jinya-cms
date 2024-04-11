@@ -1,5 +1,5 @@
-import de from '../../lang/de.js';
-import en from '../../lang/en.js';
+import de from '../../../lang/de.js';
+import en from '../../../lang/en.js';
 
 /**
  * Gets the value by the given path
