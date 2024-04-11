@@ -90,42 +90,42 @@ designer-prettier:
     - .javascript-lint
   stage: lint
   script:
-    - designer:prettier
+    - npm run designer:prettier
 
 designer-stylelint:
   extends:
     - .javascript-lint
   stage: lint
   script:
-    - designer:stylelint
+    - npm run designer:stylelint
 
 designer-eslint:
   extends:
     - .javascript-lint
   stage: lint
   script:
-    - designer:eslint
+    - npm run designer:eslint
 
 installer-prettier:
   extends:
     - .javascript-lint
   stage: lint
   script:
-    - installer:prettier
+    - npm run installer:prettier
 
 installer-stylelint:
   extends:
     - .javascript-lint
   stage: lint
   script:
-    - installer:stylelint
+    - npm run installer:stylelint
 
 installer-eslint:
   extends:
     - .javascript-lint
   stage: lint
   script:
-    - installer:eslint
+    - npm run  installer:eslint
 
 phpunit:
   stage: test
