@@ -14,9 +14,7 @@ export async function needsLogin(context) {
 }
 
 export async function needsAdmin() {
-  if ((await checkLogin()) && Alpine.store('authentication')
-    .roles
-    .includes('ROLE_ADMIN')) {
+  if ((await checkLogin()) && Alpine.store('authentication').roles.includes('ROLE_ADMIN')) {
     return 'stop';
   }
 
@@ -39,12 +37,11 @@ export async function fetchScript({ path }) {
     const [, , stage, area, page] = path.split('/');
     if (stage && area) {
       await import(`/designer/js/${stage}/${area}/${page ?? 'index'}.js`);
-      Alpine.store('navigation')
-        .navigate({
-          stage,
-          area,
-          page: page ?? 'index',
-        });
+      Alpine.store('navigation').navigate({
+        stage,
+        area,
+        page: page ?? 'index',
+      });
     }
   }
 }

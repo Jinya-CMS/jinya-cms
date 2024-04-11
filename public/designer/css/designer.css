@@ -29,8 +29,7 @@
     max-height: 100%;
     gap: 1rem;
     flex-flow: row wrap;
-    align-content: baseline;
-    justify-content: flex-start;
+    place-content: baseline flex-start;
 }
 
 .jinya-designer__result--horizontal {
@@ -47,11 +46,6 @@
     gap: 1rem;
 }
 
-.jinya-designer__toolbox-container .jinya-designer__toolbox {
-    grid-column: 1/2;
-    grid-row: 2/3;
-}
-
 .jinya-designer__toolbox {
     grid-column: toolbox;
     overflow-y: auto;
@@ -62,13 +56,18 @@
     align-content: flex-start;
 }
 
+.jinya-designer__toolbox-container .jinya-designer__toolbox {
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+
 .jinya-designer__delete {
     overflow-y: auto;
     display: grid;
     min-height: 100%;
     justify-content: center;
     align-items: center;
-    background: hsla(var(--negative-hue) var(--negative-saturation) var(--negative-lightness-base) / 0.55);
+    background: hsla(var(--negative-hue) var(--negative-saturation) var(--negative-lightness-base) / 55%);
     backdrop-filter: var(--modal-backdrop-filter);
     grid-row: 1/3;
     grid-column: 1/2;
@@ -129,14 +128,14 @@
     min-width: unset;
 }
 
-.jinya-designer-item--selected {
+.jinya-designer-item.is--selected {
     border: 0.25rem solid var(--primary-color);
     padding: 0.75rem;
     position: relative;
     box-sizing: border-box;
 }
 
-.jinya-designer-item--selected::after {
+.jinya-designer-item.is--selected::after {
     content: '';
     border: 0.75rem solid transparent;
     border-left-color: var(--primary-color);
@@ -146,7 +145,7 @@
     left: 0;
 }
 
-.jinya-designer-item--file {
+.jinya-designer-item.is--file {
     grid-template-columns: [image] 13rem [details] 1fr;
     grid-template-rows: unset;
     height: 9rem;
@@ -154,7 +153,7 @@
     gap: unset;
 }
 
-.jinya-designer-item--file-selected {
+.jinya-designer-item.is--file.is--selected {
     grid-template-columns: [image] 13rem [details] 1fr;
 }
 
@@ -162,13 +161,13 @@
     grid-row: content;
 }
 
-.jinya-designer-item__details--file {
+.jinya-designer-item__details.is--file {
     grid-column: details;
     grid-row: unset;
     padding: 0.75rem;
 }
 
-.jinya-designer-item__details--file-selected {
+.jinya-designer-item__details.is--file.is--selected {
     padding-top: 0.5rem;
 }
 
@@ -181,7 +180,7 @@
     grid-row: title;
 }
 
-.jinya-designer-item__title--file {
+.jinya-designer-item__title.is--file {
     grid-row: unset;
 }
 

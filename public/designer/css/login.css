@@ -1,5 +1,5 @@
 .jinya-login {
-    background: hsla(var(--primary-hue), var(--primary-saturation), var(--primary-lightness-base), 0.25);
+    background: hsl(var(--primary-hue) var(--primary-saturation) var(--primary-lightness-base) / 25%);
     padding: 2rem 4rem;
     backdrop-filter: blur(24px) saturate(90%);
     box-sizing: border-box;
@@ -23,11 +23,12 @@
 
 .cosmo-input.is--login,
 .cosmo-select.is--login {
-    background: hsla(var(--primary-hue), var(--primary-saturation), calc(var(--primary-lightness-base) * 10), 0.25);
+    background: hsl(var(--primary-hue) var(--primary-saturation) calc(var(--primary-lightness-base) * 10) / 25%);
     backdrop-filter: blur(24px) saturate(90%);
     color: var(--white);
-    --border-indicator-color: hsla(var(--primary-hue), var(--primary-saturation), var(--primary-lightness-base), 0.25);
-    --control-border-color: hsla(var(--primary-hue), var(--primary-saturation), var(--primary-lightness-base), 0.25);
+
+    --border-indicator-color: hsl(var(--primary-hue) var(--primary-saturation) var(--primary-lightness-base) / 25%);
+    --control-border-color: hsl(var(--primary-hue) var(--primary-saturation) var(--primary-lightness-base) / 25%);
 }
 
 .cosmo-message.is--login,

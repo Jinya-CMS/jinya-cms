@@ -1,6 +1,5 @@
 import { Alpine } from '../../../../lib/alpine.js';
 import { deleteKnownDevice, getKnownDevices, locateIp } from '../../foundation/api/authentication.js';
-import { getJinyaApiKey } from '../../foundation/utils/storage.js';
 import UAParser from '../../../lib/uaparser.js';
 import localize from '../../foundation/utils/localize.js';
 

@@ -29,10 +29,7 @@ function getContentCss() {
  * @param height
  * @return {Promise<Editor>}
  */
-export default async function getEditor({
-                                          element,
-                                          height = '500px',
-                                        }) {
+export default async function getEditor({ element, height = '500px' }) {
   // eslint-disable-next-line no-undef
   const tiny = await tinymce.init({
     license_key: 'gpl',
@@ -77,13 +74,13 @@ export default async function getEditor({
       'wordcount',
     ],
     toolbar:
-      'undo redo | '
-      + 'styleselect | '
-      + 'bold italic | '
-      + 'alignleft aligncenter alignright alignjustify | '
-      + 'bullist numlist outdent indent | '
-      + 'forecolor backcolor | '
-      + 'link image | ',
+      'undo redo | ' +
+      'styleselect | ' +
+      'bold italic | ' +
+      'alignleft aligncenter alignright alignjustify | ' +
+      'bullist numlist outdent indent | ' +
+      'forecolor backcolor | ' +
+      'link image | ',
     file_picker_type: 'image',
     async file_picker_callback(cb, value, meta) {
       const files = await getFiles();

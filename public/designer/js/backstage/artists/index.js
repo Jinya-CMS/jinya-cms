@@ -105,7 +105,12 @@ Alpine.data('artistsData', () => ({
   },
   async createArtist() {
     try {
-      const artist = await createArtist(this.create.artistName, this.create.email, this.create.password, this.create.roles);
+      const artist = await createArtist(
+        this.create.artistName,
+        this.create.email,
+        this.create.password,
+        this.create.roles,
+      );
       this.artists.push(artist);
       this.selectArtist(artist);
       this.create.open = false;
@@ -123,7 +128,13 @@ Alpine.data('artistsData', () => ({
   },
   async updateArtist() {
     try {
-      await updateArtist(this.selectedArtist.id, this.edit.artistName, this.edit.email, this.edit.password, this.edit.roles);
+      await updateArtist(
+        this.selectedArtist.id,
+        this.edit.artistName,
+        this.edit.email,
+        this.edit.password,
+        this.edit.roles,
+      );
       const artistIdx = this.artists.findIndex((a) => a.id === this.selectedArtist.id);
       this.artists[artistIdx].artistName = this.edit.artistName;
       this.artists[artistIdx].email = this.edit.email;

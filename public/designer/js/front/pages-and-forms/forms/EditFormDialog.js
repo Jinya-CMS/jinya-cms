@@ -13,13 +13,7 @@ export default class AddFormDialog {
    * @param toAddress {string}
    * @param description {string}
    */
-  constructor({
-                onHide,
-                id,
-                title,
-                toAddress,
-                description,
-              }) {
+  constructor({ onHide, id, title, toAddress, description }) {
     this.onHide = onHide;
     this.id = id;
     this.title = title;
@@ -63,46 +57,44 @@ export default class AddFormDialog {
     const tiny = await getEditor({ element: document.getElementById('editDescription') });
     tiny.setContent(this.description);
 
-    document.getElementById('cancel-edit-dialog')
-      .addEventListener('click', () => {
+    document.getElementById('cancel-edit-dialog').addEventListener('click', () => {
+      container.remove();
+    });
+    document.getElementById('edit-dialog-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        const title = document.getElementById('editFormTitle').value;
+        const toAddress = document.getElementById('editFormToAddress').value;
+        const description = tiny.getContent();
+        await put(`/api/form/${this.id}`, {
+          title,
+          toAddress,
+          description,
+        });
+        this.onHide({
+          id: this.id,
+          title,
+          description,
+          toAddress,
+        });
+        tinymce.remove();
+        tiny.destroy();
         container.remove();
-      });
-    document.getElementById('edit-dialog-form')
-      .addEventListener('submit', async (e) => {
-        e.preventDefault();
-        try {
-          const title = document.getElementById('editFormTitle').value;
-          const toAddress = document.getElementById('editFormToAddress').value;
-          const description = tiny.getContent();
-          await put(`/api/form/${this.id}`, {
-            title,
-            toAddress,
-            description,
+      } catch (err) {
+        if (err.status === 409) {
+          await alert({
+            title: localize({ key: 'pages_and_forms.form.edit.error.title' }),
+            message: localize({ key: 'pages_and_forms.form.edit.error.conflict' }),
+            negative: true,
           });
-          this.onHide({
-            id: this.id,
-            title,
-            description,
-            toAddress,
+        } else {
+          await alert({
+            title: localize({ key: 'pages_and_forms.form.edit.error.title' }),
+            message: localize({ key: 'pages_and_forms.form.edit.error.generic' }),
+            negative: true,
           });
-          tinymce.remove();
-          tiny.destroy();
-          container.remove();
-        } catch (err) {
-          if (err.status === 409) {
-            await alert({
-              title: localize({ key: 'pages_and_forms.form.edit.error.title' }),
-              message: localize({ key: 'pages_and_forms.form.edit.error.conflict' }),
-              negative: true,
-            });
-          } else {
-            await alert({
-              title: localize({ key: 'pages_and_forms.form.edit.error.title' }),
-              message: localize({ key: 'pages_and_forms.form.edit.error.generic' }),
-              negative: true,
-            });
-          }
         }
-      });
+      }
+    });
   }
 }

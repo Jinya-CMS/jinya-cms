@@ -25,13 +25,9 @@ export default class SegmentPagePage extends JinyaDesignerPage {
     document
       .querySelectorAll('.cosmo-side-list__item.is--active')
       .forEach((item) => item.classList.remove('is--active'));
-    document.querySelector(`[data-id="${id}"]`)
-      .classList
-      .add('is--active');
-    document.getElementById('edit-segment')
-      .setAttribute('disabled', 'disabled');
-    document.getElementById('delete-segment')
-      .setAttribute('disabled', 'disabled');
+    document.querySelector(`[data-id="${id}"]`).classList.add('is--active');
+    document.getElementById('edit-segment').setAttribute('disabled', 'disabled');
+    document.getElementById('delete-segment').setAttribute('disabled', 'disabled');
   }
 
   async displaySelectedPage() {
@@ -64,18 +60,12 @@ export default class SegmentPagePage extends JinyaDesignerPage {
     item.classList.add('jinya-designer-item--selected');
     if (item.getAttribute('data-is-file') === 'true') {
       item.classList.add('jinya-designer-item--file-selected');
-      item.querySelector('.jinya-designer-item__details')
-        .classList
-        .add('jinya-designer-item__details--file-selected');
-      item.querySelector('.jinya-segment__image')
-        .classList
-        .add('jinya-segment__image--file-selected');
+      item.querySelector('.jinya-designer-item__details').classList.add('jinya-designer-item__details--file-selected');
+      item.querySelector('.jinya-segment__image').classList.add('jinya-segment__image--file-selected');
     }
 
-    document.getElementById('edit-segment')
-      .removeAttribute('disabled');
-    document.getElementById('delete-segment')
-      .removeAttribute('disabled');
+    document.getElementById('edit-segment').removeAttribute('disabled');
+    document.getElementById('delete-segment').removeAttribute('disabled');
     this.selectedSegment = this.segments.find((s) => s.position === parseInt(segmentPosition, 10));
   }
 
@@ -104,12 +94,11 @@ export default class SegmentPagePage extends JinyaDesignerPage {
         });
       }
     }
-    document.querySelectorAll('#segment-list .jinya-designer-item')
-      .forEach((item) => {
-        item.addEventListener('click', () => {
-          this.selectSegment({ segmentPosition: item.getAttribute('data-position') });
-        });
+    document.querySelectorAll('#segment-list .jinya-designer-item').forEach((item) => {
+      item.addEventListener('click', () => {
+        this.selectSegment({ segmentPosition: item.getAttribute('data-position') });
       });
+    });
     this.resultSortable = new Sortable(document.getElementById('segment-list'), {
       group: {
         name: 'segment_page',
@@ -149,10 +138,7 @@ export default class SegmentPagePage extends JinyaDesignerPage {
    * @param segmentList {HTMLDivElement}
    */
   // eslint-disable-next-line class-methods-use-this
-  displayHtmlSegment({
-                       segment,
-                       segmentList,
-                     }) {
+  displayHtmlSegment({ segment, segmentList }) {
     const segmentElem = document.createElement('div');
     segmentElem.classList.add('jinya-designer-item', 'jinya-designer-item--html');
     segmentElem.setAttribute('data-position', segment.position.toString(10));
@@ -169,10 +155,7 @@ export default class SegmentPagePage extends JinyaDesignerPage {
    * @param segmentList {HTMLDivElement}
    */
   // eslint-disable-next-line class-methods-use-this
-  displayFileSegment({
-                       segment,
-                       segmentList,
-                     }) {
+  displayFileSegment({ segment, segmentList }) {
     const segmentElem = document.createElement('div');
     segmentElem.classList.add('jinya-designer-item', 'jinya-designer-item--file');
     segmentElem.setAttribute('data-position', segment.position.toString(10));
@@ -215,10 +198,7 @@ export default class SegmentPagePage extends JinyaDesignerPage {
    * @param segmentList {HTMLDivElement}
    */
   // eslint-disable-next-line class-methods-use-this
-  displayGallerySegment({
-                          segment,
-                          segmentList,
-                        }) {
+  displayGallerySegment({ segment, segmentList }) {
     const segmentElem = document.createElement('div');
     segmentElem.classList.add('jinya-designer-item', 'jinya-designer-item--gallery');
     segmentElem.setAttribute('data-position', segment.position.toString(10));
@@ -292,26 +272,24 @@ export default class SegmentPagePage extends JinyaDesignerPage {
                 <button id="new-page-button" class="cosmo-button is--full-width">
                     ${localize({ key: 'pages_and_forms.segment.action.new' })}
                 </button>`;
-    document.querySelectorAll('.cosmo-side-list__item')
-      .forEach((item) => {
-        item.addEventListener('click', async () => {
-          this.selectPage({ id: item.getAttribute('data-id') });
+    document.querySelectorAll('.cosmo-side-list__item').forEach((item) => {
+      item.addEventListener('click', async () => {
+        this.selectPage({ id: item.getAttribute('data-id') });
+        await this.displaySelectedPage();
+      });
+    });
+    document.getElementById('new-page-button').addEventListener('click', async () => {
+      const { default: AddSegmentPageDialog } = await import('./segment-pages/AddSegmentPageDialog.js');
+      const dialog = new AddSegmentPageDialog({
+        onHide: async (page) => {
+          this.pages.push(page);
+          this.displayPages();
+          this.selectPage({ id: page.id });
           await this.displaySelectedPage();
-        });
+        },
       });
-    document.getElementById('new-page-button')
-      .addEventListener('click', async () => {
-        const { default: AddSegmentPageDialog } = await import('./segment-pages/AddSegmentPageDialog.js');
-        const dialog = new AddSegmentPageDialog({
-          onHide: async (page) => {
-            this.pages.push(page);
-            this.displayPages();
-            this.selectPage({ id: page.id });
-            await this.displaySelectedPage();
-          },
-        });
-        dialog.show();
-      });
+      dialog.show();
+    });
   }
 
   async displayed() {
@@ -364,10 +342,7 @@ export default class SegmentPagePage extends JinyaDesignerPage {
         target: this.selectedSegment.target,
         position: this.selectedSegment.position,
         newSegment: false,
-        onHide: async ({
-                         file,
-                         target,
-                       }) => {
+        onHide: async ({ file, target }) => {
           this.selectedSegment.file = file;
           this.selectedSegment.target = target;
           this.segments.find((s) => s.position === this.selectedSegment.position).file = file;
@@ -415,10 +390,7 @@ export default class SegmentPagePage extends JinyaDesignerPage {
     }
   }
 
-  async openSegmentEditorCreate({
-                                  position,
-                                  type,
-                                }) {
+  async openSegmentEditorCreate({ position, type }) {
     if (type === 'gallery') {
       const { default: EditGallerySegmentDialog } = await import('./segment-pages/EditGallerySegmentDialog.js');
       const dialog = new EditGallerySegmentDialog({
@@ -464,98 +436,87 @@ export default class SegmentPagePage extends JinyaDesignerPage {
 
   bindEvents() {
     super.bindEvents();
-    document.getElementById('edit-page')
-      .addEventListener('click', async () => {
-        const { default: EditSegmentPageDialog } = await import('./segment-pages/EditSegmentPageDialog.js');
-        const dialog = new EditSegmentPageDialog({
-          onHide: async ({
-                           id,
-                           name,
-                         }) => {
-            this.pages.find((p) => p.id === id).name = name;
-            this.displayPages();
-            this.selectPage({ id });
-            await this.displaySelectedPage();
-          },
-          name: this.selectedPage.name,
-          id: this.selectedPage.id,
-        });
-        dialog.show();
+    document.getElementById('edit-page').addEventListener('click', async () => {
+      const { default: EditSegmentPageDialog } = await import('./segment-pages/EditSegmentPageDialog.js');
+      const dialog = new EditSegmentPageDialog({
+        onHide: async ({ id, name }) => {
+          this.pages.find((p) => p.id === id).name = name;
+          this.displayPages();
+          this.selectPage({ id });
+          await this.displaySelectedPage();
+        },
+        name: this.selectedPage.name,
+        id: this.selectedPage.id,
       });
-    document.getElementById('delete-page')
-      .addEventListener('click', async () => {
-        const confirmation = await confirm({
-          title: localize({ key: 'pages_and_forms.segment.delete.title' }),
-          message: localize({
-            key: 'pages_and_forms.segment.delete.message',
-            values: this.selectedPage,
-          }),
-          approveLabel: localize({ key: 'pages_and_forms.segment.delete.delete' }),
-          declineLabel: localize({ key: 'pages_and_forms.segment.delete.keep' }),
-          negative: true,
-        });
-        if (confirmation) {
-          try {
-            await httpDelete(`/api/segment-page/${this.selectedPage.id}`);
-            this.pages = this.pages.filter((page) => page.id !== this.selectedPage.id);
-            this.displayPages();
-            if (this.pages.length > 0) {
-              this.selectPage({ id: this.pages[0].id });
-            } else {
-              this.selectedPage = null;
-              this.segments = [];
-              await this.displaySegments();
-              document.getElementById('page-title').innerText = '';
-            }
-            document.getElementById('edit-segment')
-              .setAttribute('disabled', 'disabled');
-            document.getElementById('delete-segment')
-              .setAttribute('disabled', 'disabled');
-          } catch (e) {
-            if (e.status === 409) {
-              await alert({
-                title: localize({ key: 'pages_and_forms.segment.delete.error.title' }),
-                message: localize({ key: 'pages_and_forms.segment.delete.error.conflict' }),
-                negative: true,
-              });
-            } else {
-              await alert({
-                title: localize({ key: 'pages_and_forms.segment.delete.error.title' }),
-                message: localize({ key: 'pages_and_forms.segment.delete.error.generic' }),
-                negative: true,
-              });
-            }
+      dialog.show();
+    });
+    document.getElementById('delete-page').addEventListener('click', async () => {
+      const confirmation = await confirm({
+        title: localize({ key: 'pages_and_forms.segment.delete.title' }),
+        message: localize({
+          key: 'pages_and_forms.segment.delete.message',
+          values: this.selectedPage,
+        }),
+        approveLabel: localize({ key: 'pages_and_forms.segment.delete.delete' }),
+        declineLabel: localize({ key: 'pages_and_forms.segment.delete.keep' }),
+        negative: true,
+      });
+      if (confirmation) {
+        try {
+          await httpDelete(`/api/segment-page/${this.selectedPage.id}`);
+          this.pages = this.pages.filter((page) => page.id !== this.selectedPage.id);
+          this.displayPages();
+          if (this.pages.length > 0) {
+            this.selectPage({ id: this.pages[0].id });
+          } else {
+            this.selectedPage = null;
+            this.segments = [];
+            await this.displaySegments();
+            document.getElementById('page-title').innerText = '';
+          }
+          document.getElementById('edit-segment').setAttribute('disabled', 'disabled');
+          document.getElementById('delete-segment').setAttribute('disabled', 'disabled');
+        } catch (e) {
+          if (e.status === 409) {
+            await alert({
+              title: localize({ key: 'pages_and_forms.segment.delete.error.title' }),
+              message: localize({ key: 'pages_and_forms.segment.delete.error.conflict' }),
+              negative: true,
+            });
+          } else {
+            await alert({
+              title: localize({ key: 'pages_and_forms.segment.delete.error.title' }),
+              message: localize({ key: 'pages_and_forms.segment.delete.error.generic' }),
+              negative: true,
+            });
           }
         }
+      }
+    });
+    document.getElementById('edit-segment').addEventListener('click', async () => {
+      await this.openSegmentEditorUpdate();
+    });
+    document.getElementById('delete-segment').addEventListener('click', async () => {
+      const confirmation = await confirm({
+        title: localize({ key: 'pages_and_forms.segment.delete_segment.title' }),
+        message: localize({
+          key: 'pages_and_forms.segment.delete_segment.message',
+          values: this.selectedPage,
+        }),
+        approveLabel: localize({ key: 'pages_and_forms.segment.delete_segment.delete' }),
+        declineLabel: localize({ key: 'pages_and_forms.segment.delete_segment.keep' }),
+        negative: true,
       });
-    document.getElementById('edit-segment')
-      .addEventListener('click', async () => {
-        await this.openSegmentEditorUpdate();
-      });
-    document.getElementById('delete-segment')
-      .addEventListener('click', async () => {
-        const confirmation = await confirm({
-          title: localize({ key: 'pages_and_forms.segment.delete_segment.title' }),
-          message: localize({
-            key: 'pages_and_forms.segment.delete_segment.message',
-            values: this.selectedPage,
-          }),
-          approveLabel: localize({ key: 'pages_and_forms.segment.delete_segment.delete' }),
-          declineLabel: localize({ key: 'pages_and_forms.segment.delete_segment.keep' }),
-          negative: true,
-        });
-        if (confirmation) {
-          const { position } = this.selectedSegment;
-          const segmentElem = document.querySelector(`[data-position="${position}"]`);
-          segmentElem.remove();
-          this.resetPositions();
-          this.selectedSegment = null;
-          document.getElementById('edit-segment')
-            .setAttribute('disabled', 'disabled');
-          document.getElementById('delete-segment')
-            .setAttribute('disabled', 'disabled');
-          await httpDelete(`/api/segment-page/${this.selectedPage.id}/segment/${position}`);
-        }
-      });
+      if (confirmation) {
+        const { position } = this.selectedSegment;
+        const segmentElem = document.querySelector(`[data-position="${position}"]`);
+        segmentElem.remove();
+        this.resetPositions();
+        this.selectedSegment = null;
+        document.getElementById('edit-segment').setAttribute('disabled', 'disabled');
+        document.getElementById('delete-segment').setAttribute('disabled', 'disabled');
+        await httpDelete(`/api/segment-page/${this.selectedPage.id}/segment/${position}`);
+      }
+    });
   }
 }

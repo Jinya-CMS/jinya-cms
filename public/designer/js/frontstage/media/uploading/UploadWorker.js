@@ -9,12 +9,7 @@ class HttpError extends Error {
 
 let apiKey = '';
 
-async function sendRequest({
-                             url,
-                             verb,
-                             data,
-                             contentType,
-                           }) {
+async function sendRequest({ url, verb, data, contentType }) {
   const headers = {
     JinyaApiKey: apiKey,
     'Content-Type': contentType,
@@ -43,8 +38,7 @@ async function sendRequest({
     return null;
   }
 
-  const httpError = await response.json()
-    .then((error) => error.error);
+  const httpError = await response.json().then((error) => error.error);
   throw new HttpError(response.status, httpError);
 }
 
@@ -57,11 +51,7 @@ async function wait({ time }) {
 }
 
 onmessage = async (e) => {
-  const {
-    files: pushedFiles,
-    tags: pushedTags,
-    apiKey: pushedApiKey,
-  } = e.data;
+  const { files: pushedFiles, tags: pushedTags, apiKey: pushedApiKey } = e.data;
   if (pushedFiles && pushedTags) {
     files.push(
       ...[...pushedFiles].map((file) => ({
@@ -76,6 +66,7 @@ onmessage = async (e) => {
 };
 
 (async () => {
+  // eslint-disable-next-line no-constant-condition
   while (true) {
     if (files.length === 0) {
       // eslint-disable-next-line no-await-in-loop
@@ -84,16 +75,9 @@ onmessage = async (e) => {
       continue;
     }
 
-    const {
-      file,
-      tags,
-    } = files.pop();
+    const { file, tags } = files.pop();
 
-    const name = file.name.split('.')
-      .reverse()
-      .slice(1)
-      .reverse()
-      .join('.');
+    const name = file.name.split('.').reverse().slice(1).reverse().join('.');
     postMessage({
       type: 'upload-start',
       name,

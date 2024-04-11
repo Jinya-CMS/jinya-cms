@@ -53,15 +53,6 @@
     align-content: start;
 }
 
-.jinya-media-tile.is--selected .jinya-media-tile__img {
-    border-radius: unset;
-}
-
-.jinya-media-tile.is--designer {
-    object-fit: cover;
-    border-radius: var(--border-radius);
-}
-
 .jinya-media-tile__img {
     border-radius: var(--border-radius);
     background: var(--control-border-color);
@@ -69,6 +60,15 @@
     height: 100%;
     overflow: hidden;
     object-fit: cover;
+}
+
+.jinya-media-tile.is--selected .jinya-media-tile__img {
+    border-radius: unset;
+}
+
+.jinya-media-tile.is--designer {
+    object-fit: cover;
+    border-radius: var(--border-radius);
 }
 
 .jinya-media-tile__img img {

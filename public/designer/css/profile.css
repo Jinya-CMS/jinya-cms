@@ -1,14 +1,7 @@
 .jinya-profile-view {
     height: var(--page-height);
     display: grid;
-    grid-template-columns: 3fr 7fr;
-    grid-template-rows: auto auto auto 1fr auto;
-    grid-template-areas:
-        "sidebar title"
-        "sidebar toolbar"
-        "sidebar message"
-        "sidebar tiny"
-        "sidebar buttons";
+    grid-template: "sidebar title" auto "sidebar toolbar" auto "sidebar message" auto "sidebar tiny" 1fr "sidebar buttons" auto / 3fr 7fr;
     grid-row: content;
     gap: 1rem;
     box-sizing: border-box;

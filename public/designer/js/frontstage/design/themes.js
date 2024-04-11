@@ -116,18 +116,12 @@ Alpine.data('themesData', () => ({
     this.selectedThemeData.configuration = configuration;
   },
   loadThemeVariables() {
-    this.selectedThemeData.scssVariables = Array.isArray(this.selectedTheme.scssVariables) ? {} : this.selectedTheme.scssVariables;
+    this.selectedThemeData.scssVariables = Array.isArray(this.selectedTheme.scssVariables)
+      ? {}
+      : this.selectedTheme.scssVariables;
   },
   async loadLinks() {
-    const [
-      modernPages,
-      classicPages,
-      forms,
-      menus,
-      galleries,
-      files,
-      blogCategories,
-    ] = await Promise.all([
+    const [modernPages, classicPages, forms, menus, galleries, files, blogCategories] = await Promise.all([
       getThemeModernPages(this.selectedTheme.id),
       getThemeClassicPages(this.selectedTheme.id),
       getThemeForms(this.selectedTheme.id),
@@ -173,11 +167,7 @@ Alpine.data('themesData', () => ({
     }
   },
   async loadConfigurationStructure() {
-    const [
-      styleVariables,
-      defaultConfiguration,
-      configurationStructure,
-    ] = await Promise.all([
+    const [styleVariables, defaultConfiguration, configurationStructure] = await Promise.all([
       getThemeStyleVariables(this.selectedTheme.id),
       getThemeDefaultConfiguration(this.selectedTheme.id),
       getThemeConfigurationStructure(this.selectedTheme.id),
@@ -191,15 +181,7 @@ Alpine.data('themesData', () => ({
     this.activeTab = 'details';
 
     if (!this.linksLoaded) {
-      const [
-        galleries,
-        files,
-        classicPages,
-        modernPages,
-        menus,
-        blogCategories,
-        forms,
-      ] = await Promise.all([
+      const [galleries, files, classicPages, modernPages, menus, blogCategories, forms] = await Promise.all([
         getGalleries(),
         getFiles(),
         getClassicPages(),
@@ -262,32 +244,23 @@ Alpine.data('themesData', () => ({
     }
   },
   async saveLinks() {
-    const {
-      modernPages,
-      classicPages,
-      forms,
-      menus,
-      galleries,
-      files,
-      blogCategories,
-    } = this.selectedThemeData;
+    const { modernPages, classicPages, forms, menus, galleries, files, blogCategories } = this.selectedThemeData;
     const { id } = this.selectedTheme;
     try {
       await Promise.all([
-        ...Object.entries(modernPages)
-          .map(([name, link]) => updateThemeModernPage(id, name, link === 'null' ? null : link)),
-        ...Object.entries(classicPages)
-          .map(([name, link]) => updateThemeClassicPage(id, name, link === 'null' ? null : link)),
-        ...Object.entries(forms)
-          .map(([name, link]) => updateThemeForm(id, name, link === 'null' ? null : link)),
-        ...Object.entries(menus)
-          .map(([name, link]) => updateThemeMenu(id, name, link === 'null' ? null : link)),
-        ...Object.entries(galleries)
-          .map(([name, link]) => updateThemeGallery(id, name, link === 'null' ? null : link)),
-        ...Object.entries(files)
-          .map(([name, link]) => updateThemeFile(id, name, link === 'null' ? null : link)),
-        ...Object.entries(blogCategories)
-          .map(([name, link]) => updateThemeBlogCategory(id, name, link === 'null' ? null : link)),
+        ...Object.entries(modernPages).map(([name, link]) =>
+          updateThemeModernPage(id, name, link === 'null' ? null : link),
+        ),
+        ...Object.entries(classicPages).map(([name, link]) =>
+          updateThemeClassicPage(id, name, link === 'null' ? null : link),
+        ),
+        ...Object.entries(forms).map(([name, link]) => updateThemeForm(id, name, link === 'null' ? null : link)),
+        ...Object.entries(menus).map(([name, link]) => updateThemeMenu(id, name, link === 'null' ? null : link)),
+        ...Object.entries(galleries).map(([name, link]) => updateThemeGallery(id, name, link === 'null' ? null : link)),
+        ...Object.entries(files).map(([name, link]) => updateThemeFile(id, name, link === 'null' ? null : link)),
+        ...Object.entries(blogCategories).map(([name, link]) =>
+          updateThemeBlogCategory(id, name, link === 'null' ? null : link),
+        ),
       ]);
 
       this.links.message.title = localize({ key: 'design.themes.links.success.title' });

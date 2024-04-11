@@ -10,12 +10,12 @@ import localize from '../utils/localize.js';
  * @return {Promise<void>}
  */
 export default async function alert({
-                                      title = window.location.href,
-                                      message,
-                                      buttonLabel = null,
-                                      negative = false,
-                                      positive = false,
-                                    }) {
+  title = window.location.href,
+  message,
+  buttonLabel = null,
+  negative = false,
+  positive = false,
+}) {
   if (buttonLabel === null) {
     // eslint-disable-next-line no-param-reassign
     buttonLabel = localize({ key: 'alert.dismiss' });
@@ -38,11 +38,10 @@ export default async function alert({
 
     document.body.appendChild(container);
 
-    document.getElementById(`${modalId}DismissButton`)
-      .addEventListener('click', (e) => {
-        e.preventDefault();
-        container.remove();
-        resolve();
-      });
+    document.getElementById(`${modalId}DismissButton`).addEventListener('click', (e) => {
+      e.preventDefault();
+      container.remove();
+      resolve();
+    });
   });
 }

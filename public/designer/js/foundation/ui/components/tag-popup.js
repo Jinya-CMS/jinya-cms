@@ -214,31 +214,26 @@ class TagPopupElement extends HTMLElement {
           </div>
         </fieldset>
       </form>`;
-    this.root.querySelector('form')
-      .addEventListener('submit', (evt) => {
-        evt.preventDefault();
-        this.dispatchEvent(new TagPopupSubmitEvent(this.name, this.color, this.emoji));
-      });
-    this.root.getElementById('cancel-button')
-      .addEventListener('click', (evt) => {
-        evt.preventDefault();
-        this.dispatchEvent(new TagPopupCloseEvent());
-      });
-    this.root.getElementById('name')
-      .addEventListener('input', (evt) => {
-        this.name = evt.currentTarget.value;
-        this.error = '';
-      });
-    this.root.getElementById('color')
-      .addEventListener('input', (evt) => {
-        this.color = evt.currentTarget.value;
-        this.error = '';
-      });
-    this.root.getElementById('emoji')
-      .addEventListener('input', (evt) => {
-        this.emoji = evt.currentTarget.emoji;
-        this.error = '';
-      });
+    this.root.querySelector('form').addEventListener('submit', (evt) => {
+      evt.preventDefault();
+      this.dispatchEvent(new TagPopupSubmitEvent(this.name, this.color, this.emoji));
+    });
+    this.root.getElementById('cancel-button').addEventListener('click', (evt) => {
+      evt.preventDefault();
+      this.dispatchEvent(new TagPopupCloseEvent());
+    });
+    this.root.getElementById('name').addEventListener('input', (evt) => {
+      this.name = evt.currentTarget.value;
+      this.error = '';
+    });
+    this.root.getElementById('color').addEventListener('input', (evt) => {
+      this.color = evt.currentTarget.value;
+      this.error = '';
+    });
+    this.root.getElementById('emoji').addEventListener('input', (evt) => {
+      this.emoji = evt.currentTarget.emoji;
+      this.error = '';
+    });
   }
 
   attributeChangedCallback(property, oldValue, newValue) {

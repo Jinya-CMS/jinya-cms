@@ -118,7 +118,12 @@ Alpine.data('galleriesData', () => ({
   },
   async createGallery() {
     try {
-      const newGallery = await createGallery(this.create.name, this.create.orientation, this.create.type, this.create.description);
+      const newGallery = await createGallery(
+        this.create.name,
+        this.create.orientation,
+        this.create.type,
+        this.create.description,
+      );
       this.galleries.push(newGallery);
       await this.selectGallery(newGallery);
       this.create.open = false;
@@ -134,7 +139,13 @@ Alpine.data('galleriesData', () => ({
   },
   async updateGallery() {
     try {
-      await updateGallery(this.selectedGallery.id, this.edit.name, this.edit.orientation, this.edit.type, this.edit.description);
+      await updateGallery(
+        this.selectedGallery.id,
+        this.edit.name,
+        this.edit.orientation,
+        this.edit.type,
+        this.edit.description,
+      );
       const savedGallery = await getGallery(this.selectedGallery.id);
       this.edit.open = false;
       this.galleries[this.galleries.indexOf(this.selectedGallery)] = savedGallery;

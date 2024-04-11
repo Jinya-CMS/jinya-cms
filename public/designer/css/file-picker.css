@@ -14,8 +14,7 @@
 .jinya-picker__tag-list {
     display: flex;
     flex-flow: row wrap;
-    row-gap: 0.5rem;
-    column-gap: 1rem;
+    gap: 0.5rem 1rem;
 }
 
 .jinya-picker__tag-list cms-tag {

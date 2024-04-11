@@ -12,11 +12,11 @@ import './components/tag.js';
  * @return {Promise<boolean>}
  */
 export default async function filePicker({
-                                           title = window.location.href,
-                                           selectedFileId = -1,
-                                           cancelLabel,
-                                           pickLabel,
-                                         }) {
+  title = window.location.href,
+  selectedFileId = -1,
+  cancelLabel,
+  pickLabel,
+}) {
   const { items: files } = await getFiles();
   const { items: tags } = await getTags();
 
@@ -47,7 +47,9 @@ export default async function filePicker({
                 tag-id="-1"
                 id="show-all-tags"
               ></cms-tag>
-              ${tags.map((tag) => `
+              ${tags
+                .map(
+                  (tag) => `
                 <cms-tag
                   class="jinya-tag is--file"
                   emoji="${tag.emoji}"
@@ -55,15 +57,16 @@ export default async function filePicker({
                   color="${tag.color}"
                   tag-id="${tag.id}"
                   id="show-tag-${tag.id}"
-                ></cms-tag>`)
-      .join('')}
+                ></cms-tag>`,
+                )
+                .join('')}
             </div>
             <div class="jinya-media-tile__container is--modal">
-              ${files.map((file) => `
+              ${files
+                .map(
+                  (file) => `
                 <div
-                  class="jinya-media-tile is--small ${selectedFileId === file.id
-      ? 'jinya-media-tile--selected'
-      : ''}"
+                  class="jinya-media-tile is--small ${selectedFileId === file.id ? 'jinya-media-tile--selected' : ''}"
                   data-id="${file.id}"
                 >
                   <img
@@ -72,8 +75,9 @@ export default async function filePicker({
                     src="${file.path}"
                     alt="${file.name}"
                   />
-                </div>`)
-      .join('')}
+                </div>`,
+                )
+                .join('')}
             </div>
           </div>
           <div class="cosmo-modal__button-bar">
@@ -85,20 +89,17 @@ export default async function filePicker({
 
     document.body.appendChild(container);
 
-    document.querySelectorAll('.jinya-picker__tag-list cms-tag')
-      .forEach((tag) => tag.addEventListener('click', (evt) => {
+    document.querySelectorAll('.jinya-picker__tag-list cms-tag').forEach((tag) =>
+      tag.addEventListener('click', (evt) => {
         evt.stopPropagation();
         // eslint-disable-next-line no-param-reassign
         tag.active = !tag.active;
         if (tag.id === 'show-all-tags') {
-          container
-            .querySelectorAll('.jinya-media-tile')
-            .forEach((tile) => tile.classList.remove('is--hidden'));
-          container.querySelectorAll('cms-tag')
-            .forEach((t) => {
-              // eslint-disable-next-line no-param-reassign
-              t.active = false;
-            });
+          container.querySelectorAll('.jinya-media-tile').forEach((tile) => tile.classList.remove('is--hidden'));
+          container.querySelectorAll('cms-tag').forEach((t) => {
+            // eslint-disable-next-line no-param-reassign
+            t.active = false;
+          });
           // eslint-disable-next-line no-param-reassign
           tag.active = true;
         } else {
@@ -109,50 +110,43 @@ export default async function filePicker({
             activeTags.delete(tag.tagId);
           }
           allTags.active = activeTags.size === 0 || activeTags.size === tags.length;
-          container.querySelectorAll('.jinya-media-tile')
-            .forEach((tile) => {
-              const file = files.find((f) => f.id === parseInt(tile.getAttribute('data-id'), 10));
-              if (file.tags.filter((f) => activeTags.has(f.id)).length === 0) {
-                tile.classList.add('is--hidden');
-              } else {
-                tile.classList.remove('is--hidden');
-              }
-            });
+          container.querySelectorAll('.jinya-media-tile').forEach((tile) => {
+            const file = files.find((f) => f.id === parseInt(tile.getAttribute('data-id'), 10));
+            if (file.tags.filter((f) => activeTags.has(f.id)).length === 0) {
+              tile.classList.add('is--hidden');
+            } else {
+              tile.classList.remove('is--hidden');
+            }
+          });
 
           if (allTags.active) {
             activeTags.clear();
-            container.querySelectorAll('.jinya-media-tile')
-              .forEach((tile) => {
-                tile.classList.remove('is--hidden');
-              });
+            container.querySelectorAll('.jinya-media-tile').forEach((tile) => {
+              tile.classList.remove('is--hidden');
+            });
           }
         }
-      }));
-    container.querySelectorAll('.jinya-media-tile')
-      .forEach((item) => {
-        item.addEventListener('click', (e) => {
-          e.preventDefault();
-          container
-            .querySelectorAll('.is--selected')
-            .forEach((tile) => tile.classList.remove('is--selected'));
-          item.classList.add('is--selected');
-        });
-      });
-    document.getElementById(`${modalId}CancelButton`)
-      .addEventListener('click', (e) => {
+      }),
+    );
+    container.querySelectorAll('.jinya-media-tile').forEach((item) => {
+      item.addEventListener('click', (e) => {
         e.preventDefault();
-        container.remove();
-        resolve(null);
+        container.querySelectorAll('.is--selected').forEach((tile) => tile.classList.remove('is--selected'));
+        item.classList.add('is--selected');
       });
-    document.getElementById(`${modalId}PickButton`)
-      .addEventListener('click', (e) => {
-        e.preventDefault();
-        const selectedFile = files.find(
-          (file) => parseInt(document.querySelector('.is--selected')
-            .getAttribute('data-id'), 10) === file.id,
-        );
-        container.remove();
-        resolve(selectedFile);
-      });
+    });
+    document.getElementById(`${modalId}CancelButton`).addEventListener('click', (e) => {
+      e.preventDefault();
+      container.remove();
+      resolve(null);
+    });
+    document.getElementById(`${modalId}PickButton`).addEventListener('click', (e) => {
+      e.preventDefault();
+      const selectedFile = files.find(
+        (file) => parseInt(document.querySelector('.is--selected').getAttribute('data-id'), 10) === file.id,
+      );
+      container.remove();
+      resolve(selectedFile);
+    });
   });
 }

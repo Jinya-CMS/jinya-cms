@@ -201,14 +201,12 @@ class TagElement extends HTMLElement {
       </button>`;
     this.style.setProperty('--primary-color', this.color);
     this.style.setProperty('--control-border-color', this.color);
-    this.root.getElementById('edit-button')
-      .addEventListener('click', () => {
-        this.dispatchEvent(new TagEvent('edit', this.tagId, this.name, this.color, this.emoji));
-      });
-    this.root.getElementById('delete-button')
-      .addEventListener('click', () => {
-        this.dispatchEvent(new TagEvent('delete', this.tagId, this.name, this.color, this.emoji));
-      });
+    this.root.getElementById('edit-button').addEventListener('click', () => {
+      this.dispatchEvent(new TagEvent('edit', this.tagId, this.name, this.color, this.emoji));
+    });
+    this.root.getElementById('delete-button').addEventListener('click', () => {
+      this.dispatchEvent(new TagEvent('delete', this.tagId, this.name, this.color, this.emoji));
+    });
   }
 
   attributeChangedCallback(property, oldValue, newValue) {

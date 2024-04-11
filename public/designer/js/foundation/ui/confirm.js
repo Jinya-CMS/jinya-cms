@@ -8,12 +8,12 @@
  * @return {Promise<boolean>}
  */
 export default async function confirm({
-                                        title = window.location.href,
-                                        message,
-                                        declineLabel,
-                                        approveLabel,
-                                        negative = false,
-                                      }) {
+  title = window.location.href,
+  message,
+  declineLabel,
+  approveLabel,
+  negative = false,
+}) {
   return new Promise((resolve) => {
     const container = document.createElement('div');
     document.body.appendChild(container);
@@ -33,17 +33,15 @@ export default async function confirm({
 
     document.body.appendChild(container);
 
-    document.getElementById(`${modalId}DeclineButton`)
-      .addEventListener('click', (e) => {
-        e.preventDefault();
-        container.remove();
-        resolve(false);
-      });
-    document.getElementById(`${modalId}ApproveButton`)
-      .addEventListener('click', (e) => {
-        e.preventDefault();
-        container.remove();
-        resolve(true);
-      });
+    document.getElementById(`${modalId}DeclineButton`).addEventListener('click', (e) => {
+      e.preventDefault();
+      container.remove();
+      resolve(false);
+    });
+    document.getElementById(`${modalId}ApproveButton`).addEventListener('click', (e) => {
+      e.preventDefault();
+      container.remove();
+      resolve(true);
+    });
   });
 }

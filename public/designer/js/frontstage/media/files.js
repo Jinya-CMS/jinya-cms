@@ -74,11 +74,7 @@ Alpine.data('filesData', () => ({
     this.loading = false;
     this.$watch('uploadSingleFile.file', (file) => {
       if (this.uploadSingleFile.name === '') {
-        this.uploadSingleFile.name = file.name.split('.')
-          .reverse()
-          .slice(1)
-          .reverse()
-          .join('.');
+        this.uploadSingleFile.name = file.name.split('.').reverse().slice(1).reverse().join('.');
       }
     });
     document.addEventListener('file-uploaded', (e) => {
@@ -106,17 +102,15 @@ Alpine.data('filesData', () => ({
     this.uploadSingleFile.error.reset();
     this.uploadSingleFile.open = true;
     this.uploadSingleFile.name = '';
-    this.uploadSingleFile.tags = new Set(this.tags
-      .filter((tag) => this.activeTags.has(tag.id))
-      .map((tag) => tag.name));
+    this.uploadSingleFile.tags = new Set(this.tags.filter((tag) => this.activeTags.has(tag.id)).map((tag) => tag.name));
   },
   openUploadMultipleFilesDialog() {
     this.uploadMultipleFiles.error.reset();
     this.uploadMultipleFiles.open = true;
     this.uploadMultipleFiles.files = [];
-    this.uploadMultipleFiles.tags = new Set(this.tags
-      .filter((tag) => this.activeTags.has(tag.id))
-      .map((tag) => tag.name));
+    this.uploadMultipleFiles.tags = new Set(
+      this.tags.filter((tag) => this.activeTags.has(tag.id)).map((tag) => tag.name),
+    );
   },
   openEditFileDialog() {
     this.edit.error.reset();
@@ -203,7 +197,11 @@ Alpine.data('filesData', () => ({
   async uploadFile() {
     try {
       this.uploadSingleFile.error.reset();
-      const savedFile = await createFile(this.uploadSingleFile.name, [...this.uploadSingleFile.tags], this.uploadSingleFile.file);
+      const savedFile = await createFile(
+        this.uploadSingleFile.name,
+        [...this.uploadSingleFile.tags],
+        this.uploadSingleFile.file,
+      );
       this.files.push(savedFile);
       this.uploadSingleFile.open = false;
       this.selectedFile = savedFile;

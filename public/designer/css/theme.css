@@ -10,12 +10,7 @@
 
 .cosmo-tab__content.is--details {
     display: grid;
-    grid-template-columns: 50rem 1fr;
-    grid-template-rows: auto auto 1fr;
-    grid-template-areas:
-        "toolbar toolbar"
-        "message message"
-        "image description";
+    grid-template: "toolbar toolbar" auto "message message" auto "image description" 1fr / 50rem 1fr;
     gap: 0.75rem;
 }
 
