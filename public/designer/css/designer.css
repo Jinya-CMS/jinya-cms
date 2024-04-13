@@ -7,14 +7,14 @@
     grid-row: header;
 }
 
-.cosmo-toolbar--designer {
+.cosmo-toolbar.is--designer {
     grid-row: toolbar;
 }
 
 .jinya-designer__content {
     display: grid;
     grid-row: content;
-    grid-template-columns: [content] 1fr [toolbox] 29rem;
+    grid-template-columns: [content] 1fr [toolbox] 30rem;
     max-height: calc(var(--page-height) - 2.75rem - 1.25rem - 2rem - 2rem - 0.25rem);
 }
 
@@ -30,12 +30,6 @@
     gap: 1rem;
     flex-flow: row wrap;
     place-content: baseline flex-start;
-}
-
-.jinya-designer__result--horizontal {
-    flex-flow: row wrap;
-    gap: 1rem;
-    align-content: flex-start;
 }
 
 .jinya-designer__toolbox-container {
@@ -89,25 +83,7 @@
     width: 1.5rem;
     height: 1.5rem;
     display: block;
-}
-
-.jinya-designer__drag-handle::after,
-.jinya-designer__drag-handle::before {
-    content: '';
-    display: block;
-    height: 0.0625rem;
-    width: 1.25rem;
-    background: var(--black);
-    position: absolute;
-    left: 0;
-}
-
-.jinya-designer__drag-handle::after {
-    top: 0.75rem;
-}
-
-.jinya-designer__drag-handle::before {
-    top: 0.5rem;
+    align-self: center;
 }
 
 .jinya-designer-item {
@@ -121,11 +97,6 @@
     gap: 0.5rem;
     cursor: move;
     border-radius: var(--border-radius);
-}
-
-.jinya-designer-item--menu {
-    flex: 1 1 100%;
-    min-width: unset;
 }
 
 .jinya-designer-item.is--selected {
@@ -145,32 +116,6 @@
     left: 0;
 }
 
-.jinya-designer-item.is--file {
-    grid-template-columns: [image] 13rem [details] 1fr;
-    grid-template-rows: unset;
-    height: 9rem;
-    padding: unset;
-    gap: unset;
-}
-
-.jinya-designer-item.is--file.is--selected {
-    grid-template-columns: [image] 13rem [details] 1fr;
-}
-
-.jinya-designer-item__details {
-    grid-row: content;
-}
-
-.jinya-designer-item__details.is--file {
-    grid-column: details;
-    grid-row: unset;
-    padding: 0.75rem;
-}
-
-.jinya-designer-item__details.is--file.is--selected {
-    padding-top: 0.5rem;
-}
-
 .jinya-designer-item__title {
     text-transform: uppercase;
     font-weight: var(--font-weight-light);
@@ -180,12 +125,13 @@
     grid-row: title;
 }
 
-.jinya-designer-item__title.is--file {
-    grid-row: unset;
+.jinya-designer-item__details {
+    grid-row: content;
 }
 
 .jinya-designer-item__template {
-    display: flex;
+    display: grid;
+    grid-template-columns: 2rem 1fr;
     flex: 0 0 100%;
     min-width: 100%;
     border: 0.0625rem solid var(--control-border-color);
@@ -194,6 +140,13 @@
     gap: 0.5rem;
     text-transform: uppercase;
     font-weight: var(--font-weight-light);
-    align-items: flex-start;
+    align-items: center;
     border-radius: var(--border-radius);
+}
+
+.jinya-designer-item__edit {
+    place-self: flex-start flex-end;
+    grid-row: title / span 2;
+    display: flex;
+    gap: 1rem;
 }

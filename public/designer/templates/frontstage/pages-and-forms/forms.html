@@ -1,0 +1,326 @@
+<div class="cosmo-side-list" x-data="formsData">
+  <nav class="cosmo-side-list__items">
+    <template x-for="form in forms" :key="form.id">
+      <a class="cosmo-side-list__item" x-text="form.title" :class="{ 'is--active': selectedForm?.id === form.id }"
+         @click="selectForm(form)"></a>
+    </template>
+    <button class="cosmo-button is--full-width" x-localize:pages_and_forms-form-action-new
+            @click="openCreateDialog"></button>
+  </nav>
+  <template x-if="selectedForm">
+    <div class="cosmo-side-list__content jinya-designer">
+      <div class="jinya-designer__title">
+        <span class="cosmo-title">
+          <span x-text="selectedForm.title"></span>
+          (<span x-text="selectedForm.toAddress"></span>)
+        </span>
+      </div>
+      <div class="cosmo-toolbar is--form">
+        <div class="cosmo-toolbar__group">
+          <button class="cosmo-button" x-localize:pages_and_forms-form-action-edit @click="openEditDialog"></button>
+          <button class="cosmo-button" x-localize:pages_and_forms-form-action-delete @click="deleteForm"></button>
+        </div>
+        <div class="cosmo-toolbar__group">
+          <button class="cosmo-button is--primary" x-localize:pages_and_forms-form-action-save
+                  @click="saveForm"></button>
+        </div>
+      </div>
+      <div class="jinya-form-designer">
+        <div class="cosmo-message is--form"
+             :class="{ 'is--negative': editItem.message.isNegative, 'is--positive': !editItem.message.isNegative }"
+             x-show="editItem.message.hasMessage">
+          <span class="cosmo-message__header" x-text="editItem.message.title"></span>
+          <p class="cosmo-message__message" x-text="editItem.message.content"></p>
+        </div>
+        <div class="jinya-form-designer__items">
+          <template x-for="(item, index) in items" :key="index">
+            <div style="display: contents">
+              <button class="cosmo-button is--circle is--primary is--add is--form" @click="openAddItemDialog(index)">
+                <svg class="jinya-icon is--add is--form" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14" />
+                  <path d="M12 5v14" />
+                </svg>
+              </button>
+              <div class="jinya-designer-item is--form" draggable="true" @dragstart="startItemDrag(item)"
+                   @dragover.prevent="dragOver(index)">
+                <span class="jinya-designer-item__title" x-text="getItemTitle(item.type)"></span>
+                <span class="jinya-designer-item__details" x-text="item.label"></span>
+                <div class="jinya-designer-item__edit">
+                  <button class="cosmo-button is--icon is--primary" @click="editItem(item, index)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round">
+                      <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+                      <path d="m15 5 4 4" />
+                    </svg>
+                  </button>
+                  <button class="cosmo-button is--icon is--negative" @click="deleteItem(item, index)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round">
+                      <path d="M3 6h18" />
+                      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </template>
+          <button class="cosmo-button is--circle is--primary is--add is--form is--last" @click="openAddItemDialog(0)">
+            <svg class="jinya-icon is--add is--form" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14" />
+              <path d="M12 5v14" />
+            </svg>
+          </button>
+        </div>
+        <div class="jinya-form-designer__preview">
+          <div class="cosmo-input__group">
+            <span class="cosmo-input__header" x-localize:pages_and_forms-form-designer-preview></span>
+            <template x-for="(item, index) in items" :key="index">
+              <div style="display: contents">
+                <template x-if="item.type === 'text'">
+                  <div style="display: contents" x-data="{ id: $id('preview') }">
+                    <label :for="id" class="cosmo-label" x-text="item.label"></label>
+                    <input :id="id" :required="item.isRequired" class="cosmo-input" type="text"
+                           :placeholder="item.placeholder">
+                    <span class="cosmo-input__message is--information" x-text="item.helpText"></span>
+                  </div>
+                </template>
+                <template x-if="item.type === 'email'">
+                  <div style="display: contents" x-data="{ id: $id('preview') }">
+                    <label :for="id" class="cosmo-label" x-text="item.label"></label>
+                    <input :id="id" :required="item.isRequired" class="cosmo-input" type="email"
+                           :placeholder="item.placeholder">
+                    <span class="cosmo-input__message is--information" x-text="item.helpText"></span>
+                  </div>
+                </template>
+                <template x-if="item.type === 'textarea'">
+                  <div style="display: contents" x-data="{ id: $id('preview') }">
+                    <label :for="id" class="cosmo-label is--textarea" x-text="item.label"></label>
+                    <textarea :id="id" :required="item.isRequired" class="cosmo-textarea"
+                              :placeholder="item.placeholder"></textarea>
+                    <span class="cosmo-input__message is--information" x-text="item.helpText"></span>
+                  </div>
+                </template>
+                <template x-if="item.type === 'checkbox'">
+                  <div style="display: contents" x-data="{ id: $id('preview') }">
+                    <div class="cosmo-input__group is--checkbox">
+                      <input :id="id" :required="item.isRequired" :placeholder="item.placeholder">
+                      <label :for="id" class="cosmo-label" x-text="item.label"></label>
+                    </div>
+                    <span class="cosmo-input__message is--information" x-text="item.helpText"></span>
+                  </div>
+                </template>
+                <template x-if="item.type === 'select'">
+                  <div style="display: contents" x-data="{ id: $id('preview') }">
+                    <label :for="id" class="cosmo-label" x-text="item.label"></label>
+                    <select class="cosmo-select" :id="id" :required="item.isRequired">
+                      <template x-if="item.placeholder">
+                        <option x-text="item.placeholder" disabled></option>
+                      </template>
+                      <template x-for="option in item.options">
+                        <option x-text="option"></option>
+                      </template>
+                    </select>
+                    <span class="cosmo-input__message is--information" x-text="item.helpText"></span>
+                  </div>
+                </template>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <form class="cosmo-modal__container" @submit.prevent="createForm" x-show="create.open">
+    <div class="cosmo-modal">
+      <h1 class="cosmo-modal__title" x-localize:pages_and_forms-form-create-title></h1>
+      <div class="cosmo-modal__content">
+        <div class="cosmo-message is--negative" x-show="create.error.hasError">
+          <span class="cosmo-message__header" x-text="create.error.title"></span>
+          <p class="cosmo-message__message" x-text="create.error.message"></p>
+        </div>
+        <div class="cosmo-input__group">
+          <label for="createFormTitle" class="cosmo-label" x-localize:pages_and_forms-form-create-form_title></label>
+          <input required type="text" id="createFormTitle" class="cosmo-input" x-model="create.title" />
+          <label for="createFormToAddress" class="cosmo-label"
+                 x-localize:pages_and_forms-form-create-to_address></label>
+          <input required type="email" id="createFormToAddress" class="cosmo-input" x-model="create.toAddress" />
+          <label for="createDescription" class="cosmo-label is--textarea"
+                 x-localize:pages_and_forms-form-create-description></label>
+          <textarea id="createDescription" x-ref="createDescription"></textarea>
+        </div>
+      </div>
+      <div class="cosmo-modal__button-bar">
+        <button type="button" class="cosmo-button" x-localize:pages_and_forms-form-create-cancel
+                @click="create.open = false"></button>
+        <button type="submit" class="cosmo-button" x-localize:pages_and_forms-form-create-create></button>
+      </div>
+    </div>
+  </form>
+  <form class="cosmo-modal__container" @submit.prevent="updateForm" x-show="edit.open">
+    <div class="cosmo-modal">
+      <h1 class="cosmo-modal__title" x-localize:pages_and_forms-form-edit-title></h1>
+      <div class="cosmo-modal__content">
+        <div class="cosmo-message is--negative" x-show="edit.error.hasError">
+          <span class="cosmo-message__header" x-text="edit.error.title"></span>
+          <p class="cosmo-message__message" x-text="edit.error.message"></p>
+        </div>
+        <div class="cosmo-input__group">
+          <label for="editFormTitle" class="cosmo-label" x-localize:pages_and_forms-form-edit-form_title></label>
+          <input required type="text" id="editFormTitle" class="cosmo-input" x-model="edit.title" />
+          <label for="editFormToAddress" class="cosmo-label"
+                 x-localize:pages_and_forms-form-edit-to_address></label>
+          <input required type="email" id="editFormToAddress" class="cosmo-input" x-model="edit.toAddress" />
+          <label for="editDescription" class="cosmo-label is--textarea"
+                 x-localize:pages_and_forms-form-edit-description></label>
+          <textarea id="editDescription" x-ref="editDescription"></textarea>
+        </div>
+      </div>
+      <div class="cosmo-modal__button-bar">
+        <button type="button" class="cosmo-button" x-localize:pages_and_forms-form-edit-cancel
+                @click="edit.open = false"></button>
+        <button type="submit" class="cosmo-button" x-localize:pages_and_forms-form-edit-update></button>
+      </div>
+    </div>
+  </form>
+  <template x-if="addItem.open">
+    <form class="cosmo-modal__container" @submit.prevent="insertItem">
+      <div class="cosmo-modal">
+        <h1 class="cosmo-modal__title" x-localize:pages_and_forms-form-designer-add-title></h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-input__group">
+            <label for="addItemType" class="cosmo-label" x-localize:pages_and_forms-form-designer-add-type></label>
+            <select required id="addItemType" class="cosmo-input" x-model="addItem.type">
+              <option :selected="addItem.type === 'email'" value="email"
+                      x-localize:pages_and_forms-form-designer-type_email></option>
+              <option :selected="addItem.type === 'text'" value="text"
+                      x-localize:pages_and_forms-form-designer-type_text></option>
+              <option :selected="addItem.type === 'select'" value="select"
+                      x-localize:pages_and_forms-form-designer-type_select></option>
+              <option :selected="addItem.type === 'textarea'" value="textarea"
+                      x-localize:pages_and_forms-form-designer-type_textarea></option>
+              <option :selected="addItem.type === 'checkbox'" value="checkbox"
+                      x-localize:pages_and_forms-form-designer-type_checkbox></option>
+            </select>
+            <label for="addItemLabel" class="cosmo-label" x-localize:pages_and_forms-form-designer-add-label></label>
+            <input required type="text" id="addItemLabel" class="cosmo-input" x-model="addItem.label" />
+            <label for="addItemPlaceholder" class="cosmo-label"
+                   x-localize:pages_and_forms-form-designer-add-placeholder></label>
+            <input type="text" id="addItemPlaceholder" class="cosmo-input" x-model="addItem.placeholder" />
+            <label for="addItemHelpText" class="cosmo-label"
+                   x-localize:pages_and_forms-form-designer-add-help_text></label>
+            <input type="text" id="addItemHelpText" class="cosmo-input" x-model="addItem.helpText" />
+            <label for="addItemSpamFilter" class="cosmo-label is--textarea"
+                   x-localize:pages_and_forms-form-designer-add-spam_filter></label>
+            <textarea type="text" id="addItemSpamFilter" class="cosmo-textarea" rows="5"
+                      x-model="addItem.spamFilter"></textarea>
+            <template x-if="addItem.type === 'dropdown'">
+              <div style="display: contents">
+                <label for="addItemSpamFilter" class="cosmo-label is--textarea"
+                       x-localize:pages_and_forms-form-designer-add-options></label>
+                <textarea type="text" id="addItemOptions" class="cosmo-textarea" rows="5"
+                          x-model="addItem.options"></textarea>
+              </div>
+            </template>
+            <div class="cosmo-input__group is--checkbox">
+              <input type="checkbox" id="addItemIsRequired" class="cosmo-checkbox"
+                     x-model="addItem.isRequired" />
+              <label for="addItemIsRequired" x-localize:pages_and_forms-form-designer-add-is_required></label>
+            </div>
+            <template x-if="addItem.type === 'text'">
+              <div class="cosmo-input__group is--checkbox">
+                <input type="checkbox" id="addItemIsSubject" class="cosmo-checkbox"
+                       x-model="addItem.isSubject" />
+                <label for="addItemIsSubject" x-localize:pages_and_forms-form-designer-add-is_subject></label>
+              </div>
+            </template>
+            <template x-if="addItem.type === 'email'">
+              <div class="cosmo-input__group is--checkbox">
+                <input type="checkbox" id="addItemIsFromAddress" class="cosmo-checkbox"
+                       x-model="addItem.isFromAddress" />
+                <label for="addItemIsSubject" x-localize:pages_and_forms-form-designer-add-is_from_address></label>
+              </div>
+            </template>
+          </div>
+        </div>
+        <div class="cosmo-modal__button-bar">
+          <button class="cosmo-button" x-localize:pages_and_forms-form-designer-add-cancel
+                  @click="addItem.open = false"></button>
+          <button class="cosmo-button" x-localize:pages_and_forms-form-designer-add-insert></button>
+        </div>
+      </div>
+    </form>
+  </template>
+  <template x-if="editItem.open">
+    <form class="cosmo-modal__container" @submit.prevent="updateItem">
+      <div class="cosmo-modal">
+        <h1 class="cosmo-modal__title" x-localize:pages_and_forms-form-designer-edit-title></h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-input__group">
+            <label for="editItemType" class="cosmo-label" x-localize:pages_and_forms-form-designer-edit-type></label>
+            <select required id="editItemType" class="cosmo-input" x-model="editItem.type">
+              <option :selected="editItem.type === 'email'" value="email"
+                      x-localize:pages_and_forms-form-designer-type_email></option>
+              <option :selected="editItem.type === 'text'" value="text"
+                      x-localize:pages_and_forms-form-designer-type_text></option>
+              <option :selected="editItem.type === 'select'" value="select"
+                      x-localize:pages_and_forms-form-designer-type_select></option>
+              <option :selected="editItem.type === 'textarea'" value="textarea"
+                      x-localize:pages_and_forms-form-designer-type_textarea></option>
+              <option :selected="editItem.type === 'checkbox'" value="checkbox"
+                      x-localize:pages_and_forms-form-designer-type_checkbox></option>
+            </select>
+            <label for="editItemLabel" class="cosmo-label" x-localize:pages_and_forms-form-designer-edit-label></label>
+            <input required type="text" id="editItemLabel" class="cosmo-input" x-model="editItem.label" />
+            <label for="editItemPlaceholder" class="cosmo-label"
+                   x-localize:pages_and_forms-form-designer-edit-placeholder></label>
+            <input type="text" id="editItemPlaceholder" class="cosmo-input" x-model="editItem.placeholder" />
+            <label for="editItemHelpText" class="cosmo-label"
+                   x-localize:pages_and_forms-form-designer-edit-help_text></label>
+            <input type="text" id="editItemHelpText" class="cosmo-input" x-model="editItem.helpText" />
+            <label for="editItemSpamFilter" class="cosmo-label is--textarea"
+                   x-localize:pages_and_forms-form-designer-edit-spam_filter></label>
+            <textarea type="text" id="editItemSpamFilter" class="cosmo-textarea" rows="5"
+                      x-model="editItem.spamFilter"></textarea>
+            <template x-if="editItem.type === 'dropdown'">
+              <div style="display: contents">
+                <label for="editItemSpamFilter" class="cosmo-label is--textarea"
+                       x-localize:pages_and_forms-form-designer-edit-options></label>
+                <textarea type="text" id="editItemOptions" class="cosmo-textarea" rows="5"
+                          x-model="editItem.options"></textarea>
+              </div>
+            </template>
+            <div class="cosmo-input__group is--checkbox">
+              <input type="checkbox" id="editItemIsRequired" class="cosmo-checkbox"
+                     x-model="editItem.isRequired" />
+              <label for="editItemIsRequired" x-localize:pages_and_forms-form-designer-edit-is_required></label>
+            </div>
+            <template x-if="editItem.type === 'text'">
+              <div class="cosmo-input__group is--checkbox">
+                <input type="checkbox" id="editItemIsSubject" class="cosmo-checkbox"
+                       x-model="editItem.isSubject" />
+                <label for="editItemIsSubject" x-localize:pages_and_forms-form-designer-edit-is_subject></label>
+              </div>
+            </template>
+            <template x-if="editItem.type === 'email'">
+              <div class="cosmo-input__group is--checkbox">
+                <input type="checkbox" id="editItemIsFromAddress" class="cosmo-checkbox"
+                       x-model="editItem.isFromAddress" />
+                <label for="editItemIsSubject" x-localize:pages_and_forms-form-designer-edit-is_from_address></label>
+              </div>
+            </template>
+          </div>
+        </div>
+        <div class="cosmo-modal__button-bar">
+          <button class="cosmo-button" x-localize:pages_and_forms-form-designer-edit-cancel
+                  @click="editItem.open = false"></button>
+          <button class="cosmo-button" x-localize:pages_and_forms-form-designer-edit-update></button>
+        </div>
+      </div>
+    </form>
+  </template>
+</div>

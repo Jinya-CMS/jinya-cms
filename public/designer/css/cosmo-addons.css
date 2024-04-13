@@ -2,3 +2,22 @@
     position: sticky;
     bottom: 0;
 }
+
+.cosmo-button.is--icon svg {
+    stroke: var(--button-background);
+    height: 1.25rem;
+    width: 1.25rem;
+}
+
+.cosmo-button.is--icon {
+    width: unset;
+    height: unset;
+    padding: 0;
+    background: var(--white);
+    border-color: var(--white);
+
+    &:hover {
+        background: var(--white);
+        border-color: var(--white);
+    }
+}
