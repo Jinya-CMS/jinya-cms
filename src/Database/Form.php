@@ -208,7 +208,7 @@ class Form extends Entity
         try {
             $query = self::getQueryBuilder()
                 ->newDelete()
-                ->from(MenuItem::getTableName())
+                ->from(FormItem::getTableName())
                 ->where('form_id = :formId', ['formId' => $this->id]);
 
             self::executeQuery($query);

@@ -37,6 +37,7 @@
   <link href="/designer/css/file-picker.css" rel="stylesheet" />
   <link href="/designer/css/login.css" rel="stylesheet" />
   <link href="/designer/css/ace.css" rel="stylesheet" />
+  <link href="/designer/css/forms.css" rel="stylesheet" />
 
   <script src="/designer/js/foundation/ui/components/loader.js"></script>
 
@@ -354,6 +355,11 @@
       x-route="/frontstage/pages-and-forms/classic-pages"
       x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
       x-template="/designer/templates/frontstage/pages-and-forms/classic-pages.html"
+    ></template>
+    <template
+      x-route="/frontstage/pages-and-forms/forms"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/pages-and-forms/forms.html"
     ></template>
 
     <template

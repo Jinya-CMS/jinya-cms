@@ -229,18 +229,17 @@ class Artist extends Entity
     }
 
     /**
-     * Counts all available admins, excluding the given artist
+     * Counts all available admins
      *
-     * @param int $id The artist to exclude from check
      * @return int
      */
-    public static function countAdmins(int $id): int
+    public static function countAdmins(): int
     {
         /** @var Iterator<Artist> $users */
         $users = self::findAll();
         $admins = 0;
         foreach ($users as $user) {
-            if ($user->enabled && $id !== $user->id && in_array(
+            if ($user->enabled && in_array(
                 ROLE_ADMIN,
                 $user->roles,
                 true

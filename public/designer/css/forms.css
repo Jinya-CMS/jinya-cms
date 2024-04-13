@@ -1,0 +1,82 @@
+.jinya-form-item__label {
+    grid-row: content;
+}
+
+.jinya-designer__result.is--form {
+    flex-flow: row wrap;
+    gap: 1rem;
+    align-content: flex-start;
+    grid-row: content;
+}
+
+.jinya-designer__toolbox.is--form {
+    grid-row: content;
+}
+
+.cosmo-toolbar.is--form {
+    grid-row: toolbar;
+}
+
+.cosmo-message.is--form {
+    grid-row: message;
+    grid-column: span 2;
+}
+
+.jinya-form-designer {
+    grid-template-rows: [message] auto [content] 1fr;
+    display: grid;
+    grid-row: content;
+    grid-template-columns: [content] 2fr [toolbox] 1fr;
+    max-height: 100%;
+}
+
+.jinya-form-designer__items {
+    grid-column: content;
+    grid-row: content;
+    display: grid;
+    box-sizing: border-box;
+    border-right: 0.0625rem solid var(--control-border-color);
+    padding-right: 1rem;
+    margin-right: 1rem;
+    overflow-y: auto;
+    max-height: 100%;
+    gap: 1rem;
+    place-content: baseline flex-start;
+    grid-template-rows: auto auto;
+    grid-template-columns: 10rem [button] 2rem [content] 1fr 2rem 10rem;
+    grid-auto-rows: auto;
+    padding-top: 2rem;
+}
+
+.jinya-form-designer__preview {
+    grid-column: toolbox;
+    grid-row: content;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    max-height: 100%;
+    gap: 1rem;
+}
+
+.jinya-designer-item.is--form {
+    grid-column: content;
+}
+
+.cosmo-button.is--add.is--form {
+    place-self: start end;
+    opacity: 0.4;
+    grid-column: button;
+    transform: translateY(-1.5rem) rotate(-45deg);
+    border-bottom-right-radius: 0;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.cosmo-button.is--add.is--form.is--last {
+    place-self: end end;
+}
+
+.jinya-icon.is--add.is--form {
+    transform: rotate(45deg);
+}
