@@ -12,7 +12,7 @@
     "ext-pdo": "*",
     "ext-pdo_mysql": "*",
     "ext-zip": "*",
-    "intervention/image": "3.5.0",
+    "intervention/image": "3.6.3",
     "jenssegers/agent": "v2.6.4",
     "jetbrains/phpstorm-attributes": "1.0",
     "jinya/database": "0.17.0",
@@ -20,10 +20,10 @@
     "jinya/router": "0.10.0",
     "jinya/router-extensions": "0.20.0",
     "league/climate": "3.8.2",
-    "league/uri": "7.4.0",
+    "league/uri": "7.4.1",
     "laminas/laminas-hydrator": "4.15.0",
     "melbahja/semver": "v1.0.1",
-    "monolog/monolog": "3.5.0",
+    "monolog/monolog": "3.6.0",
     "nyholm/psr7": "1.8.1",
     "nyholm/psr7-server": "1.1.0",
     "phpmailer/phpmailer": "v6.9.1",
@@ -38,9 +38,9 @@
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
-    "fakerphp/faker": "v1.23.0",
-    "laravel/pint": "v1.14.0",
-    "symfony/filesystem": "v6.3.1"
+    "fakerphp/faker": "v1.23.1",
+    "laravel/pint": "v1.15.3",
+    "symfony/filesystem": "v7.0.7"
   },
   "config": {
     "process-timeout": 0,
