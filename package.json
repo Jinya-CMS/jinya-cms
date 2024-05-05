@@ -24,9 +24,9 @@
   "homepage": "https://jinya.de",
   "devDependencies": {
     "eslint": "8.57.0",
-    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-prettier": "9.1.0",
     "prettier": "3.2.5",
-    "stylelint": "16.3.1",
+    "stylelint": "16.5.0",
     "stylelint-config-standard": "36.0.0"
   }
 }

@@ -38,6 +38,7 @@
   <link href="/designer/css/login.css" rel="stylesheet" />
   <link href="/designer/css/ace.css" rel="stylesheet" />
   <link href="/designer/css/forms.css" rel="stylesheet" />
+  <link href="/designer/css/menus.css" rel="stylesheet" />
 
   <script src="/designer/js/foundation/ui/components/loader.js"></script>
 
@@ -201,14 +202,14 @@
             <div class="cosmo-menu__row is--sub">
               <a
                 class="cosmo-menu__item"
-                href="/designer/frontstage/design/menu"
-                x-active-route="menu"
+                href="/designer/frontstage/design/menus"
+                x-active-route="menus"
                 x-localize:design-menu-menus
               >
               </a>
               <a
                 class="cosmo-menu__item"
-                href="/designer/frontstage/desing/themes"
+                href="/designer/frontstage/design/themes"
                 x-active-route="themes"
                 x-localize:design-menu-themes
               >
@@ -362,6 +363,11 @@
       x-template="/designer/templates/frontstage/pages-and-forms/forms.html"
     ></template>
 
+    <template
+      x-route="/frontstage/design/menus"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/design/menus.html"
+    ></template>
     <template
       x-route="/frontstage/design/themes"
       x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"

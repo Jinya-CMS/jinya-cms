@@ -17,18 +17,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     const getValues = expression ? evaluateLater(expression) : (load) => load();
     effect(() => {
       getValues((values) => {
+        const localized = localize({
+          key: value,
+          values,
+        });
+
         if (modifiers.includes('html')) {
           // eslint-disable-next-line no-param-reassign
-          el.innerHTML = localize({
-            key: value,
-            values,
-          });
+          el.innerHTML = localized;
+        } else if (modifiers.includes('title')) {
+          // eslint-disable-next-line no-param-reassign
+          el.setAttribute('title', localized);
         } else {
           // eslint-disable-next-line no-param-reassign
-          el.textContent = localize({
-            key: value,
-            values,
-          });
+          el.textContent = localized;
         }
       });
     });

@@ -88,7 +88,7 @@ class Menu extends Entity
     }
 
     /**
-     * @param array{artistId?: int|null, formId?: int|null, classicPageId?: int|null, modernPageId?: int|null, galleryId?: int|null, categoryId?: int|null, blogHomePage?: bool|null, title: string, route: string, highlighted?: bool|null, items?: array<string, mixed>|null}[] $items
+     * @param array{artistId?: int|null, formId?: int|null, classicPageId?: int|null, modernPageId?: int|null, galleryId?: int|null, categoryId?: int|null, blogHomePage?: bool|null, title: string, route?: string|null, highlighted?: bool|null, items?: array<string, mixed>|null}[] $items
      * @return void
      * @throws TransactionFailedException
      */
@@ -112,7 +112,7 @@ class Menu extends Entity
                     'position' => $idx,
                     'menu_id' => $this->id,
                     'title' => $item['title'],
-                    'route' => $item['route'],
+                    'route' => $item['route'] ?? null,
                     'highlighted' => ($item['highlighted'] ?? false) ? 1 : 0,
                 ];
                 if ($item['artistId'] ?? false) {
@@ -148,7 +148,7 @@ class Menu extends Entity
     }
 
     /**
-     * @param array{artistId?: int|null, formId?: int|null, classicPageId?: int|null, modernPageId?: int|null, galleryId?: int|null, categoryId?: int|null, blogHomePage?: bool|null, title: string, route: string, highlighted?: bool|null, items?: array<string, mixed>|null}[] $items
+     * @param array{artistId?: int|null, formId?: int|null, classicPageId?: int|null, modernPageId?: int|null, galleryId?: int|null, categoryId?: int|null, blogHomePage?: bool|null, title: string, route?: string|null, highlighted?: bool|null, items?: array<string, mixed>|null}[] $items
      * @param int $parentId
      * @return void
      */
@@ -159,7 +159,7 @@ class Menu extends Entity
                 'position' => $idx,
                 'parent_id' => $parentId,
                 'title' => $item['title'],
-                'route' => $item['route'],
+                'route' => $item['route'] ?? null,
                 'highlighted' => ($item['highlighted'] ?? false) ? 1 : 0,
             ];
             if ($item['artistId'] ?? false) {

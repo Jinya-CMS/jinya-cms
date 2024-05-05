@@ -226,9 +226,9 @@ class MenuItemTest extends DatabaseAwareTestCase
 
         self::assertEquals($category->format(), $found->getBlogCategory()->format());
 
-        self::assertArrayHasKey('category', $format);
+        self::assertArrayHasKey('blogCategory', $format);
         /** @var array<string, string> $formattedCategory */
-        $formattedCategory = $format['category'];
+        $formattedCategory = $format['blogCategory'];
         self::assertArrayHasKey('id', $formattedCategory);
         self::assertArrayHasKey('name', $formattedCategory);
         $this->checkFormatFields($found);
@@ -435,32 +435,6 @@ class MenuItemTest extends DatabaseAwareTestCase
         $item = $menu->getItems()->current();
 
         self::assertNull($item->getParent());
-    }
-
-    public function testFormatRecursive(): void
-    {
-        $menu = $this->createMenu();
-
-        $menuItem = $this->createMenuItem();
-        $menuItem['items'] = [
-            $this->createMenuItem(),
-            $this->createMenuItem(),
-            [
-                ...$this->createMenuItem(),
-                'items' => [
-                    $this->createMenuItem(),
-                ],
-            ],
-        ];
-
-        $menu->replaceItems([$menuItem]);
-
-        $parent = $menu->getItems()->current();
-        $formatted = $parent->formatRecursive();
-        self::assertArrayHasKey('items', $formatted);
-        /** @var array<string, string> $items */
-        $items = $formatted['items'];
-        self::assertNotEmpty($items);
     }
 
     public function testFindByMenuAndPosition(): void

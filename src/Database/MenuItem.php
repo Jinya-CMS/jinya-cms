@@ -276,22 +276,9 @@ class MenuItem
     }
 
     /**
-     * Formats the menu items below this recursive
-     *
-     * @return array<string, array<string>|bool|int|string|null>
-     */
-    public function formatRecursive(): array
-    {
-        $result = $this->format();
-        $result['items'] = $this->formatIterator($this->getItems());
-
-        return $result;
-    }
-
-    /**
      * Formats the given menu item
      *
-     * @return array<string, array<string, int|string|null>|bool|int|string|null>
+     * @return array<string, array<int|string, mixed>|bool|int|string|null>
      */
     public function format(): array
     {
@@ -302,6 +289,7 @@ class MenuItem
             'title' => $this->title,
             'route' => $this->route,
             'blogHomePage' => $this->blogHomePage,
+            'items' => $this->formatIterator($this->getItems()),
         ];
 
         if (isset($this->formId)) {
@@ -337,7 +325,7 @@ class MenuItem
             ];
         } elseif (isset($this->categoryId)) {
             $category = $this->getBlogCategory();
-            $data['category'] = [
+            $data['blogCategory'] = [
                 'id' => $category?->id,
                 'name' => $category?->name,
             ];
@@ -441,7 +429,7 @@ class MenuItem
         $data = [];
         foreach ($iterator as $item) {
             /* @var $item MenuItem */
-            $data[] = $item->formatRecursive();
+            $data[] = $item->format();
         }
 
         return $data;
