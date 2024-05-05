@@ -278,7 +278,7 @@ class MenuItem
     /**
      * Formats the given menu item
      *
-     * @return array<string, array<string, int|string|null>|bool|int|string|null>
+     * @return array<string, array<int|string, mixed>|bool|int|string|null>
      */
     public function format(): array
     {
