@@ -13,22 +13,31 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   Alpine.plugin(PineconeRouter);
 
-  Alpine.directive('localize', (el, { value, expression, modifiers }, { evaluateLater, effect }) => {
+  Alpine.directive('localize', (el, {
+    value,
+    expression,
+    modifiers,
+  }, {
+                                  evaluateLater,
+                                  effect,
+                                }) => {
     const getValues = expression ? evaluateLater(expression) : (load) => load();
     effect(() => {
       getValues((values) => {
+        const localized = localize({
+          key: value,
+          values,
+        });
+
         if (modifiers.includes('html')) {
           // eslint-disable-next-line no-param-reassign
-          el.innerHTML = localize({
-            key: value,
-            values,
-          });
+          el.innerHTML = localized;
+        } else if (modifiers.includes('title')) {
+          // eslint-disable-next-line no-param-reassign
+          el.setAttribute('title', localized);
         } else {
           // eslint-disable-next-line no-param-reassign
-          el.textContent = localize({
-            key: value,
-            values,
-          });
+          el.textContent = localized;
         }
       });
     });
@@ -37,7 +46,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     'active-route',
     (
       el,
-      { expression, modifiers },
+      {
+        expression,
+        modifiers,
+      },
       {
         // eslint-disable-next-line no-shadow
         Alpine,
@@ -45,7 +57,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       },
     ) => {
       effect(() => {
-        const { page, area } = Alpine.store('navigation');
+        const {
+          page,
+          area,
+        } = Alpine.store('navigation');
         if (
           (modifiers.includes('area') && area === expression) ||
           (!modifiers.includes('area') && page === expression)
@@ -57,7 +72,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
     },
   );
-  Alpine.directive('blob-src', (el, { expression }, { evaluateLater, effect }) => {
+  Alpine.directive('blob-src', (el, { expression }, {
+    evaluateLater,
+    effect,
+  }) => {
     const getValues = expression ? evaluateLater(expression) : (load) => load();
     effect(() => {
       getValues(async (values) => {
@@ -78,13 +96,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       this.roles = roles;
     },
     logout(fully = false) {
-      Alpine.store('artist').setArtist({
-        profilePicture: '',
-        artistName: '',
-        email: '',
-        aboutMe: '',
-        colorScheme: '',
-      });
+      Alpine.store('artist')
+        .setArtist({
+          profilePicture: '',
+          artistName: '',
+          email: '',
+          aboutMe: '',
+          colorScheme: '',
+        });
       logout(fully);
       window.PineconeRouter.context.navigate('/login');
       this.loggedIn = false;
@@ -97,7 +116,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     colorScheme: '',
     email: '',
     aboutMe: '',
-    setArtist({ profilePicture, artistName, email, aboutMe, colorScheme }) {
+    setArtist({
+                profilePicture,
+                artistName,
+                email,
+                aboutMe,
+                colorScheme,
+              }) {
       this.profilePicture = profilePicture;
       this.artistName = artistName;
       this.email = email;
@@ -110,7 +135,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     stage: 'frontstage',
     area: 'media',
     page: 'files',
-    navigate({ stage, area, page }) {
+    navigate({
+               stage,
+               area,
+               page,
+             }) {
       this.stage = stage;
       this.area = area;
       this.page = page;
@@ -169,13 +198,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     const myProfile = await getMyProfile();
 
-    Alpine.store('authentication').login({
-      loggedIn: true,
-      roles: myProfile.roles,
-    });
-    Alpine.store('artist').setArtist(myProfile);
+    Alpine.store('authentication')
+      .login({
+        loggedIn: true,
+        roles: myProfile.roles,
+      });
+    Alpine.store('artist')
+      .setArtist(myProfile);
   } catch {
-    Alpine.store('authentication').logout();
+    Alpine.store('authentication')
+      .logout();
   }
 
   Alpine.store('loaded', true);
@@ -216,20 +248,29 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const fileUploadWorker = new Worker('/designer/js/frontstage/media/uploading/UploadWorker.js');
   fileUploadWorker.addEventListener('message', (e) => {
-    const { type, file, error, name } = e.data;
+    const {
+      type,
+      file,
+      error,
+      name,
+    } = e.data;
     if (type === 'upload-finish') {
-      Alpine.store('uploadProgress').uploaded(file);
+      Alpine.store('uploadProgress')
+        .uploaded(file);
     } else if (type === 'upload-failed') {
-      Alpine.store('uploadProgress').failed(error, name);
+      Alpine.store('uploadProgress')
+        .failed(error, name);
     } else if (type === 'upload-start') {
-      Alpine.store('uploadProgress').start(name);
+      Alpine.store('uploadProgress')
+        .start(name);
     }
   });
   fileUploadWorker.postMessage({
     apiKey: getJinyaApiKey(),
   });
   document.addEventListener('enqueue-files', (e) => {
-    Alpine.store('uploadProgress').addFiles(e.files.length);
+    Alpine.store('uploadProgress')
+      .addFiles(e.files.length);
     fileUploadWorker.postMessage({
       files: e.files,
       tags: e.tags,

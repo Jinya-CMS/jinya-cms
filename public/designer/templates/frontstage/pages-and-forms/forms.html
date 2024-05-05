@@ -43,7 +43,7 @@
                   <path d="M12 5v14" />
                 </svg>
               </button>
-              <div class="jinya-designer-item is--form" draggable="true" @dragstart="startItemDrag(item)"
+              <div class="jinya-designer-item is--form" draggable="true" @dragstart="startItemDrag(item, index)"
                    @dragover.prevent="dragOver(index)">
                 <span class="jinya-designer-item__title" x-text="getItemTitle(item.type)"></span>
                 <span class="jinya-designer-item__details" x-text="item.label"></span>
