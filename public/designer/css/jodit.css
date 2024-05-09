@@ -1,0 +1,185 @@
+.jodit {
+    --jd-color-white: var(--white);
+    --jd-color-gray: var(--gray);
+    --jd-color-gray-dark: var(--gray-dark);
+    --jd-color-dark: var(--black);
+    --jd-color-blue: var(--information-color);
+    --jd-color-light-blue: var(--information-color-alpha-50);
+    --jd-color-red: var(--negative-color);
+    --jd-color-light-red: var(--negative-color-alpha-50);
+    --jd-color-default: var(--jd-color-dark);
+    --jd-color-text: var(--black);
+    --jd-color-label: var(--jd-color-gray-dark);
+    --jd-color-error: var(--jd-color-red);
+    --jd-color-border: var(--control-border-color);
+    --jd-color-border-dark: var(--control-border-color);
+    --jd-color-border-selected: var(--primary-color);
+    --jd-color-border-active: var(--control-border-color);
+    --jd-color-selection: var(--jd-color-dark);
+    --jd-color-selection-area: #bdbdbd;
+    --jd-color-separator: var(--jd-color-border);
+    --jd-color-placeholder: var(--jd-color-gray-dark);
+    --jd-color-panel: #f9f9f9;
+    --jd-color-resizer: #c8c8c8;
+    --jd-color-background-default: var(--button-background);
+    --jd-color-background-light-gray: var(--gray-lighter);
+    --jd-color-background-gray: var(--gray);
+    --jd-color-background-gray-hover: var(--gray-darker);
+    --jd-color-background-button-hover: var(--control-border-color-dark);
+    --jd-color-background-button-hover-opacity30: rgb(236 235 233 / 30%);
+    --jd-color-background-progress: var(--primary-color);
+    --jd-color-background-active: var(--primary-color);
+    --jd-color-background-selection: var(--primary-color);
+    --jd-color-text-selection: var(--jd-color-white);
+    --jd-color-background-selection-opacity50: var(--primary-color-alpha-50);
+    --jd-color-source-area: var(--black);
+    --jd-color-button-background-hover: var(--jd-color-background-button-hover);
+    --jd-color-button-background-hover-opacity40: rgb(220 220 220 / 40%);
+    --jd-color-button-background-hover-opacity60: rgb(220 220 220 / 60%);
+    --jd-font-default: var(--font-family);
+    --jd-font-size-default: 1rem;
+    --jd-font-size-small: 0.75rem;
+    --jd-color-text-icons: rgb(0 0 0 / 75%);
+    --jd-color-icon: var(--jd-color-dark);
+    --jd-padding-default: 0.5rem;
+    --jd-border-radius-default: var(--border-radius);
+    --jd-icon-tiny-size: 0.5rem;
+    --jd-icon-xsmall-size: 0.75rem;
+    --jd-icon-small-size: 0.75rem;
+    --jd-icon-middle-size: 1rem;
+    --jd-icon-large-size: 1.25rem;
+    --jd-margin-v: 0;
+    --jd-z-index-full-size: 100000;
+    --jd-z-index-popup: 10000001;
+    --jd-z-index-dialog-overlay: 20000003;
+    --jd-z-index-dialog: 20000004;
+    --jd-z-index-context-menu: 30000005;
+    --jd-z-index-tooltip: 30000006;
+    --jd-icon-loader-size: 48px;
+    --jd-width-element-default: 1.25rem;
+    --jd-height-element-default: 1.25rem;
+    --jd-dark-background-color: #575757;
+    --jd-dark-background-ligher: #c0c0c0;
+    --jd-dark-background-darknes: #353535;
+    --jd-dark-border-color: #444;
+    --jd-dark-text-color: #d1cccc;
+    --jd-dark-text-color-opacity80: rgb(209 204 204 / 80%);
+    --jd-dark-text-color-opacity50: rgb(209 204 204 / 50%);
+    --jd-dark-icon-color: #c0c0c0;
+    --jd-dark-toolbar-color: #5f5c5c;
+    --jd-dark-toolbar-seperator-color1: rgb(81 81 81 / 41%);
+    --jd-dark-toolbar-seperator-color2: #686767;
+    --jd-dark-toolbar-seperator-color-opacity80: rgb(104 103 103 / 80%);
+    --jd-dark-toolbar-seperator-color3: rgb(104 103 103 / 75%);
+    --jd-dark-color-border-selected: #152f5f;
+    --jd-width-default: 180px;
+    --jd-width-input-min: var(--jd-width-default);
+    --jd-input-height: var(--control-height);
+    --jd-button-icon-size: 1rem;
+    --jd-button-trigger-size: 16rem;
+    --jd-button-df-size: calc((var(--jd-button-icon-size) - 4px) * 2);
+    --jd-button-size: calc(var(--jd-button-icon-size) + var(--jd-button-df-size) + var(--jd-margin-v) * 2);
+    --jd-focus-input-box-shadow: 0 0 0 0.05rem rgb(0 123 255 / 25%);
+    --jd-image-editor-resizer-border-color: var(--primary-color-lighter);
+    --jd-image-editor-resizer-target-size: padding-default;
+    --jd-image-editor-resizer-target-border-color: #383838;
+    --jd-image-editor-resizer-target-bg-color: #8c7878;
+    --jd-resizer-border-color: var(--primary-color-lighter);
+    --jd-resizer-handle-color: var(--primary-color-light);
+    --jd-resizer-handle-hover-color: var(--primary-color);
+    --jd-info-background: var(--information-color);
+}
+
+.jodit-popup,
+.jodit-context-menu {
+    border-radius: var(--border-radius);
+    box-shadow: none;
+    backdrop-filter: var(--modal-backdrop-filter);
+    background: var(--modal-background);
+    border: var(--modal-border-width) solid var(--primary-color);
+}
+
+.jodit-toolbar-editor-collection {
+    background: none;
+}
+
+.jodit-popup__content,
+.jodit-context-menu__content {
+    border-radius: var(--border-radius);
+    background: none;
+}
+
+.jodit-context-menu__content {
+    padding: 0;
+}
+
+.jodit-ui-button .jodit-icon,
+.jodit-toolbar-button .jodit-icon,
+.jodit-toolbar-button__trigger svg {
+    fill: none;
+    stroke: var(--black);
+    width: 1.25rem;
+    height: 1.25rem;
+    stroke-width: 2px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.jodit-ui-button_context_menu .jodit-ui-button__text::before {
+    content: unset;
+}
+
+.jodit-wysiwyg::selection,
+.jodit-wysiwyg *::selection {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+.jodit-ui-button,
+.jodit-toolbar-button button {
+    min-width: var(--control-height);
+    cursor: pointer;
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    padding: var(--button-padding-top) var(--button-padding-right) var(--button-padding-bottom) var(--button-padding-left);
+    box-sizing: border-box;
+    border: none;
+    background: none;
+    color: var(--button-color);
+    line-height: var(--line-height);
+    height: var(--control-height);
+    text-decoration: none;
+    font-weight: var(--font-weight-normal);
+    border-radius: var(--border-radius);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    transition: background-color var(--transition-duration),
+    color var(--transition-duration),
+    border-color var(--transition-duration);
+}
+
+.jodit-toolbar-button {
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--jd-border-radius-default);
+    background: none;
+    border: none;
+    min-width: unset;
+    height: unset;
+}
+
+.jodit-toolbar-collection_mode_horizontal::after,
+.jodit-toolbar-editor-collection_mode_horizontal::after {
+    content: unset;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    .jodit-wysiwyg::selection,
+    .jodit-wysiwyg *::selection {
+        color: var(--black);
+    }
+}

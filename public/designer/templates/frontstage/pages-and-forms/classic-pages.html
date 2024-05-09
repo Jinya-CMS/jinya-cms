@@ -14,20 +14,20 @@
       <div class="jinya-designer__title">
         <span class="cosmo-title" x-text="title"></span>
       </div>
-      <div class="cosmo-toolbar cosmo-toolbar--designer">
+      <div class="cosmo-toolbar is--designer">
         <div class="cosmo-toolbar__group">
           <button @click="openEditDialog" class="cosmo-button" x-localize:pages_and_forms-classic-action-edit></button>
           <button @click="deletePage" class="cosmo-button" x-localize:pages_and_forms-classic-action-delete></button>
         </div>
       </div>
-      <div class="jinya-designer__content is--simple-pages">
+      <div class="jinya-designer__content is--simple-page">
         <div :class="{ 'is--negative': messageError, 'is--positive': !messageError }"
-             class="cosmo-message is--simple-pages" x-show="hasMessage">
+             class="cosmo-message is--simple-page" x-show="hasMessage">
           <span class="cosmo-message__header" x-text="messageTitle"></span>
           <p class="cosmo-message__message" x-text="messageContent"></p>
         </div>
         <div class="jinya-tiny" x-ref="tiny"></div>
-        <div class="cosmo-button__container is--simple-pages">
+        <div class="cosmo-button__container is--simple-page">
           <button @click="selectPage(selectedPage)" class="cosmo-button"
                   id="discard-changes" x-localize:pages_and_forms-classic-action-discard_content></button>
           <button @click="savePage" class="cosmo-button is--primary"

@@ -65,8 +65,7 @@
               <div class="jinya-designer-item__edit">
                 <button class="cosmo-button is--icon is--primary" @click="decreaseItemNesting(item, index)"
                         :disabled="item.nesting === 0" x-localize:design-menus-action-decrease_nesting.title>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                       stroke-linejoin="round">
+                  <svg viewBox="0 0 24 24">
                     <polyline points="7 8 3 12 7 16" />
                     <line x1="21" x2="11" y1="12" y2="12" />
                     <line x1="21" x2="11" y1="6" y2="6" />
@@ -76,8 +75,7 @@
                 <button class="cosmo-button is--icon is--primary" @click="increaseItemNesting(item, index)"
                         :disabled="index === 0 || item.nesting > items[index - 1].nesting"
                         x-localize:design-menus-action-increase_nesting.title>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                       stroke-linejoin="round">
+                  <svg viewBox="0 0 24 24">
                     <polyline points="3 8 7 12 3 16" />
                     <line x1="21" x2="11" y1="12" y2="12" />
                     <line x1="21" x2="11" y1="6" y2="6" />
@@ -86,16 +84,14 @@
                 </button>
                 <button class="cosmo-button is--icon is--primary" @click="openEditItemDialog(item, index)"
                         x-localize:design-menus-action-edit_item.title>
-                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
-                       stroke-linejoin="round">
+                  <svg viewBox="0 0 24 24">
                     <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
                     <path d="m15 5 4 4" />
                   </svg>
                 </button>
                 <button class="cosmo-button is--icon is--negative" @click="deleteItem(item, index)"
                         x-localize:design-menus-action-delete_item.title>
-                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
-                       stroke-linejoin="round">
+                  <svg viewBox="0 0 24 24">
                     <path d="M3 6h18" />
                     <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
                     <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
@@ -107,9 +103,7 @@
         </template>
         <button class="cosmo-button is--circle is--primary is--add is--menu is--last"
                 @click="openAddItemDialog(items.length)">
-          <svg class="jinya-icon is--add is--menu" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2"
-               stroke-linecap="round" stroke-linejoin="round">
+          <svg class="jinya-icon is--add is--menu" viewBox="0 0 24 24">
             <path d="M5 12h14" />
             <path d="M12 5v14" />
           </svg>

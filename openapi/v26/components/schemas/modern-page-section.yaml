@@ -9,14 +9,8 @@ properties:
     $ref: ./gallery.yaml
   file:
     $ref: ./file.yaml
-  target:
+  link:
     type: string
-  action:
-    type: string
-    enum:
-      - link
-      - script
-      - none
   script:
     type: string
   html:

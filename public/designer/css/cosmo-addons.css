@@ -3,13 +3,7 @@
     bottom: 0;
 }
 
-.cosmo-button.is--icon svg {
-    stroke: var(--button-background);
-    height: 1.25rem;
-    width: 1.25rem;
-}
-
-.cosmo-button.is--icon {
+.cosmo-button.is--icon:not(.is--circle) {
     width: unset;
     height: unset;
     padding: 0;
@@ -20,4 +14,24 @@
         background: var(--white);
         border-color: var(--white);
     }
+}
+
+.cosmo-button.is--icon svg,
+.jinya-icon {
+    fill: none;
+    stroke-width: 2px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke: var(--button-background);
+    height: 1.25rem;
+    width: 1.25rem;
+}
+
+
+.cosmo-button.is--icon.is--circle svg {
+    stroke: currentcolor;
+}
+
+.jinya-icon {
+    stroke: currentcolor;
 }
