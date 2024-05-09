@@ -53,6 +53,9 @@ Alpine.data('modernPagesData', () => ({
       this.savePageSections();
     });
   },
+  destroy() {
+    dexie.close();
+  },
   openCreateDialog() {
     this.create.error.reset();
     this.create.title = '';
