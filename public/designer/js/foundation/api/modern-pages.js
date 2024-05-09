@@ -4,6 +4,10 @@ export function getModernPages() {
   return get('/api/modern-page');
 }
 
+export function getModernPage(id) {
+  return get(`/api/modern-page/${id}`);
+}
+
 export function getModernPageSections(id) {
   return get(`/api/modern-page/${id}/section`);
 }

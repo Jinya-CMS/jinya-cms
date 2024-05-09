@@ -121,6 +121,10 @@
     object-fit: cover;
 }
 
+.jinya-designer-modern-page-section__content.is--modern-page.is--html {
+    min-height: 100%;
+}
+
 .cosmo-label.is--modern-page.is--link {
     grid-area: label;
     min-width: unset;
@@ -139,7 +143,7 @@
 .jinya-section-type-popup {
     opacity: 0;
     background: none;
-    position: fixed;
+    position: sticky;
     display: flex;
     gap: 1rem;
     flex-flow: column;
@@ -147,6 +151,17 @@
 
     &.is--open {
         opacity: 1;
+    }
+
+    &.is--up {
+        position: fixed;
+        bottom: 11rem;
+    }
+
+    &.is--down {
+        position: fixed;
+        margin-top: 1.5rem;
+        bottom: unset;
     }
 }
 

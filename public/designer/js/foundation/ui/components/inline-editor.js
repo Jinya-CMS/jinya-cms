@@ -15,6 +15,17 @@ class InlineEditorElement extends HTMLElement {
         @import "/lib/cosmo/typography.css";
         @import "/designer/lib/jodit/jodit.css";
         @import "/designer/css/jodit.css";
+        
+        :host {
+          min-height: 11rem;
+          display: block;
+        }
+        
+        .jodit-wysiwyg,
+        .jodit-workplace,
+        .jodit-container.jodit.jodit_inline.jodit-wysiwyg_mode {
+          min-height: 11rem;
+        }
       </style>
       <textarea></textarea>
     `;

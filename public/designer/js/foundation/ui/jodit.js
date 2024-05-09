@@ -197,6 +197,7 @@ export function createJodit(idOrElement, inline = false) {
     showCharsCounter: false,
     showWordsCounter: false,
     showXPathInStatusbar: false,
+    minHeight: '11rem',
     disablePlugins:
       'about,add-new-line,ai-assistant,class-span,clean-html,clipboard,copyformat,dtd,file,font,fullsize,hr,iframe,image,image-properties,indent,key-arrow-outside,line-height,mobile,xpath,table-keyboard-navigation,table,tab,symbols,stat,spellcheck,speech-recognize,select-cells,search,resize-cells,redo-undo,print,preview,powered-by-jodit,paste-storage,paste-from-word,video,wrap-nodes,limit',
     inline: inline,
