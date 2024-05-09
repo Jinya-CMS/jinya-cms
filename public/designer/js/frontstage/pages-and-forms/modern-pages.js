@@ -38,10 +38,9 @@ Alpine.data('modernPagesData', () => ({
     this.sections[index].html = value;
   },
   async init() {
-    dexie.version(1)
-      .stores({
-        sections: `++id,pageId`,
-      });
+    dexie.version(1).stores({
+      sections: `++id,pageId`,
+    });
 
     this.galleries = (await getGalleries()).items;
     const pages = await getModernPages();
@@ -107,14 +106,10 @@ Alpine.data('modernPagesData', () => ({
     await dexie.sections.bulkAdd(this.cleanSections(Alpine.raw(this.sections), this.selectedPage.id));
   },
   async clearPageSections() {
-    await dexie.sections.where('pageId')
-      .equals(this.selectedPage.id)
-      .delete();
+    await dexie.sections.where('pageId').equals(this.selectedPage.id).delete();
   },
   async getPageSections(id) {
-    return this.cleanSections(await dexie.sections.where('pageId')
-      .equals(id)
-      .toArray());
+    return this.cleanSections(await dexie.sections.where('pageId').equals(id).toArray());
   },
   cleanSections(sections, pageId = null) {
     return sections.map((item) => ({
@@ -184,11 +179,14 @@ Alpine.data('modernPagesData', () => ({
   },
   async savePage() {
     try {
-      await updateModernPageSections(this.selectedPage.id, this.sections.map((item) => ({
-        ...item,
-        gallery: item.gallery?.id,
-        file: item.file?.id,
-      })));
+      await updateModernPageSections(
+        this.selectedPage.id,
+        this.sections.map((item) => ({
+          ...item,
+          gallery: item.gallery?.id,
+          file: item.file?.id,
+        })),
+      );
       this.message.hasMessage = true;
       this.message.title = localize({ key: 'pages_and_forms.modern.designer.success.title' });
       this.message.error = false;
