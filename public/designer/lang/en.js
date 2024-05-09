@@ -7,6 +7,9 @@ export default {
     pick: 'Choose file',
     title: 'Pick a file',
   },
+  jodit: {
+    insert_image: 'Insert file',
+  },
   login: {
     menu: {
       title: 'Login',
@@ -291,6 +294,7 @@ export default {
         delete: 'Delete page',
         edit_segment: 'Edit segment',
         delete_segment: 'Delete segment',
+        save: 'Save page',
       },
       create: {
         title: 'Create page',
@@ -332,27 +336,24 @@ export default {
         delete: 'Delete segment',
       },
       designer: {
-        action: 'Action',
         link: 'Link',
-        action_link: 'Link',
-        action_none: 'None',
         file: 'File',
         gallery: 'Gallery',
         html: 'Formatted text',
-        edit: {
-          title: 'Edit segment',
-          file: 'File',
-          please_select: 'Please select a file',
-          file_picker_label: 'Select file',
-          has_link: 'Has link',
-          target: 'Target',
-          gallery: 'Gallery',
-          update: 'Update segment',
-          cancel: 'Discard changes',
-          error: {
-            title: 'Update failed',
-            generic: 'An unknown error occurred, please contact your administrator',
-          },
+        pick_file: 'Pick file',
+        load: {
+          title: 'Load unsaved changes',
+          message: 'We found unsaved changes, do you want to load the unsaved page?',
+          decline: 'Discard unsaved changes',
+          approve: 'Load unsaved changes',
+        },
+        success: {
+          title: 'Saved successfully',
+          message: 'Your page was saved successfully',
+        },
+        error: {
+          title: 'Error saving',
+          message: 'The page could not be saved, please contact your administrator',
         },
       },
     },
@@ -713,6 +714,14 @@ export default {
           message: 'We found unsaved changes, do you want to load the unsaved menu items?',
           decline: 'Discard unsaved changes',
           approve: 'Load unsaved changes',
+        },
+        success: {
+          title: 'Saved successfully',
+          message: 'Your menu items were saved successfully',
+        },
+        error: {
+          title: 'Error saving',
+          message: 'The menu items could not be saved, please contact your administrator',
         },
       },
     },

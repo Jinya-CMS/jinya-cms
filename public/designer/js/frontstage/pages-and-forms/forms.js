@@ -68,6 +68,7 @@ Alpine.data('formsData', () => ({
     if (this.edit.editor) {
       this.edit.editor.remove();
     }
+    dexie.close();
   },
   async selectForm(form) {
     if (form) {

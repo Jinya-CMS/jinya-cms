@@ -21,12 +21,15 @@
   <link href="/lib/cosmo/fonts/albert-sans.css" rel="stylesheet" />
   <link href="/lib/cosmo/fonts/oxygen-mono.css" rel="stylesheet" />
   <link href="/lib/cosmo/fonts/urbanist.css" rel="stylesheet" />
+  <link href="/designer/lib/jodit/jodit.css" rel="stylesheet" />
 
+  <link href="/designer/css/jodit.css" rel="stylesheet" />
   <link href="/designer/css/cosmo-addons.css" rel="stylesheet" />
   <link href="/designer/css/layout.css" rel="stylesheet" />
   <link href="/designer/css/media.css" rel="stylesheet" />
   <link href="/designer/css/designer.css" rel="stylesheet" />
   <link href="/designer/css/classic-pages.css" rel="stylesheet" />
+  <link href="/designer/css/modern-pages.css" rel="stylesheet" />
   <link href="/designer/css/theme.css" rel="stylesheet" />
   <link href="/designer/css/profile.css" rel="stylesheet" />
   <link href="/designer/css/update.css" rel="stylesheet" />
@@ -356,6 +359,11 @@
       x-route="/frontstage/pages-and-forms/classic-pages"
       x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
       x-template="/designer/templates/frontstage/pages-and-forms/classic-pages.html"
+    ></template>
+    <template
+      x-route="/frontstage/pages-and-forms/modern-pages"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/pages-and-forms/modern-pages.html"
     ></template>
     <template
       x-route="/frontstage/pages-and-forms/forms"

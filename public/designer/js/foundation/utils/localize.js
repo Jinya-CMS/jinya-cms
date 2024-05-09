@@ -27,6 +27,14 @@ function getByPath({ obj, path = '', def = '' }) {
   return current;
 }
 
+export function getLanguage() {
+  if (navigator.language.startsWith('de')) {
+    return 'de';
+  }
+
+  return 'en';
+}
+
 /**
  * Localizes the given key and returns the matching string
  * @param key {string}
@@ -35,7 +43,7 @@ function getByPath({ obj, path = '', def = '' }) {
  */
 export default function localize({ key, values = {} }) {
   let localized = key;
-  if (navigator.language.startsWith('de')) {
+  if (getLanguage() === 'de') {
     localized = getByPath({
       obj: de,
       path: key,

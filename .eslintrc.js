@@ -21,5 +21,8 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
+  globals: {
+    Jodit: 'readonly'
+  },
   rules: {},
 };

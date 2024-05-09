@@ -7,6 +7,9 @@ export default {
     pick: 'Datei auswählen',
     title: 'Datei auswählen',
   },
+  jodit: {
+    insert_image: 'Datei einfügen',
+  },
   login: {
     menu: {
       title: 'Anmelden',
@@ -291,6 +294,7 @@ export default {
         delete: 'Seite löschen',
         edit_segment: 'Segment bearbeiten',
         delete_segment: 'Segment löschen',
+        save: 'Seite speichern',
       },
       create: {
         title: 'Seite erstellen',
@@ -332,27 +336,24 @@ export default {
         delete: 'Segment löschen',
       },
       designer: {
-        action: 'Aktion',
         link: 'Link',
-        action_link: 'Link',
-        action_none: 'Keine',
         file: 'Datei',
         gallery: 'Galerie',
         html: 'Formatierter text',
-        edit: {
-          title: 'Segment bearbeiten',
-          file: 'Datei',
-          please_select: 'Bitte eine Datei wählen',
-          file_picker_label: 'Datei wählen',
-          has_link: 'Hat Link',
-          target: 'Ziel-URL',
-          gallery: 'Galerie',
-          update: 'Segment speichern',
-          cancel: 'Änderungen verwerfen',
-          error: {
-            title: 'Speichern fehlgeschlagen',
-            generic: 'Ein unbekannter Fehler ist aufgetreten, bitte kontaktiere deinen Administrator',
-          },
+        pick_file: 'Datei wählen',
+        load: {
+          title: 'Ungespeicherte Änderungen laden',
+          message: 'Wir haben ungespeicherte Änderungen gefunden, soll die ungespeicherte Seite geladen werden?',
+          decline: 'Ungespeicherte Änderungen verwerfen',
+          approve: 'Ungespeicherte Änderungen laden',
+        },
+        success: {
+          title: 'Erfolgreich gespeichert',
+          message: 'Die Seite wurde erfolgreich gespeichert',
+        },
+        error: {
+          title: 'Fehler beim Speichern',
+          message: 'Die Seite konnten nicht gespeichert werden, bitte wende dich an deinen Administrator',
         },
       },
     },

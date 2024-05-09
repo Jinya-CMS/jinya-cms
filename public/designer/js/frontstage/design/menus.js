@@ -148,6 +148,9 @@ Alpine.data('menusData', () => ({
     this.forms = forms.items;
     this.artists = artists.items;
   },
+  destroy() {
+    dexie.close();
+  },
   async selectMenu(menu) {
     if (menu) {
       this.items = this.prepareItems(await getMenuItems(menu.id), menu.id);

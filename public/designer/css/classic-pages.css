@@ -1,17 +1,17 @@
-.jinya-designer__content.is--simple-pages {
+.jinya-designer__content.is--simple-page {
     grid-template-columns: unset;
     grid-template-rows: [message] auto [tiny] 1fr [buttons] auto;
     display: grid;
 }
 
-.jinya-designer__content.is--simple-pages .tox.tox-tinymce {
+.jinya-designer__content.is--simple-page .tox.tox-tinymce {
     grid-row: tiny
 }
 
-.cosmo-message.is--simple-pages {
+.cosmo-message.is--simple-page {
     grid-row: message;
 }
 
-.cosmo-button__container.is--simple-pages {
+.cosmo-button__container.is--simple-page {
     grid-row: buttons;
 }

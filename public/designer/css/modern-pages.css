@@ -1,0 +1,180 @@
+.jinya-modern-item__label {
+    grid-row: content;
+}
+
+.jinya-designer__result.is--modern-page {
+    flex-flow: row wrap;
+    gap: 1rem;
+    align-content: flex-start;
+    grid-row: content;
+}
+
+.jinya-designer__toolbox.is--modern-page {
+    grid-row: content;
+}
+
+.cosmo-toolbar.is--modern-page {
+    grid-row: toolbar;
+}
+
+.cosmo-message.is--modern-page {
+    grid-row: message;
+    grid-column: 2/4;
+    margin-left: 3rem;
+    width: calc(100% - 3rem);
+}
+
+.jinya-modern-page-designer {
+    grid-template-rows: [message] auto;
+    display: grid;
+    grid-row: content;
+    max-height: 100%;
+    grid-template-columns: 10rem [button] 2rem [content] 9fr 12rem 1fr;
+    box-sizing: border-box;
+    overflow-y: auto;
+    place-content: baseline flex-start;
+    grid-auto-rows: auto;
+    padding-top: 2rem;
+    gap: 1rem;
+}
+
+.jinya-designer-modern-page-section {
+    grid-column: content;
+    cursor: unset;
+    border: none;
+    padding: 0;
+    display: flex;
+    gap: 0;
+    justify-content: space-between;
+    min-width: 100%;
+    flex: 0 0 100%;
+    box-sizing: border-box;
+    border-radius: var(--border-radius);
+}
+
+.jinya-designer-item__edit.is--modern-page {
+    opacity: 0;
+    transition: opacity 0.3s;
+    padding-left: 0.5rem;
+    padding-top: 0.25rem;
+}
+
+.jinya-designer-modern-page-section:hover .jinya-designer-item__edit.is--modern-page {
+    opacity: 1;
+}
+
+.jinya-designer-modern-page-button.is--add {
+    place-self: start end;
+    grid-column: button;
+}
+
+.cosmo-button.is--add.is--modern-page {
+    opacity: 0.4;
+    transform: translateY(-1.5rem) rotate(-45deg);
+    border-bottom-right-radius: 0;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.cosmo-button.is--add.is--modern-page.is--last {
+    place-self: end end;
+}
+
+.jinya-icon.is--add.is--modern-page {
+    transform: rotate(45deg);
+}
+
+.jinya-designer-modern-page-section__content.is--modern-page.is--gallery {
+    display: flex;
+    gap: 1rem;
+    flex-flow: row wrap;
+}
+
+.jinya-designer-modern-page-section__details {
+    flex: 0 0 100%;
+    min-width: 100%;
+}
+
+.jinya-designer-modern-page-section__gallery {
+    display: flex;
+    gap: 1rem;
+    flex-flow: row wrap;
+}
+
+.cosmo-select.is--gallery {
+    flex: 0 0 100%;
+    min-width: 100%;
+}
+
+.jinya-designer-modern-page-section__content.is--modern-page.is--file {
+    display: grid;
+    margin: 0;
+    gap: 1rem;
+    grid-template-columns: 20rem 1fr;
+}
+
+.jinya-designer-modern-page-section__image.is--modern-page.is--file {
+    height: 20rem;
+    width: 20rem;
+    object-fit: cover;
+}
+
+.jinya-designer-modern-page-section__content.is--modern-page.is--html {
+    min-height: 100%;
+}
+
+.cosmo-label.is--modern-page.is--link {
+    grid-area: label;
+    min-width: unset;
+    font-weight: var(--font-weight-bold);
+    align-self: center;
+}
+
+.cosmo-input.is--modern-page.is--link {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    grid-area: link;
+    border-radius: 0;
+}
+
+.jinya-section-type-popup {
+    opacity: 0;
+    background: none;
+    position: sticky;
+    display: flex;
+    gap: 1rem;
+    flex-flow: column;
+    transition: opacity 0.3s;
+
+    &.is--open {
+        opacity: 1;
+    }
+
+    &.is--up {
+        position: fixed;
+        bottom: 11rem;
+    }
+
+    &.is--down {
+        position: fixed;
+        margin-top: 1.5rem;
+        bottom: unset;
+    }
+}
+
+figcaption.jinya-designer-modern-page-section__caption.is--modern-page.is--file {
+    display: grid;
+    grid-template: "title title" auto "label link" auto / auto 1fr;
+    align-content: start;
+    gap: 1rem;
+}
+
+span.jinya-designer-modern-page-section__caption.is--modern-page.is--file {
+    font-weight: var(--font-weight-light);
+    font-family: var(--font-family-heading);
+    font-size: 1.5rem;
+    grid-area: title;
+}

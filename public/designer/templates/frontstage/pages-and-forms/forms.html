@@ -36,9 +36,7 @@
           <template x-for="(item, index) in items" :key="index">
             <div style="display: contents">
               <button class="cosmo-button is--circle is--primary is--add is--form" @click="openAddItemDialog(index)">
-                <svg class="jinya-icon is--add is--form" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                     stroke-width="2"
-                     stroke-linecap="round" stroke-linejoin="round">
+                <svg class="jinya-icon is--add is--form" viewBox="0 0 24 24">
                   <path d="M5 12h14" />
                   <path d="M12 5v14" />
                 </svg>
@@ -49,15 +47,13 @@
                 <span class="jinya-designer-item__details" x-text="item.label"></span>
                 <div class="jinya-designer-item__edit">
                   <button class="cosmo-button is--icon is--primary" @click="editItem(item, index)">
-                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
-                         stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24">
                       <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
                       <path d="m15 5 4 4" />
                     </svg>
                   </button>
                   <button class="cosmo-button is--icon is--negative" @click="deleteItem(item, index)">
-                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
-                         stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24">
                       <path d="M3 6h18" />
                       <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
                       <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
@@ -67,7 +63,7 @@
               </div>
             </div>
           </template>
-          <button class="cosmo-button is--circle is--primary is--add is--form is--last" @click="openAddItemDialog(0)">
+          <button class="cosmo-button is--circle is--primary is--add is--form is--last" @click="openAddItemDialog(items.length)">
             <svg class="jinya-icon is--add is--form" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                  stroke-width="2"
                  stroke-linecap="round" stroke-linejoin="round">
