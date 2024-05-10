@@ -21,7 +21,8 @@
     <span class="cosmo-message__header" x-text="aboutMe.message.title"></span>
     <p class="cosmo-message__message" x-text="aboutMe.message.content"></p>
   </div>
-  <div x-ref="tiny"></div>
+  <cms-toolbar-editor class="jinya-editor is--profile" :content="aboutMe.data" @change="(e) => aboutMe.data = e.value"
+                      height="calc(var(--page-height) - 2.75rem - 1.25rem - 2rem - 2rem - 0.25rem - 3rem)"></cms-toolbar-editor>
   <div class="cosmo-button__container is--profile">
     <button class="cosmo-button" type="button" x-localize:my_jinya-my_profile-action-discard_profile></button>
     <button class="cosmo-button is--primary" type="button" x-localize:my_jinya-my_profile-action-save_profile

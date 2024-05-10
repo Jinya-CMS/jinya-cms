@@ -1,21 +1,13 @@
 import { Alpine } from '../../../../lib/alpine.js';
-import getEditor from '../../foundation/ui/tiny.js';
 import { changePassword, logout } from '../../foundation/api/authentication.js';
 import localize from '../../foundation/utils/localize.js';
 import { getMyProfile, updateAboutMe, updateProfile, updateProfilePicture } from '../../foundation/api/my-jinya.js';
 
+import '../../foundation/ui/components/toolbar-editor.js';
+
 Alpine.data('profileData', () => ({
-  tiny: null,
   init() {
-    this.$nextTick(async () => {
-      if (!this.tiny) {
-        this.tiny = await getEditor({
-          element: this.$refs.tiny,
-          height: '100%',
-        });
-      }
-      this.tiny.setContent(Alpine.store('artist').aboutMe);
-    });
+    this.aboutMe.data = Alpine.store('artist').aboutMe;
   },
   openChangePasswordDialog() {
     this.changePassword.oldPassword = '';
@@ -47,8 +39,7 @@ Alpine.data('profileData', () => ({
   async saveAboutMe() {
     try {
       this.aboutMe.message.reset();
-      const aboutMe = this.tiny.getContent();
-      await updateAboutMe(aboutMe);
+      await updateAboutMe(this.aboutMe.data);
 
       this.aboutMe.message.hasMessage = true;
       this.aboutMe.message.isNegative = false;
@@ -65,7 +56,7 @@ Alpine.data('profileData', () => ({
     }
   },
   resetAboutMe() {
-    this.tiny.setContent(Alpine.store('artist').aboutMe);
+    this.aboutMe.data = Alpine.store('artist').aboutMe;
   },
   async updateProfile() {
     try {
@@ -73,7 +64,8 @@ Alpine.data('profileData', () => ({
       await updateProfilePicture(this.edit.profilePicture);
 
       const myProfile = await getMyProfile();
-      Alpine.store('artist').setArtist(myProfile);
+      Alpine.store('artist')
+        .setArtist(myProfile);
       this.edit.open = false;
     } catch (e) {
       this.edit.error.hasError = true;
@@ -98,6 +90,7 @@ Alpine.data('profileData', () => ({
     },
   },
   aboutMe: {
+    data: '',
     message: {
       reset() {
         this.hasError = false;
