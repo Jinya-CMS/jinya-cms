@@ -63,7 +63,8 @@
               </div>
             </div>
           </template>
-          <button class="cosmo-button is--circle is--primary is--add is--form is--last" @click="openAddItemDialog(items.length)">
+          <button class="cosmo-button is--circle is--primary is--add is--form is--last"
+                  @click="openAddItemDialog(items.length)">
             <svg class="jinya-icon is--add is--form" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                  stroke-width="2"
                  stroke-linecap="round" stroke-linejoin="round">
@@ -131,58 +132,64 @@
       </div>
     </div>
   </template>
-  <form class="cosmo-modal__container" @submit.prevent="createForm" x-show="create.open">
-    <div class="cosmo-modal">
-      <h1 class="cosmo-modal__title" x-localize:pages_and_forms-form-create-title></h1>
-      <div class="cosmo-modal__content">
-        <div class="cosmo-message is--negative" x-show="create.error.hasError">
-          <span class="cosmo-message__header" x-text="create.error.title"></span>
-          <p class="cosmo-message__message" x-text="create.error.message"></p>
+  <template x-if="create.open">
+    <form class="cosmo-modal__container" @submit.prevent="createForm">
+      <div class="cosmo-modal">
+        <h1 class="cosmo-modal__title" x-localize:pages_and_forms-form-create-title></h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-message is--negative" x-show="create.error.hasError">
+            <span class="cosmo-message__header" x-text="create.error.title"></span>
+            <p class="cosmo-message__message" x-text="create.error.message"></p>
+          </div>
+          <div class="cosmo-input__group">
+            <label for="createFormTitle" class="cosmo-label" x-localize:pages_and_forms-form-create-form_title></label>
+            <input required type="text" id="createFormTitle" class="cosmo-input" x-model="create.title" />
+            <label for="createFormToAddress" class="cosmo-label"
+                   x-localize:pages_and_forms-form-create-to_address></label>
+            <input required type="email" id="createFormToAddress" class="cosmo-input" x-model="create.toAddress" />
+            <label for="createDescription" class="cosmo-label is--textarea"
+                   x-localize:pages_and_forms-form-create-description></label>
+            <cms-toolbar-editor class="jinya-editor" :content="create.description"
+                                @change="(e) => create.description = e.value" height="30rem"></cms-toolbar-editor>
+          </div>
         </div>
-        <div class="cosmo-input__group">
-          <label for="createFormTitle" class="cosmo-label" x-localize:pages_and_forms-form-create-form_title></label>
-          <input required type="text" id="createFormTitle" class="cosmo-input" x-model="create.title" />
-          <label for="createFormToAddress" class="cosmo-label"
-                 x-localize:pages_and_forms-form-create-to_address></label>
-          <input required type="email" id="createFormToAddress" class="cosmo-input" x-model="create.toAddress" />
-          <label for="createDescription" class="cosmo-label is--textarea"
-                 x-localize:pages_and_forms-form-create-description></label>
-          <textarea id="createDescription" x-ref="createDescription"></textarea>
-        </div>
-      </div>
-      <div class="cosmo-modal__button-bar">
-        <button type="button" class="cosmo-button" x-localize:pages_and_forms-form-create-cancel
-                @click="create.open = false"></button>
-        <button type="submit" class="cosmo-button" x-localize:pages_and_forms-form-create-create></button>
-      </div>
-    </div>
-  </form>
-  <form class="cosmo-modal__container" @submit.prevent="updateForm" x-show="edit.open">
-    <div class="cosmo-modal">
-      <h1 class="cosmo-modal__title" x-localize:pages_and_forms-form-edit-title></h1>
-      <div class="cosmo-modal__content">
-        <div class="cosmo-message is--negative" x-show="edit.error.hasError">
-          <span class="cosmo-message__header" x-text="edit.error.title"></span>
-          <p class="cosmo-message__message" x-text="edit.error.message"></p>
-        </div>
-        <div class="cosmo-input__group">
-          <label for="editFormTitle" class="cosmo-label" x-localize:pages_and_forms-form-edit-form_title></label>
-          <input required type="text" id="editFormTitle" class="cosmo-input" x-model="edit.title" />
-          <label for="editFormToAddress" class="cosmo-label"
-                 x-localize:pages_and_forms-form-edit-to_address></label>
-          <input required type="email" id="editFormToAddress" class="cosmo-input" x-model="edit.toAddress" />
-          <label for="editDescription" class="cosmo-label is--textarea"
-                 x-localize:pages_and_forms-form-edit-description></label>
-          <textarea id="editDescription" x-ref="editDescription"></textarea>
+        <div class="cosmo-modal__button-bar">
+          <button type="button" class="cosmo-button" x-localize:pages_and_forms-form-create-cancel
+                  @click="create.open = false"></button>
+          <button type="submit" class="cosmo-button" x-localize:pages_and_forms-form-create-create></button>
         </div>
       </div>
-      <div class="cosmo-modal__button-bar">
-        <button type="button" class="cosmo-button" x-localize:pages_and_forms-form-edit-cancel
-                @click="edit.open = false"></button>
-        <button type="submit" class="cosmo-button" x-localize:pages_and_forms-form-edit-update></button>
+    </form>
+  </template>
+  <template x-if="edit.open">
+    <form class="cosmo-modal__container" @submit.prevent="updateForm">
+      <div class="cosmo-modal">
+        <h1 class="cosmo-modal__title" x-localize:pages_and_forms-form-edit-title></h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-message is--negative" x-show="edit.error.hasError">
+            <span class="cosmo-message__header" x-text="edit.error.title"></span>
+            <p class="cosmo-message__message" x-text="edit.error.message"></p>
+          </div>
+          <div class="cosmo-input__group">
+            <label for="editFormTitle" class="cosmo-label" x-localize:pages_and_forms-form-edit-form_title></label>
+            <input required type="text" id="editFormTitle" class="cosmo-input" x-model="edit.title" />
+            <label for="editFormToAddress" class="cosmo-label"
+                   x-localize:pages_and_forms-form-edit-to_address></label>
+            <input required type="email" id="editFormToAddress" class="cosmo-input" x-model="edit.toAddress" />
+            <label for="editDescription" class="cosmo-label is--textarea"
+                   x-localize:pages_and_forms-form-edit-description></label>
+            <cms-toolbar-editor class="jinya-editor" :content="edit.description"
+                                @change="(e) => edit.description = e.value" height="30rem"></cms-toolbar-editor>
+          </div>
+        </div>
+        <div class="cosmo-modal__button-bar">
+          <button type="button" class="cosmo-button" x-localize:pages_and_forms-form-edit-cancel
+                  @click="edit.open = false"></button>
+          <button type="submit" class="cosmo-button" x-localize:pages_and_forms-form-edit-update></button>
+        </div>
       </div>
-    </div>
-  </form>
+    </form>
+  </template>
   <template x-if="addItem.open">
     <form class="cosmo-modal__container" @submit.prevent="insertItem">
       <div class="cosmo-modal">

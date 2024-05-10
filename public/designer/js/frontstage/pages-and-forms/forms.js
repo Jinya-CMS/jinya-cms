@@ -8,13 +8,12 @@ import {
   updateFormItems,
 } from '../../foundation/api/forms.js';
 import localize from '../../foundation/utils/localize.js';
-import getEditor from '../../foundation/ui/tiny.js';
 import confirm from '../../foundation/ui/confirm.js';
 import alert from '../../foundation/ui/alert.js';
 import { Dexie } from '../../../lib/dexie.js';
 import isEqual from '../../../lib/lodash/isEqual.js';
 
-import '../../../lib/tiny/tinymce.min.js';
+import '../../foundation/ui/components/toolbar-editor.js';
 
 const dexie = new Dexie('forms');
 
@@ -108,25 +107,15 @@ Alpine.data('formsData', () => ({
     this.create.error.reset();
     this.create.toAddress = '';
     this.create.title = '';
+    this.create.description = '';
     this.create.open = true;
-    this.$nextTick(async () => {
-      if (!this.create.editor) {
-        this.create.editor = await getEditor({ element: this.$refs.createDescription });
-      }
-      this.create.editor.setContent('');
-    });
   },
   openEditDialog() {
     this.edit.error.reset();
     this.edit.toAddress = this.selectedForm.toAddress;
     this.edit.title = this.selectedForm.title;
+    this.edit.description = this.selectedForm.description;
     this.edit.open = true;
-    this.$nextTick(async () => {
-      if (!this.edit.editor) {
-        this.edit.editor = await getEditor({ element: this.$refs.editDescription });
-      }
-      this.edit.editor.setContent(this.selectedForm.description);
-    });
   },
   openAddItemDialog(index) {
     this.addItem.index = index;
@@ -174,7 +163,7 @@ Alpine.data('formsData', () => ({
   },
   async createForm() {
     try {
-      const form = await createForm(this.create.title, this.create.toAddress, this.create.editor.getContent());
+      const form = await createForm(this.create.title, this.create.toAddress, this.create.description);
       this.forms.push(form);
       await this.selectForm(form);
 
@@ -191,8 +180,7 @@ Alpine.data('formsData', () => ({
   },
   async updateForm() {
     try {
-      const description = this.edit.editor.getContent();
-      await updateForm(this.selectedForm.id, this.edit.title, this.edit.toAddress, description);
+      await updateForm(this.selectedForm.id, this.edit.title, this.edit.toAddress, this.edit.description);
       const formIdx = this.forms.findIndex((form) => this.selectedForm.id === form.id);
 
       this.forms[formIdx].title = this.edit.title;
@@ -314,8 +302,8 @@ Alpine.data('formsData', () => ({
   create: {
     open: false,
     title: '',
+    description: '',
     toAddress: '',
-    editor: null,
     error: {
       reset() {
         this.hasError = false;
@@ -331,7 +319,7 @@ Alpine.data('formsData', () => ({
     open: false,
     title: '',
     toAddress: '',
-    editor: null,
+    description: '',
     error: {
       reset() {
         this.hasError = false;
