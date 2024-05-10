@@ -46,5 +46,5 @@ export function getGallery(id) {
 }
 
 export async function deleteGallery(id) {
-  httpDelete(`/api/gallery/${id}`);
+  await httpDelete(`/api/gallery/${id}`);
 }
