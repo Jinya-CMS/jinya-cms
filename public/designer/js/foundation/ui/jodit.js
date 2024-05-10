@@ -237,10 +237,7 @@ export function createJodit(idOrElement, inline = false, height = undefined) {
   }
   if (!inline) {
     data.buttons = getFullToolbar();
-    data.extraButtons = [
-      'fullsize',
-      'source',
-    ];
+    data.extraButtons = ['fullsize', 'source'];
   }
   const editor = Jodit.make(idOrElement, data);
   setContextMenu(editor);

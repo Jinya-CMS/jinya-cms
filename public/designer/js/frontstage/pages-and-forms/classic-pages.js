@@ -27,10 +27,9 @@ Alpine.data('classicPagesData', () => ({
     return `#${this.selectedPage.id} ${this.selectedPage.title}`;
   },
   async init() {
-    dexie.version(1)
-      .stores({
-        changes: `++id`,
-      });
+    dexie.version(1).stores({
+      changes: `++id`,
+    });
     if (!dexie.isOpen()) {
       dexie.open();
     }

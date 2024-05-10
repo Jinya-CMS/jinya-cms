@@ -64,8 +64,7 @@ Alpine.data('profileData', () => ({
       await updateProfilePicture(this.edit.profilePicture);
 
       const myProfile = await getMyProfile();
-      Alpine.store('artist')
-        .setArtist(myProfile);
+      Alpine.store('artist').setArtist(myProfile);
       this.edit.open = false;
     } catch (e) {
       this.edit.error.hasError = true;
