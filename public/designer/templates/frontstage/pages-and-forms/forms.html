@@ -42,7 +42,7 @@
                 </svg>
               </button>
               <div class="jinya-designer-item is--form" draggable="true" @dragstart="startItemDrag(item, index)"
-                   @dragover.prevent="dragOver(index)">
+                   @dragover.prevent.debounce.100ms="dragOver(index)">
                 <span class="jinya-designer-item__title" x-text="getItemTitle(item.type)"></span>
                 <span class="jinya-designer-item__details" x-text="item.label"></span>
                 <div class="jinya-designer-item__edit">

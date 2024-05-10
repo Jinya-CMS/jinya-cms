@@ -9,7 +9,6 @@ import {
 } from '../../foundation/api/menus.js';
 import localize from '../../foundation/utils/localize.js';
 import confirm from '../../foundation/ui/confirm.js';
-import { Dexie } from '../../../lib/dexie.js';
 import isEqual from '../../../lib/lodash/isEqual.js';
 import filePicker from '../../foundation/ui/filePicker.js';
 import alert from '../../foundation/ui/alert.js';
@@ -19,11 +18,10 @@ import { getClassicPages } from '../../foundation/api/classic-pages.js';
 import { getModernPages } from '../../foundation/api/modern-pages.js';
 import { getBlogCategories } from '../../foundation/api/blog-categories.js';
 import { getForms } from '../../foundation/api/forms.js';
-
-import '../../../lib/tiny/tinymce.min.js';
 import { getArtists } from '../../foundation/api/artists.js';
+import { getMenuDatabase } from '../../foundation/database/menu.js';
 
-const dexie = new Dexie('menus');
+const menuDatabase = getMenuDatabase();
 
 Alpine.data('menusData', () => ({
   menus: [],
@@ -79,14 +77,13 @@ Alpine.data('menusData', () => ({
     return `#${id} ${text}`;
   },
   async saveMenuItems() {
-    await this.clearMenuItems();
-    await dexie.items.bulkAdd(this.prepareItems(Alpine.raw(this.items), this.selectedMenu.id));
+    await menuDatabase.saveItems(this.selectedMenu.id, this.prepareItems(Alpine.raw(this.items), this.selectedMenu.id));
   },
   async clearMenuItems() {
-    await dexie.items.where('menuId').equals(this.selectedMenu.id).delete();
+    await menuDatabase.deleteItems(this.selectedMenu.id);
   },
   async getMenuItems(id) {
-    return this.prepareItems(await dexie.items.where('menuId').equals(id).toArray());
+    return this.prepareItems(await menuDatabase.getItems(id));
   },
   prepareItems(items, menuId = null, nesting = 0) {
     return items
@@ -121,13 +118,6 @@ Alpine.data('menusData', () => ({
       .flat(Infinity);
   },
   async init() {
-    dexie.version(1).stores({
-      items: `++id,menuId`,
-    });
-    if (!dexie.isOpen()) {
-      dexie.open();
-    }
-
     const menus = await getMenus();
     this.menus = menus.items;
     if (this.menus.length > 0) {
@@ -151,9 +141,6 @@ Alpine.data('menusData', () => ({
     this.blogCategories = blogCategories.items;
     this.forms = forms.items;
     this.artists = artists.items;
-  },
-  destroy() {
-    dexie.close();
   },
   async selectMenu(menu) {
     if (menu) {
@@ -617,7 +604,6 @@ Alpine.data('menusData', () => ({
     }
   },
   async dragOver(item, index) {
-    console.log(index);
     if (this.moveItem.movingItems.filter((elem) => elem._iid === item._iid).length > 0) {
       return;
     }

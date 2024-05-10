@@ -11,14 +11,14 @@ import {
   updateModernPageSections,
 } from '../../foundation/api/modern-pages.js';
 import { getFilesByGallery, getGalleries } from '../../foundation/api/galleries.js';
-import { Dexie } from '../../../lib/dexie.js';
 import isEqual from '../../../lib/lodash/isEqual.js';
 import filePicker from '../../foundation/ui/filePicker.js';
 import alert from '../../foundation/ui/alert.js';
 
 import '../../foundation/ui/components/inline-editor.js';
+import { getModernPageDatabase } from '../../foundation/database/modern-page.js';
 
-const dexie = new Dexie('modernPages');
+const modernPageDatabase = getModernPageDatabase();
 
 Alpine.data('modernPagesData', () => ({
   pages: [],
@@ -38,13 +38,6 @@ Alpine.data('modernPagesData', () => ({
     this.sections[index].html = value;
   },
   async init() {
-    dexie.version(1).stores({
-      sections: `++id,pageId`,
-    });
-    if (!dexie.isOpen()) {
-      dexie.open();
-    }
-
     this.galleries = (await getGalleries()).items;
     const pages = await getModernPages();
     this.pages = pages.items;
@@ -55,9 +48,6 @@ Alpine.data('modernPagesData', () => ({
     this.$watch('sections', () => {
       this.savePageSections();
     });
-  },
-  destroy() {
-    dexie.close();
   },
   openCreateDialog() {
     this.create.error.reset();
@@ -108,14 +98,16 @@ Alpine.data('modernPagesData', () => ({
     }
   },
   async savePageSections() {
-    await this.clearPageSections();
-    await dexie.sections.bulkAdd(this.cleanSections(Alpine.raw(this.sections), this.selectedPage.id));
+    await modernPageDatabase.saveSections(
+      this.selectedPage.id,
+      this.cleanSections(Alpine.raw(this.sections), this.selectedPage.id),
+    );
   },
   async clearPageSections() {
-    await dexie.sections.where('pageId').equals(this.selectedPage.id).delete();
+    await modernPageDatabase.deleteSections(this.selectedPage.id);
   },
   async getPageSections(id) {
-    return this.cleanSections(await dexie.sections.where('pageId').equals(id).toArray());
+    return this.cleanSections(await modernPageDatabase.getSections(id));
   },
   cleanSections(sections, pageId = null) {
     return sections.map((item) => ({

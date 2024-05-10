@@ -9,11 +9,11 @@ import {
 import localize from '../../foundation/utils/localize.js';
 import alert from '../../foundation/ui/alert.js';
 import confirm from '../../foundation/ui/confirm.js';
-import { Dexie } from '../../../lib/dexie.js';
 
 import '../../foundation/ui/components/toolbar-editor.js';
+import { getClassicPageDatabase } from '../../foundation/database/classic-page.js';
 
-const dexie = new Dexie('classicPages');
+const classicPageDatabase = getClassicPageDatabase();
 
 Alpine.data('classicPagesData', () => ({
   pages: [],
@@ -27,13 +27,6 @@ Alpine.data('classicPagesData', () => ({
     return `#${this.selectedPage.id} ${this.selectedPage.title}`;
   },
   async init() {
-    dexie.version(1).stores({
-      changes: `++id`,
-    });
-    if (!dexie.isOpen()) {
-      dexie.open();
-    }
-
     const pages = await getClassicPages();
     this.pages = pages.items;
     if (this.pages.length > 0) {
@@ -41,9 +34,6 @@ Alpine.data('classicPagesData', () => ({
     }
 
     this.$watch('content', async (value) => await this.savePageContent(value));
-  },
-  destroy() {
-    dexie.close();
   },
   openCreateDialog() {
     this.create.error.reset();
@@ -74,16 +64,13 @@ Alpine.data('classicPagesData', () => ({
     }
   },
   getSavedPageContent(id) {
-    return dexie.changes.get(id);
+    return classicPageDatabase.getChangedPage(id);
   },
   deleteSavedPageContent(id) {
-    return dexie.changes.delete(id);
+    return classicPageDatabase.deleteChangedPage(id);
   },
   async savePageContent() {
-    await dexie.changes.put({
-      id: Alpine.raw(this.selectedPage.id),
-      content: Alpine.raw(this.content),
-    });
+    await classicPageDatabase.saveChangedPage(Alpine.raw(this.selectedPage.id), Alpine.raw(this.content));
   },
   async savePage() {
     try {
