@@ -14,9 +14,9 @@ import { getFilesByGallery, getGalleries } from '../../foundation/api/galleries.
 import { Dexie } from '../../../lib/dexie.js';
 import isEqual from '../../../lib/lodash/isEqual.js';
 import filePicker from '../../foundation/ui/filePicker.js';
+import alert from '../../foundation/ui/alert.js';
 
 import '../../foundation/ui/components/inline-editor.js';
-import alert from '../../foundation/ui/alert.js';
 
 const dexie = new Dexie('modernPages');
 
@@ -41,6 +41,9 @@ Alpine.data('modernPagesData', () => ({
     dexie.version(1).stores({
       sections: `++id,pageId`,
     });
+    if (!dexie.isOpen()) {
+      dexie.open();
+    }
 
     this.galleries = (await getGalleries()).items;
     const pages = await getModernPages();

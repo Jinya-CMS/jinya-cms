@@ -188,31 +188,58 @@ function getInlineToolbar() {
 }
 
 function getFullToolbar() {
-  return getInlineToolbar();
+  return [
+    'bold',
+    'italic',
+    'underline',
+    'strikethrough',
+    '|',
+    'brush',
+    'fontsize',
+    '|',
+    'ul',
+    'ol',
+    'paragraph',
+    'link',
+    'align',
+    '|',
+    imageToolbarButton,
+    '|',
+    'indent',
+    'outdent',
+  ];
 }
 
-export function createJodit(idOrElement, inline = false) {
-  const editor = Jodit.make(idOrElement, {
+export function createJodit(idOrElement, inline = false, height = undefined) {
+  setJoditIcons();
+  const data = {
     toolbar: !inline,
     showCharsCounter: false,
     showWordsCounter: false,
     showXPathInStatusbar: false,
     minHeight: '11rem',
     disablePlugins:
-      'about,add-new-line,ai-assistant,class-span,clean-html,clipboard,copyformat,dtd,file,font,fullsize,hr,iframe,image,image-properties,indent,key-arrow-outside,line-height,mobile,xpath,table-keyboard-navigation,table,tab,symbols,stat,spellcheck,speech-recognize,select-cells,search,resize-cells,redo-undo,print,preview,powered-by-jodit,paste-storage,paste-from-word,video,wrap-nodes,limit',
-    inline: inline,
+      'about,add-new-line,ai-assistant,class-span,clean-html,clipboard,copyformat,dtd,file,font,hr,iframe,image,image-properties,indent,key-arrow-outside,line-height,mobile,xpath,table-keyboard-navigation,tab,symbols,stat,spellcheck,speech-recognize,search,resize-cells,redo-undo,print,preview,powered-by-jodit,paste-storage,paste-from-word,video,wrap-nodes,limit',
+    inline,
     toolbarInline: true,
     toolbarInlineForSelection: true,
     showPlaceholder: false,
     language: getLanguage(),
     popup: {
       selection: Jodit.atom(getInlineToolbar()),
-      toolbar: Jodit.atom(inline ? getInlineToolbar() : getFullToolbar()),
+      toolbar: Jodit.atom(getInlineToolbar()),
     },
     sourceEditorCDNUrlsJS: '',
     beautifyHTMLCDNUrlsJS: '',
-  });
-  setJoditIcons();
+  };
+  if (height) {
+    data.height = height;
+  }
+  if (!inline) {
+    data.buttons = getFullToolbar();
+    data.extraButtons = ['fullsize', 'source'];
+  }
+  const editor = Jodit.make(idOrElement, data);
   setContextMenu(editor);
 
   return editor;

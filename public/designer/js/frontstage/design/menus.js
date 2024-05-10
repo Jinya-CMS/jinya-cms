@@ -124,6 +124,10 @@ Alpine.data('menusData', () => ({
     dexie.version(1).stores({
       items: `++id,menuId`,
     });
+    if (!dexie.isOpen()) {
+      dexie.open();
+    }
+
     const menus = await getMenus();
     this.menus = menus.items;
     if (this.menus.length > 0) {

@@ -26,7 +26,8 @@
           <span class="cosmo-message__header" x-text="messageTitle"></span>
           <p class="cosmo-message__message" x-text="messageContent"></p>
         </div>
-        <div class="jinya-tiny" x-ref="tiny"></div>
+        <cms-toolbar-editor class="jinya-editor is--simple-page" :content="content" @change="(e) => content = e.value"
+                            height="calc(var(--page-height) - 2.75rem - 1.25rem - 2rem - 2rem - 0.25rem - 3rem)"></cms-toolbar-editor>
         <div class="cosmo-button__container is--simple-page">
           <button @click="selectPage(selectedPage)" class="cosmo-button"
                   id="discard-changes" x-localize:pages_and_forms-classic-action-discard_content></button>

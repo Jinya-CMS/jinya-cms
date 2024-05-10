@@ -23,5 +23,5 @@ export function getClassicPage(id) {
 }
 
 export async function deleteClassicPage(id) {
-  httpDelete(`/api/classic-page/${id}`);
+  await httpDelete(`/api/classic-page/${id}`);
 }

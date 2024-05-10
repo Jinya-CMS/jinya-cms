@@ -6,15 +6,19 @@ import {
   getClassicPages,
   updateClassicPage,
 } from '../../foundation/api/classic-pages.js';
-import getEditor from '../../foundation/ui/tiny.js';
 import localize from '../../foundation/utils/localize.js';
 import alert from '../../foundation/ui/alert.js';
 import confirm from '../../foundation/ui/confirm.js';
+import { Dexie } from '../../../lib/dexie.js';
+
+import '../../foundation/ui/components/toolbar-editor.js';
+
+const dexie = new Dexie('classicPages');
 
 Alpine.data('classicPagesData', () => ({
   pages: [],
   selectedPage: null,
-  tiny: null,
+  content: null,
   hasMessage: false,
   messageTitle: '',
   messageContent: '',
@@ -23,18 +27,23 @@ Alpine.data('classicPagesData', () => ({
     return `#${this.selectedPage.id} ${this.selectedPage.title}`;
   },
   async init() {
+    dexie.version(1).stores({
+      changes: `++id`,
+    });
+    if (!dexie.isOpen()) {
+      dexie.open();
+    }
+
     const pages = await getClassicPages();
     this.pages = pages.items;
     if (this.pages.length > 0) {
       await this.selectPage(this.pages[0]);
     }
+
+    this.$watch('content', async (value) => await this.savePageContent(value));
   },
   destroy() {
-    try {
-      this.tiny?.destroy();
-    } catch (e) {
-      /* empty */
-    }
+    dexie.close();
   },
   openCreateDialog() {
     this.create.error.reset();
@@ -47,20 +56,38 @@ Alpine.data('classicPagesData', () => ({
     this.edit.open = true;
   },
   async selectPage(page) {
+    const savedPageContent = await this.getSavedPageContent(page.id);
     this.selectedPage = page;
-    this.$nextTick(async () => {
-      if (!this.tiny) {
-        this.tiny = await getEditor({
-          element: this.$refs.tiny,
-          height: '100%',
-        });
+    this.content = page.content;
+    if (savedPageContent?.content !== page.content && savedPageContent?.content) {
+      const confirmed = await confirm({
+        title: localize({ key: 'pages_and_forms.classic.load.title' }),
+        message: localize({ key: 'pages_and_forms.classic.load.message' }),
+        declineLabel: localize({ key: 'pages_and_forms.classic.load.decline' }),
+        approveLabel: localize({ key: 'pages_and_forms.classic.load.approve' }),
+      });
+      if (confirmed) {
+        this.content = savedPageContent.content;
+      } else {
+        await this.deleteSavedPageContent(page.id);
       }
-      this.tiny.setContent(page.content);
+    }
+  },
+  getSavedPageContent(id) {
+    return dexie.changes.get(id);
+  },
+  deleteSavedPageContent(id) {
+    return dexie.changes.delete(id);
+  },
+  async savePageContent() {
+    await dexie.changes.put({
+      id: Alpine.raw(this.selectedPage.id),
+      content: Alpine.raw(this.content),
     });
   },
   async savePage() {
     try {
-      await updateClassicPage(this.selectedPage.id, this.selectedPage.title, this.tiny.getContent());
+      await updateClassicPage(this.selectedPage.id, this.selectedPage.title, this.content);
       this.hasMessage = true;
       this.messageTitle = localize({ key: 'pages_and_forms.classic.edit.saved.title' });
       this.messageError = false;

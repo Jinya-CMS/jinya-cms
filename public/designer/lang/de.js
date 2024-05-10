@@ -249,6 +249,12 @@ export default {
         save_content: 'Seite speichern',
         discard_content: 'Änderungen verwerfen',
       },
+      load: {
+        title: 'Ungespeicherte Änderungen laden',
+        message: 'Wir haben ungespeicherte Änderungen gefunden, soll die ungespeicherte Seite geladen werden?',
+        decline: 'Ungespeicherte Änderungen verwerfen',
+        approve: 'Ungespeicherte Änderungen laden',
+      },
       create: {
         title: 'Seite erstellen',
         page_title: 'Titel',
