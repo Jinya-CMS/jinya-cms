@@ -10,12 +10,12 @@ import {
 import localize from '../../foundation/utils/localize.js';
 import confirm from '../../foundation/ui/confirm.js';
 import alert from '../../foundation/ui/alert.js';
-import { Dexie } from '../../../lib/dexie.js';
 import isEqual from '../../../lib/lodash/isEqual.js';
 
 import '../../foundation/ui/components/toolbar-editor.js';
+import { getFormDatabase } from '../../foundation/database/form.js';
 
-const dexie = new Dexie('forms');
+const formDatabase = getFormDatabase();
 
 Alpine.data('formsData', () => ({
   forms: [],
@@ -27,14 +27,13 @@ Alpine.data('formsData', () => ({
     return localize({ key: `pages_and_forms.form.designer.type_${type}` });
   },
   async saveFormItems() {
-    await this.clearFormItems();
-    await dexie.items.bulkAdd(this.cleanItems(Alpine.raw(this.items), this.selectedForm.id));
+    await formDatabase.saveItems(this.selectedForm.id, this.cleanItems(Alpine.raw(this.items), this.selectedForm.id));
   },
   async clearFormItems() {
-    await dexie.items.where('formId').equals(this.selectedForm.id).delete();
+    await formDatabase.deleteItems(this.selectedForm.id);
   },
   async getFormItems(id) {
-    return this.cleanItems(await dexie.items.where('formId').equals(id).toArray());
+    return this.cleanItems(await formDatabase.getItems(id));
   },
   cleanItems(items, formId = null) {
     return items.map((item) => ({
@@ -51,27 +50,11 @@ Alpine.data('formsData', () => ({
     }));
   },
   async init() {
-    dexie.version(1).stores({
-      items: `++id,formId`,
-    });
-    if (!dexie.isOpen()) {
-      dexie.open();
-    }
-
     const forms = await getForms();
     this.forms = forms.items;
     if (this.forms.length > 0) {
       await this.selectForm(this.forms[0]);
     }
-  },
-  destroy() {
-    if (this.create.editor) {
-      this.create.editor.remove();
-    }
-    if (this.edit.editor) {
-      this.edit.editor.remove();
-    }
-    dexie.close();
   },
   async selectForm(form) {
     if (form) {
@@ -143,13 +126,18 @@ Alpine.data('formsData', () => ({
     this.draggingItemIndex = index;
   },
   async dragOver(index) {
+    if (this.draggingItemIndex === index) {
+      return;
+    }
+
     const items = this.items;
+    const item = Alpine.raw(this.draggingItem);
     if (index > this.draggingItemIndex) {
-      items.splice(index + 1, 0, Alpine.raw(this.draggingItem));
+      items.splice(index + 1, 0, item);
       items.splice(this.draggingItemIndex, 1);
     } else if (index < this.draggingItemIndex) {
       items.splice(this.draggingItemIndex, 1);
-      items.splice(index, 0, Alpine.raw(this.draggingItem));
+      items.splice(index, 0, item);
     }
 
     this.items = items;

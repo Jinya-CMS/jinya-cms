@@ -641,7 +641,6 @@ Alpine.data('menusData', () => ({
     }
   },
   async dragOver(item, index) {
-    console.log(index);
     if (this.moveItem.movingItems.filter((elem) => elem._iid === item._iid).length > 0) {
       return;
     }
