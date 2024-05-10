@@ -3,10 +3,9 @@ import { Dexie } from '../../../lib/dexie.js';
 class ClassicPageDatabase {
   constructor() {
     this.#database = new Dexie('classicPages');
-    this.#database.version(1)
-      .stores({
-        changes: `++id`,
-      });
+    this.#database.version(1).stores({
+      changes: `++id`,
+    });
   }
 
   #database;

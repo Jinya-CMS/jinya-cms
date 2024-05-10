@@ -98,7 +98,10 @@ Alpine.data('modernPagesData', () => ({
     }
   },
   async savePageSections() {
-    await modernPageDatabase.saveSections(this.selectedPage.id, this.cleanSections(Alpine.raw(this.sections), this.selectedPage.id));
+    await modernPageDatabase.saveSections(
+      this.selectedPage.id,
+      this.cleanSections(Alpine.raw(this.sections), this.selectedPage.id),
+    );
   },
   async clearPageSections() {
     await modernPageDatabase.deleteSections(this.selectedPage.id);
