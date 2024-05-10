@@ -100,6 +100,7 @@
 }
 
 .jodit-toolbar-editor-collection {
+    flex-direction: unset;
     background: none;
 }
 
@@ -175,6 +176,15 @@
 .jodit-toolbar-collection_mode_horizontal::after,
 .jodit-toolbar-editor-collection_mode_horizontal::after {
     content: unset;
+}
+
+.jodit-toolbar-collection_size_middle,
+.jodit-toolbar-editor-collection_size_middle {
+    --jd-button-icon-size: 1rem;
+}
+
+.jodit-toolbar-editor-collection_size_middle.jodit-toolbar-editor-collection_mode_horizontal {
+    background-image: repeating-linear-gradient(transparent 0, transparent 30px, var(--jd-color-border) 31px);
 }
 
 @media screen and (prefers-color-scheme: dark) {

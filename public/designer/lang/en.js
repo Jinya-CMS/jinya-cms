@@ -249,6 +249,12 @@ export default {
         save_content: 'Save page',
         discard_content: 'Discard changes',
       },
+      load: {
+        title: 'Load unsaved changes',
+        message: 'We found unsaved changes, do you want to load the unsaved page?',
+        decline: 'Discard unsaved changes',
+        approve: 'Load unsaved changes',
+      },
       create: {
         title: 'Create page',
         page_title: 'Title',

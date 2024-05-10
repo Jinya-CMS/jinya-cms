@@ -1,11 +1,11 @@
 .jinya-designer__content.is--simple-page {
     grid-template-columns: unset;
-    grid-template-rows: [message] auto [tiny] 1fr [buttons] auto;
+    grid-template-rows: [message] auto [jodit] 1fr [buttons] auto;
     display: grid;
 }
 
-.jinya-designer__content.is--simple-page .tox.tox-tinymce {
-    grid-row: tiny
+.jinya-editor.is--simple-page {
+    grid-row: jodit;
 }
 
 .cosmo-message.is--simple-page {

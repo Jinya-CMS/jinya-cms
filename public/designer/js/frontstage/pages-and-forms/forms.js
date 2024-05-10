@@ -32,10 +32,14 @@ Alpine.data('formsData', () => ({
     await dexie.items.bulkAdd(this.cleanItems(Alpine.raw(this.items), this.selectedForm.id));
   },
   async clearFormItems() {
-    await dexie.items.where('formId').equals(this.selectedForm.id).delete();
+    await dexie.items.where('formId')
+      .equals(this.selectedForm.id)
+      .delete();
   },
   async getFormItems(id) {
-    return this.cleanItems(await dexie.items.where('formId').equals(id).toArray());
+    return this.cleanItems(await dexie.items.where('formId')
+      .equals(id)
+      .toArray());
   },
   cleanItems(items, formId = null) {
     return items.map((item) => ({
@@ -52,9 +56,14 @@ Alpine.data('formsData', () => ({
     }));
   },
   async init() {
-    dexie.version(1).stores({
-      items: `++id,formId`,
-    });
+    dexie.version(1)
+      .stores({
+        items: `++id,formId`,
+      });
+    if (!dexie.isOpen()) {
+      dexie.open();
+    }
+
     const forms = await getForms();
     this.forms = forms.items;
     if (this.forms.length > 0) {

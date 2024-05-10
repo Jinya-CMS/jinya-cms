@@ -83,10 +83,14 @@ Alpine.data('menusData', () => ({
     await dexie.items.bulkAdd(this.prepareItems(Alpine.raw(this.items), this.selectedMenu.id));
   },
   async clearMenuItems() {
-    await dexie.items.where('menuId').equals(this.selectedMenu.id).delete();
+    await dexie.items.where('menuId')
+      .equals(this.selectedMenu.id)
+      .delete();
   },
   async getMenuItems(id) {
-    return this.prepareItems(await dexie.items.where('menuId').equals(id).toArray());
+    return this.prepareItems(await dexie.items.where('menuId')
+      .equals(id)
+      .toArray());
   },
   prepareItems(items, menuId = null, nesting = 0) {
     return items
@@ -121,9 +125,14 @@ Alpine.data('menusData', () => ({
       .flat(Infinity);
   },
   async init() {
-    dexie.version(1).stores({
-      items: `++id,menuId`,
-    });
+    dexie.version(1)
+      .stores({
+        items: `++id,menuId`,
+      });
+    if (!dexie.isOpen()) {
+      dexie.open();
+    }
+
     const menus = await getMenus();
     this.menus = menus.items;
     if (this.menus.length > 0) {
@@ -375,7 +384,8 @@ Alpine.data('menusData', () => ({
     for (let i = startIdx; i < endIdx; i++) {
       const item = items[i];
       if (targetNesting === item.nesting) {
-        const endIdx = items.slice(i + 1, items.length).findIndex((item) => item.nesting === targetNesting);
+        const endIdx = items.slice(i + 1, items.length)
+          .findIndex((item) => item.nesting === targetNesting);
         const innerItems = this.mapItems(targetNesting + 1, i, endIdx === -1 ? items.length : endIdx + i + 1);
         res.push({
           title: item.title,
@@ -459,27 +469,45 @@ Alpine.data('menusData', () => ({
     }
 
     if (this.addItem.type === 'type_artist') {
-      const { id, artistName } = this.artists.find((artist) => artist.id === this.addItem.artist);
+      const {
+        id,
+        artistName,
+      } = this.artists.find((artist) => artist.id === this.addItem.artist);
       res.artistId = id;
       res.artistName = artistName;
     } else if (this.addItem.type === 'type_classic_page') {
-      const { id, title } = this.classicPages.find((classicPage) => classicPage.id === this.addItem.classicPage);
+      const {
+        id,
+        title,
+      } = this.classicPages.find((classicPage) => classicPage.id === this.addItem.classicPage);
       res.classicPageId = id;
       res.classicPageName = title;
     } else if (this.addItem.type === 'type_modern_page') {
-      const { id, name } = this.modernPages.find((modernPage) => modernPage.id === this.addItem.modernPage);
+      const {
+        id,
+        name,
+      } = this.modernPages.find((modernPage) => modernPage.id === this.addItem.modernPage);
       res.modernPageId = id;
       res.modernPageName = name;
     } else if (this.addItem.type === 'type_form') {
-      const { id, title } = this.forms.find((form) => form.id === this.addItem.form);
+      const {
+        id,
+        title,
+      } = this.forms.find((form) => form.id === this.addItem.form);
       res.formId = id;
       res.formName = title;
     } else if (this.addItem.type === 'type_gallery') {
-      const { id, name } = this.galleries.find((gallery) => gallery.id === this.addItem.gallery);
+      const {
+        id,
+        name,
+      } = this.galleries.find((gallery) => gallery.id === this.addItem.gallery);
       res.galleryId = id;
       res.galleryName = name;
     } else if (this.addItem.type === 'type_blog_category') {
-      const { id, name } = this.blogCategories.find((blogCategory) => blogCategory.id === this.addItem.blogCategory);
+      const {
+        id,
+        name,
+      } = this.blogCategories.find((blogCategory) => blogCategory.id === this.addItem.blogCategory);
       res.blogCategoryId = id;
       res.blogCategoryName = name;
     } else if (this.addItem.type === 'type_blog_home_page') {
@@ -513,27 +541,45 @@ Alpine.data('menusData', () => ({
     }
 
     if (this.editItem.type === 'type_artist') {
-      const { id, artistName } = this.artists.find((artist) => artist.id === this.editItem.artist);
+      const {
+        id,
+        artistName,
+      } = this.artists.find((artist) => artist.id === this.editItem.artist);
       res.artistId = id;
       res.artistName = artistName;
     } else if (this.editItem.type === 'type_classic_page') {
-      const { id, title } = this.classicPages.find((classicPage) => classicPage.id === this.editItem.classicPage);
+      const {
+        id,
+        title,
+      } = this.classicPages.find((classicPage) => classicPage.id === this.editItem.classicPage);
       res.classicPageId = id;
       res.classicPageName = title;
     } else if (this.editItem.type === 'type_modern_page') {
-      const { id, name } = this.modernPages.find((modernPage) => modernPage.id === this.editItem.modernPage);
+      const {
+        id,
+        name,
+      } = this.modernPages.find((modernPage) => modernPage.id === this.editItem.modernPage);
       res.modernPageId = id;
       res.modernPageName = name;
     } else if (this.editItem.type === 'type_form') {
-      const { id, title } = this.forms.find((form) => form.id === this.editItem.form);
+      const {
+        id,
+        title,
+      } = this.forms.find((form) => form.id === this.editItem.form);
       res.formId = id;
       res.formName = title;
     } else if (this.editItem.type === 'type_gallery') {
-      const { id, name } = this.galleries.find((gallery) => gallery.id === this.editItem.gallery);
+      const {
+        id,
+        name,
+      } = this.galleries.find((gallery) => gallery.id === this.editItem.gallery);
       res.galleryId = id;
       res.galleryName = name;
     } else if (this.editItem.type === 'type_blog_category') {
-      const { id, name } = this.blogCategories.find((blogCategory) => blogCategory.id === this.editItem.blogCategory);
+      const {
+        id,
+        name,
+      } = this.blogCategories.find((blogCategory) => blogCategory.id === this.editItem.blogCategory);
       res.blogCategoryId = id;
       res.blogCategoryName = name;
     } else if (this.editItem.type === 'type_blog_home_page') {

@@ -38,7 +38,7 @@
     background: var(--white);
 }
 
-.cosmo-toolbar.is--designer {
+.cosmo-toolbar.is--designer.is--theme {
     grid-area: toolbar;
 }
 
