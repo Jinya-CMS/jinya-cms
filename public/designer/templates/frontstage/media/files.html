@@ -97,23 +97,23 @@
       <div class="jinya-media-view__details">
         <template x-if="selectedFile !== null">
           <div>
-            <span class="cosmo-title" x-text="selectedFile.name"></span>
-            <template x-if="selectedFile.type.startsWith('image')">
-              <img :alt="selectedFile.name" :src="selectedFile.path" class="jinya-media-details__image" />
+            <span class="cosmo-title" x-text="selectedFile?.name"></span>
+            <template x-if="selectedFile?.type?.startsWith('image')">
+              <img :alt="selectedFile?.name" :src="selectedFile?.path" class="jinya-media-details__image" />
             </template>
-            <template x-if="selectedFile.type.startsWith('video')">
+            <template x-if="selectedFile?.type?.startsWith('video')">
               <video class="jinya-media-details__image" controls>
-                <source :src="selectedFile.path" :type="selectedFile.type" />
+                <source :src="selectedFile?.path" :type="selectedFile?.type" />
               </video>
             </template>
-            <template x-if="selectedFile.type.startsWith('audio')">
+            <template x-if="selectedFile?.type?.startsWith('audio')">
               <audio class="jinya-media-details__image" controls>
-                <source :src="selectedFile.path" :type="selectedFile.type" />
+                <source :src="selectedFile?.path" :type="selectedFile?.type" />
               </audio>
             </template>
             <dl class="cosmo-list is--key-value">
               <dd class="cosmo-list__value is--tags">
-                <template x-for="tag in selectedFile.tags ?? []">
+                <template x-for="tag in selectedFile?.tags ?? []">
                   <cms-tag
                     :color="tag.color"
                     :emoji="tag.emoji"
@@ -125,31 +125,26 @@
                 </template>
               </dd>
               <dt x-localize:media-files-details-type></dt>
-              <dd :title="selectedFile.type" x-text="detailsFileType"></dd>
+              <dd :title="selectedFile?.type" x-text="detailsFileType"></dd>
               <dt x-localize:media-files-details-uploaded_by></dt>
               <dd>
-                <span x-text="selectedFile.created.by.artistName"></span>
+                <span x-text="selectedFile?.created?.by?.artistName"></span>
                 <small>
-                  <a :href="'mailto:' + selectedFile.created.by.email"
-                     x-text="selectedFile.created.by.email"></a>
+                  <a :href="'mailto:' + selectedFile?.created.by.email"
+                     x-text="selectedFile?.created?.by?.email"></a>
                 </small>
               </dd>
               <dt x-localize:media-files-details-last_changed_by></dt>
               <dd>
-                <span x-text="selectedFile.updated.by.artistName"></span>
+                <span x-text="selectedFile?.updated?.by?.artistName"></span>
                 <small>
-                  <a :href="'mailto:' + selectedFile.updated.by.email"
-                     x-text="selectedFile.updated.by.email"></a>
+                  <a :href="'mailto:' + selectedFile?.updated?.by?.email"
+                     x-text="selectedFile?.updated?.by?.email"></a>
                 </small>
               </dd>
             </dl>
-            <a
-              :download="selectedFile.name"
-              :href="detailsDownloadPath"
-              class="cosmo-button"
-              x-localize:media-files-details-download_file
-            >
-            </a>
+            <a :download="selectedFile?.name" :href="detailsDownloadPath" class="cosmo-button"
+               x-localize:media-files-details-download_file></a>
           </div>
         </template>
       </div>
@@ -182,7 +177,8 @@
                   class="jinya-tag is--file"
                 ></cms-tag>
               </template>
-              <button @click="edit.tagPopupOpen = true" class="cosmo-button is--small is--circle is--primary" id="new-tag-open-button"
+              <button @click="edit.tagPopupOpen = true" class="cosmo-button is--small is--circle is--primary"
+                      id="new-tag-open-button"
                       type="button">
                 <svg
                   fill="none"
@@ -234,7 +230,8 @@
             <input class="cosmo-input" id="uploadSingleFileName" required type="text" x-model="uploadSingleFile.name" />
             <label class="cosmo-label" for="uploadSingleFileFile"
                    x-localize:media-files-upload_single_file-file></label>
-            <input @change="uploadSingleFile.selectFile($event.target.files)" class="cosmo-input" id="uploadSingleFileFile" required
+            <input @change="uploadSingleFile.selectFile($event.target.files)" class="cosmo-input"
+                   id="uploadSingleFileFile" required
                    type="file" />
             <label class="cosmo-label" x-localize:media-files-upload_single_file-tags></label>
             <div class="jinya-tags is--details">
@@ -250,7 +247,8 @@
                   class="jinya-tag is--file"
                 ></cms-tag>
               </template>
-              <button @click="uploadSingleFile.tagPopupOpen = true" class="cosmo-button is--small is--circle is--primary" id="new-tag-open-button"
+              <button @click="uploadSingleFile.tagPopupOpen = true"
+                      class="cosmo-button is--small is--circle is--primary" id="new-tag-open-button"
                       type="button">
                 <svg
                   fill="none"
@@ -299,7 +297,8 @@
           <div class="cosmo-input__group">
             <label class="cosmo-label" for="uploadMultipleFilesFiles"
                    x-localize:media-files-upload_multiple_files-files></label>
-            <input @change="uploadMultipleFiles.selectFiles($event.target.files)" class="cosmo-input" id="uploadMultipleFilesFiles" multiple required
+            <input @change="uploadMultipleFiles.selectFiles($event.target.files)" class="cosmo-input"
+                   id="uploadMultipleFilesFiles" multiple required
                    type="file" />
             <label class="cosmo-label" x-localize:media-files-upload_multiple_files-tags></label>
             <div class="jinya-tags is--details">
@@ -314,7 +313,8 @@
                   class="jinya-tag is--file"
                 ></cms-tag>
               </template>
-              <button @click="uploadMultipleFiles.tagPopupOpen = true" class="cosmo-button is--small is--circle is--primary" id="new-tag-open-button"
+              <button @click="uploadMultipleFiles.tagPopupOpen = true"
+                      class="cosmo-button is--small is--circle is--primary" id="new-tag-open-button"
                       type="button">
                 <svg
                   fill="none"
@@ -393,7 +393,8 @@
                 @submit="saveTag(tag, $event)"
               ></cms-tag-popup>
             </template>
-            <button @click="manageTags.tagPopupOpen = true" class="cosmo-button is--small is--circle is--primary" id="new-tag-open-button"
+            <button @click="manageTags.tagPopupOpen = true" class="cosmo-button is--small is--circle is--primary"
+                    id="new-tag-open-button"
                     type="button">
               <svg
                 fill="none"

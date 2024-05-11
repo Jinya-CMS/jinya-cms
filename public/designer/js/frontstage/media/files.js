@@ -16,11 +16,13 @@ import {
 import { getRandomEmoji } from '../../foundation/utils/text.js';
 import confirm from '../../foundation/ui/confirm.js';
 import alert from '../../foundation/ui/alert.js';
-import EnqueueFileEvent from './uploading/EnqueueFileEvent.js';
 import { getRandomColor, lightenDarkenColor } from '../../foundation/utils/color.js';
+import { getFileDatabase } from '../../foundation/database/file.js';
 
 import '../../foundation/ui/components/tag.js';
 import '../../foundation/ui/components/tag-popup.js';
+
+const fileDatabase = getFileDatabase();
 
 Alpine.data('filesData', () => ({
   files: [],
@@ -68,6 +70,15 @@ Alpine.data('filesData', () => ({
     return `${this.selectedFile.path}.${MimeTypes[this.selectedFile.type]?.extensions[0] ?? ''}`;
   },
   async init() {
+    fileDatabase.watchFiles().subscribe({
+      next: (files) => {
+        this.files = files;
+        this.loading = false;
+      },
+    });
+
+    this.tags = await fileDatabase.getAllTags();
+
     const [files, tags] = await Promise.all([getFiles(), getTags()]);
     this.files = files.items;
     this.tags = tags.items;
@@ -77,9 +88,10 @@ Alpine.data('filesData', () => ({
         this.uploadSingleFile.name = file.name.split('.').reverse().slice(1).reverse().join('.');
       }
     });
-    document.addEventListener('file-uploaded', (e) => {
-      this.files.push(e.file);
-    });
+    this.$watch('tags', fileDatabase.replaceTags);
+
+    fileDatabase.replaceFiles(files.items);
+    fileDatabase.replaceTags(tags.items);
   },
   clearTags() {
     this.activeTags.clear();
@@ -143,9 +155,9 @@ Alpine.data('filesData', () => ({
     if (confirmed) {
       try {
         await deleteTag(tag.id);
+        this.tags = this.tags.filter((t) => t.id !== tag.id);
 
         this.activeTags.delete(tag.id);
-        this.tags = this.tags.filter((t) => t.id !== tag.id);
         this.manageTags.tags = this.tags;
       } catch (e) {
         await alert({
@@ -172,7 +184,7 @@ Alpine.data('filesData', () => ({
     if (confirmed) {
       try {
         await deleteFile(this.selectedFile.id);
-        this.files = this.files.filter((file) => file.id !== this.selectedFile.id);
+        await fileDatabase.deleteFile(this.selectedFile.id);
         this.selectedFile = null;
       } catch (e) {
         if (e.status === 409) {
@@ -202,7 +214,7 @@ Alpine.data('filesData', () => ({
         [...this.uploadSingleFile.tags],
         this.uploadSingleFile.file,
       );
-      this.files.push(savedFile);
+      await fileDatabase.saveFile(savedFile);
       this.uploadSingleFile.open = false;
       this.selectedFile = savedFile;
     } catch (err) {
@@ -215,12 +227,14 @@ Alpine.data('filesData', () => ({
       }
     }
   },
-  enqueueFiles() {
-    document.dispatchEvent(
-      new EnqueueFileEvent({
-        files: [...this.uploadMultipleFiles.files],
-        tags: [...this.uploadMultipleFiles.tags],
-      }),
+  async enqueueFiles() {
+    const tags = Alpine.raw(this.uploadMultipleFiles.tags);
+    await fileDatabase.queueFilesForUpload(
+      [...Alpine.raw(this.uploadMultipleFiles.files)].map((file) => ({
+        data: file,
+        name: file.name.split('.').reverse().slice(1).reverse().join('.'),
+        tags: [...tags],
+      })),
     );
     this.uploadMultipleFiles.open = false;
   },
@@ -233,7 +247,7 @@ Alpine.data('filesData', () => ({
       }
 
       const savedFile = await getFile(this.edit.id);
-      this.files[this.files.indexOf(this.selectedFile)] = savedFile;
+      await fileDatabase.saveFile(savedFile);
       this.edit.open = false;
       this.selectedFile = savedFile;
     } catch (err) {

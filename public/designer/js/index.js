@@ -5,10 +5,10 @@ import localize from './foundation/utils/localize.js';
 import { getMyProfile, setColorScheme } from './foundation/api/my-jinya.js';
 import { logout } from './foundation/api/authentication.js';
 import { dataUrlReader } from './foundation/utils/blob.js';
-import FileUploadedEvent from './frontstage/media/uploading/FileUploadedEvent.js';
-import { getJinyaApiKey } from './foundation/utils/storage.js';
+import { getFileDatabase } from './foundation/database/file.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
+  const fileDatabase = getFileDatabase();
   window.Alpine = Alpine;
 
   Alpine.plugin(PineconeRouter);
@@ -186,55 +186,50 @@ document.addEventListener('DOMContentLoaded', async () => {
     filesToUpload: 0,
     errorMessage: '',
     status: '',
-    uploaded(file) {
-      document.dispatchEvent(new FileUploadedEvent({ file }));
-      this.filesUploaded += 1;
-    },
-    start(name) {
-      this.status = localize({
-        key: 'bottom_bar.status',
-        values: { name },
+    init() {
+      fileDatabase.watchUploadedFilesCount().subscribe({
+        next: ({ value: count }) => {
+          this.filesUploaded = count;
+        },
       });
-    },
-    failed(error, name) {
-      if (error.status === 409) {
-        this.errorMessage = localize({
-          key: 'bottom_bar.error.conflict',
-          values: { name },
-        });
-      } else {
-        console.error(error);
-        this.errorMessage = localize({
-          key: 'bottom_bar.error.generic',
-          values: { name },
-        });
-      }
-      this.filesUploaded += 1;
-    },
-    addFiles(count) {
-      this.filesToUpload += count;
+      fileDatabase.watchUploadingFilesCount().subscribe({
+        next: ({ value: count }) => {
+          this.filesToUpload = count;
+        },
+      });
+      fileDatabase.watchUploadError().subscribe({
+        next: ({ error, name }) => {
+          if (!error) {
+            return;
+          }
+
+          if (error.status === 409) {
+            this.errorMessage = localize({
+              key: 'bottom_bar.error.conflict',
+              values: { name },
+            });
+          } else {
+            console.error(error);
+            this.errorMessage = localize({
+              key: 'bottom_bar.error.generic',
+              values: { name },
+            });
+          }
+        },
+      });
+      fileDatabase.watchCurrentUpload().subscribe({
+        next: ({ value: name }) => {
+          this.status = localize({
+            key: 'bottom_bar.status',
+            values: { name },
+          });
+        },
+      });
     },
   });
 
-  const fileUploadWorker = new Worker('/designer/js/frontstage/media/uploading/UploadWorker.js');
-  fileUploadWorker.addEventListener('message', (e) => {
-    const { type, file, error, name } = e.data;
-    if (type === 'upload-finish') {
-      Alpine.store('uploadProgress').uploaded(file);
-    } else if (type === 'upload-failed') {
-      Alpine.store('uploadProgress').failed(error, name);
-    } else if (type === 'upload-start') {
-      Alpine.store('uploadProgress').start(name);
-    }
-  });
+  const fileUploadWorker = new Worker('/designer/js/background/uploading/UploadWorker.js', { type: 'module' });
   fileUploadWorker.postMessage({
-    apiKey: getJinyaApiKey(),
-  });
-  document.addEventListener('enqueue-files', (e) => {
-    Alpine.store('uploadProgress').addFiles(e.files.length);
-    fileUploadWorker.postMessage({
-      files: e.files,
-      tags: e.tags,
-    });
+    verb: 'subscribe',
   });
 });

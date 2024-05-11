@@ -1,12 +1,7 @@
 import { get, head, httpDelete, post, put } from './request.js';
-import {
-  deleteDeviceCode,
-  deleteJinyaApiKey,
-  getDeviceCode,
-  getJinyaApiKey,
-  setDeviceCode,
-  setJinyaApiKey,
-} from '../utils/storage.js';
+import { getAuthenticationDatabase } from '../database/authentication.js';
+
+const authenticationDatabase = getAuthenticationDatabase();
 
 export async function checkLogin() {
   try {
@@ -35,8 +30,8 @@ export async function login(email, password, twoFactorCode = null) {
     twoFactorCode,
   });
   if (deviceCode && apiKey) {
-    await setDeviceCode(deviceCode);
-    await setJinyaApiKey(apiKey);
+    await authenticationDatabase.setDeviceCode(deviceCode);
+    await authenticationDatabase.setApiKey(apiKey);
   }
 }
 
@@ -69,18 +64,18 @@ export function locateIp(ip) {
 
 export async function logout(fully = false) {
   try {
-    await deleteApiKey(getJinyaApiKey());
+    await deleteApiKey(await authenticationDatabase.getApiKey());
   } catch {
     console.log('Failed to revoke api key, logging out anyway');
   } finally {
-    deleteJinyaApiKey();
+    await authenticationDatabase.deleteApiKey();
     if (fully) {
       try {
-        await deleteKnownDevice(getDeviceCode());
+        await deleteKnownDevice(authenticationDatabase.getDeviceCode());
       } catch {
         console.log('Failed to forget device, logging out anyway');
       } finally {
-        deleteDeviceCode();
+        await authenticationDatabase.deleteDeviceCode();
       }
     }
   }
