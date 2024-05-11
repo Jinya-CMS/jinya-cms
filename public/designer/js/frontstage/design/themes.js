@@ -82,12 +82,11 @@ Alpine.data('themesData', () => ({
     return this.getValueForCurrentLanguage(this.selectedTheme.description);
   },
   async init() {
-    fileDatabase.watchFiles()
-      .subscribe({
-        next: (files) => {
-          this.files = files;
-        },
-      });
+    fileDatabase.watchFiles().subscribe({
+      next: (files) => {
+        this.files = files;
+      },
+    });
 
     Promise.all([
       getGalleries(),
@@ -97,18 +96,17 @@ Alpine.data('themesData', () => ({
       getMenus(),
       getBlogCategories(),
       getForms(),
-    ])
-      .then(([galleries, files, classicPages, modernPages, menus, blogCategories, forms]) => {
-        this.galleries = galleries.items;
-        this.files = files.items;
-        this.classicPages = classicPages.items;
-        this.modernPages = modernPages.items;
-        this.menus = menus.items;
-        this.blogCategories = blogCategories.items;
-        this.forms = forms.items;
+    ]).then(([galleries, files, classicPages, modernPages, menus, blogCategories, forms]) => {
+      this.galleries = galleries.items;
+      this.files = files.items;
+      this.classicPages = classicPages.items;
+      this.modernPages = modernPages.items;
+      this.menus = menus.items;
+      this.blogCategories = blogCategories.items;
+      this.forms = forms.items;
 
-        fileDatabase.replaceFiles(files.items);
-      });
+      fileDatabase.replaceFiles(files.items);
+    });
 
     const themes = await getThemes();
     this.themes = themes.items;
@@ -260,38 +258,23 @@ Alpine.data('themesData', () => ({
     }
   },
   async saveLinks() {
-    const {
-      modernPages,
-      classicPages,
-      forms,
-      menus,
-      galleries,
-      files,
-      blogCategories,
-    } = this.selectedThemeData;
+    const { modernPages, classicPages, forms, menus, galleries, files, blogCategories } = this.selectedThemeData;
     const { id } = this.selectedTheme;
     try {
       await Promise.all([
-        ...Object.entries(modernPages)
-          .map(([name, link]) =>
-            updateThemeModernPage(id, name, link === 'null' ? null : link),
-          ),
-        ...Object.entries(classicPages)
-          .map(([name, link]) =>
-            updateThemeClassicPage(id, name, link === 'null' ? null : link),
-          ),
-        ...Object.entries(forms)
-          .map(([name, link]) => updateThemeForm(id, name, link === 'null' ? null : link)),
-        ...Object.entries(menus)
-          .map(([name, link]) => updateThemeMenu(id, name, link === 'null' ? null : link)),
-        ...Object.entries(galleries)
-          .map(([name, link]) => updateThemeGallery(id, name, link === 'null' ? null : link)),
-        ...Object.entries(files)
-          .map(([name, link]) => updateThemeFile(id, name, link === 'null' ? null : link)),
-        ...Object.entries(blogCategories)
-          .map(([name, link]) =>
-            updateThemeBlogCategory(id, name, link === 'null' ? null : link),
-          ),
+        ...Object.entries(modernPages).map(([name, link]) =>
+          updateThemeModernPage(id, name, link === 'null' ? null : link),
+        ),
+        ...Object.entries(classicPages).map(([name, link]) =>
+          updateThemeClassicPage(id, name, link === 'null' ? null : link),
+        ),
+        ...Object.entries(forms).map(([name, link]) => updateThemeForm(id, name, link === 'null' ? null : link)),
+        ...Object.entries(menus).map(([name, link]) => updateThemeMenu(id, name, link === 'null' ? null : link)),
+        ...Object.entries(galleries).map(([name, link]) => updateThemeGallery(id, name, link === 'null' ? null : link)),
+        ...Object.entries(files).map(([name, link]) => updateThemeFile(id, name, link === 'null' ? null : link)),
+        ...Object.entries(blogCategories).map(([name, link]) =>
+          updateThemeBlogCategory(id, name, link === 'null' ? null : link),
+        ),
       ]);
 
       this.links.message.title = localize({ key: 'design.themes.links.success.title' });

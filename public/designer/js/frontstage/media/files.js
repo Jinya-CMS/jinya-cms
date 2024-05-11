@@ -70,35 +70,29 @@ Alpine.data('filesData', () => ({
     return `${this.selectedFile.path}.${MimeTypes[this.selectedFile.type]?.extensions[0] ?? ''}`;
   },
   async init() {
-    fileDatabase.watchFiles()
-      .subscribe({
-        next: (files) => {
-          this.files = files;
-          this.loading = false;
-        },
-      });
+    fileDatabase.watchFiles().subscribe({
+      next: (files) => {
+        this.files = files;
+        this.loading = false;
+      },
+    });
 
     this.tags = await fileDatabase.getAllTags();
 
-    Promise.all([getFiles(), getTags()])
-      .then(([files, tags]) => {
-        this.files = files.items;
-        this.tags = tags.items;
-        this.loading = false;
+    Promise.all([getFiles(), getTags()]).then(([files, tags]) => {
+      fileDatabase.replaceFiles(files.items);
+      fileDatabase.replaceTags(tags.items);
 
-        fileDatabase.replaceFiles(files.items);
-        fileDatabase.replaceTags(tags.items);
-      });
+      this.files = files.items;
+      this.tags = tags.items;
+      this.loading = false;
+    });
     this.$watch('uploadSingleFile.file', (file) => {
       if (this.uploadSingleFile.name === '') {
-        this.uploadSingleFile.name = file.name.split('.')
-          .reverse()
-          .slice(1)
-          .reverse()
-          .join('.');
+        this.uploadSingleFile.name = file.name.split('.').reverse().slice(1).reverse().join('.');
       }
     });
-    this.$watch('tags', fileDatabase.replaceTags);
+    this.$watch('tags', (tags) => fileDatabase.replaceTags(Alpine.raw(tags)));
   },
   clearTags() {
     this.activeTags.clear();
@@ -121,16 +115,14 @@ Alpine.data('filesData', () => ({
     this.uploadSingleFile.error.reset();
     this.uploadSingleFile.open = true;
     this.uploadSingleFile.name = '';
-    this.uploadSingleFile.tags = new Set(this.tags.filter((tag) => this.activeTags.has(tag.id))
-      .map((tag) => tag.name));
+    this.uploadSingleFile.tags = new Set(this.tags.filter((tag) => this.activeTags.has(tag.id)).map((tag) => tag.name));
   },
   openUploadMultipleFilesDialog() {
     this.uploadMultipleFiles.error.reset();
     this.uploadMultipleFiles.open = true;
     this.uploadMultipleFiles.files = [];
     this.uploadMultipleFiles.tags = new Set(
-      this.tags.filter((tag) => this.activeTags.has(tag.id))
-        .map((tag) => tag.name),
+      this.tags.filter((tag) => this.activeTags.has(tag.id)).map((tag) => tag.name),
     );
   },
   openEditFileDialog() {
@@ -241,11 +233,7 @@ Alpine.data('filesData', () => ({
     await fileDatabase.queueFilesForUpload(
       [...Alpine.raw(this.uploadMultipleFiles.files)].map((file) => ({
         data: file,
-        name: file.name.split('.')
-          .reverse()
-          .slice(1)
-          .reverse()
-          .join('.'),
+        name: file.name.split('.').reverse().slice(1).reverse().join('.'),
         tags: [...tags],
       })),
     );

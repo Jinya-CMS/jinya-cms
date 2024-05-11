@@ -232,4 +232,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   fileUploadWorker.postMessage({
     verb: 'subscribe',
   });
+
+  try {
+    await navigator.serviceWorker.register('/designer-file-cache-service-worker.js');
+  } catch (e) {
+    console.error('Failed to register cache worker');
+    console.error(e);
+  }
 });

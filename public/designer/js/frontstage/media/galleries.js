@@ -49,12 +49,11 @@ Alpine.data('galleriesData', () => ({
     });
   },
   async init() {
-    fileDatabase.watchFiles()
-      .subscribe({
-        next: (files) => {
-          this.files = files;
-        },
-      });
+    fileDatabase.watchFiles().subscribe({
+      next: (files) => {
+        this.files = files;
+      },
+    });
 
     this.tags = await fileDatabase.getAllTags();
 
@@ -65,14 +64,13 @@ Alpine.data('galleriesData', () => ({
       await this.selectGallery(this.galleries[0]);
     }
 
-    Promise.all([getFiles(), getTags()])
-      .then(([files, tags]) => {
-        fileDatabase.replaceFiles(files.items);
-        fileDatabase.replaceTags(tags.items);
+    Promise.all([getFiles(), getTags()]).then(([files, tags]) => {
+      fileDatabase.replaceFiles(files.items);
+      fileDatabase.replaceTags(tags.items);
 
-        this.files = files.items;
-        this.tags = tags.items;
-      });
+      this.files = files.items;
+      this.tags = tags.items;
+    });
   },
   async selectGallery(gallery) {
     this.selectedGallery = gallery;

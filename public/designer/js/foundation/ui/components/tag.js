@@ -118,7 +118,7 @@ class TagElement extends HTMLElement {
           box-shadow: none;
         }
 
-        ::part(name) {
+        .name {
           border: 0.0625rem solid var(--control-border-color);
           display: flex;
           place-content: center;
@@ -127,7 +127,7 @@ class TagElement extends HTMLElement {
           color: var(--black);
         }
 
-        ::part(arrow) {
+        .arrow {
           border: 0.75rem solid transparent;
           border-right-color: var(--control-border-color);
         }
@@ -166,8 +166,8 @@ class TagElement extends HTMLElement {
           color: #ffffff;
         }
       </style>
-      <span part="arrow"></span>
-      <span part="name" id="name">${this.emoji} ${this.name}</span>
+      <span class="arrow"></span>
+      <span class="name" id="name">${this.emoji} ${this.name}</span>
       <button id="edit-button">
         <svg
           width="16"
