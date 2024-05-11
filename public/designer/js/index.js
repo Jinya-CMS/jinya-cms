@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         },
       });
       fileDatabase.watchUploadError().subscribe({
-        next: ({ error, name }) => {
+        next: ({ value: { error, name } }) => {
           if (!error) {
             return;
           }

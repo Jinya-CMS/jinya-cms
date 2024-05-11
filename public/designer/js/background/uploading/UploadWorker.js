@@ -1,28 +1,19 @@
 import { getFileDatabase } from '../../foundation/database/file.js';
-import { createFile, finishUpload, getFile, startUpload, uploadChunk } from '../../foundation/api/files.js';
+import { createFile } from '../../foundation/api/files.js';
 
 let subscription;
-const oneMegaByte = 1024 * 1024;
 let fileDatabase;
 
 async function uploadFile({ id, name, tags, data }) {
   await fileDatabase.markFileUploading(id, name);
   try {
-    const { id } = await createFile(name, tags);
-    await startUpload(id);
+    const uploadedFile = await createFile(name, tags, data);
 
-    for (let i = 0; i < data.size; i += oneMegaByte) {
-      await uploadChunk(id, i, data.slice(i, i + oneMegaByte));
-    }
-
-    await finishUpload(id);
-
-    const uploadedFile = await getFile(id);
     await fileDatabase.saveFile(uploadedFile);
     await fileDatabase.markFileUploaded(id);
   } catch (error) {
     await fileDatabase.markFileUploaded(id);
-    await fileDatabase.setUploadError(error, name);
+    await fileDatabase.setUploadError({ status: error.status }, name);
   }
 }
 
