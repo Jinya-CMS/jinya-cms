@@ -35,6 +35,9 @@ import { getMenus } from '../../foundation/api/menus.js';
 import { getBlogCategories } from '../../foundation/api/blog-categories.js';
 import localize from '../../foundation/utils/localize.js';
 import confirm from '../../foundation/ui/confirm.js';
+import { getFileDatabase } from '../../foundation/database/file.js';
+
+const fileDatabase = getFileDatabase();
 
 Alpine.data('themesData', () => ({
   themes: [],
@@ -42,7 +45,13 @@ Alpine.data('themesData', () => ({
   selectedTheme: null,
   themeSelected: false,
   activeTab: 'details',
-  tiny: null,
+  galleries: [],
+  files: [],
+  classicPages: [],
+  modernPages: [],
+  menus: [],
+  blogCategories: [],
+  forms: [],
   getValueForCurrentLanguage(data) {
     const currentLanguage = navigator.language.substring(0, 2);
     if (Object.prototype.hasOwnProperty.call(data, currentLanguage)) {
@@ -73,6 +82,32 @@ Alpine.data('themesData', () => ({
     return this.getValueForCurrentLanguage(this.selectedTheme.description);
   },
   async init() {
+    fileDatabase.watchFiles().subscribe({
+      next: (files) => {
+        this.files = files;
+      },
+    });
+
+    Promise.all([
+      getGalleries(),
+      getFiles(),
+      getClassicPages(),
+      getModernPages(),
+      getMenus(),
+      getBlogCategories(),
+      getForms(),
+    ]).then(([galleries, files, classicPages, modernPages, menus, blogCategories, forms]) => {
+      this.galleries = galleries.items;
+      this.files = files.items;
+      this.classicPages = classicPages.items;
+      this.modernPages = modernPages.items;
+      this.menus = menus.items;
+      this.blogCategories = blogCategories.items;
+      this.forms = forms.items;
+
+      fileDatabase.replaceFiles(files.items);
+    });
+
     const themes = await getThemes();
     this.themes = themes.items;
     if (this.themes.length > 0) {
@@ -179,27 +214,6 @@ Alpine.data('themesData', () => ({
   },
   async selectTheme(theme) {
     this.activeTab = 'details';
-
-    if (!this.linksLoaded) {
-      const [galleries, files, classicPages, modernPages, menus, blogCategories, forms] = await Promise.all([
-        getGalleries(),
-        getFiles(),
-        getClassicPages(),
-        getModernPages(),
-        getMenus(),
-        getBlogCategories(),
-        getForms(),
-      ]);
-
-      this.galleries = galleries.items;
-      this.files = files.items;
-      this.classicPages = classicPages.items;
-      this.modernPages = modernPages.items;
-      this.menus = menus.items;
-      this.blogCategories = blogCategories.items;
-      this.forms = forms.items;
-      this.linksLoaded = true;
-    }
 
     this.selectedTheme = await getTheme(theme.id);
     await Promise.all([this.loadConfigurationStructure(), this.loadLinks()]);

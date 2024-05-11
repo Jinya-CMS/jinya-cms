@@ -14,9 +14,12 @@ import { getFiles, getTags } from '../../foundation/api/files.js';
 import localize from '../../foundation/utils/localize.js';
 import confirm from '../../foundation/ui/confirm.js';
 import alert from '../../foundation/ui/alert.js';
+import { getFileDatabase } from '../../foundation/database/file.js';
 
 import '../../foundation/ui/components/tag.js';
 import '../../foundation/ui/components/tag-popup.js';
+
+const fileDatabase = getFileDatabase();
 
 Alpine.data('galleriesData', () => ({
   galleries: [],
@@ -46,14 +49,28 @@ Alpine.data('galleriesData', () => ({
     });
   },
   async init() {
-    const [files, tags, galleries] = await Promise.all([getFiles(), getTags(), getGalleries()]);
-    this.files = files.items;
-    this.tags = tags.items;
+    fileDatabase.watchFiles().subscribe({
+      next: (files) => {
+        this.files = files;
+      },
+    });
+
+    this.tags = await fileDatabase.getAllTags();
+
+    const galleries = await getGalleries();
     this.galleries = galleries.items;
     this.loading = false;
     if (this.galleries.length > 0) {
       await this.selectGallery(this.galleries[0]);
     }
+
+    Promise.all([getFiles(), getTags()]).then(([files, tags]) => {
+      fileDatabase.replaceFiles(files.items);
+      fileDatabase.replaceTags(tags.items);
+
+      this.files = files.items;
+      this.tags = tags.items;
+    });
   },
   async selectGallery(gallery) {
     this.selectedGallery = gallery;

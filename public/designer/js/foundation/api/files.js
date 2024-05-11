@@ -1,5 +1,7 @@
 import { get, httpDelete, post, put, upload } from './request.js';
 
+const oneMegaByte = 1024 * 1024;
+
 export function getTags() {
   return get('/api/file-tag');
 }
@@ -56,7 +58,11 @@ export async function uploadFile(id, file) {
       await startUpload(id);
     }
   }
-  await uploadChunk(id, 0, file);
+
+  for (let i = 0; i < file.size; i += oneMegaByte) {
+    await uploadChunk(id, i, file.slice(i, i + oneMegaByte));
+  }
+
   await finishUpload(id);
 }
 
@@ -68,12 +74,16 @@ export async function deleteFile(id) {
   await httpDelete(`/api/file/${id}`);
 }
 
-export async function createFile(name, tags, file) {
+export async function createFile(name, tags, file = null) {
   const savedFile = await post('/api/file', {
     name,
     tags,
   });
-  await uploadFile(savedFile.id, file);
+  if (file) {
+    await uploadFile(savedFile.id, file);
 
-  return getFile(savedFile.id);
+    return getFile(savedFile.id);
+  }
+
+  return savedFile;
 }
