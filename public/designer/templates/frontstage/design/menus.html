@@ -152,7 +152,7 @@
             <input required type="text" id="editMenuName" class="cosmo-input" x-model="edit.name">
             <label for="editMenuLogo" class="cosmo-label" x-localize:design-menus-edit-logo></label>
             <button class="cosmo-input is--picker" id="editMenuLogo" :data-picker="edit.picker.label" type="button"
-                    @click="selectAddLogo" x-text="edit.picker.selected"></button>
+                    @click="selectEditLogo" x-text="edit.picker.selected"></button>
             <img :src="edit.logoPath" alt="" class="jinya-picker__selected-file" x-show="edit.logoId">
           </div>
         </div>

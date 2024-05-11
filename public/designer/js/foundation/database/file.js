@@ -42,6 +42,7 @@ class FileDatabase {
 
     this.saveFile = this.saveFile.bind(this);
     this.getAllFiles = this.getAllFiles.bind(this);
+    this.getFileById = this.getFileById.bind(this);
     this.clearFiles = this.clearFiles.bind(this);
     this.deleteFile = this.deleteFile.bind(this);
     this.saveFile = this.saveFile.bind(this);
@@ -80,6 +81,12 @@ class FileDatabase {
     }
 
     return await this.#database.files.toArray();
+  }
+
+  async getFileById(id) {
+    await this.#openIfClosed();
+
+    return await this.#database.files.get(id);
   }
 
   async clearFiles() {
