@@ -64,8 +64,13 @@ Alpine.data('formsData', () => ({
     }
 
     this.selectedForm = form;
+
+    const savedForm = await formDatabase.getChangedForm(form.id);
     const savedFormItems = await this.getFormItems(form.id);
-    if (savedFormItems.length === 0) {
+    const savedFormUpdatedAt = Date.parse(savedForm?.updated?.at) ?? 0;
+    const formUpdatedAt = Date.parse(form.updated.at);
+
+    if (savedFormItems.length === 0 || savedFormUpdatedAt < formUpdatedAt) {
       await this.saveFormItems();
     } else if (savedFormItems.length !== this.items.length || !isEqual(savedFormItems, Alpine.raw(this.items))) {
       const confirmed = await confirm({
