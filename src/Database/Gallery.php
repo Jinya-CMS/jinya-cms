@@ -16,6 +16,7 @@ use Jinya\Router\Extensions\Database\Attributes\Create;
 use Jinya\Router\Extensions\Database\Attributes\Delete;
 use Jinya\Router\Extensions\Database\Attributes\Find;
 use Jinya\Router\Extensions\Database\Attributes\Update;
+use JsonSerializable;
 
 /**
  * This class contains a gallery, galleries are used to arrange files in a list or masonry layout and horizontal or vertical orientation. They can be embedded into segment pages and blog posts
@@ -25,7 +26,7 @@ use Jinya\Router\Extensions\Database\Attributes\Update;
 #[Create('/api/gallery', new AuthorizationMiddleware(ROLE_WRITER))]
 #[Update('/api/gallery', new AuthorizationMiddleware(ROLE_WRITER))]
 #[Delete('/api/gallery', new AuthorizationMiddleware(ROLE_WRITER))]
-class Gallery extends Entity
+class Gallery extends Entity implements JsonSerializable
 {
     /** @var string Used to mark a gallery for list or sequential layout */
     public const TYPE_SEQUENCE = 'sequence';
@@ -191,5 +192,10 @@ class Gallery extends Entity
         foreach ($data as $item) {
             yield GalleryFilePosition::fromArray($item);
         }
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return $this->format();
     }
 }

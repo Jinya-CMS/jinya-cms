@@ -52,7 +52,9 @@ Alpine.data('classicPagesData', () => ({
     const savedPageUpdatedAt = Date.parse(savedPage?.updated?.at) ?? 0;
     const pageUpdatedAt = Date.parse(page.updated.at);
 
-    if (savedPage && savedPage.content !== page.content && savedPage.content && savedPageUpdatedAt > pageUpdatedAt) {
+    if (savedPageUpdatedAt < pageUpdatedAt) {
+      await this.deleteSavedPage(page.id);
+    } else if (savedPage && savedPage.content !== page.content && savedPage.content) {
       const confirmed = await confirm({
         title: localize({ key: 'pages_and_forms.classic.load.title' }),
         message: localize({ key: 'pages_and_forms.classic.load.message' }),
@@ -64,8 +66,6 @@ Alpine.data('classicPagesData', () => ({
       } else {
         await this.deleteSavedPage(page.id);
       }
-    } else if (savedPageUpdatedAt < pageUpdatedAt) {
-      await this.deleteSavedPage(page.id);
     }
   },
   getSavedPage(id) {
