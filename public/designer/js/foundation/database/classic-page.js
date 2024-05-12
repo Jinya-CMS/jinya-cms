@@ -19,9 +19,16 @@ class ClassicPageDatabase {
   }
 
   async saveChangedPage(id, content) {
+    const tzoffset = (new Date()).getTimezoneOffset() * 60000;
+    const localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
+
+
     await this.#database.changes.put({
       id,
       content,
+      updated: {
+        at: localISOTime,
+      }
     });
   }
 }

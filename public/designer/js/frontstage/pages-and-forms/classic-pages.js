@@ -46,10 +46,13 @@ Alpine.data('classicPagesData', () => ({
     this.edit.open = true;
   },
   async selectPage(page) {
-    const savedPageContent = await this.getSavedPageContent(page.id);
+    const savedPage = await this.getSavedPage(page.id);
     this.selectedPage = page;
     this.content = page.content;
-    if (savedPageContent?.content !== page.content && savedPageContent?.content) {
+    const savedPageUpdatedAt = Date.parse(savedPage?.updated?.at) ?? 0;
+    const pageUpdatedAt = Date.parse(page.updated.at);
+
+    if (savedPage && savedPage.content !== page.content && savedPage.content && savedPageUpdatedAt > pageUpdatedAt) {
       const confirmed = await confirm({
         title: localize({ key: 'pages_and_forms.classic.load.title' }),
         message: localize({ key: 'pages_and_forms.classic.load.message' }),
@@ -57,16 +60,18 @@ Alpine.data('classicPagesData', () => ({
         approveLabel: localize({ key: 'pages_and_forms.classic.load.approve' }),
       });
       if (confirmed) {
-        this.content = savedPageContent.content;
+        this.content = savedPage.content;
       } else {
-        await this.deleteSavedPageContent(page.id);
+        await this.deleteSavedPage(page.id);
       }
+    } else if (savedPageUpdatedAt < pageUpdatedAt) {
+      await this.deleteSavedPage(page.id);
     }
   },
-  getSavedPageContent(id) {
+  getSavedPage(id) {
     return classicPageDatabase.getChangedPage(id);
   },
-  deleteSavedPageContent(id) {
+  deleteSavedPage(id) {
     return classicPageDatabase.deleteChangedPage(id);
   },
   async savePageContent() {
