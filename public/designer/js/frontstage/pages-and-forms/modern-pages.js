@@ -67,8 +67,12 @@ Alpine.data('modernPagesData', () => ({
     }
     this.selectedPage = page;
 
+    const savedPage = await modernPageDatabase.getChangedPage(page.id);
     const savedSections = await this.getPageSections(page.id);
-    if (savedSections.length === 0) {
+    const savedPageUpdatedAt = Date.parse(savedPage?.updated?.at) ?? 0;
+    const pageUpdatedAt = Date.parse(page.updated.at);
+
+    if (savedSections.length === 0 || savedPageUpdatedAt < pageUpdatedAt) {
       await this.savePageSections();
     } else if (savedSections.length !== this.sections.length || !isEqual(savedSections, Alpine.raw(this.sections))) {
       const confirmed = await confirm({

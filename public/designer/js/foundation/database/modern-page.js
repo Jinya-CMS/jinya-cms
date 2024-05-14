@@ -1,10 +1,12 @@
 import { Dexie } from '../../../lib/dexie.js';
+import { getTimestamp } from './utils.js';
 
 class ModernPageDatabase {
   constructor() {
     this.#database = new Dexie('modernPages');
-    this.#database.version(1).stores({
+    this.#database.version(2).stores({
       sections: `++id,pageId`,
+      changedPages: 'pageId',
     });
   }
 
@@ -14,6 +16,10 @@ class ModernPageDatabase {
     return this.#database.sections.where('pageId').equals(id).toArray();
   }
 
+  getChangedPage(id) {
+    return this.#database.changedPages.get(id);
+  }
+
   async deleteSections(id) {
     await this.#database.transaction('rw', this.#database.sections, async () => {
       await this.#database.sections.where('pageId').equals(id).delete();
@@ -21,6 +27,10 @@ class ModernPageDatabase {
   }
 
   async saveSections(id, sections) {
+    await this.#database.changedPages.put({
+      pageId: id,
+      updated: { at: getTimestamp() },
+    });
     await this.#database.transaction('rw', this.#database.sections, async () => {
       await this.#database.sections.where('pageId').equals(id).delete();
       await this.#database.sections.bulkAdd(sections);

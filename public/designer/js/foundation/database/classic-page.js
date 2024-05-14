@@ -1,4 +1,5 @@
 import { Dexie } from '../../../lib/dexie.js';
+import { getTimestamp } from './utils.js';
 
 class ClassicPageDatabase {
   constructor() {
@@ -22,6 +23,9 @@ class ClassicPageDatabase {
     await this.#database.changes.put({
       id,
       content,
+      updated: {
+        at: getTimestamp(),
+      },
     });
   }
 }
