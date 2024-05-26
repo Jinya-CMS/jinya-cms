@@ -34,7 +34,6 @@
   <link href="/designer/css/profile.css" rel="stylesheet" />
   <link href="/designer/css/update.css" rel="stylesheet" />
   <link href="/designer/css/query-tool.css" rel="stylesheet" />
-  <link href="/designer/css/blog.css" rel="stylesheet" />
   <link href="/designer/css/loader.css" rel="stylesheet" />
   <link href="/designer/css/file-picker.css" rel="stylesheet" />
   <link href="/designer/css/login.css" rel="stylesheet" />
@@ -42,6 +41,7 @@
   <link href="/designer/css/forms.css" rel="stylesheet" />
   <link href="/designer/css/menus.css" rel="stylesheet" />
   <link href="/designer/css/blog-categories.css" rel="stylesheet" />
+  <link href="/designer/css/blog-post.css" rel="stylesheet" />
 
   <script src="/designer/js/foundation/ui/components/loader.js"></script>
 
@@ -199,6 +199,12 @@
                 x-localize:blog-menu-posts
               >
               </a>
+              <span
+                class="cosmo-menu__item"
+                x-active-route="editor"
+                x-localize:blog-menu-post_editor
+              >
+              </span>
             </div>
           </template>
           <template x-if="$store.navigation.area === 'design'">
@@ -375,6 +381,11 @@
       x-route="/frontstage/blog/categories"
       x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
       x-template="/designer/templates/frontstage/blog/categories.html"
+    ></template>
+    <template
+      x-route="/frontstage/blog/posts"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/blog/posts.html"
     ></template>
 
     <template

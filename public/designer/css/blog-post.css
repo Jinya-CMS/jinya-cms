@@ -1,0 +1,90 @@
+.jinya-designer__content.is--blog-posts {
+    display: flex;
+    grid-row: content;
+    max-height: calc(var(--page-height) - 2.75rem - 1.25rem - 2rem - 2rem - 0.25rem);
+    align-items: start;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.jinya-blog-tile__container {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1.5rem;
+    height: calc(var(--page-height) - 2.75rem - 1.25rem - 2rem - 2rem);
+    grid-row: content;
+    overflow-y: auto;
+    align-content: start;
+    width: 100%;
+}
+
+.jinya-blog-tile__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: var(--gray-light);
+    grid-row: img;
+    max-height: 13rem;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+
+    &:hover {
+        object-fit: scale-down;
+    }
+}
+
+.jinya-blog-tile {
+    width: 23rem;
+    height: 15rem;
+    display: grid;
+    position: relative;
+    grid-template-rows: [title] auto [img] 1fr;
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+    background: var(--gray-light);
+    cursor: pointer;
+
+    &.is--selected {
+        border: 0.25rem solid var(--primary-color);
+        position: relative;
+        box-sizing: border-box;
+
+        &::after {
+            content: '';
+            border: 0.75rem solid transparent;
+            border-left-color: var(--primary-color);
+            border-top-color: var(--primary-color);
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .jinya-blog-tile__img {
+            max-height: 12.5rem;
+        }
+    }
+}
+
+.jinya-blog-tile__title {
+    grid-row: title;
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-light);
+    font-family: var(--font-family-heading);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    align-items: center;
+
+    .jinya-icon {
+        flex: 0 0;
+    }
+
+    span {
+        width: 100%;
+        word-break: keep-all;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

@@ -1,7 +1,7 @@
 <div class="cosmo-side-list is--blog-categories" x-data="categoriesData">
   <nav class="cosmo-side-list__items is--blog-categories">
     <template x-for="category in categories" :key="category.id">
-      <a @click="selectCategory(category)" class="cosmo-side-list__item is--blog-category"
+      <a @click="selectCategory(category)" class="cosmo-side-list__item is--tree"
          :style="{ '--nesting': category.nesting }"
          :class="{ 'is--active': selectedCategory?.id === category.id }" x-text="category.name"></a>
     </template>
@@ -71,7 +71,7 @@
           </div>
           <div class="cosmo-input__group">
             <label for="createName" class="cosmo-label" x-localize:blog-categories-create-name></label>
-            <input id="createName" type="text" class="cosmo-input" x-model="create.name" />
+            <input id="createName" required type="text" class="cosmo-input" x-model="create.name" />
             <label for="createDescription" class="cosmo-label" x-localize:blog-categories-create-description></label>
             <textarea id="createDescription" rows="10" class="cosmo-textarea" x-model="create.description"></textarea>
             <label for="createWebhookUrl" class="cosmo-label" x-localize:blog-categories-create-webhook_url></label>
@@ -84,7 +84,7 @@
           </div>
         </div>
         <div class="cosmo-modal__button-bar">
-          <button type="button" class="cosmo-button" x-localize:blog-categories-create-cancel></button>
+          <button type="button" class="cosmo-button" @click="create.open = false" x-localize:blog-categories-create-cancel></button>
           <button type="submit" class="cosmo-button" x-localize:blog-categories-create-create></button>
         </div>
       </div>
@@ -101,7 +101,7 @@
           </div>
           <div class="cosmo-input__group">
             <label for="editName" class="cosmo-label" x-localize:blog-categories-edit-name></label>
-            <input id="editName" type="text" class="cosmo-input" x-model="edit.name" />
+            <input id="editName" required type="text" class="cosmo-input" x-model="edit.name" />
             <label for="editDescription" class="cosmo-label is--textarea"
                    x-localize:blog-categories-edit-description></label>
             <textarea id="editDescription" rows="10" class="cosmo-textarea" x-model="edit.description"></textarea>
@@ -115,7 +115,7 @@
           </div>
         </div>
         <div class="cosmo-modal__button-bar">
-          <button type="button" class="cosmo-button" x-localize:blog-categories-edit-cancel></button>
+          <button type="button" class="cosmo-button" @click="edit.open = false" x-localize:blog-categories-edit-cancel></button>
           <button type="submit" class="cosmo-button" x-localize:blog-categories-edit-update></button>
         </div>
       </div>
