@@ -1,0 +1,16 @@
+.jinya-designer__content.is--blog-categories {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+}
+
+.cosmo-side-list__item.is--blog-category {
+    margin-left: calc(1rem * var(--nesting));
+    width: calc(100% - (var(--nesting) * 1rem));
+}
+
+.jinya-category__webhook {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}

@@ -129,7 +129,7 @@ class ThemeBlogCategory implements Creatable, Updatable, Deletable
         $query = self::getQueryBuilder()
             ->newUpdate()
             ->table(self::getTableName())
-            /** @phpstan-ignore-next-line */
+            /** @phpstan-ignore argument.type */
             ->set('blog_category_id', $this->blogCategoryId)
             ->where('theme_id = :themeId AND name = :name', ['themeId' => $this->themeId, 'name' => $this->name]);
 

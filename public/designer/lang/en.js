@@ -476,6 +476,7 @@ export default {
     categories: {
       action: {
         new: 'Create category',
+        new_sub: 'Create subcategory',
         delete: 'Delete category',
         edit: 'Edit category',
       },
@@ -483,16 +484,12 @@ export default {
         name: 'Name',
         description: 'Description',
         description_none: 'No description',
-        parent: 'Parent category',
-        parent_none: 'No parent category',
         webhook: 'Webhook',
       },
       create: {
         title: 'Create category',
         name: 'Name',
         description: 'Description',
-        parent: 'Parent category',
-        parent_none: 'No parent category',
         webhook_url: 'Webhook URL',
         webhook_enabled: 'Webhook enabled',
         cancel: 'Discard category',
@@ -507,12 +504,10 @@ export default {
         title: 'Edit category',
         name: 'Name',
         description: 'Description',
-        parent: 'Parent category',
-        parent_none: 'No parent category',
         webhook_url: 'Webhook URL',
         webhook_enabled: 'Webhook enabled',
         cancel: 'Discard changes',
-        edit: 'Update category',
+        update: 'Update category',
         error: {
           title: 'Error saving category',
           conflict: 'A category with the chosen name already exists.',
@@ -521,7 +516,7 @@ export default {
       },
       delete: {
         title: 'Delete category',
-        message: 'Do you really want to delete the category {name}?',
+        message: "Do you really want to delete the category {name}? The subcategories won't be deleted, they instead will be elevated by one level.",
         keep: 'Keep category',
         delete: 'Delete category',
         error: {

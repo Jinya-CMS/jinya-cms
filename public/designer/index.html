@@ -41,6 +41,7 @@
   <link href="/designer/css/ace.css" rel="stylesheet" />
   <link href="/designer/css/forms.css" rel="stylesheet" />
   <link href="/designer/css/menus.css" rel="stylesheet" />
+  <link href="/designer/css/blog-categories.css" rel="stylesheet" />
 
   <script src="/designer/js/foundation/ui/components/loader.js"></script>
 
@@ -368,6 +369,12 @@
       x-route="/frontstage/pages-and-forms/forms"
       x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
       x-template="/designer/templates/frontstage/pages-and-forms/forms.html"
+    ></template>
+
+    <template
+      x-route="/frontstage/blog/categories"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/blog/categories.html"
     ></template>
 
     <template

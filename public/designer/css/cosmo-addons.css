@@ -34,4 +34,16 @@
 
 .jinya-icon {
     stroke: currentcolor;
+
+    &.is--negative {
+        stroke: var(--negative-color)
+    }
+
+    &.is--positive {
+        stroke: var(--positive-color)
+    }
+}
+
+.cosmo-side-list {
+    --list-items-width: 16rem;
 }

@@ -10,9 +10,6 @@ use Jinya\Router\Attributes\Route;
 use JsonException;
 use Psr\Http\Message\ResponseInterface;
 
-/**
- * @codeCoverageIgnore
- */
 #[Controller]
 #[Middlewares(new AuthorizationMiddleware(ROLE_ADMIN))]
 class PhpInfoController extends BaseController
@@ -42,7 +39,6 @@ class PhpInfoController extends BaseController
     {
         $entitiesToUtf8 = static fn ($input) => preg_replace_callback(
             '/(&#\d+;)/',
-            /** @phpstan-ignore-next-line */
             static fn (array $m) => mb_convert_encoding($m[1], 'UTF-8', 'HTML-ENTITIES'),
             $input
         );
@@ -56,7 +52,7 @@ class PhpInfoController extends BaseController
 
         // Strip everything after the <h1>Configuration</h1> tag (other h1's)
         /**
-         * @phpstan-ignore-next-line
+         * @phpstan-ignore argument.type
          */
         if (!preg_match('#(.*<h1[^>]*>\s*Configuration.*)<h1#s', ob_get_clean(), $matches)) {
             return [];

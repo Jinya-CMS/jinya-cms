@@ -153,7 +153,7 @@ class ThemeForm implements Creatable, Updatable, Deletable
         $query = self::getQueryBuilder()
             ->newUpdate()
             ->table(self::getTableName())
-            /** @phpstan-ignore-next-line */
+            /** @phpstan-ignore argument.type */
             ->set('form_id', $this->formId)
             ->where('theme_id = :themeId AND name = :name', ['themeId' => $this->themeId, 'name' => $this->name]);
 

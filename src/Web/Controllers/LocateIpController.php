@@ -21,7 +21,7 @@ class LocateIpController extends BaseController
     #[Route(HttpMethod::GET, 'api/ip-location/{ip}')]
     public function locateIp(string $ip): ResponseInterface
     {
-        /** @phpstan-ignore-next-line */
+        /** @phpstan-ignore argument.type */
         $location = json_decode(file_get_contents("https://ip.jinya.de/?ip=$ip"), true, 512, JSON_THROW_ON_ERROR);
 
         return $this->json($location);

@@ -476,6 +476,7 @@ export default {
     categories: {
       action: {
         new: 'Kategorie erstellen',
+        new_sub: 'Unterkategorie erstellen',
         delete: 'Kategorie löschen',
         edit: 'Kategorie bearbeiten',
       },
@@ -483,16 +484,12 @@ export default {
         name: 'Name',
         description: 'Beschreibung',
         description_none: 'Keine Beschreibung',
-        parent: 'Übergeordnete Kategorie',
-        parent_none: 'Keine Kategorie',
         webhook: 'Webhook',
       },
       create: {
         title: 'Kategorie erstellen',
         name: 'Name',
         description: 'Beschreibung',
-        parent: 'Übergeordnete Kategorie',
-        parent_none: 'Keine Kategorie',
         webhook_url: 'Webhook URL',
         webhook_enabled: 'Webhook aktiv',
         cancel: 'Kategorie verwerfen',
@@ -507,12 +504,10 @@ export default {
         title: 'Kategorie bearbeiten',
         name: 'Name',
         description: 'Beschreibung',
-        parent: 'Übergeordnete Kategorie',
-        parent_none: 'Keine Kategorie',
         webhook_url: 'Webhook URL',
         webhook_enabled: 'Webhook aktiv',
         cancel: 'Änderungen verwerfen',
-        edit: 'Kategorie speichern',
+        update: 'Kategorie speichern',
         error: {
           title: 'Fehler beim Speichern',
           conflict: 'Eine Kategorie mit dem gewählten Namen existiert bereits.',
@@ -521,7 +516,7 @@ export default {
       },
       delete: {
         title: 'Kategorie löschen',
-        message: 'Soll die Kategorie {name} wirklich gelöscht werden?',
+        message: 'Soll die Kategorie {name} wirklich gelöscht werden? Alle Unterkategorien werden nicht gelöscht, sondern um eine Ebene nach oben geschoben.',
         keep: 'Kategorie behalten',
         delete: 'Kategorie löschen',
         error: {
