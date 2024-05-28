@@ -449,7 +449,7 @@
     ></template>
   </div>
   <template x-if="$store.authentication.loggedIn">
-    <div class="cosmo-bottom-bar is--three-column">
+    <div class="cosmo-bottom-bar is--three-column" x-data="indexBottomBarData">
       <div class="cosmo-bottom-bar__item is--left">
         <span class="cosmo-input__message is--negative" x-text="$store.uploadProgress.errorMessage"></span>
       </div>
@@ -461,14 +461,83 @@
         <span class="cosmo-progress-bar__label" id="file-upload-progress-bottom-label"
               x-text="$store.uploadProgress.status"></span>
       </div>
-      <div class="cosmo-bottom-bar__item is--right">
-        <button
-          @click="$store.colorScheme.updateTheme"
-          class="cosmo-button is--circle is--large is--primary"
-          id="toggle-theme-button"
-          x-html="$store.colorScheme.button"
-        ></button>
+      <div class="cosmo-bottom-bar__item is--right is--buttons">
+        <button @click="openFileUpload" class="cosmo-button is--circle is--large is--primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+               stroke-linejoin="round" height="1.75rem" width="1.75rem">
+            <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
+            <path d="M12 12v9" />
+            <path d="m16 16-4-4-4 4" />
+          </svg>
+        </button>
+        <button @click="updateColorTheme" class="cosmo-button is--circle is--primary"
+                x-html="changeColorThemeButton"></button>
       </div>
+      <template x-if="uploadMultipleFiles.open">
+        <form @submit.prevent="enqueueFiles" class="cosmo-modal__container">
+          <div class="cosmo-modal is--files">
+            <h1 class="cosmo-modal__title" x-localize:media-files-upload_multiple_files-title></h1>
+            <div class="cosmo-modal__content">
+              <div class="cosmo-message is--negative" x-show="uploadMultipleFiles.error.hasError">
+                <span class="cosmo-message__header" x-text="uploadMultipleFiles.error.title"></span>
+                <p class="cosmo-message__message" x-text="uploadMultipleFiles.error.message"></p>
+              </div>
+              <div class="cosmo-input__group">
+                <label class="cosmo-label" for="uploadMultipleFilesFiles"
+                       x-localize:media-files-upload_multiple_files-files></label>
+                <input @change="uploadMultipleFiles.selectFiles($event.target.files)" class="cosmo-input"
+                       id="uploadMultipleFilesFiles" multiple required type="file" />
+                <label class="cosmo-label" x-localize:media-files-upload_multiple_files-tags></label>
+                <div class="jinya-tags is--details">
+                  <template :key="tag.id" x-for="tag in tags">
+                    <cms-tag
+                      :active="uploadMultipleFiles.tags.has(tag.name)"
+                      :color="tag.color"
+                      :emoji="tag.emoji"
+                      :name="tag.name"
+                      :tag-id="tag.id"
+                      @click="uploadMultipleFiles.toggleTag(tag)"
+                      class="jinya-tag is--file"
+                    ></cms-tag>
+                  </template>
+                  <button @click="uploadMultipleFiles.tagPopupOpen = true" type="button"
+                          id="bottom-bar-new-tag-open-button" class="cosmo-button is--small is--circle is--primary">
+                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                         stroke-width="2" viewBox="0 0 24 24">
+                      <path d="M5 12h14" />
+                      <path d="M12 5v14" />
+                    </svg>
+                  </button>
+                </div>
+                <cms-tag-popup
+                  :cancel-label="tagPopupCancelLabel"
+                  :color="randomColor"
+                  :emoji="randomEmoji"
+                  :error="uploadMultipleFiles.error.tagError"
+                  :open="uploadMultipleFiles.tagPopupOpen"
+                  :popup-title="tagPopupTitle"
+                  :save-label="tagPopupSaveLabel"
+                  @close="uploadMultipleFiles.tagPopupOpen = false"
+                  @submit="createUploadMultipleFilesTag($event)"
+                  target="#bottom-bar-new-tag-open-button"
+                ></cms-tag-popup>
+              </div>
+              <div class="jinya-media-tile__container is--modal">
+                <template x-for="file in uploadMultipleFiles.files">
+                  <div class="jinya-media-tile is--small">
+                    <img class="jinya-media-tile__img is--small" x-blob-src="file">
+                  </div>
+                </template>
+              </div>
+            </div>
+            <div class="cosmo-modal__button-bar">
+              <button @click="uploadMultipleFiles.open = false" class="cosmo-button" type="button"
+                      x-localize:media-files-upload_multiple_files-cancel></button>
+              <button class="cosmo-button" type="submit" x-localize:media-files-upload_multiple_files-upload></button>
+            </div>
+          </div>
+        </form>
+      </template>
     </div>
   </template>
   <div class="jinya-loader__container" style="min-height: 100vh" x-show="!$store.loaded">

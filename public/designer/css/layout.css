@@ -29,3 +29,10 @@ body {
     align-items: center;
     flex-flow: column;
 }
+
+.cosmo-bottom-bar__item.is--right.is--buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
+    gap: 1rem;
+}
