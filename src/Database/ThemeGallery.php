@@ -152,7 +152,7 @@ class ThemeGallery implements Creatable, Updatable, Deletable
         $query = self::getQueryBuilder()
             ->newUpdate()
             ->table(self::getTableName())
-            /** @phpstan-ignore-next-line */
+            /** @phpstan-ignore argument.type */
             ->set('gallery_id', $this->galleryId)
             ->where('theme_id = :themeId AND name = :name', ['themeId' => $this->themeId, 'name' => $this->name]);
 

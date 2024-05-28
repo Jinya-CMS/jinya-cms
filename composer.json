@@ -12,7 +12,7 @@
     "ext-pdo": "*",
     "ext-pdo_mysql": "*",
     "ext-zip": "*",
-    "intervention/image": "3.6.3",
+    "intervention/image": "3.6.4",
     "jenssegers/agent": "v2.6.4",
     "jetbrains/phpstorm-attributes": "1.0",
     "jinya/database": "0.17.0",
@@ -39,7 +39,7 @@
   "require-dev": {
     "roave/security-advisories": "dev-latest",
     "fakerphp/faker": "v1.23.1",
-    "laravel/pint": "v1.15.3",
+    "laravel/pint": "v1.16.0",
     "symfony/filesystem": "v7.0.7"
   },
   "config": {

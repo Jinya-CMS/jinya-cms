@@ -152,7 +152,7 @@ class ThemeMenu implements Creatable, Updatable, Deletable
         $query = self::getQueryBuilder()
             ->newUpdate()
             ->table(self::getTableName())
-            /** @phpstan-ignore-next-line */
+            /** @phpstan-ignore argument.type */
             ->set('menu_id', $this->menuId)
             ->where('theme_id = :themeId AND name = :name', ['themeId' => $this->themeId, 'name' => $this->name]);
 

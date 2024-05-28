@@ -30,17 +30,19 @@
   <link href="/designer/css/designer.css" rel="stylesheet" />
   <link href="/designer/css/classic-pages.css" rel="stylesheet" />
   <link href="/designer/css/modern-pages.css" rel="stylesheet" />
+  <link href="/designer/css/section-editor.css" rel="stylesheet" />
   <link href="/designer/css/theme.css" rel="stylesheet" />
   <link href="/designer/css/profile.css" rel="stylesheet" />
   <link href="/designer/css/update.css" rel="stylesheet" />
   <link href="/designer/css/query-tool.css" rel="stylesheet" />
-  <link href="/designer/css/blog.css" rel="stylesheet" />
   <link href="/designer/css/loader.css" rel="stylesheet" />
   <link href="/designer/css/file-picker.css" rel="stylesheet" />
   <link href="/designer/css/login.css" rel="stylesheet" />
   <link href="/designer/css/ace.css" rel="stylesheet" />
   <link href="/designer/css/forms.css" rel="stylesheet" />
   <link href="/designer/css/menus.css" rel="stylesheet" />
+  <link href="/designer/css/blog-categories.css" rel="stylesheet" />
+  <link href="/designer/css/blog-post.css" rel="stylesheet" />
 
   <script src="/designer/js/foundation/ui/components/loader.js"></script>
 
@@ -368,6 +370,17 @@
       x-route="/frontstage/pages-and-forms/forms"
       x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
       x-template="/designer/templates/frontstage/pages-and-forms/forms.html"
+    ></template>
+
+    <template
+      x-route="/frontstage/blog/categories"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/blog/categories.html"
+    ></template>
+    <template
+      x-route="/frontstage/blog/posts"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/blog/posts.html"
     ></template>
 
     <template

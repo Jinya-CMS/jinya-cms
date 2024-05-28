@@ -1,0 +1,11 @@
+.jinya-designer__content.is--blog-categories {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+}
+
+.jinya-category__webhook {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}

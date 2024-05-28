@@ -1,0 +1,140 @@
+.jinya-section-editor__entry {
+    grid-column: content;
+    cursor: unset;
+    border: none;
+    padding: 0;
+    display: flex;
+    gap: 0;
+    justify-content: space-between;
+    min-width: 100%;
+    flex: 0 0 100%;
+    box-sizing: border-box;
+    border-radius: var(--border-radius);
+}
+
+.jinya-designer-item__edit.is--section {
+    opacity: 0;
+    transition: opacity 0.3s;
+    padding-left: 0.5rem;
+    padding-top: 0.25rem;
+}
+
+.jinya-section-editor__entry:hover .jinya-designer-item__edit.is--section {
+    opacity: 1;
+}
+
+.jinya-section-editor__button.is--add {
+    place-self: start end;
+    grid-column: button;
+}
+
+.cosmo-button.is--add.is--section {
+    opacity: 0.4;
+    transform: translateY(-1.5rem) rotate(-45deg);
+    border-bottom-right-radius: 0;
+
+    &:hover {
+        opacity: 1;
+    }
+
+    &.is--last {
+        place-self: end end;
+    }
+}
+
+.jinya-icon.is--add.is--section {
+    transform: rotate(45deg);
+}
+
+.jinya-section-editor__content.is--gallery {
+    display: flex;
+    gap: 1rem;
+    flex-flow: row wrap;
+}
+
+.jinya-section-editor__details {
+    flex: 0 0 100%;
+    min-width: 100%;
+}
+
+.jinya-section-editor__gallery {
+    display: flex;
+    gap: 1rem;
+    flex-flow: row wrap;
+}
+
+.cosmo-select.is--gallery {
+    flex: 0 0 100%;
+    min-width: 100%;
+}
+
+.jinya-section-editor__content.is--file {
+    display: grid;
+    margin: 0;
+    gap: 1rem;
+    grid-template-columns: 20rem 1fr;
+}
+
+.jinya-section-editor__image.is--file {
+    height: 20rem;
+    width: 20rem;
+    object-fit: cover;
+}
+
+.jinya-section-editor__content.is--html {
+    min-height: 100%;
+}
+
+.cosmo-label.is--section.is--link {
+    grid-area: label;
+    min-width: unset;
+    font-weight: var(--font-weight-bold);
+    align-self: center;
+}
+
+.cosmo-input.is--section.is--link {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    grid-area: link;
+    border-radius: 0;
+}
+
+.jinya-section-type-popup {
+    opacity: 0;
+    background: none;
+    position: sticky;
+    display: flex;
+    gap: 1rem;
+    flex-flow: column;
+    transition: opacity 0.3s;
+
+    &.is--open {
+        opacity: 1;
+    }
+
+    &.is--up {
+        position: fixed;
+        bottom: 11rem;
+    }
+
+    &.is--down {
+        position: fixed;
+        margin-top: 1.5rem;
+        bottom: unset;
+    }
+}
+
+figcaption.jinya-section-editor__caption.is--file {
+    display: grid;
+    grid-template: "title title" auto "label link" auto / auto 1fr;
+    align-content: start;
+    gap: 1rem;
+}
+
+span.jinya-section-editor__caption.is--file {
+    font-weight: var(--font-weight-light);
+    font-family: var(--font-family-heading);
+    font-size: 1.5rem;
+    grid-area: title;
+}

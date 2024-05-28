@@ -34,4 +34,35 @@
 
 .jinya-icon {
     stroke: currentcolor;
+
+    &.is--negative {
+        stroke: var(--negative-color)
+    }
+
+    &.is--positive {
+        stroke: var(--positive-color)
+    }
+}
+
+.cosmo-side-list {
+    --list-items-width: 16rem;
+}
+
+.cosmo-side-list__item.is--tree {
+    margin-left: calc(1rem * var(--nesting));
+    width: calc(100% - (var(--nesting) * 1rem));
+}
+
+.cosmo-button.is--primary.is--disabled {
+    cursor: not-allowed;
+    filter: var(--button-disabled-filter);
+    outline: none;
+    box-shadow: none;
+
+    &:hover,
+    &:focus,
+    &:active {
+        --button-border-color: var(--primary-color);
+        --button-background: var(--primary-color);
+    }
 }

@@ -11,22 +11,25 @@
   "bugs": {
     "url": "https://github.com/Jinya-CMS/jinya-cms/issues"
   },
+  "type": "module",
   "scripts": {
     "designer:prettier": "prettier public/designer/js --check",
-    "designer:eslint": "eslint --ext js public/designer/",
+    "designer:eslint": "eslint -c eslint.config.cjs public/designer/{js,lang}/**/*.js",
     "designer:stylelint": "stylelint public/designer/**/*.css",
     "designer:format": "prettier public/designer/js --write",
     "installer:prettier": "prettier public/installer --check",
-    "installer:eslint": "eslint --ext js public/installer/",
+    "installer:eslint": "eslint -c eslint.config.cjs public/installer/**/*.js",
     "installer:stylelint": "stylelint public/installer/**/*.css --fix",
     "installer:format": "prettier public/installer --write"
   },
   "homepage": "https://jinya.de",
   "devDependencies": {
-    "eslint": "8.57.0",
+    "@eslint/js": "9.3.0",
+    "eslint": "9.3.0",
     "eslint-config-prettier": "9.1.0",
+    "globals": "15.3.0",
     "prettier": "3.2.5",
-    "stylelint": "16.5.0",
+    "stylelint": "16.6.0",
     "stylelint-config-standard": "36.0.0"
   }
 }
