@@ -8,7 +8,7 @@ import { dataUrlReader } from './foundation/utils/blob.js';
 import { getFileDatabase } from './foundation/database/file.js';
 import { getRandomColor } from './foundation/utils/color.js';
 import { getRandomEmoji } from './foundation/utils/text.js';
-import { createTag } from './foundation/api/files.js';
+import { createTag, getTags } from './foundation/api/files.js';
 import alert from './foundation/ui/alert.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -233,6 +233,18 @@ document.addEventListener('DOMContentLoaded', async () => {
       );
       this.uploadMultipleFiles.open = false;
     },
+    async init() {
+      this.tags = await fileDatabase.getAllTags();
+
+      getTags()
+        .then((tags) => {
+          fileDatabase.replaceTags(tags.items);
+
+          this.tags = tags.items;
+          this.loading = false;
+        });
+    },
+    tags: [],
     uploadMultipleFiles: {
       open: false,
       files: null,

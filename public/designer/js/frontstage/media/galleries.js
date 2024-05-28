@@ -52,6 +52,7 @@ Alpine.data('galleriesData', () => ({
     fileDatabase.watchFiles().subscribe({
       next: (files) => {
         this.files = files;
+        this.setToolboxFiles();
       },
     });
 
