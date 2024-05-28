@@ -19,7 +19,7 @@ Alpine.data('categoriesData', () => ({
     return `#${this.selectedCategory.id} ${this.selectedCategory.name}`;
   },
   async canDelete() {
-    if (this.categories.filter(c => c.parent?.id === this.selectedCategory.id).length > 0) {
+    if (this.categories.filter((c) => c.parent?.id === this.selectedCategory.id).length > 0) {
       return false;
     }
 
@@ -56,7 +56,13 @@ Alpine.data('categoriesData', () => ({
   },
   async updateCategory() {
     try {
-      await updateBlogCategory(this.selectedCategory.id, this.edit.name, this.edit.description, this.edit.webhookEnabled, this.edit.webhookUrl);
+      await updateBlogCategory(
+        this.selectedCategory.id,
+        this.edit.name,
+        this.edit.description,
+        this.edit.webhookEnabled,
+        this.edit.webhookUrl,
+      );
       this.edit.open = false;
       this.categories[this.categories.indexOf(this.selectedCategory)].name = this.edit.name;
       this.categories[this.categories.indexOf(this.selectedCategory)].description = this.edit.description;
@@ -74,7 +80,13 @@ Alpine.data('categoriesData', () => ({
   },
   async createCategory() {
     try {
-      const savedCat = await createBlogCategory(this.create.name, this.create.description, this.create.parent?.id, this.create.webhookEnabled, this.create.webhookUrl);
+      const savedCat = await createBlogCategory(
+        this.create.name,
+        this.create.description,
+        this.create.parent?.id,
+        this.create.webhookEnabled,
+        this.create.webhookUrl,
+      );
       this.create.open = false;
       let nesting = 0;
       if (this.create.parent) {

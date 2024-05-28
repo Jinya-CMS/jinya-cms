@@ -182,7 +182,8 @@ Alpine.data('postsData', () => ({
     this.edit.title = this.selectedPost.title;
     this.edit.slug = this.selectedPost.slug;
     this.edit.headerImage = this.selectedPost.headerImage;
-    this.edit.picker.selected = this.selectedPost.headerImage?.name ?? localize({ key: 'blog.posts.edit.no_header_image' });
+    this.edit.picker.selected =
+      this.selectedPost.headerImage?.name ?? localize({ key: 'blog.posts.edit.no_header_image' });
     this.edit.categoryId = this.selectedPost.category?.id;
     this.edit.open = true;
   },
@@ -203,7 +204,7 @@ Alpine.data('postsData', () => ({
         const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
         let top = 0;
         if (index > 0) {
-          top = ((index * height) + (index * 1.5)) * rootFontSize;
+          top = (index * height + index * 1.5) * rootFontSize;
         }
 
         this.$refs.tileContainer.scrollTo({
@@ -261,7 +262,12 @@ Alpine.data('postsData', () => ({
   },
   async createPost() {
     try {
-      const savedPost = await createBlogPost(this.create.title, this.create.slug, this.create.categoryId, this.create.headerImage?.id);
+      const savedPost = await createBlogPost(
+        this.create.title,
+        this.create.slug,
+        this.create.categoryId,
+        this.create.headerImage?.id,
+      );
       this.create.open = false;
       this.posts = (await getBlogPosts(this.selectedCategory?.id)).items;
       this.selectPost(savedPost);
@@ -281,7 +287,13 @@ Alpine.data('postsData', () => ({
   },
   async updatePost() {
     try {
-      await updateBlogPost(this.selectedPost.id, this.edit.title, this.edit.slug, this.edit.categoryId, this.edit.headerImage?.id);
+      await updateBlogPost(
+        this.selectedPost.id,
+        this.edit.title,
+        this.edit.slug,
+        this.edit.categoryId,
+        this.edit.headerImage?.id,
+      );
       this.edit.open = false;
       this.posts[this.posts.indexOf(this.selectedPost)].title = this.edit.title;
       this.posts[this.posts.indexOf(this.selectedPost)].slug = this.edit.slug;

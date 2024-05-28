@@ -1,16 +1,17 @@
 export function prepareCategories(cats, nesting = 0) {
-  return cats.map((cat) => {
-    const res = {
-      ...cat,
-      nesting,
-    };
+  return cats
+    .map((cat) => {
+      const res = {
+        ...cat,
+        nesting,
+      };
 
-    if (cat.children) {
-      return [res, ...prepareCategories(cat.children, nesting + 1)];
-    }
+      if (cat.children) {
+        return [res, ...prepareCategories(cat.children, nesting + 1)];
+      }
 
-    return [res];
-  })
+      return [res];
+    })
     .flat(Infinity);
 }
 
