@@ -29,6 +29,7 @@ Alpine.data('loginData', () => ({
       await requestTwoFactor(this.email, this.password);
       this.twoFactorCodeRequested = true;
     } catch (e) {
+      console.error(e);
       this.errorMessage = localize({ key: 'login.error.login_failed.message' });
     }
   },
