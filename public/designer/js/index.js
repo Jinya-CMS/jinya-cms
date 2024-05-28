@@ -17,14 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   Alpine.plugin(PineconeRouter);
 
-  Alpine.directive('localize', (el, {
-    value,
-    expression,
-    modifiers,
-  }, {
-                                  evaluateLater,
-                                  effect,
-                                }) => {
+  Alpine.directive('localize', (el, { value, expression, modifiers }, { evaluateLater, effect }) => {
     const getValues = expression ? evaluateLater(expression) : (load) => load();
     effect(() => {
       getValues((values) => {
@@ -43,18 +36,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
     });
   });
-  Alpine.directive('active-route', (el, {
-    expression,
-    modifiers,
-  }, {
-                                      Alpine,
-                                      effect,
-                                    }) => {
+  Alpine.directive('active-route', (el, { expression, modifiers }, { Alpine, effect }) => {
     effect(() => {
-      const {
-        page,
-        area,
-      } = Alpine.store('navigation');
+      const { page, area } = Alpine.store('navigation');
       if ((modifiers.includes('area') && area === expression) || (!modifiers.includes('area') && page === expression)) {
         el.classList.add('is--active');
       } else {
@@ -62,10 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     });
   });
-  Alpine.directive('blob-src', (el, { expression }, {
-    evaluateLater,
-    effect,
-  }) => {
+  Alpine.directive('blob-src', (el, { expression }, { evaluateLater, effect }) => {
     const getValues = expression ? evaluateLater(expression) : (load) => load();
     effect(() => {
       getValues(async (values) => {
@@ -85,14 +66,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       this.roles = roles;
     },
     logout(fully = false) {
-      Alpine.store('artist')
-        .setArtist({
-          profilePicture: '',
-          artistName: '',
-          email: '',
-          aboutMe: '',
-          colorScheme: '',
-        });
+      Alpine.store('artist').setArtist({
+        profilePicture: '',
+        artistName: '',
+        email: '',
+        aboutMe: '',
+        colorScheme: '',
+      });
       logout(fully);
       window.PineconeRouter.context.navigate('/login');
       this.loggedIn = false;
@@ -105,13 +85,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     colorScheme: '',
     email: '',
     aboutMe: '',
-    setArtist({
-                profilePicture,
-                artistName,
-                email,
-                aboutMe,
-                colorScheme,
-              }) {
+    setArtist({ profilePicture, artistName, email, aboutMe, colorScheme }) {
       this.profilePicture = profilePicture;
       this.artistName = artistName;
       this.email = email;
@@ -124,11 +98,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     stage: 'frontstage',
     area: 'media',
     page: 'files',
-    navigate({
-               stage,
-               area,
-               page,
-             }) {
+    navigate({ stage, area, page }) {
       this.stage = stage;
       this.area = area;
       this.page = page;
@@ -223,11 +193,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       await fileDatabase.queueFilesForUpload(
         [...Alpine.raw(this.uploadMultipleFiles.files)].map((file) => ({
           data: file,
-          name: file.name.split('.')
-            .reverse()
-            .slice(1)
-            .reverse()
-            .join('.'),
+          name: file.name.split('.').reverse().slice(1).reverse().join('.'),
           tags: [...tags],
         })),
       );
@@ -236,13 +202,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     async init() {
       this.tags = await fileDatabase.getAllTags();
 
-      getTags()
-        .then((tags) => {
-          fileDatabase.replaceTags(tags.items);
+      getTags().then((tags) => {
+        fileDatabase.replaceTags(tags.items);
 
-          this.tags = tags.items;
-          this.loading = false;
-        });
+        this.tags = tags.items;
+        this.loading = false;
+      });
     },
     tags: [],
     uploadMultipleFiles: {
@@ -284,16 +249,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     const myProfile = await getMyProfile();
 
-    Alpine.store('authentication')
-      .login({
-        loggedIn: true,
-        roles: myProfile.roles,
-      });
-    Alpine.store('artist')
-      .setArtist(myProfile);
+    Alpine.store('authentication').login({
+      loggedIn: true,
+      roles: myProfile.roles,
+    });
+    Alpine.store('artist').setArtist(myProfile);
   } catch {
-    Alpine.store('authentication')
-      .logout();
+    Alpine.store('authentication').logout();
   }
 
   Alpine.store('loaded', true);
@@ -303,53 +265,44 @@ document.addEventListener('DOMContentLoaded', async () => {
     errorMessage: '',
     status: '',
     init() {
-      fileDatabase.watchUploadedFilesCount()
-        .subscribe({
-          next: ({ value: count }) => {
-            this.filesUploaded = count;
-          },
-        });
-      fileDatabase.watchUploadingFilesCount()
-        .subscribe({
-          next: ({ value: count }) => {
-            this.filesToUpload = count;
-          },
-        });
-      fileDatabase.watchUploadError()
-        .subscribe({
-          next: ({
-                   value: {
-                     error,
-                     name,
-                   },
-                 }) => {
-            if (!error) {
-              return;
-            }
+      fileDatabase.watchUploadedFilesCount().subscribe({
+        next: ({ value: count }) => {
+          this.filesUploaded = count;
+        },
+      });
+      fileDatabase.watchUploadingFilesCount().subscribe({
+        next: ({ value: count }) => {
+          this.filesToUpload = count;
+        },
+      });
+      fileDatabase.watchUploadError().subscribe({
+        next: ({ value: { error, name } }) => {
+          if (!error) {
+            return;
+          }
 
-            if (error.status === 409) {
-              this.errorMessage = localize({
-                key: 'bottom_bar.error.conflict',
-                values: { name },
-              });
-            } else {
-              console.error(error);
-              this.errorMessage = localize({
-                key: 'bottom_bar.error.generic',
-                values: { name },
-              });
-            }
-          },
-        });
-      fileDatabase.watchCurrentUpload()
-        .subscribe({
-          next: ({ value: name }) => {
-            this.status = localize({
-              key: 'bottom_bar.status',
+          if (error.status === 409) {
+            this.errorMessage = localize({
+              key: 'bottom_bar.error.conflict',
               values: { name },
             });
-          },
-        });
+          } else {
+            console.error(error);
+            this.errorMessage = localize({
+              key: 'bottom_bar.error.generic',
+              values: { name },
+            });
+          }
+        },
+      });
+      fileDatabase.watchCurrentUpload().subscribe({
+        next: ({ value: name }) => {
+          this.status = localize({
+            key: 'bottom_bar.status',
+            values: { name },
+          });
+        },
+      });
     },
   });
 
