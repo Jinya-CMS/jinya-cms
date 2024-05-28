@@ -2,15 +2,15 @@
 
 namespace Jinya\Cms\Database;
 
+use DateTime;
+use Exception;
+use Iterator;
+use JetBrains\PhpStorm\ArrayShape;
 use Jinya\Cms\Authentication\CurrentUser;
 use Jinya\Cms\Database\Converter\BooleanConverter;
 use Jinya\Cms\Database\Exceptions\TransactionFailedException;
 use Jinya\Cms\Logging\Logger;
 use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
-use DateTime;
-use Exception;
-use Iterator;
-use JetBrains\PhpStorm\ArrayShape;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
@@ -65,6 +65,16 @@ class BlogPost extends Entity implements JsonSerializable
     #[Column(sqlName: 'creator_id')]
     #[ApiIgnore]
     public int $creatorId;
+
+    /** @var int The ID of the artist who last touched the post */
+    #[Column(sqlName: 'updated_by_id')]
+    #[ApiIgnore]
+    public int $updatedById;
+
+    /** @var DateTime The time the post was last updated at */
+    #[Column(sqlName: 'last_updated_at')]
+    #[ApiIgnore]
+    public DateTime $lastUpdatedAt;
 
     /** @var int|null The ID of the category this post belongs to */
     #[Column(sqlName: 'category_id')]
@@ -190,7 +200,10 @@ class BlogPost extends Entity implements JsonSerializable
     public function create(): void
     {
         $this->createdAt = new DateTime();
-        $this->creatorId = (int)CurrentUser::$currentUser?->id;
+        $this->creatorId = CurrentUser::$currentUser?->id;
+
+        $this->lastUpdatedAt = new DateTime();
+        $this->updatedById = CurrentUser::$currentUser?->id;
 
         parent::create();
 
@@ -276,10 +289,13 @@ class BlogPost extends Entity implements JsonSerializable
         'category' => 'array|null',
         'public' => 'bool',
         'created' => 'array',
+        'updated' => 'array',
     ])]
     public function format(): array
     {
         $creator = $this->getCreator();
+        $updatedBy = $this->getUpdatedBy();
+
         $headerImage = $this->getHeaderImage();
         if ($headerImage !== null) {
             $headerFormat = [
@@ -315,6 +331,14 @@ class BlogPost extends Entity implements JsonSerializable
                     'profilePicture' => $creator?->profilePicture,
                 ],
             ],
+            'updated' => [
+                'by' => [
+                    'artistName' => $updatedBy?->artistName,
+                    'email' => $updatedBy?->email,
+                    'profilePicture' => $updatedBy?->profilePicture,
+                ],
+                'at' => $this->lastUpdatedAt->format(DATE_ATOM),
+            ],
         ];
     }
 
@@ -326,6 +350,16 @@ class BlogPost extends Entity implements JsonSerializable
     public function getCreator(): Artist|null
     {
         return Artist::findById($this->creatorId);
+    }
+
+    /**
+     * Gets the artist that last updated this post
+     *
+     * @return Artist|null
+     */
+    public function getUpdatedBy(): ?Artist
+    {
+        return Artist::findById($this->updatedById ?? $this->creatorId);
     }
 
     /**
@@ -365,6 +399,9 @@ class BlogPost extends Entity implements JsonSerializable
      */
     public function update(): void
     {
+        $this->lastUpdatedAt = new DateTime();
+        $this->updatedById = CurrentUser::$currentUser->id;
+
         /** @var BlogPost $oldState */
         $oldState = self::findById($this->id);
         $wasPublic = $oldState->public;

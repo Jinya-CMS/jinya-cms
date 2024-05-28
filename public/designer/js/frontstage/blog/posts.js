@@ -8,18 +8,29 @@ import {
   createBlogPost,
   deleteBlogPost,
   getBlogPosts,
+  getBlogPostSections,
   publishBlogPost,
   unpublishBlogPost,
   updateBlogPost,
+  updateBlogPostSections,
 } from '../../foundation/api/blog-post.js';
 import filePicker from '../../foundation/ui/filePicker.js';
 import { slugify } from '../../foundation/utils/text.js';
+import { getFilesByGallery, getGalleries } from '../../foundation/api/galleries.js';
+
+import '../../foundation/ui/components/inline-editor.js';
+import { getBlogPostDatabase } from '../../foundation/database/blog-post.js';
+import isEqual from '../../../lib/lodash/isEqual.js';
+
+const postDatabase = getBlogPostDatabase();
 
 Alpine.data('postsData', () => ({
   posts: [],
   categories: [],
   selectedCategory: null,
   selectedPost: null,
+  sections: [],
+  galleries: [],
   hasMessage: false,
   get title() {
     if (this.selectedCategory) {
@@ -28,16 +39,121 @@ Alpine.data('postsData', () => ({
 
     return localize({ key: 'blog.posts.overview.all' });
   },
+  getGalleryText(gallery) {
+    return `#${gallery.id} ${gallery.name}`;
+  },
   getPostTitle(post) {
     return `#${post.id} ${post.title}`;
   },
   getCategoryOptionLabel(category) {
     return `${'&nbsp;'.repeat(category.nesting * 4)}#${category.id} ${category.name}`;
   },
+  getPositions(gallery) {
+    return getFilesByGallery(gallery.id);
+  },
+  changeSectionGallery(index, e) {
+    this.sections[index].gallery = this.galleries[parseInt(e.target.value, 10)];
+  },
+  updateHtmlSection(index, value) {
+    this.sections[index].html = value;
+  },
+  async selectFile(section, index) {
+    const file = await filePicker({
+      title: localize({ key: 'blog.posts.designer.pick_file' }),
+      selectedFileId: section.file.id,
+    });
+    if (file) {
+      this.sections[index].file = file;
+      await this.savePostSections();
+    }
+  },
+  async savePostSections() {
+    if (this.selectedPost) {
+      await postDatabase.saveSections(
+        this.selectedPost.id,
+        this.cleanSections(Alpine.raw(this.sections), this.selectedPost.id),
+      );
+    }
+  },
+  async clearPostSections() {
+    if (this.selectedPost) {
+      await postDatabase.deleteSections(this.selectedPost.id);
+    }
+  },
+  async getPostSections(id) {
+    return this.cleanSections(await postDatabase.getSections(id));
+  },
+  cleanSections(sections, postId = null) {
+    return sections.map((item) => ({
+      postId: postId ?? item.postId,
+      gallery: item.gallery ? Alpine.raw(item.gallery) : null,
+      file: item.file ? Alpine.raw(item.file) : null,
+      link: item.link ?? null,
+      html: item.html ?? null,
+      type: item.file ? 'file' : item.gallery ? 'gallery' : 'html',
+    }));
+  },
+  insertHtmlSection(index) {
+    this.sections.splice(index, 0, {
+      postId: this.selectedPost.id,
+      gallery: null,
+      file: null,
+      link: null,
+      html: '',
+      type: 'html',
+    });
+  },
+  insertGallerySection(index) {
+    this.sections.splice(index, 0, {
+      postId: this.selectedPost.id,
+      gallery: this.galleries[0],
+      file: null,
+      link: null,
+      html: null,
+      type: 'gallery',
+    });
+  },
+  async insertImageSection(index) {
+    const file = await filePicker({
+      title: localize({ key: 'blog.posts.designer.pick_file' }),
+    });
+    if (file) {
+      this.sections.splice(index, 0, {
+        postId: this.selectedPost.id,
+        gallery: null,
+        file: {
+          id: file.id,
+          name: file.name,
+          type: file.type,
+          path: file.path,
+        },
+        link: null,
+        html: null,
+        type: 'file',
+      });
+    }
+  },
+  async deleteSection(section, index) {
+    const confirmed = await confirm({
+      title: localize({ key: 'blog.posts.delete_section.title' }),
+      message: localize({
+        key: 'blog.posts.delete_section.message',
+        values: section,
+      }),
+      approveLabel: localize({ key: 'blog.posts.delete_section.delete' }),
+      declineLabel: localize({ key: 'blog.posts.delete_section.keep' }),
+      negative: true,
+    });
+    if (confirmed) {
+      this.sections.splice(index, 1);
+      await this.savePostSections();
+    }
+  },
   async init() {
-    const [posts, categories] = await Promise.all([getBlogPosts(), getBlogCategories()]);
+    const [posts, categories, galleries] = await Promise.all([getBlogPosts(), getBlogCategories(), getGalleries()]);
     this.categories = prepareCategories(categoriesToTree(categories.items));
     this.posts = posts.items;
+    this.galleries = galleries.items;
     this.$watch('create.title', (newValue, oldValue) => {
       if (slugify(oldValue) === this.create.slug) {
         this.create.slug = slugify(newValue);
@@ -47,6 +163,9 @@ Alpine.data('postsData', () => ({
       if (slugify(oldValue) === this.edit.slug) {
         this.edit.slug = slugify(newValue);
       }
+    });
+    this.$watch('sections', () => {
+      this.savePostSections();
     });
   },
   openCreateDialog() {
@@ -72,8 +191,51 @@ Alpine.data('postsData', () => ({
     this.posts = (await getBlogPosts(this.selectedCategory?.id)).items;
     this.selectedPost = null;
   },
-  selectPost(post) {
+  async selectPost(index, post) {
     this.selectedPost = post;
+    if (post) {
+      this.$nextTick(() => {
+        let height = 15;
+        if (window.matchMedia('screen and (width <= 1920px)').matches) {
+          height = 10;
+        }
+
+        const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+        let top = 0;
+        if (index > 0) {
+          top = ((index * height) + (index * 1.5)) * rootFontSize;
+        }
+
+        this.$refs.tileContainer.scrollTo({
+          top,
+        });
+      });
+
+      this.sections = this.cleanSections(await getBlogPostSections(post.id), post.id);
+
+      const savedPost = await postDatabase.getChangedPost(post.id);
+      const savedSections = await this.getPostSections(post.id);
+      const savedPageUpdatedAt = Date.parse(savedPost?.updated?.at) ?? 0;
+      const pageUpdatedAt = Date.parse(post.updated.at);
+
+      if (savedSections.length === 0 || savedPageUpdatedAt < pageUpdatedAt) {
+        await this.savePostSections();
+      } else if (savedSections.length !== this.sections.length || !isEqual(savedSections, Alpine.raw(this.sections))) {
+        const confirmed = await confirm({
+          title: localize({ key: 'blog.posts.designer.load.title' }),
+          message: localize({ key: 'blog.posts.designer.load.message' }),
+          declineLabel: localize({ key: 'blog.posts.designer.load.decline' }),
+          approveLabel: localize({ key: 'blog.posts.designer.load.approve' }),
+        });
+        if (confirmed) {
+          this.sections = savedSections;
+        } else {
+          await this.savePostSections();
+        }
+      }
+    } else {
+      this.sections = [];
+    }
   },
   async selectCreateHeaderImage() {
     const selectedFileId = this.create.headerImage?.id;
@@ -131,7 +293,7 @@ Alpine.data('postsData', () => ({
       if (e.status === 409) {
         if (e.message.includes('slug')) {
           this.edit.error.message = localize({ key: 'blog.posts.edit.error.slug_exists' });
-        }else {
+        } else {
           this.edit.error.message = localize({ key: 'blog.posts.edit.error.title_exists' });
         }
       } else {
@@ -179,7 +341,6 @@ Alpine.data('postsData', () => ({
       try {
         await publishBlogPost(this.selectedPost.id);
         this.posts[this.posts.findIndex((post) => post.id === this.selectedPost.id)].public = true;
-        this.selectedPost = null;
       } catch (e) {
         await alert({
           title: localize({ key: 'blog.posts.publish.error.title' }),
@@ -204,7 +365,6 @@ Alpine.data('postsData', () => ({
       try {
         await unpublishBlogPost(this.selectedPost.id);
         this.posts[this.posts.findIndex((post) => post.id === this.selectedPost.id)].public = false;
-        this.selectedPost = null;
       } catch (e) {
         await alert({
           title: localize({ key: 'blog.posts.unpublish.error.title' }),
@@ -212,6 +372,49 @@ Alpine.data('postsData', () => ({
           negative: true,
         });
       }
+    }
+  },
+  async savePost() {
+    try {
+      await updateBlogPostSections(
+        this.selectedPost.id,
+        this.sections.map((item) => ({
+          ...item,
+          gallery: item.gallery?.id,
+          file: item.file?.id,
+        })),
+      );
+      if (!this.selectedPost.public) {
+        const confirmation = await confirm({
+          title: localize({ key: 'blog.posts.designer.publish.title' }),
+          message: localize({
+            key: 'blog.posts.designer.publish.message',
+            values: this.selectedPost,
+          }),
+          declineLabel: localize({ key: 'blog.posts.designer.publish.dont' }),
+          approveLabel: localize({ key: 'blog.posts.designer.publish.publish' }),
+          negative: false,
+        });
+        if (confirmation) {
+          try {
+            await publishBlogPost(this.selectedPost.id);
+            this.posts[this.posts.findIndex((post) => post.id === this.selectedPost.id)].public = true;
+            this.selectedPost = null;
+          } catch (e) {
+            await alert({
+              title: localize({ key: 'blog.posts.publish.designer.error.title' }),
+              message: localize({ key: 'blog.posts.publish.designer.error.generic' }),
+              negative: true,
+            });
+          }
+        }
+      }
+      await this.selectPost(null, null);
+    } catch (e) {
+      this.message.hasMessage = true;
+      this.message.title = localize({ key: 'blog.posts.designer.error.title' });
+      this.message.isNegative = true;
+      this.message.content = localize({ key: 'blog.posts.designer.error.message' });
     }
   },
   create: {
@@ -254,6 +457,18 @@ Alpine.data('postsData', () => ({
         this.message = '';
         this.hasError = false;
       },
+    },
+  },
+  message: {
+    title: '',
+    content: '',
+    isNegative: false,
+    hasMessage: false,
+    reset() {
+      this.title = '';
+      this.content = '';
+      this.isNegative = false;
+      this.hasMessage = false;
     },
   },
 }));

@@ -1,21 +1,39 @@
 .jinya-designer__content.is--blog-posts {
-    display: flex;
-    grid-row: content;
+    --tiles-width: 1fr;
+    --editor-width: 0;
+    --separator-width: 0;
+
     max-height: calc(var(--page-height) - 2.75rem - 1.25rem - 2rem - 2rem - 0.25rem);
     align-items: start;
     justify-content: space-between;
+    display: grid;
+    grid-template-columns: [tiles] var(--tiles-width) [separator] var(--separator-width) [editor] var(--editor-width);
+    grid-template-rows: [content] calc(var(--page-height) - 2.75rem - 1.25rem - 2rem - 2rem - 0.25rem);
+    height: calc(var(--page-height) - 2.75rem - 1.25rem - 2rem - 2rem - 0.25rem);
     gap: 1rem;
+    grid-row: content;
+
+    &.has--selection {
+        --tiles-width: 25rem;
+        --editor-width: 1fr;
+        --separator-width: 0.625rem;
+
+        @media screen and (width <= 1920px) {
+            --tiles-width: 16rem;
+        }
+    }
 }
 
 .jinya-blog-tile__container {
     display: flex;
     flex-flow: row wrap;
     gap: 1.5rem;
-    height: calc(var(--page-height) - 2.75rem - 1.25rem - 2rem - 2rem);
-    grid-row: content;
+    height: 100%;
     overflow-y: auto;
     align-content: start;
     width: 100%;
+    grid-column: tiles;
+    grid-row: content;
 }
 
 .jinya-blog-tile__img {
@@ -25,8 +43,10 @@
     background: var(--gray-light);
     grid-row: img;
     max-height: 13rem;
-    border-bottom-left-radius: var(--border-radius);
-    border-bottom-right-radius: var(--border-radius);
+
+    @media screen and (width <= 1920px) {
+        height: 8rem;
+    }
 
     &:hover {
         object-fit: scale-down;
@@ -43,6 +63,11 @@
     box-sizing: border-box;
     background: var(--gray-light);
     cursor: pointer;
+
+    @media screen and (width <= 1920px) {
+        width: 15rem;
+        height: 10rem;
+    }
 
     &.is--selected {
         border: 0.25rem solid var(--primary-color);
@@ -61,8 +86,14 @@
 
         .jinya-blog-tile__img {
             max-height: 12.5rem;
+
+            @media screen and (width <= 1920px) {
+                height: 7.5rem;
+            }
         }
     }
+
+    overflow: hidden;
 }
 
 .jinya-blog-tile__title {
@@ -76,6 +107,11 @@
     padding: 0.25rem 0.5rem;
     align-items: center;
 
+    @media screen and (width <= 1920px) {
+        font-size: 1.25rem;
+        height: 2rem;
+    }
+
     .jinya-icon {
         flex: 0 0;
     }
@@ -87,4 +123,41 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+}
+
+.jinya-blog__separator {
+    grid-column: separator;
+    grid-row: content;
+    height: 100%;
+    width: 0.0625rem;
+    background: var(--control-border-color);
+}
+
+.jinya-blog__editor {
+    grid-template-rows: [message] auto;
+    grid-column: editor;
+    grid-row: content;
+    display: grid;
+    max-height: 100%;
+    grid-template-columns: [button] 2rem [content] 1fr 4rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+    place-content: baseline flex-start;
+    grid-auto-rows: auto;
+    padding-top: 2rem;
+    gap: 1rem;
+    height: 100%;
+}
+
+.cosmo-message.is--blog {
+    grid-row: message;
+    grid-column: 2/4;
+    margin-left: 3rem;
+    width: calc(100% - 3rem);
+}
+
+.cosmo-button.is--blog.is--close {
+    grid-column: editor;
+    grid-row: content;
+    place-self: start end;
 }

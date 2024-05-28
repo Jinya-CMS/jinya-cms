@@ -6,7 +6,7 @@ class BlogPostDatabase {
     this.#database = new Dexie('blogPosts');
     this.#database.version(1).stores({
       sections: `++id,postId`,
-      changedPages: 'postId',
+      changedPosts: 'postId',
     });
   }
 
@@ -16,8 +16,8 @@ class BlogPostDatabase {
     return this.#database.sections.where('postId').equals(id).toArray();
   }
 
-  getChangedPage(id) {
-    return this.#database.changedPages.get(id);
+  getChangedPost(id) {
+    return this.#database.changedPosts.get(id);
   }
 
   async deleteSections(id) {
@@ -28,7 +28,7 @@ class BlogPostDatabase {
 
   async saveSections(id, sections) {
     await this.#database.changedPosts.put({
-      pageId: id,
+      postId: id,
       updated: { at: getTimestamp() },
     });
     await this.#database.transaction('rw', this.#database.sections, async () => {

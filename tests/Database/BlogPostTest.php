@@ -200,6 +200,14 @@ class BlogPostTest extends DatabaseAwareTestCase
                     'profilePicture' => CurrentUser::$currentUser->profilePicture,
                 ],
             ],
+            'updated' => [
+                'at' => $post->lastUpdatedAt->format(DATE_ATOM),
+                'by' => [
+                    'artistName' => CurrentUser::$currentUser->artistName,
+                    'email' => CurrentUser::$currentUser->email,
+                    'profilePicture' => CurrentUser::$currentUser->profilePicture,
+                ],
+            ],
         ], $post->format());
     }
 

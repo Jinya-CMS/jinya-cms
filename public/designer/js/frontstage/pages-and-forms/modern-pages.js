@@ -14,9 +14,9 @@ import { getFilesByGallery, getGalleries } from '../../foundation/api/galleries.
 import isEqual from '../../../lib/lodash/isEqual.js';
 import filePicker from '../../foundation/ui/filePicker.js';
 import alert from '../../foundation/ui/alert.js';
+import { getModernPageDatabase } from '../../foundation/database/modern-page.js';
 
 import '../../foundation/ui/components/inline-editor.js';
-import { getModernPageDatabase } from '../../foundation/database/modern-page.js';
 
 const modernPageDatabase = getModernPageDatabase();
 
@@ -163,19 +163,19 @@ Alpine.data('modernPagesData', () => ({
       });
     }
   },
-  async deleteItem(item, index) {
+  async deleteSection(section, index) {
     const confirmed = await confirm({
-      title: localize({ key: 'pages_and_forms.modern.delete_item.title' }),
+      title: localize({ key: 'pages_and_forms.modern.delete_section.title' }),
       message: localize({
-        key: 'pages_and_forms.modern.delete_item.message',
-        values: item,
+        key: 'pages_and_forms.modern.delete_section.message',
+        values: section,
       }),
-      approveLabel: localize({ key: 'pages_and_forms.modern.delete_item.delete' }),
-      declineLabel: localize({ key: 'pages_and_forms.modern.delete_item.keep' }),
+      approveLabel: localize({ key: 'pages_and_forms.modern.delete_section.delete' }),
+      declineLabel: localize({ key: 'pages_and_forms.modern.delete_section.keep' }),
       negative: true,
     });
     if (confirmed) {
-      this.items.splice(index, 1);
+      this.sections.splice(index, 1);
       await this.savePageSections();
     }
   },
@@ -191,7 +191,7 @@ Alpine.data('modernPagesData', () => ({
       );
       this.message.hasMessage = true;
       this.message.title = localize({ key: 'pages_and_forms.modern.designer.success.title' });
-      this.message.error = false;
+      this.message.isNegative = false;
       this.message.content = localize({ key: 'pages_and_forms.modern.designer.success.message' });
       setTimeout(() => {
         this.message.hasMessage = false;
@@ -199,7 +199,7 @@ Alpine.data('modernPagesData', () => ({
     } catch (e) {
       this.message.hasMessage = true;
       this.message.title = localize({ key: 'pages_and_forms.modern.designer.error.title' });
-      this.message.error = true;
+      this.message.isNegative = true;
       this.message.content = localize({ key: 'pages_and_forms.modern.designer.error.message' });
     }
   },
@@ -304,12 +304,12 @@ Alpine.data('modernPagesData', () => ({
   message: {
     title: '',
     content: '',
-    isNegative: '',
+    isNegative: false,
     hasMessage: false,
     reset() {
       this.title = '';
       this.content = '';
-      this.isNegative = '';
+      this.isNegative = false;
       this.hasMessage = false;
     },
   },

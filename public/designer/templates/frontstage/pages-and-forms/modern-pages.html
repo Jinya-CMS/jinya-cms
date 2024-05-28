@@ -33,11 +33,10 @@
         </div>
         <template x-for="(section, index) in sections" :key="index">
           <div style="display: contents">
-            <div class="jinya-designer-modern-page-button is--add" x-data="{ addOpen: false }">
-              <button class="cosmo-button is--circle is--primary is--add is--modern-page"
+            <div class="jinya-section-editor__button is--add" x-data="{ addOpen: false }">
+              <button class="cosmo-button is--circle is--primary is--add is--section"
                       @click="addOpen = !addOpen">
-                <svg class="jinya-icon is--add is--modern-page" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="jinya-icon is--add is--section" viewBox="0 0 24 24">
                   <path d="M5 12h14" />
                   <path d="M12 5v14" />
                 </svg>
@@ -79,47 +78,47 @@
                 </button>
               </div>
             </div>
-            <section class="jinya-designer-modern-page-section is--modern-page">
-              <div class="jinya-designer-modern-page-section__details">
+            <section class="jinya-section-editor__entry">
+              <div class="jinya-section-editor__details">
                 <template x-if="section.type === 'file'">
-                  <figure class="jinya-designer-modern-page-section__content is--modern-page is--file">
-                    <img class="jinya-designer-modern-page-section__image is--modern-page is--file"
+                  <figure class="jinya-section-editor__content is--file">
+                    <img class="jinya-section-editor__image is--file"
                          :src="section.file.path" :alt="section.file.name">
-                    <figcaption class="jinya-designer-modern-page-section__caption is--modern-page is--file"
+                    <figcaption class="jinya-section-editor__caption is--file"
                                 x-data="{ id: $id('section-file') }">
-                      <span class="jinya-designer-modern-page-section__caption is--modern-page is--file"
+                      <span class="jinya-section-editor__caption is--file"
                             x-text="section.file.name"></span>
-                      <label :for="id" class="cosmo-label is--modern-page is--link"
+                      <label :for="id" class="cosmo-label is--link"
                              x-localize:pages_and_forms-modern-designer-link></label>
-                      <input :id="id" type="text" class="cosmo-input is--modern-page is--link" x-model="section.link">
+                      <input :id="id" type="text" class="cosmo-input is--link" x-model="section.link">
                     </figcaption>
                   </figure>
                 </template>
                 <template x-if="section.type === 'gallery'">
-                  <div class="jinya-designer-modern-page-section__content is--modern-page is--gallery">
+                  <div class="jinya-section-editor__content is--gallery">
                     <select class="cosmo-select is--gallery" @input="(e) => changeSectionGallery(index, e)">
                       <template x-for="(gallery, galleryIdx) in galleries" :key="gallery.id">
                         <option :selected="gallery.id === section.gallery?.id" :value="galleryIdx"
                                 x-text="gallery.name"></option>
                       </template>
                     </select>
-                    <div class="jinya-designer-modern-page-section__gallery">
+                    <div class="jinya-section-editor__gallery">
                       <template x-for="position in getPositions(section.gallery)" :key="position.id">
                         <img
-                          class="jinya-designer-modern-page-section__image is--modern-page jinya-media-tile is--designer"
+                          class="jinya-section-editor__image jinya-media-tile is--designer"
                           :src="position.file.path" :alt="position.file.name">
                       </template>
                     </div>
                   </div>
                 </template>
                 <template x-if="section.type === 'html'">
-                  <div class="jinya-designer-modern-page-section__content is--modern-page is--html">
+                  <div class="jinya-section-editor__content is--html">
                     <cms-inline-editor @change="(e) => updateHtmlSection(index, e.value)"
                                        :content="section.html"></cms-inline-editor>
                   </div>
                 </template>
               </div>
-              <div class="jinya-designer-item__edit is--modern-page">
+              <div class="jinya-designer-item__edit is--section">
                 <template x-if="section.file">
                   <button class="cosmo-button is--icon is--primary" @click="selectFile(section, index)">
                     <svg viewBox="0 0 24 24">
@@ -131,7 +130,7 @@
                     </svg>
                   </button>
                 </template>
-                <button class="cosmo-button is--icon is--negative" @click="deleteItem(section, index)">
+                <button class="cosmo-button is--icon is--negative" @click="deleteSection(section, index)">
                   <svg viewBox="0 0 24 24">
                     <path d="M3 6h18" />
                     <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
@@ -142,7 +141,7 @@
             </section>
           </div>
         </template>
-        <div class="jinya-designer-modern-page-button is--add is--last" x-data="{ addOpen: false }">
+        <div class="jinya-section-editor__button is--add is--last" x-data="{ addOpen: false }">
           <div class="jinya-section-type-popup"
                :class="{ 'is--open': addOpen, 'is--up': sections.length > 0, 'is--down': sections.length === 0 }">
             <button class="cosmo-button is--circle is--primary is--icon" @click="() => {
@@ -180,9 +179,8 @@
               </svg>
             </button>
           </div>
-          <button class="cosmo-button is--circle is--primary is--add is--modern-page" @click="addOpen = !addOpen">
-            <svg class="jinya-icon is--add is--modern-page" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <button class="cosmo-button is--circle is--primary is--add is--section" @click="addOpen = !addOpen">
+            <svg class="jinya-icon is--add is--section" viewBox="0 0 24 24">
               <path d="M5 12h14" />
               <path d="M12 5v14" />
             </svg>

@@ -41,3 +41,11 @@ export function createBlogPost(title, slug, categoryId, headerImageId = null) {
 export async function deleteBlogPost(id) {
   await httpDelete(`/api/blog-post/${id}`);
 }
+
+export function getBlogPostSections(id) {
+  return get(`/api/blog-post/${id}/section`);
+}
+
+export async function updateBlogPostSections(id, items) {
+  await put(`/api/blog-post/${id}/section`, items);
+}
