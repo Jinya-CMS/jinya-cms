@@ -98,7 +98,7 @@ class AuthenticationController extends BaseController
             $remoteAddress = $this->getHeader('X-Forwarded-For') ?: $this->request->getServerParams()['REMOTE_ADDR'];
             if (!empty($knownDeviceCode) && $artist->validateDevice($knownDeviceCode)) {
                 $knownDevice = KnownDevice::findByCode($knownDeviceCode);
-            } elseif (!empty($artist->twoFactorToken) && $artist->verifyTotpCode($twoFactorCode)) {
+            } elseif ($artist->verifyTotpCode($twoFactorCode)) {
                 $knownDevice = new KnownDevice();
                 $knownDevice->userId = $artist->id;
                 $knownDevice->remoteAddress = $remoteAddress;

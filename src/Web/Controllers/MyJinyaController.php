@@ -3,12 +3,10 @@
 namespace Jinya\Cms\Web\Controllers;
 
 use BaconQrCode\Common\ErrorCorrectionLevel;
-use BaconQrCode\Renderer\Color\Gray;
 use BaconQrCode\Renderer\Color\Rgb;
 use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
 use BaconQrCode\Renderer\ImageRenderer;
 use BaconQrCode\Renderer\Module\DotsModule;
-use BaconQrCode\Renderer\Module\RoundnessModule;
 use BaconQrCode\Renderer\RendererStyle\Fill;
 use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use BaconQrCode\Writer;
@@ -130,23 +128,23 @@ class MyJinyaController extends BaseController
         $otp = CurrentUser::$currentUser->setTotpSecret();
         $style = new RendererStyle(
             512,
+            margin: 2,
             module: new DotsModule(DotsModule::LARGE),
             fill: Fill::uniformColor(
-                new Gray(100),
+                new Rgb(255, 255, 255),
                 new Rgb(25, 50, 76)
             )
         );
         $pngRenderer = new ImageRenderer($style, new ImagickImageBackEnd());
         $pngWriter = new Writer($pngRenderer);
 
-        $qrCode = ImageManager::imagick()
-            ->read($pngWriter->writeString($otp->getProvisioningUri(), ecLevel: ErrorCorrectionLevel::H()))
-            ->place(__ROOT__.'/assets/qrlogo.png', 'center')
-            ->toWebp();
+        $manager = ImageManager::imagick();
+        $image = $manager->read($pngWriter->writeString($otp->getProvisioningUri(), ecLevel: ErrorCorrectionLevel::H()))
+            ->place(__ROOT__.'/assets/qrlogo.png', 'center');
 
         return $this->json([
             'secret' => $otp->getSecret(),
-            'qrCode' => $qrCode->toDataUri()
+            'qrCode' => $image->toWebp()->toDataUri()
         ]);
     }
 

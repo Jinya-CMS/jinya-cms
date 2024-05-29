@@ -111,7 +111,8 @@ class Artist extends Entity implements JsonSerializable
                 'about_me',
                 'failed_login_attempts',
                 'login_blocked_until',
-                'totp_mode'
+                'totp_mode',
+                'totp_secret'
             ])
             ->where('email = :email', ['email' => $email]);
 
@@ -298,7 +299,8 @@ class Artist extends Entity implements JsonSerializable
     {
         $otp = TOTP::generate();
         $this->totpSecret = $otp->getSecret();
-        $otp->setLabel('Jinya CMS');
+        $otp->setLabel($this->email);
+        $otp->setIssuer('Jinya CMS');
         $this->update();
 
         return $otp;
@@ -337,7 +339,7 @@ class Artist extends Entity implements JsonSerializable
             return TOTP::createFromSecret($this->totpSecret)->verify($code);
         }
 
-        return $this->twoFactorToken === $code;
+        return strlen($this->twoFactorToken) === 6 && $this->twoFactorToken === $code;
     }
 
     public function jsonSerialize(): mixed

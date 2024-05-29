@@ -892,6 +892,7 @@ export default {
     my_profile: {
       action: {
         change_password: 'Passwort ändern',
+        enable_totp: 'Zwei Faktor per App aktivieren',
         edit_profile: 'Profil bearbeiten',
         save_profile: 'Profil speichern',
         discard_profile: 'Änderungen verwerfen',
@@ -906,6 +907,22 @@ export default {
         error: {
           title: 'Fehler beim Speichern',
           message: 'Dein Profil konnte leider nicht gespeichert werden, bitte wende dich an deinen Administrator',
+        },
+      },
+      enable_totp: {
+        title: 'Zwei Faktor per App aktivieren',
+        code: 'Zwei Faktor Code',
+        code_help: 'Hier muss der Code aus deiner App eingetragen werden',
+        cancel: 'Aktivierung abbrechen',
+        enable: 'Aktivieren',
+        qrcode: {
+          header: 'Was mache ich mit dem QR Code?',
+          message: 'Der QR Code der hier angezeigt wird muss mit deiner Zwei Faktor App gescannt werden.<br>Beliebt sind der Google Authenticator oder Authy.',
+        },
+        error: {
+          title: 'Fehler beim Aktivieren',
+          bad_request: 'Der Code, den du eingegeben hast, ist ungültig',
+          generic: 'Ein unbekannter Fehler ist aufgetreten',
         },
       },
       change_password: {
