@@ -254,7 +254,8 @@ class ArtistController extends BaseController
 
     #[Route(HttpMethod::DELETE, 'api/user/{id}/totp')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_ADMIN))]
-    public function resetTotp(int $id):ResponseInterface{
+    public function resetTotp(int $id): ResponseInterface
+    {
         $artist = Artist::findById($id);
         if ($artist === null) {
             return $this->entityNotFound('Artist not found');
