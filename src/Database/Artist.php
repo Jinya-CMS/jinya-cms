@@ -88,6 +88,14 @@ class Artist extends Entity implements JsonSerializable
     #[Column(sqlName: 'totp_secret')]
     public ?string $totpSecret = null;
 
+    #[Column(sqlName: 'login_mail_enabled')]
+    #[BooleanConverter]
+    public bool $loginMailEnabled = true;
+
+    #[Column(sqlName: 'new_device_mail_enabled')]
+    #[BooleanConverter]
+    public bool $newDeviceMailEnabled = true;
+
     /**
      * Finds the artist with the given email
      *
@@ -99,21 +107,7 @@ class Artist extends Entity implements JsonSerializable
         $query = self::getQueryBuilder()
             ->newSelect()
             ->from(self::getTableName())
-            ->cols([
-                'id',
-                'email',
-                'enabled',
-                'two_factor_token',
-                'password',
-                'roles',
-                'artist_name',
-                'profile_picture',
-                'about_me',
-                'failed_login_attempts',
-                'login_blocked_until',
-                'totp_mode',
-                'totp_secret'
-            ])
+            ->cols(['*'])
             ->where('email = :email', ['email' => $email]);
 
         /** @var array<string, mixed>[] $data */
@@ -166,6 +160,8 @@ class Artist extends Entity implements JsonSerializable
             'id' => $this->id,
             'aboutMe' => $this->aboutMe,
             'totpMode' => $this->totpMode->string(),
+            'loginMailEnabled' => $this->loginMailEnabled,
+            'newDeviceMailEnabled' => $this->newDeviceMailEnabled,
         ];
 
         if ($this->prefersColorScheme === true) {

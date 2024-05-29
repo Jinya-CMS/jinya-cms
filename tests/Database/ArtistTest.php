@@ -255,6 +255,8 @@ class ArtistTest extends DatabaseAwareTestCase
             'aboutMe' => $artist->aboutMe,
             'colorScheme' => 'auto',
             'totpMode' => $artist->totpMode->string(),
+            'loginMailEnabled' => true,
+            'newDeviceMailEnabled' => true,
         ], $artist->format());
     }
 

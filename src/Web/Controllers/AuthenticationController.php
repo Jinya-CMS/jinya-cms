@@ -108,10 +108,12 @@ class AuthenticationController extends BaseController
                     $knownDevice->userAgent = 'unknown';
                 }
                 $knownDevice->create();
-                try {
-                    $this->newSavedDeviceMail->sendMail($artist->email, $artist->artistName, $knownDevice);
-                } catch (Throwable $exception) {
-                    $this->logger->warning($exception->getMessage());
+                if ($artist->newDeviceMailEnabled) {
+                    try {
+                        $this->newSavedDeviceMail->sendMail($artist->email, $artist->artistName, $knownDevice);
+                    } catch (Throwable $exception) {
+                        $this->logger->warning($exception->getMessage());
+                    }
                 }
             } else {
                 return $this->badCredentialsResponse;
@@ -134,10 +136,12 @@ class AuthenticationController extends BaseController
             $artist->twoFactorToken = null;
             $artist->update();
 
-            try {
-                $this->newLoginMail->sendMail($artist->email, $artist->artistName, $apiKey);
-            } catch (Throwable $exception) {
-                $this->logger->warning($exception->getMessage());
+            if ($artist->loginMailEnabled) {
+                try {
+                    $this->newLoginMail->sendMail($artist->email, $artist->artistName, $apiKey);
+                } catch (Throwable $exception) {
+                    $this->logger->warning($exception->getMessage());
+                }
             }
 
             return $this->json([

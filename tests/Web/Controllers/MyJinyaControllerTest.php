@@ -139,4 +139,17 @@ class MyJinyaControllerTest extends DatabaseAwareTestCase
             ],
         ], $body);
     }
+
+    public function testUpdatePreferences(): void
+    {
+        $controller = $this->getController([
+            'loginMailEnabled' => false,
+            'newDeviceMailEnabled' => true,
+        ]);
+        $result = $controller->updatePreferences();
+
+        self::assertEquals(204, $result->getStatusCode());
+        self::assertFalse(CurrentUser::$currentUser->loginMailEnabled);
+        self::assertTrue(CurrentUser::$currentUser->newDeviceMailEnabled);
+    }
 }

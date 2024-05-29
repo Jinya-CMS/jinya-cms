@@ -1,0 +1,28 @@
+put:
+  summary: Update the current users preferences
+  tags:
+    - my-profile
+  responses:
+    '204':
+      description: Successfully changed the preferences
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: update_preferences
+  description: Updates the current users preferences
+  security:
+    - jinya-api-key: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/update-preferences.yaml
