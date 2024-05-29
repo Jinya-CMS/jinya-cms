@@ -85,12 +85,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     colorScheme: '',
     email: '',
     aboutMe: '',
-    setArtist({ profilePicture, artistName, email, aboutMe, colorScheme }) {
+    totpMode: '',
+    setArtist({ profilePicture, artistName, email, aboutMe, colorScheme, totpMode }) {
       this.profilePicture = profilePicture;
       this.artistName = artistName;
       this.email = email;
       this.aboutMe = aboutMe;
       this.colorScheme = colorScheme;
+      this.totpMode = totpMode;
     },
   });
   Alpine.store('navigation', {

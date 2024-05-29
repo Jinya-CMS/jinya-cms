@@ -4,6 +4,7 @@ namespace Jinya\Cms\Web\Controllers;
 
 use Jinya\Cms\Database\Artist;
 use Jinya\Cms\Database\Exceptions\EmptyResultException;
+use Jinya\Cms\Database\TotpMode;
 use Jinya\Cms\Storage\ProfilePictureService;
 use Jinya\Cms\Storage\StorageBaseService;
 use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
@@ -247,6 +248,22 @@ class ArtistController extends BaseController
         } catch (EmptyResultException) {
             return $this->entityNotFound('Artist not found');
         }
+
+        return $this->noContent();
+    }
+
+    #[Route(HttpMethod::DELETE, 'api/user/{id}/totp')]
+    #[Middlewares(new AuthorizationMiddleware(ROLE_ADMIN))]
+    public function resetTotp(int $id): ResponseInterface
+    {
+        $artist = Artist::findById($id);
+        if ($artist === null) {
+            return $this->entityNotFound('Artist not found');
+        }
+
+        $artist->totpSecret = null;
+        $artist->totpMode = TotpMode::Email;
+        $artist->update();
 
         return $this->noContent();
     }

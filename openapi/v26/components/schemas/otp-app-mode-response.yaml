@@ -1,0 +1,9 @@
+type: object
+required:
+  - qrCode
+  - secret
+properties:
+  secret:
+    type: string
+  qrCode:
+    type: string

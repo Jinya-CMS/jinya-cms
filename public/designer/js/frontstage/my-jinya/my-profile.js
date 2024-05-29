@@ -1,7 +1,14 @@
 import { Alpine } from '../../../../lib/alpine.js';
 import { changePassword, logout } from '../../foundation/api/authentication.js';
 import localize from '../../foundation/utils/localize.js';
-import { getMyProfile, updateAboutMe, updateProfile, updateProfilePicture } from '../../foundation/api/my-jinya.js';
+import {
+  getMyProfile,
+  prepareAppTotp,
+  updateAboutMe,
+  updateProfile,
+  updateProfilePicture,
+  verifyAppTotp,
+} from '../../foundation/api/my-jinya.js';
 
 import '../../foundation/ui/components/toolbar-editor.js';
 
@@ -15,6 +22,14 @@ Alpine.data('profileData', () => ({
     this.changePassword.newPasswordRepeat = '';
     this.changePassword.open = true;
     this.changePassword.error.reset();
+  },
+  async openEnableTotpDialog() {
+    this.appTotp.code = '';
+    this.appTotp.error.reset();
+    const totp = await prepareAppTotp();
+    this.appTotp.qrCode = totp.qrCode;
+    this.appTotp.secret = totp.secret;
+    this.appTotp.open = true;
   },
   openProfileDialog() {
     this.edit.artistName = Alpine.store('artist').artistName;
@@ -33,6 +48,22 @@ Alpine.data('profileData', () => ({
         this.changePassword.error.message = localize({ key: 'my_jinya.my_profile.change_password.error.forbidden' });
       } else {
         this.changePassword.error.message = localize({ key: 'my_jinya.my_profile.change_password.error.generic' });
+      }
+    }
+  },
+  async enableTotp() {
+    try {
+      await verifyAppTotp(this.appTotp.code);
+      const myProfile = await getMyProfile();
+      Alpine.store('artist').setArtist(myProfile);
+      this.appTotp.open = false;
+    } catch (e) {
+      this.appTotp.error.title = localize({ key: 'my_jinya.my_profile.enable_totp.error.title' });
+      this.appTotp.error.hasError = true;
+      if (e.status === 400) {
+        this.appTotp.error.message = localize({ key: 'my_jinya.my_profile.enable_totp.error.bad_request' });
+      } else {
+        this.appTotp.error.message = localize({ key: 'my_jinya.my_profile.enable_totp.error.generic' });
       }
     }
   },
@@ -77,6 +108,22 @@ Alpine.data('profileData', () => ({
     oldPassword: '',
     newPassword: '',
     newPasswordRepeat: '',
+    error: {
+      reset() {
+        this.hasError = false;
+        this.title = '';
+        this.message = '';
+      },
+      hasError: false,
+      title: '',
+      message: '',
+    },
+  },
+  appTotp: {
+    open: false,
+    code: '',
+    qrCode: '',
+    secret: '',
     error: {
       reset() {
         this.hasError = false;

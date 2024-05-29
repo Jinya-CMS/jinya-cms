@@ -2,9 +2,9 @@
 
 namespace Jinya\Cms\Database;
 
-use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use DateTime;
 use InvalidArgumentException;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use PDOException;
 
 class ArtistTest extends DatabaseAwareTestCase
@@ -254,6 +254,7 @@ class ArtistTest extends DatabaseAwareTestCase
             'id' => $artist->id,
             'aboutMe' => $artist->aboutMe,
             'colorScheme' => 'auto',
+            'totpMode' => $artist->totpMode->string(),
         ], $artist->format());
     }
 
@@ -402,5 +403,41 @@ class ArtistTest extends DatabaseAwareTestCase
         );
         $foundArtist = Artist::findByEmail('notexists@example.com');
         self::assertNull($foundArtist);
+    }
+
+    public function testTotpActivateFlow(): void
+    {
+        $artist = $this->createArtist();
+        $artist->twoFactorToken = '123456';
+        $artist->update();
+
+        $emailVerify = $artist->verifyTotpCode('123456');
+        self::assertTrue($emailVerify);
+
+        $otp = $artist->setTotpSecret();
+
+        $artist = Artist::findById($artist->id);
+        self::assertEquals($otp->getSecret(), $artist->totpSecret);
+
+        $activate = $artist->activateOtphp($otp->now());
+        self::assertTrue($activate);
+
+        $artist = Artist::findById($artist->id);
+        self::assertEquals(TotpMode::Otphp, $artist->totpMode);
+
+        $otphpVerify = $artist->verifyTotpCode($otp->now());
+        self::assertTrue($otphpVerify);
+    }
+
+    public function testTotpActivateFlowInvalidVerifyCode(): void
+    {
+        $artist = $this->createArtist();
+        $otp = $artist->setTotpSecret();
+
+        $artist = Artist::findById($artist->id);
+        self::assertEquals($otp->getSecret(), $artist->totpSecret);
+
+        $activate = $artist->activateOtphp('asdasd');
+        self::assertFalse($activate);
     }
 }

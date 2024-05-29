@@ -15,7 +15,7 @@ ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
 RUN apt-get update
 RUN apt-get install -y git unzip
-RUN install-php-extensions pdo pdo_mysql zip opcache intl curl apcu imagick
+RUN install-php-extensions pdo pdo_mysql zip opcache intl curl apcu imagick gd
 
 WORKDIR /var/www/jinya
 RUN composer install --no-dev --no-progress --optimize-autoloader --apcu-autoloader --no-interaction

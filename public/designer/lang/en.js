@@ -886,6 +886,7 @@ export default {
     my_profile: {
       action: {
         change_password: 'Change password',
+        enable_totp: 'Enable two factor via app',
         edit_profile: 'Edit profile',
         save_profile: 'Save profile',
         discard_profile: 'Discard changes',
@@ -899,7 +900,23 @@ export default {
         profile_picture: 'Profile picture',
         error: {
           title: 'Error saving',
-          message: 'Your profile couldn\'t be saved, please contact your administrator',
+          message: "Your profile couldn't be saved, please contact your administrator",
+        },
+      },
+      enable_totp: {
+        title: 'Enable two factor via app',
+        code: 'Two factor code',
+        code_help: 'Please enter the code from your app here',
+        cancel: 'Cancel activation',
+        enable: 'Enable',
+        qrcode: {
+          header: 'What to do with the QR Code?',
+          message: 'You need to scan the QR code you see here with the two factor app of your choice.<br>Popular choices are Google Authenticator or Authy.',
+        },
+        error: {
+          title: 'Error enabling',
+          bad_request: 'The code you entered is invalid',
+          generic: 'An unknown error occurred',
         },
       },
       change_password: {
@@ -1145,6 +1162,16 @@ export default {
       error: {
         title: 'Enable failed',
         message: 'The artist could not be enabled, please check the log files',
+      },
+    },
+    reset_totp: {
+      title: 'Reset two factor',
+      message: 'Do you really want to reset the two factor authentication for the artist {artistName} to email?',
+      keep: "Don't reset",
+      reset: 'Reset',
+      error: {
+        title: 'Reset failed',
+        message: 'The two factor authentication could not be reset, please check the log files.',
       },
     },
   },

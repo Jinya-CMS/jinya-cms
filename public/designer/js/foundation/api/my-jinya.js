@@ -22,3 +22,11 @@ export async function updateProfile(artistName, email) {
 export async function updateProfilePicture(picture) {
   await upload('/api/me/profilepicture', picture);
 }
+
+export function prepareAppTotp() {
+  return put('/api/me/otp/app');
+}
+
+export async function verifyAppTotp(code) {
+  await put('/api/me/otp/app/verify', { code });
+}

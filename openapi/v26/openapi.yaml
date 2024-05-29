@@ -163,6 +163,8 @@ paths:
     $ref: paths/api_user_{id}.yaml
   /api/user/{id}/activation:
     $ref: paths/api_user_{id}_activation.yaml
+  /api/user/{id}/totp:
+    $ref: paths/api_user_{id}_totp.yaml
   /api/user/{id}/profilepicture:
     $ref: paths/api_user_{id}_profilepicture.yaml
   /api/login:
@@ -233,6 +235,10 @@ paths:
     $ref: paths/api_me.yaml
   /api/me/colorscheme:
     $ref: paths/api_me_colorscheme.yaml
+  /api/me/otp/app:
+    $ref: paths/api_me_otp_app.yaml
+  /api/me/otp/app/verify:
+    $ref: paths/api_me_otp_app_verify.yaml
   /api/me/profilepicture:
     $ref: paths/api_me_profilepicture.yaml
   /api/classic-page:

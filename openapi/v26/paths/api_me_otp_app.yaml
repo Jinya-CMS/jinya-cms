@@ -1,10 +1,14 @@
 put:
-  summary: Update the preferred color scheme
+  summary: Prepare OTP for app usage
   tags:
     - my-profile
   responses:
-    '204':
-      description: Successfully changed the preferred color scheme
+    '200':
+      description: Successfully prepared the otp mode for app
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/otp-app-mode-response.yaml
     '401':
       description: Api key missing
       content:
@@ -17,12 +21,7 @@ put:
         application/json:
           schema:
             $ref: ../components/schemas/exception.yaml
-  operationId: update_prefered_colorscheme
-  description: Updates the prefered color scheme
+  operationId: change_otp_mode_to_app
+  description: Prepares the otp mode to be changed to app
   security:
     - jinya-api-key: []
-  requestBody:
-    content:
-      application/json:
-        schema:
-          $ref: ../components/schemas/update-colorscheme.yaml

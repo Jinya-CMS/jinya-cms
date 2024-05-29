@@ -29,6 +29,11 @@ properties:
       - dark
       - light
       - auto
+  totpMode:
+    type: string
+    enum:
+      - email
+      - app
 required:
   - artistName
   - email

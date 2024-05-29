@@ -5,6 +5,7 @@ import {
   disableArtist,
   enableArtist,
   getArtists,
+  resetTotp,
   updateArtist,
 } from '../../foundation/api/artists.js';
 import confirm from '../../foundation/ui/confirm.js';
@@ -98,6 +99,31 @@ Alpine.data('artistsData', () => ({
         await alert({
           title: localize({ key: 'artists.disable.error.title' }),
           message: localize({ key: 'artists.disable.error.message' }),
+          negative: true,
+        });
+      }
+    }
+  },
+  async resetTotp() {
+    const confirmation = await confirm({
+      title: localize({ key: 'artists.reset_totp.title' }),
+      message: localize({
+        key: 'artists.reset_totp.message',
+        values: this.selectedArtist,
+      }),
+      approveLabel: localize({ key: 'artists.reset_totp.reset' }),
+      declineLabel: localize({ key: 'artists.reset_totp.keep' }),
+      negative: true,
+    });
+    if (confirmation) {
+      try {
+        await resetTotp(this.selectedArtist.id);
+        this.selectedArtist.totpMode = 'email';
+        this.artists[this.artists.findIndex((a) => a.id === this.selectedArtist.id)].totpMode = 'email';
+      } catch (e) {
+        await alert({
+          title: localize({ key: 'artists.reset_totp.error.title' }),
+          message: localize({ key: 'artists.reset_totp.error.message' }),
           negative: true,
         });
       }
