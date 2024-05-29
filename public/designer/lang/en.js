@@ -1164,6 +1164,16 @@ export default {
         message: 'The artist could not be enabled, please check the log files',
       },
     },
+    reset_totp: {
+      title: 'Reset two factor',
+      message: 'Do you really want to reset the two factor authentication for the artist {artistName} to email?',
+      keep: "Don't reset",
+      reset: 'Reset',
+      error: {
+        title: 'Reset failed',
+        message: 'The two factor authentication could not be reset, please check the log files.',
+      },
+    },
   },
   top_menu: {
     logout: 'Logout',

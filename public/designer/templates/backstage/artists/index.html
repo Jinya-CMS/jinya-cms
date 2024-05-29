@@ -32,6 +32,8 @@
                     x-localize:artists-action-enable @click="enableArtist"></button>
             <button :disabled="isMe || !selectedArtist.enabled" class="cosmo-button"
                     x-localize:artists-action-disable @click="disableArtist"></button>
+            <button :disabled="isMe || selectedArtist.totpMode === 'email'" class="cosmo-button"
+                    x-localize:artists-action-reset_totp @click="resetTotp"></button>
           </div>
           <div class="cosmo-toolbar__group">
             <button :disabled="isMe" class="cosmo-button" x-localize:artists-action-delete

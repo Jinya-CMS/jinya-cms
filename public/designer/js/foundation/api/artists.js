@@ -20,6 +20,10 @@ export async function disableArtist(id) {
   await httpDelete(`/api/user/${id}/activation`);
 }
 
+export async function resetTotp(id) {
+  await httpDelete(`/api/user/${id}/totp`);
+}
+
 export function createArtist(artistName, email, password, isReader, isWriter, isAdmin) {
   const roles = [];
   if (isReader) {

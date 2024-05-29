@@ -1104,6 +1104,7 @@ export default {
       delete: 'Künstler löschen',
       disable: 'Künstler deaktivieren',
       enable: 'Künstler aktivieren',
+      reset_totp: 'Zwei Faktor zurücksetzen',
       new: 'Künstler erstellen',
     },
     create: {
@@ -1158,6 +1159,16 @@ export default {
       error: {
         title: 'Deaktivieren fehlgeschlagen',
         message: 'Der Künstler konnte leider nicht deaktiviert werden, bitte prüfe die Protokolle.',
+      },
+    },
+    reset_totp: {
+      title: 'Zwei Faktor zurücksetzen',
+      message: 'Soll die Zwei Faktor Authentifizierung für den Künstler {artistName} wirklich auf Email zurückgesetzt werden?',
+      keep: 'Nicht zurücksetzen',
+      reset: 'Zurücksetzen',
+      error: {
+        title: 'Zurücksetzen fehlgeschlagen',
+        message: 'Die Zwei Faktor Authentifizierung konnte nicht zurückgesetzt werden, bitte prüfe die Protokolle.',
       },
     },
     enable: {
