@@ -62,8 +62,7 @@ Alpine.data('profileData', () => ({
     try {
       await verifyAppTotp(this.appTotp.code);
       const myProfile = await getMyProfile();
-      Alpine.store('artist')
-        .setArtist(myProfile);
+      Alpine.store('artist').setArtist(myProfile);
       this.appTotp.open = false;
     } catch (e) {
       this.appTotp.error.title = localize({ key: 'my_jinya.my_profile.enable_totp.error.title' });
@@ -103,8 +102,7 @@ Alpine.data('profileData', () => ({
       await updateProfilePicture(this.edit.profilePicture);
 
       const myProfile = await getMyProfile();
-      Alpine.store('artist')
-        .setArtist(myProfile);
+      Alpine.store('artist').setArtist(myProfile);
       this.edit.open = false;
     } catch (e) {
       this.edit.error.hasError = true;
@@ -117,8 +115,7 @@ Alpine.data('profileData', () => ({
       await updatePreferences(this.preferences.loginEmailEnabled, this.preferences.newDeviceEmailEnabled);
 
       const myProfile = await getMyProfile();
-      Alpine.store('artist')
-        .setArtist(myProfile);
+      Alpine.store('artist').setArtist(myProfile);
       this.preferences.open = false;
     } catch (e) {
       this.preferences.error.hasError = true;

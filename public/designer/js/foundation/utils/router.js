@@ -31,7 +31,6 @@ export async function needsLogout(context) {
 
 export async function fetchScript({ path }) {
   if (path.startsWith('/login') || path.startsWith('/designer/login')) {
-     
     await import('/designer/js/login/login.js');
   } else {
     const [, , stage, area, page] = path.split('/');
