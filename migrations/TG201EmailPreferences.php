@@ -7,7 +7,6 @@ use PDO;
 
 class TG201EmailPreferences extends AbstractMigration
 {
-
     /**
      * @inheritDoc
      */
