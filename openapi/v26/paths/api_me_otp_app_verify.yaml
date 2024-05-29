@@ -1,10 +1,16 @@
 put:
-  summary: Update the preferred color scheme
+  summary: Verify OTP app usage
   tags:
     - my-profile
   responses:
     '204':
-      description: Successfully changed the preferred color scheme
+      description: Successfully verified otp app usage
+    '400':
+      description: Code invalid
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
     '401':
       description: Api key missing
       content:
@@ -17,12 +23,12 @@ put:
         application/json:
           schema:
             $ref: ../components/schemas/exception.yaml
-  operationId: update_prefered_colorscheme
-  description: Updates the prefered color scheme
+  operationId: verify_otp_app_mode
+  description: Verifies the otp app usage
   security:
     - jinya-api-key: []
   requestBody:
     content:
       application/json:
         schema:
-          $ref: ../components/schemas/update-colorscheme.yaml
+          $ref: ../components/schemas/verify-otp-mode-app.yaml

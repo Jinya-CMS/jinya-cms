@@ -233,6 +233,10 @@ paths:
     $ref: paths/api_me.yaml
   /api/me/colorscheme:
     $ref: paths/api_me_colorscheme.yaml
+  /api/me/otp/app:
+    $ref: paths/api_me_otp_app.yaml
+  /api/me/otp/app/verify:
+    $ref: paths/api_me_otp_app_verify.yaml
   /api/me/profilepicture:
     $ref: paths/api_me_profilepicture.yaml
   /api/classic-page:

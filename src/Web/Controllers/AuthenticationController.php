@@ -2,17 +2,18 @@
 
 namespace Jinya\Cms\Web\Controllers;
 
+use DateTime;
 use Jinya\Cms\Authentication\CurrentUser;
 use Jinya\Cms\Database\ApiKey;
 use Jinya\Cms\Database\Artist;
 use Jinya\Cms\Database\KnownDevice;
+use Jinya\Cms\Database\TotpMode;
 use Jinya\Cms\Logging\Logger;
 use Jinya\Cms\Mailing\Types\NewLoginMail;
 use Jinya\Cms\Mailing\Types\NewSavedDeviceMail;
 use Jinya\Cms\Mailing\Types\TwoFactorMail;
 use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Jinya\Cms\Web\Middleware\CheckRequiredFieldsMiddleware;
-use DateTime;
 use Jinya\Database\Exception\NotNullViolationException;
 use Jinya\Router\Attributes\Controller;
 use Jinya\Router\Attributes\HttpMethod;
@@ -97,7 +98,7 @@ class AuthenticationController extends BaseController
             $remoteAddress = $this->getHeader('X-Forwarded-For') ?: $this->request->getServerParams()['REMOTE_ADDR'];
             if (!empty($knownDeviceCode) && $artist->validateDevice($knownDeviceCode)) {
                 $knownDevice = KnownDevice::findByCode($knownDeviceCode);
-            } elseif (!empty($artist->twoFactorToken) && $artist->twoFactorToken === $twoFactorCode) {
+            } elseif (!empty($artist->twoFactorToken) && $artist->verifyTotpCode($twoFactorCode)) {
                 $knownDevice = new KnownDevice();
                 $knownDevice->userId = $artist->id;
                 $knownDevice->remoteAddress = $remoteAddress;
@@ -160,10 +161,12 @@ class AuthenticationController extends BaseController
     {
         $artist = Artist::findByEmail($this->body['username']);
         if ($artist !== null && $artist->validatePassword($this->body['password'])) {
-            $artist->setTwoFactorCode();
-            $artist->update();
+            if ($artist->totpMode === TotpMode::Email) {
+                $artist->setTwoFactorCode();
+                $artist->update();
 
-            $this->twoFactorMail->sendMail($artist->email, $artist->artistName, $artist->twoFactorToken);
+                $this->twoFactorMail->sendMail($artist->email, $artist->artistName, $artist->twoFactorToken);
+            }
 
             return $this->noContent();
         }

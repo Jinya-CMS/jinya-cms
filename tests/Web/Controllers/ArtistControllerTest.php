@@ -4,6 +4,7 @@ namespace Jinya\Cms\Web\Controllers;
 
 use Jinya\Cms\Authentication\CurrentUser;
 use Jinya\Cms\Database\Artist;
+use Jinya\Cms\Database\TotpMode;
 use Jinya\Cms\Storage\ProfilePictureService;
 use Jinya\Cms\Storage\StorageBaseService;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
@@ -117,6 +118,39 @@ class ArtistControllerTest extends DatabaseAwareTestCase
             'error' => [
                 'message' => 'You cannot deactivate the last admin',
                 'type' => 'cannot-deactivate-last-admin',
+            ],
+        ], $body);
+    }
+
+    public function testResetTotp(): void
+    {
+        CurrentUser::$currentUser->totpMode = TotpMode::Otphp;
+        CurrentUser::$currentUser->totpSecret = 'test';
+        CurrentUser::$currentUser->update();
+
+        $controller = $this->getController(null);
+        $result = $controller->resetTotp(CurrentUser::$currentUser->id);
+        $user = Artist::findById(CurrentUser::$currentUser->id);
+
+        self::assertEquals(204, $result->getStatusCode());
+        self::assertNull($user->totpSecret);
+        self::assertEquals(TotpMode::Email, $user->totpMode);
+    }
+
+    public function testResetTotpArtistNotFound(): void
+    {
+        $controller = $this->getController(null);
+        $result = $controller->resetTotp(-1);
+
+        $result->getBody()->rewind();
+        $body = json_decode($result->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+
+        self::assertEquals(404, $result->getStatusCode());
+        self::assertEquals([
+            'success' => false,
+            'error' => [
+                'message' => 'Artist not found',
+                'type' => 'not-found',
             ],
         ], $body);
     }

@@ -2,10 +2,6 @@
 
 namespace Jinya\Cms\Database;
 
-use Jinya\Cms\Database\Converter\BooleanConverter;
-use Jinya\Cms\Database\Converter\NullableBooleanConverter;
-use Jinya\Cms\Database\Converter\PhpSerializerConverter;
-use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use DateInterval;
 use DateTime;
 use Exception;
@@ -13,6 +9,11 @@ use InvalidArgumentException;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
+use Jinya\Cms\Database\Converter\BooleanConverter;
+use Jinya\Cms\Database\Converter\NullableBooleanConverter;
+use Jinya\Cms\Database\Converter\PhpSerializerConverter;
+use Jinya\Cms\Database\Converter\TotpModeConverter;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
@@ -20,6 +21,7 @@ use Jinya\Database\Entity;
 use Jinya\Database\Exception\NotNullViolationException;
 use Jinya\Router\Extensions\Database\Attributes\Find;
 use JsonSerializable;
+use OTPHP\TOTP;
 
 /**
  * This class contains all information relevant for an artist. Artists are the users of Jinya CMS
@@ -79,6 +81,13 @@ class Artist extends Entity implements JsonSerializable
     #[Column]
     public string $password = '';
 
+    #[Column(sqlName: 'totp_mode')]
+    #[TotpModeConverter]
+    public TotpMode $totpMode = TotpMode::Email;
+
+    #[Column(sqlName: 'totp_secret')]
+    public ?string $totpSecret = null;
+
     /**
      * Finds the artist with the given email
      *
@@ -101,7 +110,8 @@ class Artist extends Entity implements JsonSerializable
                 'profile_picture',
                 'about_me',
                 'failed_login_attempts',
-                'login_blocked_until'
+                'login_blocked_until',
+                'totp_mode'
             ])
             ->where('email = :email', ['email' => $email]);
 
@@ -141,7 +151,8 @@ class Artist extends Entity implements JsonSerializable
         'enabled' => 'bool',
         'id' => 'int',
         'aboutMe' => 'null|string',
-        'colorScheme' => 'string'
+        'colorScheme' => 'string',
+        'totpMode' => 'string'
     ])]
     public function format(): array
     {
@@ -153,6 +164,7 @@ class Artist extends Entity implements JsonSerializable
             'enabled' => $this->enabled,
             'id' => $this->id,
             'aboutMe' => $this->aboutMe,
+            'totpMode' => $this->totpMode->string(),
         ];
 
         if ($this->prefersColorScheme === true) {
@@ -274,6 +286,58 @@ class Artist extends Entity implements JsonSerializable
         $this->failedLoginAttempts = null;
         $this->loginBlockedUntil = null;
         $this->update();
+    }
+
+    /**
+     * Sets the totp secret
+     *
+     * @return TOTP
+     * @throws NotNullViolationException
+     */
+    public function setTotpSecret(): TOTP
+    {
+        $otp = TOTP::generate();
+        $this->totpSecret = $otp->getSecret();
+        $otp->setLabel('Jinya CMS');
+        $this->update();
+
+        return $otp;
+    }
+
+    /**
+     * Activates otphp by verifying the code and then changing the totp mode
+     *
+     * @param non-empty-string $code
+     * @throws NotNullViolationException
+     */
+    public function activateOtphp(string $code): bool
+    {
+        if ($this->totpSecret !== null && $this->totpSecret !== "") {
+            $otp = TOTP::createFromSecret($this->totpSecret);
+            if ($otp->verify($code)) {
+                $this->totpMode = TotpMode::Otphp;
+                $this->update();
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Verifies a given totp code for the artist
+     *
+     * @param non-empty-string $code
+     * @return bool
+     */
+    public function verifyTotpCode(string $code): bool
+    {
+        if ($this->totpSecret && $this->totpMode === TotpMode::Otphp) {
+            return TOTP::createFromSecret($this->totpSecret)->verify($code);
+        }
+
+        return $this->twoFactorToken === $code;
     }
 
     public function jsonSerialize(): mixed
