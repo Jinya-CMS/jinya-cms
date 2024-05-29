@@ -887,6 +887,7 @@ export default {
       action: {
         change_password: 'Change password',
         enable_totp: 'Enable two factor via app',
+        preferences: 'Preferences',
         edit_profile: 'Edit profile',
         save_profile: 'Save profile',
         discard_profile: 'Discard changes',
@@ -931,6 +932,20 @@ export default {
           generic: 'Changing the password didn\'t work, please contact your administrator',
           title: 'Error changing password',
           not_match: 'The new passwords need to match',
+        },
+      },
+      preferences: {
+        title: 'Preferences',
+        keep: 'Keep preferences',
+        change: 'Change preferences',
+        email: 'Receiving emails',
+        login_email_enabled: 'Login email',
+        login_email_enabled_help: 'You will receive an email on every successful login if the switch is on',
+        new_device_email_enabled: 'New device email',
+        new_device_email_enabled_help: 'You will receive an email on every newly saved device if the switch is on',
+        error: {
+          message: 'Your preferences could not be saved',
+          title: 'Error saving',
         },
       },
       about_me: {

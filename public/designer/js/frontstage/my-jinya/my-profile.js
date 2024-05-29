@@ -5,6 +5,7 @@ import {
   getMyProfile,
   prepareAppTotp,
   updateAboutMe,
+  updatePreferences,
   updateProfile,
   updateProfilePicture,
   verifyAppTotp,
@@ -37,6 +38,12 @@ Alpine.data('profileData', () => ({
     this.edit.open = true;
     this.edit.error.reset();
   },
+  openPreferencesDialog() {
+    this.preferences.open = true;
+    this.preferences.loginEmailEnabled = Alpine.store('artist').loginMailEnabled;
+    this.preferences.newDeviceEmailEnabled = Alpine.store('artist').newDeviceMailEnabled;
+    this.preferences.error.reset();
+  },
   async updatePassword() {
     try {
       await changePassword(this.changePassword.oldPassword, this.changePassword.newPassword);
@@ -55,7 +62,8 @@ Alpine.data('profileData', () => ({
     try {
       await verifyAppTotp(this.appTotp.code);
       const myProfile = await getMyProfile();
-      Alpine.store('artist').setArtist(myProfile);
+      Alpine.store('artist')
+        .setArtist(myProfile);
       this.appTotp.open = false;
     } catch (e) {
       this.appTotp.error.title = localize({ key: 'my_jinya.my_profile.enable_totp.error.title' });
@@ -95,12 +103,27 @@ Alpine.data('profileData', () => ({
       await updateProfilePicture(this.edit.profilePicture);
 
       const myProfile = await getMyProfile();
-      Alpine.store('artist').setArtist(myProfile);
+      Alpine.store('artist')
+        .setArtist(myProfile);
       this.edit.open = false;
     } catch (e) {
       this.edit.error.hasError = true;
       this.edit.error.title = localize({ key: 'my_jinya.my_profile.edit.error.title' });
       this.edit.error.message = localize({ key: 'my_jinya.my_profile.edit.error.message' });
+    }
+  },
+  async updatePreferences() {
+    try {
+      await updatePreferences(this.preferences.loginEmailEnabled, this.preferences.newDeviceEmailEnabled);
+
+      const myProfile = await getMyProfile();
+      Alpine.store('artist')
+        .setArtist(myProfile);
+      this.preferences.open = false;
+    } catch (e) {
+      this.preferences.error.hasError = true;
+      this.preferences.error.title = localize({ key: 'my_jinya.my_profile.preferences.error.title' });
+      this.preferences.error.message = localize({ key: 'my_jinya.my_profile.preferences.error.message' });
     }
   },
   changePassword: {
@@ -124,6 +147,21 @@ Alpine.data('profileData', () => ({
     code: '',
     qrCode: '',
     secret: '',
+    error: {
+      reset() {
+        this.hasError = false;
+        this.title = '';
+        this.message = '';
+      },
+      hasError: false,
+      title: '',
+      message: '',
+    },
+  },
+  preferences: {
+    open: false,
+    loginEmailEnabled: true,
+    newDeviceEmailEnabled: true,
     error: {
       reset() {
         this.hasError = false;
