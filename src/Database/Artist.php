@@ -299,7 +299,9 @@ class Artist extends Entity implements JsonSerializable
     {
         $otp = TOTP::generate();
         $this->totpSecret = $otp->getSecret();
-        $otp->setLabel($this->email);
+        if (!empty($this->email)) {
+            $otp->setLabel($this->email);
+        }
         $otp->setIssuer('Jinya CMS');
         $this->update();
 

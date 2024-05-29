@@ -4,7 +4,8 @@ import {
   deleteArtist,
   disableArtist,
   enableArtist,
-  getArtists, resetTotp,
+  getArtists,
+  resetTotp,
   updateArtist,
 } from '../../foundation/api/artists.js';
 import confirm from '../../foundation/ui/confirm.js';
