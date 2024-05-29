@@ -19,6 +19,13 @@ export async function updateProfile(artistName, email) {
   });
 }
 
+export async function updatePreferences(loginMailEnabled, newDeviceMailEnabled) {
+  await put('/api/me/preferences', {
+    loginMailEnabled,
+    newDeviceMailEnabled,
+  });
+}
+
 export async function updateProfilePicture(picture) {
   await upload('/api/me/profilepicture', picture);
 }

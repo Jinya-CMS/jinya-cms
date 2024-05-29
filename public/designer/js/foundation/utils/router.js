@@ -14,7 +14,7 @@ export async function needsLogin(context) {
 }
 
 export async function needsAdmin() {
-  if ((await checkLogin()) && Alpine.store('authentication').roles.includes('ROLE_ADMIN')) {
+  if (!((await checkLogin()) && Alpine.store('authentication').roles.includes('ROLE_ADMIN'))) {
     return 'stop';
   }
 
@@ -31,7 +31,6 @@ export async function needsLogout(context) {
 
 export async function fetchScript({ path }) {
   if (path.startsWith('/login') || path.startsWith('/designer/login')) {
-    // eslint-disable-next-line
     await import('/designer/js/login/login.js');
   } else {
     const [, , stage, area, page] = path.split('/');

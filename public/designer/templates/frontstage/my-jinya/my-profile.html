@@ -10,6 +10,8 @@
     <div class="cosmo-toolbar__group">
       <button class="cosmo-button" type="button" x-localize:my_jinya-my_profile-action-edit_profile
               @click="openProfileDialog"></button>
+      <button class="cosmo-button" type="button" x-localize:my_jinya-my_profile-action-preferences
+              @click="openPreferencesDialog"></button>
     </div>
     <template x-if="$store.artist.totpMode !== 'app'">
       <div class="cosmo-toolbar__group">
@@ -130,6 +132,37 @@
                   @click="edit.open = false"></button>
           <button class="cosmo-button"
                   type="submit" x-localize:my_jinya-my_profile-edit-save_profile></button>
+        </div>
+      </div>
+    </form>
+  </template>
+  <template x-if="preferences.open">
+    <form class="cosmo-modal__container" @submit.prevent="updatePreferences">
+      <div class="cosmo-modal">
+        <h1 class="cosmo-modal__title" x-localize:my_jinya-my_profile-preferences-title></h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-message is--negative" x-show="preferences.error.hasError">
+            <span class="cosmo-message__header" x-text="preferences.error.title"></span>
+            <p class="cosmo-message__message" x-text="preferences.error.message"></p>
+          </div>
+          <div class="cosmo-input__group">
+            <span class="cosmo-input__header" x-localize:my_jinya-my_profile-preferences-email></span>
+            <label for="loginEmailEnabled" x-localize:my_jinya-my_profile-preferences-login_email_enabled></label>
+            <input type="checkbox" class="cosmo-switch" id="loginEmailEnabled" x-model="preferences.loginEmailEnabled">
+            <span class="cosmo-input__message is--information"
+                  x-localize:my_jinya-my_profile-preferences-login_email_enabled_help.html></span>
+            <label for="newDeviceEmailEnabled"
+                   x-localize:my_jinya-my_profile-preferences-new_device_email_enabled></label>
+            <input type="checkbox" class="cosmo-switch" id="newDeviceEmailEnabled"
+                   x-model="preferences.newDeviceEmailEnabled">
+            <span class="cosmo-input__message is--information"
+                  x-localize:my_jinya-my_profile-preferences-new_device_email_enabled_help.html></span>
+          </div>
+        </div>
+        <div class="cosmo-modal__button-bar">
+          <button class="cosmo-button" type="button" x-localize:my_jinya-my_profile-preferences-keep
+                  @click="preferences.open = false"></button>
+          <button class="cosmo-button" type="submit" x-localize:my_jinya-my_profile-preferences-change></button>
         </div>
       </div>
     </form>

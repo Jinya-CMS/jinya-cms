@@ -165,4 +165,22 @@ class MyJinyaController extends BaseController
             ],
         ], self::HTTP_BAD_REQUEST);
     }
+
+    #[Route(HttpMethod::PUT, 'api/me/preferences')]
+    #[Middlewares(new AuthorizationMiddleware())]
+    public function updatePreferences(): ResponseInterface
+    {
+        /** @var Artist $currentArtist */
+        $currentArtist = CurrentUser::$currentUser;
+        if (isset($this->body['loginMailEnabled'])) {
+            $currentArtist->loginMailEnabled = $this->body['loginMailEnabled'];
+        }
+        if (isset($this->body['newDeviceMailEnabled'])) {
+            $currentArtist->newDeviceMailEnabled = $this->body['newDeviceMailEnabled'];
+        }
+
+        $currentArtist->update();
+
+        return $this->noContent();
+    }
 }

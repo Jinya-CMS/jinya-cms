@@ -241,6 +241,8 @@ paths:
     $ref: paths/api_me_otp_app_verify.yaml
   /api/me/profilepicture:
     $ref: paths/api_me_profilepicture.yaml
+  /api/me/preferences:
+    $ref: paths/api_me_preferences.yaml
   /api/classic-page:
     $ref: paths/api_classic-page.yaml
   /api/classic-page/{id}:

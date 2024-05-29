@@ -4,6 +4,7 @@ namespace Jinya\Cms\Database\Migrations;
 
 use Jinya\Cms\Migrations\BlogPostUpdated;
 use Jinya\Cms\Migrations\TG195AppTotp;
+use Jinya\Cms\Migrations\TG201EmailPreferences;
 use Jinya\Database\Migration\Migrator as DatabaseMigrator;
 use Jinya\Cms\Migrations\ApiThemeOption;
 use Jinya\Cms\Migrations\ArtistDarkLightSwitch;
@@ -40,6 +41,7 @@ abstract class Migrator
             new FileTags(),
             new BlogPostUpdated(),
             new TG195AppTotp(),
+            new TG201EmailPreferences(),
         ];
 
         DatabaseMigrator::migrateUp($migrations, 'migration_state');

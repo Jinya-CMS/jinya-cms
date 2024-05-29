@@ -5,6 +5,7 @@ import {
   getMyProfile,
   prepareAppTotp,
   updateAboutMe,
+  updatePreferences,
   updateProfile,
   updateProfilePicture,
   verifyAppTotp,
@@ -36,6 +37,12 @@ Alpine.data('profileData', () => ({
     this.edit.email = Alpine.store('artist').email;
     this.edit.open = true;
     this.edit.error.reset();
+  },
+  openPreferencesDialog() {
+    this.preferences.open = true;
+    this.preferences.loginEmailEnabled = Alpine.store('artist').loginMailEnabled;
+    this.preferences.newDeviceEmailEnabled = Alpine.store('artist').newDeviceMailEnabled;
+    this.preferences.error.reset();
   },
   async updatePassword() {
     try {
@@ -103,6 +110,19 @@ Alpine.data('profileData', () => ({
       this.edit.error.message = localize({ key: 'my_jinya.my_profile.edit.error.message' });
     }
   },
+  async updatePreferences() {
+    try {
+      await updatePreferences(this.preferences.loginEmailEnabled, this.preferences.newDeviceEmailEnabled);
+
+      const myProfile = await getMyProfile();
+      Alpine.store('artist').setArtist(myProfile);
+      this.preferences.open = false;
+    } catch (e) {
+      this.preferences.error.hasError = true;
+      this.preferences.error.title = localize({ key: 'my_jinya.my_profile.preferences.error.title' });
+      this.preferences.error.message = localize({ key: 'my_jinya.my_profile.preferences.error.message' });
+    }
+  },
   changePassword: {
     open: false,
     oldPassword: '',
@@ -124,6 +144,21 @@ Alpine.data('profileData', () => ({
     code: '',
     qrCode: '',
     secret: '',
+    error: {
+      reset() {
+        this.hasError = false;
+        this.title = '';
+        this.message = '';
+      },
+      hasError: false,
+      title: '',
+      message: '',
+    },
+  },
+  preferences: {
+    open: false,
+    loginEmailEnabled: true,
+    newDeviceEmailEnabled: true,
     error: {
       reset() {
         this.hasError = false;

@@ -893,6 +893,7 @@ export default {
       action: {
         change_password: 'Passwort ändern',
         enable_totp: 'Zwei Faktor per App aktivieren',
+        preferences: 'Einstellungen',
         edit_profile: 'Profil bearbeiten',
         save_profile: 'Profil speichern',
         discard_profile: 'Änderungen verwerfen',
@@ -937,6 +938,20 @@ export default {
           generic: 'Das Passwort konnte nicht geändert werden, bitte wende dich an deinen Administrator',
           title: 'Passwort ändern fehlgeschlagen',
           not_match: 'Die neuen Passwörte müssen die gleichen sein',
+        },
+      },
+      preferences: {
+        title: 'Einstellungen',
+        keep: 'Nicht ändern',
+        change: 'Einstellungen ändern',
+        email: 'Emails erhalten',
+        login_email_enabled: 'Login Email',
+        login_email_enabled_help: 'Wenn aktiviert, dann wird dir bei<br>jedem erfolgreichen Login eine Email geschickt',
+        new_device_email_enabled: 'Neues Gerät Email',
+        new_device_email_enabled_help: 'Wenn aktiviert, dann wird dir jedes Mal,<br>wenn ein Gerät gespeichert wird eine Email geschickt',
+        error: {
+          message: 'Die Einstellungen konnten nicht gespeichert werden',
+          title: 'Speichern fehlgeschlagen',
         },
       },
       about_me: {
