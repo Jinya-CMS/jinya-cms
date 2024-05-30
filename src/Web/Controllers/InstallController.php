@@ -2,7 +2,7 @@
 
 namespace Jinya\Cms\Web\Controllers;
 
-use Dotenv\Dotenv;
+use Jinya\Cms\Configuration\JinyaConfiguration;
 use Jinya\Cms\Database\Artist;
 use Jinya\Cms\Database\Migrations\Migrator;
 use Jinya\Cms\Logging\Logger;
@@ -71,36 +71,33 @@ class InstallController extends BaseController
     #[Route(HttpMethod::POST, 'api/install/configuration')]
     public function createConfiguration(): ResponseInterface
     {
-        $dotenv = <<<'DOTENV'
-APP_ENV=prod
-
-JINYA_API_KEY_EXPIRY=86400
-JINYA_UPDATE_SERVER=https://releases.jinya.de/cms
-
-DOTENV;
-
-        $dotenv .= 'MYSQL_HOST=' . $this->body['mysql']['host'] . "\n";
-        $dotenv .= 'MYSQL_PORT=' . $this->body['mysql']['port'] . "\n";
-        $dotenv .= 'MYSQL_DATABASE=' . $this->body['mysql']['database'] . "\n";
-        $dotenv .= 'MYSQL_USER=' . $this->body['mysql']['username'] . "\n";
-        $dotenv .= 'MYSQL_PASSWORD=' . $this->body['mysql']['password'] . "\n";
-        $dotenv .= "\n";
-        $dotenv .= 'MAILER_HOST=' . $this->body['mailing']['host'] . "\n";
-        $dotenv .= 'MAILER_PORT=' . $this->body['mailing']['port'] . "\n";
-        $dotenv .= 'MAILER_USERNAME=' . $this->body['mailing']['username'] . "\n";
-        $dotenv .= 'MAILER_PASSWORD=' . $this->body['mailing']['password'] . "\n";
-        $dotenv .= 'MAILER_ENCRYPTION=' . $this->body['mailing']['encryption'] . "\n";
-        $dotenv .= 'MAILER_FROM=' . $this->body['mailing']['from'] . "\n";
-        $dotenv .= 'MAILER_SMTP_AUTH=' . $this->body['mailing']['authRequired'] . "\n";
+        $data = [
+            'app' => [
+                'env' => 'prod',
+            ],
+            'jinya' => [
+                'api_key_expiry' => 86400,
+                'update_server' => 'https://releases.jinya.de/cms',
+            ],
+            ...$this->body,
+        ];
 
         try {
-            file_put_contents(__ROOT__ . '/.env', $dotenv);
+            $ini = '';
+            foreach ($data as $group => $items) {
+                $ini .= "[$group]\n";
+                foreach ($items as $key => $value) {
+                    $ini .= "$key=$value\n";
+                }
+                $ini .= "\n";
+            }
 
-            $dotenvUtil = Dotenv::createUnsafeImmutable(__ROOT__);
-            $dotenvUtil->load();
+            file_put_contents(__ROOT__.'/jinya-configuration.ini', $ini);
         } catch (Throwable) {
-            return new Response(500, body: Stream::create('Failed to save the environment variables'));
+            return new Response(500, body: Stream::create('Failed to save the ini variables'));
         }
+
+        JinyaConfiguration::getConfiguration()->reconfigureDatabase();
 
         try {
             Entity::getPDO()->exec('SELECT 1');
