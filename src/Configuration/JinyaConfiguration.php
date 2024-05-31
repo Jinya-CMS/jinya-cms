@@ -11,13 +11,15 @@ use function Jinya\Database\configure_jinya_database;
 
 class JinyaConfiguration extends Configuration
 {
-    private function __construct()
+    private function __construct(bool $withDatabase = true)
     {
         $adapter = [
-            new EnvironmentAdapter(),
             new IniAdapter(__ROOT__ . '/jinya-configuration.ini'),
-            new DatabaseConfigurationAdapter(),
+            new EnvironmentAdapter(),
         ];
+        if ($withDatabase) {
+            array_splice($adapter, 0, 0, new DatabaseConfigurationAdapter());
+        }
         parent::__construct($adapter);
     }
 
@@ -34,7 +36,7 @@ class JinyaConfiguration extends Configuration
 
     public function reconfigureDatabase(): void
     {
-        $configuration = new self();
+        $configuration = new self(false);
         $database = $configuration->get('database', 'mysql', );
         $user = $configuration->get('user', 'mysql', ) ?: '';
         $password = $configuration->get('password', 'mysql', '');
