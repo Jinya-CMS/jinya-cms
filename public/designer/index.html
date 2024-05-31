@@ -281,8 +281,8 @@
               </a>
               <a
                 class="cosmo-menu__item"
-                href="/designer/backstage/maintenance/environment"
-                x-active-route="environment"
+                href="/designer/backstage/maintenance/configuration"
+                x-active-route="configuration"
                 x-localize:maintenance-menu-app_config
               >
               </a>
@@ -341,9 +341,6 @@
       x-handler="[$store.authentication.needsLogout, $store.navigation.fetchScript]"
       x-template="/designer/templates/authentication/login.html"
     ></template>
-    <template
-      x-route="notfound"
-      x-handler="(ctx) => ctx.redirect('/frontstage/media/files')"></template>
 
     <template
       x-route="/frontstage/media/files"
@@ -416,9 +413,9 @@
       x-template="/designer/templates/backstage/maintenance/updates.html"
     ></template>
     <template
-      x-route="/backstage/maintenance/environment"
+      x-route="/backstage/maintenance/configuration"
       x-handler="[$store.authentication.needsAdmin, $store.navigation.fetchScript]"
-      x-template="/designer/templates/backstage/maintenance/environment.html"
+      x-template="/designer/templates/backstage/maintenance/configuration.html"
     ></template>
     <template
       x-route="/backstage/maintenance/php-info"
@@ -447,6 +444,10 @@
       x-handler="[$store.authentication.needsAdmin, $store.navigation.fetchScript]"
       x-template="/designer/templates/backstage/artists/index.html"
     ></template>
+
+    <template
+      x-route="notfound"
+      x-handler="(ctx) => ctx.redirect('/frontstage/media/files')"></template>
   </div>
   <template x-if="$store.authentication.loggedIn">
     <div class="cosmo-bottom-bar is--three-column" x-data="indexBottomBarData">

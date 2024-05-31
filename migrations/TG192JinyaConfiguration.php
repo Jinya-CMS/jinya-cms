@@ -5,7 +5,7 @@ namespace Jinya\Cms\Migrations;
 use Jinya\Database\Migration\AbstractMigration;
 use PDO;
 
-class TG195AppTotp extends AbstractMigration
+class TG192JinyaConfiguration extends AbstractMigration
 {
     /**
      * @inheritDoc
@@ -14,10 +14,14 @@ class TG195AppTotp extends AbstractMigration
     {
         $pdo->exec(
             <<<SQL
-alter table users
-    add totp_mode int not null default 0;
-alter table users
-    add totp_secret varchar(255) null;
+create table jinya_configuration (
+    `group` varchar(255) not null,
+    `key` varchar(255) not null,
+    value varchar(255) not null,
+    type int not null,
+    
+    primary key PK_jinya_configuration (`group`, `key`)
+)
 SQL
         );
     }

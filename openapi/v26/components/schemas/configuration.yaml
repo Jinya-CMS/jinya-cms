@@ -1,0 +1,14 @@
+title: Configuration
+type: object
+description: The configuration contains the configuration of Jinya CMS
+properties:
+  mysql:
+    $ref: ./mysql-configuration.yaml
+  mailer:
+    $ref: ./mailer-configuration.yaml
+  jinya:
+    $ref: ./jinya-configuration.yaml
+required:
+  - mysql
+  - mailer
+  - jinya

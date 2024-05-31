@@ -1028,8 +1028,45 @@ export default {
       },
     },
     configuration: {
-      key: 'Schlüssel',
-      value: 'Wert',
+      title: 'Jinya Konfiguration',
+      action: {
+        update: 'Konfiguration ändern',
+      },
+      mysql: {
+        title: 'Datenbank',
+        host: 'Server',
+        database: 'Datenbank',
+        password: 'Passwort',
+        port: 'Port',
+        user: 'Benutzer',
+      },
+      mailer: {
+        title: 'Email',
+        encryption: 'Verschlüsselung',
+        from: 'Absenderadresse',
+        host: 'Server',
+        password: 'Passwort',
+        port: 'Port',
+        smtp_auth: 'Authentifizierung erforderlich',
+        username: 'Benutzer',
+        yes: 'Ja',
+        no: 'Nein',
+        no_encryption: 'Keine Verschlüsselung',
+      },
+      jinya: {
+        title: 'Jinya',
+        api_key_expiry: 'Zeit bis die API Keys ablaufen',
+        update_server: 'Server für Updates',
+      },
+      update: {
+        title: 'Konfiguration bearbeiten',
+        save: 'Konfiguration speichern',
+        cancel: 'Änderungen verwerfen',
+        error: {
+          title: 'Fehler beim Speichern',
+          message: 'Die Konfiguration konnte nicht gespeichert werden, bitte prüfe die Protokolle',
+        },
+      },
     },
     php: {
       configuration: 'Konfiguration',

@@ -189,8 +189,8 @@ paths:
     $ref: paths/api_maintenance_database_analyze.yaml
   /api/maintenance/database/query:
     $ref: paths/api_maintenance_database_query.yaml
-  /api/environment:
-    $ref: paths/api_environment.yaml
+  /api/configuration:
+    $ref: paths/api_configuration.yaml
   /api/file:
     $ref: paths/api_file.yaml
   /api/file/{id}:
