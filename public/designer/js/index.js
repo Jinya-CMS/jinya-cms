@@ -12,6 +12,13 @@ import { createTag, getTags } from './foundation/api/files.js';
 import alert from './foundation/ui/alert.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
+  let myProfile = null;
+  try {
+    myProfile = await getMyProfile();
+  } catch {
+    console.log('Not logged in, continue initialization but logout at the end');
+  }
+
   const fileDatabase = getFileDatabase();
   window.Alpine = Alpine;
 
@@ -133,6 +140,54 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     },
   });
+  Alpine.store('loaded', true);
+  Alpine.store('uploadProgress', {
+    filesUploaded: 0,
+    filesToUpload: 0,
+    errorMessage: '',
+    status: '',
+    init() {
+      fileDatabase.watchUploadedFilesCount().subscribe({
+        next: ({ value: count }) => {
+          this.filesUploaded = count;
+        },
+      });
+      fileDatabase.watchUploadingFilesCount().subscribe({
+        next: ({ value: count }) => {
+          this.filesToUpload = count;
+        },
+      });
+      fileDatabase.watchUploadError().subscribe({
+        next: ({ value: { error, name } }) => {
+          if (!error) {
+            return;
+          }
+
+          if (error.status === 409) {
+            this.errorMessage = localize({
+              key: 'bottom_bar.error.conflict',
+              values: { name },
+            });
+          } else {
+            console.error(error);
+            this.errorMessage = localize({
+              key: 'bottom_bar.error.generic',
+              values: { name },
+            });
+          }
+        },
+      });
+      fileDatabase.watchCurrentUpload().subscribe({
+        next: ({ value: name }) => {
+          this.status = localize({
+            key: 'bottom_bar.status',
+            values: { name },
+          });
+        },
+      });
+    },
+  });
+
   Alpine.data('indexBottomBarData', () => ({
     get changeColorThemeButton() {
       const { colorScheme } = Alpine.store('artist');
@@ -261,65 +316,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   Alpine.start();
 
-  try {
-    const myProfile = await getMyProfile();
-
+  if (myProfile) {
     Alpine.store('authentication').login({
       loggedIn: true,
       roles: myProfile.roles,
     });
     Alpine.store('artist').setArtist(myProfile);
-  } catch {
+  } else {
     Alpine.store('authentication').logout();
   }
-
-  Alpine.store('loaded', true);
-  Alpine.store('uploadProgress', {
-    filesUploaded: 0,
-    filesToUpload: 0,
-    errorMessage: '',
-    status: '',
-    init() {
-      fileDatabase.watchUploadedFilesCount().subscribe({
-        next: ({ value: count }) => {
-          this.filesUploaded = count;
-        },
-      });
-      fileDatabase.watchUploadingFilesCount().subscribe({
-        next: ({ value: count }) => {
-          this.filesToUpload = count;
-        },
-      });
-      fileDatabase.watchUploadError().subscribe({
-        next: ({ value: { error, name } }) => {
-          if (!error) {
-            return;
-          }
-
-          if (error.status === 409) {
-            this.errorMessage = localize({
-              key: 'bottom_bar.error.conflict',
-              values: { name },
-            });
-          } else {
-            console.error(error);
-            this.errorMessage = localize({
-              key: 'bottom_bar.error.generic',
-              values: { name },
-            });
-          }
-        },
-      });
-      fileDatabase.watchCurrentUpload().subscribe({
-        next: ({ value: name }) => {
-          this.status = localize({
-            key: 'bottom_bar.status',
-            values: { name },
-          });
-        },
-      });
-    },
-  });
 
   const fileUploadWorker = new Worker('/designer/js/background/uploading/UploadWorker.js', { type: 'module' });
   fileUploadWorker.postMessage({

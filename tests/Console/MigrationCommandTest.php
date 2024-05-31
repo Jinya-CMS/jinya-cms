@@ -41,6 +41,7 @@ class MigrationCommandTest extends DatabaseAwareTestCase
         Entity::getPDO()->exec('drop table if exists file_tag cascade');
         Entity::getPDO()->exec('drop table if exists file cascade');
         Entity::getPDO()->exec('drop table if exists users cascade');
+        Entity::getPDO()->exec('drop table if exists jinya_configuration cascade');
         $command = new MigrationCommand();
         $command->run();
         self::assertTrue(true);

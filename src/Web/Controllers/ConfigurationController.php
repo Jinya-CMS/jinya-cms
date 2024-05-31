@@ -9,8 +9,6 @@ use Jinya\Router\Attributes\Controller;
 use Jinya\Router\Attributes\HttpMethod;
 use Jinya\Router\Attributes\Middlewares;
 use Jinya\Router\Attributes\Route;
-use Nyholm\Psr7\Response;
-use Nyholm\Psr7\Stream;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
 
@@ -40,17 +38,36 @@ class ConfigurationController extends BaseController
     public function updateConfiguration(): ResponseInterface
     {
         $databaseAdapter = new DatabaseConfigurationAdapter();
-        $databaseAdapter->set('api_key_expiry', $this->body['api_key_expiry'], 'jinya');
-        $databaseAdapter->set('update_server', $this->body['update_server'], 'jinya');
+        if (array_key_exists('jinya_api_key_expiry', $this->body)) {
+            $databaseAdapter->set('api_key_expiry', $this->body['jinya_api_key_expiry'], 'jinya');
+        }
+        if (array_key_exists('jinya_update_server', $this->body)) {
+            $databaseAdapter->set('update_server', $this->body['jinya_update_server'], 'jinya');
+        }
 
-        $databaseAdapter->set('from', $this->body['from'], 'mailer');
-        $databaseAdapter->set('host', $this->body['host'], 'mailer');
-        $databaseAdapter->set('port', $this->body['port'], 'mailer');
-        $databaseAdapter->set('smtp_auth', $this->body['smtp_auth'], 'mailer');
-        $databaseAdapter->set('username', $this->body['username'], 'mailer');
-        $databaseAdapter->set('password', $this->body['password'], 'mailer');
+        if (array_key_exists('mailer_from', $this->body)) {
+            $databaseAdapter->set('from', $this->body['mailer_from'], 'mailer');
+        }
+        if (array_key_exists('mailer_host', $this->body)) {
+            $databaseAdapter->set('host', $this->body['mailer_host'], 'mailer');
+        }
+        if (array_key_exists('mailer_port', $this->body)) {
+            $databaseAdapter->set('port', $this->body['mailer_port'], 'mailer');
+        }
+        if (array_key_exists('mailer_smtp_auth', $this->body)) {
+            $databaseAdapter->set('smtp_auth', $this->body['mailer_smtp_auth'], 'mailer');
+        }
+        if (array_key_exists('mailer_username', $this->body)) {
+            $databaseAdapter->set('username', $this->body['mailer_username'], 'mailer');
+        }
+        if (array_key_exists('mailer_password', $this->body)) {
+            $databaseAdapter->set('password', $this->body['mailer_password'], 'mailer');
+        }
+        if (array_key_exists('mailer_encryption', $this->body)) {
+            $databaseAdapter->set('encryption', $this->body['mailer_encryption'], 'mailer');
+        }
 
-        $data = parse_ini_file(__ROOT__.'/jinya-configuration.ini') ;
+        $data = parse_ini_file(__ROOT__.'/jinya-configuration.ini', true, INI_SCANNER_TYPED);
         if (!$data) {
             $data = [];
         }
