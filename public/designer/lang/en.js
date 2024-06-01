@@ -1022,8 +1022,46 @@ export default {
       },
     },
     configuration: {
-      key: 'Key',
-      value: 'Value',
+      title: 'Jinya configuration',
+      action: {
+        update: 'Update configuration',
+      },
+      mysql: {
+        title: 'Database',
+        host: 'Server',
+        database: 'Database',
+        password: 'Password',
+        port: 'Port',
+        user: 'Username',
+      },
+      mailer: {
+        title: 'Email',
+        encryption: 'Encryption',
+        from: 'Sender address',
+        host: 'Server',
+        password: 'Password',
+        port: 'Port',
+        smtp_auth: 'SMTP authentication required',
+        username: 'Username',
+        yes: 'Yes',
+        no: 'No',
+        no_encryption: 'No encryption',
+      },
+      jinya: {
+        title: 'Jinya',
+        api_key_expiry: 'Timeout of API keys',
+        update_server: 'Server for updates',
+        ip_database_url: 'URL for the IP database',
+      },
+      update: {
+        title: 'Update configuration',
+        save: 'Save configuration',
+        cancel: 'Discard changes',
+        error: {
+          title: 'Error saving',
+          message: 'The configuration could not be saved, please check the logs',
+        },
+      },
     },
     php: {
       configuration: 'Configuration',

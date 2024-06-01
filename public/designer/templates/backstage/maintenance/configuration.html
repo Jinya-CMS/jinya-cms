@@ -46,6 +46,8 @@
     </dd>
     <dt x-localize:maintenance-configuration-jinya-update_server></dt>
     <dd x-text="configuration.jinya.update_server"></dd>
+    <dt x-localize:maintenance-configuration-jinya-ip_database_url></dt>
+    <dd x-text="configuration.jinya.ip_database_url"></dd>
   </dl>
   <template x-if="update.open">
     <form class="cosmo-modal__container" @submit.prevent="updateConfiguration">
@@ -140,6 +142,10 @@
                            x-localize:maintenance-configuration-jinya-update_server></label>
                     <input x-model="update.configuration.jinya.update_server" class="cosmo-input" type="text"
                            id="jinya_update_server" required>
+                    <label class="cosmo-label" for="jinya_ip_database_url"
+                           x-localize:maintenance-configuration-jinya-ip_database_url></label>
+                    <input x-model="update.configuration.jinya.ip_database_url" class="cosmo-input" type="text"
+                           id="jinya_ip_database_url" required>
                   </div>
                 </template>
               </div>
