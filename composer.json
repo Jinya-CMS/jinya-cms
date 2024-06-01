@@ -12,6 +12,7 @@
     "ext-pdo": "*",
     "ext-pdo_mysql": "*",
     "ext-zip": "*",
+    "ext-zlib": "*",
     "bacon/bacon-qr-code": "v3.0.0",
     "intervention/image": "3.6.4",
     "jenssegers/agent": "v2.6.4",

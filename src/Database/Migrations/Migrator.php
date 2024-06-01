@@ -6,6 +6,7 @@ use Jinya\Cms\Migrations\BlogPostUpdated;
 use Jinya\Cms\Migrations\TG192JinyaConfiguration;
 use Jinya\Cms\Migrations\TG195AppTotp;
 use Jinya\Cms\Migrations\TG201EmailPreferences;
+use Jinya\Cms\Migrations\TG217IpDatabase;
 use Jinya\Database\Migration\Migrator as DatabaseMigrator;
 use Jinya\Cms\Migrations\ApiThemeOption;
 use Jinya\Cms\Migrations\ArtistDarkLightSwitch;
@@ -43,7 +44,8 @@ abstract class Migrator
             new BlogPostUpdated(),
             new TG195AppTotp(),
             new TG201EmailPreferences(),
-            new TG192JinyaConfiguration()
+            new TG192JinyaConfiguration(),
+            new TG217IpDatabase()
         ];
 
         DatabaseMigrator::migrateUp($migrations, 'migration_state');

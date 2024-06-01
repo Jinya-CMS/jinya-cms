@@ -51,7 +51,7 @@ class FileExtensionTest extends DatabaseAwareTestCase
     {
         $name = Uuid::uuid();
         $path = StorageBaseService::BASE_PATH . '/public/' . $name;
-        copy('https://via.placeholder.com/300/09f/fff.png', $path);
+        copy('https://picsum.photos/200/300', $path);
         chmod($path, 0777);
         $file = new File();
         $file->name = Uuid::uuid();
