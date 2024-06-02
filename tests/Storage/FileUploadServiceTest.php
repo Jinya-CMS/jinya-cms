@@ -26,6 +26,7 @@ class FileUploadServiceTest extends DatabaseAwareTestCase
         $file = $this->service->finishUpload($this->file->id);
         $content = file_get_contents(StorageBaseService::BASE_PATH . '/public/' . $file->path);
         self::assertEquals('Test\nFoo\nBar', $content);
+
         @unlink(StorageBaseService::BASE_PATH . '/public/' . $file->path);
     }
 
