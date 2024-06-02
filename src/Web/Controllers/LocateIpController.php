@@ -2,6 +2,7 @@
 
 namespace Jinya\Cms\Web\Controllers;
 
+use Jinya\Cms\Locate\IpToLocationService;
 use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Jinya\Router\Attributes\Controller;
 use Jinya\Router\Attributes\HttpMethod;
@@ -21,8 +22,9 @@ class LocateIpController extends BaseController
     #[Route(HttpMethod::GET, 'api/ip-location/{ip}')]
     public function locateIp(string $ip): ResponseInterface
     {
-        /** @phpstan-ignore argument.type */
-        $location = json_decode(file_get_contents("https://ip.jinya.de/?ip=$ip"), true, 512, JSON_THROW_ON_ERROR);
+        $ipToLocationService = new IpToLocationService();
+        $location = $ipToLocationService->locateIp($ip);
+        $location['poweredBy'] = 'https://db-ip.com';
 
         return $this->json($location);
     }

@@ -19,9 +19,9 @@ class PopulateIpDatabaseCommand extends AbstractCommand
             return;
         }
 
-        $ip = '192.168.0.1';
+        $ip = '8.8.8.8';
         $location = $ipToLocationService->locateIp($ip);
-        $this->climate->info("Location for IP {$ip}: {$location}");
+        $this->climate->info("Location for IP {$ip}: {$location['country']} {$location['city']}");
 
         $this->climate->info('Populated the ip database');
     }

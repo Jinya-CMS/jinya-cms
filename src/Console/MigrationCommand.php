@@ -18,7 +18,7 @@ class MigrationCommand extends AbstractCommand
     public function run(): void
     {
         $this->climate->info('Starting database migration');
-        Migrator::migrate();
+        Migrator::migrate(true);
         $this->climate->info("Migrations were successfully executed");
     }
 }

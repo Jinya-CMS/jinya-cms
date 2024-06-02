@@ -17,6 +17,12 @@ class DatabaseAwareTestCase extends TestCase
         $this->expectException(Error::class);
     }
 
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+        Migrator::migrate();
+    }
+
     /**
      * @return void
      * @throws NotNullViolationException
@@ -24,7 +30,6 @@ class DatabaseAwareTestCase extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        Migrator::migrate();
         $this->createArtist();
     }
 

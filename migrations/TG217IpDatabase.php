@@ -8,6 +8,10 @@ use PDO;
 
 class TG217IpDatabase extends AbstractMigration
 {
+    public function __construct(private readonly bool $inCli)
+    {
+    }
+
     /**
      * @inheritDoc
      */
@@ -20,16 +24,19 @@ create table ip_address (
   ip_start varbinary(16) not null,
   ip_end varbinary(16) not null,
   country char(2) not null,
+  city varchar(255) not null,
   primary key (address_type, ip_start),
   index (ip_start, ip_end)
 );
 
-insert into jinya_configuration (`key`, `group`, value, type) values ('ip_database_url', 'jinya', 'https://download.db-ip.com/free/dbip-country-lite-{YEAR}-{MONTH}.csv.gz', 0);
+insert into jinya_configuration (`key`, `group`, value, type) values ('ip_database_url', 'jinya', 'https://download.db-ip.com/free/dbip-city-lite-{YEAR}-{MONTH}.csv.gz', 0);
 SQL
         );
 
-        $ipToLocationService = new IpToLocationService();
-        $ipToLocationService->populateDatabase();
+        if ($this->inCli) {
+            $ipToLocationService = new IpToLocationService();
+            $ipToLocationService->populateDatabase();
+        }
     }
 
     /**
