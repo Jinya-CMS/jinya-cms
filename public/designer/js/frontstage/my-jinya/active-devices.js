@@ -45,7 +45,7 @@ Alpine.data('devicesData', () => ({
   async getLocation(ip) {
     const location = await locateIp(ip);
     if (location?.city) {
-      return `${location.city} ${location.region} ${location.country}`;
+      return `${location.city} ${localize({ key: `countries.${location.country}` })}`;
     }
 
     return localize({ key: 'my_jinya.devices.unknown' });

@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "0c41f579c98da81b4688a981777b53b8",
+  "content-hash": "988ce6305e4d45c5e360b4a4ba874329",
   "packages": [
     {
       "name": "aura/sqlquery",
@@ -610,23 +610,23 @@
     },
     {
       "name": "jinya/configuration",
-      "version": "0.5.0",
+      "version": "0.10.0",
       "source": {
         "type": "git",
         "url": "https://github.com/Jinya-CMS/jinya-configuration.git",
-        "reference": "cbad1877015720aef45c09a6fd17aefbebbbeba8"
+        "reference": "91e713b85c08a2fc870a38aa9d25e6a310a88cd6"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/Jinya-CMS/jinya-configuration/zipball/cbad1877015720aef45c09a6fd17aefbebbbeba8",
-        "reference": "cbad1877015720aef45c09a6fd17aefbebbbeba8",
+        "url": "https://api.github.com/repos/Jinya-CMS/jinya-configuration/zipball/91e713b85c08a2fc870a38aa9d25e6a310a88cd6",
+        "reference": "91e713b85c08a2fc870a38aa9d25e6a310a88cd6",
         "shasum": ""
       },
       "require": {
         "php": ">=8.2"
       },
       "require-dev": {
-        "laravel/pint": "v1.13.10"
+        "laravel/pint": "v1.16.0"
       },
       "type": "library",
       "autoload": {
@@ -646,9 +646,9 @@
       ],
       "support": {
         "issues": "https://github.com/Jinya-CMS/jinya-configuration/issues",
-        "source": "https://github.com/Jinya-CMS/jinya-configuration/tree/0.5.0"
+        "source": "https://github.com/Jinya-CMS/jinya-configuration/tree/0.10.0"
       },
-      "time": "2024-02-08T22:39:26+00:00"
+      "time": "2024-06-01T02:56:50+00:00"
     },
     {
       "name": "jinya/database",
@@ -4317,16 +4317,16 @@
     },
     {
       "name": "symfony/process",
-      "version": "v7.0.7",
+      "version": "v7.1.0",
       "source": {
         "type": "git",
         "url": "https://github.com/symfony/process.git",
-        "reference": "3839e56b94dd1dbd13235d27504e66baf23faba0"
+        "reference": "56c8a1ea51eb70003fee94a78c7d6d0f44832ce7"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/symfony/process/zipball/3839e56b94dd1dbd13235d27504e66baf23faba0",
-        "reference": "3839e56b94dd1dbd13235d27504e66baf23faba0",
+        "url": "https://api.github.com/repos/symfony/process/zipball/56c8a1ea51eb70003fee94a78c7d6d0f44832ce7",
+        "reference": "56c8a1ea51eb70003fee94a78c7d6d0f44832ce7",
         "shasum": ""
       },
       "require": {
@@ -4358,7 +4358,7 @@
       "description": "Executes commands in sub-processes",
       "homepage": "https://symfony.com",
       "support": {
-        "source": "https://github.com/symfony/process/tree/v7.0.7"
+        "source": "https://github.com/symfony/process/tree/v7.1.0"
       },
       "funding": [
         {
@@ -4374,7 +4374,7 @@
           "type": "tidelift"
         }
       ],
-      "time": "2024-04-18T09:29:19+00:00"
+      "time": "2024-05-17T10:55:18+00:00"
     }
   ],
   "aliases": [],
@@ -4393,7 +4393,8 @@
     "ext-json": "*",
     "ext-pdo": "*",
     "ext-pdo_mysql": "*",
-    "ext-zip": "*"
+    "ext-zip": "*",
+    "ext-zlib": "*"
   },
   "platform-dev": [],
   "plugin-api-version": "2.6.0"

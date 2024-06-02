@@ -46,6 +46,9 @@ class ConfigurationController extends BaseController
             if (array_key_exists('update_server', $jinya)) {
                 $databaseAdapter->set('update_server', $jinya['update_server'], 'jinya');
             }
+            if (array_key_exists('ip_database_url', $jinya)) {
+                $databaseAdapter->set('ip_database_url', $jinya['ip_database_url'], 'jinya');
+            }
         }
 
         if (array_key_exists('mailer', $this->body)) {

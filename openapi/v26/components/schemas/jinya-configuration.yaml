@@ -6,6 +6,9 @@ properties:
     type: integer
   update_server:
     type: string
+  ip_database_url:
+    type: string
 required:
   - api_key_expiry
   - update_server
+  - ip_database_url

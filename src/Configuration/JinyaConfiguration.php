@@ -13,12 +13,17 @@ class JinyaConfiguration extends Configuration
 {
     private function __construct(bool $withDatabase = true)
     {
-        $adapter = [
-            new IniAdapter(__ROOT__ . '/jinya-configuration.ini'),
-            new EnvironmentAdapter(),
-        ];
         if ($withDatabase) {
-            array_splice($adapter, 0, 0, new DatabaseConfigurationAdapter());
+            $adapter = [
+                new DatabaseConfigurationAdapter(),
+                new IniAdapter(__ROOT__ . '/jinya-configuration.ini'),
+                new EnvironmentAdapter(),
+            ];
+        } else {
+            $adapter = [
+                new IniAdapter(__ROOT__ . '/jinya-configuration.ini'),
+                new EnvironmentAdapter(),
+            ];
         }
         parent::__construct($adapter);
     }
