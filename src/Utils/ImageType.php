@@ -13,4 +13,13 @@ enum ImageType
     case Png;
     /** Images of type JPG */
     case Jpg;
+
+    public function string(): string
+    {
+        return match ($this) {
+            self::Webp => 'webp',
+            self::Png => 'png',
+            self::Jpg => 'jpg',
+        };
+    }
 }

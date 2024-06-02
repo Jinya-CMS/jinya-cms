@@ -1,18 +1,19 @@
 <?php
 
-namespace Jinya\Cms\Console;
+namespace Jinya\Cms\Storage;
 
 use Faker\Provider\Uuid;
+use Intervention\Image\Exceptions\DecoderException;
+use Jinya\Cms\Database\Exceptions\EmptyResultException;
 use Jinya\Cms\Database\File;
-use Jinya\Cms\Storage\StorageBaseService;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Jinya\Cms\Theming\Extensions\FileExtension;
 use Jinya\Cms\Utils\ImageType;
 use Jinya\Cms\Utils\UuidGenerator;
 
-class FileCacheCommandTest extends DatabaseAwareTestCase
+class ConversionServiceTest extends DatabaseAwareTestCase
 {
-    public function testRun(): void
+    public function testConvertFile(): void
     {
         $tmpFileName = Uuid::uuid();
         $tmpPath = StorageBaseService::BASE_PATH . '/public/' . $tmpFileName;
@@ -23,22 +24,23 @@ class FileCacheCommandTest extends DatabaseAwareTestCase
         $file->type = (string)mime_content_type($tmpPath);
         $file->create();
 
-        $command = new FileCacheCommand();
-        $command->run();
+        $conversionService = new ConversionService();
+        $conversionService->convertFile($file->id);
 
         foreach (FileExtension::RESOLUTIONS_FOR_SOURCE as $width) {
             foreach (ImageType::cases() as $case) {
                 $path = "{$tmpPath}-{$width}w.{$case->string()}";
                 self::assertFileExists($path);
-                @unlink($path);
+                unlink($path);
             }
         }
 
         unlink($tmpPath);
     }
 
-    public function testRunFileNotExists(): void
+    public function testConvertFileFilePathNotExists(): void
     {
+        $this->expectException(DecoderException::class);
         $fileName = UuidGenerator::generateV4();
         $file = new File();
         $file->path = $fileName;
@@ -46,8 +48,14 @@ class FileCacheCommandTest extends DatabaseAwareTestCase
         $file->type = 'image/png';
         $file->create();
 
-        $command = new FileCacheCommand();
-        $command->run();
-        self::assertTrue(true);
+        $conversionService = new ConversionService();
+        $conversionService->convertFile($file->id);
+    }
+
+    public function testConvertFileFileNotExists(): void
+    {
+        $this->expectException(EmptyResultException::class);
+        $conversionService = new ConversionService();
+        $conversionService->convertFile(-1);
     }
 }

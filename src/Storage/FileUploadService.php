@@ -2,20 +2,30 @@
 
 namespace Jinya\Cms\Storage;
 
+use Exception;
 use Jinya\Cms\Database\Exceptions\EmptyResultException;
 use Jinya\Cms\Database\File;
 use Jinya\Cms\Database\UploadingFile;
 use Jinya\Cms\Database\UploadingFileChunk;
+use Jinya\Cms\Logging\Logger;
 use Jinya\Cms\Utils\UuidGenerator;
-use Exception;
 use Jinya\Database\Exception\NotNullViolationException;
+use Psr\Log\LoggerInterface;
 use RuntimeException;
+use Throwable;
 
 /**
  * A simple helper to handle file uploads
  */
 class FileUploadService extends StorageBaseService
 {
+    private readonly LoggerInterface $logger;
+
+    public function __construct(private readonly ConversionService $conversionService = new ConversionService())
+    {
+        $this->logger = Logger::getLogger();
+    }
+
     /**
      * Saves a new file chunk and returns it
      *
@@ -110,6 +120,13 @@ class FileUploadService extends StorageBaseService
             $uploadingFile?->delete();
         } finally {
             @fclose($tmpFileHandle);
+        }
+
+        try {
+            $this->conversionService->convertFile($file->id);
+        } catch (Throwable $throwable) {
+            $this->logger->warning('Failed to convert file after upload');
+            $this->logger->warning($throwable);
         }
 
         return $file;
