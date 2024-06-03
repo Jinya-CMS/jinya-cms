@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "b78528a5de6e523e9319d3d795e84f43",
+  "content-hash": "4035e36f83afc040fed5d3e9336edc88",
   "packages": [
     {
       "name": "aura/sqlquery",
@@ -1553,6 +1553,75 @@
       "time": "2024-03-23T07:42:40+00:00"
     },
     {
+      "name": "matomo/device-detector",
+      "version": "6.3.2",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/matomo-org/device-detector.git",
+        "reference": "fd4042cb6a7f3f985a81aedc075dd59e0b991a51"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/matomo-org/device-detector/zipball/fd4042cb6a7f3f985a81aedc075dd59e0b991a51",
+        "reference": "fd4042cb6a7f3f985a81aedc075dd59e0b991a51",
+        "shasum": ""
+      },
+      "require": {
+        "mustangostang/spyc": "*",
+        "php": "^7.2|^8.0"
+      },
+      "replace": {
+        "piwik/device-detector": "self.version"
+      },
+      "require-dev": {
+        "matthiasmullie/scrapbook": "^1.4.7",
+        "mayflower/mo4-coding-standard": "^v9.0.0",
+        "phpstan/phpstan": "^1.10.44",
+        "phpunit/phpunit": "^8.5.8",
+        "psr/cache": "^1.0.1",
+        "psr/simple-cache": "^1.0.1",
+        "symfony/yaml": "^5.1.7"
+      },
+      "suggest": {
+        "doctrine/cache": "Can directly be used for caching purpose",
+        "ext-yaml": "Necessary for using the Pecl YAML parser"
+      },
+      "type": "library",
+      "autoload": {
+        "psr-4": {
+          "DeviceDetector\\": ""
+        },
+        "exclude-from-classmap": [
+          "Tests/"
+        ]
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "LGPL-3.0-or-later"
+      ],
+      "authors": [
+        {
+          "name": "The Matomo Team",
+          "email": "hello@matomo.org",
+          "homepage": "https://matomo.org/team/"
+        }
+      ],
+      "description": "The Universal Device Detection library, that parses User Agents and detects devices (desktop, tablet, mobile, tv, cars, console, etc.), clients (browsers, media players, mobile apps, feed readers, libraries, etc), operating systems, devices, brands and models.",
+      "homepage": "https://matomo.org",
+      "keywords": [
+        "devicedetection",
+        "parser",
+        "useragent"
+      ],
+      "support": {
+        "forum": "https://forum.matomo.org/",
+        "issues": "https://github.com/matomo-org/device-detector/issues",
+        "source": "https://github.com/matomo-org/matomo",
+        "wiki": "https://dev.matomo.org/"
+      },
+      "time": "2024-05-28T10:16:19+00:00"
+    },
+    {
       "name": "melbahja/semver",
       "version": "v1.0.1",
       "source": {
@@ -1767,6 +1836,60 @@
         }
       ],
       "time": "2024-04-12T21:02:21+00:00"
+    },
+    {
+      "name": "mustangostang/spyc",
+      "version": "0.6.3",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/mustangostang/spyc.git",
+        "reference": "4627c838b16550b666d15aeae1e5289dd5b77da0"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/mustangostang/spyc/zipball/4627c838b16550b666d15aeae1e5289dd5b77da0",
+        "reference": "4627c838b16550b666d15aeae1e5289dd5b77da0",
+        "shasum": ""
+      },
+      "require": {
+        "php": ">=5.3.1"
+      },
+      "require-dev": {
+        "phpunit/phpunit": "4.3.*@dev"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "0.5.x-dev"
+        }
+      },
+      "autoload": {
+        "files": [
+          "Spyc.php"
+        ]
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "mustangostang",
+          "email": "vlad.andersen@gmail.com"
+        }
+      ],
+      "description": "A simple YAML loader/dumper class for PHP",
+      "homepage": "https://github.com/mustangostang/spyc/",
+      "keywords": [
+        "spyc",
+        "yaml",
+        "yml"
+      ],
+      "support": {
+        "issues": "https://github.com/mustangostang/spyc/issues",
+        "source": "https://github.com/mustangostang/spyc/tree/0.6.3"
+      },
+      "time": "2019-09-10T13:16:29+00:00"
     },
     {
       "name": "nikic/fast-route",
@@ -3390,12 +3513,12 @@
       "source": {
         "type": "git",
         "url": "https://github.com/Roave/SecurityAdvisories.git",
-        "reference": "255803f702f07bee1a4edb0b079348c198603514"
+        "reference": "a15ad8154eb2cc8f8f8ecb9def0f02bebee6309e"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/255803f702f07bee1a4edb0b079348c198603514",
-        "reference": "255803f702f07bee1a4edb0b079348c198603514",
+        "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/a15ad8154eb2cc8f8f8ecb9def0f02bebee6309e",
+        "reference": "a15ad8154eb2cc8f8f8ecb9def0f02bebee6309e",
         "shasum": ""
       },
       "conflict": {
@@ -3949,7 +4072,7 @@
         "spoonity/tcpdf": "<6.2.22",
         "squizlabs/php_codesniffer": ">=1,<2.8.1|>=3,<3.0.1",
         "ssddanbrown/bookstack": "<22.02.3",
-        "statamic/cms": "<4.46",
+        "statamic/cms": "<4.46|>=5.3,<5.6.2",
         "stormpath/sdk": "<9.9.99",
         "studio-42/elfinder": "<2.1.62",
         "subhh/libconnect": "<7.0.8|>=8,<8.1",
@@ -4096,7 +4219,7 @@
         "yidashi/yii2cmf": "<=2",
         "yii2mod/yii2-cms": "<1.9.2",
         "yiisoft/yii": "<1.1.29",
-        "yiisoft/yii2": "<2.0.38",
+        "yiisoft/yii2": "<=2.0.49|==2.0.49.3",
         "yiisoft/yii2-authclient": "<2.2.15",
         "yiisoft/yii2-bootstrap": "<2.0.4",
         "yiisoft/yii2-dev": "<2.0.43",
@@ -4182,7 +4305,7 @@
           "type": "tidelift"
         }
       ],
-      "time": "2024-05-29T19:04:21+00:00"
+      "time": "2024-06-02T23:04:59+00:00"
     },
     {
       "name": "symfony/deprecation-contracts",

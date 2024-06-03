@@ -44,5 +44,6 @@ class CleanDatabaseHandler implements BeforeFirstTestMethodCalledSubscriber
         Entity::getPDO()->exec('drop table if exists users cascade');
         Entity::getPDO()->exec('drop table if exists ip_address cascade');
         Entity::getPDO()->exec('drop table if exists migration_state cascade');
+        Entity::getPDO()->exec('drop table if exists analytics cascade');
     }
 }
