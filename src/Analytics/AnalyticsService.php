@@ -4,6 +4,7 @@ namespace Jinya\Cms\Analytics;
 
 use DeviceDetector\ClientHints;
 use DeviceDetector\DeviceDetector;
+use DeviceDetector\Parser\Device\AbstractDeviceParser;
 use Jinya\Cms\Database\AnalyticsEntry;
 use Jinya\Cms\Database\BlogPost;
 use Jinya\Cms\Database\MenuItem;
@@ -57,7 +58,7 @@ class AnalyticsService
 
             $entry->userAgent = $this->detector->getUserAgent();
             $entry->device = $this->detector->getModel();
-            $entry->brand = $this->detector->getBrandName();
+            $entry->brand = AbstractDeviceParser::getFullName($this->detector->getBrandName());
 
             /** @var array<string, string> $client */
             $client = $this->detector->getClient();
