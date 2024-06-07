@@ -26,8 +26,9 @@ create table analytics (
     language varchar(255) null,
     device varchar(255) null,
     brand varchar(255) null,
+    country char(2) null,
     user_agent varchar(255) null,
-    referer varchar(255) null,
+    referer text null,
     status smallint not null default 200,
     
     index (unique_visit),

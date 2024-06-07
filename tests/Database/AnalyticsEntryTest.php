@@ -34,12 +34,15 @@ class AnalyticsEntryTest extends DatabaseAwareTestCase
             $entry->brand = $faker->randomElement(['Apple', 'Samsung', 'Google']);
             $entry->userAgent = $faker->userAgent;
             $entry->referer = $faker->url;
+            $entry->country = $faker->countryCode;
 
             $entry->create();
-            Entity::getPDO()->exec("update analytics set timestamp = '{$timestamp->format('Y-m-d')}' where id = {$entry->entityId}");
+            Entity::getPDO()->exec(
+                "update analytics set timestamp = '{$timestamp->format('Y-m-d')}' where id = {$entry->entityId}"
+            );
         }
 
-        $timestamp = (new DateTime('now'))->sub(new DateInterval('P3Y'));
+        $timestamp = (new DateTime('now'))->sub(new DateInterval('P5Y'));
         $entry = new AnalyticsEntry();
         $entry->uniqueVisit = $faker->boolean(15);
         $entry->route = $faker->url;
@@ -55,10 +58,13 @@ class AnalyticsEntryTest extends DatabaseAwareTestCase
         $entry->brand = $faker->randomElement(['Apple', 'Samsung', 'Google']);
         $entry->userAgent = $faker->userAgent;
         $entry->referer = $faker->url;
+        $entry->country = $faker->countryCode;
 
         $entry->create();
 
-        Entity::getPDO()->exec("update analytics set timestamp = '{$timestamp->format('Y-m-d')}' where id = {$entry->entityId}");
+        Entity::getPDO()->exec(
+            "update analytics set timestamp = '{$timestamp->format('Y-m-d')}' where id = {$entry->entityId}"
+        );
     }
 
     public function testGetPastInterval(): void
@@ -77,6 +83,30 @@ class AnalyticsEntryTest extends DatabaseAwareTestCase
 
         $result = iterator_to_array(AnalyticsEntry::getPastInterval(entityType: EntityType::BlogPost, id: 101));
         self::assertLessThan(1000, count($result));
+    }
+
+    public function testGetPastIntervalGrouped(): void
+    {
+        $result = iterator_to_array(AnalyticsEntry::getPastIntervalGrouped('os'));
+        self::assertLessThanOrEqual(9, count($result));
+        self::assertGreaterThanOrEqual(1, count($result));
+
+        $result = iterator_to_array(AnalyticsEntry::getPastIntervalGrouped('os', interval: '-1 day'));
+        self::assertEmpty($result);
+
+        $result = iterator_to_array(AnalyticsEntry::getPastIntervalGrouped('os', interval: '24 month'));
+        self::assertLessThanOrEqual(9, count($result));
+        self::assertGreaterThanOrEqual(1, count($result));
+
+        $result = iterator_to_array(AnalyticsEntry::getPastIntervalGrouped('os', uniqueOnly: true));
+        self::assertLessThanOrEqual(9, count($result));
+        self::assertGreaterThanOrEqual(1, count($result));
+
+        $result = iterator_to_array(
+            AnalyticsEntry::getPastIntervalGrouped('os', entityType: EntityType::BlogPost, id: 101)
+        );
+        self::assertLessThanOrEqual(9, count($result));
+        self::assertGreaterThanOrEqual(1, count($result));
     }
 
     public function testFormat(): void
@@ -101,6 +131,7 @@ class AnalyticsEntryTest extends DatabaseAwareTestCase
             'device' => $first->device,
             'brand' => $first->brand,
             'userAgent' => $first->userAgent,
+            'country' => $first->country
         ], $first->format());
     }
 

@@ -1,13 +1,12 @@
 get:
-  summary: Get PHP info
+  summary: Get total visits for the given range of years
   responses:
     '200':
-      description: Successfully returned the php info
+      description: Successfully returned the visits
       content:
         application/json:
           schema:
-            type: object
-            additionalProperties: true
+            type: integer
     '401':
       description: Api key missing
       content:
@@ -20,9 +19,15 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/exception.yaml
-  operationId: get_php_info
-  description: Get PHP info as JSON
+  operationId: get_statistics_year_total
+  description: Get yearly statistics
+  parameters:
+    - name: years
+      schema:
+        type: integer
+      in: path
+      required: true
   tags:
-    - php-info
+    - statistics
   security:
     - jinya-api-key: []

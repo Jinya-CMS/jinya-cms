@@ -255,6 +255,10 @@ paths:
     $ref: paths/api_modern-page_{id}_section.yaml
   /api/php-info:
     $ref: paths/api_php-info.yaml
+  /api/statistics/{group}/{months}/month:
+    $ref: paths/api_statistics_{group}_{months}_month.yaml
+  /api/statistics/{group}/{years}/year:
+    $ref: paths/api_statistics_{group}_{years}_year.yaml
   /api/theme:
     $ref: paths/api_theme.yaml
   /api/theme/{id}:

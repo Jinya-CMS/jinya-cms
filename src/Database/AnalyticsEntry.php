@@ -69,6 +69,9 @@ class AnalyticsEntry implements Creatable, Deletable, Updatable, JsonSerializabl
     #[Column(sqlName: 'language')]
     public ?string $language;
 
+    #[Column(sqlName: 'country')]
+    public ?string $country;
+
     #[Column(sqlName: 'device')]
     public ?string $device;
 
@@ -89,6 +92,7 @@ class AnalyticsEntry implements Creatable, Deletable, Updatable, JsonSerializabl
      * @param EntityType|null $entityType
      * @param int|null $id
      * @param bool $uniqueOnly
+     * @param string|null $group
      * @return Iterator<self>
      */
     public static function getPastInterval(
@@ -122,6 +126,63 @@ class AnalyticsEntry implements Creatable, Deletable, Updatable, JsonSerializabl
         foreach ($data as $item) {
             yield self::fromArray($item);
         }
+    }
+
+    /**
+     * @param string $group
+     * @param string|null $interval
+     * @param EntityType|null $entityType
+     * @param int|null $id
+     * @param bool $uniqueOnly
+     * @return array{visits: integer, group: string}
+     */
+    public static function getPastIntervalGrouped(
+        string $group,
+        ?string $interval = null,
+        ?EntityType $entityType = null,
+        ?int $id = null,
+        bool $uniqueOnly = false,
+    ): array {
+        $groupEscaped = self::getPDO()->quote($group);
+        $groupColumns = match ($group) {
+            'os' => ['operating_system'],
+            'os-version' => ['operating_system', 'operating_system_version'],
+            'browser-version' => ['browser', 'browser_version'],
+            'type' => ['device_type'],
+            'date' => ['timestamp'],
+            default => [$group],
+        };
+        $groupColumnsImploded = implode(', ', $groupColumns);
+        if (count($groupColumns) === 2) {
+            $groupColumnsForName = "concat_ws(' ', $groupColumns[0], $groupColumns[1])";
+        } elseif (count($groupColumns) === 1) {
+            $groupColumnsForName = $groupColumns[0];
+        } else {
+            $groupColumnsForName = '';
+        }
+        $select = self::getQueryBuilder()
+            ->newSelect()
+            ->cols(["count(*) as visits", "$groupColumnsForName as group"])
+            ->from(self::getTableName())
+            ->groupBy($groupColumns);
+
+        if ($interval !== null) {
+            $select = $select->where("timestamp >= subdate(current_date, interval $interval)");
+        }
+
+        if ($uniqueOnly) {
+            $select = $select->where('unique_visit = true');
+        }
+
+        if ($entityType !== null && $id !== null) {
+            $select = $select->where(
+                'entity_type = :type AND entity_id = :id',
+                ['type' => $entityType->int(), 'id' => $id]
+            );
+        }
+
+        /** @var array<array<array-key, mixed>> $data */
+        return self::executeQuery($select);
     }
 
     /**
@@ -172,6 +233,23 @@ class AnalyticsEntry implements Creatable, Deletable, Updatable, JsonSerializabl
         return self::getPastInterval("$months month", $type, $id);
     }
 
+    public static function getTotalPastInterval(?string $interval): int
+    {
+        $select = self::getQueryBuilder()
+            ->newSelect()
+            ->cols(['COUNT(*) as visits'])
+            ->from(self::getTableName())
+            ->where('unique_visit = true');
+
+        if ($interval !== null) {
+            $select = $select->where("timestamp >= subdate(current_date, interval $interval)");
+        }
+
+        $result = self::executeQuery($select);
+
+        return $result[0]['visits'];
+    }
+
     /**
      * @return array<string, string|int|bool|null>
      */
@@ -200,6 +278,7 @@ class AnalyticsEntry implements Creatable, Deletable, Updatable, JsonSerializabl
             'language' => $this->language,
             'device' => $this->device,
             'brand' => $this->brand,
+            'country' => $this->country,
             'userAgent' => $this->userAgent,
         ];
     }
