@@ -92,7 +92,6 @@ class AnalyticsEntry implements Creatable, Deletable, Updatable, JsonSerializabl
      * @param EntityType|null $entityType
      * @param int|null $id
      * @param bool $uniqueOnly
-     * @param string|null $group
      * @return Iterator<self>
      */
     public static function getPastInterval(
@@ -134,7 +133,7 @@ class AnalyticsEntry implements Creatable, Deletable, Updatable, JsonSerializabl
      * @param EntityType|null $entityType
      * @param int|null $id
      * @param bool $uniqueOnly
-     * @return array{visits: integer, group: string}
+     * @return array{visits: integer, group: string}[]
      */
     public static function getPastIntervalGrouped(
         string $group,
@@ -153,7 +152,7 @@ class AnalyticsEntry implements Creatable, Deletable, Updatable, JsonSerializabl
             default => [$group],
         };
         $groupColumnsImploded = implode(', ', $groupColumns);
-        if (count($groupColumns) === 2) {
+        if (array_key_exists(1, $groupColumns)) {
             $groupColumnsForName = "concat_ws(' ', $groupColumns[0], $groupColumns[1])";
         } elseif (count($groupColumns) === 1) {
             $groupColumnsForName = $groupColumns[0];
@@ -181,8 +180,10 @@ class AnalyticsEntry implements Creatable, Deletable, Updatable, JsonSerializabl
             );
         }
 
-        /** @var array<array<array-key, mixed>> $data */
-        return self::executeQuery($select);
+        /** @var array{visits: integer, group: string}[] $data */
+        $data = self::executeQuery($select);
+
+        return $data;
     }
 
     /**
@@ -245,6 +246,7 @@ class AnalyticsEntry implements Creatable, Deletable, Updatable, JsonSerializabl
             $select = $select->where("timestamp >= subdate(current_date, interval $interval)");
         }
 
+        /** @var array{visits: int}[] $result */
         $result = self::executeQuery($select);
 
         return $result[0]['visits'];
