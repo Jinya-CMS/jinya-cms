@@ -14,8 +14,8 @@ class TG191Analytics extends AbstractMigration
 create table analytics (
     id int primary key auto_increment,
     route varchar(255) not null,
-    timestamp date default current_date not null,
-    unique_visit bool not null default false,
+    timestamp date default current_date() not null,
+    unique_visit bool default false not null,
     operating_system varchar(255) null,
     operating_system_version varchar(255) null,
     browser varchar(255) null,
