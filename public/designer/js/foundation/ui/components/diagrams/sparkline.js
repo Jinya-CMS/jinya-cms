@@ -88,12 +88,14 @@ class SparklineElement extends HTMLElement {
 
     const stats = await getStatisticsByEntityAndId(this.type, this.entityId, this.range);
     const options = {
-      series: [{
-        data: stats.map((item) => ({
-          y: item.visits.toLocaleString(),
-          x: item.group,
-        })),
-      }],
+      series: [
+        {
+          data: stats.map((item) => ({
+            y: item.visits.toLocaleString(),
+            x: item.group,
+          })),
+        },
+      ],
       chart: {
         type: 'line',
         width: 250,

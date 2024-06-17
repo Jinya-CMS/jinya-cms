@@ -246,8 +246,7 @@ export class BaseDiagram extends HTMLElement {
     if (!this.#apex) {
       this.#apex = new Apex(this.root.getElementById('diagram'), options);
       this.#apex.render();
-      this.root.getElementById('loader')
-        .remove();
+      this.root.getElementById('loader').remove();
     } else {
       this.#apex.updateOptions(options);
     }

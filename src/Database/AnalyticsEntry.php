@@ -3,7 +3,6 @@
 namespace Jinya\Cms\Database;
 
 use DateTime;
-use Iterator;
 use Jinya\Cms\Analytics\DeviceType;
 use Jinya\Cms\Analytics\EntityType;
 use Jinya\Cms\Database\Converter\BooleanConverter;
