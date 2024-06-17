@@ -6,6 +6,15 @@ volumes:
 
 services:
   jinya-mysql-database:
+    image: library/mysql:8
+    environment:
+      MYSQL_DATABASE: jinya
+      MYSQL_PASSWORD: jinya
+      MYSQL_ROOT_PASSWORD: jinya
+      MYSQL_USER: jinya
+    ports:
+      - 4336:3306
+  jinya-mariadb-database:
     image: library/mariadb:11
     environment:
       MYSQL_DATABASE: jinya
@@ -14,7 +23,7 @@ services:
       MYSQL_USER: jinya
     ports:
       - 3336:3306
-  jinya-mysql-additional-database:
+  jinya-mariadb-additional-database:
     image: library/mariadb:11
     environment:
       MYSQL_DATABASE: jinya
@@ -23,7 +32,7 @@ services:
       MYSQL_USER: jinya
     ports:
       - 3356:3306
-  jinya-mysql-test-database:
+  jinya-mariadb-test-database:
     image: library/mariadb:11
     environment:
       MYSQL_DATABASE: jinya
@@ -51,5 +60,6 @@ services:
     links:
       - jinya-mailer
       - jinya-mysql-database
-      - jinya-mysql-test-database
-      - jinya-mysql-additional-database
+      - jinya-mariadb-database
+      - jinya-mariadb-test-database
+      - jinya-mariadb-additional-database
