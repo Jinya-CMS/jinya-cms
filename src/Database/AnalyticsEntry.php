@@ -85,7 +85,7 @@ class AnalyticsEntry extends Entity implements JsonSerializable
      * @param EntityType|null $entityType
      * @param int|null $id
      * @param bool $uniqueOnly
-     * @return array
+     * @return array{visits: integer, group: string}[]
      */
     public static function getPastInterval(
         ?string $interval = null,
