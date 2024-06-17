@@ -14,6 +14,7 @@
       <div class="jinya-designer__title">
         <span class="cosmo-title" x-text="title"></span>
       </div>
+      <cms-sparkline class="jinya-designer__sparkline" type="classic-page" :entity-id="selectedPage.id"></cms-sparkline>
       <div class="cosmo-toolbar is--designer">
         <div class="cosmo-toolbar__group">
           <button @click="openEditDialog" class="cosmo-button" x-localize:pages_and_forms-classic-action-edit></button>

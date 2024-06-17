@@ -86,18 +86,19 @@ class AnalyticsEntry extends Entity implements JsonSerializable
      * @param EntityType|null $entityType
      * @param int|null $id
      * @param bool $uniqueOnly
-     * @return Iterator<self>
+     * @return array
      */
     public static function getPastInterval(
         ?string $interval = null,
         ?EntityType $entityType = null,
         ?int $id = null,
         bool $uniqueOnly = false
-    ): Iterator {
+    ): array {
         $select = self::getQueryBuilder()
             ->newSelect()
-            ->cols(self::getSqlColumnNames())
-            ->from(self::getTableName());
+            ->cols(['count(*) as visits', 'timestamp as group'])
+            ->from(self::getTableName())
+            ->groupBy(['timestamp']);
 
         if ($interval !== null) {
             $select = $select->where("timestamp >= subdate(current_date, interval $interval)");
@@ -114,11 +115,10 @@ class AnalyticsEntry extends Entity implements JsonSerializable
             );
         }
 
-        /** @var array<array<array-key, mixed>> $data */
+        /** @var array{visits: integer, group: string}[] $data */
         $data = self::executeQuery($select);
-        foreach ($data as $item) {
-            yield self::fromArray($item);
-        }
+
+        return $data;
     }
 
     /**
@@ -181,49 +181,12 @@ class AnalyticsEntry extends Entity implements JsonSerializable
     }
 
     /**
-     * @param EntityType $type
-     * @param int $id
-     * @return Iterator<self>
-     */
-    public static function getAllTimeForEntity(EntityType $type, int $id): Iterator
-    {
-        return self::getPastInterval(entityType: $type, id: $id);
-    }
-
-    /**
-     * @return Iterator<self>
-     */
-    public static function getPastNYears(int $years, bool $unique = true): Iterator
-    {
-        return self::getPastInterval("$years year", uniqueOnly: $unique);
-    }
-
-    /**
-     * @param int $years
-     * @param EntityType $type
-     * @param int $id
-     * @return Iterator<self>
-     */
-    public static function getPastNYearsForEntity(int $years, EntityType $type, int $id): Iterator
-    {
-        return self::getPastInterval("$years year", $type, $id);
-    }
-
-    /**
-     * @return Iterator<self>
-     */
-    public static function getPastNMonths(int $months, bool $unique = true): Iterator
-    {
-        return self::getPastInterval("$months month", uniqueOnly: $unique);
-    }
-
-    /**
      * @param int $months
      * @param EntityType $type
      * @param int $id
-     * @return Iterator<self>
+     * @return array{visits: integer, group: string}[]
      */
-    public static function getPastNMonthsForEntity(int $months, EntityType $type, int $id): Iterator
+    public static function getPastNMonthsForEntity(int $months, EntityType $type, int $id): array
     {
         return self::getPastInterval("$months month", $type, $id);
     }

@@ -54,6 +54,51 @@ export class BaseDiagram extends HTMLElement {
     return ['range', 'group'];
   }
 
+  static get theme() {
+    return {
+      enabled: true,
+      color: '#19324c',
+      shadeTo: 'light',
+      shadeIntensity: 0.1,
+    };
+  }
+
+  static get chartStyle() {
+    return {
+      fontSize: '16px',
+      fontFamily: 'var(--font-family), sans-serif',
+      fontWeight: 'var(--font-family-regular)',
+      color: 'var(--black)',
+    };
+  }
+
+  static get tooltipStyle() {
+    return {
+      fontSize: '16px',
+      fontFamily: 'var(--font-family), sans-serif',
+      fontWeight: 'var(--font-family-regular)',
+      color: 'var(--black)',
+    };
+  }
+
+  static get titleStyle() {
+    return {
+      fontFamily: 'var(--font-family-heading), sans-serif',
+      fontWeight: 'var(--font-family-light)',
+      fontSize: '24px',
+      color: 'var(--black)',
+    };
+  }
+
+  static get axisStyle() {
+    return {
+      fontFamily: 'var(--font-family), sans-serif',
+      fontWeight: 'var(--font-family-regular)',
+      fontSize: '12px',
+      color: 'var(--black)',
+    };
+  }
+
   attributeChangedCallback(property, oldValue, newValue) {
     if (oldValue === newValue) {
       return;
@@ -136,21 +181,14 @@ export class BaseDiagram extends HTMLElement {
       chart: {
         height: 360,
         type: this.#type,
-        style: {
-          fontSize: '16px',
-          fontFamily: 'var(--font-family), sans-serif',
-          fontWeight: 'var(--font-family-regular)',
-          color: 'var(--black)',
-        },
+        style: BaseDiagram.chartStyle,
         toolbar: {
           show: false,
         },
       },
       theme: {
         monochrome: {
-          enabled: true,
-          color: '#19324c',
-          shadeTo: 'light',
+          ...BaseDiagram.theme,
           shadeIntensity: this.getShadeIntensity(),
         },
       },
@@ -171,21 +209,11 @@ export class BaseDiagram extends HTMLElement {
       title: {
         text: this.name,
         align: 'left',
-        style: {
-          fontFamily: 'var(--font-family-heading), sans-serif',
-          fontWeight: 'var(--font-family-light)',
-          fontSize: '24px',
-          color: 'var(--black)',
-        },
+        style: BaseDiagram.titleStyle,
       },
       tooltip: {
         shared: false,
-        style: {
-          fontFamily: 'var(--font-family), sans-serif',
-          fontWeight: 'var(--font-family-regular)',
-          fontSize: '16px',
-          color: 'var(--black)',
-        },
+        style: BaseDiagram.tooltipStyle,
         y: {
           formatter(item) {
             return item.toLocaleString();
@@ -198,21 +226,11 @@ export class BaseDiagram extends HTMLElement {
             return item.toLocaleString();
           },
         },
-        style: {
-          fontFamily: 'var(--font-family), sans-serif',
-          fontWeight: 'var(--font-family-regular)',
-          fontSize: '12px',
-          color: 'var(--black)',
-        },
+        style: BaseDiagram.axisStyle,
       },
       xaxis: {
         labels: {
-          style: {
-            fontFamily: 'var(--font-family), sans-serif',
-            fontWeight: 'var(--font-family-regular)',
-            fontSize: '12px',
-            color: 'var(--black)',
-          },
+          style: BaseDiagram.axisStyle,
         },
       },
     };
@@ -228,7 +246,8 @@ export class BaseDiagram extends HTMLElement {
     if (!this.#apex) {
       this.#apex = new Apex(this.root.getElementById('diagram'), options);
       this.#apex.render();
-      this.root.getElementById('loader').remove();
+      this.root.getElementById('loader')
+        .remove();
     } else {
       this.#apex.updateOptions(options);
     }

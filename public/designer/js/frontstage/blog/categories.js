@@ -11,6 +11,8 @@ import {
 import { categoriesToTree, prepareCategories } from './utils.js';
 import { getBlogPosts } from '../../foundation/api/blog-post.js';
 
+import '../../foundation/ui/components/diagrams/sparkline.js';
+
 Alpine.data('categoriesData', () => ({
   categories: [],
   selectedCategory: null,

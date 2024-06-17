@@ -1,12 +1,13 @@
 get:
-  summary: Get total visits for the given range of months
+  summary: Get yearly statistics for entity
   responses:
     '200':
       description: Successfully returned the visits
       content:
         application/json:
           schema:
-            type: integer
+            type: object
+            additionalProperties: true
     '401':
       description: Api key missing
       content:
@@ -19,10 +20,28 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/exception.yaml
-  operationId: get_statistics_month_total
-  description: Get monthly statistics
+  operationId: get_statistics_year_entity
+  description: Get total visits for the given range of years for the given entity
   parameters:
-    - name: months
+    - name: years
+      schema:
+        type: integer
+      in: path
+      required: true
+    - name: entityType
+      schema:
+        type: string
+        enum:
+          - blog-post
+          - blog-category
+          - form
+          - gallery
+          - modern-page
+          - classic-page
+          - artist
+      in: path
+      required: true
+    - name: entityId
       schema:
         type: integer
       in: path

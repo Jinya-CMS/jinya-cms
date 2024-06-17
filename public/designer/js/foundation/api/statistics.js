@@ -7,3 +7,7 @@ export function getStatisticsByGroup(group, months = 1) {
 export function getTotalVisitsForInterval(months = 1) {
   return get(`/api/statistics/visits/${months}/month`);
 }
+
+export function getStatisticsByEntityAndId(type, id, months = 1) {
+  return get(`/api/statistics/visits/${months}/month/${type}/${id}`);
+}

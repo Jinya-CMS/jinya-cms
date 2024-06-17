@@ -36,4 +36,18 @@ enum EntityType
 
         return self::BlogPost;
     }
+
+    public static function fromString(string $entityType): EntityType
+    {
+        return match ($entityType) {
+            'blog-post' => self::BlogPost,
+            'blog-category' => self::BlogCategory,
+            'form' => self::Form,
+            'gallery' => self::Gallery,
+            'modern-page' => self::ModernPage,
+            'classic-page' => self::ClassicPage,
+            'artist' => self::Artist,
+            default => self::BlogPost,
+        };
+    }
 }

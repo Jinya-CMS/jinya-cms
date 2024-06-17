@@ -1,19 +1,25 @@
 .jinya-designer {
     display: grid;
     grid-template-rows: [header] 2.75rem 1.25rem [toolbar] 2rem 2rem [content] 1fr;
+    grid-template-areas: "header" "gap1" "toolbar" "gap2" "content";
 }
 
 .jinya-designer__title {
-    grid-row: header;
+    grid-area: header;
+}
+
+.jinya-designer__sparkline {
+    grid-area: header;
+    place-self: center end;
 }
 
 .cosmo-toolbar.is--designer {
-    grid-row: toolbar;
+    grid-area: toolbar;
 }
 
 .jinya-designer__content {
     display: grid;
-    grid-row: content;
+    grid-area: content;
     grid-template-columns: [content] 1fr [toolbox] 30rem;
     max-height: calc(var(--page-height) - 2.75rem - 1.25rem - 2rem - 2rem - 0.25rem);
 }

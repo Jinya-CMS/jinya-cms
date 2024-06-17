@@ -1,13 +1,12 @@
 get:
-  summary: Get monthly statistics grouped
+  summary: Get monthly statistics
   responses:
     '200':
-      description: Successfully returned the grouped data
+      description: Successfully returned the visits
       content:
         application/json:
           schema:
-            type: object
-            additionalProperties: true
+            type: integer
     '401':
       description: Api key missing
       content:
@@ -20,27 +19,12 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/exception.yaml
-  operationId: get_statistics_month_grouped
-  description: Get visits for the given range of months grouped by specified field
+  operationId: get_statistics_month_total
+  description: Get total visits for the given range of months
   parameters:
     - name: months
       schema:
         type: integer
-      in: path
-      required: true
-    - name: group
-      schema:
-        type: string
-        enum:
-          - country
-          - os
-          - os-version
-          - browser
-          - browser-version
-          - brand
-          - type
-          - language
-          - date
       in: path
       required: true
   tags:

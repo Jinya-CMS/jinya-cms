@@ -1,8 +1,8 @@
 get:
-  summary: Get monthly statistics grouped
+  summary: Get monthly statistics for entity
   responses:
     '200':
-      description: Successfully returned the grouped data
+      description: Successfully returned the visits
       content:
         application/json:
           schema:
@@ -20,27 +20,30 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/exception.yaml
-  operationId: get_statistics_month_grouped
-  description: Get visits for the given range of months grouped by specified field
+  operationId: get_statistics_month_entity
+  description: Get total visits for the given range of months for the given entity
   parameters:
     - name: months
       schema:
         type: integer
       in: path
       required: true
-    - name: group
+    - name: entityType
       schema:
         type: string
         enum:
-          - country
-          - os
-          - os-version
-          - browser
-          - browser-version
-          - brand
-          - type
-          - language
-          - date
+          - blog-post
+          - blog-category
+          - form
+          - gallery
+          - modern-page
+          - classic-page
+          - artist
+      in: path
+      required: true
+    - name: entityId
+      schema:
+        type: integer
       in: path
       required: true
   tags:

@@ -52,11 +52,7 @@ class LineDiagramElement extends BaseDiagram {
         zoom: {
           enabled: false,
         },
-        style: {
-          fontSize: '16px',
-          fontFamily: 'var(--font-family), sans-serif',
-          fontWeight: 'var(--font-family-regular)',
-        },
+        style: BaseDiagram.chartStyle,
       },
       dataLabels: {
         enabled: false,
@@ -67,20 +63,10 @@ class LineDiagramElement extends BaseDiagram {
       title: {
         text: localize({ key: `statistics.access.${this.group.replace('-', '_')}.${this.interval.replace('-', '_')}` }),
         align: 'left',
-        style: {
-          fontFamily: 'var(--font-family-heading), sans-serif',
-          fontWeight: 'var(--font-family-light)',
-          fontSize: '24px',
-          color: 'var(--black)',
-        },
+        style: BaseDiagram.titleStyle,
       },
       theme: {
-        monochrome: {
-          enabled: true,
-          color: '#19324c',
-          shadeTo: 'light',
-          shadeIntensity: 0.1,
-        },
+        monochrome: BaseDiagram.theme,
       },
       fill: {
         type: 'gradient',
@@ -98,32 +84,17 @@ class LineDiagramElement extends BaseDiagram {
             return item.toLocaleString();
           },
         },
-        style: {
-          fontFamily: 'var(--font-family), sans-serif',
-          fontWeight: 'var(--font-family-regular)',
-          fontSize: '12px',
-          color: 'var(--black)',
-        },
+        style: BaseDiagram.axisStyle,
       },
       xaxis: {
         type: 'datetime',
         labels: {
-          style: {
-            fontFamily: 'var(--font-family), sans-serif',
-            fontWeight: 'var(--font-family-regular)',
-            fontSize: '12px',
-            color: 'var(--black)',
-          },
+          style: BaseDiagram.axisStyle,
         },
       },
       tooltip: {
         shared: false,
-        style: {
-          fontFamily: 'var(--font-family), sans-serif',
-          fontWeight: 'var(--font-family-regular)',
-          fontSize: '16px',
-          color: 'var(--black)',
-        },
+        style: BaseDiagram.tooltipStyle,
         y: {
           formatter(item) {
             return item.toLocaleString();
