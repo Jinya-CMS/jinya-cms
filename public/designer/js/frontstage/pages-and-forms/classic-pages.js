@@ -9,9 +9,10 @@ import {
 import localize from '../../foundation/utils/localize.js';
 import alert from '../../foundation/ui/alert.js';
 import confirm from '../../foundation/ui/confirm.js';
+import { getClassicPageDatabase } from '../../foundation/database/classic-page.js';
 
 import '../../foundation/ui/components/toolbar-editor.js';
-import { getClassicPageDatabase } from '../../foundation/database/classic-page.js';
+import '../../foundation/ui/components/diagrams/sparkline.js';
 
 const classicPageDatabase = getClassicPageDatabase();
 

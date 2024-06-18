@@ -178,19 +178,19 @@ phpunit:
     matrix:
       - DATABASE_IMAGE: library/mysql:8.0
         TAG: 8.2-cli
-      - DATABASE_IMAGE: library/mysql:8.3
+      - DATABASE_IMAGE: library/mysql:lts
         TAG: 8.2-cli
       - DATABASE_IMAGE: library/mariadb:10.11
         TAG: 8.2-cli
-      - DATABASE_IMAGE: library/mariadb:11.3
+      - DATABASE_IMAGE: library/mariadb:lts
         TAG: 8.2-cli
       - DATABASE_IMAGE: library/mysql:8.0
         TAG: 8.3-cli
-      - DATABASE_IMAGE: library/mysql:8.3
+      - DATABASE_IMAGE: library/mysql:lts
         TAG: 8.3-cli
       - DATABASE_IMAGE: library/mariadb:10.11
         TAG: 8.3-cli
-      - DATABASE_IMAGE: library/mariadb:11.3
+      - DATABASE_IMAGE: library/mariadb:lts
         TAG: 8.3-cli
 
 deploy-tag-package:

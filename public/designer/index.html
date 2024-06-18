@@ -21,6 +21,7 @@
   <link href="/lib/cosmo/fonts/albert-sans.css" rel="stylesheet" />
   <link href="/lib/cosmo/fonts/oxygen-mono.css" rel="stylesheet" />
   <link href="/lib/cosmo/fonts/urbanist.css" rel="stylesheet" />
+
   <link href="/designer/lib/jodit/jodit.css" rel="stylesheet" />
 
   <link href="/designer/css/jodit.css" rel="stylesheet" />
@@ -43,6 +44,7 @@
   <link href="/designer/css/menus.css" rel="stylesheet" />
   <link href="/designer/css/blog-categories.css" rel="stylesheet" />
   <link href="/designer/css/blog-post.css" rel="stylesheet" />
+  <link href="/designer/css/statistics.css" rel="stylesheet" />
 
   <script src="/designer/js/foundation/ui/components/loader.js"></script>
 
@@ -78,6 +80,8 @@
       </template>
       <template x-if="$store.navigation.stage === 'backstage'">
         <div class="cosmo-menu__row">
+          <a class="cosmo-menu__item" href="/designer/frontstage/statistics/monthly"
+             x-localize:statistics-menu-title> </a>
           <a class="cosmo-menu__item" href="/designer/frontstage/media/files" x-localize:media-menu-title> </a>
           <a
             class="cosmo-menu__item"
@@ -105,6 +109,11 @@
       <template x-if="$store.navigation.stage === 'frontstage'">
         <nav class="cosmo-menu__collection">
           <div class="cosmo-menu__row is--main">
+            <a
+              class="cosmo-menu__item"
+              href="/designer/frontstage/statistics/month"
+              x-active-route.area="statistics"
+              x-localize:statistics-menu-title> </a>
             <a
               class="cosmo-menu__item"
               href="/designer/frontstage/media/files"
@@ -141,6 +150,38 @@
             >
             </a>
           </div>
+          <template x-if="$store.navigation.area === 'statistics'">
+            <div class="cosmo-menu__row is--sub">
+              <a
+                class="cosmo-menu__item"
+                href="/designer/frontstage/statistics/month"
+                :class="{ 'is--active': $router.params?.interval === 'month' }"
+                x-localize:statistics-menu-month
+              >
+              </a>
+              <a
+                class="cosmo-menu__item"
+                href="/designer/frontstage/statistics/quarter"
+                :class="{ 'is--active': $router.params?.interval === 'quarter' }"
+                x-localize:statistics-menu-quarter
+              >
+              </a>
+              <a
+                class="cosmo-menu__item"
+                href="/designer/frontstage/statistics/half-year"
+                :class="{ 'is--active': $router.params?.interval === 'half-year' }"
+                x-localize:statistics-menu-half_year
+              >
+              </a>
+              <a
+                class="cosmo-menu__item"
+                href="/designer/frontstage/statistics/year"
+                :class="{ 'is--active': $router.params?.interval === 'year' }"
+                x-localize:statistics-menu-year
+              >
+              </a>
+            </div>
+          </template>
           <template x-if="$store.navigation.area === 'media'">
             <div class="cosmo-menu__row is--sub">
               <a
@@ -343,6 +384,12 @@
     ></template>
 
     <template
+      x-route="/frontstage/statistics/:interval"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/statistics/statistics.html"
+    ></template>
+
+    <template
       x-route="/frontstage/media/files"
       x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
       x-template="/designer/templates/frontstage/media/files.html"
@@ -447,7 +494,7 @@
 
     <template
       x-route="notfound"
-      x-handler="(ctx) => ctx.redirect('/frontstage/media/files')"></template>
+      x-handler="(ctx) => ctx.redirect('/frontstage/statistics/month')"></template>
   </div>
   <template x-if="$store.authentication.loggedIn">
     <div class="cosmo-bottom-bar is--three-column" x-data="indexBottomBarData">

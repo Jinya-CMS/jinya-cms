@@ -36,25 +36,33 @@ class FrontendControllerTest extends FrontTestCase
         $post->create();
 
         $controller = $this->getController();
-        $result = $controller->blogFrontend($post->slug);
+        $result = $controller->frontend("{$post->createdAt->format('Y/m/d')}/$post->slug");
         self::assertEquals(200, $result->getStatusCode());
         self::assertEquals('text/html', $result->getHeaderLine('Content-Type'));
 
         $controller = $this->getController(true);
-        $result = $controller->blogFrontend($post->slug);
+        $result = $controller->frontend("{$post->createdAt->format('Y/m/d')}/$post->slug");
         self::assertEquals(200, $result->getStatusCode());
         self::assertEquals('application/json', $result->getHeaderLine('Content-Type'));
     }
 
-    public function testGetBlogFrontPostNotFound(): void
+    public function testGetBlogFrontRedirect(): void
     {
+        $post = new BlogPost();
+        $post->title = Uuid::uuid();
+        $post->public = true;
+        $post->slug = Uuid::uuid();
+        $post->create();
+
         $controller = $this->getController();
-        $result = $controller->blogFrontend(Uuid::uuid());
-        self::assertEquals(404, $result->getStatusCode());
+        $result = $controller->frontend($post->slug);
+        self::assertEquals(301, $result->getStatusCode());
+        self::assertEquals("/{$post->createdAt->format('Y/m/d')}/$post->slug", $result->getHeaderLine('Location'));
 
         $controller = $this->getController(true);
-        $result = $controller->blogFrontend(Uuid::uuid());
-        self::assertEquals(404, $result->getStatusCode());
+        $result = $controller->frontend($post->slug);
+        self::assertEquals(301, $result->getStatusCode());
+        self::assertEquals("/{$post->createdAt->format('Y/m/d')}/$post->slug", $result->getHeaderLine('Location'));
     }
 
     public function testGetFrontHome(): void
@@ -278,25 +286,6 @@ class FrontendControllerTest extends FrontTestCase
         $result = $controller->frontend('test');
 
         self::assertEquals(404, $result->getStatusCode());
-    }
-
-    public function testGetFrontBlogPost(): void
-    {
-        $post = new BlogPost();
-        $post->title = Uuid::uuid();
-        $post->public = true;
-        $post->slug = Uuid::uuid();
-        $post->create();
-
-        $controller = $this->getController();
-        $result = $controller->frontend($post->slug);
-
-        self::assertEquals(200, $result->getStatusCode());
-
-        $controller = $this->getController(true);
-        $result = $controller->frontend($post->slug);
-
-        self::assertEquals(200, $result->getStatusCode());
     }
 
     public function testPostFront(): void

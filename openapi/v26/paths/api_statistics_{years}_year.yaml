@@ -1,0 +1,33 @@
+get:
+  summary: Get total visits for the given range of years
+  responses:
+    '200':
+      description: Successfully returned the visits
+      content:
+        application/json:
+          schema:
+            type: integer
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_statistics_year_total
+  description: Get yearly statistics
+  parameters:
+    - name: years
+      schema:
+        type: integer
+      in: path
+      required: true
+  tags:
+    - statistics
+  security:
+    - jinya-api-key: []

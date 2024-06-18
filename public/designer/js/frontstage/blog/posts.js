@@ -17,10 +17,11 @@ import {
 import filePicker from '../../foundation/ui/filePicker.js';
 import { slugify } from '../../foundation/utils/text.js';
 import { getFilesByGallery, getGalleries } from '../../foundation/api/galleries.js';
-
-import '../../foundation/ui/components/inline-editor.js';
 import { getBlogPostDatabase } from '../../foundation/database/blog-post.js';
 import isEqual from '../../../lib/lodash/isEqual.js';
+
+import '../../foundation/ui/components/inline-editor.js';
+import '../../foundation/ui/components/diagrams/sparkline.js';
 
 const postDatabase = getBlogPostDatabase();
 

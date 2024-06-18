@@ -1,0 +1,49 @@
+get:
+  summary: Get monthly statistics grouped
+  responses:
+    '200':
+      description: Successfully returned the grouped data
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: true
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_statistics_month_grouped
+  description: Get visits for the given range of months grouped by specified field
+  parameters:
+    - name: months
+      schema:
+        type: integer
+      in: path
+      required: true
+    - name: group
+      schema:
+        type: string
+        enum:
+          - country
+          - os
+          - os-version
+          - browser
+          - browser-version
+          - brand
+          - type
+          - language
+          - date
+      in: path
+      required: true
+  tags:
+    - statistics
+  security:
+    - jinya-api-key: []

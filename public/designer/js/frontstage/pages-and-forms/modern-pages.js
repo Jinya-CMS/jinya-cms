@@ -17,6 +17,7 @@ import alert from '../../foundation/ui/alert.js';
 import { getModernPageDatabase } from '../../foundation/database/modern-page.js';
 
 import '../../foundation/ui/components/inline-editor.js';
+import '../../foundation/ui/components/diagrams/sparkline.js';
 
 const modernPageDatabase = getModernPageDatabase();
 

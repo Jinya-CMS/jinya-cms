@@ -14,6 +14,7 @@
           <span x-text="selectedPage.name"></span>
         </span>
       </div>
+      <cms-sparkline class="jinya-designer__sparkline" type="modern-page" :entity-id="selectedPage.id"></cms-sparkline>
       <div class="cosmo-toolbar is--modern-page">
         <div class="cosmo-toolbar__group">
           <button class="cosmo-button" x-localize:pages_and_forms-modern-action-edit @click="openEditDialog"></button>

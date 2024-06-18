@@ -12,6 +12,7 @@
     <div class="jinya-designer__title">
       <span class="cosmo-title" x-text="title"></span>
     </div>
+    <cms-sparkline class="jinya-designer__sparkline" type="blog-post" :entity-id="selectedPost?.id"></cms-sparkline>
     <div class="cosmo-toolbar is--designer">
       <div class="cosmo-toolbar__group">
         <button class="cosmo-button" @click="openCreateDialog" x-localize:blog-posts-overview-action-new></button>

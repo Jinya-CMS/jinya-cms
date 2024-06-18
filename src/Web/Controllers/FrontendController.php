@@ -2,6 +2,7 @@
 
 namespace Jinya\Cms\Web\Controllers;
 
+use Jinya\Cms\Analytics\AnalyticsService;
 use Jinya\Cms\Database;
 use Jinya\Cms\Database\BlogPost;
 use Jinya\Cms\Database\MenuItem;
@@ -32,7 +33,7 @@ class FrontendController extends BaseController
     /**
      * @throws \Exception
      */
-    public function __construct()
+    public function __construct(private readonly AnalyticsService $analyticsService = new AnalyticsService())
     {
         $this->activeTheme = new Theming\Theme(Database\Theme::getActiveTheme());
         $this->logger = Logger::getLogger();
@@ -51,11 +52,18 @@ class FrontendController extends BaseController
      *
      * @throws Throwable
      */
-    private function executeErrorHandled(callable $handler): ResponseInterface
+    private function executeErrorHandled(callable $handler, callable $onError = null): ResponseInterface
     {
         try {
             return $handler();
         } catch (Throwable $exception) {
+            if ($onError) {
+                try {
+                    $onError($exception);
+                } catch (Throwable$throwable) {
+                    $this->logger->error($throwable->getMessage());
+                }
+            }
             if (Theming\Theme::ERROR_BEHAVIOR_HOMEPAGE === $this->activeTheme->getErrorBehavior()) {
                 $this->logger->error($exception->getMessage());
                 $this->logger->error($exception->getTraceAsString());
@@ -206,30 +214,74 @@ class FrontendController extends BaseController
     }
 
     /**
+     * Displays the given blog post or returns a 404 page
+     * @throws Throwable
+     */
+    public function renderBlogPost(BlogPost $blogPost): ?ResponseInterface
+    {
+        $data = ['post' => $blogPost];
+
+        if ($this->checkForApiRequest()) {
+            return $this->sendApiJson('blog-post', $data);
+        }
+
+
+        return $this->renderThemed('blog-post', $data);
+    }
+
+    /**
      * Renders the given frontend route or a matching blog post if there is no menu item with the given route
      *
      * @param string $route
      * @return ResponseInterface
      * @throws Throwable
      */
-    #[Route(HttpMethod::GET, '[{route:(?!api\/)}]')]
+    #[Route(HttpMethod::GET, '[{route:(?!api/|install)\S*}]')]
     public function frontend(string $route = ''): ResponseInterface
     {
-        return $this->executeErrorHandled(function () use ($route) {
+        /** @var Database\AnalyticsEntry|null $analyticsEntry */
+        $analyticsEntry = null;
+
+        return $this->executeErrorHandled(function () use ($route, $analyticsEntry) {
             if ($route === '' || $route === '/') {
                 if ($this->checkForApiRequest()) {
                     return $this->sendApiJson('home', []);
                 }
+
+                $analyticsEntry = $this->analyticsService->trackRequest();
 
                 return $this->renderThemed('home', []);
             }
 
             $menuItem = MenuItem::findByRoute($route);
             if ($menuItem !== null) {
+                $analyticsEntry = $this->analyticsService->trackMenuItem($menuItem);
+
                 return $this->renderMenuItem($menuItem);
             }
 
-            return $this->blogFrontend($route);
+            $isBlogPost = preg_match('/^\d{4}\/\d{2}\/\d{2}\/\S*$/', $route);
+            if ($isBlogPost === 1) {
+                $slug = substr($route, 11);
+
+                $blogPost = BlogPost::findBySlug($slug);
+                if ($blogPost?->public) {
+                    $analyticsEntry = $this->analyticsService->trackBlogPost($blogPost);
+
+                    return $this->renderBlogPost($blogPost);
+                }
+            } elseif ($blogPost = BlogPost::findBySlug($route)) {
+                return new Response(
+                    self::HTTP_MOVED_PERMANENTLY,
+                    ['Location' => "/{$blogPost->createdAt->format('Y/m/d')}/$route"]
+                );
+            }
+
+            $analyticsEntry = $this->analyticsService->trackNotFound();
+
+            return $this->renderThemed('404', [], self::HTTP_NOT_FOUND);
+        }, function (Throwable $throwable) use ($analyticsEntry) {
+            $analyticsEntry?->delete();
         });
     }
 
@@ -288,33 +340,6 @@ class FrontendController extends BaseController
         }
 
         return $this->renderThemed('404', [], self::HTTP_NOT_FOUND);
-    }
-
-    /**
-     * Displays the given blog post or returns a 404 page
-     * @throws Throwable
-     */
-    #[Route(HttpMethod::GET, '{year:\d\d\d\d}/{month:\d\d}/{day:\d\d}/{slug}')]
-    public function blogFrontend(string $slug): ResponseInterface
-    {
-        return $this->executeErrorHandled(function () use ($slug) {
-            $blogPost = BlogPost::findBySlug($slug);
-            if ($blogPost !== null && $blogPost->public) {
-                $data = ['post' => $blogPost];
-
-                if ($this->checkForApiRequest()) {
-                    return $this->sendApiJson('blog-post', $data);
-                }
-
-                return $this->renderThemed('blog-post', $data);
-            }
-
-            if ($this->checkForApiRequest()) {
-                return $this->sendApiJson('404', [], self::HTTP_NOT_FOUND);
-            }
-
-            return $this->renderThemed('404', [], self::HTTP_NOT_FOUND);
-        });
     }
 
     /**

@@ -2,7 +2,7 @@ get:
   summary: Get PHP info
   responses:
     '200':
-      description: Successfully returned all classic pages
+      description: Successfully returned the php info
       content:
         application/json:
           schema:
@@ -21,7 +21,7 @@ get:
           schema:
             $ref: ../components/schemas/exception.yaml
   operationId: get_php_info
-  description: Get PHP infos as JSON
+  description: Get PHP info as JSON
   tags:
     - php-info
   security:

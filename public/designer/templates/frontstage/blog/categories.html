@@ -13,6 +13,8 @@
       <div class="jinya-designer__title">
         <span class="cosmo-title" x-text="title"></span>
       </div>
+      <cms-sparkline class="jinya-designer__sparkline" type="blog-category"
+                     :entity-id="selectedCategory.id"></cms-sparkline>
       <div class="cosmo-toolbar is--designer">
         <div class="cosmo-toolbar__group">
           <button class="cosmo-button" @click="openCreateDialog(selectedCategory)"
@@ -84,7 +86,8 @@
           </div>
         </div>
         <div class="cosmo-modal__button-bar">
-          <button type="button" class="cosmo-button" @click="create.open = false" x-localize:blog-categories-create-cancel></button>
+          <button type="button" class="cosmo-button" @click="create.open = false"
+                  x-localize:blog-categories-create-cancel></button>
           <button type="submit" class="cosmo-button" x-localize:blog-categories-create-create></button>
         </div>
       </div>
@@ -115,7 +118,8 @@
           </div>
         </div>
         <div class="cosmo-modal__button-bar">
-          <button type="button" class="cosmo-button" @click="edit.open = false" x-localize:blog-categories-edit-cancel></button>
+          <button type="button" class="cosmo-button" @click="edit.open = false"
+                  x-localize:blog-categories-edit-cancel></button>
           <button type="submit" class="cosmo-button" x-localize:blog-categories-edit-update></button>
         </div>
       </div>

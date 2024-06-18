@@ -11,9 +11,10 @@ import localize from '../../foundation/utils/localize.js';
 import confirm from '../../foundation/ui/confirm.js';
 import alert from '../../foundation/ui/alert.js';
 import isEqual from '../../../lib/lodash/isEqual.js';
+import { getFormDatabase } from '../../foundation/database/form.js';
 
 import '../../foundation/ui/components/toolbar-editor.js';
-import { getFormDatabase } from '../../foundation/database/form.js';
+import '../../foundation/ui/components/diagrams/sparkline.js';
 
 const formDatabase = getFormDatabase();
 

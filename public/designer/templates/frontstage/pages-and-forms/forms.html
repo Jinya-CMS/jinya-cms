@@ -15,6 +15,7 @@
           (<span x-text="selectedForm.toAddress"></span>)
         </span>
       </div>
+      <cms-sparkline class="jinya-designer__sparkline" type="form" :entity-id="selectedForm.id"></cms-sparkline>
       <div class="cosmo-toolbar is--form">
         <div class="cosmo-toolbar__group">
           <button class="cosmo-button" x-localize:pages_and_forms-form-action-edit @click="openEditDialog"></button>

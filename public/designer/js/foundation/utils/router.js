@@ -29,11 +29,11 @@ export async function needsLogout(context) {
   return null;
 }
 
-export async function fetchScript({ path }) {
-  if (path.startsWith('/login') || path.startsWith('/designer/login')) {
+export async function fetchScript({ route }) {
+  if (route.startsWith('/login') || route.startsWith('/designer/login')) {
     await import('/designer/js/login/login.js');
   } else {
-    const [, , stage, area, page] = path.split('/');
+    const [, , stage, area, page] = route.split('/');
     if (stage && area) {
       await import(`/designer/js/${stage}/${area}/${page ?? 'index'}.js`);
       Alpine.store('navigation').navigate({

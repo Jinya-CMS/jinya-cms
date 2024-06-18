@@ -38,7 +38,7 @@
         <env name="MYSQL_PASSWORD" value="jinya"/>
         <env name="MYSQL_USER" value="jinya"/>
         <env name="MYSQL_DATABASE" value="jinya"/>
-        <env name="MYSQL_HOST" value="jinya-mysql-test-database"/>
+        <env name="MYSQL_HOST" value="jinya-mariadb-test-database"/>
         <env name="MYSQL_PORT" value="3306"/>
         <env name="MYSQL_CHARSET" value="utf8mb4"/>
         <env name="MAILER_HOST" value="jinya-mailer"/>

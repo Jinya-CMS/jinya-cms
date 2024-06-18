@@ -3,6 +3,7 @@
 namespace Jinya\Cms\Database\Migrations;
 
 use Jinya\Cms\Migrations\BlogPostUpdated;
+use Jinya\Cms\Migrations\TG191Analytics;
 use Jinya\Cms\Migrations\TG192JinyaConfiguration;
 use Jinya\Cms\Migrations\TG195AppTotp;
 use Jinya\Cms\Migrations\TG201EmailPreferences;
@@ -45,7 +46,8 @@ abstract class Migrator
             new TG195AppTotp(),
             new TG201EmailPreferences(),
             new TG192JinyaConfiguration(),
-            new TG217IpDatabase($inCli)
+            new TG217IpDatabase($inCli),
+            new TG191Analytics()
         ];
 
         DatabaseMigrator::migrateUp($migrations, 'migration_state');

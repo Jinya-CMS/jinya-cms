@@ -15,6 +15,7 @@
         <span class="cosmo-title" x-text="title"></span>
         <span class="cosmo-title" x-text="typeAndOrientation"></span>
       </div>
+      <cms-sparkline class="jinya-designer__sparkline" type="gallery" :entity-id="selectedGallery.id"></cms-sparkline>
       <div class="cosmo-toolbar cosmo-toolbar--designer">
         <div class="cosmo-toolbar__group">
           <button @click="openEditDialog" class="cosmo-button" x-localize:media-galleries-action-edit></button>

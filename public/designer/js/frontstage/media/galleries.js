@@ -18,6 +18,7 @@ import { getFileDatabase } from '../../foundation/database/file.js';
 
 import '../../foundation/ui/components/tag.js';
 import '../../foundation/ui/components/tag-popup.js';
+import '../../foundation/ui/components/diagrams/sparkline.js';
 
 const fileDatabase = getFileDatabase();
 
