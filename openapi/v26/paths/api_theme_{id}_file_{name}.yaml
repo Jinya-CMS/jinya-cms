@@ -37,7 +37,6 @@ put:
   operationId: update_theme_file_by_name
   description: Updates the theme file with the given name in the given theme
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   requestBody:

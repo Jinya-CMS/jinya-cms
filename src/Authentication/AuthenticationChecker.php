@@ -27,10 +27,8 @@ class AuthenticationChecker
      */
     public static function getApiKeyFromRequest(Request $request): ?ApiKey
     {
-        $apiKeyHeader = $request->getHeaderLine(self::AUTHENTICATION_COOKIE_NAME);
         $authorizationHeader = substr($request->getHeaderLine('Authorization'), strlen('Bearer '));
-        $key = $request->getCookieParams(
-        )[self::AUTHENTICATION_COOKIE_NAME] ?? (!empty($apiKeyHeader) ? $apiKeyHeader : $authorizationHeader);
+        $key = $request->getCookieParams()[self::AUTHENTICATION_COOKIE_NAME] ?? $authorizationHeader;
 
         return ApiKey::findByApiKey($key);
     }

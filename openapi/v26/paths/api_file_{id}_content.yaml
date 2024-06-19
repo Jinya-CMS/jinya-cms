@@ -32,7 +32,6 @@ put:
   operationId: start_file_upload
   description: Starts the file upload
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
 get:
@@ -68,6 +67,5 @@ get:
   operationId: get_file_content
   description: Gets the files content with the specified id
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []

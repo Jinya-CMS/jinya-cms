@@ -26,7 +26,6 @@ put:
   operationId: verify_otp_app_mode
   description: Verifies the otp app usage
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   requestBody:

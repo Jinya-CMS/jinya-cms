@@ -18,7 +18,6 @@ put:
   operationId: upload_my_profilepicture
   description: Updates the current users profile picture
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   requestBody:

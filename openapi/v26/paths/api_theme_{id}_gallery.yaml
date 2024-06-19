@@ -38,6 +38,5 @@ get:
   operationId: get_theme_galleries
   description: Gets the theme galleries for the given theme
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []

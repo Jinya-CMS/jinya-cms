@@ -32,6 +32,5 @@ delete:
   operationId: reset_user_totp
   description: Reset the totp configuration to email for the given user
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []

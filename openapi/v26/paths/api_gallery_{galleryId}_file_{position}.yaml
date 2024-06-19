@@ -42,7 +42,6 @@ delete:
             $ref: ../components/schemas/exception.yaml
   operationId: delete_gallery_file_position
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   description: Deletes the gallery file from the given gallery
@@ -76,7 +75,6 @@ put:
     Updates the given gallery file. The selected file and the position can be
     changed
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   requestBody:

@@ -23,7 +23,6 @@ get:
             $ref: ../components/schemas/exception.yaml
   operationId: get_all_forms
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   description: Gets all forms
@@ -65,7 +64,6 @@ post:
   operationId: create_form
   description: Creates a new form with the given parameters
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   requestBody:

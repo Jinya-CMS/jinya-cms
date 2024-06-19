@@ -37,7 +37,6 @@ put:
   operationId: update_theme_menu_by_name
   description: Updates the theme menu with the given name in the given theme
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   requestBody:

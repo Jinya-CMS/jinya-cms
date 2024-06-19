@@ -24,7 +24,6 @@ get:
   tags:
     - blog-posts
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
 post:
@@ -65,7 +64,6 @@ post:
   operationId: create_blog_post
   description: Creates a new blog post
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   requestBody:

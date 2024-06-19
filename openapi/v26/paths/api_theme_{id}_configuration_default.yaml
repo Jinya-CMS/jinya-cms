@@ -40,6 +40,5 @@ get:
   operationId: get_theme_default_configuration
   description: Gets the default configuration for the given theme
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []

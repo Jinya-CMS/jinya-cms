@@ -44,6 +44,5 @@ head:
   operationId: check_api_key
   description: Check if the api key provided in the header is still valid.
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []

@@ -32,6 +32,5 @@ put:
   operationId: compile_theme_assets
   description: Compiles the given themes assets
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []

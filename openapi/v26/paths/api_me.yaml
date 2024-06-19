@@ -22,7 +22,6 @@ get:
             $ref: ../components/schemas/exception.yaml
   description: Get the currently logged-in users details
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   tags:
@@ -48,7 +47,6 @@ put:
             $ref: ../components/schemas/exception.yaml
   operationId: update_my_jinya
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   description: Updates the about me data of the current user

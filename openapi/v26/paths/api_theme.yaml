@@ -24,7 +24,6 @@ get:
   operationId: get_all_themes
   description: Gets a list of all currently installed themes
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
 post:
@@ -53,7 +52,6 @@ post:
   operationId: upload_theme
   description: Uploads a new theme that can later be used
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   requestBody:

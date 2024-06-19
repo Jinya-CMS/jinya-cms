@@ -24,7 +24,6 @@ get:
   tags:
     - menus
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
 post:
@@ -57,7 +56,6 @@ post:
   operationId: create_menu
   description: Creates a new menu
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   requestBody:

@@ -38,6 +38,5 @@ get:
   operationId: get_theme_modern_pages
   description: Gets the theme modern pages for the given theme
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []

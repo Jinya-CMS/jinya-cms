@@ -30,7 +30,6 @@ put:
   operationId: upload_user_profilepicture
   description: Updates the users profile picture
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   requestBody:
@@ -90,7 +89,6 @@ delete:
             $ref: ../components/schemas/exception.yaml
   operationId: delete_user_profilepicture
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   description: Deletes the given users profile picture
@@ -151,7 +149,6 @@ get:
   operationId: get_user_profilepicture
   description: Gets the users profile picture
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   tags:

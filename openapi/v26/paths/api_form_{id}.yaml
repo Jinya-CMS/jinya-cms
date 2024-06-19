@@ -36,7 +36,6 @@ get:
   operationId: get_form_by_id
   description: Gets the specified form
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
 delete:
@@ -67,7 +66,6 @@ delete:
   operationId: delete_form
   description: Deletes the given form
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
 put:
@@ -109,6 +107,5 @@ put:
           $ref: ../components/schemas/update-form-request.yaml
   description: Updates the given form with the specified values
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []

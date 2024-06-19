@@ -37,7 +37,6 @@ put:
   operationId: update_theme_blog_category_by_name
   description: Updates the theme blog category with the given name in the given theme
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   requestBody:

@@ -24,7 +24,6 @@ get:
   tags:
     - classic-pages
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
 post:
@@ -57,7 +56,6 @@ post:
   operationId: create_classic_page
   description: Creates a new classic page
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   requestBody:

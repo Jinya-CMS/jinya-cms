@@ -38,6 +38,5 @@ get:
   operationId: get_theme_blog_categories
   description: Gets the theme blog categories for the given theme
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []

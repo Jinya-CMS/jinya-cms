@@ -31,7 +31,6 @@ put:
             $ref: ../components/schemas/exception.yaml
   operationId: activate_user
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   description: Activates the user with the given id
@@ -69,6 +68,5 @@ delete:
   operationId: deactivate_user
   description: Deactivates the user with the given id
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []

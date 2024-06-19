@@ -38,6 +38,5 @@ get:
   operationId: get_theme_forms
   description: Gets the theme forms for the given theme
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []

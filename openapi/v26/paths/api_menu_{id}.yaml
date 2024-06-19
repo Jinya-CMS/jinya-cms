@@ -36,7 +36,6 @@ put:
   operationId: update_menu
   description: Updates the name of the given menu
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   requestBody:
@@ -71,7 +70,6 @@ delete:
             $ref: ../components/schemas/exception.yaml
   operationId: delete_menu
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   description: Deletes the given menu
@@ -107,7 +105,6 @@ get:
   operationId: get_menu_by_id
   description: Gets the menu with the specified id
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   tags:

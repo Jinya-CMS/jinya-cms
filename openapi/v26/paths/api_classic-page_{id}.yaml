@@ -36,7 +36,6 @@ put:
   operationId: update_classic_page
   description: Updates the classic page with the given id
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   requestBody:
@@ -71,7 +70,6 @@ delete:
             $ref: ../components/schemas/exception.yaml
   operationId: delete_classic_page
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   description: Deletes the given classic page
@@ -109,6 +107,5 @@ get:
   operationId: get_classic_page_by_id
   description: Gets the classic page with the specified id
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []

@@ -22,7 +22,6 @@ get:
   operationId: get_version_information
   description: Gets the currently installed version and the latest version available
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
   tags:

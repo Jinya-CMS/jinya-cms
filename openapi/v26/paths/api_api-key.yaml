@@ -24,6 +24,5 @@ get:
   operationId: get_all_api_keys
   description: Gets all currently valid api keys
   security:
-    - jinya-api-key: []
     - header-auth: []
     - cookie-auth: []
