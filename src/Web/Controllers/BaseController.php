@@ -17,7 +17,7 @@ abstract class BaseController extends AbstractController
      */
     public function jsonIteratorPlain(Iterator $iterator): ResponseInterface
     {
-        return $this->json(array_map(static fn (mixed $item) => $item->format(), iterator_to_array($iterator)));
+        return $this->json(array_map(static fn(mixed $item) => $item->format(), iterator_to_array($iterator)));
     }
 
     /**
@@ -25,7 +25,7 @@ abstract class BaseController extends AbstractController
      */
     public function jsonIterator(Iterator $iterator): ResponseInterface
     {
-        $items = array_map(static fn (mixed $item) => $item->format(), iterator_to_array($iterator));
+        $items = array_map(static fn(mixed $item) => $item->format(), iterator_to_array($iterator));
 
         return $this->json([
             'offset' => 0,
