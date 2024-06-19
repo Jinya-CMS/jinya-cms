@@ -39,6 +39,8 @@ put:
   description: Updates the blog post with the given id
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:
@@ -72,6 +74,8 @@ delete:
   operationId: delete_blog_post
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   description: Deletes the given blog post
   tags:
     - blog-posts
@@ -106,5 +110,7 @@ get:
   description: Gets the blog post with the given id
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   tags:
     - blog-posts

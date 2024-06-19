@@ -25,6 +25,8 @@ get:
     - classic-pages
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
 post:
   summary: Create classic page
   responses:
@@ -56,6 +58,8 @@ post:
   description: Creates a new classic page
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:

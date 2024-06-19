@@ -21,6 +21,8 @@ put:
   description: Updates the current users preferences
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:

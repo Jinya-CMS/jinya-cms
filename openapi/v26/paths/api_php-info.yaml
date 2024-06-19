@@ -26,3 +26,5 @@ get:
     - php-info
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []

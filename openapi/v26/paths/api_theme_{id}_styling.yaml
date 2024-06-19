@@ -39,6 +39,8 @@ get:
   description: Gets styling variables of the given theme
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
 put:
   summary: Update the theme variables and compile the theme
   tags:
@@ -70,6 +72,8 @@ put:
     to the assets
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:

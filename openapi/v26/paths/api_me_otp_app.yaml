@@ -25,3 +25,5 @@ put:
   description: Prepares the otp mode to be changed to app
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []

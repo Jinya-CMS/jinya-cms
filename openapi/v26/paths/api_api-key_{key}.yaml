@@ -26,4 +26,6 @@ delete:
     - active-sessions
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   description: Deletes the api key given in the request path

@@ -31,6 +31,8 @@ put:
   description: Updates the users profile picture
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       image/apng:
@@ -89,6 +91,8 @@ delete:
   operationId: delete_user_profilepicture
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   description: Deletes the given users profile picture
   tags:
     - artists
@@ -148,5 +152,7 @@ get:
   description: Gets the users profile picture
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   tags:
     - artists

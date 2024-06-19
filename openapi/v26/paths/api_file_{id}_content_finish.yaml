@@ -33,3 +33,5 @@ put:
   description: Finishes the upload for the given file
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []

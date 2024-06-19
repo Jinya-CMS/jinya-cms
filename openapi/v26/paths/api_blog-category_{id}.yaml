@@ -37,6 +37,8 @@ put:
   description: Updates the blog category with the given id
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:
@@ -70,6 +72,8 @@ delete:
   operationId: delete_blog_category
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   description: Deletes the given blog category
   tags:
     - blog-categories
@@ -104,5 +108,7 @@ get:
   description: Gets the blog category with the given id
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   tags:
     - blog-categories

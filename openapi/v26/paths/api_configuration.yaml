@@ -24,7 +24,9 @@ get:
   operationId: get_configuration
   description: Gets all configuration values currently used in Jinya CMS
   security:
-    - jinya-api-key: [ ]
+    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
 put:
   summary: Update all configuration values
   tags:
@@ -47,7 +49,9 @@ put:
   operationId: update_configuration
   description: Updates all configuration values currently used in Jinya CMS
   security:
-    - jinya-api-key: [ ]
+    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:

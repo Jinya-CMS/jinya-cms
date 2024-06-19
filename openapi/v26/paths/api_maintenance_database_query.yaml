@@ -30,6 +30,8 @@ post:
   operationId: api_maintenance_database_query_execute
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   description: >-
     Executes the provided sql queries. Only the following query types are
     allowed:

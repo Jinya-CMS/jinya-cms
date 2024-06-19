@@ -43,6 +43,8 @@ delete:
   operationId: delete_gallery_file_position
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   description: Deletes the gallery file from the given gallery
 put:
   summary: Update file by gallery file position
@@ -75,6 +77,8 @@ put:
     changed
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:

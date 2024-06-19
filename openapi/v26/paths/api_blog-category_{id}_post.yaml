@@ -35,5 +35,7 @@ get:
   description: Gets the blog posts for the given category
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   tags:
     - blog-categories

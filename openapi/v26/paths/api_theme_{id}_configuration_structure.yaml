@@ -37,3 +37,5 @@ get:
   description: Gets the configuration structure for the given theme
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []

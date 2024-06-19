@@ -2,12 +2,12 @@
 
 namespace Jinya\Cms\Authentication;
 
+use DateInterval;
+use DateTime;
 use Jinya\Cms\Database\ApiKey;
 use Jinya\Cms\Database\Artist;
 use Jinya\Cms\Web\Exceptions\ApiKeyInvalidException;
 use Jinya\Cms\Web\Exceptions\MissingPermissionsException;
-use DateInterval;
-use DateTime;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Throwable;
 
@@ -16,6 +16,8 @@ use Throwable;
  */
 class AuthenticationChecker
 {
+    public const AUTHENTICATION_COOKIE_NAME = 'JinyaApiKey';
+
     /**
      * This method checks if the requested role is valid for the user currently logged in.
      * If the artist is logged in and has the given role, it is returned otherwise an exception is thrown.
@@ -28,8 +30,11 @@ class AuthenticationChecker
      */
     public static function checkRequestForUser(Request $request, string|null $role): Artist
     {
-        $apiKeyHeader = $request->getHeaderLine('JinyaApiKey');
-        $apiKey = ApiKey::findByApiKey($apiKeyHeader);
+        $apiKeyHeader = $request->getHeaderLine(self::AUTHENTICATION_COOKIE_NAME);
+        $authorizationHeader = substr($request->getHeaderLine('Authorization'), strlen('Bearer '));
+        $key = $request->getCookieParams(
+        )[self::AUTHENTICATION_COOKIE_NAME] ?? (!empty($apiKeyHeader) ? $apiKeyHeader : $authorizationHeader);
+        $apiKey = ApiKey::findByApiKey($key);
         if (!$apiKey) {
             throw new ApiKeyInvalidException('Api key invalid');
         }

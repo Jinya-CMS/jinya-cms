@@ -38,6 +38,8 @@ put:
   description: Updates the theme modern page with the given name in the given theme
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:

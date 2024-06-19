@@ -37,6 +37,8 @@ put:
   description: Updates the name of the given menu
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:
@@ -70,6 +72,8 @@ delete:
   operationId: delete_menu
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   description: Deletes the given menu
   tags:
     - menus
@@ -104,5 +108,7 @@ get:
   description: Gets the menu with the specified id
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   tags:
     - menus

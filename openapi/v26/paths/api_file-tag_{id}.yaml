@@ -39,6 +39,8 @@ put:
   description: Updates the name of the given file tag
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:
@@ -72,6 +74,8 @@ delete:
   operationId: delete_file_tag
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   description: Deletes the given file tag
 get:
   summary: Get file tag by id
@@ -94,3 +98,5 @@ get:
   description: Gets the file tag with the specified id
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []

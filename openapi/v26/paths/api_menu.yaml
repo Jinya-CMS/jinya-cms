@@ -25,6 +25,8 @@ get:
     - menus
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
 post:
   summary: Create menu
   responses:
@@ -56,6 +58,8 @@ post:
   description: Creates a new menu
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:

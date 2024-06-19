@@ -19,5 +19,7 @@ put:
   description: Perform update of Jinya CMS to the latest version
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   tags:
     - update

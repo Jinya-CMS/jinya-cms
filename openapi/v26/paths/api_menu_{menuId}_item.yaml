@@ -39,6 +39,8 @@ get:
   description: Lists all menu items for the given menu
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
 put:
   summary: Update menu items
   responses:
@@ -72,6 +74,8 @@ put:
   description: Replaces all menu items
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:

@@ -32,3 +32,5 @@ get:
   description: Locates the given IPv4 address using ip.jinya.de
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []

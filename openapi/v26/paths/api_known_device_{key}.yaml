@@ -47,3 +47,5 @@ delete:
     a two factor code is required
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []

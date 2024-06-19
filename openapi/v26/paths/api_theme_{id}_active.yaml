@@ -33,3 +33,5 @@ put:
   description: Activates the given theme
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []

@@ -324,3 +324,16 @@ components:
       description: >-
         A Jinya API Key is generated after a user successfully logged in and
         returned in the response body of the login response
+    header-auth:
+      type: http
+      scheme: bearer
+      description: >-
+        A Jinya API Key is generated after a user successfully logged in and
+        returned in the response body of the login response
+    cookie-auth:
+      type: apiKey
+      in: cookie
+      name: JinyaApiKey
+      description: >-
+        A Jinya API Key is generated after a user successfully logged in and
+        returned in the response body of the login response

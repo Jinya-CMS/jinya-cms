@@ -62,3 +62,5 @@ get:
   description: Gets the information of the theme with the specified id
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []

@@ -33,3 +33,5 @@ put:
   description: Compiles the given themes assets
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []

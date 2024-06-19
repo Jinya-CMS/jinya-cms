@@ -27,6 +27,8 @@ put:
   description: Verifies the otp app usage
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:

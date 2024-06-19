@@ -24,6 +24,8 @@ get:
   operationId: get_all_forms
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   description: Gets all forms
 post:
   summary: Create form
@@ -64,6 +66,8 @@ post:
   description: Creates a new form with the given parameters
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:

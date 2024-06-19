@@ -37,6 +37,8 @@ put:
   description: Updates the classic page with the given id
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:
@@ -70,6 +72,8 @@ delete:
   operationId: delete_classic_page
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   description: Deletes the given classic page
   tags:
     - classic-pages
@@ -106,3 +110,5 @@ get:
   description: Gets the classic page with the specified id
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []

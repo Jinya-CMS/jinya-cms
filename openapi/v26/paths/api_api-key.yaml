@@ -25,3 +25,5 @@ get:
   description: Gets all currently valid api keys
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []

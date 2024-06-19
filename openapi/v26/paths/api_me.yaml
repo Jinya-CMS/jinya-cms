@@ -23,6 +23,8 @@ get:
   description: Get the currently logged-in users details
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   tags:
     - my-profile
 put:
@@ -47,6 +49,8 @@ put:
   operationId: update_my_jinya
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   description: Updates the about me data of the current user
   requestBody:
     content:

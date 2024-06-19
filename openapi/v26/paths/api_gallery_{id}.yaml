@@ -39,6 +39,8 @@ put:
   description: Updates the given gallery
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:
@@ -72,6 +74,8 @@ delete:
   operationId: delete_gallery
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   description: Deletes the given gallery
 get:
   summary: Get gallery by id
@@ -106,3 +110,5 @@ get:
   description: Gets the gallery with the specified slug
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []

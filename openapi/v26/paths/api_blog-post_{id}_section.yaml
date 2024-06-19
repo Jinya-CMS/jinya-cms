@@ -39,6 +39,8 @@ get:
     - blog-posts
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
 put:
   summary: Update blog post sections
   responses:
@@ -72,6 +74,8 @@ put:
   description: Replaces all blog post sections
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:

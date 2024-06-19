@@ -39,6 +39,8 @@ get:
   description: Gets all sections in the given modern page
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
 put:
   summary: Update modern page sections
   responses:
@@ -72,6 +74,8 @@ put:
   description: Replaces all modern page sections
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:

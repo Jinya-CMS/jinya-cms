@@ -33,6 +33,8 @@ put:
   description: Starts the file upload
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
 get:
   summary: Get file content by id
   tags:
@@ -67,3 +69,5 @@ get:
   description: Gets the files content with the specified id
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []

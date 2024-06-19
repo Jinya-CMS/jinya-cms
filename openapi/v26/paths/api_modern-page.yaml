@@ -25,6 +25,8 @@ get:
     - modern-pages
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
 post:
   summary: Create modern page
   responses:
@@ -56,6 +58,8 @@ post:
   description: Creates a new modern page
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:

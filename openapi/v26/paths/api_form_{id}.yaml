@@ -37,6 +37,8 @@ get:
   description: Gets the specified form
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
 delete:
   summary: Deletes form by id
   tags:
@@ -66,6 +68,8 @@ delete:
   description: Deletes the given form
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
 put:
   summary: Update form by id
   tags:
@@ -106,3 +110,5 @@ put:
   description: Updates the given form with the specified values
   security:
     - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
