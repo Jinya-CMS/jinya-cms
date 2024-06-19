@@ -45,9 +45,9 @@ class AnalyticsService
             }
 
             if (array_key_exists(
-                    AuthenticationChecker::AUTHENTICATION_COOKIE_NAME,
-                    $this->request->getCookieParams()
-                ) || array_key_exists(BaseController::DEVICE_CODE_COOKIE, $this->request->getCookieParams())) {
+                AuthenticationChecker::AUTHENTICATION_COOKIE_NAME,
+                $this->request->getCookieParams()
+            ) || array_key_exists(BaseController::DEVICE_CODE_COOKIE, $this->request->getCookieParams())) {
                 $this->logger->info('The request is made by an artist, ignore it');
                 return null;
             }

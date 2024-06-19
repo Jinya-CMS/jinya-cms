@@ -2,12 +2,12 @@
 
 namespace Jinya\Cms\Web\Middleware;
 
+use DateInterval;
+use DateTime;
 use Jinya\Cms\Authentication\CurrentUser;
 use Jinya\Cms\Database\ApiKey;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Jinya\Cms\Tests\TestRequestHandler;
-use DateInterval;
-use DateTime;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
 
@@ -40,7 +40,7 @@ class AuthorizationMiddlewareTest extends DatabaseAwareTestCase
 
     public function testProcessNotEnoughPermission(): void
     {
-        $request = new ServerRequest('POST', '', ['JinyaApiKey' => $this->createApiKey()->apiKey]);
+        $request = new ServerRequest('POST', '', ['Authorization' => 'Bearer ' . $this->createApiKey()->apiKey]);
         $middleware = new AuthorizationMiddleware('ROLE_ADMIN');
 
         $response = new Response();
@@ -66,7 +66,7 @@ class AuthorizationMiddlewareTest extends DatabaseAwareTestCase
         $apiKey->validSince = DateTime::createFromFormat('Y-m-d\TH:i:s', '1970-01-01T00:00:00');
         $apiKey->update();
 
-        $request = new ServerRequest('POST', '', ['JinyaApiKey' => $apiKey->apiKey]);
+        $request = new ServerRequest('POST', '', ['Authentication' => $apiKey->apiKey]);
         $middleware = new AuthorizationMiddleware('ROLE_ADMIN');
 
         $response = new Response();
