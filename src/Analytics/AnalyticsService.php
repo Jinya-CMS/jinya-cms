@@ -5,6 +5,7 @@ namespace Jinya\Cms\Analytics;
 use DeviceDetector\ClientHints;
 use DeviceDetector\DeviceDetector;
 use DeviceDetector\Parser\Device\AbstractDeviceParser;
+use Jinya\Cms\Authentication\AuthenticationChecker;
 use Jinya\Cms\Database\AnalyticsEntry;
 use Jinya\Cms\Database\BlogPost;
 use Jinya\Cms\Database\MenuItem;
@@ -40,6 +41,14 @@ class AnalyticsService
         try {
             if ($this->detector->isBot()) {
                 $this->logger->info('The request is made by a robot, ignore it');
+                return null;
+            }
+
+            if (array_key_exists(
+                    AuthenticationChecker::AUTHENTICATION_COOKIE_NAME,
+                    $this->request->getCookieParams()
+                ) || array_key_exists(BaseController::DEVICE_CODE_COOKIE, $this->request->getCookieParams())) {
+                $this->logger->info('The request is made by an artist, ignore it');
                 return null;
             }
 
