@@ -24,7 +24,8 @@ get:
   operationId: get_all_galleries
   description: Gets all galleries saved in Jinya CMS
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
 post:
   summary: Create gallery
   tags:
@@ -63,7 +64,8 @@ post:
   operationId: create_gallery
   description: Creates a new gallery with the given values
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:

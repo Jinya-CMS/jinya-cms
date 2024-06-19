@@ -2,8 +2,11 @@
 
 namespace Jinya\Cms\Web\Controllers;
 
+use DateInterval;
 use DateTime;
+use Jinya\Cms\Authentication\AuthenticationChecker;
 use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Configuration\JinyaConfiguration;
 use Jinya\Cms\Database\ApiKey;
 use Jinya\Cms\Database\Artist;
 use Jinya\Cms\Database\KnownDevice;
@@ -12,6 +15,7 @@ use Jinya\Cms\Logging\Logger;
 use Jinya\Cms\Mailing\Types\NewLoginMail;
 use Jinya\Cms\Mailing\Types\NewSavedDeviceMail;
 use Jinya\Cms\Mailing\Types\TwoFactorMail;
+use Jinya\Cms\Utils\CookieSetter;
 use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Jinya\Cms\Web\Middleware\CheckRequiredFieldsMiddleware;
 use Jinya\Database\Exception\NotNullViolationException;
@@ -90,7 +94,9 @@ class AuthenticationController extends BaseController
         $username = $this->body['username'] ?? '';
         $password = $this->body['password'] ?? '';
         $twoFactorCode = $this->body['twoFactorCode'] ?? '';
-        $knownDeviceCode = $this->getHeader('JinyaDeviceCode');
+        $knownDeviceCode = $this->request->getCookieParams()[self::DEVICE_CODE_COOKIE] ?? $this->getHeader(
+            self::DEVICE_CODE_COOKIE
+        );
 
         $artist = Artist::findByEmail($username);
         if ($artist !== null && $artist->validatePassword($password)) {
@@ -144,11 +150,26 @@ class AuthenticationController extends BaseController
                 }
             }
 
-            return $this->json([
+            $response = $this->json([
                 'apiKey' => $apiKey->apiKey,
                 'deviceCode' => $knownDevice->deviceKey,
                 'roles' => $artist->roles,
             ]);
+
+            $apiKeyExpires = JinyaConfiguration::getConfiguration()->get('api_key_expiry', 'jinya', 86400);
+
+            return CookieSetter::setCookie(
+                CookieSetter::setCookie(
+                    $response,
+                    self::DEVICE_CODE_COOKIE,
+                    $knownDevice->deviceKey,
+                    (new DateTime())->add(new DateInterval('P100Y')),
+                    httpOnly: false
+                ),
+                AuthenticationChecker::AUTHENTICATION_COOKIE_NAME,
+                $apiKey->apiKey,
+                $apiKey->validSince->add(new DateInterval("PT{$apiKeyExpires}S"))
+            );
         }
 
         return $this->badCredentialsResponse;
@@ -192,5 +213,27 @@ class AuthenticationController extends BaseController
     public function validateLogin(): ResponseInterface
     {
         return $this->noContent();
+    }
+
+    /**
+     * @return ResponseInterface
+     * @codeCoverageIgnore
+     */
+    #[Route(HttpMethod::DELETE, 'api/logout')]
+    public function logout(): ResponseInterface
+    {
+        $apiKey = AuthenticationChecker::getApiKeyFromRequest($this->request);
+        if ($apiKey) {
+            try {
+                $apiKey->delete();
+            } catch (Throwable$exception) {
+                $this->logger->info('Failed to delete api key, proceed with logout anyway');
+            }
+        }
+
+        return CookieSetter::unsetCookie(
+            $this->noContent(),
+            AuthenticationChecker::AUTHENTICATION_COOKIE_NAME,
+        );
     }
 }

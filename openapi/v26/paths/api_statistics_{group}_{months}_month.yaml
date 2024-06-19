@@ -46,4 +46,5 @@ get:
   tags:
     - statistics
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []

@@ -24,7 +24,8 @@ get:
   tags:
     - blog-categories
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
 post:
   summary: Create blog category
   responses:
@@ -61,7 +62,8 @@ post:
   operationId: create_blog_category
   description: Creates a new blog category
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:

@@ -46,4 +46,5 @@ delete:
     Deletes the given known device key. Next time this devices, tries to log in
     a two factor code is required
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []

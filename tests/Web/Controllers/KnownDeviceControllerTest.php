@@ -5,12 +5,16 @@ namespace Jinya\Cms\Web\Controllers;
 use Jinya\Cms\Authentication\CurrentUser;
 use Jinya\Cms\Database\KnownDevice;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
+use Nyholm\Psr7\ServerRequest;
 
 class KnownDeviceControllerTest extends DatabaseAwareTestCase
 {
     private function getController(): KnownDeviceController
     {
-        return new KnownDeviceController();
+        $controller = new KnownDeviceController();
+        $controller->request = new ServerRequest('POST', '');
+
+        return $controller;
     }
 
     public function testValidateKnownDevice(): void

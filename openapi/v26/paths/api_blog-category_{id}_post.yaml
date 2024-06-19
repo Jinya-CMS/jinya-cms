@@ -34,6 +34,7 @@ get:
   operationId: get_blog_posts_by_category_id
   description: Gets the blog posts for the given category
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   tags:
     - blog-categories

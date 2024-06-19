@@ -38,7 +38,8 @@ get:
   operationId: get_gallery_files
   description: Gets all files in the given gallery
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
 post:
   summary: Create file by gallery id
   tags:
@@ -71,7 +72,8 @@ post:
   operationId: create_gallery_file_position
   description: Adds a new file to the gallery
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:

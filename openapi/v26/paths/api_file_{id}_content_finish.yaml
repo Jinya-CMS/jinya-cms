@@ -32,4 +32,5 @@ put:
   operationId: finish_file_upload
   description: Finishes the upload for the given file
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []

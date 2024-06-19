@@ -24,4 +24,5 @@ get:
   operationId: analyze_database
   description: Gets a full structure of the database
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []

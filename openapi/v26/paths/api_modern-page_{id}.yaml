@@ -36,7 +36,8 @@ put:
   operationId: update_modern_page
   description: Updates the modern page with the given id
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:
@@ -69,7 +70,8 @@ delete:
             $ref: ../components/schemas/exception.yaml
   operationId: delete_modern_page
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   description: Deletes the given page
   tags:
     - modern-pages
@@ -105,4 +107,5 @@ get:
   operationId: get_modern_page_by_id
   description: Gets the modern page with the specified id
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []

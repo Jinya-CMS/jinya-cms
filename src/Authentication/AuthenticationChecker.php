@@ -2,12 +2,13 @@
 
 namespace Jinya\Cms\Authentication;
 
+use DateInterval;
+use DateTime;
+use Jinya\Cms\Configuration\JinyaConfiguration;
 use Jinya\Cms\Database\ApiKey;
 use Jinya\Cms\Database\Artist;
 use Jinya\Cms\Web\Exceptions\ApiKeyInvalidException;
 use Jinya\Cms\Web\Exceptions\MissingPermissionsException;
-use DateInterval;
-use DateTime;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Throwable;
 
@@ -16,6 +17,22 @@ use Throwable;
  */
 class AuthenticationChecker
 {
+    public const AUTHENTICATION_COOKIE_NAME = 'JinyaApiKey';
+
+    /**
+     * Retrieves the api key from the request based on all available authorization methods
+     *
+     * @param Request $request
+     * @return ApiKey|null
+     */
+    public static function getApiKeyFromRequest(Request $request): ?ApiKey
+    {
+        $authorizationHeader = substr($request->getHeaderLine('Authorization'), strlen('Bearer '));
+        $key = $request->getCookieParams()[self::AUTHENTICATION_COOKIE_NAME] ?? $authorizationHeader;
+
+        return ApiKey::findByApiKey($key);
+    }
+
     /**
      * This method checks if the requested role is valid for the user currently logged in.
      * If the artist is logged in and has the given role, it is returned otherwise an exception is thrown.
@@ -28,14 +45,14 @@ class AuthenticationChecker
      */
     public static function checkRequestForUser(Request $request, string|null $role): Artist
     {
-        $apiKeyHeader = $request->getHeaderLine('JinyaApiKey');
-        $apiKey = ApiKey::findByApiKey($apiKeyHeader);
+        $apiKey = self::getApiKeyFromRequest($request);
+
         if (!$apiKey) {
             throw new ApiKeyInvalidException('Api key invalid');
         }
 
         $validSince = $apiKey->validSince;
-        $expireAfterSeconds = getenv('JINYA_API_KEY_EXPIRY') ?: '86400';
+        $expireAfterSeconds = JinyaConfiguration::getConfiguration()->get('api_key_expiry', 'jinya', 86400);
         $validTimeSpan = new DateInterval("PT{$expireAfterSeconds}S");
 
         if ($validSince->add($validTimeSpan)->getTimestamp() < time()) {

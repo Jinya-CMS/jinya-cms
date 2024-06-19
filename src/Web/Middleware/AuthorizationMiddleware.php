@@ -2,8 +2,11 @@
 
 namespace Jinya\Cms\Web\Middleware;
 
+use DateInterval;
 use Jinya\Cms\Authentication\AuthenticationChecker;
 use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Configuration\JinyaConfiguration;
+use Jinya\Cms\Utils\CookieSetter;
 use Jinya\Cms\Web\Exceptions\ApiKeyInvalidException;
 use Jinya\Cms\Web\Exceptions\MissingPermissionsException;
 use JsonException;
@@ -59,6 +62,16 @@ readonly class AuthorizationMiddleware implements MiddlewareInterface
 
         CurrentUser::$currentUser = $artist;
 
-        return $handler->handle($request);
+        $response = $handler->handle($request);
+
+        $apiKey = AuthenticationChecker::getApiKeyFromRequest($request);
+        $apiKeyExpires = JinyaConfiguration::getConfiguration()->get('api_key_expiry', 'jinya', 86400);
+
+        return CookieSetter::setCookie(
+            $response,
+            AuthenticationChecker::AUTHENTICATION_COOKIE_NAME,
+            $apiKey?->apiKey,
+            $apiKey?->validSince->add(new DateInterval("PT{$apiKeyExpires}S"))
+        );
     }
 }

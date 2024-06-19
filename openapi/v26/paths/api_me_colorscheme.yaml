@@ -20,7 +20,8 @@ put:
   operationId: update_prefered_colorscheme
   description: Updates the prefered color scheme
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:

@@ -36,7 +36,8 @@ put:
   operationId: update_user
   description: Updates the user with the given id
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:
@@ -69,7 +70,8 @@ delete:
             $ref: ../components/schemas/exception.yaml
   operationId: delete_user
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   description: Deletes the given user
   tags:
     - artists
@@ -103,6 +105,7 @@ get:
   operationId: get_user_by_id
   description: Gets the user with the given id
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   tags:
     - artists

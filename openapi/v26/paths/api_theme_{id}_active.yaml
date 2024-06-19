@@ -32,4 +32,5 @@ put:
   operationId: activate_theme
   description: Activates the given theme
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []

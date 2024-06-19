@@ -38,4 +38,5 @@ get:
   operationId: get_theme_menus
   description: Gets the theme menus for the given theme
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []

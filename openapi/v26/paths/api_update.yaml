@@ -18,6 +18,7 @@ put:
   operationId: update_jinya_cms
   description: Perform update of Jinya CMS to the latest version
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   tags:
     - update

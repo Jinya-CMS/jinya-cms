@@ -38,7 +38,8 @@ put:
   operationId: udpate_file_tag
   description: Updates the name of the given file tag
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:
@@ -71,7 +72,8 @@ delete:
             $ref: ../components/schemas/exception.yaml
   operationId: delete_file_tag
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   description: Deletes the given file tag
 get:
   summary: Get file tag by id
@@ -93,4 +95,5 @@ get:
   operationId: get_file_tag_by_id
   description: Gets the file tag with the specified id
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []

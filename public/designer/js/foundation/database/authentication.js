@@ -1,5 +1,20 @@
 import { Dexie } from '../../../lib/dexie.js';
 
+function getCookieByName(name) {
+  if (!document.cookie.includes('=')) {
+    return null;
+  }
+
+  return document.cookie
+    .split(';')
+    .map((v) => v.split('='))
+    .reduce((acc, v) => {
+      acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+
+      return acc;
+    }, {})[name];
+}
+
 class AuthenticationDatabase {
   constructor() {
     this.#database = new Dexie('authentication');
@@ -15,31 +30,22 @@ class AuthenticationDatabase {
           },
           this.#apiKeyName,
         );
-        tx.values.add(
-          {
-            value: localStorage.getItem('/jinya/device/code'),
-          },
-          this.#deviceCodeName,
-        );
+        if (localStorage.getItem('/jinya/device/code')) {
+          document.cookie = `JinyaDeviceCode=${localStorage.getItem('/jinya/device/code')}`;
+        }
       }
     });
     this.#database.on('ready', async (db) => {
-      this.#cachedDeviceCode = (await db.values.get(this.#deviceCodeName))?.value ?? null;
       this.#cachedApiKey = (await db.values.get(this.#apiKeyName))?.value ?? null;
     });
 
     this.getApiKey = this.getApiKey.bind(this);
     this.setApiKey = this.setApiKey.bind(this);
     this.deleteApiKey = this.deleteApiKey.bind(this);
-
-    this.getDeviceCode = this.getDeviceCode.bind(this);
-    this.setDeviceCode = this.setDeviceCode.bind(this);
-    this.deleteDeviceCode = this.deleteDeviceCode.bind(this);
   }
 
   #database;
   #apiKeyName = 'api-key';
-  #deviceCodeName = 'device-code';
 
   #cachedApiKey = null;
   #cachedDeviceCode = null;
@@ -70,30 +76,8 @@ class AuthenticationDatabase {
     this.#cachedApiKey = null;
   }
 
-  async getDeviceCode() {
-    if (this.#cachedDeviceCode) {
-      return this.#cachedDeviceCode;
-    }
-
-    this.#cachedDeviceCode = (await this.#database.values.get(this.#deviceCodeName))?.value ?? null;
-
-    return this.#cachedDeviceCode;
-  }
-
-  async setDeviceCode(value) {
-    await this.#database.values.put(
-      {
-        key: this.#deviceCodeName,
-        value,
-      },
-      this.#deviceCodeName,
-    );
-    this.#cachedDeviceCode = value;
-  }
-
-  async deleteDeviceCode() {
-    await this.#database.values.delete(this.#deviceCodeName);
-    this.#cachedDeviceCode = null;
+  getDeviceCode() {
+    return getCookieByName('JinyaDeviceCode');
   }
 }
 

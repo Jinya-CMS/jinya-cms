@@ -23,5 +23,6 @@ get:
             $ref: ../components/schemas/exception.yaml
   operationId: get_all_known_devices
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   description: Gets a list of all known devices

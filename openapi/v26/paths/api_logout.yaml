@@ -1,0 +1,11 @@
+delete:
+  summary: Logout
+  tags:
+    - authentication
+  responses:
+    '204':
+      description: Successfully logged out
+  operationId: logout
+  description: >-
+    Logs the user out and deletes the api key
+  security: []

@@ -32,7 +32,8 @@ put:
   operationId: update_theme_configuration
   description: Updates the theme configuration of the given theme
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:

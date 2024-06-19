@@ -169,6 +169,8 @@ paths:
     $ref: paths/api_user_{id}_profilepicture.yaml
   /api/login:
     $ref: paths/api_login.yaml
+  /api/logout:
+    $ref: paths/api_logout.yaml
   /api/account/password:
     $ref: paths/api_account_password.yaml
   /api/2fa:
@@ -317,10 +319,16 @@ paths:
     $ref: paths/api_version.yaml
 components:
   securitySchemes:
-    jinya-api-key:
-      name: JinyaApiKey
+    header-auth:
+      type: http
+      scheme: bearer
+      description: >-
+        A Jinya API Key is generated after a user successfully logged in and
+        returned in the response body of the login response
+    cookie-auth:
       type: apiKey
-      in: header
+      in: cookie
+      name: JinyaApiKey
       description: >-
         A Jinya API Key is generated after a user successfully logged in and
         returned in the response body of the login response

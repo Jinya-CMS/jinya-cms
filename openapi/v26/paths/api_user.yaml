@@ -24,7 +24,8 @@ get:
   tags:
     - artists
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
 post:
   summary: Create user
   responses:
@@ -61,7 +62,8 @@ post:
   operationId: create_user
   description: Creates a new user (artist)
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:

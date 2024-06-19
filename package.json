@@ -14,11 +14,11 @@
   "type": "module",
   "scripts": {
     "designer:prettier": "prettier public/designer/js --check",
-    "designer:eslint": "eslint -c eslint.config.cjs public/designer/{js,lang}/**/*.js",
+    "designer:eslint": "eslint -c eslint.config.cjs public/designer/js/ public/designer/lang/",
     "designer:stylelint": "stylelint public/designer/**/*.css",
     "designer:format": "prettier public/designer/js --write",
     "installer:prettier": "prettier public/installer --check",
-    "installer:eslint": "eslint -c eslint.config.cjs public/installer/**/*.js",
+    "installer:eslint": "eslint -c eslint.config.cjs public/installer/",
     "installer:stylelint": "stylelint public/installer/**/*.css --fix",
     "installer:format": "prettier public/installer --write"
   },

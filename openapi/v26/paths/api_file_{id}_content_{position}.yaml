@@ -39,4 +39,5 @@ put:
     Uploads the given file chunk for the file with the given id at the given
     position
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []

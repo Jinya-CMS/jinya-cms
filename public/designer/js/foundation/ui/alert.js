@@ -17,7 +17,6 @@ export default async function alert({
   positive = false,
 }) {
   if (buttonLabel === null) {
-    // eslint-disable-next-line no-param-reassign
     buttonLabel = localize({ key: 'alert.dismiss' });
   }
   return new Promise((resolve) => {

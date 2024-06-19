@@ -4,6 +4,7 @@ namespace Jinya\Cms\Web\Controllers;
 
 use Jinya\Cms\Authentication\CurrentUser;
 use Jinya\Cms\Database\KnownDevice;
+use Jinya\Cms\Utils\CookieSetter;
 use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Jinya\Router\Attributes\Controller;
 use Jinya\Router\Attributes\HttpMethod;
@@ -46,6 +47,11 @@ class KnownDeviceController extends BaseController
         }
 
         $device->delete();
+
+        $cookie = $this->request->getCookieParams()[self::DEVICE_CODE_COOKIE];
+        if ($cookie === $key) {
+            return CookieSetter::unsetCookie($this->noContent(), self::DEVICE_CODE_COOKIE, false);
+        }
 
         return $this->noContent();
     }

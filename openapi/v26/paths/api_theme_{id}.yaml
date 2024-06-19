@@ -36,7 +36,8 @@ get:
   operationId: get_theme_by_id
   description: Gets the information of the theme with the specified id
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
 put:
   summary: Update theme by id
   tags:
@@ -65,7 +66,8 @@ put:
   operationId: update_theme
   description: Updates the given theme
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/zip:

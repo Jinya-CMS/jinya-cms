@@ -24,7 +24,8 @@ get:
   operationId: get_all_file_tags
   description: Gets a list of all file tags
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
 post:
   summary: Create file tag
   tags:
@@ -63,7 +64,8 @@ post:
   operationId: create_file_tag
   description: Creates a new file tag
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:

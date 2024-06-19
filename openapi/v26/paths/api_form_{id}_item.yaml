@@ -37,7 +37,8 @@ get:
             $ref: ../components/schemas/exception.yaml
   operationId: get_form_items
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   description: Gets the items of the given form
 put:
   summary: Update form items
@@ -71,7 +72,8 @@ put:
   operationId: update_form_items
   description: Replaces all form items
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:

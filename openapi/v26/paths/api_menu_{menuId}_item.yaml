@@ -38,7 +38,8 @@ get:
   operationId: get_all_menu_items_by_menu
   description: Lists all menu items for the given menu
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
 put:
   summary: Update menu items
   responses:
@@ -71,7 +72,8 @@ put:
   operationId: update_menu_items
   description: Replaces all menu items
   security:
-    - jinya-api-key: []
+    - header-auth: []
+    - cookie-auth: []
   requestBody:
     content:
       application/json:
