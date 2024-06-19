@@ -12,6 +12,8 @@ use Psr\Http\Message\ResponseInterface;
  */
 abstract class BaseController extends AbstractController
 {
+    protected const DEVICE_CODE_COOKIE = 'JinyaDeviceCode';
+
     /**
      * @throws JsonException
      */

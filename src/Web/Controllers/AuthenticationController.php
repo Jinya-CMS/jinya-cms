@@ -32,8 +32,6 @@ use Throwable;
 #[Controller]
 class AuthenticationController extends BaseController
 {
-    private const DEVICE_CODE_COOKIE = 'JinyaDeviceCode';
-
     private readonly LoggerInterface $logger;
     private readonly ResponseInterface $badCredentialsResponse;
 
@@ -161,7 +159,13 @@ class AuthenticationController extends BaseController
             $apiKeyExpires = JinyaConfiguration::getConfiguration()->get('api_key_expiry', 'jinya', 86400);
 
             return CookieSetter::setCookie(
-                CookieSetter::setCookie($response, self::DEVICE_CODE_COOKIE, $knownDevice->deviceKey, httpOnly: false),
+                CookieSetter::setCookie(
+                    $response,
+                    self::DEVICE_CODE_COOKIE,
+                    $knownDevice->deviceKey,
+                    (new DateTime())->add(new DateInterval('P100Y')),
+                    httpOnly: false
+                ),
                 AuthenticationChecker::AUTHENTICATION_COOKIE_NAME,
                 $apiKey->apiKey,
                 $apiKey->validSince->add(new DateInterval("PT{$apiKeyExpires}S"))
@@ -209,5 +213,27 @@ class AuthenticationController extends BaseController
     public function validateLogin(): ResponseInterface
     {
         return $this->noContent();
+    }
+
+    /**
+     * @return ResponseInterface
+     * @codeCoverageIgnore
+     */
+    #[Route(HttpMethod::DELETE, 'api/logout')]
+    public function logout(): ResponseInterface
+    {
+        $apiKey = AuthenticationChecker::getApiKeyFromRequest($this->request);
+        if ($apiKey) {
+            try {
+                $apiKey->delete();
+            } catch (Throwable$exception) {
+                $this->logger->info('Failed to delete api key, proceed with logout anyway');
+            }
+        }
+
+        return CookieSetter::unsetCookie(
+            $this->noContent(),
+            AuthenticationChecker::AUTHENTICATION_COOKIE_NAME,
+        );
     }
 }

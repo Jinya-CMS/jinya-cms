@@ -24,7 +24,10 @@ export async function checkKnownDevice(device) {
 }
 
 export async function login(email, password, twoFactorCode = null) {
-  const { deviceCode, apiKey } = await post('/api/login', {
+  const {
+    deviceCode,
+    apiKey,
+  } = await post('/api/login', {
     username: email,
     password,
     twoFactorCode,
@@ -63,22 +66,18 @@ export function locateIp(ip) {
 }
 
 export async function logout(fully = false) {
-  try {
-    await deleteApiKey(await authenticationDatabase.getApiKey());
-  } catch {
-    console.log('Failed to revoke api key, logging out anyway');
-  } finally {
-    await authenticationDatabase.deleteApiKey();
-    if (fully) {
-      try {
-        await deleteKnownDevice(authenticationDatabase.getDeviceCode());
-      } catch {
-        console.log('Failed to forget device, logging out anyway');
-      } finally {
-        await authenticationDatabase.deleteDeviceCode();
-      }
+  if (fully) {
+    try {
+      await deleteKnownDevice(await authenticationDatabase.getDeviceCode());
+    } catch {
+      console.log('Failed to forget device, logging out anyway');
+    } finally {
+      await authenticationDatabase.deleteDeviceCode();
     }
   }
+
+  await httpDelete('/api/logout');
+  await authenticationDatabase.deleteApiKey();
 }
 
 export async function changePassword(oldPassword, newPassword) {

@@ -169,6 +169,8 @@ paths:
     $ref: paths/api_user_{id}_profilepicture.yaml
   /api/login:
     $ref: paths/api_login.yaml
+  /api/logout:
+    $ref: paths/api_logout.yaml
   /api/account/password:
     $ref: paths/api_account_password.yaml
   /api/2fa:
