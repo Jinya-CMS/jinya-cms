@@ -1,4 +1,5 @@
 import { getAuthenticationDatabase } from '../database/authentication.js';
+import { Alpine } from '../../../../lib/alpine.js';
 
 const authenticationDatabase = getAuthenticationDatabase();
 
@@ -11,16 +12,6 @@ export async function send(
   plain = false,
 ) {
   const headers = { 'Content-Type': contentType, ...additionalHeaders };
-  const apiKey = await authenticationDatabase.getApiKey();
-  const deviceCode = await authenticationDatabase.getDeviceCode();
-
-  if (apiKey) {
-    headers.JinyaApiKey = apiKey;
-  }
-
-  if (deviceCode) {
-    headers.JinyaDeviceCode = deviceCode;
-  }
 
   const request = {
     headers,
@@ -52,27 +43,27 @@ export async function send(
   const httpError = (await response.json()).error;
   switch (response.status) {
     case 400:
-      // eslint-disable-next-line no-case-declarations
       const { default: BadRequestError } = await import('./Error/BadRequestError.js');
       throw new BadRequestError(httpError);
     case 401:
-      // eslint-disable-next-line no-case-declarations
       const { default: UnauthorizedError } = await import('./Error/UnauthorizedError.js');
+      if (httpError.type === 'invalid-api-key') {
+        Alpine.store('authentication').logout();
+
+        return null;
+      }
+
       throw new UnauthorizedError(httpError);
     case 403:
-      // eslint-disable-next-line no-case-declarations
       const { default: NotAllowedError } = await import('./Error/NotAllowedError.js');
       throw new NotAllowedError(httpError);
     case 404:
-      // eslint-disable-next-line no-case-declarations
       const { default: NotFoundError } = await import('./Error/NotFoundError.js');
       throw new NotFoundError(httpError);
     case 409:
-      // eslint-disable-next-line no-case-declarations
       const { default: ConflictError } = await import('./Error/ConflictError.js');
       throw new ConflictError(httpError);
     default:
-      // eslint-disable-next-line no-case-declarations
       const { default: HttpError } = await import('./Error/HttpError.js');
       throw new HttpError(response.status, httpError);
   }

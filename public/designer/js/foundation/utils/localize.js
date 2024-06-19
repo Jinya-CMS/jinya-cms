@@ -18,7 +18,6 @@ function getByPath({ obj, path = '', def = '' }) {
     splitPath = path.split('-');
   }
 
-  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < splitPath.length; ++i) {
     if (!current[splitPath[i]]) return def;
     current = current[splitPath[i]];

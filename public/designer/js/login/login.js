@@ -16,7 +16,7 @@ Alpine.data('loginData', () => ({
   twoFactorCodeRequested: false,
   needsTwoFactor: true,
   async init() {
-    const deviceCode = await authenticationDatabase.getDeviceCode();
+    const deviceCode = authenticationDatabase.getDeviceCode();
     if (deviceCode) {
       this.needsTwoFactor = !(await checkKnownDevice(deviceCode));
     } else {

@@ -24,16 +24,12 @@ export async function checkKnownDevice(device) {
 }
 
 export async function login(email, password, twoFactorCode = null) {
-  const {
-    deviceCode,
-    apiKey,
-  } = await post('/api/login', {
+  const { deviceCode, apiKey } = await post('/api/login', {
     username: email,
     password,
     twoFactorCode,
   });
   if (deviceCode && apiKey) {
-    await authenticationDatabase.setDeviceCode(deviceCode);
     await authenticationDatabase.setApiKey(apiKey);
   }
 }
@@ -71,8 +67,6 @@ export async function logout(fully = false) {
       await deleteKnownDevice(await authenticationDatabase.getDeviceCode());
     } catch {
       console.log('Failed to forget device, logging out anyway');
-    } finally {
-      await authenticationDatabase.deleteDeviceCode();
     }
   }
 
