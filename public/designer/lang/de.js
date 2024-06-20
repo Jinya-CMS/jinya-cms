@@ -1685,6 +1685,11 @@ export default {
       conflict: 'Datei {name} existiert',
       generic: '{name} konnte nicht hochgeladen werden',
     },
+    upload: {
+      success: 'Die Datei {name} wurde hochgeladen',
+    },
+    cache_cleared: 'Der Cache wurde geleert',
+    cache_clear_failed: 'Der Cache konnte nicht geleert werden',
   },
   statistics: {
     menu: {

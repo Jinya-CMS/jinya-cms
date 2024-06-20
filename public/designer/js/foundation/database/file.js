@@ -8,6 +8,7 @@ const STATUS_UPLOADED = 'uploaded';
 const STATUS_UPLOADING = 'uploading';
 const STATUS_UPLOAD_ERROR = 'error';
 const STATUS_CURRENT_UPLOAD = 'current';
+const STATUS_RECENT_UPLOAD = 'recent';
 
 class FileDatabase {
   constructor() {
@@ -36,6 +37,10 @@ class FileDatabase {
       });
       await db.uploadStatus.put({
         key: STATUS_CURRENT_UPLOAD,
+        value: '',
+      });
+      await db.uploadStatus.put({
+        key: STATUS_RECENT_UPLOAD,
         value: '',
       });
     });
@@ -212,6 +217,12 @@ class FileDatabase {
     await this.#database.uploadStatus.update(STATUS_CURRENT_UPLOAD, { value: name });
   }
 
+  async setRecentUpload(name) {
+    await this.#openIfClosed();
+
+    await this.#database.uploadStatus.update(STATUS_RECENT_UPLOAD, { value: name });
+  }
+
   async setUploadError(error, name) {
     await this.#openIfClosed();
 
@@ -245,6 +256,10 @@ class FileDatabase {
 
   watchCurrentUpload() {
     return liveQuery(async () => await this.#database.uploadStatus.get(STATUS_CURRENT_UPLOAD));
+  }
+
+  watchRecentUpload() {
+    return liveQuery(async () => await this.#database.uploadStatus.get(STATUS_RECENT_UPLOAD));
   }
 }
 

@@ -137,52 +137,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     },
   });
   Alpine.store('loaded', true);
-  Alpine.store('uploadProgress', {
-    filesUploaded: 0,
-    filesToUpload: 0,
-    errorMessage: '',
-    status: '',
-    init() {
-      fileDatabase.watchUploadedFilesCount().subscribe({
-        next: ({ value: count }) => {
-          this.filesUploaded = count;
-        },
-      });
-      fileDatabase.watchUploadingFilesCount().subscribe({
-        next: ({ value: count }) => {
-          this.filesToUpload = count;
-        },
-      });
-      fileDatabase.watchUploadError().subscribe({
-        next: ({ value: { error, name } }) => {
-          if (!error) {
-            return;
-          }
-
-          if (error.status === 409) {
-            this.errorMessage = localize({
-              key: 'bottom_bar.error.conflict',
-              values: { name },
-            });
-          } else {
-            console.error(error);
-            this.errorMessage = localize({
-              key: 'bottom_bar.error.generic',
-              values: { name },
-            });
-          }
-        },
-      });
-      fileDatabase.watchCurrentUpload().subscribe({
-        next: ({ value: name }) => {
-          this.status = localize({
-            key: 'bottom_bar.status',
-            values: { name },
-          });
-        },
-      });
-    },
-  });
 
   document.addEventListener('alpine:init', () => {
     window.PineconeRouter.settings.basePath = '/designer';
@@ -204,9 +158,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   const fileUploadWorker = new Worker('/designer/js/background/uploading/UploadWorker.js', { type: 'module' });
-  fileUploadWorker.postMessage({
-    verb: 'subscribe',
-  });
 
   try {
     await navigator.serviceWorker.register('/designer-file-cache-service-worker.js');
@@ -214,4 +165,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.error('Failed to register cache worker');
     console.error(e);
   }
+
+  await Notification.requestPermission();
+  fileUploadWorker.postMessage({
+    verb: 'subscribe',
+  });
 });

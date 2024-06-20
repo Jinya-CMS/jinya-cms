@@ -1678,6 +1678,12 @@ export default {
       conflict: 'File {name} exists',
       generic: 'Error uploading file {name}',
     },
+    upload: {
+      success: 'The file {name} was uploaded',
+      error: 'The file {name} could not be uploaded',
+    },
+    cache_cleared: 'The cache was cleared',
+    cache_clear_failed: 'The cache could not be cleared',
   },
   statistics: {
     menu: {

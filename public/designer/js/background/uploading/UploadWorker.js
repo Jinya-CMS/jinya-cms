@@ -1,5 +1,6 @@
 import { getFileDatabase } from '../../foundation/database/file.js';
 import { createFile } from '../../foundation/api/files.js';
+import localize from '../../foundation/utils/localize.js';
 
 let subscription;
 let fileDatabase;
@@ -11,6 +12,7 @@ async function uploadFile({ id, name, tags, data }) {
 
     await fileDatabase.saveFile(uploadedFile);
     await fileDatabase.markFileUploaded(id);
+    await fileDatabase.setRecentUpload(uploadedFile.name);
   } catch (error) {
     await fileDatabase.markFileUploaded(id);
     await fileDatabase.setUploadError({ status: error.status }, name);
