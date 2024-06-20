@@ -56,13 +56,14 @@ abstract class CacheUtils
      */
     public static function recreateRoutingCache(): void
     {
-        global $__JINYA_ROUTER_CONFIGURATION;
-        [$cacheDir, $controllerDir, , , $extension] = $__JINYA_ROUTER_CONFIGURATION;
-        Router::buildRoutingCache(
-            $cacheDir,
-            $controllerDir,
-            $extension
-        );
+        if (function_exists('getRouterConfiguration')) {
+            [$cacheDir, $controllerDir, , , $extension] = getRouterConfiguration();
+            Router::buildRoutingCache(
+                $cacheDir,
+                $controllerDir,
+                $extension
+            );
+        }
     }
 
     /**
