@@ -1676,6 +1676,9 @@ export default {
     logout: 'Abmelden',
   },
   bottom_bar: {
+    upload_files: 'Dateien hochladen',
+    clear_cache: 'Cache leeren',
+    change_theme: 'Theme ändern',
     status: 'Datei {name} wird hochgeladen',
     uploading: 'Dateien werden hochgeladen…',
     error: {

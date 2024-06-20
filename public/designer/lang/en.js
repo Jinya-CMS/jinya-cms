@@ -1669,6 +1669,9 @@ export default {
     logout: 'Logout',
   },
   bottom_bar: {
+    upload_files: 'Upload files',
+    clear_cache: 'Clear cache',
+    change_theme: 'Change theme',
     status: 'Uploading file {name}',
     uploading: 'File upload pending…',
     error: {

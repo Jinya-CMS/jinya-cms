@@ -6,6 +6,7 @@ import localize from './foundation/utils/localize.js';
 import { createTag, getTags } from './foundation/api/files.js';
 import alert from './foundation/ui/alert.js';
 import { getFileDatabase } from './foundation/database/file.js';
+import { clearCache } from './foundation/api/cache.js';
 
 const fileDatabase = getFileDatabase();
 
@@ -43,6 +44,15 @@ Alpine.data('indexBottomBarData', () => ({
     this.uploadMultipleFiles.open = true;
     this.uploadMultipleFiles.files = [];
     this.uploadMultipleFiles.tags = new Set();
+  },
+  async clearCache() {
+    try {
+      await clearCache();
+      console.log('Cache cleared successfully');
+    } catch (e) {
+      console.error('Failed to clear the cache');
+      console.error(e);
+    }
   },
   get randomColor() {
     return getRandomColor();
@@ -84,7 +94,11 @@ Alpine.data('indexBottomBarData', () => ({
     await fileDatabase.queueFilesForUpload(
       [...Alpine.raw(this.uploadMultipleFiles.files)].map((file) => ({
         data: file,
-        name: file.name.split('.').reverse().slice(1).reverse().join('.'),
+        name: file.name.split('.')
+          .reverse()
+          .slice(1)
+          .reverse()
+          .join('.'),
         tags: [...tags],
       })),
     );
@@ -93,12 +107,13 @@ Alpine.data('indexBottomBarData', () => ({
   async init() {
     this.tags = await fileDatabase.getAllTags();
 
-    getTags().then((tags) => {
-      fileDatabase.replaceTags(tags.items);
+    getTags()
+      .then((tags) => {
+        fileDatabase.replaceTags(tags.items);
 
-      this.tags = tags.items;
-      this.loading = false;
-    });
+        this.tags = tags.items;
+        this.loading = false;
+      });
   },
   tags: [],
   uploadMultipleFiles: {

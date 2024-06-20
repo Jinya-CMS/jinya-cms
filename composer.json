@@ -34,6 +34,7 @@
     "phpmyadmin/sql-parser": "5.9.0",
     "scssphp/scssphp": "v1.12.1",
     "spomky-labs/otphp": "11.3.0",
+    "symfony/filesystem": "v7.1.1",
     "tedivm/jshrink": "v1.7.0",
     "vlucas/phpdotenv": "v5.6.0"
   },
@@ -44,8 +45,7 @@
   "require-dev": {
     "roave/security-advisories": "dev-latest",
     "fakerphp/faker": "v1.23.1",
-    "laravel/pint": "v1.16.0",
-    "symfony/filesystem": "v7.1.1"
+    "laravel/pint": "v1.16.0"
   },
   "config": {
     "process-timeout": 0,

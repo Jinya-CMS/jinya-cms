@@ -3,6 +3,7 @@
 namespace Jinya\Cms\Web\Controllers;
 
 use Jinya\Cms\Database\Migrations\Migrator;
+use Jinya\Cms\Utils\CacheUtils;
 use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Jinya\Router\Attributes\Controller;
 use Jinya\Router\Attributes\HttpMethod;
@@ -10,6 +11,7 @@ use Jinya\Router\Attributes\Middlewares;
 use Jinya\Router\Attributes\Route;
 use JsonException;
 use Psr\Http\Message\ResponseInterface;
+use ReflectionException;
 use ZipArchive;
 
 /** @codeCoverageIgnore */
@@ -47,6 +49,7 @@ class UpdateController extends BaseController
 
     /**
      * @throws JsonException
+     * @throws ReflectionException
      */
     #[Route(HttpMethod::PUT, 'api/update')]
     public function updateJinya(): ResponseInterface
@@ -60,6 +63,12 @@ class UpdateController extends BaseController
         $zipStream->extractTo(__ROOT__);
         $zipStream->close();
         Migrator::migrate();
+
+        CacheUtils::clearRouterCache();
+        CacheUtils::clearDatabaseCache();
+        CacheUtils::clearOpcache();
+
+        CacheUtils::recreateRoutingCache();
 
         return $this->noContent();
     }

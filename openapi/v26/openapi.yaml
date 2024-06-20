@@ -77,6 +77,7 @@ x-tagGroups:
       - update
       - configuration
       - php-info
+      - cache
   - name: database
     description: Database access
     x-displayName: Database access
@@ -140,6 +141,9 @@ tags:
   - name: php-info
     description: PHP info
     x-displayName: PHP info
+  - name: cache
+    description: Cache
+    x-displayName: Cache
   - name: mysql
     description: MySQL info
     x-displayName: MySQL info
@@ -193,6 +197,8 @@ paths:
     $ref: paths/api_maintenance_database_query.yaml
   /api/configuration:
     $ref: paths/api_configuration.yaml
+  /api/cache:
+    $ref: paths/api_cache.yaml
   /api/file:
     $ref: paths/api_file.yaml
   /api/file/{id}:
