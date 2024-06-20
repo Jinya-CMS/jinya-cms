@@ -94,11 +94,7 @@ Alpine.data('indexBottomBarData', () => ({
     await fileDatabase.queueFilesForUpload(
       [...Alpine.raw(this.uploadMultipleFiles.files)].map((file) => ({
         data: file,
-        name: file.name.split('.')
-          .reverse()
-          .slice(1)
-          .reverse()
-          .join('.'),
+        name: file.name.split('.').reverse().slice(1).reverse().join('.'),
         tags: [...tags],
       })),
     );
@@ -107,13 +103,12 @@ Alpine.data('indexBottomBarData', () => ({
   async init() {
     this.tags = await fileDatabase.getAllTags();
 
-    getTags()
-      .then((tags) => {
-        fileDatabase.replaceTags(tags.items);
+    getTags().then((tags) => {
+      fileDatabase.replaceTags(tags.items);
 
-        this.tags = tags.items;
-        this.loading = false;
-      });
+      this.tags = tags.items;
+      this.loading = false;
+    });
   },
   tags: [],
   uploadMultipleFiles: {
