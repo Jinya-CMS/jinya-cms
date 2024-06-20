@@ -6,4 +6,6 @@ use function Jinya\Router\handle_request;
 
 require __DIR__ . '/../startup.php';
 
-handle_request(...getRouterConfiguration());
+if (function_exists('getRouterConfiguration')) {
+    handle_request(...getRouterConfiguration());
+}
