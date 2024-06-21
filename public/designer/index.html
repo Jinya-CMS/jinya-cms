@@ -499,18 +499,27 @@
   <template x-if="$store.authentication.loggedIn">
     <div class="cosmo-bottom-bar is--three-column" x-data="indexBottomBarData">
       <div class="cosmo-bottom-bar__item is--left">
-        <span class="cosmo-input__message is--negative" x-text="$store.uploadProgress.errorMessage"></span>
+        <span class="cosmo-input__message is--negative" x-text="upload.errorMessage"></span>
       </div>
       <div class="cosmo-bottom-bar__item is--center jinya-progress"
-           x-show="$store.uploadProgress.filesUploaded !== $store.uploadProgress.filesToUpload">
+           x-show="upload.filesUploaded !== upload.filesToUpload">
         <span class="cosmo-progress-bar__label" x-localize:bottom_bar-uploading></span>
-        <progress :max="$store.uploadProgress.filesToUpload" :value="$store.uploadProgress.filesUploaded"
-                  class="cosmo-progress-bar"></progress>
-        <span class="cosmo-progress-bar__label" id="file-upload-progress-bottom-label"
-              x-text="$store.uploadProgress.status"></span>
+        <progress :max="upload.filesToUpload" :value="upload.filesUploaded" class="cosmo-progress-bar"></progress>
+        <span class="cosmo-progress-bar__label" id="file-upload-progress-bottom-label" x-text="upload.status"></span>
       </div>
       <div class="cosmo-bottom-bar__item is--right is--buttons">
-        <button @click="openFileUpload" class="cosmo-button is--circle is--large is--primary">
+        <template x-if="$store.authentication?.roles?.includes('ROLE_ADMIN')">
+          <button @click="clearCache" class="cosmo-button is--circle is--primary"
+                  x-localize:bottom_bar-clear_cache.title>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                 stroke-linejoin="round">
+              <path
+                d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" />
+            </svg>
+          </button>
+        </template>
+        <button @click="openFileUpload" class="cosmo-button is--circle is--large is--primary"
+                x-localize:bottom_bar-upload_files.title>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                stroke-linejoin="round" height="1.75rem" width="1.75rem">
             <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
@@ -519,7 +528,7 @@
           </svg>
         </button>
         <button @click="updateColorTheme" class="cosmo-button is--circle is--primary"
-                x-html="changeColorThemeButton"></button>
+                x-html="changeColorThemeButton" x-localize:bottom_bar-change_theme.title></button>
       </div>
       <template x-if="uploadMultipleFiles.open">
         <form @submit.prevent="enqueueFiles" class="cosmo-modal__container">

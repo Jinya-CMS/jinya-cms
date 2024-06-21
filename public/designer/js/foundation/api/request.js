@@ -1,5 +1,4 @@
 import { getAuthenticationDatabase } from '../database/authentication.js';
-import { Alpine } from '../../../../lib/alpine.js';
 
 const authenticationDatabase = getAuthenticationDatabase();
 
@@ -48,7 +47,10 @@ export async function send(
     case 401:
       const { default: UnauthorizedError } = await import('./Error/UnauthorizedError.js');
       if (httpError.type === 'invalid-api-key') {
-        Alpine.store('authentication').logout();
+        if (window.document) {
+          const Alpine = await import('../../../../lib/alpine.js');
+          Alpine.store('authentication').logout();
+        }
 
         return null;
       }

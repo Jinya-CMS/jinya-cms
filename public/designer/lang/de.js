@@ -1676,12 +1676,20 @@ export default {
     logout: 'Abmelden',
   },
   bottom_bar: {
+    upload_files: 'Dateien hochladen',
+    clear_cache: 'Cache leeren',
+    change_theme: 'Theme ändern',
     status: 'Datei {name} wird hochgeladen',
     uploading: 'Dateien werden hochgeladen…',
     error: {
       conflict: 'Datei {name} existiert',
       generic: '{name} konnte nicht hochgeladen werden',
     },
+    upload: {
+      success: 'Die Datei {name} wurde hochgeladen',
+    },
+    cache_cleared: 'Der Cache wurde geleert',
+    cache_clear_failed: 'Der Cache konnte nicht geleert werden',
   },
   statistics: {
     menu: {

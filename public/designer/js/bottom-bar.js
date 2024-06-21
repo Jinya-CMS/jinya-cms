@@ -6,10 +6,17 @@ import localize from './foundation/utils/localize.js';
 import { createTag, getTags } from './foundation/api/files.js';
 import alert from './foundation/ui/alert.js';
 import { getFileDatabase } from './foundation/database/file.js';
+import { clearCache } from './foundation/api/cache.js';
 
 const fileDatabase = getFileDatabase();
 
 Alpine.data('indexBottomBarData', () => ({
+  upload: {
+    filesUploaded: 0,
+    filesToUpload: 0,
+    errorMessage: '',
+    status: '',
+  },
   get changeColorThemeButton() {
     const { colorScheme } = Alpine.store('artist');
     switch (colorScheme) {
@@ -43,6 +50,27 @@ Alpine.data('indexBottomBarData', () => ({
     this.uploadMultipleFiles.open = true;
     this.uploadMultipleFiles.files = [];
     this.uploadMultipleFiles.tags = new Set();
+  },
+  async clearCache() {
+    const tag = 'jinya';
+
+    try {
+      await clearCache();
+      const notification = new Notification('Jinya CMS Designer', {
+        body: localize({ key: 'bottom_bar.cache_cleared' }),
+        tag,
+        icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzRjOWY3MCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik00IDE0YTEgMSAwIDAgMS0uNzgtMS42M2w5LjktMTAuMmEuNS41IDAgMCAxIC44Ni40NmwtMS45MiA2LjAyQTEgMSAwIDAgMCAxMyAxMGg3YTEgMSAwIDAgMSAuNzggMS42M2wtOS45IDEwLjJhLjUuNSAwIDAgMS0uODYtLjQ2bDEuOTItNi4wMkExIDEgMCAwIDAgMTEgMTR6Ii8+PC9zdmc+',
+      });
+      console.log('Cache cleared successfully');
+    } catch (e) {
+      const notification = new Notification('Jinya CMS Designer', {
+        body: localize({ key: 'bottom_bar.cache_clear_failed' }),
+        tag,
+        icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2RiNTA0YSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik00IDE0YTEgMSAwIDAgMS0uNzgtMS42M2w5LjktMTAuMmEuNS41IDAgMCAxIC44Ni40NmwtMS45MiA2LjAyQTEgMSAwIDAgMCAxMyAxMGg3YTEgMSAwIDAgMSAuNzggMS42M2wtOS45IDEwLjJhLjUuNSAwIDAgMS0uODYtLjQ2bDEuOTItNi4wMkExIDEgMCAwIDAgMTEgMTR6Ii8+PC9zdmc+',
+      });
+      console.error('Failed to clear the cache');
+      console.error(e);
+    }
   },
   get randomColor() {
     return getRandomColor();
@@ -98,6 +126,72 @@ Alpine.data('indexBottomBarData', () => ({
 
       this.tags = tags.items;
       this.loading = false;
+    });
+    fileDatabase.watchUploadedFilesCount().subscribe({
+      next: ({ value: count }) => {
+        this.upload.filesUploaded = count;
+      },
+    });
+    fileDatabase.watchUploadingFilesCount().subscribe({
+      next: ({ value: count }) => {
+        this.upload.filesToUpload = count;
+      },
+    });
+    fileDatabase.watchUploadError().subscribe({
+      next: async ({ value: { error, name } }) => {
+        if (!error) {
+          return;
+        }
+
+        let errorMessage = '';
+
+        if (error.status === 409) {
+          errorMessage = localize({
+            key: 'bottom_bar.error.conflict',
+            values: { name },
+          });
+        } else {
+          console.error(error);
+          errorMessage = localize({
+            key: 'bottom_bar.error.generic',
+            values: { name },
+          });
+        }
+
+        if (Notification.permission === 'granted') {
+          new Notification('Jinya CMS Designer', {
+            icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2RiNTA0YSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjEwIi8+PHBhdGggZD0ibTE1IDktNiA2Ii8+PHBhdGggZD0ibTkgOSA2IDYiLz48L3N2Zz4=',
+            tag: 'jinya-cms-upload',
+            body: errorMessage,
+          });
+        } else {
+          this.upload.errorMessage = errorMessage;
+        }
+      },
+    });
+    fileDatabase.watchCurrentUpload().subscribe({
+      next: ({ value: name }) => {
+        this.upload.status = localize({
+          key: 'bottom_bar.status',
+          values: { name },
+        });
+      },
+    });
+    fileDatabase.watchRecentUpload().subscribe({
+      next: ({ value: name }) => {
+        if (!name) {
+          return;
+        }
+
+        new Notification('Jinya CMS Designer', {
+          icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzRjOWY3MCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik00IDE0Ljg5OUE3IDcgMCAxIDEgMTUuNzEgOGgxLjc5YTQuNSA0LjUgMCAwIDEgMi41IDguMjQyIi8+PHBhdGggZD0iTTEyIDEydjkiLz48cGF0aCBkPSJtMTYgMTYtNC00LTQgNCIvPjwvc3ZnPg==',
+          tag: 'jinya-cms-upload',
+          body: localize({
+            key: 'bottom_bar.upload.success',
+            values: { name },
+          }),
+        });
+      },
     });
   },
   tags: [],

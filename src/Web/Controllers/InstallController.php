@@ -8,6 +8,7 @@ use Jinya\Cms\Database\Migrations\Migrator;
 use Jinya\Cms\Logging\Logger;
 use Jinya\Cms\Theming\Engine;
 use Jinya\Cms\Theming\ThemeSyncer;
+use Jinya\Cms\Utils\CacheUtils;
 use Jinya\Cms\Web\Middleware\RedirectInstallerMiddleware;
 use Jinya\Database\Entity;
 use Jinya\Plates\Engine as PlatesEngine;
@@ -143,6 +144,12 @@ class InstallController extends BaseController
             $artist->create();
 
             touch(__ROOT__ . '/installed.lock');
+
+            CacheUtils::clearRouterCache();
+            CacheUtils::clearDatabaseCache();
+            CacheUtils::clearOpcache();
+
+            CacheUtils::recreateRoutingCache();
 
             return $this->noContent();
         } catch (Throwable $exception) {
