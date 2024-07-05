@@ -1,0 +1,22 @@
+$schema: "https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"
+
+installer-prettier:
+  extends:
+    - .javascript-lint
+  stage: lint
+  script:
+    - npm run installer:prettier
+
+installer-stylelint:
+  extends:
+    - .javascript-lint
+  stage: lint
+  script:
+    - npm run installer:stylelint
+
+installer-eslint:
+  extends:
+    - .javascript-lint
+  stage: lint
+  script:
+    - npm run  installer:eslint

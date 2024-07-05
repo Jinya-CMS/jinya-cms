@@ -1,0 +1,67 @@
+$schema: "https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"
+
+phpunit:
+  stage: test
+  extends:
+    - .install-dependencies
+  variables:
+    EXECUTE_IN: 'ci'
+    APP_ENV: 'dev'
+    MYSQL_RANDOM_ROOT_PASSWORD: 'true'
+    MYSQL_PASSWORD: 'jinya'
+    MYSQL_USER: 'jinya'
+    MYSQL_PORT: '3306'
+    MYSQL_HOST: 'database'
+    MYSQL_DATABASE: 'jinya'
+    MYSQL_CHARSET: 'utf8mb4'
+    MAILER_HOST: 'mailer'
+    MAILER_PORT: '1025'
+    MAILER_USERNAME: 'test@example.com'
+    MAILER_PASSWORD: 'start1234'
+    MAILER_ENCRYPTION: 'tls'
+    MAILER_SMTP_AUTH: 'true'
+    MAILER_FROM: 'jinya@example.com'
+    JINYA_API_KEY_EXPIRY: '315360000'
+    JINYA_UPDATE_SERVER: 'https://releases.jinya.de/cms'
+    INSTALLED_VERSION: 'phpunit'
+  script:
+    - sleep 30
+    - ./tools/phpunit --no-progress --log-junit report.xml --configuration phpunit.ci.xml --coverage-cobertura=coverage.cobertura.xml
+  artifacts:
+    when: always
+    paths:
+      - report.xml
+    reports:
+      junit:
+        - report.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.cobertura.xml
+  needs:
+    - phpstan
+  services:
+    - name: ${DATABASE_IMAGE}
+      alias: database
+    - name: axllent/mailpit:latest
+      alias: mailer
+      variables:
+        MP_SMTP_AUTH_ACCEPT_ANY: 'true'
+        MP_SMTP_AUTH_ALLOW_INSECURE: 'true'
+  parallel:
+    matrix:
+      - DATABASE_IMAGE: library/mysql:8.0
+        TAG: 8.2-cli
+      - DATABASE_IMAGE: library/mysql:lts
+        TAG: 8.2-cli
+      - DATABASE_IMAGE: library/mariadb:10.11
+        TAG: 8.2-cli
+      - DATABASE_IMAGE: library/mariadb:lts
+        TAG: 8.2-cli
+      - DATABASE_IMAGE: library/mysql:8.0
+        TAG: 8.3-cli
+      - DATABASE_IMAGE: library/mysql:lts
+        TAG: 8.3-cli
+      - DATABASE_IMAGE: library/mariadb:10.11
+        TAG: 8.3-cli
+      - DATABASE_IMAGE: library/mariadb:lts
+        TAG: 8.3-cli

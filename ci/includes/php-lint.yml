@@ -1,0 +1,15 @@
+$schema: "https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"
+
+phpstan:
+  extends:
+    - .install-dependencies
+  stage: lint
+  script:
+    - ./tools/phpstan --no-progress analyze ./src ./cli ./public --memory-limit 1G
+
+pint:
+  extends:
+    - .install-dependencies
+  stage: lint
+  script:
+    - ./vendor/bin/pint --test

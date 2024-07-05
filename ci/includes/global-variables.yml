@@ -1,0 +1,15 @@
+$schema: "https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"
+
+variables:
+  LATEST: $CI_COMMIT_TAG
+  LATEST_BETA: 26.0.0-beta.$CI_PIPELINE_IID
+  LATEST_ALPHA_MAJOR: 26.0.0-alpha.$CI_PIPELINE_IID
+  LATEST_ALPHA_MINOR: 25.4.0-alpha.$CI_PIPELINE_IID
+
+  LATEST_BETA_BRANCH: main
+  LATEST_ALPHA_MAJOR_BRANCH: next-major
+  LATEST_ALPHA_MINOR_BRANCH: next-minor
+
+  RELEASE_TRACK: stable
+  BETA_TRACK: beta
+  ALPHA_TRACK: alpha

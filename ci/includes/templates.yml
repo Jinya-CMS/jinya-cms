@@ -1,0 +1,62 @@
+$schema: "https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"
+
+.install-dependencies:
+  variables:
+    PHP_MEMORY_LIMIT: '2048M'
+    TAG: 'latest'
+  image:
+    name: registry.ulbricht.casa/jinya-cms/jinya-cms-php-base-test-image:${TAG}
+    pull_policy: always
+  before_script:
+    - phive --no-progress install --trust-gpg-keys D615FEE32FD1702834DACC9C8AC0BAA79732DD42,D8406D0D82947747293778314AA394086372C20A,CA7C2C7A30C8E8E1274A847651C67305FFC2E5C0
+    - composer install
+  cache:
+    key: jinya-cms-vendor-${CI_COMMIT_BRANCH}
+    paths:
+      - vendor
+      - tools
+
+.javascript-lint:
+  image:
+    name: library/node:latest
+    pull_policy: always
+  before_script:
+    - npm install
+  cache:
+    key: jinya-cms-node_modules-${CI_COMMIT_BRANCH}
+    paths:
+      - node_modules
+
+.deploy-package:
+  extends:
+    - .install-dependencies
+  stage: deploy-package
+  before_script:
+    - apt update
+    - apt install -y zip curl
+  script:
+    - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
+    - zip -r ./jinya-cms.zip ./*
+    - 'curl -i -X POST https://releases.jinya.de/cms/$TRACK/$PACKAGE_VERSION -H "Content-Type: application/json" --data-binary "@jinya-cms.zip"'
+  artifacts:
+    name: 'jinya-cms-${PACKAGE_VERSION}.zip'
+    paths:
+      - jinya-cms.zip
+
+.deploy-image:
+  stage: deploy-docker
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    pull_policy: always
+    entrypoint: [ '' ]
+  before_script:
+    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"},\"https://index.docker.io/v1/\":{\"auth\":\"$DOCKER_TOKEN\"}}}" > /kaniko/.docker/config.json
+  script:
+    - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
+    - /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination "${CI_REGISTRY_IMAGE}:${PACKAGE_VERSION}"
+      --destination "${CI_REGISTRY_IMAGE}:latest"
+      --destination "jinyacms/jinya-cms:${PACKAGE_VERSION}"
+      --destination "jinyacms/jinya-cms:latest"
