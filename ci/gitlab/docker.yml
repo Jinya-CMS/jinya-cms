@@ -1,3 +1,13 @@
+build-test-image:
+  extends:
+    - .build-image
+  variables:
+    PACKAGE_VERSION: $LATEST_NEXT_MINOR
+    TRACK: $ALPHA_TRACK
+    KANIKO_FLAGS: --no-push
+  rules:
+    - if: $CI_COMMIT_REF_PROTECTED != 'false'
+
 build-next-minor-image:
   extends:
     - .build-image

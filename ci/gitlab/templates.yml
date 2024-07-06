@@ -61,6 +61,7 @@
       --context "${CI_PROJECT_DIR}"
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
       --destination "${IMAGE_TAG}"
+      $KANIKO_FLAGS
   variables:
     IMAGE_TAG_VERSION: $PACKAGE_VERSION
     IMAGE_TAG: ${CI_REGISTRY_IMAGE}:${IMAGE_TAG_VERSION}-${ARCH}
