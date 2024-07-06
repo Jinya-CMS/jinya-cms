@@ -3,6 +3,7 @@ $schema: "https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascrip
 stages:
   - lint
   - test
+  - build-docker
   - deploy-package
   - deploy-docker
   - deploy-pages

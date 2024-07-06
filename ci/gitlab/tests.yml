@@ -31,6 +31,7 @@ phpunit:
     when: always
     paths:
       - report.xml
+      - coverage.cobertura.xml
     reports:
       junit:
         - report.xml
@@ -50,18 +51,10 @@ phpunit:
   parallel:
     matrix:
       - DATABASE_IMAGE: library/mysql:8.0
-        TAG: 8.2-cli
+        PHP_TAG: 8.3-cli
       - DATABASE_IMAGE: library/mysql:lts
-        TAG: 8.2-cli
+        PHP_TAG: 8.3-cli
       - DATABASE_IMAGE: library/mariadb:10.11
-        TAG: 8.2-cli
+        PHP_TAG: 8.3-cli
       - DATABASE_IMAGE: library/mariadb:lts
-        TAG: 8.2-cli
-      - DATABASE_IMAGE: library/mysql:8.0
-        TAG: 8.3-cli
-      - DATABASE_IMAGE: library/mysql:lts
-        TAG: 8.3-cli
-      - DATABASE_IMAGE: library/mariadb:10.11
-        TAG: 8.3-cli
-      - DATABASE_IMAGE: library/mariadb:lts
-        TAG: 8.3-cli
+        PHP_TAG: 8.3-cli

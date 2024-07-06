@@ -3,20 +3,17 @@ $schema: "https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascrip
 installer-prettier:
   extends:
     - .javascript-lint
-  stage: lint
-  script:
-    - npm run installer:prettier
+  variables:
+    SCRIPT: installer:prettier
 
 installer-stylelint:
   extends:
     - .javascript-lint
-  stage: lint
-  script:
-    - npm run installer:stylelint
+  variables:
+    SCRIPT: installer:stylelint
 
 installer-eslint:
   extends:
     - .javascript-lint
-  stage: lint
-  script:
-    - npm run  installer:eslint
+  variables:
+    SCRIPT: installer:eslint

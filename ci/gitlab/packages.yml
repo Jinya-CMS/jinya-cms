@@ -1,37 +1,8 @@
 $schema: "https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"
 
-deploy-release-package:
-  extends:
-    - .deploy-package
-  variables:
-    PACKAGE_VERSION: $LATEST
-    TRACK: $RELEASE_TRACK
-  rules:
-    - if: $CI_COMMIT_TAG
-
-deploy-release-image:
-  extends:
-    - .deploy-image
-  variables:
-    PACKAGE_VERSION: $LATEST
-    TRACK: $RELEASE_TRACK
-  rules:
-    - if: $CI_COMMIT_TAG
-      exists:
-        - Dockerfile
-
 deploy-beta-package:
   extends:
     - .deploy-package
-  variables:
-    PACKAGE_VERSION: $LATEST_BETA
-    TRACK: $BETA_TRACK
-  rules:
-    - if: $CI_COMMIT_BRANCH == $LATEST_BETA_BRANCH
-
-deploy-beta-image:
-  extends:
-    - .deploy-image
   variables:
     PACKAGE_VERSION: $LATEST_BETA
     TRACK: $BETA_TRACK
@@ -47,15 +18,6 @@ deploy-next-minor-package:
   rules:
     - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MINOR_BRANCH
 
-deploy-next-minor-image:
-  extends:
-    - .deploy-image
-  variables:
-    PACKAGE_VERSION: $LATEST_NEXT_MINOR
-    TRACK: $ALPHA_TRACK
-  rules:
-    - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MINOR_BRANCH
-
 deploy-next-major-package:
   extends:
     - .deploy-package
@@ -65,14 +27,14 @@ deploy-next-major-package:
   rules:
     - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MAJOR_BRANCH
 
-deploy-next-major-image:
+deploy-release-package:
   extends:
-    - .deploy-image
+    - .deploy-package
   variables:
-    PACKAGE_VERSION: $LATEST_NEXT_MAJOR
-    TRACK: $ALPHA_TRACK
+    PACKAGE_VERSION: $LATEST
+    TRACK: $RELEASE_TRACK
   rules:
-    - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MAJOR_BRANCH
+    - if: $CI_COMMIT_TAG
 
 pages:
   extends:

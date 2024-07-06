@@ -1,9 +1,10 @@
 include:
-  - /ci/includes/deployment.yml
-  - /ci/includes/designer.yml
-  - /ci/includes/global-variables.yml
-  - /ci/includes/installer.yml
-  - /ci/includes/php-lint.yml
-  - /ci/includes/stages.yml
-  - /ci/includes/templates.yml
-  - /ci/includes/tests.yml
+  - /ci/gitlab/designer.yml
+  - /ci/gitlab/docker.yml
+  - /ci/gitlab/global-variables.yml
+  - /ci/gitlab/installer.yml
+  - /ci/gitlab/packages.yml
+  - /ci/gitlab/php-lint.yml
+  - /ci/gitlab/stages.yml
+  - /ci/gitlab/templates.yml
+  - /ci/gitlab/tests.yml

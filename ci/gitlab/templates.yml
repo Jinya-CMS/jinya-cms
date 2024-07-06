@@ -3,13 +3,13 @@ $schema: "https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascrip
 .install-dependencies:
   variables:
     PHP_MEMORY_LIMIT: '2048M'
-    TAG: 'latest'
+    PHP_TAG: 'latest'
   image:
-    name: registry.ulbricht.casa/jinya-cms/jinya-cms-php-base-test-image:${TAG}
+    name: registry.ulbricht.casa/jinya-cms/jinya-cms-php-base-test-image:${PHP_TAG}
     pull_policy: always
   before_script:
     - phive --no-progress install --trust-gpg-keys D615FEE32FD1702834DACC9C8AC0BAA79732DD42,D8406D0D82947747293778314AA394086372C20A,CA7C2C7A30C8E8E1274A847651C67305FFC2E5C0
-    - composer install
+    - composer install $COMPOSER_FLAGS
   cache:
     key: jinya-cms-vendor-${CI_COMMIT_BRANCH}
     paths:
@@ -20,8 +20,11 @@ $schema: "https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascrip
   image:
     name: library/node:latest
     pull_policy: always
+  stage: lint
   before_script:
     - npm install
+  script:
+    - npm run $SCRIPT
   cache:
     key: jinya-cms-node_modules-${CI_COMMIT_BRANCH}
     paths:
@@ -31,20 +34,23 @@ $schema: "https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascrip
   extends:
     - .install-dependencies
   stage: deploy-package
+  variables:
+    COMPOSER_FLAGS: --no-dev --no-progress --optimize-autoloader --apcu-autoloader --no-interaction
   before_script:
     - apt update
     - apt install -y zip curl
   script:
     - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
     - zip -r ./jinya-cms.zip ./*
-    - 'curl -i -X POST https://releases.jinya.de/cms/$TRACK/$PACKAGE_VERSION -H "Content-Type: application/json" --data-binary "@jinya-cms.zip"'
+    - |-
+      curl -i -X POST https://releases.jinya.de/cms/$TRACK/$PACKAGE_VERSION -H "Content-Type: application/zip" -H "Authorization: Bearer $RELEASE_PUSH_TOKEN" --data-binary "@jinya-cms.zip"'
   artifacts:
     name: 'jinya-cms-${PACKAGE_VERSION}.zip'
     paths:
       - jinya-cms.zip
 
-.deploy-image:
-  stage: deploy-docker
+.build-image:
+  stage: build-docker
   image:
     name: gcr.io/kaniko-project/executor:debug
     pull_policy: always
@@ -56,7 +62,31 @@ $schema: "https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascrip
     - /kaniko/executor
       --context "${CI_PROJECT_DIR}"
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
-      --destination "${CI_REGISTRY_IMAGE}:${PACKAGE_VERSION}"
-      --destination "${CI_REGISTRY_IMAGE}:latest"
-      --destination "jinyacms/jinya-cms:${PACKAGE_VERSION}"
-      --destination "jinyacms/jinya-cms:latest"
+      --destination "${IMAGE_TAG}"
+  variables:
+    IMAGE_TAG_VERSION: $PACKAGE_VERSION
+    IMAGE_TAG: ${CI_REGISTRY_IMAGE}:${IMAGE_TAG_VERSION}-${ARCH}
+  parallel:
+    matrix:
+      - ARCH: arm64
+      - ARCH: amd64
+  tags:
+    - runner-${ARCH}
+
+.merge-manifests:
+  stage: deploy-docker
+  needs:
+    - job: docker-build
+      artifacts: false
+  image:
+    name: mplatform/manifest-tool:alpine
+    entrypoint: [""]
+  script:
+    - >-
+      manifest-tool
+      --username=${CI_REGISTRY_USER}
+      --password=${CI_REGISTRY_PASSWORD}
+      push from-args
+      --platforms linux/amd64,linux/arm64
+      --template ${TAG}-ARCH
+      --target ${TAG}
