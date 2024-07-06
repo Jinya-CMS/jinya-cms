@@ -73,7 +73,7 @@ $schema: "https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascrip
   tags:
     - runner-${ARCH}
 
-.merge-manifests:
+.deploy-image:
   stage: deploy-docker
   needs:
     - job: docker-build
