@@ -6,7 +6,7 @@ build-test-image:
     TRACK: $ALPHA_TRACK
     KANIKO_FLAGS: --no-push
   rules:
-    - if: $CI_COMMIT_REF_PROTECTED != 'false'
+    - if: $CI_COMMIT_REF_PROTECTED == 'false'
 
 build-next-minor-image:
   extends:
