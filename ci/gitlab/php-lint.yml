@@ -1,5 +1,3 @@
-$schema: "https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"
-
 phpstan:
   extends:
     - .install-dependencies

@@ -1,5 +1,3 @@
-$schema: "https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"
-
 variables:
   LATEST: $CI_COMMIT_TAG
   LATEST_BETA: 26.0.0-beta.$CI_PIPELINE_IID
