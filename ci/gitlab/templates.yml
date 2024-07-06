@@ -73,9 +73,6 @@
 
 .deploy-image:
   stage: deploy-docker
-  needs:
-    - job: docker-build
-      artifacts: false
   image:
     name: mplatform/manifest-tool:alpine
     entrypoint: [""]
