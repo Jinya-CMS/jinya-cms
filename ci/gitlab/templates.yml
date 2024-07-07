@@ -1,0 +1,114 @@
+.install-dependencies:
+  variables:
+    PHP_MEMORY_LIMIT: '2048M'
+    PHP_TAG: 'latest'
+  image:
+    name: registry.ulbricht.casa/jinya-cms/jinya-cms-php-base-test-image:${PHP_TAG}
+    pull_policy: always
+  before_script:
+    - phive --no-progress install --trust-gpg-keys D615FEE32FD1702834DACC9C8AC0BAA79732DD42,D8406D0D82947747293778314AA394086372C20A,CA7C2C7A30C8E8E1274A847651C67305FFC2E5C0
+    - composer install $COMPOSER_FLAGS
+  cache:
+    key: jinya-cms-vendor-${CI_COMMIT_BRANCH}
+    paths:
+      - vendor
+      - tools
+
+.javascript-lint:
+  image:
+    name: library/node:latest
+    pull_policy: always
+  stage: lint
+  before_script:
+    - npm install
+  script:
+    - npm run $SCRIPT
+  cache:
+    key: jinya-cms-node_modules-${CI_COMMIT_BRANCH}
+    paths:
+      - node_modules
+
+.deploy-package:
+  extends:
+    - .install-dependencies
+  stage: deploy-package
+  variables:
+    COMPOSER_FLAGS: --no-dev --no-progress --optimize-autoloader --apcu-autoloader --no-interaction
+  before_script:
+    - apt update
+    - apt install -y zip curl
+  script:
+    - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
+    - zip -r ./jinya-cms.zip ./*
+    - |-
+      curl -i -X POST https://releases.jinya.de/cms/$TRACK/$PACKAGE_VERSION -H "Content-Type: application/zip" -H "Authorization: Bearer $RELEASE_PUSH_TOKEN" --data-binary "@jinya-cms.zip"'
+  artifacts:
+    name: 'jinya-cms-${PACKAGE_VERSION}.zip'
+    paths:
+      - jinya-cms.zip
+
+.build-image:
+  stage: build-docker
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    pull_policy: always
+    entrypoint: [ '' ]
+  before_script:
+    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"},\"https://index.docker.io/v1/\":{\"auth\":\"$DOCKER_TOKEN\"}}}" > /kaniko/.docker/config.json
+  script:
+    - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
+    - /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/docker/${IMAGE_TYPE}.dockerfile"
+      --destination "${IMAGE_TAG}"
+      $KANIKO_FLAGS
+  variables:
+    REGISTRY_IMAGE: $CI_REGISTRY_IMAGE
+    IMAGE_TAG_VERSION: $PACKAGE_VERSION
+    IMAGE_TAG: ${REGISTRY_IMAGE}:${IMAGE_TAG_VERSION}-${SUFFIX}-${ARCH}
+  parallel:
+    matrix:
+      # Apache images no suffix
+      - ARCH:
+          - arm64
+          - amd64
+        IMAGE_TYPE: apache
+      # Apache images suffix
+      - ARCH:
+          - arm64
+          - amd64
+        IMAGE_TYPE: apache
+        SUFFIX: -apache
+      # CLI images suffix
+      - ARCH:
+          - arm64
+          - amd64
+        IMAGE_TYPE: cli
+        SUFFIX: -cli
+  tags:
+    - runner-${ARCH}
+
+.deploy-image:
+  stage: deploy-docker
+  image:
+    name: mplatform/manifest-tool:alpine
+    entrypoint: [ "" ]
+  variables:
+    TAG: ${REGISTRY_IMAGE}${IMAGE_TAG_VERSION}${SUFFIX}
+    REGISTRY_USER: $CI_REGISTRY_USER
+    REGISTRY_PASSWORD: $CI_REGISTRY_PASSWORD
+  parallel:
+    matrix:
+      - SUFFIX:
+          - ""
+          - -apache
+          - -cli
+  script:
+    - >-
+      manifest-tool
+      --username=${REGISTRY_USER}
+      --password=${REGISTRY_PASSWORD}
+      push from-args
+      --platforms linux/amd64,linux/arm64
+      --template ${TAG}-ARCH
+      --target ${TAG}

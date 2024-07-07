@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "3d08ef905efcf33927dd5ad6f3439e5c",
+  "content-hash": "2cc43d3013cce069b1b25c33a8dc9c9a",
   "packages": [
     {
       "name": "aura/sqlquery",
@@ -361,16 +361,16 @@
     },
     {
       "name": "intervention/image",
-      "version": "3.7.0",
+      "version": "3.7.1",
       "source": {
         "type": "git",
         "url": "https://github.com/Intervention/image.git",
-        "reference": "6bfd3dd1d430c5224c728dc4f8b2fdc757b5eaf5"
+        "reference": "137bdb356aacc01409d22aee3f0904497616cf3c"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/Intervention/image/zipball/6bfd3dd1d430c5224c728dc4f8b2fdc757b5eaf5",
-        "reference": "6bfd3dd1d430c5224c728dc4f8b2fdc757b5eaf5",
+        "url": "https://api.github.com/repos/Intervention/image/zipball/137bdb356aacc01409d22aee3f0904497616cf3c",
+        "reference": "137bdb356aacc01409d22aee3f0904497616cf3c",
         "shasum": ""
       },
       "require": {
@@ -417,7 +417,7 @@
       ],
       "support": {
         "issues": "https://github.com/Intervention/image/issues",
-        "source": "https://github.com/Intervention/image/tree/3.7.0"
+        "source": "https://github.com/Intervention/image/tree/3.7.1"
       },
       "funding": [
         {
@@ -429,7 +429,7 @@
           "type": "github"
         }
       ],
-      "time": "2024-06-13T16:34:59+00:00"
+      "time": "2024-06-29T07:51:20+00:00"
     },
     {
       "name": "jaybizzle/crawler-detect",
@@ -1738,16 +1738,16 @@
     },
     {
       "name": "monolog/monolog",
-      "version": "3.6.0",
+      "version": "3.7.0",
       "source": {
         "type": "git",
         "url": "https://github.com/Seldaek/monolog.git",
-        "reference": "4b18b21a5527a3d5ffdac2fd35d3ab25a9597654"
+        "reference": "f4393b648b78a5408747de94fca38beb5f7e9ef8"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/Seldaek/monolog/zipball/4b18b21a5527a3d5ffdac2fd35d3ab25a9597654",
-        "reference": "4b18b21a5527a3d5ffdac2fd35d3ab25a9597654",
+        "url": "https://api.github.com/repos/Seldaek/monolog/zipball/f4393b648b78a5408747de94fca38beb5f7e9ef8",
+        "reference": "f4393b648b78a5408747de94fca38beb5f7e9ef8",
         "shasum": ""
       },
       "require": {
@@ -1823,7 +1823,7 @@
       ],
       "support": {
         "issues": "https://github.com/Seldaek/monolog/issues",
-        "source": "https://github.com/Seldaek/monolog/tree/3.6.0"
+        "source": "https://github.com/Seldaek/monolog/tree/3.7.0"
       },
       "funding": [
         {
@@ -1835,7 +1835,7 @@
           "type": "tidelift"
         }
       ],
-      "time": "2024-04-12T21:02:21+00:00"
+      "time": "2024-06-28T09:40:51+00:00"
     },
     {
       "name": "mustangostang/spyc",
@@ -3001,16 +3001,16 @@
     },
     {
       "name": "symfony/filesystem",
-      "version": "v7.1.1",
+      "version": "v7.1.2",
       "source": {
         "type": "git",
         "url": "https://github.com/symfony/filesystem.git",
-        "reference": "802e87002f919296c9f606457d9fa327a0b3d6b2"
+        "reference": "92a91985250c251de9b947a14bb2c9390b1a562c"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/symfony/filesystem/zipball/802e87002f919296c9f606457d9fa327a0b3d6b2",
-        "reference": "802e87002f919296c9f606457d9fa327a0b3d6b2",
+        "url": "https://api.github.com/repos/symfony/filesystem/zipball/92a91985250c251de9b947a14bb2c9390b1a562c",
+        "reference": "92a91985250c251de9b947a14bb2c9390b1a562c",
         "shasum": ""
       },
       "require": {
@@ -3047,7 +3047,7 @@
       "description": "Provides basic utilities for the filesystem",
       "homepage": "https://symfony.com",
       "support": {
-        "source": "https://github.com/symfony/filesystem/tree/v7.1.1"
+        "source": "https://github.com/symfony/filesystem/tree/v7.1.2"
       },
       "funding": [
         {
@@ -3063,7 +3063,7 @@
           "type": "tidelift"
         }
       ],
-      "time": "2024-05-31T14:57:53+00:00"
+      "time": "2024-06-28T10:03:55+00:00"
     },
     {
       "name": "symfony/polyfill-ctype",
@@ -3696,12 +3696,12 @@
       "source": {
         "type": "git",
         "url": "https://github.com/Roave/SecurityAdvisories.git",
-        "reference": "5b38ec8e0b7fdca1e7b95173a15d3cac3a482d1f"
+        "reference": "4a150f693df8f5d7b60a8557b15660a60b4d17bd"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/5b38ec8e0b7fdca1e7b95173a15d3cac3a482d1f",
-        "reference": "5b38ec8e0b7fdca1e7b95173a15d3cac3a482d1f",
+        "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/4a150f693df8f5d7b60a8557b15660a60b4d17bd",
+        "reference": "4a150f693df8f5d7b60a8557b15660a60b4d17bd",
         "shasum": ""
       },
       "conflict": {
@@ -3709,8 +3709,11 @@
         "admidio/admidio": "<4.2.13",
         "adodb/adodb-php": "<=5.20.20|>=5.21,<=5.21.3",
         "aheinze/cockpit": "<2.2",
-        "aimeos/ai-client-html": ">=2020.04.1,<2020.10.27|>=2021.04.1,<2021.10.21|>=2022.04.1,<2022.10.12|>=2023.04.1,<2023.10.14|>=2024.04.1,<2024.04.4",
-        "aimeos/aimeos-core": "<2024.04.7",
+        "aimeos/ai-admin-graphql": ">=2022.04.1,<2022.10.10|>=2023.04.1,<2023.10.6|>=2024.04.1,<2024.04.6",
+        "aimeos/ai-admin-jsonadm": "<2020.10.13|>=2021.04.1,<2021.10.6|>=2022.04.1,<2022.10.3|>=2023.04.1,<2023.10.4|==2024.04.1",
+        "aimeos/ai-client-html": ">=2020.04.1,<2020.10.27|>=2021.04.1,<2021.10.22|>=2022.04.1,<2022.10.13|>=2023.04.1,<2023.10.15|>=2024.04.1,<2024.04.7",
+        "aimeos/ai-controller-frontend": "<2020.10.15|>=2021.04.1,<2021.10.8|>=2022.04.1,<2022.10.8|>=2023.04.1,<2023.10.9",
+        "aimeos/aimeos-core": ">=2022.04.1,<2022.10.17|>=2023.04.1,<2023.10.17|>=2024.04.1,<2024.04.7",
         "aimeos/aimeos-typo3": "<19.10.12|>=20,<20.10.5",
         "airesvsg/acf-to-rest-api": "<=3.1",
         "akaunting/akaunting": "<2.1.13",
@@ -3984,6 +3987,7 @@
         "jsdecena/laracom": "<2.0.9",
         "jsmitty12/phpwhois": "<5.1",
         "juzaweb/cms": "<=3.4",
+        "jweiland/events2": "<8.3.8|>=9,<9.0.6",
         "kazist/phpwhois": "<=4.2.6",
         "kelvinmo/simplexrd": "<3.1.1",
         "kevinpapst/kimai2": "<1.16.7",
@@ -4091,12 +4095,12 @@
         "october/cms": "<1.0.469|==1.0.469|==1.0.471|==1.1.1",
         "october/october": "<=3.4.4",
         "october/rain": "<1.0.472|>=1.1,<1.1.2",
-        "october/system": "<1.0.476|>=1.1,<1.1.12|>=2,<2.2.34|>=3,<3.5.2",
+        "october/system": "<1.0.476|>=1.1,<1.1.12|>=2,<2.2.34|>=3,<3.5.15",
         "omeka/omeka-s": "<4.0.3",
         "onelogin/php-saml": "<2.10.4",
         "oneup/uploader-bundle": ">=1,<1.9.3|>=2,<2.1.5",
         "open-web-analytics/open-web-analytics": "<1.7.4",
-        "opencart/opencart": "<=3.0.3.7|>=4,<4.0.2.3-dev",
+        "opencart/opencart": "<=3.0.3.9|>=4",
         "openid/php-openid": "<2.3",
         "openmage/magento-lts": "<20.5",
         "opensolutions/vimbadmin": "<=3.0.15",
@@ -4260,6 +4264,7 @@
         "statamic/cms": "<4.46|>=5.3,<5.6.2",
         "stormpath/sdk": "<9.9.99",
         "studio-42/elfinder": "<2.1.62",
+        "studiomitte/friendlycaptcha": "<0.1.4",
         "subhh/libconnect": "<7.0.8|>=8,<8.1",
         "sukohi/surpass": "<1",
         "sulu/form-bundle": ">=2,<2.5.3",
@@ -4491,7 +4496,7 @@
           "type": "tidelift"
         }
       ],
-      "time": "2024-06-19T16:05:03+00:00"
+      "time": "2024-07-05T21:04:37+00:00"
     }
   ],
   "aliases": [],

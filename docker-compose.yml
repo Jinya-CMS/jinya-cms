@@ -52,7 +52,7 @@ services:
   jinya-backend:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: docker/dev.dockerfile
     ports:
       - 8080:80
     volumes:
