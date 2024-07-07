@@ -40,7 +40,36 @@ build-release-image:
     - .build-image
   parallel:
     matrix:
-      - TAG_VERSION:
+      # Apache images no suffix
+      - ARCH:
+          - arm64
+          - amd64
+        IMAGE_TYPE: apache
+        IMAGE_TAG_VERSION:
+          - latest
+          - $PACKAGE_VERSION
+        REGISTRY_IMAGE:
+          - jinyacms/jinya-cms
+          - $CI_REGISTRY_IMAGE
+      # Apache images suffix
+      - ARCH:
+          - arm64
+          - amd64
+        IMAGE_TYPE: apache
+        SUFFIX: -apache
+        IMAGE_TAG_VERSION:
+          - latest
+          - $PACKAGE_VERSION
+        REGISTRY_IMAGE:
+          - jinyacms/jinya-cms
+          - $CI_REGISTRY_IMAGE
+      # CLI images suffix
+      - ARCH:
+          - arm64
+          - amd64
+        IMAGE_TYPE: cli
+        SUFFIX: -cli
+        IMAGE_TAG_VERSION:
           - latest
           - $PACKAGE_VERSION
         REGISTRY_IMAGE:
@@ -81,6 +110,7 @@ deploy-release-image:
     - .deploy-image
   parallel:
     matrix:
+      # Gitlab
       - IMAGE_TAG_VERSION:
           - $LATEST
           - latest
@@ -88,14 +118,15 @@ deploy-release-image:
           - ""
           - -apache
           - -cli
-        REGISTRY_IMAGE:
-          - jinyacms/jinya-cms
-          - $CI_REGISTRY_IMAGE
-        REGISTRY_USER:
-          - $CI_REGISTRY_USER
-          - $DOCKERHUB_USERNAME
-        REGISTRY_PASSWORD:
-          - $CI_REGISTRY_PASSWORD
-          - $DOCKERHUB_PASSWORD
+      - IMAGE_TAG_VERSION:
+          - $LATEST
+          - latest
+        SUFFIX:
+          - ""
+          - -apache
+          - -cli
+        REGISTRY_IMAGE: jinyacms/jinya-cms
+        REGISTRY_USER: $DOCKERHUB_USERNAME
+        REGISTRY_PASSWORD: $DOCKERHUB_PASSWORD
   rules:
     - if: $CI_COMMIT_TAG

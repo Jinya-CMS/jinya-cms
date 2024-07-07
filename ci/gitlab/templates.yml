@@ -59,7 +59,7 @@
     - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
     - /kaniko/executor
       --context "${CI_PROJECT_DIR}"
-      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --dockerfile "${CI_PROJECT_DIR}/docker/${IMAGE_TYPE}.dockerfile"
       --destination "${IMAGE_TAG}"
       $KANIKO_FLAGS
   variables:
@@ -68,13 +68,23 @@
     IMAGE_TAG: ${REGISTRY_IMAGE}:${IMAGE_TAG_VERSION}-${SUFFIX}-${ARCH}
   parallel:
     matrix:
+      # Apache images no suffix
       - ARCH:
           - arm64
           - amd64
-        SUFFIX:
-          - ""
-          - -apache
-          - -cli
+        IMAGE_TYPE: apache
+      # Apache images suffix
+      - ARCH:
+          - arm64
+          - amd64
+        IMAGE_TYPE: apache
+        SUFFIX: -apache
+      # CLI images suffix
+      - ARCH:
+          - arm64
+          - amd64
+        IMAGE_TYPE: cli
+        SUFFIX: -cli
   tags:
     - runner-${ARCH}
 
