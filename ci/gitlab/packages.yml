@@ -13,7 +13,7 @@ deploy-next-minor-package:
   extends:
     - .deploy-package
   variables:
-    PACKAGE_VERSION: $LATEST_NEXT_MINOR
+    PACKAGE_VERSION: $LATEST_ALPHA_MINOR
     TRACK: $ALPHA_TRACK
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
@@ -24,7 +24,7 @@ deploy-next-major-package:
   extends:
     - .deploy-package
   variables:
-    PACKAGE_VERSION: $LATEST_NEXT_MAJOR
+    PACKAGE_VERSION: $LATEST_ALPHA_MAJOR
     TRACK: $ALPHA_TRACK
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"

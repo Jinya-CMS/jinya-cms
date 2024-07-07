@@ -2,7 +2,7 @@ build-test-image:
   extends:
     - .build-image
   variables:
-    PACKAGE_VERSION: $LATEST_NEXT_MINOR
+    PACKAGE_VERSION: $LATEST_ALPHA_MINOR
     TRACK: $ALPHA_TRACK
     KANIKO_FLAGS: --no-push
   rules:
@@ -13,7 +13,7 @@ build-next-minor-image:
   extends:
     - .build-image
   variables:
-    PACKAGE_VERSION: $LATEST_NEXT_MINOR
+    PACKAGE_VERSION: $LATEST_ALPHA_MINOR
     TRACK: $ALPHA_TRACK
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
@@ -24,7 +24,7 @@ build-next-major-image:
   extends:
     - .build-image
   variables:
-    PACKAGE_VERSION: $LATEST_NEXT_MAJOR
+    PACKAGE_VERSION: $LATEST_ALPHA_MAJOR
     TRACK: $ALPHA_TRACK
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
@@ -94,7 +94,7 @@ deploy-next-minor-image:
   extends:
     - .deploy-image
   variables:
-    IMAGE_TAG_VERSION: $LATEST_NEXT_MINOR
+    IMAGE_TAG_VERSION: $LATEST_ALPHA_MINOR
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -104,7 +104,7 @@ deploy-next-major-image:
   extends:
     - .deploy-image
   variables:
-    IMAGE_TAG_VERSION: $LATEST_NEXT_MAJOR
+    IMAGE_TAG_VERSION: $LATEST_ALPHA_MAJOR
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never

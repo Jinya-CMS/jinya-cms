@@ -65,7 +65,7 @@
   variables:
     REGISTRY_IMAGE: $CI_REGISTRY_IMAGE
     IMAGE_TAG_VERSION: $PACKAGE_VERSION
-    IMAGE_TAG: ${REGISTRY_IMAGE}:${IMAGE_TAG_VERSION}-${SUFFIX}-${ARCH}
+    IMAGE_TAG: ${REGISTRY_IMAGE}:${IMAGE_TAG_VERSION}${SUFFIX}-${ARCH}
   parallel:
     matrix:
       # Apache images no suffix
