@@ -18,7 +18,7 @@ deploy-next-minor-package:
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
-    - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MINOR_BRANCH
+    - if: $CI_COMMIT_BRANCH == $LATEST_ALPHA_MINOR_BRANCH
 
 deploy-next-major-package:
   extends:
@@ -29,7 +29,7 @@ deploy-next-major-package:
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
-    - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MAJOR_BRANCH
+    - if: $CI_COMMIT_BRANCH == $LATEST_ALPHA_MAJOR_BRANCH
 
 deploy-release-package:
   extends:

@@ -18,7 +18,7 @@ build-next-minor-image:
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
-    - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MINOR_BRANCH
+    - if: $CI_COMMIT_BRANCH == $LATEST_ALPHA_MINOR_BRANCH
 
 build-next-major-image:
   extends:
@@ -29,7 +29,7 @@ build-next-major-image:
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
-    - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MAJOR_BRANCH
+    - if: $CI_COMMIT_BRANCH == $LATEST_ALPHA_MAJOR_BRANCH
 
 build-beta-image:
   extends:
@@ -98,7 +98,7 @@ deploy-next-minor-image:
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
-    - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MINOR_BRANCH
+    - if: $CI_COMMIT_BRANCH == $LATEST_ALPHA_MINOR_BRANCH
 
 deploy-next-major-image:
   extends:
@@ -108,7 +108,7 @@ deploy-next-major-image:
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
-    - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MAJOR_BRANCH
+    - if: $CI_COMMIT_BRANCH == $LATEST_ALPHA_MAJOR_BRANCH
 
 deploy-beta-image:
   extends:
