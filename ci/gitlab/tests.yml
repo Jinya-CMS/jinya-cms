@@ -48,11 +48,8 @@ phpunit:
         MP_SMTP_AUTH_ALLOW_INSECURE: 'true'
   parallel:
     matrix:
-      - DATABASE_IMAGE: library/mysql:8.0
-        PHP_TAG: 8.3-cli
-      - DATABASE_IMAGE: library/mysql:lts
-        PHP_TAG: 8.3-cli
-      - DATABASE_IMAGE: library/mariadb:10.11
-        PHP_TAG: 8.3-cli
-      - DATABASE_IMAGE: library/mariadb:lts
-        PHP_TAG: 8.3-cli
+      - DATABASE_IMAGE:
+        - library/mysql:8.0
+        - library/mysql:lts
+        - library/mariadb:10.11
+        - library/mariadb:lts

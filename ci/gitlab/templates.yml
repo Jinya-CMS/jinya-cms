@@ -63,20 +63,18 @@
       --destination "${IMAGE_TAG}"
       $KANIKO_FLAGS
   variables:
+    REGISTRY_IMAGE: $CI_REGISTRY_IMAGE
     IMAGE_TAG_VERSION: $PACKAGE_VERSION
-    IMAGE_TAG: ${CI_REGISTRY_IMAGE}:${IMAGE_TAG_VERSION}-${SUFFIX}-${ARCH}
+    IMAGE_TAG: ${REGISTRY_IMAGE}:${IMAGE_TAG_VERSION}-${SUFFIX}-${ARCH}
   parallel:
     matrix:
-      - ARCH: arm64
-      - ARCH: amd64
-      - ARCH: arm64
-        SUFFIX: -apache
-      - ARCH: amd64
-        SUFFIX: -apache
-      - ARCH: arm64
-        SUFFIX: -cli
-      - ARCH: amd64
-        SUFFIX: -cli
+      - ARCH:
+          - arm64
+          - amd64
+      - SUFFIX:
+          - ""
+          - -apache
+          - -cli
   tags:
     - runner-${ARCH}
 
@@ -84,19 +82,22 @@
   stage: deploy-docker
   image:
     name: mplatform/manifest-tool:alpine
-    entrypoint: [""]
+    entrypoint: [ "" ]
   variables:
-    TAG: ${CI_REGISTRY_IMAGE}${IMAGE_TAG_VERSION}${SUFFIX}
+    TAG: ${REGISTRY_IMAGE}${IMAGE_TAG_VERSION}${SUFFIX}
+    REGISTRY_USER: $CI_REGISTRY_USER
+    REGISTRY_PASSWORD: $CI_REGISTRY_PASSWORD
   parallel:
     matrix:
       - SUFFIX:
-      - SUFFIX: -apache
-      - SUFFIX: -cli
+          - ""
+          - -apache
+          - -cli
   script:
     - >-
       manifest-tool
-      --username=${CI_REGISTRY_USER}
-      --password=${CI_REGISTRY_PASSWORD}
+      --username=${REGISTRY_USER}
+      --password=${REGISTRY_PASSWORD}
       push from-args
       --platforms linux/amd64,linux/arm64
       --template ${TAG}-ARCH
