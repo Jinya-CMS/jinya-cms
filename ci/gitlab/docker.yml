@@ -16,9 +16,9 @@ build-next-minor-image:
     PACKAGE_VERSION: $LATEST_NEXT_MINOR
     TRACK: $ALPHA_TRACK
   rules:
-    - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MINOR_BRANCH
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
+    - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MINOR_BRANCH
 
 build-next-major-image:
   extends:
@@ -27,9 +27,9 @@ build-next-major-image:
     PACKAGE_VERSION: $LATEST_NEXT_MAJOR
     TRACK: $ALPHA_TRACK
   rules:
-    - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MAJOR_BRANCH
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
+    - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MAJOR_BRANCH
 
 build-beta-image:
   extends:
@@ -38,9 +38,9 @@ build-beta-image:
     PACKAGE_VERSION: $LATEST_BETA
     TRACK: $BETA_TRACK
   rules:
-    - if: $CI_COMMIT_BRANCH == $LATEST_BETA_BRANCH
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
+    - if: $CI_COMMIT_BRANCH == $LATEST_BETA_BRANCH
 
 build-release-image:
   extends:
@@ -86,9 +86,9 @@ build-release-image:
     PACKAGE_VERSION: $LATEST
     TRACK: $RELEASE_TRACK
   rules:
-    - if: $CI_COMMIT_TAG
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
+    - if: $CI_COMMIT_TAG
 
 deploy-next-minor-image:
   extends:
@@ -96,9 +96,9 @@ deploy-next-minor-image:
   variables:
     IMAGE_TAG_VERSION: $LATEST_NEXT_MINOR
   rules:
-    - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MINOR_BRANCH
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
+    - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MINOR_BRANCH
 
 deploy-next-major-image:
   extends:
@@ -106,9 +106,9 @@ deploy-next-major-image:
   variables:
     IMAGE_TAG_VERSION: $LATEST_NEXT_MAJOR
   rules:
-    - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MAJOR_BRANCH
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
+    - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MAJOR_BRANCH
 
 deploy-beta-image:
   extends:
@@ -116,9 +116,9 @@ deploy-beta-image:
   variables:
     IMAGE_TAG_VERSION: $LATEST_BETA
   rules:
-    - if: $CI_COMMIT_BRANCH == $LATEST_BETA_BRANCH
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
+    - if: $CI_COMMIT_BRANCH == $LATEST_BETA_BRANCH
 
 deploy-release-image:
   extends:
@@ -144,6 +144,6 @@ deploy-release-image:
         REGISTRY_USER: $DOCKERHUB_USERNAME
         REGISTRY_PASSWORD: $DOCKERHUB_PASSWORD
   rules:
-    - if: $CI_COMMIT_TAG
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
+    - if: $CI_COMMIT_TAG
