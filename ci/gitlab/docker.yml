@@ -38,8 +38,8 @@ build-beta-image:
 build-release-image:
   extends:
     - .build-image
-  matrix:
-    parallel:
+  parallel:
+    matrix:
       - TAG_VERSION:
           - latest
           - $PACKAGE_VERSION
