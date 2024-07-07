@@ -7,6 +7,7 @@ build-test-image:
     KANIKO_FLAGS: --no-push
   rules:
     - if: $CI_COMMIT_REF_PROTECTED == 'false'
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
 build-next-minor-image:
   extends:
@@ -16,6 +17,8 @@ build-next-minor-image:
     TRACK: $ALPHA_TRACK
   rules:
     - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MINOR_BRANCH
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
 
 build-next-major-image:
   extends:
@@ -25,6 +28,8 @@ build-next-major-image:
     TRACK: $ALPHA_TRACK
   rules:
     - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MAJOR_BRANCH
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
 
 build-beta-image:
   extends:
@@ -34,6 +39,8 @@ build-beta-image:
     TRACK: $BETA_TRACK
   rules:
     - if: $CI_COMMIT_BRANCH == $LATEST_BETA_BRANCH
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
 
 build-release-image:
   extends:
@@ -80,6 +87,8 @@ build-release-image:
     TRACK: $RELEASE_TRACK
   rules:
     - if: $CI_COMMIT_TAG
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
 
 deploy-next-minor-image:
   extends:
@@ -88,6 +97,8 @@ deploy-next-minor-image:
     IMAGE_TAG_VERSION: $LATEST_NEXT_MINOR
   rules:
     - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MINOR_BRANCH
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
 
 deploy-next-major-image:
   extends:
@@ -96,6 +107,8 @@ deploy-next-major-image:
     IMAGE_TAG_VERSION: $LATEST_NEXT_MAJOR
   rules:
     - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MAJOR_BRANCH
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
 
 deploy-beta-image:
   extends:
@@ -104,6 +117,8 @@ deploy-beta-image:
     IMAGE_TAG_VERSION: $LATEST_BETA
   rules:
     - if: $CI_COMMIT_BRANCH == $LATEST_BETA_BRANCH
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
 
 deploy-release-image:
   extends:
@@ -130,3 +145,5 @@ deploy-release-image:
         REGISTRY_PASSWORD: $DOCKERHUB_PASSWORD
   rules:
     - if: $CI_COMMIT_TAG
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
