@@ -43,7 +43,7 @@ build-release-image:
       - TAG_VERSION:
           - latest
           - $PACKAGE_VERSION
-      - REGISTRY_IMAGE:
+        REGISTRY_IMAGE:
           - jinyacms/jinya-cms
           - $CI_REGISTRY_IMAGE
   variables:
@@ -84,17 +84,17 @@ deploy-release-image:
       - IMAGE_TAG_VERSION:
           - $LATEST
           - latest
-      - SUFFIX:
+        SUFFIX:
           - ""
           - -apache
           - -cli
-      - REGISTRY_IMAGE:
+        REGISTRY_IMAGE:
           - jinyacms/jinya-cms
           - $CI_REGISTRY_IMAGE
-      - REGISTRY_USER:
+        REGISTRY_USER:
           - $CI_REGISTRY_USER
           - $DOCKERHUB_USERNAME
-      - REGISTRY_PASSWORD:
+        REGISTRY_PASSWORD:
           - $CI_REGISTRY_PASSWORD
           - $DOCKERHUB_PASSWORD
   rules:

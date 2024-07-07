@@ -71,7 +71,7 @@
       - ARCH:
           - arm64
           - amd64
-      - SUFFIX:
+        SUFFIX:
           - ""
           - -apache
           - -cli
