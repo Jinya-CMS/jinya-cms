@@ -64,11 +64,19 @@
       $KANIKO_FLAGS
   variables:
     IMAGE_TAG_VERSION: $PACKAGE_VERSION
-    IMAGE_TAG: ${CI_REGISTRY_IMAGE}:${IMAGE_TAG_VERSION}-${ARCH}
+    IMAGE_TAG: ${CI_REGISTRY_IMAGE}:${IMAGE_TAG_VERSION}-${SUFFIX}-${ARCH}
   parallel:
     matrix:
       - ARCH: arm64
       - ARCH: amd64
+      - ARCH: arm64
+        SUFFIX: -apache
+      - ARCH: amd64
+        SUFFIX: -apache
+      - ARCH: arm64
+        SUFFIX: -cli
+      - ARCH: amd64
+        SUFFIX: -cli
   tags:
     - runner-${ARCH}
 
@@ -77,6 +85,13 @@
   image:
     name: mplatform/manifest-tool:alpine
     entrypoint: [""]
+  variables:
+    TAG: ${CI_REGISTRY_IMAGE}${IMAGE_TAG_VERSION}${SUFFIX}
+  parallel:
+    matrix:
+      - SUFFIX:
+      - SUFFIX: -apache
+      - SUFFIX: -cli
   script:
     - >-
       manifest-tool

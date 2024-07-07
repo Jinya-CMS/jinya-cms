@@ -79,7 +79,7 @@ deploy-next-minor-image:
   extends:
     - .deploy-image
   variables:
-    PACKAGE_VERSION: $LATEST_NEXT_MINOR
+    IMAGE_TAG_VERSION: $LATEST_NEXT_MINOR
   rules:
     - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MINOR_BRANCH
 
@@ -87,7 +87,7 @@ deploy-next-major-image:
   extends:
     - .deploy-image
   variables:
-    PACKAGE_VERSION: $LATEST_NEXT_MAJOR
+    IMAGE_TAG_VERSION: $LATEST_NEXT_MAJOR
   rules:
     - if: $CI_COMMIT_BRANCH == $LATEST_NEXT_MAJOR_BRANCH
 
@@ -95,25 +95,64 @@ deploy-beta-image:
   extends:
     - .deploy-image
   variables:
-    PACKAGE_VERSION: $LATEST_BETA
+    IMAGE_TAG_VERSION: $LATEST_BETA
   rules:
     - if: $CI_COMMIT_BRANCH == $LATEST_BETA_BRANCH
 
 deploy-release-image:
   extends:
     - .deploy-image
-  variables:
-    PACKAGE_VERSION: $LATEST
   parallel:
     matrix:
-      - CI_REGISTRY_IMAGE: jinyacms/jinya-cms
+      # registry tagged
+      - IMAGE_TAG_VERSION: $LATEST
+      # registry tagged apache
+      - IMAGE_TAG_VERSION: $LATEST
+        SUFFIX: -apache
+      # registry tagged cli
+      - IMAGE_TAG_VERSION: $LATEST
+        SUFFIX: -cli
+      # registry latest
+      - IMAGE_TAG_VERSION: latest
+      # registry latest apache
+      - IMAGE_TAG_VERSION: latest
+        SUFFIX: -apache
+      # registry latest cli
+      - IMAGE_TAG_VERSION: latest
+        SUFFIX: -cli
+      # docker hub tagged
+      - IMAGE_TAG_VERSION: $LATEST
+        CI_REGISTRY_IMAGE: jinyacms/jinya-cms
         CI_REGISTRY_USER: $DOCKERHUB_USERNAME
         CI_REGISTRY_PASSWORD: $DOCKERHUB_PASSWORD
+      # docker hub tagged apache
+      - IMAGE_TAG_VERSION: $LATEST
+        CI_REGISTRY_IMAGE: jinyacms/jinya-cms
+        CI_REGISTRY_USER: $DOCKERHUB_USERNAME
+        CI_REGISTRY_PASSWORD: $DOCKERHUB_PASSWORD
+        SUFFIX: -apache
+      # docker hub tagged cli
+      - IMAGE_TAG_VERSION: $LATEST
+        CI_REGISTRY_IMAGE: jinyacms/jinya-cms
+        CI_REGISTRY_USER: $DOCKERHUB_USERNAME
+        CI_REGISTRY_PASSWORD: $DOCKERHUB_PASSWORD
+        SUFFIX: -cli
+      # docker hub latest
       - IMAGE_TAG_VERSION: latest
         CI_REGISTRY_IMAGE: jinyacms/jinya-cms
         CI_REGISTRY_USER: $DOCKERHUB_USERNAME
         CI_REGISTRY_PASSWORD: $DOCKERHUB_PASSWORD
-      - IMAGE_TAG_VERSION: $PACKAGE_VERSION
+      # docker hub latest apache
       - IMAGE_TAG_VERSION: latest
+        CI_REGISTRY_IMAGE: jinyacms/jinya-cms
+        CI_REGISTRY_USER: $DOCKERHUB_USERNAME
+        CI_REGISTRY_PASSWORD: $DOCKERHUB_PASSWORD
+        SUFFIX: -apache
+      # docker hub latest cli
+      - IMAGE_TAG_VERSION: latest
+        CI_REGISTRY_IMAGE: jinyacms/jinya-cms
+        CI_REGISTRY_USER: $DOCKERHUB_USERNAME
+        CI_REGISTRY_PASSWORD: $DOCKERHUB_PASSWORD
+        SUFFIX: -cli
   rules:
     - if: $CI_COMMIT_TAG

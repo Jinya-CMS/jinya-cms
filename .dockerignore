@@ -1,7 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 designer
 docker-compose.yml
-Dockerfile
+apache.dockerfile
 Jenkinsfile
 .env.dist
 composer.phar
