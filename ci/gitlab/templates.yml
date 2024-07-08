@@ -41,7 +41,7 @@
     - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
     - zip -r ./jinya-cms.zip ./*
     - |-
-      curl -i -X POST https://releases.jinya.de/cms/$TRACK/$PACKAGE_VERSION -H "Content-Type: application/zip" -H "Authorization: Bearer $RELEASE_PUSH_TOKEN" --data-binary "@jinya-cms.zip"
+      curl -i -X POST https://releases.jinya.de/api/push/cms/$TRACK/$PACKAGE_VERSION -H "Content-Type: application/zip" -H "Authorization: Bearer $RELEASE_PUSH_TOKEN" --data-binary "@jinya-cms.zip"
   artifacts:
     name: 'jinya-cms-${PACKAGE_VERSION}.zip'
     paths:
