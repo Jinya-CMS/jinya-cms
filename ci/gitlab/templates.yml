@@ -94,7 +94,7 @@
     name: mplatform/manifest-tool:alpine
     entrypoint: [ "" ]
   variables:
-    TAG: ${REGISTRY_IMAGE}${IMAGE_TAG_VERSION}${SUFFIX}
+    TAG: ${REGISTRY_IMAGE}:${IMAGE_TAG_VERSION}${SUFFIX}
     REGISTRY_IMAGE: $CI_REGISTRY_IMAGE
     REGISTRY_USER: $CI_REGISTRY_USER
     REGISTRY_PASSWORD: $CI_REGISTRY_PASSWORD
