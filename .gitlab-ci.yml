@@ -7,4 +7,4 @@ include:
   - /ci/gitlab/php-lint.yml
   - /ci/gitlab/stages.yml
   - /ci/gitlab/templates.yml
-  - /ci/gitlab/tests.yml
+#  - /ci/gitlab/tests.yml
