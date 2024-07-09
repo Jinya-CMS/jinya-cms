@@ -485,8 +485,8 @@ export default {
       action: {
         upload_single_file: 'Eine Datei hochladen',
         upload_multiple_file: 'Mehrere Dateien hochladen',
-        delete_file: 'Datei löschen',
-        edit_file: 'Datei bearbeiten',
+        delete_file: 'Löschen',
+        edit_file: 'Bearbeiten',
         manage_tags: 'Tags verwalten',
         show_all_tags: 'Alle Tags',
       },
@@ -583,7 +583,7 @@ export default {
         type: 'Typ',
         uploaded_by: 'Hochgeladen von',
         last_changed_by: 'Zuletzt geändert von',
-        download_file: 'Datei herunterladen',
+        download_file: 'Herunterladen',
         types: {
           font: 'Schriftart',
           'image/jpeg': 'JPEG Bild',

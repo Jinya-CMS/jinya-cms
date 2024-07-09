@@ -145,12 +145,34 @@
     grid-column: details;
     height: calc(var(--page-height) - 2rem - 2rem - 2rem - 2rem);
     overflow-y: auto;
+    gap: 0.5rem;
+    display: flex;
+    flex-flow: column;
 }
 
 .jinya-media-details__title {
-    max-width: 100%;
-    text-overflow: ellipsis;
-    white-space: pre;
+    width: 100%;
+    display: grid;
+    grid-template-columns: [prev] auto [text] 1fr [next] auto;
+    gap: 0.5rem;
+
+    button {
+        &:first-of-type {
+            grid-column: prev;
+        }
+
+        &:last-of-type {
+            grid-column: next;
+        }
+    }
+
+    span {
+        grid-column: text;
+        white-space: pre;
+        text-overflow: ellipsis;
+        width: 100%;
+        overflow: hidden;
+    }
 }
 
 .jinya-media-details__image {

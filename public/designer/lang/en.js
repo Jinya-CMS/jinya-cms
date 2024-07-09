@@ -485,8 +485,8 @@ export default {
       action: {
         upload_single_file: 'Upload single file',
         upload_multiple_file: 'Upload multiple files',
-        delete_file: 'Delete file',
-        edit_file: 'Edit file',
+        delete_file: 'Delete',
+        edit_file: 'Edit',
         manage_tags: 'Manage tags',
         show_all_tags: 'All tags',
       },
@@ -583,7 +583,7 @@ export default {
         type: 'Type',
         uploaded_by: 'Uploaded by',
         last_changed_by: 'Last changed by',
-        download_file: 'Download file',
+        download_file: 'Download',
         types: {
           font: 'Font file',
           'image/jpeg': 'JPEG image',
