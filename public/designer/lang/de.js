@@ -485,6 +485,7 @@ export default {
       action: {
         upload_single_file: 'Eine Datei hochladen',
         upload_multiple_file: 'Mehrere Dateien hochladen',
+        delete_multiple_files: 'Gewählte Dateien Löschen',
         delete_file: 'Löschen',
         edit_file: 'Bearbeiten',
         manage_tags: 'Tags verwalten',
@@ -499,6 +500,16 @@ export default {
           title: 'Löschen fehlgeschlagen',
           conflict: 'Die Datei {name} konnte nicht gelöscht werden, da sie benutzt wird.',
           generic: 'Ein unbekannter Fehler ist aufgetreten, bitte kontaktiere deinen Administrator',
+        },
+      },
+      delete_multiple: {
+        title: 'Dateien löschen',
+        message: 'Willst du die gewählten {count} Dateien wirklich löschen? Wenn du nur einzelne löschen möchtest, wähle sie bitte direkt.',
+        approve: 'Dateien löschen',
+        decline: 'Dateien behalten',
+        error: {
+          title: 'Löschen fehlgeschlagen',
+          message: '{count} Dateien konnten nicht gelöscht werden, bitte versuche sie einzeln zu löschen.',
         },
       },
       upload_single_file: {

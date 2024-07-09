@@ -18,6 +18,15 @@
     </div>
     <div class="cosmo-toolbar__group">
       <button
+        @click="deleteMultipleFiles()"
+        :disabled="selectedFiles.size === 0"
+        class="cosmo-button"
+        type="button"
+        x-localize:media-files-action-delete_multiple_files
+      ></button>
+    </div>
+    <div class="cosmo-toolbar__group">
+      <button
         :disabled="loading"
         @click="openManageTagsDialog"
         class="cosmo-button"
@@ -103,13 +112,13 @@
                    :href="detailsDownloadPath"
                    class="cosmo-button" x-localize:media-files-details-download_file></a>
                 <button
-                  @click="openEditFileDialog(selectedFileDetails)"
+                  @click="openEditFileDialog()"
                   class="cosmo-button"
                   type="button"
                   x-localize:media-files-action-edit_file
                 ></button>
                 <button
-                  @click="deleteFile(selectedFileDetails)"
+                  @click="deleteFile()"
                   class="cosmo-button"
                   type="button"
                   x-localize:media-files-action-delete_file

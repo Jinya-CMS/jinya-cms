@@ -155,12 +155,12 @@ Alpine.data('filesData', () => ({
         .map((tag) => tag.name),
     );
   },
-  openEditFileDialog(file) {
+  openEditFileDialog() {
     this.edit.error.reset();
     this.edit.open = true;
-    this.edit.name = file.name;
-    this.edit.tags = new Set(file.tags.map((tag) => tag.name));
-    this.edit.id = file.id;
+    this.edit.name = this.selectedFileDetails.name;
+    this.edit.tags = new Set(this.selectedFileDetails.tags.map((tag) => tag.name));
+    this.edit.id = this.selectedFileDetails.id;
   },
   openManageTagsDialog() {
     this.manageTags.error.reset();
@@ -213,12 +213,12 @@ Alpine.data('filesData', () => ({
       }
     }
   },
-  async deleteFile(file) {
+  async deleteFile() {
     const confirmed = await confirm({
       title: localize({ key: 'media.files.delete.title' }),
       message: localize({
         key: 'media.files.delete.message',
-        values: { name: file.name },
+        values: { name: this.selectedFileDetails.name },
       }),
       declineLabel: localize({ key: 'media.files.delete.decline' }),
       approveLabel: localize({ key: 'media.files.delete.approve' }),
@@ -227,16 +227,16 @@ Alpine.data('filesData', () => ({
 
     if (confirmed) {
       try {
-        await deleteFile(file.id);
-        await fileDatabase.deleteFile(file.id);
-        file = null;
+        await deleteFile(this.selectedFileDetails.id);
+        await fileDatabase.deleteFile(this.selectedFileDetails.id);
+        this.selectedFiles.delete(this.selectedFileDetails.id);
       } catch (e) {
         if (e.status === 409) {
           await alert({
             title: localize({ key: 'media.files.delete.error.title' }),
             message: localize({
               key: 'media.files.delete.error.conflict',
-              values: { name: file.name },
+              values: { name: this.selectedFileDetails.name },
             }),
             negative: true,
           });
@@ -247,6 +247,39 @@ Alpine.data('filesData', () => ({
             negative: true,
           });
         }
+      }
+    }
+  },
+  async deleteMultipleFiles() {
+    const fileCount = this.selectedFilesDetails.length;
+    const confirmed = await confirm({
+      title: localize({ key: 'media.files.delete_multiple.title' }),
+      message: localize({
+        key: 'media.files.delete_multiple.message',
+        values: { count: fileCount },
+      }),
+      declineLabel: localize({ key: 'media.files.delete_multiple.decline' }),
+      approveLabel: localize({ key: 'media.files.delete_multiple.approve' }),
+      negative: true,
+    });
+
+    if (confirmed) {
+      try {
+        const promises = this.selectedFilesDetails.map(async (file) => {
+          await deleteFile(file.id);
+          await fileDatabase.deleteFile(file.id);
+        });
+        await Promise.all(promises);
+        this.selectedFiles.clear();
+      } catch (e) {
+        await alert({
+          title: localize({ key: 'media.files.delete_multiple.error.title' }),
+          message: localize({
+            key: 'media.files.delete_multiple.error.message',
+            values: { count: fileCount },
+          }),
+          negative: true,
+        });
       }
     }
   },

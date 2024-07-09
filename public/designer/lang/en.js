@@ -485,6 +485,7 @@ export default {
       action: {
         upload_single_file: 'Upload single file',
         upload_multiple_file: 'Upload multiple files',
+        delete_multiple_files: 'Delete selected files',
         delete_file: 'Delete',
         edit_file: 'Edit',
         manage_tags: 'Manage tags',
@@ -499,6 +500,16 @@ export default {
           title: 'Delete failed',
           conflict: 'The file {name} could not be deleted, because it is used.',
           generic: 'An unknown error occurred, please contact your administrator',
+        },
+      },
+      delete_multiple: {
+        title: 'Delete file',
+        message: 'Do you really want to delete the selected {count} files? If you want to delete only specific files, then select them separate.',
+        approve: 'Delete files',
+        decline: 'Keep files',
+        error: {
+          title: 'Delete failed',
+          message: '{count} files could not be deleted, please try deleting them one by one.',
         },
       },
       upload_single_file: {
