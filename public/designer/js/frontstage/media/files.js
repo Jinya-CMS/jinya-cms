@@ -167,11 +167,13 @@ Alpine.data('filesData', () => ({
     const insert = evt.ctrlKey;
     if (insert) {
       if (this.selectedFiles.has(id)) {
+        this.selectedFile = 0;
         this.selectedFiles.delete(id);
       } else {
         this.selectedFiles.add(id);
       }
     } else {
+      this.selectedFile = 0;
       this.selectedFiles.clear();
       this.selectedFiles.add(id);
     }
