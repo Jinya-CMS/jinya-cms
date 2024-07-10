@@ -24,6 +24,13 @@
         type="button"
         x-localize:media-files-action-delete_multiple_files
       ></button>
+      <button
+        @click="openTagMultipleDialog()"
+        :disabled="selectedFiles.size === 0"
+        class="cosmo-button"
+        type="button"
+        x-localize:media-files-action-tag_multiple_files
+      ></button>
     </div>
     <div class="cosmo-toolbar__group">
       <button
@@ -457,5 +464,63 @@
         </div>
       </div>
     </div>
+  </template>
+  <template x-if="tagMultiple.open">
+    <form @submit.prevent="updateTagsOnMultiple" class="cosmo-modal__container">
+      <div class="cosmo-modal is--files">
+        <h1 class="cosmo-modal__title" x-localize:media-files-tag_multiple-title="{ count: selectedFiles.size }"></h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-message is--negative" x-show="tagMultiple.error.hasError">
+            <span class="cosmo-message__header" x-text="tagMultiple.error.title"></span>
+            <p class="cosmo-message__message" x-text="tagMultiple.error.message"></p>
+          </div>
+          <div class="cosmo-message is--information" x-localize:media-files-tag_multiple-information></div>
+          <div class="jinya-tags is--details">
+            <template :key="tag.id" x-for="tag in tags">
+              <cms-tag
+                :active="tagMultiple.tags.has(tag.name)"
+                :color="tag.color"
+                :emoji="tag.emoji"
+                :name="tag.name"
+                :tag-id="tag.id"
+                @click="tagMultiple .toggleTag(tag)"
+                class="jinya-tag is--file"
+              ></cms-tag>
+            </template>
+            <button @click="tagMultiple.tagPopupOpen = true" class="cosmo-button is--small is--circle is--primary"
+                    id="new-tag-open-button" type="button">
+              <svg
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M5 12h14" />
+                <path d="M12 5v14" />
+              </svg>
+            </button>
+          </div>
+          <cms-tag-popup
+            :cancel-label="tagPopupCancelLabel"
+            :color="randomColor"
+            :emoji="randomEmoji"
+            :error="tagMultiple.error.tagError"
+            :open="tagMultiple.tagPopupOpen"
+            :popup-title="tagPopupTitle"
+            :save-label="tagPopupSaveLabel"
+            @close="tagMultiple.tagPopupOpen = false"
+            @submit="createTagMultipleTag($event)"
+            target="#new-tag-open-button"
+          ></cms-tag-popup>
+        </div>
+        <div class="cosmo-modal__button-bar">
+          <button @click="tagMultiple.open = false" class="cosmo-button" type="button"
+                  x-localize:media-files-tag_multiple-cancel></button>
+          <button class="cosmo-button" type="submit" x-localize:media-files-tag_multiple-save></button>
+        </div>
+      </div>
+    </form>
   </template>
 </div>

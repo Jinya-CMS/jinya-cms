@@ -37,6 +37,12 @@ export async function updateFile(id, name, tags) {
   });
 }
 
+export async function tagFile(id, tags) {
+  await put(`/api/file/${id}`, {
+    tags,
+  });
+}
+
 export async function startUpload(id) {
   await put(`/api/file/${id}/content`);
 }

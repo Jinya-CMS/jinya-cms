@@ -488,6 +488,7 @@ export default {
         delete_multiple_files: 'Delete selected files',
         delete_file: 'Delete',
         edit_file: 'Edit',
+        tag_multiple_files: 'Tag selected files',
         manage_tags: 'Manage tags',
         show_all_tags: 'All tags',
       },
@@ -544,6 +545,16 @@ export default {
           title: 'Edit failed',
           conflict: 'A file with the chosen name already exists.',
           generic: 'An unknown error occurred, please contact your administrator',
+        },
+      },
+      tag_multiple: {
+        title: 'Tag {count} files',
+        tags: 'Tags',
+        save: 'Tag files',
+        cancel: 'Discard changes',
+        error: {
+          title: 'Tagging failed',
+          generic: 'The files could not be tagged, please contact your administrator',
         },
       },
       tags: {

@@ -488,6 +488,7 @@ export default {
         delete_multiple_files: 'Gewählte Dateien Löschen',
         delete_file: 'Löschen',
         edit_file: 'Bearbeiten',
+        tag_multiple_files: 'Gewählte Dateien taggen',
         manage_tags: 'Tags verwalten',
         show_all_tags: 'Alle Tags',
       },
@@ -544,6 +545,16 @@ export default {
           title: 'Speichern fehlgeschlagen',
           conflict: 'Eine Datei mit dem gewählten Namen existiert bereits.',
           generic: 'Ein unbekannter Fehler ist aufgetreten, bitte kontaktiere deinen Administrator',
+        },
+      },
+      tag_multiple: {
+        title: '{count} Dateien taggen',
+        information: 'Hier kannst du die gewählten Dateien in einem Rutsch mit den gleichen Tags versehen',
+        save: 'Dateien taggen',
+        cancel: 'Änderungen verwerfen',
+        error: {
+          title: 'Taggen fehlgeschlagen',
+          generic: 'Leider konnten die Dateien nicht getaggt werden, bitte kontaktiere deinen Administrator.',
         },
       },
       tags: {
