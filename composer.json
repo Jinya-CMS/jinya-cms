@@ -3,7 +3,7 @@
   "homepage": "https://jinya.de",
   "license": "MIT",
   "require": {
-    "php": ">=8.2",
+    "php": ">=8.3",
     "ext-date": "*",
     "ext-fileinfo": "*",
     "ext-imagick": "*",
@@ -14,7 +14,7 @@
     "ext-zip": "*",
     "ext-zlib": "*",
     "bacon/bacon-qr-code": "v3.0.0",
-    "intervention/image": "3.7.1",
+    "intervention/image": "3.7.2",
     "jenssegers/agent": "v2.6.4",
     "jetbrains/phpstorm-attributes": "1.0",
     "jinya/configuration": "0.10.0",
@@ -45,7 +45,7 @@
   "require-dev": {
     "roave/security-advisories": "dev-latest",
     "fakerphp/faker": "v1.23.1",
-    "laravel/pint": "v1.16.1"
+    "laravel/pint": "v1.16.2"
   },
   "config": {
     "process-timeout": 0,
