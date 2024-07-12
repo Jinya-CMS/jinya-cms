@@ -485,8 +485,10 @@ export default {
       action: {
         upload_single_file: 'Eine Datei hochladen',
         upload_multiple_file: 'Mehrere Dateien hochladen',
-        delete_file: 'Datei löschen',
-        edit_file: 'Datei bearbeiten',
+        delete_multiple_files: 'Gewählte Dateien Löschen',
+        delete_file: 'Löschen',
+        edit_file: 'Bearbeiten',
+        tag_multiple_files: 'Gewählte Dateien taggen',
         manage_tags: 'Tags verwalten',
         show_all_tags: 'Alle Tags',
       },
@@ -499,6 +501,16 @@ export default {
           title: 'Löschen fehlgeschlagen',
           conflict: 'Die Datei {name} konnte nicht gelöscht werden, da sie benutzt wird.',
           generic: 'Ein unbekannter Fehler ist aufgetreten, bitte kontaktiere deinen Administrator',
+        },
+      },
+      delete_multiple: {
+        title: 'Dateien löschen',
+        message: 'Willst du die gewählten {count} Dateien wirklich löschen? Wenn du nur einzelne löschen möchtest, wähle sie bitte direkt.',
+        approve: 'Dateien löschen',
+        decline: 'Dateien behalten',
+        error: {
+          title: 'Löschen fehlgeschlagen',
+          message: '{count} Dateien konnten nicht gelöscht werden, bitte versuche sie einzeln zu löschen.',
         },
       },
       upload_single_file: {
@@ -533,6 +545,16 @@ export default {
           title: 'Speichern fehlgeschlagen',
           conflict: 'Eine Datei mit dem gewählten Namen existiert bereits.',
           generic: 'Ein unbekannter Fehler ist aufgetreten, bitte kontaktiere deinen Administrator',
+        },
+      },
+      tag_multiple: {
+        title: '{count} Dateien taggen',
+        information: 'Hier kannst du die gewählten Dateien in einem Rutsch mit den gleichen Tags versehen',
+        save: 'Dateien taggen',
+        cancel: 'Änderungen verwerfen',
+        error: {
+          title: 'Taggen fehlgeschlagen',
+          generic: 'Leider konnten die Dateien nicht getaggt werden, bitte kontaktiere deinen Administrator.',
         },
       },
       tags: {
@@ -583,7 +605,7 @@ export default {
         type: 'Typ',
         uploaded_by: 'Hochgeladen von',
         last_changed_by: 'Zuletzt geändert von',
-        download_file: 'Datei herunterladen',
+        download_file: 'Herunterladen',
         types: {
           font: 'Schriftart',
           'image/jpeg': 'JPEG Bild',

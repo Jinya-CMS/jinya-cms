@@ -485,8 +485,10 @@ export default {
       action: {
         upload_single_file: 'Upload single file',
         upload_multiple_file: 'Upload multiple files',
-        delete_file: 'Delete file',
-        edit_file: 'Edit file',
+        delete_multiple_files: 'Delete selected files',
+        delete_file: 'Delete',
+        edit_file: 'Edit',
+        tag_multiple_files: 'Tag selected files',
         manage_tags: 'Manage tags',
         show_all_tags: 'All tags',
       },
@@ -499,6 +501,16 @@ export default {
           title: 'Delete failed',
           conflict: 'The file {name} could not be deleted, because it is used.',
           generic: 'An unknown error occurred, please contact your administrator',
+        },
+      },
+      delete_multiple: {
+        title: 'Delete file',
+        message: 'Do you really want to delete the selected {count} files? If you want to delete only specific files, then select them separate.',
+        approve: 'Delete files',
+        decline: 'Keep files',
+        error: {
+          title: 'Delete failed',
+          message: '{count} files could not be deleted, please try deleting them one by one.',
         },
       },
       upload_single_file: {
@@ -533,6 +545,16 @@ export default {
           title: 'Edit failed',
           conflict: 'A file with the chosen name already exists.',
           generic: 'An unknown error occurred, please contact your administrator',
+        },
+      },
+      tag_multiple: {
+        title: 'Tag {count} files',
+        tags: 'Tags',
+        save: 'Tag files',
+        cancel: 'Discard changes',
+        error: {
+          title: 'Tagging failed',
+          generic: 'The files could not be tagged, please contact your administrator',
         },
       },
       tags: {
@@ -583,7 +605,7 @@ export default {
         type: 'Type',
         uploaded_by: 'Uploaded by',
         last_changed_by: 'Last changed by',
-        download_file: 'Download file',
+        download_file: 'Download',
         types: {
           font: 'Font file',
           'image/jpeg': 'JPEG image',

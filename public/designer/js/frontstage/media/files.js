@@ -9,6 +9,7 @@ import {
   getFile,
   getFiles,
   getTags,
+  tagFile,
   updateFile,
   updateTag,
   uploadFile,
@@ -28,7 +29,8 @@ Alpine.data('filesData', () => ({
   files: [],
   activeTags: new Set(),
   tags: [],
-  selectedFile: null,
+  selectedFiles: new Set(),
+  selectedFile: 0,
   loading: true,
   defaultTagName: localize({ key: 'media.files.action.show_all_tags' }),
   get filteredFiles() {
@@ -53,8 +55,21 @@ Alpine.data('filesData', () => ({
   get tagPopupCancelLabel() {
     return localize({ key: 'media.files.tags.new.cancel' });
   },
+  get selectedFilesDetails() {
+    const files = [];
+    for (const selectedFile of this.selectedFiles) {
+      files.push(this.files.find((file) => file.id === selectedFile));
+    }
+
+    return files;
+  },
   get detailsFileType() {
-    const { type } = this.selectedFile;
+    const file = this.selectedFileDetails;
+    if (!file) {
+      return '';
+    }
+
+    const { type } = file;
     if (type.startsWith('font')) {
       return localize({ key: 'media.files.details.types.font' });
     }
@@ -67,7 +82,15 @@ Alpine.data('filesData', () => ({
     return localizedType;
   },
   get detailsDownloadPath() {
-    return `${this.selectedFile.path}.${MimeTypes[this.selectedFile.type]?.extensions[0] ?? ''}`;
+    const file = this.selectedFileDetails;
+    if (!file) {
+      return '';
+    }
+
+    return `${file.path}.${MimeTypes[file.type]?.extensions[0] ?? ''}`;
+  },
+  get selectedFileDetails() {
+    return this.selectedFilesDetails[this.selectedFile];
   },
   async init() {
     fileDatabase.watchFiles().subscribe({
@@ -128,18 +151,38 @@ Alpine.data('filesData', () => ({
   openEditFileDialog() {
     this.edit.error.reset();
     this.edit.open = true;
-    this.edit.name = this.selectedFile.name;
-    this.edit.tags = new Set(this.selectedFile.tags.map((tag) => tag.name));
-    this.edit.id = this.selectedFile.id;
+    this.edit.name = this.selectedFileDetails.name;
+    this.edit.tags = new Set(this.selectedFileDetails.tags.map((tag) => tag.name));
+    this.edit.id = this.selectedFileDetails.id;
   },
   openManageTagsDialog() {
     this.manageTags.error.reset();
     this.manageTags.open = true;
     this.manageTags.tags = [...this.tags];
   },
+  openTagMultipleDialog() {
+    this.tagMultiple.error.reset();
+    this.tagMultiple.open = true;
+    this.tagMultiple.tags.clear();
+  },
   openEditTag(id) {
     this.manageTags.error.reset();
     this.manageTags.editOpenId = id;
+  },
+  selectFile(evt, id) {
+    const insert = evt.ctrlKey;
+    if (insert) {
+      if (this.selectedFiles.has(id)) {
+        this.selectedFile = 0;
+        this.selectedFiles.delete(id);
+      } else {
+        this.selectedFiles.add(id);
+      }
+    } else {
+      this.selectedFile = 0;
+      this.selectedFiles.clear();
+      this.selectedFiles.add(id);
+    }
   },
   async deleteTag(tag) {
     const confirmed = await confirm({
@@ -156,7 +199,7 @@ Alpine.data('filesData', () => ({
     if (confirmed) {
       try {
         await deleteTag(tag.id);
-        this.tags = this.tags.filter((t) => t.id !== tag.id);
+        await fileDatabase.deleteTag(tag.id);
 
         this.activeTags.delete(tag.id);
         this.manageTags.tags = this.tags;
@@ -175,7 +218,7 @@ Alpine.data('filesData', () => ({
       title: localize({ key: 'media.files.delete.title' }),
       message: localize({
         key: 'media.files.delete.message',
-        values: { name: this.selectedFile.name },
+        values: { name: this.selectedFileDetails.name },
       }),
       declineLabel: localize({ key: 'media.files.delete.decline' }),
       approveLabel: localize({ key: 'media.files.delete.approve' }),
@@ -184,16 +227,16 @@ Alpine.data('filesData', () => ({
 
     if (confirmed) {
       try {
-        await deleteFile(this.selectedFile.id);
-        await fileDatabase.deleteFile(this.selectedFile.id);
-        this.selectedFile = null;
+        await deleteFile(this.selectedFileDetails.id);
+        await fileDatabase.deleteFile(this.selectedFileDetails.id);
+        this.selectedFiles.delete(this.selectedFileDetails.id);
       } catch (e) {
         if (e.status === 409) {
           await alert({
             title: localize({ key: 'media.files.delete.error.title' }),
             message: localize({
               key: 'media.files.delete.error.conflict',
-              values: { name: this.selectedFile.name },
+              values: { name: this.selectedFileDetails.name },
             }),
             negative: true,
           });
@@ -207,6 +250,39 @@ Alpine.data('filesData', () => ({
       }
     }
   },
+  async deleteMultipleFiles() {
+    const fileCount = this.selectedFilesDetails.length;
+    const confirmed = await confirm({
+      title: localize({ key: 'media.files.delete_multiple.title' }),
+      message: localize({
+        key: 'media.files.delete_multiple.message',
+        values: { count: fileCount },
+      }),
+      declineLabel: localize({ key: 'media.files.delete_multiple.decline' }),
+      approveLabel: localize({ key: 'media.files.delete_multiple.approve' }),
+      negative: true,
+    });
+
+    if (confirmed) {
+      try {
+        const promises = this.selectedFilesDetails.map(async (file) => {
+          await deleteFile(file.id);
+          await fileDatabase.deleteFile(file.id);
+        });
+        await Promise.all(promises);
+        this.selectedFiles.clear();
+      } catch (e) {
+        await alert({
+          title: localize({ key: 'media.files.delete_multiple.error.title' }),
+          message: localize({
+            key: 'media.files.delete_multiple.error.message',
+            values: { count: fileCount },
+          }),
+          negative: true,
+        });
+      }
+    }
+  },
   async uploadFile() {
     try {
       this.uploadSingleFile.error.reset();
@@ -217,7 +293,12 @@ Alpine.data('filesData', () => ({
       );
       await fileDatabase.saveFile(savedFile);
       this.uploadSingleFile.open = false;
-      this.selectedFile = savedFile;
+      if (this.selectedFiles.size > 1) {
+        this.selectedFiles.add(savedFile.id);
+      } else {
+        this.selectedFiles.clear();
+        this.selectedFiles.add(savedFile.id);
+      }
     } catch (err) {
       this.uploadSingleFile.error.title = localize({ key: 'media.files.upload_single_file.error.title' });
       this.uploadSingleFile.error.hasError = true;
@@ -250,7 +331,12 @@ Alpine.data('filesData', () => ({
       const savedFile = await getFile(this.edit.id);
       await fileDatabase.saveFile(savedFile);
       this.edit.open = false;
-      this.selectedFile = savedFile;
+      if (this.selectedFiles.size > 1) {
+        this.selectedFiles.add(savedFile.id);
+      } else {
+        this.selectedFiles.clear();
+        this.selectedFiles.add(savedFile.id);
+      }
     } catch (err) {
       if (err.status === 409) {
         this.edit.error.title = localize({ key: 'media.files.edit.error.title' });
@@ -267,7 +353,7 @@ Alpine.data('filesData', () => ({
     try {
       this.uploadSingleFile.error.tagError = '';
       const tag = await createTag(event.name, event.emoji, event.color);
-      this.tags.push(tag);
+      await fileDatabase.saveTag(tag);
       this.uploadSingleFile.toggleTag(tag);
       this.uploadSingleFile.tagPopupOpen = false;
     } catch (e) {
@@ -287,7 +373,7 @@ Alpine.data('filesData', () => ({
     try {
       this.uploadMultipleFiles.error.tagError = '';
       const tag = await createTag(event.name, event.emoji, event.color);
-      this.tags.push(tag);
+      await fileDatabase.saveTag(tag);
       this.uploadMultipleFiles.toggleTag(tag);
       this.uploadMultipleFiles.tagPopupOpen = false;
     } catch (e) {
@@ -307,7 +393,7 @@ Alpine.data('filesData', () => ({
     try {
       this.manageTags.error.tagError = '';
       const tag = await createTag(event.name, event.emoji, event.color);
-      this.tags.push(tag);
+      await fileDatabase.saveTag(tag);
       this.manageTags.tags = this.tags;
       this.manageTags.tagPopupOpen = false;
     } catch (e) {
@@ -327,9 +413,29 @@ Alpine.data('filesData', () => ({
     try {
       this.edit.error.tagError = '';
       const tag = await createTag(event.name, event.emoji, event.color);
-      this.tags.push(tag);
+      await fileDatabase.saveTag(tag);
       this.edit.toggleTag(tag);
       this.edit.tagPopupOpen = false;
+    } catch (e) {
+      if (e.status === 409) {
+        this.edit.error.tagError = localize({ key: 'media.files.tags.new.error.exists' });
+      } else {
+        await alert({
+          title: localize({ key: 'media.files.tags.new.error.title' }),
+          message: localize({ key: 'media.files.tags.new.error.generic' }),
+          buttonLabel: localize({ key: 'media.files.tags.new.error.close' }),
+          negative: true,
+        });
+      }
+    }
+  },
+  async createTagMultipleTag(event) {
+    try {
+      this.tagMultiple.error.tagError = '';
+      const tag = await createTag(event.name, event.emoji, event.color);
+      await fileDatabase.saveTag(tag);
+      this.tagMultiple.toggleTag(tag);
+      this.tagMultiple.tagPopupOpen = false;
     } catch (e) {
       if (e.status === 409) {
         this.edit.error.tagError = localize({ key: 'media.files.tags.new.error.exists' });
@@ -346,25 +452,15 @@ Alpine.data('filesData', () => ({
   async saveTag(tag, event) {
     try {
       await updateTag(tag.id, event.name, event.emoji, event.color);
-      const idx = this.tags.findIndex((t) => t.id === tag.id);
-      this.tags[idx].name = event.name;
-      this.tags[idx].emoji = event.emoji;
-      this.tags[idx].color = event.color;
+      await fileDatabase.saveTag({
+        id: tag.id,
+        name: event.name,
+        emoji: event.emoji,
+        color: event.color,
+      });
 
       this.manageTags.tags = this.tags;
       this.manageTags.editOpenId = null;
-
-      for (const file of this.files) {
-        if (file.tags.length > 0) {
-          for (const t of file.tags) {
-            if (t.id === tag.id) {
-              t.name = event.name;
-              t.emoji = event.emoji;
-              t.color = event.color;
-            }
-          }
-        }
-      }
     } catch (e) {
       if (e.status === 409) {
         this.manageTags.error.tagError = localize({ key: 'media.files.tags.edit.error.exists' });
@@ -376,6 +472,25 @@ Alpine.data('filesData', () => ({
           negative: true,
         });
       }
+    }
+  },
+  async updateTagsOnMultiple() {
+    const promises = this.selectedFilesDetails.map(async (file) => {
+      await tagFile(file.id, [...this.tagMultiple.tags]);
+
+      const savedFile = await getFile(file.id);
+      await fileDatabase.saveFile(savedFile);
+
+      this.tagMultiple.error.reset();
+      this.tagMultiple.tags.clear();
+    });
+    try {
+      await Promise.all(promises);
+      this.tagMultiple.open = false;
+    } catch (e) {
+      this.tagMultiple.error.title = localize({ key: 'media.files.tag_multiple.error.title' });
+      this.tagMultiple.error.message = localize({ key: 'media.files.tag_multiple.error.generic' });
+      this.tagMultiple.error.hasError = true;
     }
   },
   uploadSingleFile: {
@@ -463,6 +578,29 @@ Alpine.data('filesData', () => ({
     selectFile(files) {
       if (files.length >= 1) {
         this.file = files.item(0);
+      }
+    },
+  },
+  tagMultiple: {
+    open: false,
+    tags: new Set(),
+    tagPopupOpen: false,
+    error: {
+      title: '',
+      message: '',
+      tagError: '',
+      hasError: false,
+      reset() {
+        this.title = '';
+        this.message = '';
+        this.hasError = false;
+      },
+    },
+    toggleTag(tag) {
+      if (this.tags.has(tag.name)) {
+        this.tags.delete(tag.name);
+      } else {
+        this.tags.add(tag.name);
       }
     },
   },

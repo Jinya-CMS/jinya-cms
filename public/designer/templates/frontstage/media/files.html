@@ -18,18 +18,18 @@
     </div>
     <div class="cosmo-toolbar__group">
       <button
-        :disabled="!selectedFile"
-        @click="openEditFileDialog"
+        @click="deleteMultipleFiles()"
+        :disabled="selectedFiles.size === 0"
         class="cosmo-button"
         type="button"
-        x-localize:media-files-action-edit_file
+        x-localize:media-files-action-delete_multiple_files
       ></button>
       <button
-        :disabled="!selectedFile"
-        @click="deleteFile"
+        @click="openTagMultipleDialog()"
+        :disabled="selectedFiles.size === 0"
         class="cosmo-button"
         type="button"
-        x-localize:media-files-action-delete_file
+        x-localize:media-files-action-tag_multiple_files
       ></button>
     </div>
     <div class="cosmo-toolbar__group">
@@ -75,9 +75,9 @@
       <div class="jinya-media-tile__container">
         <template :key="file.id" x-for="file in filteredFiles">
           <div
-            :class="{ 'is--selected': file.id === selectedFile?.id }"
+            :class="{ 'is--selected': selectedFiles.has(file.id) }"
             :data-title="file.id + ' ' + file.name"
-            @click="selectedFile = file"
+            @click="selectFile($event, file.id)"
             class="jinya-media-tile"
           >
             <div class="jinya-media-tile__img">
@@ -95,25 +95,62 @@
         </template>
       </div>
       <div class="jinya-media-view__details">
-        <template x-if="selectedFile !== null">
-          <div>
-            <span class="cosmo-title" x-text="selectedFile?.name"></span>
-            <template x-if="selectedFile?.type?.startsWith('image')">
-              <img :alt="selectedFile?.name" :src="selectedFile?.path" class="jinya-media-details__image" />
+        <template x-if="selectedFilesDetails.length > 0">
+          <div style="display: contents">
+            <span class="cosmo-title jinya-media-details__title">
+              <button class="cosmo-button is--primary is--icon" :disabled="selectedFile === 0"
+                      @click="selectedFile -= 1">
+                <svg width="24" height="24" viewBox="0 0 24 24" class="jinya-icon">
+                  <path d="m15 18-6-6 6-6" />
+                </svg>
+              </button>
+              <span x-text="selectedFileDetails?.name"></span>
+              <button class="cosmo-button is--primary is--icon"
+                      :disabled="selectedFile === selectedFilesDetails.length - 1"
+                      @click="selectedFile += 1">
+                <svg width="24" height="24" viewBox="0 0 24 24" class="jinya-icon">
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+              </button>
+            </span>
+            <div class="cosmo-toolbar">
+              <div class="cosmo-toolbar__group">
+                <a :download="selectedFileDetails?.name"
+                   :href="detailsDownloadPath"
+                   class="cosmo-button" x-localize:media-files-details-download_file></a>
+                <button
+                  @click="openEditFileDialog()"
+                  class="cosmo-button"
+                  type="button"
+                  x-localize:media-files-action-edit_file
+                ></button>
+                <button
+                  @click="deleteFile()"
+                  class="cosmo-button"
+                  type="button"
+                  x-localize:media-files-action-delete_file
+                ></button>
+              </div>
+            </div>
+            <template x-if="selectedFileDetails?.type?.startsWith('image')">
+              <img :alt="selectedFileDetails?.name" :src="selectedFileDetails?.path"
+                   class="jinya-media-details__image" />
             </template>
-            <template x-if="selectedFile?.type?.startsWith('video')">
+            <template x-if="selectedFileDetails?.type?.startsWith('video')">
               <video class="jinya-media-details__image" controls>
-                <source :src="selectedFile?.path" :type="selectedFile?.type" />
+                <source :src="selectedFileDetails?.path"
+                        :type="selectedFileDetails?.type" />
               </video>
             </template>
-            <template x-if="selectedFile?.type?.startsWith('audio')">
+            <template x-if="selectedFileDetails?.type?.startsWith('audio')">
               <audio class="jinya-media-details__image" controls>
-                <source :src="selectedFile?.path" :type="selectedFile?.type" />
+                <source :src="selectedFileDetails?.path"
+                        :type="selectedFileDetails?.type" />
               </audio>
             </template>
             <dl class="cosmo-list is--key-value">
               <dd class="cosmo-list__value is--tags">
-                <template x-for="tag in selectedFile?.tags ?? []">
+                <template x-for="tag in selectedFileDetails?.tags ?? []">
                   <cms-tag
                     :color="tag.color"
                     :emoji="tag.emoji"
@@ -125,26 +162,25 @@
                 </template>
               </dd>
               <dt x-localize:media-files-details-type></dt>
-              <dd :title="selectedFile?.type" x-text="detailsFileType"></dd>
+              <dd :title="selectedFileDetails?.type"
+                  x-text="detailsFileType"></dd>
               <dt x-localize:media-files-details-uploaded_by></dt>
               <dd>
-                <span x-text="selectedFile?.created?.by?.artistName"></span>
+                <span x-text="selectedFileDetails?.created?.by?.artistName"></span>
                 <small>
-                  <a :href="'mailto:' + selectedFile?.created.by.email"
-                     x-text="selectedFile?.created?.by?.email"></a>
+                  <a :href="'mailto:' + selectedFileDetails?.created.by.email"
+                     x-text="selectedFileDetails?.created?.by?.email"></a>
                 </small>
               </dd>
               <dt x-localize:media-files-details-last_changed_by></dt>
               <dd>
-                <span x-text="selectedFile?.updated?.by?.artistName"></span>
+                <span x-text="selectedFileDetails?.updated?.by?.artistName"></span>
                 <small>
-                  <a :href="'mailto:' + selectedFile?.updated?.by?.email"
-                     x-text="selectedFile?.updated?.by?.email"></a>
+                  <a :href="'mailto:' + selectedFileDetails?.updated?.by?.email"
+                     x-text="selectedFileDetails?.updated?.by?.email"></a>
                 </small>
               </dd>
             </dl>
-            <a :download="selectedFile?.name" :href="detailsDownloadPath" class="cosmo-button"
-               x-localize:media-files-details-download_file></a>
           </div>
         </template>
       </div>
@@ -428,5 +464,63 @@
         </div>
       </div>
     </div>
+  </template>
+  <template x-if="tagMultiple.open">
+    <form @submit.prevent="updateTagsOnMultiple" class="cosmo-modal__container">
+      <div class="cosmo-modal is--files">
+        <h1 class="cosmo-modal__title" x-localize:media-files-tag_multiple-title="{ count: selectedFiles.size }"></h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-message is--negative" x-show="tagMultiple.error.hasError">
+            <span class="cosmo-message__header" x-text="tagMultiple.error.title"></span>
+            <p class="cosmo-message__message" x-text="tagMultiple.error.message"></p>
+          </div>
+          <div class="cosmo-message is--information" x-localize:media-files-tag_multiple-information></div>
+          <div class="jinya-tags is--details">
+            <template :key="tag.id" x-for="tag in tags">
+              <cms-tag
+                :active="tagMultiple.tags.has(tag.name)"
+                :color="tag.color"
+                :emoji="tag.emoji"
+                :name="tag.name"
+                :tag-id="tag.id"
+                @click="tagMultiple .toggleTag(tag)"
+                class="jinya-tag is--file"
+              ></cms-tag>
+            </template>
+            <button @click="tagMultiple.tagPopupOpen = true" class="cosmo-button is--small is--circle is--primary"
+                    id="new-tag-open-button" type="button">
+              <svg
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M5 12h14" />
+                <path d="M12 5v14" />
+              </svg>
+            </button>
+          </div>
+          <cms-tag-popup
+            :cancel-label="tagPopupCancelLabel"
+            :color="randomColor"
+            :emoji="randomEmoji"
+            :error="tagMultiple.error.tagError"
+            :open="tagMultiple.tagPopupOpen"
+            :popup-title="tagPopupTitle"
+            :save-label="tagPopupSaveLabel"
+            @close="tagMultiple.tagPopupOpen = false"
+            @submit="createTagMultipleTag($event)"
+            target="#new-tag-open-button"
+          ></cms-tag-popup>
+        </div>
+        <div class="cosmo-modal__button-bar">
+          <button @click="tagMultiple.open = false" class="cosmo-button" type="button"
+                  x-localize:media-files-tag_multiple-cancel></button>
+          <button class="cosmo-button" type="submit" x-localize:media-files-tag_multiple-save></button>
+        </div>
+      </div>
+    </form>
   </template>
 </div>
