@@ -1,10 +1,15 @@
 .jinya-media-tile {
-    width: 13rem;
-    height: 13rem;
+    width: 8rem;
+    height: 8rem;
     display: block;
     position: relative;
     box-sizing: border-box;
     object-fit: cover;
+
+    @media screen and (width > 1920px) {
+        width: 13rem;
+        height: 13rem;
+    }
 }
 
 .jinya-media-tile.is--hidden {
@@ -12,13 +17,23 @@
 }
 
 .jinya-media-tile.is--small {
-    height: 4.5rem;
-    width: 4.5rem;
+    width: 4rem;
+    height: 4rem;
+
+    @media screen and (width > 1920px) {
+        height: 4.5rem;
+        width: 4.5rem;
+    }
 }
 
 .jinya-media-tile.is--medium {
-    height: 6.5rem;
-    width: 6.5rem;
+    width: 5rem;
+    height: 5rem;
+
+    @media screen and (width > 1920px) {
+        height: 6.5rem;
+        width: 6.5rem;
+    }
 }
 
 .jinya-media-tile.is--draggable {
@@ -139,6 +154,10 @@
     display: grid;
     grid-template-columns: [file-list] 1fr 1rem [details] 20%;
     grid-row: content;
+
+    @media screen and (width < 1920px) {
+        grid-template-columns: [file-list] 1fr 1rem [details] 30%;
+    }
 }
 
 .jinya-media-view__details {
