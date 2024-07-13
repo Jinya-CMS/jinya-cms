@@ -42,6 +42,7 @@ x-tagGroups:
     description: Media management
     x-displayName: Media management
     tags:
+      - media
       - folders
       - files
       - galleries
@@ -97,6 +98,9 @@ tags:
   - name: statistics
     description: Statistics
     x-displayName: Statistics
+  - name: media
+    description: Media
+    x-displayName: Media
   - name: folders
     description: Folder management
     x-displayName: Folder management
@@ -203,6 +207,8 @@ paths:
     $ref: paths/api_configuration.yaml
   /api/cache:
     $ref: paths/api_cache.yaml
+  /api/media:
+    $ref: paths/api_media.yaml
   /api/folder:
     $ref: paths/api_folder.yaml
   /api/folder/{id}:
