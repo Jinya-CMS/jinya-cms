@@ -1,0 +1,10 @@
+title: Create folder request
+type: object
+description: A folder is used to group files and other folders
+properties:
+  name:
+    type: string
+  parentId:
+    type: integer
+required:
+  - name

@@ -8,5 +8,7 @@ properties:
     type: array
     items:
       type: string
+  folderId:
+    type: integer
 required:
   - name

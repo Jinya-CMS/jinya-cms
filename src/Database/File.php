@@ -2,12 +2,12 @@
 
 namespace Jinya\Cms\Database;
 
-use Jinya\Cms\Authentication\CurrentUser;
-use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use DateTime;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
@@ -63,6 +63,10 @@ class File extends Entity implements JsonSerializable
     #[Column]
     public string $name;
 
+    /** @var ?int The id of the folder */
+    #[Column(sqlName: 'folder_id')]
+    public ?int $folderId = null;
+
     /** @var string The type of the file */
     #[Column]
     #[ApiIgnore]
@@ -70,6 +74,16 @@ class File extends Entity implements JsonSerializable
 
     /** @var string[] The tags of the file */
     public ?array $tags = null;
+
+    /**
+     * Finds all root files
+     *
+     * @return Iterator
+     */
+    public static function findRootFiles(): Iterator
+    {
+        return self::findByFilters(['folder_id is null' => []], 'name ASC');
+    }
 
     /**
      * Gets the uploading chunks
@@ -175,7 +189,7 @@ class File extends Entity implements JsonSerializable
             'name' => $this->name,
             'type' => $this->type,
             'path' => $this->path,
-            'tags' => array_map(static fn (FileTag $tag) => $tag->format(), iterator_to_array($this->getTags())),
+            'tags' => array_map(static fn(FileTag $tag) => $tag->format(), iterator_to_array($this->getTags())),
             'created' => [
                 'by' => [
                     'artistName' => $creator?->artistName,

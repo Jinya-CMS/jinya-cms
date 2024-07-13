@@ -7,6 +7,7 @@ use Jinya\Cms\Migrations\TG191Analytics;
 use Jinya\Cms\Migrations\TG192JinyaConfiguration;
 use Jinya\Cms\Migrations\TG195AppTotp;
 use Jinya\Cms\Migrations\TG201EmailPreferences;
+use Jinya\Cms\Migrations\TG202Folders;
 use Jinya\Cms\Migrations\TG217IpDatabase;
 use Jinya\Database\Migration\Migrator as DatabaseMigrator;
 use Jinya\Cms\Migrations\ApiThemeOption;
@@ -47,7 +48,8 @@ abstract class Migrator
             new TG201EmailPreferences(),
             new TG192JinyaConfiguration(),
             new TG217IpDatabase($inCli),
-            new TG191Analytics()
+            new TG191Analytics(),
+            new TG202Folders()
         ];
 
         DatabaseMigrator::migrateUp($migrations, 'migration_state');

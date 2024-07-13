@@ -4,6 +4,7 @@ namespace Jinya\Cms\Database;
 
 use Jinya\Cms\Authentication\CurrentUser;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Utils\UuidGenerator;
 use PDOException;
 
 class FileTest extends DatabaseAwareTestCase
@@ -150,6 +151,23 @@ class FileTest extends DatabaseAwareTestCase
     {
         $files = File::findAll();
         self::assertCount(0, iterator_to_array($files));
+    }
+
+    public function testFindRoot(): void
+    {
+        $this->createFile();
+        $this->createFile(name: 'Testfile2');
+        $file = $this->createFile(name: 'Testfile3');
+
+        $folder = new Folder();
+        $folder->name = UuidGenerator::generateV4();
+        $folder->create();
+
+        $file->folderId = $folder->id;
+        $file->update();
+
+        $files = File::findRootFiles();
+        self::assertCount(2, iterator_to_array($files));
     }
 
     public function testGetCreator(): void
