@@ -3,11 +3,13 @@ import { setColorScheme } from './foundation/api/my-jinya.js';
 import { getRandomColor } from './foundation/utils/color.js';
 import { getRandomEmoji } from './foundation/utils/text.js';
 import localize from './foundation/utils/localize.js';
-import { createTag, getTags } from './foundation/api/files.js';
+import { createTag } from './foundation/api/files.js';
 import alert from './foundation/ui/alert.js';
-import { getFileDatabase } from './foundation/database/file.js';
 import { clearCache } from './foundation/api/cache.js';
+import { getMediaDatabase } from './foundation/database/media.js';
+import { getFileDatabase } from './foundation/database/file.js';
 
+const mediaDatabase = getMediaDatabase();
 const fileDatabase = getFileDatabase();
 
 Alpine.data('indexBottomBarData', () => ({
@@ -119,14 +121,9 @@ Alpine.data('indexBottomBarData', () => ({
     this.uploadMultipleFiles.open = false;
   },
   async init() {
-    this.tags = await fileDatabase.getAllTags();
+    this.tags = await mediaDatabase.getAllTags();
+    mediaDatabase.watchTags().subscribe({ next: (tags) => (this.tags = tags) });
 
-    getTags().then((tags) => {
-      fileDatabase.replaceTags(tags.items);
-
-      this.tags = tags.items;
-      this.loading = false;
-    });
     fileDatabase.watchUploadedFilesCount().subscribe({
       next: ({ value: count }) => {
         this.upload.filesUploaded = count;

@@ -491,6 +491,12 @@ export default {
         tag_multiple_files: 'Tag selected files',
         manage_tags: 'Manage tags',
         show_all_tags: 'All tags',
+        move: 'Move',
+        copy: 'Copy',
+        create_folder: 'New folder',
+      },
+      path: {
+        home: 'Media'
       },
       delete: {
         title: 'Delete file',

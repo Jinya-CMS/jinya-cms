@@ -80,10 +80,11 @@ export async function deleteFile(id) {
   await httpDelete(`/api/file/${id}`);
 }
 
-export async function createFile(name, tags, file = null) {
+export async function createFile(name, tags, folderId, file = null) {
   const savedFile = await post('/api/file', {
     name,
     tags,
+    folderId,
   });
   if (file) {
     await uploadFile(savedFile.id, file);

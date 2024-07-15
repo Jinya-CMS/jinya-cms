@@ -491,6 +491,12 @@ export default {
         tag_multiple_files: 'Gewählte Dateien taggen',
         manage_tags: 'Tags verwalten',
         show_all_tags: 'Alle Tags',
+        move: 'Verschieben',
+        copy: 'Kopieren',
+        create_folder: 'Neuer Ordner',
+      },
+      path: {
+        home: 'Medien'
       },
       delete: {
         title: 'Datei löschen',
