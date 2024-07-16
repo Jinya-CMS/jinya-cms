@@ -14,7 +14,7 @@ import { getFiles, getTags } from '../../foundation/api/files.js';
 import localize from '../../foundation/utils/localize.js';
 import confirm from '../../foundation/ui/confirm.js';
 import alert from '../../foundation/ui/alert.js';
-import { getFileDatabase } from '../../foundation/database/file.js';
+import { getFileDatabase } from '../../foundation/database/:folder.js';
 
 import '../../foundation/ui/components/tag.js';
 import '../../foundation/ui/components/tag-popup.js';

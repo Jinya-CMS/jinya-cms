@@ -116,6 +116,7 @@ Alpine.data('indexBottomBarData', () => ({
         data: file,
         name: file.name.split('.').reverse().slice(1).reverse().join('.'),
         tags: [...tags],
+        folderId: null,
       })),
     );
     this.uploadMultipleFiles.open = false;

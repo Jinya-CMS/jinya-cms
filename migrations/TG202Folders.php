@@ -7,10 +7,10 @@ use PDO;
 
 class TG202Folders extends AbstractMigration
 {
-
     public function up(PDO $pdo): void
     {
-        $pdo->exec(<<<SQL
+        $pdo->exec(
+            <<<SQL
 create table folder (
     id int primary key auto_increment,
     name text not null,
@@ -25,9 +25,11 @@ alter table file
     add folder_id int null;
 
 alter table file
-    add foreign key FK_file_folder (folder_id) references folder (id);
+    add foreign key FK_file_folder (folder_id)
+        references folder (id)
+            on delete cascade;
 SQL
-);
+        );
     }
 
     public function down(PDO $pdo): void

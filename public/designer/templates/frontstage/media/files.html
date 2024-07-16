@@ -5,6 +5,7 @@
         :disabled="loading"
         class="cosmo-button"
         type="button"
+        @click="openCreateFolderDialog"
         x-localize:media-files-action-create_folder.title
       >
         <svg width="1rem" height="1rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -56,11 +57,11 @@
     </div>
     <div class="cosmo-toolbar__group">
       <button
-        @click="openEditFileDialog()"
+        @click="openEditDialog()"
         class="cosmo-button"
         type="button"
-        :disabled="selectedFiles.size !== 1"
-        x-localize:media-files-action-edit_file.title
+        :disabled="!canEdit"
+        x-localize:media-files-action-edit.title
       >
         <svg width="1rem" height="1rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
              stroke-linecap="round" stroke-linejoin="round">
@@ -83,6 +84,8 @@
           <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" />
         </svg>
       </button>
+    </div>
+    <div class="cosmo-toolbar__group">
       <button
         @click="deleteMultipleFiles()"
         :disabled="selectedFiles.size === 0"
@@ -92,9 +95,23 @@
       >
         <svg width="1rem" height="1rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
              stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 6h18" />
-          <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-          <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+          <path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4" />
+          <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+          <path d="M3 15h6" />
+        </svg>
+      </button>
+      <button
+        @click="deleteMultipleFolders()"
+        :disabled="selectedFolders.size === 0"
+        class="cosmo-button is--negative"
+        type="button"
+        x-localize:media-files-action-delete_multiple_folders.title
+      >
+        <svg width="1rem" height="1rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 13h6" />
+          <path
+            d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" />
         </svg>
       </button>
     </div>
@@ -172,7 +189,7 @@
   <template x-if="!loading">
     <div class="jinya-media-view__container">
       <nav class="jinya-media-tile-path">
-        <a @click="goHome()" class="jinya-media-tile-path__entry is--home"
+        <a href="/designer/frontstage/media/files" class="jinya-media-tile-path__entry is--home"
            :class="{ 'is--last': folderPath.length === 0 }">
           <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                stroke-linecap="round" stroke-linejoin="round">
@@ -190,7 +207,7 @@
         </template>
         <template x-for="(folder, index) in folderPath" :key="folder">
           <div style="display: contents">
-            <a @click="goBreadcrumb(index)" class="jinya-media-tile-path__entry"
+            <a :href="getBreadcrumbLink(index)" class="jinya-media-tile-path__entry"
                :class="{ 'is--last': index + 1 === folderPath.length }"
                x-text="getFolderById(folder).name">
             </a>
@@ -209,9 +226,19 @@
             <template :key="folder.id" x-for="folder in folders">
               <figure
                 @dblclick="goFolder(folder.id)"
+                @click="selectFolder($event, folder.id)"
                 class="jinya-media-tile is--folder"
               >
-                <svg viewBox="0 0 24 18">
+                <svg viewBox="0 0 24 24" class="jinya-media-tile__check"
+                     :class="{ 'is--checked': selectedFolders.has(folder.id) }">
+                  <rect width="18" height="18" x="3" y="3" rx="2" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                <svg viewBox="0 0 24 24" class="jinya-media-tile__check is--unchecked"
+                     :class="{ 'is--hidden': selectedFolders.has(folder.id) }">
+                  <rect width="18" height="18" x="3" y="3" rx="2" />
+                </svg>
+                <svg viewBox="0 0 24 18" class="jinya-media-tile__folder">
                   <path
                     d="m 19.986935,16.983667 c 1.102766,0 1.996734,-0.926429 1.996734,-2.069235 V 8.1894182 c 0,-1.142807 -0.893968,-2.0692351 -1.996734,-2.0692351 H 12.099836 C 11.421279,6.1270774 10.785788,5.7763622 10.412597,5.1890273 L 9.6039194,3.9474864 C 9.2346009,3.3663207 8.6081345,3.0164452 7.9366465,3.0163306 h -3.923582 c -1.1027657,0 -1.9967339,0.9264281 -1.9967339,2.069235 v 9.8288664 c 0,1.142806 0.8939682,2.069235 1.9967339,2.069235 z" />
                 </svg>
@@ -316,36 +343,36 @@
       </div>
     </div>
   </template>
-  <template x-if="edit.open">
+  <template x-if="editFile.open">
     <form @submit.prevent="updateFile" class="cosmo-modal__container">
       <div class="cosmo-modal is--files">
-        <h1 class="cosmo-modal__title" x-localize:media-files-edit-title></h1>
+        <h1 class="cosmo-modal__title" x-localize:media-files-edit_file-title></h1>
         <div class="cosmo-modal__content">
-          <div class="cosmo-message is--negative" x-show="edit.error.hasError">
-            <span class="cosmo-message__header" x-text="edit.error.title"></span>
-            <p class="cosmo-message__message" x-text="edit.error.message"></p>
+          <div class="cosmo-message is--negative" x-show="editFile.error.hasError">
+            <span class="cosmo-message__header" x-text="editFile.error.title"></span>
+            <p class="cosmo-message__message" x-text="editFile.error.message"></p>
           </div>
           <div class="cosmo-input__group">
-            <label class="cosmo-label" for="editFileName" x-localize:media-files-edit-name></label>
-            <input class="cosmo-input" id="editFileName" required type="text" x-model="edit.name" />
-            <label class="cosmo-label" for="editFileFile" x-localize:media-files-edit-file></label>
-            <input @change="edit.selectFile($event.target.files)" class="cosmo-input" id="editFileFile" type="file" />
-            <label class="cosmo-label" x-localize:media-files-edit-tags></label>
+            <label class="cosmo-label" for="editFileName" x-localize:media-files-edit_file-name></label>
+            <input class="cosmo-input" id="editFileName" required type="text" x-model="editFile.name" />
+            <label class="cosmo-label" for="editFileFile" x-localize:media-files-edit_file-file></label>
+            <input @change="editFile.selectFile($event.target.files)" class="cosmo-input" id="editFileFile"
+                   type="file" />
+            <label class="cosmo-label" x-localize:media-files-edit_file-tags></label>
             <div class="jinya-tags is--details">
               <template :key="tag.id" x-for="tag in tags">
                 <cms-tag
-                  :active="edit.tags.has(tag.name)"
+                  :active="editFile.tags.has(tag.name)"
                   :color="tag.color"
                   :emoji="tag.emoji"
                   :name="tag.name"
                   :tag-id="tag.id"
-                  @click="edit.toggleTag(tag)"
+                  @click="editFile.toggleTag(tag)"
                   class="jinya-tag is--file"
                 ></cms-tag>
               </template>
-              <button @click="edit.tagPopupOpen = true" class="cosmo-button is--small is--circle is--primary"
-                      id="new-tag-open-button"
-                      type="button">
+              <button @click="editFile.tagPopupOpen = true" class="cosmo-button is--small is--circle is--primary"
+                      id="new-tag-open-button" type="button">
                 <svg
                   fill="none"
                   stroke="currentColor"
@@ -363,20 +390,64 @@
               :cancel-label="tagPopupCancelLabel"
               :color="randomColor"
               :emoji="randomEmoji"
-              :error="edit.error.tagError"
-              :open="edit.tagPopupOpen"
+              :error="editFile.error.tagError"
+              :open="editFile.tagPopupOpen"
               :popup-title="tagPopupTitle"
               :save-label="tagPopupSaveLabel"
-              @close="edit.tagPopupOpen = false"
+              @close="editFile.tagPopupOpen = false"
               @submit="createEditTag($event)"
               target="#new-tag-open-button"
             ></cms-tag-popup>
           </div>
         </div>
         <div class="cosmo-modal__button-bar">
-          <button @click="edit.open = false" class="cosmo-button" type="button"
-                  x-localize:media-files-edit-cancel></button>
-          <button class="cosmo-button" type="submit" x-localize:media-files-edit-save></button>
+          <button @click="editFile.open = false" class="cosmo-button" type="button"
+                  x-localize:media-files-edit_file-cancel></button>
+          <button class="cosmo-button" type="submit" x-localize:media-files-edit_file-save></button>
+        </div>
+      </div>
+    </form>
+  </template>
+  <template x-if="editFolder.open">
+    <form @submit.prevent="updateFolder" class="cosmo-modal__container">
+      <div class="cosmo-modal">
+        <h1 class="cosmo-modal__title" x-localize:media-files-edit_folder-title></h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-message is--negative" x-show="editFolder.error.hasError">
+            <span class="cosmo-message__header" x-text="editFolder.error.title"></span>
+            <p class="cosmo-message__message" x-text="editFolder.error.message"></p>
+          </div>
+          <div class="cosmo-input__group">
+            <label class="cosmo-label" for="editFolderName" x-localize:media-files-edit_folder-name></label>
+            <input class="cosmo-input" id="editFolderName" required type="text" x-model="editFolder.name" />
+          </div>
+        </div>
+        <div class="cosmo-modal__button-bar">
+          <button @click="editFolder.open = false" class="cosmo-button" type="button"
+                  x-localize:media-files-edit_folder-cancel></button>
+          <button class="cosmo-button" type="submit" x-localize:media-files-edit_folder-save></button>
+        </div>
+      </div>
+    </form>
+  </template>
+  <template x-if="newFolder.open">
+    <form @submit.prevent="createFolder" class="cosmo-modal__container">
+      <div class="cosmo-modal">
+        <h1 class="cosmo-modal__title" x-localize:media-files-create_folder-title></h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-message is--negative" x-show="newFolder.error.hasError">
+            <span class="cosmo-message__header" x-text="newFolder.error.title"></span>
+            <p class="cosmo-message__message" x-text="newFolder.error.message"></p>
+          </div>
+          <div class="cosmo-input__group">
+            <label class="cosmo-label" for="createFolderName" x-localize:media-files-create_folder-name></label>
+            <input class="cosmo-input" id="createFolderName" required type="text" x-model="newFolder.name" />
+          </div>
+        </div>
+        <div class="cosmo-modal__button-bar">
+          <button @click="newFolder.open = false" class="cosmo-button" type="button"
+                  x-localize:media-files-create_folder-cancel></button>
+          <button class="cosmo-button" type="submit" x-localize:media-files-create_folder-save></button>
         </div>
       </div>
     </form>

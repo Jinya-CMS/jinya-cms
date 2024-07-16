@@ -7,7 +7,6 @@ use Jinya\Cms\Utils\UuidGenerator;
 
 class FolderTest extends DatabaseAwareTestCase
 {
-
     private function createFolder(string $name = 'folder1', ?int $parent = null): Folder
     {
         $folder = new Folder();

@@ -14,6 +14,38 @@
     }
 }
 
+.jinya-media-tile__check {
+    grid-area: image;
+    place-self: start end;
+    fill: none;
+    height: 2rem;
+    width: 2rem;
+    stroke: var(--stroke-color);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0;
+    transition: opacity 0.3s;
+
+    &.is--hidden {
+        opacity: 0;
+    }
+
+    &.is--checked {
+        opacity: 1;
+
+        --stroke-color: var(--primary-color-light);
+
+        @media (prefers-color-scheme: dark) {
+            --stroke-color: var(--primary-color-dark);
+        }
+
+        + .is--unchecked {
+            opacity: 0;
+        }
+    }
+}
+
 .jinya-media-tile {
     width: 9rem;
     height: 9rem;
@@ -116,25 +148,6 @@
         --stroke-color: var(--primary-color-lighter);
         --fill-color: var(--primary-color-lighter);
 
-        svg {
-            grid-area: image;
-            width: 9rem;
-            height: 5rem;
-            place-self: start center;
-            stroke-width: 0.0625rem;
-            fill: var(--fill-color);
-            stroke: var(--stroke-color);
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            transition: fill 0.2s, stroke 0.2s;
-
-            @media (prefers-color-scheme: dark) {
-                --fill-color: var(--primary-color-darker);
-                --stroke-color: var(--primary-color-darker);
-                --path-color: var(--primary-color-darker);
-            }
-        }
-
         &:hover {
             --stroke-color: var(--primary-color-light);
             --fill-color: transparent;
@@ -142,16 +155,45 @@
             @media (prefers-color-scheme: dark) {
                 --stroke-color: var(--primary-color-dark);
             }
+
+            .jinya-media-tile__check.is--unchecked {
+                opacity: 1;
+            }
         }
 
         @media screen and (width > 1920px) {
             width: 13rem;
             height: 13rem;
+        }
+    }
+}
 
-            svg {
-                width: 13rem;
-                height: 9rem;
-            }
+.jinya-media-tile__folder {
+    grid-area: image;
+    width: 9rem;
+    height: 5rem;
+    place-self: start center;
+    stroke-width: 0.0625rem;
+    fill: var(--fill-color);
+    stroke: var(--stroke-color);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: fill 0.2s, stroke 0.2s;
+
+    @media (prefers-color-scheme: dark) {
+        --fill-color: var(--primary-color-darker);
+        --stroke-color: var(--primary-color-darker);
+        --path-color: var(--primary-color-darker);
+    }
+
+    @media screen and (width > 1920px) {
+        width: 13rem;
+        height: 9rem;
+    }
+
+    &:hover {
+        .jinya-media-tile__check.is--unchecked {
+            opacity: 1;
         }
     }
 }

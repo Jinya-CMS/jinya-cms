@@ -189,7 +189,7 @@ class File extends Entity implements JsonSerializable
             'name' => $this->name,
             'type' => $this->type,
             'path' => $this->path,
-            'tags' => array_map(static fn(FileTag $tag) => $tag->format(), iterator_to_array($this->getTags())),
+            'tags' => array_map(static fn (FileTag $tag) => $tag->format(), iterator_to_array($this->getTags())),
             'created' => [
                 'by' => [
                     'artistName' => $creator?->artistName,

@@ -103,6 +103,13 @@ class MediaDatabase {
     return liveQuery(() => this.#database.files.where('folderId').equals(folderId).sortBy('name'));
   }
 
+  /**
+   * @returns {Observable}
+   */
+  watchTags() {
+    return liveQuery(() => this.#database.tags.orderBy('name').toArray());
+  }
+
   async getAllTags() {
     await this.#openIfClosed();
     if (this.#database.tags.count() === 0) {
@@ -124,11 +131,28 @@ class MediaDatabase {
     await this.#database.tags.put(tag);
   }
 
-  /**
-   * @returns {Observable}
-   */
-  watchTags() {
-    return liveQuery(() => this.#database.tags.orderBy('name').toArray());
+  async saveFile(file) {
+    await this.#openIfClosed();
+
+    await this.#database.files.put(file);
+  }
+
+  async deleteFile(id) {
+    await this.#openIfClosed();
+
+    await this.#database.files.delete(id);
+  }
+
+  async saveFolder(folder) {
+    await this.#openIfClosed();
+
+    await this.#database.folders.put(folder);
+  }
+
+  async deleteFolder(id) {
+    await this.#openIfClosed();
+
+    await this.#database.folders.delete(id);
   }
 }
 

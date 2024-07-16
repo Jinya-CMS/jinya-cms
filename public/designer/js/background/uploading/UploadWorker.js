@@ -1,16 +1,18 @@
 import { getFileDatabase } from '../../foundation/database/file.js';
+import { getMediaDatabase } from '../../foundation/database/media.js';
 import { createFile } from '../../foundation/api/files.js';
-import localize from '../../foundation/utils/localize.js';
 
 let subscription;
 let fileDatabase;
+let mediaDatabase;
 
-async function uploadFile({ id, name, tags, data }) {
+async function uploadFile({ id, name, tags, folderId, data }) {
   await fileDatabase.markFileUploading(id, name);
   try {
-    const uploadedFile = await createFile(name, tags, data);
+    const uploadedFile = await createFile(name, tags, folderId, data);
+    uploadedFile.folderId = folderId;
 
-    await fileDatabase.saveFile(uploadedFile);
+    await mediaDatabase.saveFile(uploadedFile);
     await fileDatabase.markFileUploaded(id);
     await fileDatabase.setRecentUpload(uploadedFile.name);
   } catch (error) {
@@ -34,6 +36,7 @@ function subscribe() {
 onmessage = (event) => {
   if (event.data?.verb === 'subscribe') {
     fileDatabase = getFileDatabase();
+    mediaDatabase = getMediaDatabase();
     if (subscription) {
       subscription.unsubscribe();
     }

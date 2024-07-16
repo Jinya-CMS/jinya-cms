@@ -485,9 +485,9 @@ export default {
       action: {
         upload_single_file: 'Eine Datei hochladen',
         upload_multiple_file: 'Mehrere Dateien hochladen',
-        delete_multiple_files: 'Gewählte Dateien Löschen',
-        delete_file: 'Löschen',
-        edit_file: 'Bearbeiten',
+        delete_multiple_files: 'Gewählte Dateien löschen',
+        delete_multiple_folders: 'Gewählte Ordner löschen',
+        edit: 'Bearbeiten',
         tag_multiple_files: 'Gewählte Dateien taggen',
         manage_tags: 'Tags verwalten',
         show_all_tags: 'Alle Tags',
@@ -509,7 +509,7 @@ export default {
           generic: 'Ein unbekannter Fehler ist aufgetreten, bitte kontaktiere deinen Administrator',
         },
       },
-      delete_multiple: {
+      delete_files: {
         title: 'Dateien löschen',
         message: 'Willst du die gewählten {count} Dateien wirklich löschen? Wenn du nur einzelne löschen möchtest, wähle sie bitte direkt.',
         approve: 'Dateien löschen',
@@ -517,6 +517,16 @@ export default {
         error: {
           title: 'Löschen fehlgeschlagen',
           message: '{count} Dateien konnten nicht gelöscht werden, bitte versuche sie einzeln zu löschen.',
+        },
+      },
+      delete_folders: {
+        title: 'Ordner löschen',
+        message: 'Willst du die gewählten {count} Ordner wirklich löschen?<br>Alle Dateien und Ordner in dem Ordner werden auch gelöscht.',
+        approve: 'Ordner löschen',
+        decline: 'Ordner behalten',
+        error: {
+          title: 'Löschen fehlgeschlagen',
+          message: '{count} Ordner konnten nicht gelöscht werden, bitte versuche sie einzeln zu löschen.',
         },
       },
       upload_single_file: {
@@ -540,7 +550,7 @@ export default {
         cancel: 'Hochladen abbrechen',
         n_files_selected: '{length} Datei(en) ausgewählt',
       },
-      edit: {
+      edit_file: {
         title: 'Datei bearbeiten',
         file: 'Datei',
         name: 'Name',
@@ -550,6 +560,28 @@ export default {
         error: {
           title: 'Speichern fehlgeschlagen',
           conflict: 'Eine Datei mit dem gewählten Namen existiert bereits.',
+          generic: 'Ein unbekannter Fehler ist aufgetreten, bitte kontaktiere deinen Administrator',
+        },
+      },
+      edit_folder: {
+        title: 'Ordner bearbeiten',
+        name: 'Name',
+        save: 'Ordner speichern',
+        cancel: 'Änderungen verwerfen',
+        error: {
+          title: 'Speichern fehlgeschlagen',
+          conflict: 'Ein Ordner mit dem gewählten Namen existiert bereits.',
+          generic: 'Ein unbekannter Fehler ist aufgetreten, bitte kontaktiere deinen Administrator',
+        },
+      },
+      create_folder: {
+        title: 'Ordner erstellen',
+        name: 'Name',
+        save: 'Ordner erstellen',
+        cancel: 'Änderungen verwerfen',
+        error: {
+          title: 'Erstellen fehlgeschlagen',
+          conflict: 'Ein Ordner mit dem gewählten Namen existiert bereits.',
           generic: 'Ein unbekannter Fehler ist aufgetreten, bitte kontaktiere deinen Administrator',
         },
       },

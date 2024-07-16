@@ -391,7 +391,7 @@
     ></template>
 
     <template
-      x-route="/frontstage/media/files"
+      x-route="/frontstage/media/files/:folder*"
       x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
       x-template="/designer/templates/frontstage/media/files.html"
     ></template>

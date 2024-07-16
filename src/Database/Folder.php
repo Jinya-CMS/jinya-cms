@@ -56,9 +56,11 @@ class Folder extends Entity implements JsonSerializable
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'files' => array_map(static fn(File $file) => $file->format(), iterator_to_array($this->getFiles())),
-            'folders' => array_map(static fn(Folder $folder) => $folder->format(),
-                iterator_to_array($this->getFolders())),
+            'files' => array_map(static fn (File $file) => $file->format(), iterator_to_array($this->getFiles())),
+            'folders' => array_map(
+                static fn (Folder $folder) => $folder->format(),
+                iterator_to_array($this->getFolders())
+            ),
         ];
     }
 

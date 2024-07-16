@@ -486,8 +486,9 @@ export default {
         upload_single_file: 'Upload single file',
         upload_multiple_file: 'Upload multiple files',
         delete_multiple_files: 'Delete selected files',
+        delete_multiple_folders: 'Delete selected folders',
         delete_file: 'Delete',
-        edit_file: 'Edit',
+        edit: 'Edit',
         tag_multiple_files: 'Tag selected files',
         manage_tags: 'Manage tags',
         show_all_tags: 'All tags',
@@ -498,25 +499,24 @@ export default {
       path: {
         home: 'Media'
       },
-      delete: {
-        title: 'Delete file',
-        message: 'Do you really want to delete file {name}?',
-        approve: 'Delete file',
-        decline: 'Keep file',
-        error: {
-          title: 'Delete failed',
-          conflict: 'The file {name} could not be deleted, because it is used.',
-          generic: 'An unknown error occurred, please contact your administrator',
-        },
-      },
-      delete_multiple: {
-        title: 'Delete file',
+      delete_files: {
+        title: 'Delete files',
         message: 'Do you really want to delete the selected {count} files? If you want to delete only specific files, then select them separate.',
         approve: 'Delete files',
         decline: 'Keep files',
         error: {
           title: 'Delete failed',
           message: '{count} files could not be deleted, please try deleting them one by one.',
+        },
+      },
+      delete_folders: {
+        title: 'Delete folders',
+        message: 'Do you really want to delete the selected {count} folders?<br>All files and folders inside the folder will be deleted too.',
+        approve: 'Delete folders',
+        decline: 'Keep folders',
+        error: {
+          title: 'Delete failed',
+          message: '{count} folders could not be deleted, please try deleting them one by one.',
         },
       },
       upload_single_file: {
@@ -540,7 +540,7 @@ export default {
         cancel: 'Cancel upload',
         n_files_selected: '{length} file(s) selected',
       },
-      edit: {
+      edit_file: {
         title: 'Edit file',
         file: 'File',
         name: 'Name',
@@ -550,6 +550,28 @@ export default {
         error: {
           title: 'Edit failed',
           conflict: 'A file with the chosen name already exists.',
+          generic: 'An unknown error occurred, please contact your administrator',
+        },
+      },
+      edit_folder: {
+        title: 'Edit folder',
+        name: 'Name',
+        save: 'Save folder',
+        cancel: 'Discard changes',
+        error: {
+          title: 'Edit failed',
+          conflict: 'A folder with the chosen name already exists.',
+          generic: 'An unknown error occurred, please contact your administrator',
+        },
+      },
+      create_folder: {
+        title: 'Create folder',
+        name: 'Name',
+        save: 'Create folder',
+        cancel: 'Discard changes',
+        error: {
+          title: 'Create failed',
+          conflict: 'A folder with the chosen name already exists.',
           generic: 'An unknown error occurred, please contact your administrator',
         },
       },
