@@ -250,11 +250,19 @@
         <div class="jinya-media-tile__container is--files">
           <template :key="file.id" x-for="file in filteredFiles">
             <div
-              :class="{ 'is--selected': selectedFiles.has(file.id) }"
               :data-title="file.id + ' ' + file.name"
               @click="selectFile($event, file.id)"
               class="jinya-media-tile"
             >
+              <svg viewBox="0 0 24 24" class="jinya-media-tile__check is--file is--unchecked"
+                   :class="{ 'is--hidden': selectedFiles.has(file.id) }">
+                <rect width="18" height="18" x="3" y="3" rx="2" />
+              </svg>
+              <svg viewBox="0 0 24 24" class="jinya-media-tile__check is--file"
+                   :class="{ 'is--checked': selectedFiles.has(file.id) }">
+                <rect width="18" height="18" x="3" y="3" rx="2" />
+                <path d="m9 12 2 2 4-4" />
+              </svg>
               <div class="jinya-media-tile__img">
                 <img :alt="file.name" :src="file.path" />
               </div>

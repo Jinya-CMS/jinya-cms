@@ -1,4 +1,5 @@
 .jinya-media-tile__img {
+    grid-area: image;
     border-radius: var(--border-radius);
     background: var(--control-border-color);
     width: 100%;
@@ -16,7 +17,7 @@
 
 .jinya-media-tile__check {
     grid-area: image;
-    place-self: start end;
+    place-self: start start;
     fill: none;
     height: 2rem;
     width: 2rem;
@@ -26,6 +27,11 @@
     stroke-linejoin: round;
     opacity: 0;
     transition: opacity 0.3s;
+    position: relative;
+
+    &.is--file {
+        fill: var(--white);
+    }
 
     &.is--hidden {
         opacity: 0;
@@ -49,10 +55,17 @@
 .jinya-media-tile {
     width: 9rem;
     height: 9rem;
-    display: block;
     position: relative;
     box-sizing: border-box;
-    object-fit: cover;
+    display: grid;
+    grid-template: "image" 1fr / 1fr;
+    margin: 0;
+    padding: 0;
+    gap: 0.5rem;
+    cursor: pointer;
+
+    --stroke-color: var(--primary-color-lighter);
+    --fill-color: var(--primary-color-lighter);
 
     @media screen and (width > 1920px) {
         width: 13rem;
@@ -60,6 +73,13 @@
     }
 
     &:hover {
+        --stroke-color: var(--primary-color-light);
+        --fill-color: transparent;
+
+        @media (prefers-color-scheme: dark) {
+            --stroke-color: var(--primary-color-dark);
+        }
+
         &::before {
             content: attr(data-title);
             position: absolute;
@@ -76,6 +96,10 @@
 
         .jinya-media-tile__img img {
             object-fit: scale-down;
+        }
+
+        .jinya-media-tile__check.is--unchecked {
+            opacity: 1;
         }
     }
 
@@ -136,14 +160,9 @@
     }
 
     &.is--folder {
-        display: grid;
         grid-template: "image" auto "label" 1fr / 1fr;
-        margin: 0;
-        padding: 0;
         gap: 0.5rem;
         cursor: pointer;
-        width: 9rem;
-        height: 9rem;
 
         --stroke-color: var(--primary-color-lighter);
         --fill-color: var(--primary-color-lighter);
@@ -159,11 +178,6 @@
             .jinya-media-tile__check.is--unchecked {
                 opacity: 1;
             }
-        }
-
-        @media screen and (width > 1920px) {
-            width: 13rem;
-            height: 13rem;
         }
     }
 }
