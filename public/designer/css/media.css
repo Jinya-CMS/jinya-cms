@@ -52,7 +52,47 @@
     }
 }
 
-.jinya-media-tile {
+.jinya-media-tile__folder {
+    grid-area: image;
+    width: 9rem;
+    height: 5rem;
+    place-self: start center;
+    stroke-width: 0.0625rem;
+    fill: var(--fill-color);
+    stroke: var(--stroke-color);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: fill 0.2s, stroke 0.2s;
+
+    @media (prefers-color-scheme: dark) {
+        --fill-color: var(--primary-color-darker);
+        --stroke-color: var(--primary-color-darker);
+        --path-color: var(--primary-color-darker);
+    }
+
+    @media screen and (width > 1920px) {
+        width: 13rem;
+        height: 9rem;
+    }
+
+    &:hover {
+        .jinya-media-tile__check.is--unchecked {
+            opacity: 1;
+        }
+    }
+
+    &.is--medium {
+        width: 5rem;
+        height: 3.5rem;
+
+        @media screen and (width > 1920px) {
+            width: 6.5rem;
+        height: 4.5rem;
+        }
+    }
+}
+
+.jinya-media-tile   {
     width: 9rem;
     height: 9rem;
     position: relative;
@@ -182,36 +222,6 @@
     }
 }
 
-.jinya-media-tile__folder {
-    grid-area: image;
-    width: 9rem;
-    height: 5rem;
-    place-self: start center;
-    stroke-width: 0.0625rem;
-    fill: var(--fill-color);
-    stroke: var(--stroke-color);
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    transition: fill 0.2s, stroke 0.2s;
-
-    @media (prefers-color-scheme: dark) {
-        --fill-color: var(--primary-color-darker);
-        --stroke-color: var(--primary-color-darker);
-        --path-color: var(--primary-color-darker);
-    }
-
-    @media screen and (width > 1920px) {
-        width: 13rem;
-        height: 9rem;
-    }
-
-    &:hover {
-        .jinya-media-tile__check.is--unchecked {
-            opacity: 1;
-        }
-    }
-}
-
 .jinya-media-tile__title {
     font-size: 1rem;
     grid-area: label;
@@ -319,14 +329,21 @@
 
 .jinya-media-tile__container.is--modal,
 .jinya-media-tile__container.is--segment {
-    margin-top: 0.75rem;
-    max-height: 22.5rem;
     display: flex;
     overflow-y: auto;
     gap: 0.5rem;
     flex-flow: row wrap;
     border-right: none;
     height: auto;
+}
+
+.jinya-media-tile__container.is--segment {
+    margin-top: 0.75rem;
+    max-height: 22.5rem;
+}
+
+.jinya-media-tile__container.is--modal {
+    max-height: max(40rem, 50vh);
 }
 
 .cosmo-modal.is--files {

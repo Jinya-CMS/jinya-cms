@@ -1,18 +1,24 @@
 import localize from '../utils/localize.js';
-import { getFiles, getTags } from '../api/files.js';
 import { Alpine } from '../../../../lib/alpine.js';
 import { getFileDatabase } from '../database/file.js';
+import { getMediaDatabase } from '../database/media.js';
 
 import './components/tag.js';
 import './components/loader.js';
 
 const fileDatabase = getFileDatabase();
+const mediaDatabase = getMediaDatabase();
 
 Alpine.data('jinyaFilePickerData', (selectedFileId) => ({
   selectedFileId,
   selectedTags: new Set(),
   tags: [],
+  allFolders: [],
+  folders: [],
   files: [],
+  filesWatcher: null,
+  foldersWatcher: null,
+  folderPath: [],
   loading: true,
   get filteredFiles() {
     if (this.selectedTags.size === 0) {
@@ -21,23 +27,51 @@ Alpine.data('jinyaFilePickerData', (selectedFileId) => ({
 
     return this.files.filter((file) => file.tags.filter((tag) => this.selectedTags.has(tag.id)).length > 0);
   },
-  async init() {
-    fileDatabase.watchFiles().subscribe({
+  setupView() {
+    this.selectedFileId = null;
+
+    const folderId = this.folderPath[this.folderPath.length - 1] ?? -1;
+
+    this.filesWatcher?.unsubscribe();
+    this.foldersWatcher?.unsubscribe();
+
+    this.filesWatcher = mediaDatabase.watchFiles(folderId).subscribe({
       next: (files) => {
         this.files = files;
-        this.loading = false;
       },
     });
+    this.foldersWatcher = mediaDatabase.watchFolders(folderId).subscribe({
+      next: (folders) => {
+        this.folders = folders;
+      },
+    });
+    this.foldersWatcher = mediaDatabase.watchFolders().subscribe({
+      next: (folders) => {
+        this.allFolders = folders;
+      },
+    });
+  },
+  init() {
+    this.setupView();
 
-    this.tags = await fileDatabase.getAllTags();
-
-    const [files, tags] = await Promise.all([getFiles(), getTags()]);
-    this.files = files.items;
-    this.tags = tags.items;
+    mediaDatabase.watchTags().subscribe({
+      next: (tags) => {
+        this.tags = tags;
+      },
+    });
     this.loading = false;
 
-    fileDatabase.replaceFiles(files.items);
-    fileDatabase.replaceTags(tags.items);
+    mediaDatabase.cacheMedia().then(() => {});
+    this.$watch('folderPath', () => this.setupView());
+  },
+  getFolderById(folder) {
+    return this.allFolders.find((f) => f.id === folder);
+  },
+  goBreadcrumb(index) {
+    this.folderPath = this.folderPath.slice(0, index);
+  },
+  goFolder(id) {
+    this.folderPath.push(id);
   },
   toggleTag(id) {
     if (this.selectedTags.has(id)) {
@@ -149,7 +183,7 @@ class FilePickerElement extends HTMLElement {
       </style>
       <div class="cosmo-modal is--file-picker">
         <h1 class="cosmo-modal__title">${this.title}</h1>
-        <div class="cosmo-modal__content" :class="{ 'is--loading': loading }" x-data="jinyaFilePickerData(${this.selectedFile})">
+        <div class="cosmo-modal__content is--file-picker" :class="{ 'is--loading': loading }" x-data="jinyaFilePickerData(${this.selectedFile})">
           <template x-if="loading">
             <cms-loader></cms-loader>
           </template>
@@ -162,13 +196,75 @@ class FilePickerElement extends HTMLElement {
             </div>
           </template>
           <template x-if="!loading">
-            <div class="jinya-media-tile__container is--modal" :data-selected-file="selectedFileId" id="fileList">
-              <template x-for="file of filteredFiles">
-                <div class="jinya-media-tile is--small" :class="{ 'is--selected': selectedFileId === file.id }">
-                  <img @click="selectFile(file.id)" class="jinya-media-tile__img is--small" :src="file.path" :alt="file.name" />
+            <div style="display: contents">   
+              <nav class="jinya-media-tile-path">
+                <a @click="goBreadcrumb(0)" class="jinya-media-tile-path__entry is--home"
+                   :class="{ 'is--last': folderPath.length === 0 }">
+                  <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                       stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                    <path
+                      d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  </svg>
+                  <span x-localize:media-files-path-home></span>
+                </a>
+                <template x-if="folderPath.length > 0">
+                  <span class="jinya-media-tile-path__entry is--separator">
+                    <svg width="1rem" height="1rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6" /></svg>
+                  </span>
+                </template>
+                <template x-for="(folder, index) in folderPath" :key="folder">
+                  <div style="display: contents">
+                    <a @click="goBreadcrumb(index)" class="jinya-media-tile-path__entry" 
+                       :class="{ 'is--last': index + 1 === folderPath.length }" x-text="getFolderById(folder).name">
+                    </a>
+                    <template x-if="index < folderPath.length - 1">
+                      <span class="jinya-media-tile-path__entry is--separator">
+                        <svg width="1rem" height="1rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                             stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6" /></svg>
+                      </span>
+                    </template>
+                  </div>
+                </template>
+              </nav>
+              <div class="jinya-media-tile__container is--modal" :data-selected-file="selectedFileId" id="fileList">
+                <template x-if="folders.length > 0">
+                  <div class="jinya-media-tile__container is--folders">
+                    <template :key="folder.id" x-for="folder in folders">
+                      <figure @dblclick="goFolder(folder.id)" class="jinya-media-tile is--folder is--medium">
+                        <svg viewBox="0 0 24 18" class="jinya-media-tile__folder is--medium">
+                          <path
+                            d="m 19.986935,16.983667 c 1.102766,0 1.996734,-0.926429 1.996734,-2.069235 V 8.1894182 c 0,-1.142807 -0.893968,-2.0692351 -1.996734,-2.0692351 H 12.099836 C 11.421279,6.1270774 10.785788,5.7763622 10.412597,5.1890273 L 9.6039194,3.9474864 C 9.2346009,3.3663207 8.6081345,3.0164452 7.9366465,3.0163306 h -3.923582 c -1.1027657,0 -1.9967339,0.9264281 -1.9967339,2.069235 v 9.8288664 c 0,1.142806 0.8939682,2.069235 1.9967339,2.069235 z" />
+                        </svg>
+                        <figcaption class="jinya-media-tile__title" x-text="folder.name"></figcaption>
+                      </figure>
+                    </template>
+                  </div>
+                </template>
+                <div class="jinya-media-tile__container is--files">
+                  <template :key="file.id" x-for="file in filteredFiles">
+                    <div
+                      :data-title="file.id + ' ' + file.name"
+                      @click="selectFile(file.id)"
+                      class="jinya-media-tile is--medium"
+                    >
+                      <svg viewBox="0 0 24 24" class="jinya-media-tile__check is--file is--unchecked"
+                           :class="{ 'is--hidden': selectedFileId === file.id }">
+                        <rect width="18" height="18" x="3" y="3" rx="2" />
+                      </svg>
+                      <svg viewBox="0 0 24 24" class="jinya-media-tile__check is--file"
+                           :class="{ 'is--checked': selectedFileId === file.id }">
+                        <rect width="18" height="18" x="3" y="3" rx="2" />
+                        <path d="m9 12 2 2 4-4" />
+                      </svg>
+                      <div class="jinya-media-tile__img">
+                        <img :alt="file.name" :src="file.path" />
+                      </div>
+                    </div>
+                  </template>
                 </div>
-              </template>
-            </div>
+              </div>
           </template>
         </div>
         <div class="cosmo-modal__button-bar">
@@ -184,7 +280,7 @@ class FilePickerElement extends HTMLElement {
     this.root.getElementById('pick').addEventListener('click', async (e) => {
       e.preventDefault();
       const selectedFileId = this.root.getElementById('fileList').getAttribute('data-selected-file');
-      const file = await fileDatabase.getFileById(parseInt(selectedFileId));
+      const file = await mediaDatabase.getFileById(parseInt(selectedFileId));
 
       this.dispatchEvent(new FilePickedEvent(file));
     });

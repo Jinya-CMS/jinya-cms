@@ -26,5 +26,11 @@
 }
 
 .cosmo-modal.is--file-picker {
-    max-width: 60rem;
+    max-width: max(60rem, 70%);
+}
+
+.cosmo-modal__content.is--file-picker {
+    display: flex;
+    gap: 1rem;
+    flex-flow: column;
 }

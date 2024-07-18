@@ -110,6 +110,12 @@ class MediaDatabase {
     return liveQuery(() => this.#database.tags.orderBy('name').toArray());
   }
 
+  async getFileById(id) {
+    await this.#openIfClosed();
+
+    return await this.#database.files.get(id);
+  }
+
   async getAllTags() {
     await this.#openIfClosed();
     if (this.#database.tags.count() === 0) {
