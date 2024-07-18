@@ -26,7 +26,8 @@
         <div @dragenter="designerDragEnter" class="jinya-designer__result">
           <template :key="file.id" x-for="file in designerFiles">
             <img :alt="file.file.name" :src="file.file.path" @dragend="endDesignerDrag(file)"
-                 @dragover.prevent="dragOver(file)" @dragstart="startFromDesigner(file)" class="jinya-media-tile is--designer is--draggable"
+                 @dragover.prevent="dragOver(file)" @dragstart="startFromDesigner(file)"
+                 class="jinya-media-tile is--designer is--draggable"
                  draggable="true">
           </template>
         </div>
@@ -54,10 +55,68 @@
               ></cms-tag>
             </template>
           </div>
+          <div class="jinya-media-tile-path jinya-designer__folder-path">
+            <a @click="goHome()" class="jinya-media-tile-path__entry is--home"
+               :class="{ 'is--last': folderPath.length === 0 }">
+              <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                <path
+                  d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              </svg>
+              <span x-localize:media-files-path-home></span>
+            </a>
+            <template x-if="folderPath.length > 0 && folderPath.length < 3">
+              <span class="jinya-media-tile-path__entry is--separator">
+                <svg width="1rem" height="1rem" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6" /></svg>
+              </span>
+            </template>
+            <template x-if="folderPath.length > folderPath.slice(-2).length">
+              <span class="jinya-media-tile-path__entry is--separator">
+                <svg width="1rem" height="1rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="20" r="1" />
+                  <circle cx="19" cy="20" r="1" />
+                  <circle cx="5" cy="20" r="1" />
+                </svg>
+              </span>
+            </template>
+            <template x-for="(folder, index) in folderPath.slice(-2)" :key="folder">
+              <div style="display: contents">
+                <a @click="goBreadcrumb(folder)" class="jinya-media-tile-path__entry"
+                   :class="{ 'is--last': index + 1 === folderPath.length }">
+                  <span x-text="getFolderById(folder).name"></span>
+                </a>
+                <template x-if="index < folderPath.slice(-2).length - 1">
+                    <span class="jinya-media-tile-path__entry is--separator">
+                    <svg width="1rem" height="1rem" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6" /></svg>
+                  </span>
+                </template>
+              </div>
+            </template>
+          </div>
           <div class="jinya-designer__toolbox">
+            <template x-if="folders.length > 0">
+              <div class="jinya-media-tile__container is--folders">
+                <template :key="folder.id" x-for="folder in folders">
+                  <figure @dblclick="goFolder(folder.id)" class="jinya-media-tile is--folder is--medium">
+                    <svg viewBox="0 0 24 18" class="jinya-media-tile__folder is--medium">
+                      <path
+                        d="m 19.986935,16.983667 c 1.102766,0 1.996734,-0.926429 1.996734,-2.069235 V 8.1894182 c 0,-1.142807 -0.893968,-2.0692351 -1.996734,-2.0692351 H 12.099836 C 11.421279,6.1270774 10.785788,5.7763622 10.412597,5.1890273 L 9.6039194,3.9474864 C 9.2346009,3.3663207 8.6081345,3.0164452 7.9366465,3.0163306 h -3.923582 c -1.1027657,0 -1.9967339,0.9264281 -1.9967339,2.069235 v 9.8288664 c 0,1.142806 0.8939682,2.069235 1.9967339,2.069235 z" />
+                    </svg>
+                    <figcaption class="jinya-media-tile__title" x-text="folder.name"></figcaption>
+                  </figure>
+                </template>
+              </div>
+            </template>
             <template :key="file.id" x-for="file in toolboxFiles">
               <img :alt="file.name" :src="file.path" @dragend="endToolboxDrag(file)"
-                   @dragstart="startFromToolbox(file)" class="jinya-media-tile is--designer is--medium is--draggable" draggable="true">
+                   @dragstart="startFromToolbox(file)" class="jinya-media-tile is--designer is--medium is--draggable"
+                   draggable="true">
             </template>
           </div>
           <template x-if="draggingOverToolbox && draggedItem && !fromToolbox">

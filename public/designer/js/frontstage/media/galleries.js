@@ -10,22 +10,28 @@ import {
   moveFileInGallery,
   updateGallery,
 } from '../../foundation/api/galleries.js';
-import { getFiles, getTags } from '../../foundation/api/files.js';
 import localize from '../../foundation/utils/localize.js';
 import confirm from '../../foundation/ui/confirm.js';
 import alert from '../../foundation/ui/alert.js';
-import { getFileDatabase } from '../../foundation/database/:folder.js';
+import { getFileDatabase } from '../../foundation/database/file.js';
+import { getMediaDatabase } from '../../foundation/database/media.js';
 
 import '../../foundation/ui/components/tag.js';
 import '../../foundation/ui/components/tag-popup.js';
 import '../../foundation/ui/components/diagrams/sparkline.js';
 
 const fileDatabase = getFileDatabase();
+const mediaDatabase = getMediaDatabase();
 
 Alpine.data('galleriesData', () => ({
   galleries: [],
-  tags: [],
+  allFolders: [],
+  folders: [],
   files: [],
+  filesWatcher: null,
+  foldersWatcher: null,
+  folderPath: [],
+  tags: [],
   filesInGallery: [],
   toolboxFiles: [],
   designerFiles: [],
@@ -49,30 +55,70 @@ Alpine.data('galleriesData', () => ({
       key: `media.galleries.designer.title.${this.selectedGallery.orientation.toLowerCase()}_${this.selectedGallery.type.toLowerCase()}`,
     });
   },
-  async init() {
-    fileDatabase.watchFiles().subscribe({
+  setupView() {
+    this.selectedFileId = null;
+
+    const folderId = this.folderPath[this.folderPath.length - 1] ?? -1;
+
+    this.filesWatcher?.unsubscribe();
+    this.foldersWatcher?.unsubscribe();
+
+    this.filesWatcher = mediaDatabase.watchFiles(folderId).subscribe({
       next: (files) => {
         this.files = files;
         this.setToolboxFiles();
       },
     });
+    this.foldersWatcher = mediaDatabase.watchFolders(folderId).subscribe({
+      next: (folders) => {
+        this.folders = folders;
+      },
+    });
+    this.foldersWatcher = mediaDatabase.watchFolders().subscribe({
+      next: (folders) => {
+        this.allFolders = folders;
+      },
+    });
+  },
+  getFolderById(folder) {
+    return this.allFolders.find((f) => f.id === folder);
+  },
+  goBreadcrumb(id) {
+    const path = [];
+    for (const folderPathElement of this.folderPath) {
+      path.push(folderPathElement);
+      if (folderPathElement === id) {
+        break;
+      }
+    }
 
-    this.tags = await fileDatabase.getAllTags();
+    this.folderPath = path;
+  },
+  goHome() {
+    this.folderPath = [];
+  },
+  goFolder(id) {
+    this.folderPath.push(id);
+  },
+  async init() {
+    this.setupView();
+
+    mediaDatabase.watchTags().subscribe({
+      next: (tags) => {
+        this.tags = tags;
+      },
+    });
 
     const galleries = await getGalleries();
     this.galleries = galleries.items;
     this.loading = false;
+
+    mediaDatabase.cacheMedia().then(() => {});
+    this.$watch('folderPath', () => this.setupView());
+
     if (this.galleries.length > 0) {
       await this.selectGallery(this.galleries[0]);
     }
-
-    Promise.all([getFiles(), getTags()]).then(([files, tags]) => {
-      fileDatabase.replaceFiles(files.items);
-      fileDatabase.replaceTags(tags.items);
-
-      this.files = files.items;
-      this.tags = tags.items;
-    });
   },
   async selectGallery(gallery) {
     this.selectedGallery = gallery;

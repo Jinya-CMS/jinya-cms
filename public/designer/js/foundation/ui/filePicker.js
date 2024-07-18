@@ -216,7 +216,7 @@ class FilePickerElement extends HTMLElement {
                 </template>
                 <template x-for="(folder, index) in folderPath" :key="folder">
                   <div style="display: contents">
-                    <a @click="goBreadcrumb(index)" class="jinya-media-tile-path__entry" 
+                    <a @click="goBreadcrumb(index + 1)" class="jinya-media-tile-path__entry" 
                        :class="{ 'is--last': index + 1 === folderPath.length }" x-text="getFolderById(folder).name">
                     </a>
                     <template x-if="index < folderPath.length - 1">
