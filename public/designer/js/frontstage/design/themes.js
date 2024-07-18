@@ -29,15 +29,17 @@ import {
 } from '../../foundation/api/themes.js';
 import { getForms } from '../../foundation/api/forms.js';
 import { getGalleries } from '../../foundation/api/galleries.js';
-import { getFiles } from '../../foundation/api/files.js';
 import { getModernPages } from '../../foundation/api/modern-pages.js';
 import { getMenus } from '../../foundation/api/menus.js';
 import { getBlogCategories } from '../../foundation/api/blog-categories.js';
 import localize from '../../foundation/utils/localize.js';
 import confirm from '../../foundation/ui/confirm.js';
 import { getFileDatabase } from '../../foundation/database/file.js';
+import { getMediaDatabase } from '../../foundation/database/media.js';
+import filePicker from '../../foundation/ui/filePicker.js';
 
 const fileDatabase = getFileDatabase();
+const mediaDatabase = getMediaDatabase();
 
 Alpine.data('themesData', () => ({
   themes: [],
@@ -82,31 +84,23 @@ Alpine.data('themesData', () => ({
     return this.getValueForCurrentLanguage(this.selectedTheme.description);
   },
   async init() {
-    fileDatabase.watchFiles().subscribe({
-      next: (files) => {
-        this.files = files;
-      },
-    });
-
     Promise.all([
       getGalleries(),
-      getFiles(),
       getClassicPages(),
       getModernPages(),
       getMenus(),
       getBlogCategories(),
       getForms(),
-    ]).then(([galleries, files, classicPages, modernPages, menus, blogCategories, forms]) => {
+    ]).then(([galleries, classicPages, modernPages, menus, blogCategories, forms]) => {
       this.galleries = galleries.items;
-      this.files = files.items;
       this.classicPages = classicPages.items;
       this.modernPages = modernPages.items;
       this.menus = menus.items;
       this.blogCategories = blogCategories.items;
       this.forms = forms.items;
-
-      fileDatabase.replaceFiles(files.items);
     });
+
+    mediaDatabase.cacheMedia().then(() => {});
 
     const themes = await getThemes();
     this.themes = themes.items;
@@ -154,6 +148,32 @@ Alpine.data('themesData', () => ({
     this.selectedThemeData.scssVariables = Array.isArray(this.selectedTheme.scssVariables)
       ? {}
       : this.selectedTheme.scssVariables;
+  },
+  async getSelectedFileName(id) {
+    if (!id) {
+      return localize({ key: 'design.themes.links.no_file' });
+    }
+
+    return (await mediaDatabase.getFileById(parseInt(id))).name ?? localize({ key: 'design.themes.links.no_file' });
+  },
+  async getFilePath(id) {
+    if (!id) {
+      return null;
+    }
+
+    return (await mediaDatabase.getFileById(parseInt(id))).path;
+  },
+  async selectFile(fileLink) {
+    const id = this.selectedThemeData.files[fileLink];
+    const file = await filePicker({
+      title: localize({ key: 'file_picker.title' }),
+      selectedFileId: id,
+      cancelLabel: localize({ key: 'file_picker.dismiss' }),
+      pickLabel: localize({ key: 'file_picker.pick' }),
+    });
+    if (file) {
+      this.selectedThemeData.files[fileLink] = file.id;
+    }
   },
   async loadLinks() {
     const [modernPages, classicPages, forms, menus, galleries, files, blogCategories] = await Promise.all([
@@ -439,6 +459,9 @@ Alpine.data('themesData', () => ({
       content: '',
       hasError: false,
       hasMessage: false,
+    },
+    picker: {
+      label: localize({ key: 'design.themes.links.file_picker_label' }),
     },
   },
   variables: {

@@ -1,6 +1,11 @@
 .jinya-designer__content.is--theme {
     grid-template-columns: unset;
+    grid-area: unset;
     max-height: calc(var(--page-height) - 2.75rem - 2rem - 2rem);
+}
+
+.jinya-designer__title.is--theme {
+    grid-area: unset;
 }
 
 .cosmo-side-list__content.is--theme {
@@ -25,11 +30,11 @@
 }
 
 .cosmo-tab.is--theme {
-    max-height: calc(var(--page-height) - 2.75rem - 2rem - 2rem);
+    max-height: calc(var(--page-height) - 2.75rem);
 }
 
 .cosmo-tab__content.is--theme {
-    max-height: calc(var(--page-height) - 2.75rem - 2rem - 2rem);
+    max-height: calc(var(--page-height) - 2.75rem);
 }
 
 .cosmo-button__container.is--sticky-bottom {

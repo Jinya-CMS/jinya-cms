@@ -1323,6 +1323,7 @@ export default {
         menus: 'Menus',
         blog_categories: 'Blog categories',
         no_file: 'No file selected',
+        file_picker_label: 'Select file',
         no_gallery: 'No gallery selected',
         no_classic_page: 'No classic page selected',
         no_modern_page: 'No modern page selected',

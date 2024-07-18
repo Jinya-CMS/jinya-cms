@@ -1339,6 +1339,7 @@ export default {
         menus: 'Menüs',
         blog_categories: 'Blogkategorien',
         no_file: 'Keine Datei gewählt',
+        file_picker_label: 'Datei wählen',
         no_gallery: 'Keine Galerie gewählt',
         no_classic_page: 'Keine klassische Seite gewählt',
         no_modern_page: 'Keine moderne Seite gewählt',

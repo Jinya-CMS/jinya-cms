@@ -11,7 +11,7 @@
   </nav>
   <template x-if="themeSelected">
     <div class="cosmo-side-list__content is--theme">
-      <div class="jinya-designer__title">
+      <div class="jinya-designer__title is--theme">
         <span class="cosmo-title" x-text="title"></span>
       </div>
       <div class="jinya-designer__content is--theme">
@@ -49,8 +49,9 @@
           <form @submit.prevent="saveConfiguration" class="cosmo-tab__content is--theme"
                 x-show="activeTab === 'configuration'">
             <template x-if="configuration.message.hasMessage">
-              <div :class="{ 'is--negative': configuration.message.hasError, 'is--positive': !configuration.message.hasError }"
-                   class="cosmo-message">
+              <div
+                :class="{ 'is--negative': configuration.message.hasError, 'is--positive': !configuration.message.hasError }"
+                class="cosmo-message">
                 <span class="cosmo-message__header" x-text="configuration.message.title"></span>
                 <div class="cosmo-message__message" x-text="configuration.message.content"></div>
               </div>
@@ -125,13 +126,10 @@
                     x-for="[fileLink, label] in Object.entries(selectedThemeData.configurationStructure.links.files)">
                     <div style="display: contents" x-data="{ id: $id('group') }">
                       <label :for="id" class="cosmo-label" x-text="getValueForCurrentLanguage(label)"></label>
-                      <select :id="id" class="cosmo-select" x-model.number="selectedThemeData.files[fileLink]">
-                        <option :value="null" x-localize:design-themes-links-no_file></option>
-                        <template :key="file.id" x-for="file in files">
-                          <option :selected="selectedThemeData.files[fileLink] === file.id" :value="file.id"
-                                  x-text="file.name"></option>
-                        </template>
-                      </select>
+                      <button class="cosmo-input is--picker" :id="id" :data-picker="links.picker.label" type="button"
+                              @click="selectFile(fileLink)"
+                              x-text="getSelectedFileName(selectedThemeData.files[fileLink])"></button>
+                      <img :src="getFilePath(selectedThemeData.files[fileLink])" alt="" class="jinya-picker__selected-file" x-show="selectedThemeData.files[fileLink]">
                     </div>
                   </template>
                 </div>
@@ -146,7 +144,8 @@
                       <select :id="id" class="cosmo-select" x-model.number="selectedThemeData.galleries[galleryLink]">
                         <option :value="null" x-localize:design-themes-links-no_gallery></option>
                         <template :key="gallery.id" x-for="gallery in galleries">
-                          <option :selected="selectedThemeData.galleries[galleryLink] === gallery.id" :value="gallery.id"
+                          <option :selected="selectedThemeData.galleries[galleryLink] === gallery.id"
+                                  :value="gallery.id"
                                   x-text="gallery.title"></option>
                         </template>
                       </select>
@@ -201,7 +200,8 @@
                               x-model.number="selectedThemeData.blogCategories[blogCategoryLink]">
                         <option :value="null" x-localize:design-themes-links-no_blog_category></option>
                         <template :key="blogCategory.id" x-for="blogCategory in blogCategories">
-                          <option :selected="selectedThemeData.blogCategories[blogCategoryLink] === blogCategory.id" :value="blogCategory.id"
+                          <option :selected="selectedThemeData.blogCategories[blogCategoryLink] === blogCategory.id"
+                                  :value="blogCategory.id"
                                   x-text="blogCategory.name"></option>
                         </template>
                       </select>
@@ -280,7 +280,8 @@
           <div class="cosmo-input__group">
             <label class="cosmo-label" for="uploadFile"
                    x-localize:design-themes-create-file></label>
-            <input @change="upload.selectFile($event.target.files)" accept="application/zip" class="cosmo-input" id="uploadFile" required
+            <input @change="upload.selectFile($event.target.files)" accept="application/zip" class="cosmo-input"
+                   id="uploadFile" required
                    type="file" />
           </div>
         </div>
@@ -304,7 +305,8 @@
           <div class="cosmo-input__group">
             <label class="cosmo-label" for="editFile"
                    x-localize:design-themes-edit-file></label>
-            <input @change="edit.selectFile($event.target.files)" accept="application/zip" class="cosmo-input" id="editFile" required
+            <input @change="edit.selectFile($event.target.files)" accept="application/zip" class="cosmo-input"
+                   id="editFile" required
                    type="file" />
           </div>
         </div>
