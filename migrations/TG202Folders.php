@@ -13,7 +13,7 @@ class TG202Folders extends AbstractMigration
             <<<SQL
 create table folder (
     id int primary key auto_increment,
-    name text not null,
+    name varchar(255) not null,
     parent_id int null,
     
     constraint FK_folder_parent_folder
