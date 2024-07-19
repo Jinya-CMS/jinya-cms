@@ -7,6 +7,7 @@ import {
   deleteFile,
   deleteTag,
   getFile,
+  moveFile,
   tagFile,
   updateFile,
   updateTag,
@@ -21,7 +22,8 @@ import { getFileDatabase } from '../../foundation/database/file.js';
 import '../../foundation/ui/components/tag.js';
 import '../../foundation/ui/components/tag-popup.js';
 import { getMediaDatabase } from '../../foundation/database/media.js';
-import { createFolder, deleteFolder, updateFolder } from '../../foundation/api/folders.js';
+import { createFolder, deleteFolder, moveFolder, updateFolder } from '../../foundation/api/folders.js';
+import folderPicker from '../../foundation/ui/folderPicker.js';
 
 const fileDatabase = getFileDatabase();
 const mediaDatabase = getMediaDatabase();
@@ -124,6 +126,9 @@ Alpine.data('filesData', () => ({
     }
 
     return true;
+  },
+  get canMove() {
+    return this.selectedFiles.size > 0 || this.selectedFolders.size > 0;
   },
   setupView() {
     this.selectedFiles.clear();
@@ -691,6 +696,42 @@ Alpine.data('filesData', () => ({
       this.tagMultiple.error.title = localize({ key: 'media.files.tag_multiple.error.title' });
       this.tagMultiple.error.message = localize({ key: 'media.files.tag_multiple.error.generic' });
       this.tagMultiple.error.hasError = true;
+    }
+  },
+  async move() {
+    const targetFolder = await folderPicker({
+      title: localize({
+        key: 'media.files.move.title',
+        values: { count: this.selectedFiles.size + this.selectedFolders.size },
+      }),
+      ignoredFolders: [...this.selectedFolders],
+      cancelLabel: localize({ key: 'media.files.move.cancel' }),
+      pickLabel: localize({ key: 'media.files.move.pick' }),
+    });
+
+    if (targetFolder) {
+      try {
+        const promises = [...this.selectedFolders]
+          .map((folder) => moveFolder(folder, targetFolder.id))
+          .concat([...this.selectedFiles].map((file) => moveFile(file, targetFolder.id)));
+
+        await Promise.all(promises);
+      } catch (e) {
+        console.error(e);
+        await alert({
+          title: localize({ key: 'media.files.move.error.title' }),
+          message: localize({
+            key: 'media.files.move.error.generic',
+            values: { count: this.selectedFiles.size + this.selectedFolders.size },
+          }),
+          buttonLabel: localize({ key: 'media.files.move.error.close' }),
+        });
+      }
+
+      mediaDatabase.cacheMedia().then(() => {});
+      this.selectedFiles.clear();
+      this.selectedFolders.clear();
+      this.selectedFile = null;
     }
   },
   uploadSingleFile: {

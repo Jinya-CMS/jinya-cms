@@ -116,6 +116,12 @@ class MediaDatabase {
     return await this.#database.files.get(id);
   }
 
+  async getFolderById(id) {
+    await this.#openIfClosed();
+
+    return await this.#database.folders.get(id);
+  }
+
   async getAllTags() {
     await this.#openIfClosed();
     if (this.#database.tags.count() === 0) {

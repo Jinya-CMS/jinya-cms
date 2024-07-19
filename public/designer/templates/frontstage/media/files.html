@@ -117,17 +117,11 @@
     </div>
     <div class="cosmo-toolbar__group">
       <button
-        :disabled="selectedFiles.size === 0"
+        :disabled="!canMove"
         class="cosmo-button"
         type="button"
+        @click="move()"
         x-localize:media-files-action-move
-      >
-      </button>
-      <button
-        :disabled="selectedFiles.size === 0"
-        class="cosmo-button"
-        type="button"
-        x-localize:media-files-action-copy
       >
       </button>
     </div>

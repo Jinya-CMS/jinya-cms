@@ -564,6 +564,16 @@ export default {
           generic: 'An unknown error occurred, please contact your administrator',
         },
       },
+      move: {
+        title: 'Move {count} files and folders',
+        pick: 'Move here',
+        cancel: 'Cancel',
+        error: {
+          title: 'Moving failed',
+          generic: 'Moving {count} elements failed, please contact your administrator.',
+          close: 'Close',
+        },
+      },
       create_folder: {
         title: 'Create folder',
         name: 'Name',

@@ -37,6 +37,12 @@ export async function updateFile(id, name, tags) {
   });
 }
 
+export async function moveFile(id, newFolder) {
+  await put(`/api/file/${id}`, {
+    folderId: newFolder,
+  });
+}
+
 export async function tagFile(id, tags) {
   await put(`/api/file/${id}`, {
     tags,

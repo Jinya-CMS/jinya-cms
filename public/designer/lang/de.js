@@ -496,7 +496,17 @@ export default {
         create_folder: 'Neuer Ordner',
       },
       path: {
-        home: 'Medien'
+        home: 'Medien',
+      },
+      move: {
+        title: '{count} Dateien und Ordner verschieben',
+        pick: 'Hierhin verschieben',
+        cancel: 'Abbrechen',
+        error: {
+          title: 'Verschieben fehlgeschlagen',
+          generic: '{count} Elemente konnten leider nicht verschoben werden, bitte kontaktiere deinen Administrator',
+          close: 'Schließen',
+        },
       },
       delete: {
         title: 'Datei löschen',

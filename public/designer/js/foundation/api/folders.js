@@ -10,8 +10,10 @@ export async function updateFolder(id, name) {
   });
 }
 
-export function getFolder(id) {
-  return get(`/api/folder/${id}`);
+export async function moveFolder(id, newParent) {
+  await put(`/api/folder/${id}`, {
+    parentId: newParent,
+  });
 }
 
 export async function deleteFolder(id) {
