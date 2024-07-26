@@ -37,6 +37,12 @@ export async function updateFile(id, name, tags) {
   });
 }
 
+export async function moveFile(id, newFolder) {
+  await put(`/api/file/${id}`, {
+    folderId: newFolder,
+  });
+}
+
 export async function tagFile(id, tags) {
   await put(`/api/file/${id}`, {
     tags,
@@ -80,10 +86,11 @@ export async function deleteFile(id) {
   await httpDelete(`/api/file/${id}`);
 }
 
-export async function createFile(name, tags, file = null) {
+export async function createFile(name, tags, folderId, file = null) {
   const savedFile = await post('/api/file', {
     name,
     tags,
+    folderId,
   });
   if (file) {
     await uploadFile(savedFile.id, file);

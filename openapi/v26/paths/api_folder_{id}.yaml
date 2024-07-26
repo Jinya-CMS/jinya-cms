@@ -5,12 +5,12 @@ parameters:
     in: path
     required: true
 put:
-  summary: Update file by id
+  summary: Update folder by id
   tags:
-    - files
+    - folders
   responses:
     '204':
-      description: Successfully updated file
+      description: Successfully updated folder
     '401':
       description: Api key missing
       content:
@@ -24,7 +24,7 @@ put:
           schema:
             $ref: ../components/schemas/exception.yaml
     '404':
-      description: File not found
+      description: Folder not found
       content:
         application/json:
           schema:
@@ -35,8 +35,8 @@ put:
         application/json:
           schema:
             $ref: ../components/schemas/exception.yaml
-  operationId: update_file
-  description: Updates the name of the given file
+  operationId: update_folder
+  description: Updates the name of the given folder
   security:
     - header-auth: []
     - cookie-auth: []
@@ -44,14 +44,14 @@ put:
     content:
       application/json:
         schema:
-          $ref: ../components/schemas/update-file-request.yaml
+          $ref: ../components/schemas/update-folder-request.yaml
 delete:
-  summary: Delete file by id
+  summary: Delete folder by id
   tags:
-    - files
+    - folders
   responses:
     '204':
-      description: File successfully deleted
+      description: Folder successfully deleted
     '401':
       description: Api key missing
       content:
@@ -65,35 +65,35 @@ delete:
           schema:
             $ref: ../components/schemas/exception.yaml
     '404':
-      description: File not found
+      description: Folder not found
       content:
         application/json:
           schema:
             $ref: ../components/schemas/exception.yaml
-  operationId: delete_file
+  operationId: delete_folder
   security:
     - header-auth: []
     - cookie-auth: []
-  description: Deletes the given file
+  description: Deletes the given folder
 get:
-  summary: Get file by id
+  summary: Get folder by id
   tags:
-    - files
+    - folders
   responses:
     '200':
-      description: Successfully got the file
+      description: Successfully got the folder
       content:
         application/json:
           schema:
-            $ref: ../components/schemas/file.yaml
+            $ref: ../components/schemas/folder.yaml
     '404':
-      description: File not found
+      description: Folder not found
       content:
         application/json:
           schema:
             $ref: ../components/schemas/exception.yaml
-  operationId: get_file_by_id
-  description: Gets the file with the specified id
+  operationId: get_folder_by_id
+  description: Gets the folder with the specified id
   security:
     - header-auth: []
     - cookie-auth: []

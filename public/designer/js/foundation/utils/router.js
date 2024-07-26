@@ -1,16 +1,17 @@
 import { checkLogin } from '../api/authentication.js';
 import { Alpine } from '../../../../lib/alpine.js';
 import { setRedirect } from './storage.js';
+import { getAuthenticationDatabase } from '../database/authentication.js';
 
-export async function needsLogin(context) {
-  if (!(await checkLogin())) {
-    const redirect = context.path.substring('/designer'.length);
-    setRedirect(redirect);
-
-    return context.redirect('/login');
+export function needsLogin(context) {
+  if (getAuthenticationDatabase().isApiKeyValid()) {
+    return null;
   }
 
-  return null;
+  const redirect = context.path.substring('/designer'.length);
+  setRedirect(redirect);
+
+  return context.redirect('/login');
 }
 
 export async function needsAdmin() {

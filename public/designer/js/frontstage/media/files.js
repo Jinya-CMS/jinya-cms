@@ -7,8 +7,7 @@ import {
   deleteFile,
   deleteTag,
   getFile,
-  getFiles,
-  getTags,
+  moveFile,
   tagFile,
   updateFile,
   updateTag,
@@ -22,23 +21,48 @@ import { getFileDatabase } from '../../foundation/database/file.js';
 
 import '../../foundation/ui/components/tag.js';
 import '../../foundation/ui/components/tag-popup.js';
+import { getMediaDatabase } from '../../foundation/database/media.js';
+import { createFolder, deleteFolder, moveFolder, updateFolder } from '../../foundation/api/folders.js';
+import folderPicker from '../../foundation/ui/folderPicker.js';
 
 const fileDatabase = getFileDatabase();
+const mediaDatabase = getMediaDatabase();
 
 Alpine.data('filesData', () => ({
+  allFolders: [],
+  folders: [],
   files: [],
   activeTags: new Set(),
   tags: [],
   selectedFiles: new Set(),
+  selectedFolders: new Set(),
   selectedFile: 0,
+  filesWatcher: null,
+  foldersWatcher: null,
   loading: true,
+  uploadMenuOpen: false,
   defaultTagName: localize({ key: 'media.files.action.show_all_tags' }),
+  get folderPath() {
+    if (!this.$router.params?.folder) {
+      return [];
+    }
+
+    return this.$router.params.folder.split('/').map((folder) => parseInt(folder));
+  },
+  get selectedFolderId() {
+    let folderId = null;
+    if (this.folderPath.length > 0) {
+      folderId = this.folderPath[this.folderPath.length - 1];
+    }
+
+    return folderId;
+  },
   get filteredFiles() {
     if (this.activeTags.size === 0) {
       return this.files;
     }
 
-    return this.files.filter((file) => file.tags.filter((tag) => this.activeTags.has(tag.id)).length > 0);
+    return this.files.files.filter((file) => file.tags.filter((tag) => this.activeTags.has(tag.id)).length > 0);
   },
   get randomColor() {
     return getRandomColor();
@@ -81,41 +105,73 @@ Alpine.data('filesData', () => ({
 
     return localizedType;
   },
-  get detailsDownloadPath() {
-    const file = this.selectedFileDetails;
-    if (!file) {
-      return '';
-    }
-
-    return `${file.path}.${MimeTypes[file.type]?.extensions[0] ?? ''}`;
-  },
   get selectedFileDetails() {
     return this.selectedFilesDetails[this.selectedFile];
   },
-  async init() {
-    fileDatabase.watchFiles().subscribe({
+  get canEdit() {
+    if (this.selectedFiles.size > 1) {
+      return false;
+    }
+
+    if (this.selectedFolders.size > 1) {
+      return false;
+    }
+
+    if (this.selectedFiles.size === 1 && this.selectedFolders.size === 1) {
+      return false;
+    }
+
+    if (this.selectedFiles.size === 0 && this.selectedFolders.size === 0) {
+      return false;
+    }
+
+    return true;
+  },
+  get canMove() {
+    return this.selectedFiles.size > 0 || this.selectedFolders.size > 0;
+  },
+  setupView() {
+    this.selectedFiles.clear();
+    this.selectedFile = 0;
+
+    const folderId = this.selectedFolderId ?? -1;
+
+    this.filesWatcher?.unsubscribe();
+    this.foldersWatcher?.unsubscribe();
+
+    this.filesWatcher = mediaDatabase.watchFiles(folderId).subscribe({
       next: (files) => {
         this.files = files;
-        this.loading = false;
+      },
+    });
+    this.foldersWatcher = mediaDatabase.watchFolders(folderId).subscribe({
+      next: (folders) => {
+        this.folders = folders;
+      },
+    });
+    this.foldersWatcher = mediaDatabase.watchFolders().subscribe({
+      next: (folders) => {
+        this.allFolders = folders;
+      },
+    });
+  },
+  async init() {
+    this.setupView();
+
+    mediaDatabase.watchTags().subscribe({
+      next: (tags) => {
+        this.tags = tags;
       },
     });
 
-    this.tags = await fileDatabase.getAllTags();
+    await mediaDatabase.cacheMedia();
+    this.loading = false;
 
-    Promise.all([getFiles(), getTags()]).then(([files, tags]) => {
-      fileDatabase.replaceFiles(files.items);
-      fileDatabase.replaceTags(tags.items);
-
-      this.files = files.items;
-      this.tags = tags.items;
-      this.loading = false;
-    });
     this.$watch('uploadSingleFile.file', (file) => {
       if (this.uploadSingleFile.name === '') {
         this.uploadSingleFile.name = file.name.split('.').reverse().slice(1).reverse().join('.');
       }
     });
-    this.$watch('tags', (tags) => fileDatabase.replaceTags(Alpine.raw(tags)));
   },
   clearTags() {
     this.activeTags.clear();
@@ -134,6 +190,14 @@ Alpine.data('filesData', () => ({
 
     return '--tag-color: var(--primary-color); --tag-after-color: var(--primary-color-dark)';
   },
+  getFolderById(folder) {
+    return this.allFolders.find((f) => f.id === folder);
+  },
+  getBreadcrumbLink(index) {
+    const folderPath = this.folderPath.slice(0, index + 1);
+
+    return `/designer/frontstage/media/files/${folderPath.join('/')}`;
+  },
   openUploadSingleFileDialog() {
     this.uploadSingleFile.error.reset();
     this.uploadSingleFile.open = true;
@@ -148,12 +212,26 @@ Alpine.data('filesData', () => ({
       this.tags.filter((tag) => this.activeTags.has(tag.id)).map((tag) => tag.name),
     );
   },
-  openEditFileDialog() {
-    this.edit.error.reset();
-    this.edit.open = true;
-    this.edit.name = this.selectedFileDetails.name;
-    this.edit.tags = new Set(this.selectedFileDetails.tags.map((tag) => tag.name));
-    this.edit.id = this.selectedFileDetails.id;
+  openEditDialog() {
+    if (this.selectedFiles.size === 1) {
+      this.editFile.error.reset();
+      this.editFile.open = true;
+      this.editFile.name = this.selectedFileDetails.name;
+      this.editFile.tags = new Set(this.selectedFileDetails.tags.map((tag) => tag.name));
+      this.editFile.id = this.selectedFileDetails.id;
+    } else if (this.selectedFolders.size === 1) {
+      const selectedFolderId = [...this.selectedFolders][0];
+      const selectedFolder = this.allFolders.find((folder) => folder.id === selectedFolderId);
+      this.editFolder.error.reset();
+      this.editFolder.open = true;
+      this.editFolder.name = selectedFolder.name;
+      this.editFolder.id = selectedFolder.id;
+    }
+  },
+  openCreateFolderDialog() {
+    this.newFolder.error.reset();
+    this.newFolder.open = true;
+    this.newFolder.name = '';
   },
   openManageTagsDialog() {
     this.manageTags.error.reset();
@@ -168,6 +246,19 @@ Alpine.data('filesData', () => ({
   openEditTag(id) {
     this.manageTags.error.reset();
     this.manageTags.editOpenId = id;
+  },
+  downloadSelectedFiles() {
+    for (const file of this.selectedFilesDetails) {
+      const name = `${file.name}.${MimeTypes[file.type]?.extensions[0] ?? ''}`;
+      const a = document.createElement('a');
+      a.href = file.path;
+      a.download = name;
+      a.style.display = 'none';
+      a.target = '_blank';
+      document.body.append(a);
+      a.click();
+      a.remove();
+    }
   },
   selectFile(evt, id) {
     const insert = evt.ctrlKey;
@@ -184,6 +275,24 @@ Alpine.data('filesData', () => ({
       this.selectedFiles.add(id);
     }
   },
+  selectFolder(evt, id) {
+    const insert = evt.ctrlKey;
+    if (insert) {
+      if (this.selectedFolders.has(id)) {
+        this.selectedFolders.delete(id);
+      } else {
+        this.selectedFolders.add(id);
+      }
+    } else {
+      this.selectedFolders.clear();
+      this.selectedFolders.add(id);
+    }
+  },
+  goFolder(id) {
+    const path = this.folderPath;
+    path.push(id);
+    this.$router.navigate(`/designer/frontstage/media/files/${path.join('/')}`);
+  },
   async deleteTag(tag) {
     const confirmed = await confirm({
       title: localize({ key: 'media.files.tags.delete.title' }),
@@ -199,7 +308,7 @@ Alpine.data('filesData', () => ({
     if (confirmed) {
       try {
         await deleteTag(tag.id);
-        await fileDatabase.deleteTag(tag.id);
+        await mediaDatabase.deleteTag(tag.id);
 
         this.activeTags.delete(tag.id);
         this.manageTags.tags = this.tags;
@@ -228,7 +337,7 @@ Alpine.data('filesData', () => ({
     if (confirmed) {
       try {
         await deleteFile(this.selectedFileDetails.id);
-        await fileDatabase.deleteFile(this.selectedFileDetails.id);
+        await mediaDatabase.deleteFile(this.selectedFileDetails.id);
         this.selectedFiles.delete(this.selectedFileDetails.id);
       } catch (e) {
         if (e.status === 409) {
@@ -253,13 +362,13 @@ Alpine.data('filesData', () => ({
   async deleteMultipleFiles() {
     const fileCount = this.selectedFilesDetails.length;
     const confirmed = await confirm({
-      title: localize({ key: 'media.files.delete_multiple.title' }),
+      title: localize({ key: 'media.files.delete_files.title' }),
       message: localize({
-        key: 'media.files.delete_multiple.message',
+        key: 'media.files.delete_files.message',
         values: { count: fileCount },
       }),
-      declineLabel: localize({ key: 'media.files.delete_multiple.decline' }),
-      approveLabel: localize({ key: 'media.files.delete_multiple.approve' }),
+      declineLabel: localize({ key: 'media.files.delete_files.decline' }),
+      approveLabel: localize({ key: 'media.files.delete_files.approve' }),
       negative: true,
     });
 
@@ -267,16 +376,50 @@ Alpine.data('filesData', () => ({
       try {
         const promises = this.selectedFilesDetails.map(async (file) => {
           await deleteFile(file.id);
-          await fileDatabase.deleteFile(file.id);
+          await mediaDatabase.deleteFile(file.id);
         });
         await Promise.all(promises);
         this.selectedFiles.clear();
       } catch (e) {
         await alert({
-          title: localize({ key: 'media.files.delete_multiple.error.title' }),
+          title: localize({ key: 'media.files.delete_files.error.title' }),
           message: localize({
-            key: 'media.files.delete_multiple.error.message',
+            key: 'media.files.delete_files.error.message',
             values: { count: fileCount },
+          }),
+          negative: true,
+        });
+      }
+    }
+  },
+  async deleteMultipleFolders() {
+    const folderCount = this.selectedFolders.size;
+    const confirmed = await confirm({
+      title: localize({ key: 'media.files.delete_folders.title' }),
+      message: localize({
+        key: 'media.files.delete_folders.message',
+        values: { count: folderCount },
+      }),
+      declineLabel: localize({ key: 'media.files.delete_folders.decline' }),
+      approveLabel: localize({ key: 'media.files.delete_folders.approve' }),
+      negative: true,
+    });
+
+    if (confirmed) {
+      try {
+        const promises = [...this.selectedFolders].map(async (folderId) => {
+          const folder = this.allFolders.find((f) => f.id === folderId);
+          await deleteFolder(folder.id);
+          await mediaDatabase.deleteFolder(folder.id);
+        });
+        await Promise.all(promises);
+        this.selectedFolders.clear();
+      } catch (e) {
+        await alert({
+          title: localize({ key: 'media.files.delete_folders.error.title' }),
+          message: localize({
+            key: 'media.files.delete_folders.error.message',
+            values: { count: folderCount },
           }),
           negative: true,
         });
@@ -289,9 +432,11 @@ Alpine.data('filesData', () => ({
       const savedFile = await createFile(
         this.uploadSingleFile.name,
         [...this.uploadSingleFile.tags],
+        this.selectedFolderId,
         this.uploadSingleFile.file,
       );
-      await fileDatabase.saveFile(savedFile);
+      savedFile.folderId = this.selectedFolderId;
+      await mediaDatabase.saveFile(savedFile);
       this.uploadSingleFile.open = false;
       if (this.selectedFiles.size > 1) {
         this.selectedFiles.add(savedFile.id);
@@ -316,21 +461,22 @@ Alpine.data('filesData', () => ({
         data: file,
         name: file.name.split('.').reverse().slice(1).reverse().join('.'),
         tags: [...tags],
+        folderId: this.selectedFolderId,
       })),
     );
     this.uploadMultipleFiles.open = false;
   },
   async updateFile() {
     try {
-      this.edit.error.reset();
-      await updateFile(this.edit.id, this.edit.name, [...this.edit.tags]);
-      if (this.edit.file) {
-        await uploadFile(this.edit.id, this.edit.file);
+      this.editFile.error.reset();
+      await updateFile(this.editFile.id, this.editFile.name, [...this.editFile.tags]);
+      if (this.editFile.file) {
+        await uploadFile(this.editFile.id, this.editFile.file);
       }
 
-      const savedFile = await getFile(this.edit.id);
-      await fileDatabase.saveFile(savedFile);
-      this.edit.open = false;
+      const savedFile = await getFile(this.editFile.id);
+      await mediaDatabase.saveFile(savedFile);
+      this.editFile.open = false;
       if (this.selectedFiles.size > 1) {
         this.selectedFiles.add(savedFile.id);
       } else {
@@ -339,13 +485,72 @@ Alpine.data('filesData', () => ({
       }
     } catch (err) {
       if (err.status === 409) {
-        this.edit.error.title = localize({ key: 'media.files.edit.error.title' });
-        this.edit.error.message = localize({ key: 'media.files.edit.error.conflict' });
-        this.edit.error.hasError = true;
+        this.editFile.error.title = localize({ key: 'media.files.edit_file.error.title' });
+        this.editFile.error.message = localize({ key: 'media.files.edit_file.error.conflict' });
+        this.editFile.error.hasError = true;
       } else {
-        this.edit.error.title = localize({ key: 'media.files.edit.error.title' });
-        this.edit.error.message = localize({ key: 'media.files.edit.error.generic' });
-        this.edit.error.hasError = true;
+        this.editFile.error.title = localize({ key: 'media.files.edit_file.error.title' });
+        this.editFile.error.message = localize({ key: 'media.files.edit_file.error.generic' });
+        this.editFile.error.hasError = true;
+      }
+    }
+  },
+  async updateFolder() {
+    try {
+      this.editFolder.error.reset();
+      await updateFolder(this.editFolder.id, this.editFolder.name);
+
+      await mediaDatabase.saveFolder({
+        id: this.editFolder.id,
+        name: this.editFolder.name,
+        parentId: this.selectedFolderId ?? -1,
+      });
+      this.editFolder.open = false;
+      if (this.selectedFolders.size > 1) {
+        this.selectedFolders.add(savedFolder.id);
+      } else {
+        this.selectedFolders.clear();
+        this.selectedFolders.add(savedFolder.id);
+      }
+    } catch (err) {
+      if (err.status === 409) {
+        this.editFolder.error.title = localize({ key: 'media.files.edit_folder.error.title' });
+        this.editFolder.error.message = localize({ key: 'media.files.edit_folder.error.conflict' });
+        this.editFolder.error.hasError = true;
+      } else {
+        this.editFolder.error.title = localize({ key: 'media.files.edit_folder.error.title' });
+        this.editFolder.error.message = localize({ key: 'media.files.edit_folder.error.generic' });
+        this.editFolder.error.hasError = true;
+      }
+    }
+  },
+  async createFolder() {
+    try {
+      this.newFolder.error.reset();
+      const savedFolder = await createFolder(this.newFolder.name, this.selectedFolderId);
+      savedFolder.parentId = this.selectedFolderId ?? -1;
+
+      await mediaDatabase.saveFolder({
+        id: savedFolder.id,
+        name: savedFolder.name,
+        parentId: savedFolder.parentId,
+      });
+      this.newFolder.open = false;
+      if (this.selectedFolders.size > 1) {
+        this.selectedFolders.add(savedFolder.id);
+      } else {
+        this.selectedFolders.clear();
+        this.selectedFolders.add(savedFolder.id);
+      }
+    } catch (err) {
+      if (err.status === 409) {
+        this.newFolder.error.title = localize({ key: 'media.files.create_folder.error.title' });
+        this.newFolder.error.message = localize({ key: 'media.files.create_folder.error.conflict' });
+        this.newFolder.error.hasError = true;
+      } else {
+        this.newFolder.error.title = localize({ key: 'media.files.create_folder.error.title' });
+        this.newFolder.error.message = localize({ key: 'media.files.create_folder.error.generic' });
+        this.newFolder.error.hasError = true;
       }
     }
   },
@@ -353,7 +558,7 @@ Alpine.data('filesData', () => ({
     try {
       this.uploadSingleFile.error.tagError = '';
       const tag = await createTag(event.name, event.emoji, event.color);
-      await fileDatabase.saveTag(tag);
+      await mediaDatabase.saveTag(tag);
       this.uploadSingleFile.toggleTag(tag);
       this.uploadSingleFile.tagPopupOpen = false;
     } catch (e) {
@@ -373,7 +578,7 @@ Alpine.data('filesData', () => ({
     try {
       this.uploadMultipleFiles.error.tagError = '';
       const tag = await createTag(event.name, event.emoji, event.color);
-      await fileDatabase.saveTag(tag);
+      await mediaDatabase.saveTag(tag);
       this.uploadMultipleFiles.toggleTag(tag);
       this.uploadMultipleFiles.tagPopupOpen = false;
     } catch (e) {
@@ -393,7 +598,7 @@ Alpine.data('filesData', () => ({
     try {
       this.manageTags.error.tagError = '';
       const tag = await createTag(event.name, event.emoji, event.color);
-      await fileDatabase.saveTag(tag);
+      await mediaDatabase.saveTag(tag);
       this.manageTags.tags = this.tags;
       this.manageTags.tagPopupOpen = false;
     } catch (e) {
@@ -413,7 +618,7 @@ Alpine.data('filesData', () => ({
     try {
       this.edit.error.tagError = '';
       const tag = await createTag(event.name, event.emoji, event.color);
-      await fileDatabase.saveTag(tag);
+      await mediaDatabase.saveTag(tag);
       this.edit.toggleTag(tag);
       this.edit.tagPopupOpen = false;
     } catch (e) {
@@ -433,7 +638,7 @@ Alpine.data('filesData', () => ({
     try {
       this.tagMultiple.error.tagError = '';
       const tag = await createTag(event.name, event.emoji, event.color);
-      await fileDatabase.saveTag(tag);
+      await mediaDatabase.saveTag(tag);
       this.tagMultiple.toggleTag(tag);
       this.tagMultiple.tagPopupOpen = false;
     } catch (e) {
@@ -452,7 +657,7 @@ Alpine.data('filesData', () => ({
   async saveTag(tag, event) {
     try {
       await updateTag(tag.id, event.name, event.emoji, event.color);
-      await fileDatabase.saveTag({
+      await mediaDatabase.saveTag({
         id: tag.id,
         name: event.name,
         emoji: event.emoji,
@@ -479,7 +684,7 @@ Alpine.data('filesData', () => ({
       await tagFile(file.id, [...this.tagMultiple.tags]);
 
       const savedFile = await getFile(file.id);
-      await fileDatabase.saveFile(savedFile);
+      await mediaDatabase.saveFile(savedFile);
 
       this.tagMultiple.error.reset();
       this.tagMultiple.tags.clear();
@@ -491,6 +696,42 @@ Alpine.data('filesData', () => ({
       this.tagMultiple.error.title = localize({ key: 'media.files.tag_multiple.error.title' });
       this.tagMultiple.error.message = localize({ key: 'media.files.tag_multiple.error.generic' });
       this.tagMultiple.error.hasError = true;
+    }
+  },
+  async move() {
+    const targetFolder = await folderPicker({
+      title: localize({
+        key: 'media.files.move.title',
+        values: { count: this.selectedFiles.size + this.selectedFolders.size },
+      }),
+      ignoredFolders: [...this.selectedFolders],
+      cancelLabel: localize({ key: 'media.files.move.cancel' }),
+      pickLabel: localize({ key: 'media.files.move.pick' }),
+    });
+
+    if (targetFolder) {
+      try {
+        const promises = [...this.selectedFolders]
+          .map((folder) => moveFolder(folder, targetFolder.id))
+          .concat([...this.selectedFiles].map((file) => moveFile(file, targetFolder.id)));
+
+        await Promise.all(promises);
+      } catch (e) {
+        console.error(e);
+        await alert({
+          title: localize({ key: 'media.files.move.error.title' }),
+          message: localize({
+            key: 'media.files.move.error.generic',
+            values: { count: this.selectedFiles.size + this.selectedFolders.size },
+          }),
+          buttonLabel: localize({ key: 'media.files.move.error.close' }),
+        });
+      }
+
+      mediaDatabase.cacheMedia().then(() => {});
+      this.selectedFiles.clear();
+      this.selectedFolders.clear();
+      this.selectedFile = null;
     }
   },
   uploadSingleFile: {
@@ -550,7 +791,7 @@ Alpine.data('filesData', () => ({
       this.files = [...files];
     },
   },
-  edit: {
+  editFile: {
     open: false,
     id: 0,
     name: '',
@@ -579,6 +820,35 @@ Alpine.data('filesData', () => ({
       if (files.length >= 1) {
         this.file = files.item(0);
       }
+    },
+  },
+  editFolder: {
+    open: false,
+    id: 0,
+    name: '',
+    error: {
+      title: '',
+      message: '',
+      hasError: false,
+      reset() {
+        this.title = '';
+        this.message = '';
+        this.hasError = false;
+      },
+    },
+  },
+  newFolder: {
+    open: false,
+    name: '',
+    error: {
+      title: '',
+      message: '',
+      hasError: false,
+      reset() {
+        this.title = '';
+        this.message = '';
+        this.hasError = false;
+      },
     },
   },
   tagMultiple: {

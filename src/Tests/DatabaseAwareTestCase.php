@@ -103,5 +103,6 @@ class DatabaseAwareTestCase extends TestCase
 
         Entity::getPDO()->exec('delete from jinya_configuration');
         Entity::getPDO()->exec('delete from analytics');
+        Entity::getPDO()->exec('delete from folder');
     }
 }

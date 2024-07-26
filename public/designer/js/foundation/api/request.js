@@ -29,6 +29,8 @@ export async function send(
   const response = await fetch(url, request);
   if (response.ok) {
     if (response.status !== 204) {
+      authenticationDatabase.markApiKeyValid();
+
       if (plain) {
         return await response.text();
       }

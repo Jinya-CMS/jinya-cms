@@ -69,15 +69,29 @@ class AuthenticationDatabase {
       this.#apiKeyName,
     );
     this.#cachedApiKey = value;
+    this.markApiKeyValid();
   }
 
   async deleteApiKey() {
     await this.#database.values.delete(this.#apiKeyName);
     this.#cachedApiKey = null;
+    this.markApiKeyInvalid();
   }
 
   getDeviceCode() {
     return getCookieByName('JinyaDeviceCode');
+  }
+
+  markApiKeyValid() {
+    localStorage.setItem('/jinya/api-key/valid', JSON.stringify(true));
+  }
+
+  markApiKeyInvalid() {
+    localStorage.removeItem('/jinya/api-key/valid');
+  }
+
+  isApiKeyValid() {
+    return localStorage.getItem('/jinya/api-key/valid') === 'true';
   }
 }
 

@@ -7,37 +7,24 @@ import './components/loader.js';
 
 const mediaDatabase = getMediaDatabase();
 
-Alpine.data('jinyaFilePickerData', (selectedFileId) => ({
-  selectedFileId,
-  selectedTags: new Set(),
-  tags: [],
+Alpine.data('jinyaFolderPickerData', (selectedFolderId, ignoredFolders = []) => ({
+  selectedFolderId,
+  ignoredFolders,
   allFolders: [],
   folders: [],
-  files: [],
-  filesWatcher: null,
   foldersWatcher: null,
   folderPath: [],
   loading: true,
-  get filteredFiles() {
-    if (this.selectedTags.size === 0) {
-      return this.files;
-    }
-
-    return this.files.filter((file) => file.tags.filter((tag) => this.selectedTags.has(tag.id)).length > 0);
+  get filteredFolders() {
+    return this.folders.filter((folder) => !ignoredFolders.includes(folder.id));
   },
   setupView() {
-    this.selectedFileId = null;
+    this.selectedFolderId = null;
 
     const folderId = this.folderPath[this.folderPath.length - 1] ?? -1;
 
-    this.filesWatcher?.unsubscribe();
     this.foldersWatcher?.unsubscribe();
 
-    this.filesWatcher = mediaDatabase.watchFiles(folderId).subscribe({
-      next: (files) => {
-        this.files = files;
-      },
-    });
     this.foldersWatcher = mediaDatabase.watchFolders(folderId).subscribe({
       next: (folders) => {
         this.folders = folders;
@@ -51,16 +38,12 @@ Alpine.data('jinyaFilePickerData', (selectedFileId) => ({
   },
   init() {
     this.setupView();
-
-    mediaDatabase.watchTags().subscribe({
-      next: (tags) => {
-        this.tags = tags;
-      },
-    });
     this.loading = false;
 
     mediaDatabase.cacheMedia().then(() => {});
-    this.$watch('folderPath', () => this.setupView());
+    this.$watch('folderPath', (path) => {
+      this.setupView();
+    });
   },
   getFolderById(folder) {
     return this.allFolders.find((f) => f.id === folder);
@@ -69,35 +52,30 @@ Alpine.data('jinyaFilePickerData', (selectedFileId) => ({
     this.folderPath = this.folderPath.slice(0, index);
   },
   goFolder(id) {
-    this.folderPath.push(id);
-  },
-  toggleTag(id) {
-    if (this.selectedTags.has(id)) {
-      this.selectedTags.delete(id);
-    } else {
-      this.selectedTags.add(id);
+    if (this.folderHasChildren(id)) {
+      this.folderPath.push(id);
     }
   },
-  clearTags() {
-    this.selectedTags.clear();
+  folderHasChildren(id) {
+    return this.allFolders.filter((folder) => folder.parentId === id).length > 0;
   },
-  selectFile(id) {
-    this.selectedFileId = id;
+  selectFolder(id) {
+    this.selectedFolderId = id;
   },
 }));
 
-class FilePickedEvent extends Event {
-  constructor(file) {
+class FolderPickedEvent extends Event {
+  constructor(folder) {
     super('pick', {
       bubbles: true,
       cancelable: false,
       composed: true,
     });
-    this.file = file;
+    this.folder = folder;
   }
 }
 
-class FilePickerDismissedEvent extends Event {
+class FolderPickerDismissedEvent extends Event {
   constructor() {
     super('dismiss', {
       bubbles: true,
@@ -107,7 +85,7 @@ class FilePickerDismissedEvent extends Event {
   }
 }
 
-class FilePickerElement extends HTMLElement {
+class FolderPickerElement extends HTMLElement {
   constructor() {
     super();
 
@@ -119,7 +97,7 @@ class FilePickerElement extends HTMLElement {
       return this.getAttribute('pick-label');
     }
 
-    return localize({ key: 'file_picker.pick' });
+    return localize({ key: 'folder_picker.pick' });
   }
 
   set pickLabel(value) {
@@ -131,7 +109,7 @@ class FilePickerElement extends HTMLElement {
       return this.getAttribute('cancel-label');
     }
 
-    return localize({ key: 'file_picker.dismiss' });
+    return localize({ key: 'folder_picker.dismiss' });
   }
 
   set cancelLabel(value) {
@@ -150,26 +128,37 @@ class FilePickerElement extends HTMLElement {
     this.setAttribute('title', value);
   }
 
-  get selectedFile() {
-    if (this.hasAttribute('selected-file')) {
-      return parseInt(this.getAttribute('selected-file'));
+  get selectedFolder() {
+    if (this.hasAttribute('selected-folder')) {
+      return parseInt(this.getAttribute('selected-folder'));
     }
 
     return -1;
   }
 
-  set selectedFile(value) {
-    this.setAttribute('selected-file', value);
+  set selectedFolder(value) {
+    this.setAttribute('selected-folder', value);
+  }
+
+  get ignoredFolders() {
+    if (this.hasAttribute('ignored-folders')) {
+      return this.getAttribute('ignored-folders');
+    }
+
+    return [];
+  }
+
+  set ignoredFolders(value) {
+    this.setAttribute('selected-folders', value);
   }
 
   connectedCallback() {
-    this.classList.add('cosmo-modal__container', 'is--file-picker');
+    this.classList.add('cosmo-modal__container', 'is--folder-picker');
     this.root.innerHTML = `
       <style>
         @import "/lib/cosmo/modal.css";
         @import "/lib/cosmo/buttons.css";
         @import "/designer/css/media.css";
-        @import "/designer/css/file-picker.css";
         
         .cosmo-modal__content.is--loading {
           display: flex;
@@ -179,19 +168,11 @@ class FilePickerElement extends HTMLElement {
           min-height: 10rem;
         }
       </style>
-      <div class="cosmo-modal is--file-picker">
+      <div class="cosmo-modal is--folder-picker">
         <h1 class="cosmo-modal__title">${this.title}</h1>
-        <div class="cosmo-modal__content is--file-picker" :class="{ 'is--loading': loading }" x-data="jinyaFilePickerData(${this.selectedFile})">
+        <div class="cosmo-modal__content is--folder-picker" :class="{ 'is--loading': loading }" x-data="jinyaFolderPickerData(${this.selectedFolder}, [${this.ignoredFolders}])">
           <template x-if="loading">
             <cms-loader></cms-loader>
-          </template>
-          <template x-if="!loading">
-            <div class="jinya-picker__tag-list">
-              <cms-tag @click="clearTags" :active="selectedTags.size === 0" class="jinya-tag is--file" emoji="" name="${localize({ key: 'media.galleries.action.show_all_tags' })}" color="#19324c"></cms-tag>
-              <template x-for="tag of tags">
-                <cms-tag @click="toggleTag(tag.id)" :active="selectedTags.has(tag.id)" class="jinya-tag is--file" :emoji="tag.emoji" :name="tag.name" :color="tag.color" :tag-id="tag.id"></cms-tag>
-              </template>
-            </div>
           </template>
           <template x-if="!loading">
             <div style="display: contents">   
@@ -226,40 +207,25 @@ class FilePickerElement extends HTMLElement {
                   </div>
                 </template>
               </nav>
-              <div class="jinya-media-tile__container is--modal" :data-selected-file="selectedFileId" id="fileList">
-                <template x-if="folders.length > 0">
-                  <div class="jinya-media-tile__container is--folders">
-                    <template :key="folder.id" x-for="folder in folders">
-                      <figure @dblclick="goFolder(folder.id)" class="jinya-media-tile is--folder is--medium">
-                        <svg viewBox="0 0 24 18" class="jinya-media-tile__folder is--medium">
-                          <path
-                            d="m 19.986935,16.983667 c 1.102766,0 1.996734,-0.926429 1.996734,-2.069235 V 8.1894182 c 0,-1.142807 -0.893968,-2.0692351 -1.996734,-2.0692351 H 12.099836 C 11.421279,6.1270774 10.785788,5.7763622 10.412597,5.1890273 L 9.6039194,3.9474864 C 9.2346009,3.3663207 8.6081345,3.0164452 7.9366465,3.0163306 h -3.923582 c -1.1027657,0 -1.9967339,0.9264281 -1.9967339,2.069235 v 9.8288664 c 0,1.142806 0.8939682,2.069235 1.9967339,2.069235 z" />
-                        </svg>
-                        <figcaption class="jinya-media-tile__title" x-text="folder.name"></figcaption>
-                      </figure>
-                    </template>
-                  </div>
-                </template>
-                <div class="jinya-media-tile__container is--files">
-                  <template :key="file.id" x-for="file in filteredFiles">
-                    <div
-                      :data-title="file.id + ' ' + file.name"
-                      @click="selectFile(file.id)"
-                      class="jinya-media-tile is--medium"
-                    >
-                      <svg viewBox="0 0 24 24" class="jinya-media-tile__check is--file is--unchecked"
-                           :class="{ 'is--hidden': selectedFileId === file.id }">
+              <div class="jinya-media-tile__container is--modal" :data-selected-folder="selectedFolderId" id="folderList">
+                <div class="jinya-media-tile__container is--folders">
+                  <template :key="folder.id" x-for="folder in filteredFolders">
+                    <figure @dblclick="goFolder(folder.id)" @click="selectFolder(folder.id)" class="jinya-media-tile is--folder">
+                      <svg viewBox="0 0 24 24" class="jinya-media-tile__check is--folder is--unchecked"
+                           :class="{ 'is--hidden': selectedFolderId === folder.id }">
                         <rect width="18" height="18" x="3" y="3" rx="2" />
                       </svg>
-                      <svg viewBox="0 0 24 24" class="jinya-media-tile__check is--file"
-                           :class="{ 'is--checked': selectedFileId === file.id }">
+                      <svg viewBox="0 0 24 24" class="jinya-media-tile__check is--folder"
+                           :class="{ 'is--checked': selectedFolderId === folder.id }">
                         <rect width="18" height="18" x="3" y="3" rx="2" />
                         <path d="m9 12 2 2 4-4" />
                       </svg>
-                      <div class="jinya-media-tile__img">
-                        <img :alt="file.name" :src="file.path" />
-                      </div>
-                    </div>
+                      <svg viewBox="0 0 24 18" class="jinya-media-tile__folder">
+                        <path
+                          d="m 19.986935,16.983667 c 1.102766,0 1.996734,-0.926429 1.996734,-2.069235 V 8.1894182 c 0,-1.142807 -0.893968,-2.0692351 -1.996734,-2.0692351 H 12.099836 C 11.421279,6.1270774 10.785788,5.7763622 10.412597,5.1890273 L 9.6039194,3.9474864 C 9.2346009,3.3663207 8.6081345,3.0164452 7.9366465,3.0163306 h -3.923582 c -1.1027657,0 -1.9967339,0.9264281 -1.9967339,2.069235 v 9.8288664 c 0,1.142806 0.8939682,2.069235 1.9967339,2.069235 z" />
+                      </svg>
+                      <figcaption class="jinya-media-tile__title" x-text="folder.name"></figcaption>
+                    </figure>
                   </template>
                 </div>
               </div>
@@ -273,14 +239,14 @@ class FilePickerElement extends HTMLElement {
     this.root.getElementById('cancel').addEventListener('click', (e) => {
       e.preventDefault();
 
-      this.dispatchEvent(new FilePickerDismissedEvent());
+      this.dispatchEvent(new FolderPickerDismissedEvent());
     });
     this.root.getElementById('pick').addEventListener('click', async (e) => {
       e.preventDefault();
-      const selectedFileId = this.root.getElementById('fileList').getAttribute('data-selected-file');
-      const file = await mediaDatabase.getFileById(parseInt(selectedFileId));
+      const selectedFolderId = this.root.getElementById('folderList').getAttribute('data-selected-folder');
+      const folder = await mediaDatabase.getFolderById(parseInt(selectedFolderId));
 
-      this.dispatchEvent(new FilePickedEvent(file));
+      this.dispatchEvent(new FolderPickedEvent(folder));
     });
     Alpine.initTree(this.root);
   }
@@ -295,21 +261,18 @@ class FilePickerElement extends HTMLElement {
   }
 }
 
-if (!customElements.get('cms-file-picker')) {
-  customElements.define('cms-file-picker', FilePickerElement);
+if (!customElements.get('cms-folder-picker')) {
+  customElements.define('cms-folder-picker', FolderPickerElement);
 }
 
 /**
- * Displays a file picker modal dialog
- * @param title {string}
- * @param message {string}
- * @param cancelLabel {string}
- * @param pickLabel {string}
+ * Displays a folder picker modal dialog
  * @return {Promise<boolean|{}>}
  */
-export default async function filePicker({
+export default async function folderPicker({
   title = window.location.href,
-  selectedFileId = -1,
+  selectedFolderId = -1,
+  ignoredFolders = [],
   cancelLabel,
   pickLabel,
 }) {
@@ -317,18 +280,18 @@ export default async function filePicker({
     const container = document.createElement('div');
     document.body.appendChild(container);
 
-    container.innerHTML = `<cms-file-picker title="${title}" ${cancelLabel ? `cancel-label="${cancelLabel}"` : ''} ${pickLabel ? `pick-label="${pickLabel}"` : ''} selected-file="${selectedFileId ?? -1}"></cms-file-picker>`;
+    container.innerHTML = `<cms-folder-picker title="${title}" ${cancelLabel ? `cancel-label="${cancelLabel}"` : ''} ${pickLabel ? `pick-label="${pickLabel}"` : ''} selected-folder="${selectedFolderId ?? -1}" ignored-folders="${ignoredFolders.join(',')}"></cms-folder-picker>`;
 
-    const filePicker = container.querySelector('cms-file-picker');
-    filePicker.addEventListener('dismiss', (e) => {
+    const folderPicker = container.querySelector('cms-folder-picker');
+    folderPicker.addEventListener('dismiss', (e) => {
       e.preventDefault();
       container.remove();
       resolve(null);
     });
-    filePicker.addEventListener('pick', (e) => {
+    folderPicker.addEventListener('pick', (e) => {
       e.preventDefault();
       container.remove();
-      resolve(e.file);
+      resolve(e.folder);
     });
   });
 }

@@ -45,6 +45,7 @@
   <link href="/designer/css/blog-categories.css" rel="stylesheet" />
   <link href="/designer/css/blog-post.css" rel="stylesheet" />
   <link href="/designer/css/statistics.css" rel="stylesheet" />
+  <link href="/designer/css/toolbar.css" rel="stylesheet" />
 
   <script src="/designer/js/foundation/ui/components/loader.js"></script>
 
@@ -390,7 +391,7 @@
     ></template>
 
     <template
-      x-route="/frontstage/media/files"
+      x-route="/frontstage/media/files/:folder*"
       x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
       x-template="/designer/templates/frontstage/media/files.html"
     ></template>

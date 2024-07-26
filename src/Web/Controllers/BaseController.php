@@ -19,7 +19,18 @@ abstract class BaseController extends AbstractController
      */
     public function jsonIteratorPlain(Iterator $iterator): ResponseInterface
     {
-        return $this->json(array_map(static fn (mixed $item) => $item->format(), iterator_to_array($iterator)));
+        return $this->json($this->formatIteratorPlain($iterator));
+    }
+
+    /**
+     * @template T
+     * @param Iterator<T> $iterator
+     * @return array<array<string, mixed>>
+     * @throws JsonException
+     */
+    public function formatIteratorPlain(Iterator $iterator): array
+    {
+        return array_map(static fn (mixed $item) => $item->format(), iterator_to_array($iterator));
     }
 
     /**

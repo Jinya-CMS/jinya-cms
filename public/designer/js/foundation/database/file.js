@@ -14,8 +14,6 @@ class FileDatabase {
   constructor() {
     this.#database = new Dexie('files');
     this.#database.version(1).stores({
-      files: '++id',
-      tags: '++id',
       uploadQueue: `++id,state`,
       uploadStatus: 'key,value',
     });
@@ -45,25 +43,6 @@ class FileDatabase {
       });
     });
 
-    this.saveFile = this.saveFile.bind(this);
-    this.getAllFiles = this.getAllFiles.bind(this);
-    this.getFileById = this.getFileById.bind(this);
-    this.clearFiles = this.clearFiles.bind(this);
-    this.deleteFile = this.deleteFile.bind(this);
-    this.saveFile = this.saveFile.bind(this);
-    this.saveFiles = this.saveFiles.bind(this);
-    this.watchFiles = this.watchFiles.bind(this);
-    this.replaceFiles = this.replaceFiles.bind(this);
-
-    this.saveTag = this.saveTag.bind(this);
-    this.getAllTags = this.getAllTags.bind(this);
-    this.clearTags = this.clearTags.bind(this);
-    this.deleteTag = this.deleteTag.bind(this);
-    this.saveTag = this.saveTag.bind(this);
-    this.saveTags = this.saveTags.bind(this);
-    this.watchTags = this.watchTags.bind(this);
-    this.replaceTags = this.replaceTags.bind(this);
-
     this.watchUploadingFilesCount = this.watchUploadingFilesCount.bind(this);
     this.watchUploadedFilesCount = this.watchUploadedFilesCount.bind(this);
     this.watchCurrentUpload = this.watchCurrentUpload.bind(this);
@@ -77,110 +56,6 @@ class FileDatabase {
     if (!this.#database.isOpen()) {
       this.#database.open();
     }
-  }
-
-  async getAllFiles() {
-    await this.#openIfClosed();
-    if (this.#database.files.count() === 0) {
-      return [];
-    }
-
-    return await this.#database.files.toArray();
-  }
-
-  async getFileById(id) {
-    await this.#openIfClosed();
-
-    return await this.#database.files.get(id);
-  }
-
-  async clearFiles() {
-    await this.#openIfClosed();
-
-    await this.#database.files.clear();
-  }
-
-  async deleteFile(id) {
-    await this.#openIfClosed();
-
-    await this.#database.files.delete(id);
-  }
-
-  async saveFile(file) {
-    await this.#openIfClosed();
-
-    await this.#database.files.put(file, file.id);
-  }
-
-  async saveFiles(files) {
-    await this.#openIfClosed();
-
-    await this.#database.files.bulkPut(files);
-  }
-
-  async replaceFiles(files) {
-    await this.#openIfClosed();
-
-    await this.#database.transaction('rw', this.#database.files, async () => {
-      await this.#database.files.clear();
-      await this.#database.files.bulkPut(files);
-    });
-  }
-
-  /**
-   * @returns {Observable}
-   */
-  watchFiles() {
-    return liveQuery(() => this.#database.files.toArray());
-  }
-
-  async getAllTags() {
-    await this.#openIfClosed();
-    if (this.#database.tags.count() === 0) {
-      return [];
-    }
-
-    return await this.#database.tags.toArray();
-  }
-
-  async clearTags() {
-    await this.#openIfClosed();
-
-    await this.#database.tags.clear();
-  }
-
-  async deleteTag(id) {
-    await this.#openIfClosed();
-
-    await this.#database.tags.delete(id);
-  }
-
-  async saveTag(tag) {
-    await this.#openIfClosed();
-
-    await this.#database.tags.put(tag);
-  }
-
-  async saveTags(tags) {
-    await this.#openIfClosed();
-
-    await this.#database.tags.bulkPut(tags);
-  }
-
-  async replaceTags(tags) {
-    await this.#openIfClosed();
-
-    await this.#database.transaction('rw', this.#database.tags, async () => {
-      await this.#database.tags.clear();
-      await this.#database.tags.bulkPut(tags);
-    });
-  }
-
-  /**
-   * @returns {Observable}
-   */
-  watchTags() {
-    return liveQuery(() => this.#database.tags.toArray());
   }
 
   async queueFilesForUpload(files) {
