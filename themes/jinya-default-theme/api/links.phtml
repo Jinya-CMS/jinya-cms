@@ -1,8 +1,11 @@
 <?php
+
+use Jinya\Cms\Database\MenuItem;
+
 $footerMenu = $this->menu('footer');
 $mainMenu = $this->menu('primary');
 
-function formatMenuItem(\App\Database\MenuItem $item): array
+function formatMenuItem(MenuItem $item): array
 {
     $data = [
         'position' => $item->position,

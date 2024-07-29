@@ -1,0 +1,99 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+put:
+  summary: Update file by id
+  tags:
+    - files
+  responses:
+    '204':
+      description: Successfully updated file
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: File not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '409':
+      description: Name is not unique
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: update_file
+  description: Updates the name of the given file
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/update-file-request.yaml
+delete:
+  summary: Delete file by id
+  tags:
+    - files
+  responses:
+    '204':
+      description: File successfully deleted
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: File not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: delete_file
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  description: Deletes the given file
+get:
+  summary: Get file by id
+  tags:
+    - files
+  responses:
+    '200':
+      description: Successfully got the file
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/file.yaml
+    '404':
+      description: File not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_file_by_id
+  description: Gets the file with the specified id
+  security:
+    - header-auth: []
+    - cookie-auth: []

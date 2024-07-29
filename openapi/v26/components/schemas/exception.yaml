@@ -1,0 +1,11 @@
+title: Exception result
+description: Data returned if an error occurs
+type: object
+properties:
+  success:
+    type: boolean
+  error:
+    $ref: ./error.yaml
+required:
+  - error
+  - success

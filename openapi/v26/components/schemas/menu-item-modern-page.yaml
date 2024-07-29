@@ -1,0 +1,11 @@
+title: Menu item modern page
+type: object
+description: A modern page referenced in a menu item
+properties:
+  id:
+    type: integer
+  name:
+    type: string
+required:
+  - id
+  - name

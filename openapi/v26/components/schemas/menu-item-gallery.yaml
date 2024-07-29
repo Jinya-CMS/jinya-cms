@@ -1,0 +1,11 @@
+title: Menu item gallery
+type: object
+description: A gallery referenced in a menu item
+properties:
+  id:
+    type: integer
+  name:
+    type: string
+required:
+  - id
+  - name

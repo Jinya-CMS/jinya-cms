@@ -1,0 +1,11 @@
+title: Error details
+type: object
+description: All information about an error
+properties:
+  message:
+    type: string
+  type:
+    type: string
+required:
+  - message
+  - type

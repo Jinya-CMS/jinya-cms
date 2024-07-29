@@ -1,0 +1,12 @@
+title: Theme configuration structure
+type: object
+description: The structure of the theme configuration
+properties:
+  title:
+    type: object
+  groups:
+    type: array
+    items:
+      $ref: ./theme-configuration-group.yaml
+  links:
+    $ref: ./theme-configuration-links.yaml

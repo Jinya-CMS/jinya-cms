@@ -1,0 +1,111 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+put:
+  summary: Update menu by id
+  responses:
+    '204':
+      description: Successfully updated menu
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Menu not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '409':
+      description: Name is not unique
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: update_menu
+  description: Updates the name of the given menu
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/update-menu-request.yaml
+  tags:
+    - menus
+delete:
+  summary: Delete menu by id
+  responses:
+    '204':
+      description: Menu successfully deleted
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Menu not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: delete_menu
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  description: Deletes the given menu
+  tags:
+    - menus
+get:
+  summary: Get menu by id
+  responses:
+    '200':
+      description: Successfully got the menu
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/menu.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Menu not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_menu_by_id
+  description: Gets the menu with the specified id
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  tags:
+    - menus

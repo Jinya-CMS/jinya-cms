@@ -1,7 +1,7 @@
-import html from '../../../../lib/jinya-html.js';
-import localize from '../../localize.js';
+import localize from '../../utils/localize.js';
 import './emoji-picker.js';
 import TagPopupSubmitEvent from './events/TagPopupSubmitEvent.js';
+import TagPopupCloseEvent from './events/TagPopupCloseEvent.js';
 
 class TagPopupElement extends HTMLElement {
   constructor() {
@@ -11,17 +11,28 @@ class TagPopupElement extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['popup-title', 'name', 'emoji', 'color', 'open', 'save-label', 'cancel-label', 'target'];
+    return ['popup-title', 'name', 'emoji', 'color', 'open', 'save-label', 'cancel-label', 'target', 'error'];
   }
 
-  get title() {
+  get popupTitle() {
     return this.getAttribute('popup-title');
   }
 
-  set title(value) {
+  set popupTitle(value) {
     this.setAttribute('popup-title', value);
     if (this.root.querySelector('legend')) {
       this.root.querySelector('legend').textContent = value;
+    }
+  }
+
+  get error() {
+    return this.getAttribute('error');
+  }
+
+  set error(value) {
+    this.setAttribute('error', value);
+    if (this.root.getElementById('error')) {
+      this.root.getElementById('error').textContent = value;
     }
   }
 
@@ -73,7 +84,7 @@ class TagPopupElement extends HTMLElement {
 
   set saveLabel(value) {
     this.setAttribute('save-label', value);
-    if (this.root?.getElementById('save-button')) {
+    if (this.root.getElementById('save-button')) {
       this.root.getElementById('save-button').textContent = value;
     }
   }
@@ -120,101 +131,108 @@ class TagPopupElement extends HTMLElement {
   }
 
   connectedCallback() {
-    this.root.innerHTML = html`
-            <style id="target-position"></style>
-            <style>
-                @import "/designer/cosmo/form.css";
-                @import "/designer/css/form-addons.css";
+    this.root.innerHTML = `
+      <style id="target-position"></style>
+      <style>
+        @import "/lib/cosmo/form.css";
+        @import "/lib/cosmo/buttons.css";
 
-                :host::selection {
-                    background: var(--primary-color);
-                }
+        :host *::selection {
+          background: var(--primary-color);
+          color: var(--white);
+        }
 
-                :host {
-                    display: none;
-                    background: var(--white);
-                    position: fixed;
-                    border: 1px solid var(--primary-color);
-                    padding: 16px;
-                    color: var(--primary-color);
-                }
+        :host {
+          display: none;
+          background: var(--modal-background);
+          backdrop-filter: var(--modal-backdrop-filter);
+          position: fixed;
+          border: 0.0625rem solid var(--primary-color);
+          padding: 1rem;
+          color: var(--primary-color);
+          border-radius: var(--border-radius);
+        }
 
-                :host:hover {
-                    color: var(--primary-color);
-                }
+        :host:hover {
+          color: var(--primary-color);
+        }
 
-                :host::before {
-                    content: '';
-                    position: absolute;
-                    left: 50%;
-                    transform: translate(-50%);
-                    border: 16px solid transparent;
-                    border-bottom-color: var(--primary-color);
-                    top: -32px;
-                }
+        :host::before {
+          content: '';
+          position: absolute;
+          left: 50%;
+          transform: translate(-50%);
+          border: 1rem solid transparent;
+          border-bottom-color: var(--primary-color);
+          top: -2rem;
+        }
 
-                :host([open]) {
-                    display: block;
-                }
+        :host([open]) {
+          display: block;
+        }
 
-                fieldset {
-                    min-width: 0;
-                    padding: 0;
-                    margin: 0;
-                    border: 0;
-                    grid-column: span 2;
-                }
+        fieldset {
+          min-width: 0;
+          padding: 0;
+          margin: 0;
+          border: 0;
+          grid-column: span 2;
+        }
 
-                legend {
-                    font-size: 24px;
-                    height: 24px;
-                    font-weight: var(--font-weight-light);
-                    text-transform: uppercase;
-                    margin-top: 10px;
-                    margin-bottom: 10px;
-                }
+        legend {
+          font-size: 1.5rem;
+          height: 1.5rem;
+          font-weight: var(--font-weight-light);
+          text-transform: uppercase;
+          margin-top: 0.75rem;
+          margin-bottom: 0.75rem;
+        }
 
-                .cosmo-input--emoji::part(popup) {
-                    margin-left: -8px;
-                    margin-bottom: 4px;
-                }
-            </style>
-            <form>
-                <fieldset>
-                    <legend>${this.title}</legend>
-                    <div class="cosmo-input__group">
-                        <label class="cosmo-label"
-                               for="name">${localize({ key: 'media.files.tags.popup.name' })}</label>
-                        <input type="text" class="cosmo-input" required id="name">
-                        <label class="cosmo-label"
-                               for="color">${localize({ key: 'media.files.tags.popup.color' })}</label>
-                        <input type="color" value="${this.color}" class="cosmo-input" id="color">
-                        <label class="cosmo-label"
-                               for="emoji">${localize({ key: 'media.files.tags.popup.emoji' })}</label>
-                        <cms-emoji-picker emoji="${this.emoji}" class="cosmo-input cosmo-input--emoji" id="emoji">
-                    </div>
-                    <div class="cosmo-button__container">
-                        <button id="cancel-button" class="cosmo-button" type="button">${this.cancelLabel}</button>
-                        <button id="save-button" class="cosmo-button" type="submit">${this.saveLabel}</button>
-                    </div>
-                </fieldset>
-            </form>`;
+        .is--emoji::part(popup) {
+          margin-left: -0.5rem;
+          margin-bottom: 0.25rem;
+        }
+      </style>
+      <form>
+        <fieldset>
+          <legend>${this.popupTitle}</legend>
+          <div class="cosmo-input__group">
+            <label class="cosmo-label"
+                   for="name">${localize({ key: 'media.files.tags.popup.name' })}</label>
+            <input type="text" class="cosmo-input" required id="name">
+            <span class="cosmo-input__message is--negative" id="error">${this.error ?? ''}</span>
+            <label class="cosmo-label"
+                   for="color">${localize({ key: 'media.files.tags.popup.color' })}</label>
+            <input type="color" value="${this.color}" class="cosmo-input" id="color">
+            <label class="cosmo-label"
+                   for="emoji">${localize({ key: 'media.files.tags.popup.emoji' })}</label>
+            <cms-emoji-picker emoji="${this.emoji}" class="cosmo-input is--emoji" id="emoji">
+          </div>
+          <div class="cosmo-button__container">
+            <button id="cancel-button" class="cosmo-button" type="button">${this.cancelLabel}</button>
+            <button id="save-button" class="cosmo-button is--primary" type="submit">${this.saveLabel}</button>
+          </div>
+        </fieldset>
+      </form>`;
     this.root.querySelector('form').addEventListener('submit', (evt) => {
       evt.preventDefault();
       this.dispatchEvent(new TagPopupSubmitEvent(this.name, this.color, this.emoji));
     });
     this.root.getElementById('cancel-button').addEventListener('click', (evt) => {
       evt.preventDefault();
-      this.open = false;
+      this.dispatchEvent(new TagPopupCloseEvent());
     });
     this.root.getElementById('name').addEventListener('input', (evt) => {
       this.name = evt.currentTarget.value;
+      this.error = '';
     });
     this.root.getElementById('color').addEventListener('input', (evt) => {
       this.color = evt.currentTarget.value;
+      this.error = '';
     });
     this.root.getElementById('emoji').addEventListener('input', (evt) => {
       this.emoji = evt.currentTarget.emoji;
+      this.error = '';
     });
   }
 
@@ -223,8 +241,11 @@ class TagPopupElement extends HTMLElement {
       return;
     }
 
-    this[property] = newValue;
+    const propertyName = property.replace(/-([a-z])/g, (m, w) => w.toUpperCase());
+    this[propertyName] = newValue;
   }
 }
 
-customElements.define('cms-tag-popup', TagPopupElement);
+if (!customElements.get('cms-tag-popup')) {
+  customElements.define('cms-tag-popup', TagPopupElement);
+}

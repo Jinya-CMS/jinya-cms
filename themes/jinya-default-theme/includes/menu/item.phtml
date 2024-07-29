@@ -1,7 +1,12 @@
 <?php
-/** @var \App\Database\MenuItem $item */
-/** @var \App\Database\MenuItem $activeMenuItem */
+/** @var MenuItem $item */
+
+/** @var MenuItem $activeMenuItem */
+
 /** @var string $additionalClass */
+
+use Jinya\Cms\Database\MenuItem;
+
 if ($activeMenuItem !== null):
     $activeMenuItem = $this->getActiveMenuItem();
     $activeMenuItemParent = $activeMenuItem->parentId !== null ? $activeMenuItem->getParent() : $activeMenuItem;
@@ -16,23 +21,32 @@ endif
 ?>
 <li class="jinya-menu__item
     <?= $activeMenuItemParentItemCount > 0 && $item->id !== $activeMenuItemParent->id ? 'is--hidden' : '' ?>
-    <?php if ($this->isChildActiveMenuItem($item)): ?>
+    <?php
+if ($this->isChildActiveMenuItem($item)): ?>
         is--current
-    <?php else: ?>
-    <?php if (isset($activeMenuItem->menuId) && empty($activeMenuItem->menuId)): ?>
+    <?php
+else: ?>
+    <?php
+    if (isset($activeMenuItem->menuId) && empty($activeMenuItem->menuId)): ?>
         is--hidden
-    <?php elseif (!empty($activeMenuItem->menuId) && $item !== null && $activeMenuItem->id === $item->id): ?>
+    <?php
+    elseif (!empty($activeMenuItem->menuId) && $item !== null && $activeMenuItem->id === $item->id): ?>
         is--current
-    <?php endif ?>
-    <?php endif ?>
+    <?php
+    endif ?>
+    <?php
+endif ?>
     <?= $itemCount > 0 ? 'has--children' : '' ?>
 ">
-    <?php if ($itemCount > 0): ?>
+    <?php
+    if ($itemCount > 0): ?>
         <span class="jinya-menu__link has--children <?= $item->highlighted ? 'is--highlight' : '' ?>">
             <?= $this->e($item->title) ?>
         </span>
         <?= $this->insert('theme::includes/submenu/submenu', ['item' => $item]) ?>
-    <?php else: ?>
+    <?php
+    else: ?>
         <?= $this->insert('theme::includes/menu_link', ['item' => $item, 'class' => 'jinya-menu__link']) ?>
-    <?php endif ?>
+    <?php
+    endif ?>
 </li>

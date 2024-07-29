@@ -1,0 +1,10 @@
+title: Update file tag
+type: object
+description: A tag allows grouping of files
+properties:
+  name:
+    type: string
+  color:
+    type: string
+  emoji:
+    type: string

@@ -1,0 +1,28 @@
+get:
+  summary: Get version information
+  responses:
+    '200':
+      description: The version information
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/version-information.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_version_information
+  description: Gets the currently installed version and the latest version available
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  tags:
+    - update

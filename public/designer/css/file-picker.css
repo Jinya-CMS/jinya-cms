@@ -7,25 +7,30 @@
 
 .jinya-picker__selected-file {
     grid-column: 2/3;
-    width: 320px;
+    width: 20rem;
     object-fit: scale-down;
 }
 
 .jinya-picker__tag-list {
     display: flex;
     flex-flow: row wrap;
-    row-gap: 8px;
-    column-gap: 16px;
+    gap: 0.5rem 1rem;
 }
 
 .jinya-picker__tag-list cms-tag {
-    margin-left: -10px;
+    margin-left: -0.75rem;
 }
 
-.cosmo-modal__container--file-picker {
+.cosmo-modal__container.is--file-picker {
     z-index: 1000000;
 }
 
-.cosmo-modal--file-picker {
-    max-width: 1000px;
+.cosmo-modal.is--file-picker {
+    max-width: max(60rem, 70%);
+}
+
+.cosmo-modal__content.is--file-picker {
+    display: flex;
+    gap: 1rem;
+    flex-flow: column;
 }

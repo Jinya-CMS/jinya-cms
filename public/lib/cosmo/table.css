@@ -1,0 +1,33 @@
+:root {
+	--table-th-padding-side: 0.5rem;
+	--table-th-padding-top: 0.25rem;
+	--table-th-padding-bottom: 0;
+	--table-th-border-bottom-width: 0.125rem;
+
+	--table-td-padding-side: 0.5rem;
+	--table-td-padding-top: 0.25rem;
+	--table-td-padding-bottom: 0.25rem;
+	--table-td-border-bottom-width: 0.0625rem;
+}
+
+.cosmo-table {
+	border-collapse: collapse;
+}
+
+.cosmo-table thead tr th {
+	font-weight: var(--font-weight-bold);
+	padding: var(--table-th-padding-top) var(--table-th-padding-side) var(--table-th-padding-bottom);
+	text-transform: capitalize;
+	border-bottom: var(--table-th-border-bottom-width) solid var(--primary-color);
+	font-family: var(--font-family-heading);
+}
+
+.cosmo-table tbody tr td {
+	border-bottom: var(--table-td-border-bottom-width) solid var(--control-border-color);
+	font-weight: var(--font-weight-light);
+	padding: var(--table-td-padding-top) var(--table-td-padding-side) var(--table-td-padding-bottom);
+}
+
+.cosmo-table tbody tr:nth-child(2n-1) td {
+	background: var(--table-stripe-color);
+}

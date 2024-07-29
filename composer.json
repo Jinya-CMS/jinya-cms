@@ -1,9 +1,9 @@
 {
-  "name": "jinya/backend",
+  "name": "jinya/cms",
   "homepage": "https://jinya.de",
   "license": "MIT",
   "require": {
-    "php": ">=8.1",
+    "php": ">=8.3",
     "ext-date": "*",
     "ext-fileinfo": "*",
     "ext-imagick": "*",
@@ -12,24 +12,31 @@
     "ext-pdo": "*",
     "ext-pdo_mysql": "*",
     "ext-zip": "*",
-    "jetbrains/phpstorm-attributes": "1.0",
-    "jinya/plates": "4.1.2",
-    "monolog/monolog": "3.4.0",
-    "phpmailer/phpmailer": "v6.8.1",
-    "phpmyadmin/sql-parser": "5.8.2",
-    "league/climate": "3.8.2",
-    "scssphp/scssphp": "v1.11.1",
-    "nyholm/psr7": "1.8.0",
-    "nyholm/psr7-server": "1.0.2",
-    "slim/slim": "4.12.0",
-    "tedivm/jshrink": "v1.7.0",
-    "vlucas/phpdotenv": "v5.5.0",
+    "ext-zlib": "*",
+    "bacon/bacon-qr-code": "v3.0.0",
+    "intervention/image": "3.7.2",
     "jenssegers/agent": "v2.6.4",
+    "jetbrains/phpstorm-attributes": "1.0",
+    "jinya/configuration": "0.10.0",
+    "jinya/database": "0.17.0",
+    "jinya/plates": "5.0.0",
+    "jinya/router": "0.10.0",
+    "jinya/router-extensions": "0.20.0",
+    "league/climate": "3.8.2",
+    "league/uri": "7.4.1",
+    "laminas/laminas-hydrator": "4.15.0",
+    "matomo/device-detector": "6.3.2",
     "melbahja/semver": "v1.0.1",
-    "league/uri": "7.3.0",
-    "jinya/pdox": "0.10.1",
-    "laminas/laminas-hydrator": "4.14.0",
-    "intervention/image": "2.7.2"
+    "monolog/monolog": "3.7.0",
+    "nyholm/psr7": "1.8.1",
+    "nyholm/psr7-server": "1.1.0",
+    "phpmailer/phpmailer": "v6.9.1",
+    "phpmyadmin/sql-parser": " 5.9.0",
+    "scssphp/scssphp": "v1.12.1",
+    "spomky-labs/otphp": "11.3.0",
+    "symfony/filesystem": "v7.1.2",
+    "tedivm/jshrink": "v1.7.0",
+    "vlucas/phpdotenv": "v5.6.1"
   },
   "suggest": {
     "ext-zend-opcache": "*",
@@ -37,8 +44,8 @@
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
-    "fakerphp/faker": "v1.23.0",
-    "symfony/filesystem": "v6.3.1"
+    "fakerphp/faker": "v1.23.1",
+    "laravel/pint": "v1.17.0"
   },
   "config": {
     "process-timeout": 0,
@@ -46,12 +53,13 @@
   },
   "autoload": {
     "psr-4": {
-      "App\\": "src/"
+      "Jinya\\Cms\\": "src/",
+      "Jinya\\Cms\\Migrations\\": "migrations/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Jinya\\Tests\\": "tests/"
+      "Jinya\\Cms\\": "tests/"
     }
   },
   "scripts": {

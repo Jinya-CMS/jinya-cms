@@ -1,0 +1,11 @@
+title: Menu item blog category
+type: object
+description: A blog category referenced in a menu item
+properties:
+  id:
+    type: integer
+  name:
+    type: string
+required:
+  - id
+  - name

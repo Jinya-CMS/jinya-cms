@@ -1,0 +1,14 @@
+title: An object of all folders and files having no parent
+type: object
+properties:
+  files:
+    type: array
+    items:
+      $ref: ./file.yaml
+  folders:
+    type: array
+    items:
+      $ref: ./folder.yaml
+required:
+  - files
+  - folders

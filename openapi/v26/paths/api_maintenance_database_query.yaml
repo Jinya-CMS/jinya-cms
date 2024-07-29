@@ -1,0 +1,59 @@
+post:
+  summary: Execute sql queries
+  tags:
+    - query-tool
+  responses:
+    '200':
+      description: Successfully executed the queries
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/database-execution-request.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+  operationId: api_maintenance_database_query_execute
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  description: >-
+    Executes the provided sql queries. Only the following query types are
+    allowed:
+
+    * UPDATE
+
+    * DELETE
+
+    * INSERT
+
+    * SELECT
+
+    * EXPLAIN
+
+    * CHECK
+
+    * CHECKSUM
+
+    * ANALYSE
+
+    * SHOW
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/database-execution-result.yaml

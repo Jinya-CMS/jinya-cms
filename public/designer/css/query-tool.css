@@ -1,9 +1,9 @@
 .jinya-horizontal-split {
     display: grid;
     grid-template-rows: [top] 1fr [bottom] 1fr;
-    min-height: calc(100vh - 64px - 80px - 32px - 28px - 68px);
-    max-height: calc(100vh - 64px - 80px - 32px - 28px - 68px);
-    gap: 10px;
+    min-height: var(--page-height);
+    max-height: var(--page-height);
+    gap: 1rem;
 }
 
 .jinya-code-editor__container {
@@ -15,13 +15,21 @@
 .jinya-code-editor {
     grid-row: editor;
     height: 100%;
-    border: 1px solid var(--control-border-color)
+    border: 0.0625rem solid var(--control-border-color);
 }
 
 .jinya-code-editor__execute {
     grid-row: button;
 }
 
-.cosmo-tab-control--query-tool {
-    max-height: calc(100vh - 64px - 80px - 32px - 36px - 20px - 28px - 30px - 28px - 68px - 19px - 10px - 30vh);
+.cosmo-tab__content.is--query-tool {
+    display: grid;
+}
+
+.cosmo-tab.is--query-tool {
+    height: calc(var(--page-height) / 2);
+}
+
+.jinya-code-editor__result {
+    grid-row: bottom;
 }

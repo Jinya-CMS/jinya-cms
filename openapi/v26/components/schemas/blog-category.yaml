@@ -1,0 +1,20 @@
+title: Blog category
+type: object
+description: A category for blog posts
+properties:
+  id:
+    type: integer
+  name:
+    type: string
+  description:
+    type: string
+  parent:
+    $ref: ./blog-category.yaml
+  webhookEnabled:
+    type: boolean
+  webhookUrl:
+    type: string
+    format: uri
+required:
+  - id
+  - name

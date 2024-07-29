@@ -1,81 +1,608 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html :class="$store.colorScheme.bodyClass" lang="en" x-data>
 <head>
-    <meta charset="UTF-8">
-    <title>Jinya CMS Designer</title>
-    <link href="/designer/mdi/mdi.css" rel="stylesheet">
-    <link href="/designer/cosmo/variables.css" rel="stylesheet">
-    <link href="/designer/cosmo/lato.css" rel="stylesheet">
-    <link href="/designer/cosmo/scrollbars.css" rel="stylesheet">
-    <link href="/designer/cosmo/layout.css" rel="stylesheet">
-    <link href="/designer/cosmo/form.css" rel="stylesheet">
-    <link href="/designer/cosmo/modal.css" rel="stylesheet">
-    <link href="/designer/cosmo/progress.css" rel="stylesheet">
-    <link href="/designer/cosmo/list.css" rel="stylesheet">
-    <link href="/designer/cosmo/toolbar.css" rel="stylesheet">
-    <link href="/designer/cosmo/typography.css" rel="stylesheet">
-    <link href="/designer/cosmo/tab.css" rel="stylesheet">
-    <link href="/designer/cosmo/table.css" rel="stylesheet">
-    <link href="/designer/cosmo/key-value-list.css" rel="stylesheet">
-    <link href="/designer/cosmo/buttons.css" rel="stylesheet">
-    <link href="/designer/css/body.css" rel="stylesheet">
-    <link href="/designer/css/layout.css" rel="stylesheet">
-    <link href="/designer/css/media.css" rel="stylesheet">
-    <link href="/designer/css/designer.css" rel="stylesheet">
-    <link href="/designer/css/designer-addons.css" rel="stylesheet">
-    <link href="/designer/css/pages.css" rel="stylesheet">
-    <link href="/designer/css/theme.css" rel="stylesheet">
-    <link href="/designer/css/profile.css" rel="stylesheet">
-    <link href="/designer/css/update.css" rel="stylesheet">
-    <link href="/designer/css/query-tool.css" rel="stylesheet">
-    <link href="/designer/css/stats.css" rel="stylesheet">
-    <link href="/designer/css/blog.css" rel="stylesheet">
-    <link href="/designer/css/loader.css" rel="stylesheet">
-    <link href="/designer/css/helper.css" rel="stylesheet">
-    <link href="/designer/css/tiny.css" rel="stylesheet">
-    <link href="/designer/css/file-picker.css" rel="stylesheet">
-    <link href="/designer/css/form-addons.css" rel="stylesheet">
-    <link href="/designer/vs/editor/editor.main.css" rel="stylesheet">
-    <link href="/designer/favicons/favicon-light.png" rel="icon" type="image/png"/>
-    <link
-            href="/designer/favicons/favicon-dark.png"
-            media="(prefers-color-scheme: dark)"
-            rel="icon"
-            type="image/png"
-    />
-    <link href="/designer/favicons/favicon.svg" rel="icon" type="image/svg+xml"/>
-    <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <link href="/designer/favicons/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
-    <link href="/designer/favicons/site.webmanifest" rel="manifest">
-    <link color="#19324c" href="/designer/favicons/safari-pinned-tab.svg" rel="mask-icon">
-    <meta content="Jinya CMS" name="apple-mobile-web-app-title"/>
-    <meta content="Jinya CMS" name="application-name"/>
-    <meta content="#19324c" name="msapplication-TileColor"/>
-    <meta content="#19324c" name="theme-color"/>
+  <meta charset="UTF-8" />
+  <title>Jinya CMS Designer</title>
+  <link href="/lib/cosmo/alert.css" rel="stylesheet" />
+  <link href="/lib/cosmo/buttons.css" rel="stylesheet" />
+  <link href="/lib/cosmo/form.css" rel="stylesheet" />
+  <link href="/lib/cosmo/layout.css" rel="stylesheet" />
+  <link href="/lib/cosmo/list.css" rel="stylesheet" />
+  <link href="/lib/cosmo/modal.css" rel="stylesheet" />
+  <link href="/lib/cosmo/normalize.css" rel="stylesheet" />
+  <link href="/lib/cosmo/progress.css" rel="stylesheet" />
+  <link href="/lib/cosmo/scrollbars.css" rel="stylesheet" />
+  <link href="/lib/cosmo/tab.css" rel="stylesheet" />
+  <link href="/lib/cosmo/table.css" rel="stylesheet" />
+  <link href="/lib/cosmo/toolbar.css" rel="stylesheet" />
+  <link href="/lib/cosmo/typography.css" rel="stylesheet" />
+  <link href="/lib/cosmo/variables.css" rel="stylesheet" />
+
+  <link href="/lib/cosmo/fonts/albert-sans.css" rel="stylesheet" />
+  <link href="/lib/cosmo/fonts/oxygen-mono.css" rel="stylesheet" />
+  <link href="/lib/cosmo/fonts/urbanist.css" rel="stylesheet" />
+
+  <link href="/designer/lib/jodit/jodit.css" rel="stylesheet" />
+
+  <link href="/designer/css/jodit.css" rel="stylesheet" />
+  <link href="/designer/css/cosmo-addons.css" rel="stylesheet" />
+  <link href="/designer/css/layout.css" rel="stylesheet" />
+  <link href="/designer/css/media.css" rel="stylesheet" />
+  <link href="/designer/css/designer.css" rel="stylesheet" />
+  <link href="/designer/css/classic-pages.css" rel="stylesheet" />
+  <link href="/designer/css/modern-pages.css" rel="stylesheet" />
+  <link href="/designer/css/section-editor.css" rel="stylesheet" />
+  <link href="/designer/css/theme.css" rel="stylesheet" />
+  <link href="/designer/css/profile.css" rel="stylesheet" />
+  <link href="/designer/css/update.css" rel="stylesheet" />
+  <link href="/designer/css/query-tool.css" rel="stylesheet" />
+  <link href="/designer/css/loader.css" rel="stylesheet" />
+  <link href="/designer/css/file-picker.css" rel="stylesheet" />
+  <link href="/designer/css/login.css" rel="stylesheet" />
+  <link href="/designer/css/ace.css" rel="stylesheet" />
+  <link href="/designer/css/forms.css" rel="stylesheet" />
+  <link href="/designer/css/menus.css" rel="stylesheet" />
+  <link href="/designer/css/blog-categories.css" rel="stylesheet" />
+  <link href="/designer/css/blog-post.css" rel="stylesheet" />
+  <link href="/designer/css/statistics.css" rel="stylesheet" />
+  <link href="/designer/css/toolbar.css" rel="stylesheet" />
+
+  <script src="/designer/js/foundation/ui/components/loader.js"></script>
+
+  <link href="/lib/favicons/favicon-light.png" rel="icon" type="image/png" />
+  <link href="/lib/favicons/favicon-dark.png" media="(prefers-color-scheme: dark)" rel="icon" type="image/png" />
+  <link href="/lib/favicons/favicon.svg" rel="icon" type="image/svg+xml" />
+  <link href="/lib/favicons/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
+  <link href="/lib/favicons/site.webmanifest" rel="manifest" />
+
+  <link color="#19324c" href="/lib/favicons/safari-pinned-tab.svg" rel="mask-icon" />
+
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <meta content="Jinya CMS" name="apple-mobile-web-app-title" />
+  <meta content="Jinya CMS" name="application-name" />
+  <meta content="#19324c" name="msapplication-TileColor" />
+  <meta content="#19324c" name="theme-color" />
 </head>
-<body>
-<main class="cosmo-page-layout" id="mainPage">
-    <div class="jinya-loader__container" style="min-height: 100vh">
-        <div class="jinya-loader"></div>
+<body :class="{ 'is--login': !($store.authentication.loggedIn && $store.loaded) || !$store.loaded }">
+<main class="cosmo-page">
+  <template x-if="$store.authentication.loggedIn">
+    <div class="cosmo-menu is--top">
+      <template x-if="$store.navigation.stage === 'frontstage'">
+        <div class="cosmo-menu__row">
+          <a
+            class="cosmo-menu__item"
+            href="/designer/backstage/maintenance/updates"
+            x-localize:maintenance-menu-title
+          ></a>
+          <a class="cosmo-menu__item" href="/designer/backstage/database/mysql-info" x-localize:database-menu-title>
+          </a>
+          <a class="cosmo-menu__item" href="/designer/backstage/artists/index" x-localize:artists-menu-title> </a>
+        </div>
+      </template>
+      <template x-if="$store.navigation.stage === 'backstage'">
+        <div class="cosmo-menu__row">
+          <a class="cosmo-menu__item" href="/designer/frontstage/statistics/monthly"
+             x-localize:statistics-menu-title> </a>
+          <a class="cosmo-menu__item" href="/designer/frontstage/media/files" x-localize:media-menu-title> </a>
+          <a
+            class="cosmo-menu__item"
+            href="/designer/frontstage/pages-and-forms/simple-pages"
+            x-localize:pages_and_forms-menu-title
+          >
+          </a>
+          <a class="cosmo-menu__item" href="/designer/frontstage/blog/categories" x-localize:blog-menu-title> </a>
+          <a class="cosmo-menu__item" href="/designer/frontstage/design/menus" x-localize:design-menu-title> </a>
+          <a
+            class="cosmo-menu__item"
+            href="/designer/frontstage/my-jinya/my-profile"
+            x-localize:my_jinya-menu-title
+          >
+          </a>
+        </div>
+      </template>
+      <img :alt="$store.artist.artistName" :src="$store.artist.profilePicture" class="cosmo-profile-picture" />
+      <a @click="$store.authentication.logout(true)" class="cosmo-menu__item is--right" x-localize:top_menu-logout></a>
     </div>
+  </template>
+  <template x-if="$store.authentication.loggedIn">
+    <div class="cosmo-menu">
+      <button class="cosmo-back-button" type="button"></button>
+      <template x-if="$store.navigation.stage === 'frontstage'">
+        <nav class="cosmo-menu__collection">
+          <div class="cosmo-menu__row is--main">
+            <a
+              class="cosmo-menu__item"
+              href="/designer/frontstage/statistics/month"
+              x-active-route.area="statistics"
+              x-localize:statistics-menu-title> </a>
+            <a
+              class="cosmo-menu__item"
+              href="/designer/frontstage/media/files"
+              x-active-route.area="media"
+              x-localize:media-menu-title
+            >
+            </a>
+            <a
+              class="cosmo-menu__item"
+              href="/designer/frontstage/pages-and-forms/classic-pages"
+              x-active-route.area="pages-and-forms"
+              x-localize:pages_and_forms-menu-title
+            >
+            </a>
+            <a
+              class="cosmo-menu__item"
+              href="/designer/frontstage/blog/categories"
+              x-active-route.area="blog"
+              x-localize:blog-menu-title
+            >
+            </a>
+            <a
+              class="cosmo-menu__item"
+              href="/designer/frontstage/design/menus"
+              x-active-route.area="design"
+              x-localize:design-menu-title
+            >
+            </a>
+            <a
+              class="cosmo-menu__item"
+              href="/designer/frontstage/my-jinya/my-profile"
+              x-active-route.area="my-jinya"
+              x-localize:my_jinya-menu-title
+            >
+            </a>
+          </div>
+          <template x-if="$store.navigation.area === 'statistics'">
+            <div class="cosmo-menu__row is--sub">
+              <a
+                class="cosmo-menu__item"
+                href="/designer/frontstage/statistics/month"
+                :class="{ 'is--active': $router.params?.interval === 'month' }"
+                x-localize:statistics-menu-month
+              >
+              </a>
+              <a
+                class="cosmo-menu__item"
+                href="/designer/frontstage/statistics/quarter"
+                :class="{ 'is--active': $router.params?.interval === 'quarter' }"
+                x-localize:statistics-menu-quarter
+              >
+              </a>
+              <a
+                class="cosmo-menu__item"
+                href="/designer/frontstage/statistics/half-year"
+                :class="{ 'is--active': $router.params?.interval === 'half-year' }"
+                x-localize:statistics-menu-half_year
+              >
+              </a>
+              <a
+                class="cosmo-menu__item"
+                href="/designer/frontstage/statistics/year"
+                :class="{ 'is--active': $router.params?.interval === 'year' }"
+                x-localize:statistics-menu-year
+              >
+              </a>
+            </div>
+          </template>
+          <template x-if="$store.navigation.area === 'media'">
+            <div class="cosmo-menu__row is--sub">
+              <a
+                class="cosmo-menu__item"
+                href="/designer/frontstage/media/files"
+                x-active-route="files"
+                x-localize:media-menu-files
+              >
+              </a>
+              <a
+                class="cosmo-menu__item"
+                href="/designer/frontstage/media/galleries"
+                x-active-route="galleries"
+                x-localize:media-menu-galleries
+              >
+              </a>
+            </div>
+          </template>
+          <template x-if="$store.navigation.area === 'pages-and-forms'">
+            <div class="cosmo-menu__row is--sub">
+              <a
+                class="cosmo-menu__item"
+                href="/designer/frontstage/pages-and-forms/classic-pages"
+                x-active-route="classic-pages"
+                x-localize:pages_and_forms-menu-classic_pages
+              >
+              </a>
+              <a
+                class="cosmo-menu__item"
+                href="/designer/frontstage/pages-and-forms/modern-pages"
+                x-active-route="modern-pages"
+                x-localize:pages_and_forms-menu-modern_pages
+              >
+              </a>
+              <a
+                class="cosmo-menu__item"
+                href="/designer/frontstage/pages-and-forms/forms"
+                x-active-route="forms"
+                x-localize:pages_and_forms-menu-forms
+              >
+              </a>
+            </div>
+          </template>
+          <template x-if="$store.navigation.area === 'blog'">
+            <div class="cosmo-menu__row is--sub">
+              <a
+                class="cosmo-menu__item"
+                href="/designer/frontstage/blog/categories"
+                x-active-route="categories"
+                x-localize:blog-menu-categories
+              >
+              </a>
+              <a
+                class="cosmo-menu__item"
+                href="/designer/frontstage/blog/posts"
+                x-active-route="posts"
+                x-localize:blog-menu-posts
+              >
+              </a>
+            </div>
+          </template>
+          <template x-if="$store.navigation.area === 'design'">
+            <div class="cosmo-menu__row is--sub">
+              <a
+                class="cosmo-menu__item"
+                href="/designer/frontstage/design/menus"
+                x-active-route="menus"
+                x-localize:design-menu-menus
+              >
+              </a>
+              <a
+                class="cosmo-menu__item"
+                href="/designer/frontstage/design/themes"
+                x-active-route="themes"
+                x-localize:design-menu-themes
+              >
+              </a>
+            </div>
+          </template>
+          <template x-if="$store.navigation.area === 'my-jinya'">
+            <div class="cosmo-menu__row is--sub">
+              <a
+                class="cosmo-menu__item"
+                href="/designer/frontstage/my-jinya/my-profile"
+                x-active-route="my-profile"
+                x-localize:my_jinya-menu-my_profile
+              >
+              </a>
+              <a
+                class="cosmo-menu__item"
+                href="/designer/frontstage/my-jinya/active-sessions"
+                x-active-route="active-sessions"
+                x-localize:my_jinya-menu-active_sessions
+              >
+              </a>
+              <a
+                class="cosmo-menu__item"
+                href="/designer/frontstage/my-jinya/active-devices"
+                x-active-route="active-devices"
+                x-localize:my_jinya-menu-active_devices
+              >
+              </a>
+            </div>
+          </template>
+        </nav>
+      </template>
+      <template x-if="$store.navigation.stage === 'backstage'">
+        <nav class="cosmo-menu__collection">
+          <div class="cosmo-menu__row is--main">
+            <a
+              class="cosmo-menu__item"
+              href="/designer/backstage/maintenance/updates"
+              x-active-route.area="maintenance"
+              x-localize:maintenance-menu-title
+            ></a>
+            <a
+              class="cosmo-menu__item"
+              href="/designer/backstage/database/mysql-info"
+              x-active-route.area="database"
+              x-localize:database-menu-title
+            >
+            </a>
+            <a
+              class="cosmo-menu__item"
+              href="/designer/backstage/artists/index"
+              x-active-route.area="artists"
+              x-localize:artists-menu-title
+            ></a>
+          </div>
+          <template x-if="$store.navigation.area === 'maintenance'">
+            <div class="cosmo-menu__row is--sub">
+              <a
+                class="cosmo-menu__item"
+                href="/designer/backstage/maintenance/updates"
+                x-active-route="updates"
+                x-localize:maintenance-menu-update
+              >
+              </a>
+              <a
+                class="cosmo-menu__item"
+                href="/designer/backstage/maintenance/configuration"
+                x-active-route="configuration"
+                x-localize:maintenance-menu-app_config
+              >
+              </a>
+              <a
+                class="cosmo-menu__item"
+                href="/designer/backstage/maintenance/php-info"
+                x-active-route="php-info"
+                x-localize:maintenance-menu-php_info
+              >
+              </a>
+            </div>
+          </template>
+          <template x-if="$store.navigation.area === 'database'">
+            <div class="cosmo-menu__row is--sub">
+              <a
+                class="cosmo-menu__item"
+                href="/designer/backstage/database/mysql-info"
+                x-active-route="mysql-info"
+                x-localize:database-menu-mysql_info
+              >
+              </a>
+              <a
+                class="cosmo-menu__item"
+                href="/designer/backstage/database/tables"
+                x-active-route="tables"
+                x-localize:database-menu-tables
+              >
+              </a>
+              <a
+                class="cosmo-menu__item"
+                href="/designer/backstage/database/query-tool"
+                x-active-route="query-tool"
+                x-localize:database-menu-query_tool
+              >
+              </a>
+            </div>
+          </template>
+          <template x-if="$store.navigation.area === 'artist'">
+            <div class="cosmo-menu__row is--sub">
+              <a
+                class="cosmo-menu__item"
+                href="/designer/backstage/artist/index"
+                x-active-route.area="artists"
+                x-localize:artists-menu-artists
+              >
+              </a>
+            </div>
+          </template>
+        </nav>
+      </template>
+    </div>
+  </template>
+  <div :class="{ 'cosmo-page__body': $store.authentication.loggedIn && $store.loaded }" id="app">
+    <template
+      x-route="/login"
+      x-handler="[$store.authentication.needsLogout, $store.navigation.fetchScript]"
+      x-template="/designer/templates/authentication/login.html"
+    ></template>
+
+    <template
+      x-route="/frontstage/statistics/:interval"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/statistics/statistics.html"
+    ></template>
+
+    <template
+      x-route="/frontstage/media/files/:folder*"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/media/files.html"
+    ></template>
+    <template
+      x-route="/frontstage/media/galleries"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/media/galleries.html"
+    ></template>
+
+    <template
+      x-route="/frontstage/pages-and-forms/classic-pages"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/pages-and-forms/classic-pages.html"
+    ></template>
+    <template
+      x-route="/frontstage/pages-and-forms/modern-pages"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/pages-and-forms/modern-pages.html"
+    ></template>
+    <template
+      x-route="/frontstage/pages-and-forms/forms"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/pages-and-forms/forms.html"
+    ></template>
+
+    <template
+      x-route="/frontstage/blog/categories"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/blog/categories.html"
+    ></template>
+    <template
+      x-route="/frontstage/blog/posts"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/blog/posts.html"
+    ></template>
+
+    <template
+      x-route="/frontstage/design/menus"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/design/menus.html"
+    ></template>
+    <template
+      x-route="/frontstage/design/themes"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/design/themes.html"
+    ></template>
+
+    <template
+      x-route="/frontstage/my-jinya/my-profile"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/my-jinya/my-profile.html"
+    ></template>
+    <template
+      x-route="/frontstage/my-jinya/active-sessions"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/my-jinya/active-sessions.html"
+    ></template>
+    <template
+      x-route="/frontstage/my-jinya/active-devices"
+      x-handler="[$store.authentication.needsLogin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/frontstage/my-jinya/active-devices.html"
+    ></template>
+
+    <template
+      x-route="/backstage/maintenance/updates"
+      x-handler="[$store.authentication.needsAdmin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/backstage/maintenance/updates.html"
+    ></template>
+    <template
+      x-route="/backstage/maintenance/configuration"
+      x-handler="[$store.authentication.needsAdmin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/backstage/maintenance/configuration.html"
+    ></template>
+    <template
+      x-route="/backstage/maintenance/php-info"
+      x-handler="[$store.authentication.needsAdmin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/backstage/maintenance/php-info.html"
+    ></template>
+
+    <template
+      x-route="/backstage/database/mysql-info"
+      x-handler="[$store.authentication.needsAdmin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/backstage/database/mysql-info.html"
+    ></template>
+    <template
+      x-route="/backstage/database/tables"
+      x-handler="[$store.authentication.needsAdmin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/backstage/database/tables.html"
+    ></template>
+    <template
+      x-route="/backstage/database/query-tool"
+      x-handler="[$store.authentication.needsAdmin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/backstage/database/query-tool.html"
+    ></template>
+
+    <template
+      x-route="/backstage/artists/index"
+      x-handler="[$store.authentication.needsAdmin, $store.navigation.fetchScript]"
+      x-template="/designer/templates/backstage/artists/index.html"
+    ></template>
+
+    <template
+      x-route="notfound"
+      x-handler="(ctx) => ctx.redirect('/frontstage/statistics/month')"></template>
+  </div>
+  <template x-if="$store.authentication.loggedIn">
+    <div class="cosmo-bottom-bar is--three-column" x-data="indexBottomBarData">
+      <div class="cosmo-bottom-bar__item is--left">
+        <span class="cosmo-input__message is--negative" x-text="upload.errorMessage"></span>
+      </div>
+      <div class="cosmo-bottom-bar__item is--center jinya-progress"
+           x-show="upload.filesUploaded !== upload.filesToUpload">
+        <span class="cosmo-progress-bar__label" x-localize:bottom_bar-uploading></span>
+        <progress :max="upload.filesToUpload" :value="upload.filesUploaded" class="cosmo-progress-bar"></progress>
+        <span class="cosmo-progress-bar__label" id="file-upload-progress-bottom-label" x-text="upload.status"></span>
+      </div>
+      <div class="cosmo-bottom-bar__item is--right is--buttons">
+        <template x-if="$store.authentication?.roles?.includes('ROLE_ADMIN')">
+          <button @click="clearCache" class="cosmo-button is--circle is--primary"
+                  x-localize:bottom_bar-clear_cache.title>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                 stroke-linejoin="round">
+              <path
+                d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" />
+            </svg>
+          </button>
+        </template>
+        <button @click="openFileUpload" class="cosmo-button is--circle is--large is--primary"
+                x-localize:bottom_bar-upload_files.title>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+               stroke-linejoin="round" height="1.75rem" width="1.75rem">
+            <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
+            <path d="M12 12v9" />
+            <path d="m16 16-4-4-4 4" />
+          </svg>
+        </button>
+        <button @click="updateColorTheme" class="cosmo-button is--circle is--primary"
+                x-html="changeColorThemeButton" x-localize:bottom_bar-change_theme.title></button>
+      </div>
+      <template x-if="uploadMultipleFiles.open">
+        <form @submit.prevent="enqueueFiles" class="cosmo-modal__container">
+          <div class="cosmo-modal is--files">
+            <h1 class="cosmo-modal__title" x-localize:media-files-upload_multiple_files-title></h1>
+            <div class="cosmo-modal__content">
+              <div class="cosmo-message is--negative" x-show="uploadMultipleFiles.error.hasError">
+                <span class="cosmo-message__header" x-text="uploadMultipleFiles.error.title"></span>
+                <p class="cosmo-message__message" x-text="uploadMultipleFiles.error.message"></p>
+              </div>
+              <div class="cosmo-input__group">
+                <label class="cosmo-label" for="uploadMultipleFilesFiles"
+                       x-localize:media-files-upload_multiple_files-files></label>
+                <input @change="uploadMultipleFiles.selectFiles($event.target.files)" class="cosmo-input"
+                       id="uploadMultipleFilesFiles" multiple required type="file" />
+                <label class="cosmo-label" x-localize:media-files-upload_multiple_files-tags></label>
+                <div class="jinya-tags is--details">
+                  <template :key="tag.id" x-for="tag in tags">
+                    <cms-tag
+                      :active="uploadMultipleFiles.tags.has(tag.name)"
+                      :color="tag.color"
+                      :emoji="tag.emoji"
+                      :name="tag.name"
+                      :tag-id="tag.id"
+                      @click="uploadMultipleFiles.toggleTag(tag)"
+                      class="jinya-tag is--file"
+                    ></cms-tag>
+                  </template>
+                  <button @click="uploadMultipleFiles.tagPopupOpen = true" type="button"
+                          id="bottom-bar-new-tag-open-button" class="cosmo-button is--small is--circle is--primary">
+                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                         stroke-width="2" viewBox="0 0 24 24">
+                      <path d="M5 12h14" />
+                      <path d="M12 5v14" />
+                    </svg>
+                  </button>
+                </div>
+                <cms-tag-popup
+                  :cancel-label="tagPopupCancelLabel"
+                  :color="randomColor"
+                  :emoji="randomEmoji"
+                  :error="uploadMultipleFiles.error.tagError"
+                  :open="uploadMultipleFiles.tagPopupOpen"
+                  :popup-title="tagPopupTitle"
+                  :save-label="tagPopupSaveLabel"
+                  @close="uploadMultipleFiles.tagPopupOpen = false"
+                  @submit="createUploadMultipleFilesTag($event)"
+                  target="#bottom-bar-new-tag-open-button"
+                ></cms-tag-popup>
+              </div>
+              <div class="jinya-media-tile__container is--modal">
+                <template x-for="file in uploadMultipleFiles.files">
+                  <div class="jinya-media-tile is--small">
+                    <img class="jinya-media-tile__img is--small" x-blob-src="file">
+                  </div>
+                </template>
+              </div>
+            </div>
+            <div class="cosmo-modal__button-bar">
+              <button @click="uploadMultipleFiles.open = false" class="cosmo-button" type="button"
+                      x-localize:media-files-upload_multiple_files-cancel></button>
+              <button class="cosmo-button" type="submit" x-localize:media-files-upload_multiple_files-upload></button>
+            </div>
+          </div>
+        </form>
+      </template>
+    </div>
+  </template>
+  <div class="jinya-loader__container" style="min-height: 100vh" x-show="!$store.loaded">
+    <cms-loader></cms-loader>
+  </div>
 </main>
-<script>
-    let require = {
-        paths: { vs: './vs' }, config: {
-            'vs/nls': {
-                availableLanguages: {
-                    '*': 'de'
-                }
-            }
-        }
-    };
-</script>
-<script src="/designer/vs/loader.js"></script>
-<script>
-</script>
-<script src="/designer/vs/editor/editor.main.nls.js"></script>
-<script src="/designer/vs/editor/editor.main.js"></script>
-<script src="/designer/lib/tinymce/tinymce.min.js"></script>
+
 <script src="/designer/js/index.js" type="module"></script>
 </body>
 </html>

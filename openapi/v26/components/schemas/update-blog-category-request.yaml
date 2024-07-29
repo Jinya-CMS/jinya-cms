@@ -1,0 +1,15 @@
+title: Update blog category request
+type: object
+description: A category for blog posts
+properties:
+  name:
+    type: string
+  description:
+    type: string
+  parentId:
+    type: integer
+  webhookEnabled:
+    type: boolean
+  webhookUrl:
+    type: string
+    format: uri

@@ -1,0 +1,14 @@
+title: Create file request
+type: object
+description: A file is an uploaded file that can be used in pages and galleries
+properties:
+  name:
+    type: string
+  tags:
+    type: array
+    items:
+      type: string
+  folderId:
+    type: integer
+required:
+  - name

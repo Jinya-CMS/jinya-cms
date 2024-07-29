@@ -1,0 +1,47 @@
+.jinya-login {
+    background: hsl(var(--primary-hue) var(--primary-saturation) var(--primary-lightness-base) / 25%);
+    padding: 2rem 4rem;
+    backdrop-filter: blur(24px) saturate(90%);
+    box-sizing: border-box;
+    margin-top: 1.25rem;
+    max-width: 40rem;
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-flow: column;
+    gap: 1rem;
+    max-height: calc(100vh - 2.5rem);
+    overflow: auto;
+    color: var(--white);
+}
+
+.jinya-login__container {
+    height: var(--page-height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cosmo-input.is--login,
+.cosmo-select.is--login {
+    background: hsl(var(--primary-hue) var(--primary-saturation) calc(var(--primary-lightness-base) * 10) / 25%);
+    backdrop-filter: blur(24px) saturate(90%);
+    color: var(--white);
+
+    --border-indicator-color: hsl(var(--primary-hue) var(--primary-saturation) var(--primary-lightness-base) / 25%);
+    --control-border-color: hsl(var(--primary-hue) var(--primary-saturation) var(--primary-lightness-base) / 25%);
+}
+
+.cosmo-message.is--login,
+.cosmo-message__header.is--login,
+.cosmo-message__message.is--login {
+    color: var(--white);
+}
+
+body.is--login {
+    margin: 0;
+    padding: 0;
+    background-image: url('/lib/images/background.webp');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

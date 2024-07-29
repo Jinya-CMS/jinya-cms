@@ -1,0 +1,7 @@
+stages:
+  - lint
+  - test
+  - build-docker
+  - deploy-package
+  - deploy-docker
+  - deploy-pages

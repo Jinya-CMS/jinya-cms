@@ -1,0 +1,16 @@
+title: A database table field
+type: object
+description: Contains the information about a field
+properties:
+  Field:
+    type: string
+  Type:
+    type: string
+  'null':
+    type: string
+  Key:
+    type: string
+  Default:
+    type: string
+  Extra:
+    type: string

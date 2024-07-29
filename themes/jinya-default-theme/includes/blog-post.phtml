@@ -1,42 +1,56 @@
 <?php
-/** @var \App\Database\BlogPost $post */
+/** @var BlogPost $post */
 
-use App\Database\Gallery;
-use App\Utils\ImageType;
+use Jinya\Cms\Database\BlogPost;
+use Jinya\Cms\Database\BlogPostSection;
+use Jinya\Cms\Database\Gallery;
+use Jinya\Cms\Utils\ImageType;
 
 ?>
 <div class="jinya-post__post">
-    <?php /** @var \App\Database\BlogPostSegment $segment */ ?>
-    <?php foreach ($post->getSegments() as $segment): ?>
-        <section class="jinya-post__segment <?= $segment->fileId !== null ? 'jinya-post__segment--file' : '' ?>">
-            <?php if ($segment->galleryId): ?>
-                <?php $gallery = $segment->getGallery(); ?>
+    <?php
+    /** @var BlogPostSection $section */ ?>
+    <?php
+    foreach ($post->getSections() as $section): ?>
+        <section class="jinya-post__segment <?= $section->fileId !== null ? 'jinya-post__segment--file' : '' ?>">
+            <?php
+            if ($section->galleryId): ?>
+                <?php
+                $gallery = $section->getGallery(); ?>
                 <?= $this->insert('theme::includes/gallery', [
                     'gallery' => $gallery,
                     'noCaption' => $gallery->orientation === Gallery::ORIENTATION_HORIZONTAL && $gallery->type === Gallery::TYPE_SEQUENCE,
                     'extraClass' => 'jinya-gallery--post',
                 ]) ?>
-            <?php elseif ($segment->html): ?>
+            <?php
+            elseif ($section->html): ?>
                 <div class="jinya-post__html-segment">
-                    <?= $segment->html ?>
+                    <?= $section->html ?>
                 </div>
-            <?php elseif ($segment->fileId): ?>
-                <?php $file = $segment->getFile() ?>
+            <?php
+            elseif ($section->fileId): ?>
+                <?php
+                $file = $section->getFile() ?>
                 <figure class="jinya-post__img-container">
-                    <?php if ($segment->link === null): ?>
+                    <?php
+                    if ($section->link === null): ?>
                         <img class="jinya-post__artwork" src="<?= $this->e($file->path) ?>"
                              alt="<?= $this->e($file->name) ?>" sizes="<?= $this->sizes() ?>"
                              srcset="<?= $this->srcset($file, ImageType::Webp) ?>">
-                    <?php else: ?>
-                        <a href="<?= $segment->link ?>">
+                    <?php
+                    else: ?>
+                        <a href="<?= $section->link ?>">
                             <img class="jinya-post__artwork" src="<?= $this->e($file->path) ?>"
                                  alt="<?= $this->e($file->name) ?>" sizes="<?= $this->sizes() ?>"
                                  srcset="<?= $this->srcset($file, ImageType::Webp) ?>">
                         </a>
-                    <?php endif ?>
+                    <?php
+                    endif ?>
                     <figcaption class="jinya-post__img-caption"><?= $file->name ?></figcaption>
                 </figure>
-            <?php endif ?>
+            <?php
+            endif ?>
         </section>
-    <?php endforeach ?>
+    <?php
+    endforeach ?>
 </div>

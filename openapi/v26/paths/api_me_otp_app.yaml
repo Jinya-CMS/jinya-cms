@@ -1,0 +1,28 @@
+put:
+  summary: Prepare OTP for app usage
+  tags:
+    - my-profile
+  responses:
+    '200':
+      description: Successfully prepared the otp mode for app
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/otp-app-mode-response.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: change_otp_mode_to_app
+  description: Prepares the otp mode to be changed to app
+  security:
+    - header-auth: []
+    - cookie-auth: []

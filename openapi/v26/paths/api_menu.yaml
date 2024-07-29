@@ -1,0 +1,67 @@
+get:
+  summary: List menus
+  responses:
+    '200':
+      description: Successfully returned all menus
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/menu-list.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_all_menus
+  description: Gets a list of all menus
+  tags:
+    - menus
+  security:
+    - header-auth: []
+    - cookie-auth: []
+post:
+  summary: Create menu
+  responses:
+    '201':
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/menu.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '409':
+      description: Name is not unique
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: create_menu
+  description: Creates a new menu
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/create-menu-request.yaml
+  tags:
+    - menus

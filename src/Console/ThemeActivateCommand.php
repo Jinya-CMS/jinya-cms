@@ -1,14 +1,21 @@
 <?php
 
-namespace App\Console;
+namespace Jinya\Cms\Console;
 
-use App\Database\Theme;
-use App\Theming\ThemeSyncer;
+use Jinya\Cms\Database\Theme;
+use Jinya\Cms\Theming\ThemeSyncer;
+use Exception;
+use Jinya\Database\Exception\NotNullViolationException;
 
 /** @codeCoverageIgnore */
 #[JinyaCommand('theme-activate')]
 class ThemeActivateCommand extends AbstractCommand
 {
+    /**
+     * @return void
+     * @throws NotNullViolationException
+     * @throws Exception
+     */
     public function run(): void
     {
         $this->climate->arguments->add([
@@ -25,7 +32,7 @@ class ThemeActivateCommand extends AbstractCommand
             return;
         }
         $this->climate->info("Compiling theme $dbTheme->displayName");
-        $themingTheme = new \App\Theming\Theme($dbTheme);
+        $themingTheme = new \Jinya\Cms\Theming\Theme($dbTheme);
         $this->climate->info('Compiling asset cache');
         $themingTheme->compileAssetCache();
         $this->climate->info('Compiling script cache');

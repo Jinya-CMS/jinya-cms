@@ -1,4 +1,3 @@
-import html from '../../../../lib/jinya-html.js';
 import TagEvent from './events/TagEvent.js';
 
 class TagElement extends HTMLElement {
@@ -6,6 +5,10 @@ class TagElement extends HTMLElement {
     super();
 
     this.root = this.attachShadow({ mode: 'closed' });
+  }
+
+  static get observedAttributes() {
+    return ['name', 'emoji', 'color', 'tagId', 'editable', 'deletable'];
   }
 
   get tagId() {
@@ -85,19 +88,20 @@ class TagElement extends HTMLElement {
   }
 
   connectedCallback() {
-    this.root.innerHTML = html` <style>
+    this.root.innerHTML = `
+      <style>
         :host {
           display: inline-flex;
         }
 
         button {
           cursor: pointer;
-          font-size: 16px;
-          padding: 4px 4px;
+          font-size: 1rem;
+          padding: 0.25rem;
           box-sizing: border-box;
-          border: 1px solid var(--control-border-color);
-          background: var(--white);
-          line-height: 19px;
+          border: 0.0625rem solid var(--control-border-color);
+          background: transparent;
+          line-height: 1.25rem;
           text-decoration: none;
           font-weight: normal;
           border-left: none;
@@ -114,23 +118,29 @@ class TagElement extends HTMLElement {
           box-shadow: none;
         }
 
-        ::part(name) {
-          border: 1px solid var(--control-border-color);
+        .name {
+          border: 0.0625rem solid var(--control-border-color);
           display: flex;
           place-content: center;
           place-items: center;
-          padding: 0 4px;
+          padding: 0 0.25rem;
           color: var(--black);
         }
 
-        ::part(arrow) {
-          border: 10px solid transparent;
+        .arrow {
+          border: 0.75rem solid transparent;
           border-right-color: var(--control-border-color);
         }
 
         span::selection {
           background: var(--primary-color);
           color: var(--white);
+        }
+
+        :host(:not([deletable])) #name,
+        :host(:not([editable])) #name {
+          border-bottom-right-radius: var(--border-radius);
+          border-top-right-radius: var(--border-radius);
         }
 
         :host(:not([deletable])) #delete-button {
@@ -141,13 +151,23 @@ class TagElement extends HTMLElement {
           display: none;
         }
 
+        :host([deletable]) #delete-button {
+          border-bottom-right-radius: var(--border-radius);
+          border-top-right-radius: var(--border-radius);
+        }
+
+        :host(:not([deletable])[editable]) #edit-button {
+          border-bottom-right-radius: var(--border-radius);
+          border-top-right-radius: var(--border-radius);
+        }
+
         :host([active]) #name {
           background: var(--primary-color);
           color: #ffffff;
         }
       </style>
-      <span part="arrow"></span>
-      <span part="name" id="name">${this.emoji} ${this.name}</span>
+      <span class="arrow"></span>
+      <span class="name" id="name">${this.emoji} ${this.name}</span>
       <button id="edit-button">
         <svg
           width="16"
@@ -194,8 +214,11 @@ class TagElement extends HTMLElement {
       return;
     }
 
-    this[property] = newValue;
+    const propertyName = property.replace(/-([a-z])/g, (m, w) => w.toUpperCase());
+    this[propertyName] = newValue;
   }
 }
 
-customElements.define('cms-tag', TagElement);
+if (!customElements.get('cms-tag')) {
+  customElements.define('cms-tag', TagElement);
+}

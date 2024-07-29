@@ -1,0 +1,15 @@
+<div class="jinya-statistics" x-data="statisticsData">
+  <span class="cosmo-title jinya-statistics__title">
+    <span x-text="title"></span>
+    <small x-text="totalVisits"></small>
+  </span>
+  <cms-treemap-diagram group="country" :range="range" class="jinya-statistics__country"></cms-treemap-diagram>
+  <cms-line-diagram group="date" :range="range" :interval="$router.params?.interval" class="jinya-statistics__daily"></cms-line-diagram>
+  <cms-bar-diagram group="language" :range="range" class="jinya-statistics__language"></cms-bar-diagram>
+  <cms-bar-diagram group="brand" :range="range" class="jinya-statistics__brand"></cms-bar-diagram>
+  <cms-pie-diagram group="type" :range="range" class="jinya-statistics__type"></cms-pie-diagram>
+  <cms-bar-diagram group="browser" :range="range" class="jinya-statistics__browser"></cms-bar-diagram>
+  <cms-bar-diagram group="os" :range="range" class="jinya-statistics__os"></cms-bar-diagram>
+  <cms-bar-diagram group="browser-version" :range="range" version class="jinya-statistics__browser-version"></cms-bar-diagram>
+  <cms-bar-diagram group="os-version" :range="range" version class="jinya-statistics__os-version"></cms-bar-diagram>
+</div>

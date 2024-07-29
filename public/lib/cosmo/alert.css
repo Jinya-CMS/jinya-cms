@@ -1,0 +1,64 @@
+:root {
+	--message-padding-top: 0.5rem;
+	--message-padding-bottom: 0.5rem;
+	--message-padding-left: 1rem;
+	--message-padding-right: 1rem;
+
+	--message-margin-bottom: 1rem;
+
+	--message-border-top-width: 0.25rem;
+
+	--message-header-font-size: 1.5rem;
+}
+
+.cosmo-message {
+	width: 100%;
+	background: var(--message-background);
+	color: var(--black);
+	border-top: var(--message-border-top-width) solid var(--message-border);
+	padding: var(--message-padding-top) var(--message-padding-right) var(--message-padding-bottom)
+		var(--message-padding-left);
+	margin-bottom: var(--message-margin-bottom);
+	box-sizing: border-box;
+	border-radius: var(--border-radius);
+}
+
+.cosmo-message::selection,
+.cosmo-message__header::selection,
+.cosmo-message__message::selection {
+	background: var(--message-border);
+	color: var(--white);
+}
+
+.cosmo-message__header {
+	margin: 0;
+	color: var(--black);
+	font-weight: var(--font-weight-light);
+	font-family: var(--font-family-heading);
+	font-size: var(--message-header-font-size);
+	display: block;
+}
+
+.cosmo-message__message {
+	margin: 0;
+}
+
+.cosmo-message.is--positive {
+	--message-border: var(--positive-color);
+	--message-background: var(--positive-color-alpha-25);
+}
+
+.cosmo-message.is--negative {
+	--message-border: var(--negative-color);
+	--message-background: var(--negative-color-alpha-25);
+}
+
+.cosmo-message.is--information {
+	--message-border: var(--information-color);
+	--message-background: var(--information-color-alpha-25);
+}
+
+.cosmo-message.is--warning {
+	--message-border: var(--warning-color);
+	--message-background: var(--warning-color-alpha-25);
+}

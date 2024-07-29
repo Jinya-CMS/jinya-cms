@@ -1,0 +1,109 @@
+.jinya-designer__result.is--menu {
+    flex-flow: row wrap;
+    gap: 1rem;
+    align-content: flex-start;
+    grid-row: content;
+}
+
+.jinya-designer__toolbox.is--menu {
+    grid-row: content;
+}
+
+.cosmo-toolbar.is--menu {
+    grid-row: toolbar;
+}
+
+.cosmo-message.is--menu {
+    grid-row: message;
+    grid-column: 2/4;
+}
+
+.jinya-menu-designer {
+    grid-template-rows: [message] auto;
+    display: grid;
+    grid-row: content;
+    max-height: 100%;
+    gap: 1rem;
+    grid-template-columns: 10rem [button] 2rem [content] 1fr 12rem 1fr;
+    box-sizing: border-box;
+    overflow-y: auto;
+    place-content: baseline flex-start;
+    grid-auto-rows: auto;
+    padding-top: 2rem;
+}
+
+.jinya-designer-item__buttons.is--menu {
+    opacity: 0;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+}
+
+.jinya-designer-item__buttons.is--menu .cosmo-button.is--primary.is--icon svg {
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.jinya-designer-item.is--menu {
+    grid-column: content;
+    margin-left: calc(var(--nesting) * 2rem);
+    min-width: calc(100% - var(--nesting) * 2rem);
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem;
+
+    &::after {
+        content: '';
+        height: 0.125rem;
+        opacity: 0;
+        position: absolute;
+        top: -0.625rem;
+        left: calc(var(--nesting) * -2rem);
+        transition: all 0.3s;
+        background: var(--primary-color);
+        width: calc(100% + var(--nesting) * 2rem);
+    }
+}
+
+.jinya-designer-item__details.is--menu {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.cosmo-button.is--add.is--menu {
+    place-self: start end;
+    opacity: 0.4;
+    grid-column: button;
+    transform: translateY(-1.5rem) rotate(-45deg);
+    border-bottom-right-radius: 0;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.cosmo-button.is--add.is--menu:hover + .jinya-designer-item.is--menu::after {
+    opacity: 1;
+}
+
+.cosmo-button.is--add.is--menu.is--last {
+    place-self: end end;
+}
+
+.jinya-icon.is--add.is--menu {
+    transform: rotate(45deg);
+}
+
+.jinya-designer-item.is--empty.is--menu {
+    border: none;
+    height: unset;
+    width: unset;
+
+    --nesting: 0;
+
+    &::after {
+        top: -0.0625rem;
+    }
+}

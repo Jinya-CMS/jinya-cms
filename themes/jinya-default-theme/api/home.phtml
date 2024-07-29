@@ -1,40 +1,40 @@
 <?php
 
-/** @var SegmentPage $startMasonry */
+/** @var ModernPage $startMasonry */
 
-use App\Database\File;
-use App\Database\Gallery;
-use App\Database\Segment;
-use App\Database\SegmentPage;
+use Jinya\Cms\Database\File;
+use Jinya\Cms\Database\Gallery;
+use Jinya\Cms\Database\ModernPageSection;
+use Jinya\Cms\Database\ModernPage;
 
-$startMasonry = $this->segmentPage('startpage');
-$segments = iterator_to_array($startMasonry->getSegments());
-$filteredSegments = array_filter($segments, static fn(Segment $segment) => $segment->galleryId === null);
+$startMasonry = $this->ModernPage('startpage');
+$sections = iterator_to_array($startMasonry->getSections());
+$filteredSegments = array_filter($sections, static fn (ModernPageSection $section) => $section->galleryId === null);
 
-$data = array_map(static function (Segment $segment) {
+$data = array_map(static function (ModernPageSection $section) {
     $data = [
-        'position' => $segment->position,
+        'position' => $section->position,
     ];
-    if (isset($segment->galleryId)) {
-        $gallery = Gallery::findById($segment->galleryId);
+    if (isset($section->galleryId)) {
+        $gallery = Gallery::findById($section->galleryId);
         $data['gallery'] = [
             'name' => $gallery?->name,
             'description' => $gallery?->description,
             'type' => $gallery?->type,
             'orientation' => $gallery?->orientation,
         ];
-    } elseif (isset($segment->fileId)) {
-        $file = File::findById($segment->fileId);
+    } elseif (isset($section->fileId)) {
+        $file = File::findById($section->fileId);
         $data['file'] = [
             'name' => $file?->name,
             'type' => $file?->type,
             'path' => $file?->path,
         ];
-        $data['action'] = $segment->action;
-        $data['script'] = $segment->script;
-        $data['target'] = $segment->target;
+        $data['action'] = $section->action;
+        $data['script'] = $section->script;
+        $data['target'] = $section->target;
     } else {
-        $data['html'] = $segment->html;
+        $data['html'] = $section->html;
     }
 
     return $data;

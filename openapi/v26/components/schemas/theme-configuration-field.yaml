@@ -1,0 +1,17 @@
+title: Theme configuration field
+type: object
+description: A field in the theme configuration form
+properties:
+  name:
+    type: string
+  type:
+    type: string
+    enum:
+      - string
+      - boolean
+  label:
+    type: object
+required:
+  - name
+  - type
+  - label

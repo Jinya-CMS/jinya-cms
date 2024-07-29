@@ -1,68 +1,89 @@
 <?php
 /** @var array $configuration */
-/** @var \App\Database\Form $form */
-/** @var \App\Database\FormItem[] $formItems */
+
+/** @var Form $form */
+/** @var FormItem[] $formItems */
 /** @var bool $success */
+
 /** @var array $missingFields */
+
+use Jinya\Cms\Database\Form;
+use Jinya\Cms\Database\FormItem;
+
 $this->layout('theme::layout', ['title' => $form->title]);
 $formItems = $form->getItems();
 ?>
-<?php $this->start('maincontent') ?>
-    <main class="jinya-form-page">
-        <form class="jinya-form" method="POST">
-            <h1 class="jinya-form__title"><?= $this->e($form->title) ?></h1>
-            <div class="jinya-form__description">
-                <?= $form->description ?>
+<?php
+$this->start('maincontent') ?>
+<main class="jinya-form-page">
+    <form class="jinya-form" method="POST">
+        <h1 class="jinya-form__title"><?= $this->e($form->title) ?></h1>
+        <div class="jinya-form__description">
+            <?= $form->description ?>
+        </div>
+        <?php
+        if ($success): ?>
+            <div class="jinya-message--positive">
+                <?= $this->config('messages', 'mail_sent_message') ?>
             </div>
-            <?php if ($success): ?>
-                <div class="jinya-message--positive">
-                    <?= $this->config('messages', 'mail_sent_message') ?>
+        <?php
+        elseif ($success === false || count($missingFields) > 0): ?>
+            <div class="jinya-message--negative">
+                <?= $this->config('messages', 'mail_not_sent_message') ?>
+            </div>
+        <?php
+        endif ?>
+        <?php
+        foreach ($formItems as $item): ?>
+            <?php
+            $itemId = uniqid($item->type, true) ?>
+            <?php
+            if ($item->type === 'checkbox'): ?>
+                <div class="jinya-form__row--checkbox">
+                    <input id="<?= $itemId ?>" class="jinya-form__checkbox" name="<?= $item->id ?>"
+                           type="checkbox" <?= $item->isRequired ? 'required' : '' ?>
+                           placeholder="<?= $this->e($item->placeholder ?? $item->label) ?>">
+                    <label for="<?= $itemId ?>"><?= $this->e($item->label) ?></label>
                 </div>
-            <?php elseif ($success === false || count($missingFields) > 0): ?>
-                <div class="jinya-message--negative">
-                    <?= $this->config('messages', 'mail_not_sent_message') ?>
-                </div>
-            <?php endif ?>
-            <?php foreach ($formItems as $item): ?>
-                <?php $itemId = uniqid($item->type, true) ?>
-                <?php if ($item->type === 'checkbox'): ?>
-                    <div class="jinya-form__row--checkbox">
-                        <input id="<?= $itemId ?>" class="jinya-form__checkbox" name="<?= $item->id ?>"
-                               type="checkbox" <?= $item->isRequired ? 'required' : '' ?>
-                               placeholder="<?= $this->e($item->placeholder ?? $item->label) ?>">
-                        <label for="<?= $itemId ?>"><?= $this->e($item->label) ?></label>
-                    </div>
-                <?php elseif ($item->type === 'textarea'): ?>
-                    <div class="jinya-form__row--field">
-                        <label for="<?= $itemId ?>"><?= $this->e($item->label) ?></label>
-                        <textarea id="<?= $itemId ?>" rows="5" name="<?= $item->id ?>"
-                                  class="jinya-form__textarea" <?= $item->isRequired ? 'required' : '' ?>
+            <?php
+            elseif ($item->type === 'textarea'): ?>
+                <div class="jinya-form__row--field">
+                    <label for="<?= $itemId ?>"><?= $this->e($item->label) ?></label>
+                    <textarea id="<?= $itemId ?>" rows="5" name="<?= $item->id ?>"
+                              class="jinya-form__textarea" <?= $item->isRequired ? 'required' : '' ?>
                                   placeholder="<?= $this->e($item->placeholder ?? $item->label) ?>"></textarea>
-                    </div>
-                <?php elseif ($item->type === 'select'): ?>
-                    <div class="jinya-form__row--field">
-                        <label for="<?= $itemId ?>"><?= $this->e($item->label) ?></label>
-                        <select id="<?= $itemId ?>" class="jinya-form__select"
-                                name="<?= $item->id ?>" <?= $item->isRequired ? 'required' : '' ?>>
-                            <option value="" disabled
-                                    selected="selected"><?= $this->e($item->placeholder ?? $item->label) ?></option>
-                            <?php foreach ($item->options as $option): ?>
-                                <option value="<?= $option ?>"><?= $this->e($option) ?></option>
-                            <?php endforeach ?>
-                        </select>
-                    </div>
-                <?php else: ?>
-                    <div class="jinya-form__row--field">
-                        <label for="<?= $itemId ?>"><?= $this->e($item->label) ?></label>
-                        <input id="<?= $itemId ?>" class="jinya-form__input" name="<?= $item->id ?>"
-                               type="<?= $this->e($item->type) ?>" <?= $item->isRequired ? 'required' : '' ?>
-                               placeholder="<?= $this->e($item->placeholder ?? $item->label) ?>">
-                    </div>
-                <?php endif ?>
-            <?php endforeach ?>
-            <div class="jinya-form__row--buttons">
-                <button class="jinya-button" type="submit"><?= $this->config('buttons', 'submit') ?></button>
-            </div>
-        </form>
-    </main>
-<?php $this->stop() ?>
+                </div>
+            <?php
+            elseif ($item->type === 'select'): ?>
+                <div class="jinya-form__row--field">
+                    <label for="<?= $itemId ?>"><?= $this->e($item->label) ?></label>
+                    <select id="<?= $itemId ?>" class="jinya-form__select"
+                            name="<?= $item->id ?>" <?= $item->isRequired ? 'required' : '' ?>>
+                        <option value="" disabled
+                                selected="selected"><?= $this->e($item->placeholder ?? $item->label) ?></option>
+                        <?php
+                        foreach ($item->options as $option): ?>
+                            <option value="<?= $option ?>"><?= $this->e($option) ?></option>
+                        <?php
+                        endforeach ?>
+                    </select>
+                </div>
+            <?php
+            else: ?>
+                <div class="jinya-form__row--field">
+                    <label for="<?= $itemId ?>"><?= $this->e($item->label) ?></label>
+                    <input id="<?= $itemId ?>" class="jinya-form__input" name="<?= $item->id ?>"
+                           type="<?= $this->e($item->type) ?>" <?= $item->isRequired ? 'required' : '' ?>
+                           placeholder="<?= $this->e($item->placeholder ?? $item->label) ?>">
+                </div>
+            <?php
+            endif ?>
+        <?php
+        endforeach ?>
+        <div class="jinya-form__row--buttons">
+            <button class="jinya-button" type="submit"><?= $this->config('buttons', 'submit') ?></button>
+        </div>
+    </form>
+</main>
+<?php
+$this->stop() ?>

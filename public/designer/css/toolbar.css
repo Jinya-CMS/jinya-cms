@@ -1,0 +1,35 @@
+/* stylelint-disable declaration-block-no-redundant-longhand-properties  */
+.jinya-dropdown-menu {
+    position: fixed;
+    flex-flow: column;
+    display: flex;
+    box-sizing: border-box;
+    border: 0.0625rem solid var(--control-border-color);
+    border-radius: var(--border-radius);
+    top: var(--top);
+    right: var(--right);
+    left: var(--left);
+    bottom: var(--bottom);
+    background: var(--modal-background);
+    backdrop-filter: var(--modal-backdrop-filter);
+}
+
+/* stylelint-enable declaration-block-no-redundant-longhand-properties  */
+
+.cosmo-button.is--dropdown-item {
+    border: none;
+    border-top: 0.0625rem solid var(--control-border-color);
+    justify-content: end;
+    border-radius: 0;
+
+    &:first-child {
+        border-top: none;
+        border-top-left-radius: var(--border-radius);
+        border-top-right-radius: var(--border-radius);
+    }
+
+    &:last-child {
+        border-bottom-left-radius: var(--border-radius);
+        border-bottom-right-radius: var(--border-radius);
+    }
+}

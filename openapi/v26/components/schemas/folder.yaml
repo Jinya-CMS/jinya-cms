@@ -1,0 +1,21 @@
+title: Folder
+type: object
+description: A folder is used to group files and other folders
+properties:
+  id:
+    type: integer
+  name:
+    type: string
+  files:
+    type: array
+    items:
+      $ref: ./file.yaml
+  folders:
+    type: array
+    items:
+      $ref: ./folder.yaml
+required:
+  - id
+  - name
+  - files
+  - folders

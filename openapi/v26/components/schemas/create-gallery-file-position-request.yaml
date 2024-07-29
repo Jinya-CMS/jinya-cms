@@ -1,0 +1,11 @@
+title: Create gallery file position request
+description: A gallery file position connects a file to a gallery
+type: object
+properties:
+  position:
+    type: integer
+  file:
+    type: integer
+required:
+  - file
+  - position

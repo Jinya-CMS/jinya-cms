@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Storage;
+namespace Jinya\Cms\Storage;
 
 /**
  * Provides helpers for storage services. It contains several constants and a helper method for hashing files
@@ -13,6 +13,7 @@ abstract class StorageBaseService
     public const BASE_PATH = __ROOT__;
     /** @var string The full base path for stored files */
     public const SAVE_PATH = self::BASE_PATH . '/public/' . self::WEB_PATH;
+    public const PUBLIC_PATH = self::BASE_PATH . '/public/';
 
     /**
      * Hashes the given resources content

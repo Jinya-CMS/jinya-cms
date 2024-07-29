@@ -3,27 +3,37 @@
  * The file blog-category.phtml gets the variables below passed. The $category contains the currently selected category,
  * while the $posts contain the posts in the category.
  */
-/** @var \App\Database\BlogCategory $category */
-/** @var Iterator<\App\Database\BlogPost> $posts */
 
-/** @var \League\Plates\Template\Template $this */
+/** @var BlogCategory $category */
+/** @var Iterator<BlogPost> $posts */
 
-use App\Utils\ImageType;
+/** @var Template $this */
+
+use Jinya\Cms\Database\BlogCategory;
+use Jinya\Cms\Database\BlogPost;
+use Jinya\Cms\Utils\ImageType;
+use Jinya\Plates\Template\Template;
 
 $this->layout('theme::layout', ['title' => $category->name]);
 ?>
-<?php $this->start('maincontent') ?>
+<?php
+$this->start('maincontent') ?>
 <main>
-    <h1><?= $this->e($category->name) ?></h1>
-    <?php foreach ($posts as $post): ?>
-        <a href="/<?= $post->createdAt->format('Y/m/d') ?>/<?= $this->e($post->slug) ?>">
-            <span><?= $this->e($post->title) ?></span>
-            <?php if ($post->headerImageId !== null): ?>
-                <img src="<?= $post->getHeaderImage()->path ?>" alt="<?= $this->e($post->title) ?>"
-                     sizes="<?= $this->sizes() ?>"
-                     srcset="<?= $this->srcset($post->getHeaderImage(), ImageType::Webp) ?>">
-            <?php endif ?>
-        </a>
-    <?php endforeach ?>
+  <h1><?= $this->e($category->name) ?></h1>
+    <?php
+    foreach ($posts as $post): ?>
+      <a href="/<?= $post->createdAt->format('Y/m/d') ?>/<?= $this->e($post->slug) ?>">
+        <span><?= $this->e($post->title) ?></span>
+          <?php
+          if ($post->headerImageId !== null): ?>
+            <img src="<?= $post->getHeaderImage()->path ?>" alt="<?= $this->e($post->title) ?>"
+                 sizes="<?= $this->sizes() ?>"
+                 srcset="<?= $this->srcset($post->getHeaderImage(), ImageType::Webp) ?>">
+          <?php
+          endif ?>
+      </a>
+    <?php
+    endforeach ?>
 </main>
-<?php $this->stop() ?>
+<?php
+$this->stop() ?>

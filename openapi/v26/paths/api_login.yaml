@@ -1,0 +1,48 @@
+post:
+  summary: Login
+  tags:
+    - authentication
+  responses:
+    '200':
+      description: Successfully logged in
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/login-result.yaml
+    '403':
+      description: Bad Credentials
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: login
+  description: >-
+    With the login api a user can be logged in. If the device code is empty, you
+    need to provide a two factor code. If the two factor code is empty, you need
+    to provide a device code.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/login-request.yaml
+  parameters:
+    - name: JinyaDeviceCode
+      description: The Jinya Device Code contains the identification for a known device
+      schema:
+        type: string
+      in: header
+  security: []
+head:
+  summary: Check the validity of a Jinya Api Key
+  tags:
+    - authentication
+  responses:
+    '204':
+      description: Api Key is valid
+    '401':
+      description: Api key is invalid
+  operationId: check_api_key
+  description: Check if the api key provided in the header is still valid.
+  security:
+    - header-auth: []
+    - cookie-auth: []

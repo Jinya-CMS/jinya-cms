@@ -1,0 +1,46 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+  - name: name
+    schema:
+      type: string
+    in: path
+    required: true
+put:
+  summary: Set theme blog category with the given name in the given theme
+  tags:
+    - themes
+  responses:
+    '204':
+      description: Successfully updated the theme blog category
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Theme or blog category not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: update_theme_blog_category_by_name
+  description: Updates the theme blog category with the given name in the given theme
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/update-theme-blog-category-request.yaml

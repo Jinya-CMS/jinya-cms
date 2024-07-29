@@ -1,0 +1,7 @@
+type: object
+description: A collection of visits by country
+properties:
+  group:
+    type: string
+  visits:
+    type: integer

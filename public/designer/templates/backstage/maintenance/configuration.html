@@ -1,0 +1,163 @@
+<div x-data="configurationData">
+  <span class="cosmo-title" x-localize:maintenance-configuration-title></span>
+  <div class="cosmo-toolbar">
+    <div class="cosmo-toolbar__group">
+      <button class="cosmo-button" @click="openUpdateDialog"
+              x-localize:maintenance-configuration-action-update></button>
+    </div>
+  </div>
+  <h3 x-localize:maintenance-configuration-mysql-title></h3>
+  <dl class="cosmo-list is--key-value">
+    <dt x-localize:maintenance-configuration-mysql-host></dt>
+    <dd x-text="configuration.mysql.host"></dd>
+    <dt x-localize:maintenance-configuration-mysql-port></dt>
+    <dd x-text="configuration.mysql.port"></dd>
+    <dt x-localize:maintenance-configuration-mysql-database></dt>
+    <dd x-text="configuration.mysql.database"></dd>
+    <dt x-localize:maintenance-configuration-mysql-user></dt>
+    <dd x-text="configuration.mysql.user"></dd>
+  </dl>
+  <h3 x-localize:maintenance-configuration-mailer-title></h3>
+  <dl class="cosmo-list is--key-value">
+    <dt x-localize:maintenance-configuration-mailer-host></dt>
+    <dd x-text="configuration.mailer.host"></dd>
+    <dt x-localize:maintenance-configuration-mailer-port></dt>
+    <dd x-text="configuration.mailer.port"></dd>
+    <dt x-localize:maintenance-configuration-mailer-username></dt>
+    <dd x-text="configuration.mailer.username"></dd>
+    <dt x-localize:maintenance-configuration-mailer-encryption></dt>
+    <dd x-text="mailerEncryption"></dd>
+    <dt x-localize:maintenance-configuration-mailer-from></dt>
+    <dd x-text="configuration.mailer.from"></dd>
+    <dt x-localize:maintenance-configuration-mailer-smtp_auth></dt>
+    <template x-if="configuration.mailer.smtp_auth">
+      <dd x-localize:maintenance-configuration-mailer-yes></dd>
+    </template>
+    <template x-if="!configuration.mailer.smtp_auth">
+      <dd x-localize:maintenance-configuration-mailer-no></dd>
+    </template>
+  </dl>
+  <h3 x-localize:maintenance-configuration-jinya-title></h3>
+  <dl class="cosmo-list is--key-value">
+    <dt x-localize:maintenance-configuration-jinya-api_key_expiry></dt>
+    <dd>
+      <span x-text="(configuration.jinya.api_key_expiry / 60 / 60)"></span>
+      <span>h</span>
+    </dd>
+    <dt x-localize:maintenance-configuration-jinya-update_server></dt>
+    <dd x-text="configuration.jinya.update_server"></dd>
+    <dt x-localize:maintenance-configuration-jinya-ip_database_url></dt>
+    <dd x-text="configuration.jinya.ip_database_url"></dd>
+  </dl>
+  <template x-if="update.open">
+    <form class="cosmo-modal__container" @submit.prevent="updateConfiguration">
+      <div class="cosmo-modal">
+        <h1 class="cosmo-modal__title" x-localize:maintenance-configuration-update-title></h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-message is--negative" x-show="update.error.hasError">
+            <span class="cosmo-message__header" x-text="update.error.title"></span>
+            <p class="cosmo-message__message" x-text="update.error.message"></p>
+          </div>
+          <div class="cosmo-tab" x-data="{ selectedTab: 'mysql' }">
+            <div class="cosmo-tab__links">
+              <a class="cosmo-tab__link" :class="{ 'is--active': selectedTab === 'mysql' }"
+                 @click="selectedTab = 'mysql'"
+                 x-localize:maintenance-configuration-mysql-title></a>
+              <a class="cosmo-tab__link" :class="{ 'is--active': selectedTab === 'mailer' }"
+                 @click="selectedTab = 'mailer'"
+                 x-localize:maintenance-configuration-mailer-title></a>
+              <a class="cosmo-tab__link" :class="{ 'is--active': selectedTab === 'jinya' }"
+                 @click="selectedTab = 'jinya'"
+                 x-localize:maintenance-configuration-jinya-title></a>
+            </div>
+            <div class="cosmo-tab__content">
+              <div class="cosmo-input__group">
+                <template x-if="selectedTab === 'mysql'">
+                  <div style="display: contents">
+                    <label class="cosmo-label" for="mysql_host" x-localize:maintenance-configuration-mysql-host></label>
+                    <input x-model="update.configuration.mysql.host" class="cosmo-input" type="text" id="mysql_host"
+                           required>
+                    <label class="cosmo-label" for="mysql_port" x-localize:maintenance-configuration-mysql-port></label>
+                    <input x-model.number="update.configuration.mysql.port" class="cosmo-input" type="number" min="1"
+                           max="65535" id="mysql_port" required>
+                    <label class="cosmo-label" for="mysql_database"
+                           x-localize:maintenance-configuration-mysql-database></label>
+                    <input x-model="update.configuration.mysql.database" class="cosmo-input" type="text" required
+                           id="mysql_database">
+                    <label class="cosmo-label" for="mysql_user" x-localize:maintenance-configuration-mysql-user></label>
+                    <input x-model="update.configuration.mysql.user" class="cosmo-input" type="text" id="mysql_user"
+                           required>
+                    <label class="cosmo-label" for="mysql_password"
+                           x-localize:maintenance-configuration-mysql-password></label>
+                    <input x-model="update.configuration.mysql.password" class="cosmo-input" type="password"
+                           id="mysql_password">
+                  </div>
+                </template>
+                <template x-if="selectedTab === 'mailer'">
+                  <div style="display: contents">
+                    <label class="cosmo-label" for="mailer_host"
+                           x-localize:maintenance-configuration-mailer-host></label>
+                    <input x-model="update.configuration.mailer.host" class="cosmo-input" type="text" id="mailer_host"
+                           required>
+                    <label class="cosmo-label" for="mailer_port"
+                           x-localize:maintenance-configuration-mailer-port></label>
+                    <input x-model.number="update.configuration.mailer.port" class="cosmo-input" type="number" min="1"
+                           max="65535" id="mailer_port" required>
+                    <label class="cosmo-label" for="mailer_username"
+                           x-localize:maintenance-configuration-mailer-username></label>
+                    <input x-model="update.configuration.mailer.username" class="cosmo-input" type="text"
+                           id="mailer_username">
+                    <label class="cosmo-label" for="mailer_password"
+                           x-localize:maintenance-configuration-mailer-password></label>
+                    <input x-model="update.configuration.mailer.password" class="cosmo-input" type="password"
+                           id="mailer_password">
+                    <label class="cosmo-label" for="mailer_encryption"
+                           x-localize:maintenance-configuration-mailer-encryption></label>
+                    <select x-model="update.configuration.mailer.encryption" class="cosmo-select"
+                            id="mailer_encryption">
+                      <option :selected="!update.configuration.mailer.encryption" value=""
+                              x-localize:maintenance-configuration-mailer-no_encryption></option>
+                      <option :selected="update.configuration.mailer.encryption === 'tls'" value="tls">STARTTLS
+                      </option>
+                      <option :selected="update.configuration.mailer.encryption === 'ssl'" value="ssl">SMTPS</option>
+                    </select>
+                    <div class="cosmo-input__group is--checkbox">
+                      <input x-model="update.configuration.mailer.smtp_auth" type="checkbox" id="mailer_smtp_auth"
+                             class="cosmo-checkbox">
+                      <label for="mailer_smtp_auth" x-localize:maintenance-configuration-mailer-smtp_auth></label>
+                    </div>
+                    <label class="cosmo-label" for="mailer_from"
+                           x-localize:maintenance-configuration-mailer-from></label>
+                    <input x-model="update.configuration.mailer.from" class="cosmo-input" type="email" id="mailer_from"
+                           required>
+                  </div>
+                </template>
+                <template x-if="selectedTab === 'jinya'">
+                  <div style="display: contents">
+                    <label class="cosmo-label" for="jinya_api_key_expiry"
+                           x-localize:maintenance-configuration-jinya-api_key_expiry></label>
+                    <input x-model.number="update.configuration.jinya.api_key_expiry" class="cosmo-input" type="number"
+                           id="jinya_api_key_expiry" required>
+                    <label class="cosmo-label" for="jinya_update_server"
+                           x-localize:maintenance-configuration-jinya-update_server></label>
+                    <input x-model="update.configuration.jinya.update_server" class="cosmo-input" type="text"
+                           id="jinya_update_server" required>
+                    <label class="cosmo-label" for="jinya_ip_database_url"
+                           x-localize:maintenance-configuration-jinya-ip_database_url></label>
+                    <input x-model="update.configuration.jinya.ip_database_url" class="cosmo-input" type="text"
+                           id="jinya_ip_database_url" required>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cosmo-modal__button-bar">
+          <button class="cosmo-button" x-localize:maintenance-configuration-update-cancel
+                  @click="update.open = false"></button>
+          <button class="cosmo-button" type="submit" x-localize:maintenance-configuration-update-save></button>
+        </div>
+      </div>
+    </form>
+  </template>
+</div>

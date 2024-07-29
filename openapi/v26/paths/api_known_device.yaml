@@ -1,0 +1,28 @@
+get:
+  summary: List known devices
+  tags:
+    - known-devices
+  responses:
+    '200':
+      description: Successfully got all known devices
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/known-device-list.yaml
+    '401':
+      description: Api Key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_all_known_devices
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  description: Gets a list of all known devices

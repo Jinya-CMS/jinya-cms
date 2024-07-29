@@ -1,0 +1,20 @@
+title: A database table constraint
+type: object
+description: Contains the information about a constraint
+properties:
+  CONSTRAINT_NAME:
+    type: string
+  REFERENCED_TABLE_NAME:
+    type: string
+  REFERENCED_COLUMN_NAME:
+    type: string
+  POSITION_IN_UNIQUE_CONSTRAINT:
+    type: string
+  CONSTRAINT_TYPE:
+    type: string
+  DELETE_RULE:
+    type: string
+  UPDATE_RULE:
+    type: string
+  COLUMN_NAME:
+    type: string

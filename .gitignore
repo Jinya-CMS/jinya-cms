@@ -155,3 +155,6 @@ $RECYCLE.BIN/
 installed.lock
 tmp/*
 /tools/
+/.env
+var
+/jinya-configuration.ini

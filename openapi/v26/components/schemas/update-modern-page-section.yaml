@@ -1,0 +1,15 @@
+title: Modern page section
+type: object
+properties:
+  id:
+    type: string
+  gallery:
+    type: integer
+  file:
+    type: integer
+  link:
+    type: string
+  script:
+    type: string
+  html:
+    type: string

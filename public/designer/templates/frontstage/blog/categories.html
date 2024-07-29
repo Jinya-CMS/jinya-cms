@@ -1,0 +1,128 @@
+<div class="cosmo-side-list is--blog-categories" x-data="categoriesData">
+  <nav class="cosmo-side-list__items is--blog-categories">
+    <template x-for="category in categories" :key="category.id">
+      <a @click="selectCategory(category)" class="cosmo-side-list__item is--tree"
+         :style="{ '--nesting': category.nesting }"
+         :class="{ 'is--active': selectedCategory?.id === category.id }" x-text="category.name"></a>
+    </template>
+    <button @click="openCreateDialog(null)" class="cosmo-button is--full-width"
+            x-localize:blog-categories-action-new></button>
+  </nav>
+  <template x-if="selectedCategory">
+    <div class="cosmo-side-list__content jinya-designer">
+      <div class="jinya-designer__title">
+        <span class="cosmo-title" x-text="title"></span>
+      </div>
+      <cms-sparkline class="jinya-designer__sparkline" type="blog-category"
+                     :entity-id="selectedCategory.id"></cms-sparkline>
+      <div class="cosmo-toolbar is--designer">
+        <div class="cosmo-toolbar__group">
+          <button class="cosmo-button" @click="openCreateDialog(selectedCategory)"
+                  x-localize:blog-categories-action-new_sub></button>
+        </div>
+        <div class="cosmo-toolbar__group">
+          <button class="cosmo-button" @click="openEditDialog" x-localize:blog-categories-action-edit></button>
+          <template x-if="canDelete()">
+            <button class="cosmo-button" @click="deleteCategory" x-localize:blog-categories-action-delete></button>
+          </template>
+        </div>
+      </div>
+      <div class="jinya-designer__content is--blog-categories">
+        <dl class="cosmo-list is--key-value is--blog-categories">
+          <dt x-localize:blog-categories-details-name></dt>
+          <dd x-text="selectedCategory.name"></dd>
+          <template x-if="selectedCategory.description">
+            <div style="display: contents">
+              <dt x-localize:blog-categories-details-description></dt>
+              <dd x-text="selectedCategory.description"></dd>
+            </div>
+          </template>
+          <template x-if="selectedCategory.webhookUrl">
+            <div style="display: contents">
+              <dt x-localize:blog-categories-details-webhook></dt>
+              <dd class="jinya-category__webhook">
+                <template x-if="selectedCategory.webhookEnabled">
+                  <svg viewBox="0 0 24 24" class="jinya-icon is--positive is--small">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="m9 12 2 2 4-4" />
+                  </svg>
+                </template>
+                <template x-if="!selectedCategory.webhookEnabled">
+                  <svg viewBox="0 0 24 24" class="jinya-icon is--negative is--small">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="m15 9-6 6" />
+                    <path d="m9 9 6 6" />
+                  </svg>
+                </template>
+                <span x-text="selectedCategory.webhookUrl"></span>
+              </dd>
+            </div>
+          </template>
+        </dl>
+      </div>
+    </div>
+  </template>
+  <template x-if="create.open">
+    <form class="cosmo-modal__container" @submit.prevent="createCategory">
+      <div class="cosmo-modal">
+        <h1 class="cosmo-modal__title" x-localize:blog-categories-create-title></h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-message is--negative" x-show="create.error.hasError">
+            <span class="cosmo-message__header" x-text="create.error.title"></span>
+            <p class="cosmo-message__message" x-text="create.error.message"></p>
+          </div>
+          <div class="cosmo-input__group">
+            <label for="createName" class="cosmo-label" x-localize:blog-categories-create-name></label>
+            <input id="createName" required type="text" class="cosmo-input" x-model="create.name" />
+            <label for="createDescription" class="cosmo-label" x-localize:blog-categories-create-description></label>
+            <textarea id="createDescription" rows="10" class="cosmo-textarea" x-model="create.description"></textarea>
+            <label for="createWebhookUrl" class="cosmo-label" x-localize:blog-categories-create-webhook_url></label>
+            <input id="createWebhookUrl" type="text" class="cosmo-input" x-model="create.webhookUrl" />
+            <div class="cosmo-input__group is--checkbox">
+              <input id="createWebhookEnabled" type="checkbox" class="cosmo-checkbox" x-model="create.webhookEnabled" />
+              <label for="createWebhookEnabled" class="cosmo-label"
+                     x-localize:blog-categories-create-webhook_enabled></label>
+            </div>
+          </div>
+        </div>
+        <div class="cosmo-modal__button-bar">
+          <button type="button" class="cosmo-button" @click="create.open = false"
+                  x-localize:blog-categories-create-cancel></button>
+          <button type="submit" class="cosmo-button" x-localize:blog-categories-create-create></button>
+        </div>
+      </div>
+    </form>
+  </template>
+  <template x-if="edit.open">
+    <form class="cosmo-modal__container" @submit.prevent="updateCategory">
+      <div class="cosmo-modal">
+        <h1 class="cosmo-modal__title" x-localize:blog-categories-edit-title></h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-message is--negative" x-show="edit.error.hasError">
+            <span class="cosmo-message__header" x-text="edit.error.title"></span>
+            <p class="cosmo-message__message" x-text="edit.error.message"></p>
+          </div>
+          <div class="cosmo-input__group">
+            <label for="editName" class="cosmo-label" x-localize:blog-categories-edit-name></label>
+            <input id="editName" required type="text" class="cosmo-input" x-model="edit.name" />
+            <label for="editDescription" class="cosmo-label is--textarea"
+                   x-localize:blog-categories-edit-description></label>
+            <textarea id="editDescription" rows="10" class="cosmo-textarea" x-model="edit.description"></textarea>
+            <label for="editWebhookUrl" class="cosmo-label" x-localize:blog-categories-edit-webhook_url></label>
+            <input id="editWebhookUrl" type="text" class="cosmo-input" x-model="edit.webhookUrl" />
+            <div class="cosmo-input__group is--checkbox">
+              <input id="editWebhookEnabled" type="checkbox" class="cosmo-checkbox" x-model="edit.webhookEnabled" />
+              <label for="editWebhookEnabled" class="cosmo-label"
+                     x-localize:blog-categories-edit-webhook_enabled></label>
+            </div>
+          </div>
+        </div>
+        <div class="cosmo-modal__button-bar">
+          <button type="button" class="cosmo-button" @click="edit.open = false"
+                  x-localize:blog-categories-edit-cancel></button>
+          <button type="submit" class="cosmo-button" x-localize:blog-categories-edit-update></button>
+        </div>
+      </div>
+    </form>
+  </template>
+</div>

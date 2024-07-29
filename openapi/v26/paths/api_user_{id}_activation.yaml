@@ -1,0 +1,72 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+put:
+  summary: Activate user
+  tags:
+    - artists
+  responses:
+    '204':
+      description: Successfully activated the user
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: User not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: activate_user
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  description: Activates the user with the given id
+delete:
+  summary: Deactivate user
+  tags:
+    - artists
+  responses:
+    '204':
+      description: Successfully deactivated the user
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: User not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '409':
+      description: Cannot deactivate last admin
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: deactivate_user
+  description: Deactivates the user with the given id
+  security:
+    - header-auth: []
+    - cookie-auth: []

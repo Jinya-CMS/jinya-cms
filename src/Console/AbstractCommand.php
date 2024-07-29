@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console;
+namespace Jinya\Cms\Console;
 
 use League\CLImate\CLImate;
 
@@ -10,7 +10,7 @@ use League\CLImate\CLImate;
 abstract class AbstractCommand
 {
     /**
-     * @var CLImate The {@see \League\CLImate\CLImate} instance of the command
+     * @var CLImate The {@see CLImate} instance of the command
      */
     protected CLImate $climate;
 

@@ -1,0 +1,17 @@
+designer-prettier:
+  extends:
+    - .javascript-lint
+  variables:
+    SCRIPT: designer:prettier
+
+designer-stylelint:
+  extends:
+    - .javascript-lint
+  variables:
+    SCRIPT: designer:stylelint
+
+designer-eslint:
+  extends:
+    - .javascript-lint
+  variables:
+    SCRIPT: designer:eslint

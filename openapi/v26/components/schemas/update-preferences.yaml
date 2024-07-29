@@ -1,0 +1,6 @@
+type: object
+properties:
+  loginMailEnabled:
+    type: boolean
+  newDeviceMailEnabled:
+    type: boolean

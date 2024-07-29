@@ -1,0 +1,111 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+put:
+  summary: Update gallery by id
+  tags:
+    - galleries
+  responses:
+    '204':
+      description: Successfully updated gallery
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Gallery not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '409':
+      description: Name or slug is not unique
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: update_gallery
+  description: Updates the given gallery
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/update-gallery-request.yaml
+delete:
+  summary: Delete gallery by id
+  tags:
+    - galleries
+  responses:
+    '204':
+      description: Gallery successfully deleted
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Gallery not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: delete_gallery
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  description: Deletes the given gallery
+get:
+  summary: Get gallery by id
+  tags:
+    - galleries
+  responses:
+    '200':
+      description: Successfully got the gallery
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/gallery.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Gallery not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_gallery_by_id
+  description: Gets the gallery with the specified slug
+  security:
+    - header-auth: []
+    - cookie-auth: []

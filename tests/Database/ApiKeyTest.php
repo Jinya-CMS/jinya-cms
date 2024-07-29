@@ -1,36 +1,15 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\ApiKey;
-use App\Database\Artist;
-use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\UniqueFailedException;
-use App\Database\Utils\LoadableEntity;
-use App\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use DateTime;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use RuntimeException;
+use PDOException;
 
 class ApiKeyTest extends DatabaseAwareTestCase
 {
-
     private ApiKey $testApiKey;
     private Artist $testArtist;
-
-    protected function setUp(): void
-    {
-        $this->testArtist = new Artist();
-        $this->testArtist->create();
-
-        $this->testApiKey = new ApiKey();
-        $this->testApiKey->userId = $this->testArtist->getIdAsInt();
-        $this->testApiKey->setApiKey();
-        $this->testApiKey->validSince = DateTime::createFromFormat(LoadableEntity::MYSQL_DATE_FORMAT, (new DateTime())->format(LoadableEntity::MYSQL_DATE_FORMAT)) ?: new DateTime();
-        $this->testApiKey->userAgent = 'Firefox';
-        $this->testApiKey->remoteAddress = '127.0.0.1';
-        $this->testApiKey->create();
-    }
 
     public function testFormat(): void
     {
@@ -42,14 +21,14 @@ class ApiKeyTest extends DatabaseAwareTestCase
         ];
 
         $actual = $this->testApiKey->format();
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testFormatInvalid(): void
     {
         $this->expectError();
         $apiKey = new ApiKey();
-        $apiKey->userId = $this->testArtist->getIdAsInt();
+        $apiKey->userId = $this->testArtist->id;
         $apiKey->setApiKey();
         $apiKey->format();
     }
@@ -57,20 +36,20 @@ class ApiKeyTest extends DatabaseAwareTestCase
     public function testFindByApiKey(): void
     {
         $apiKey = ApiKey::findByApiKey($this->testApiKey->apiKey);
-        $this->assertEquals($this->testApiKey->apiKey, $apiKey->apiKey);
-        $this->assertEquals($this->testApiKey->validSince, $apiKey->validSince);
+        self::assertEquals($this->testApiKey->apiKey, $apiKey->apiKey);
+        self::assertEquals($this->testApiKey->validSince, $apiKey->validSince);
     }
 
     public function testFindByApiKeyNotExisting(): void
     {
         $apiKey = ApiKey::findByApiKey('nonexistingapikey');
-        $this->assertNull($apiKey);
+        self::assertNull($apiKey);
     }
 
     public function testCreate(): void
     {
         $apiKey = new ApiKey();
-        $apiKey->userId = $this->testArtist->getIdAsInt();
+        $apiKey->userId = $this->testArtist->id;
         $apiKey->setApiKey();
         $apiKey->validSince = new DateTime();
         $apiKey->userAgent = 'Firefox';
@@ -78,12 +57,12 @@ class ApiKeyTest extends DatabaseAwareTestCase
         $apiKey->create();
 
         $savedApiKey = ApiKey::findByApiKey($apiKey->apiKey);
-        $this->assertEquals($apiKey->apiKey, $savedApiKey->apiKey);
+        self::assertEquals($apiKey->apiKey, $savedApiKey->apiKey);
     }
 
     public function testCreateInvalidArtist(): void
     {
-        $this->expectException(ForeignKeyFailedException::class);
+        $this->expectException(PDOException::class);
         $apiKey = new ApiKey();
         $apiKey->userId = -1;
         $apiKey->setApiKey();
@@ -97,37 +76,27 @@ class ApiKeyTest extends DatabaseAwareTestCase
     {
         $this->expectError();
         $apiKey = new ApiKey();
-        $apiKey->userId = $this->testArtist->getIdAsInt();
+        $apiKey->userId = $this->testArtist->id;
         $apiKey->setApiKey();
         $apiKey->create();
     }
 
-    public function testFindAll(): void
-    {
-        $this->expectException(RuntimeException::class);
-        ApiKey::findAll();
-    }
-
     public function testFindByArtist(): void
     {
-        $apiKeys = ApiKey::findByArtist($this->testArtist->getIdAsInt());
-        $this->assertGreaterThanOrEqual(1, iterator_count($apiKeys));
+        $apiKeys = ApiKey::findByArtist($this->testArtist->id);
+        self::assertGreaterThanOrEqual(1, iterator_count($apiKeys));
     }
 
     public function testFindByArtistNotExisting(): void
     {
         $apiKeys = ApiKey::findByArtist(-1);
-        $this->assertEquals(0, iterator_count($apiKeys));
+        self::assertEquals(0, iterator_count($apiKeys));
     }
 
     public function testDelete(): void
     {
-        try {
-            $this->testApiKey->delete();
-            $this->assertTrue(true);
-        } catch (ForeignKeyFailedException|UniqueFailedException|InvalidQueryException) {
-            $this->fail();
-        }
+        $this->testApiKey->delete();
+        self::assertTrue(true);
     }
 
     public function testDeleteNotCreatedApiKey(): void
@@ -143,7 +112,10 @@ class ApiKeyTest extends DatabaseAwareTestCase
         $this->testApiKey->validSince = $validSince;
         $this->testApiKey->update();
         $apiKey = ApiKey::findByApiKey($this->testApiKey->apiKey);
-        $this->assertEquals($validSince->format(LoadableEntity::MYSQL_DATE_FORMAT), $apiKey->validSince->format(LoadableEntity::MYSQL_DATE_FORMAT));
+        self::assertEquals(
+            $validSince->format(MYSQL_DATE_FORMAT),
+            $apiKey->validSince->format(MYSQL_DATE_FORMAT)
+        );
     }
 
     public function testUpdateNotCreatedApiKey(): void
@@ -155,30 +127,36 @@ class ApiKeyTest extends DatabaseAwareTestCase
         $testApiKey->update();
     }
 
-    public function testFindById(): void
-    {
-        $this->expectException(RuntimeException::class);
-        ApiKey::findById(0);
-    }
-
     public function testGetArtist(): void
     {
         $artist = $this->testApiKey->getArtist();
-        $this->assertNotNull($artist);
-        $this->assertEquals($this->testArtist->id, $artist->id);
-    }
-
-    public function testFindByKeyword(): void
-    {
-        $this->expectException(RuntimeException::class);
-        ApiKey::findByKeyword('');
+        self::assertNotNull($artist);
+        self::assertEquals($this->testArtist->id, $artist->id);
     }
 
     public function testSetApiKey(): void
     {
         $apiKey = new ApiKey();
-        $apiKey->userId = $this->testArtist->getIdAsInt();
+        $apiKey->userId = $this->testArtist->id;
         $apiKey->setApiKey();
-        $this->assertStringStartsWith("jinya-api-token-$apiKey->userId", $apiKey->apiKey);
+        self::assertStringStartsWith("jinya-api-token-$apiKey->userId", $apiKey->apiKey);
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->testArtist = new Artist();
+        $this->testArtist->create();
+
+        $this->testApiKey = new ApiKey();
+        $this->testApiKey->userId = $this->testArtist->id;
+        $this->testApiKey->setApiKey();
+        $this->testApiKey->validSince = DateTime::createFromFormat(
+            MYSQL_DATE_FORMAT,
+            (new DateTime())->format(MYSQL_DATE_FORMAT)
+        ) ?: new DateTime();
+        $this->testApiKey->userAgent = 'Firefox';
+        $this->testApiKey->remoteAddress = '127.0.0.1';
+        $this->testApiKey->create();
     }
 }

@@ -1,30 +1,35 @@
 <?php
 
-namespace Jinya\Tests\Authentication;
+namespace Jinya\Cms\Authentication;
 
-use App\Authentication\AuthenticationChecker;
-use App\Authentication\CurrentUser;
-use App\Database\ApiKey;
-use App\Tests\DatabaseAwareTestCase;
 use DateInterval;
 use DateTime;
+use Jinya\Cms\Database\ApiKey;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Web\Exceptions\ApiKeyInvalidException;
+use Jinya\Cms\Web\Exceptions\MissingPermissionsException;
 use Nyholm\Psr7\ServerRequest;
-use Slim\Exception\HttpForbiddenException;
 
 class AuthenticationCheckerTest extends DatabaseAwareTestCase
 {
-
     public function testCheckRequestForUserSuccessfulLogin(): void
     {
-        $request = new ServerRequest('POST', '', ['JinyaApiKey' => $this->createApiKey()->apiKey]);
-        $artist = AuthenticationChecker::checkRequestForUser($request, AuthenticationChecker::ROLE_WRITER);
+        $request = new ServerRequest('POST', '', ['Authorization' => 'Bearer ' . $this->createApiKey()->apiKey]);
+        $artist = AuthenticationChecker::checkRequestForUser($request, ROLE_WRITER);
+        self::assertEquals(CurrentUser::$currentUser->email, $artist->email);
+
+        $request = new ServerRequest('POST', '');
+        $artist = AuthenticationChecker::checkRequestForUser(
+            $request->withCookieParams(['JinyaApiKey' => $this->createApiKey()->apiKey]),
+            ROLE_WRITER
+        );
         self::assertEquals(CurrentUser::$currentUser->email, $artist->email);
     }
 
     private function createApiKey(): ApiKey
     {
         $apiKey = new ApiKey();
-        $apiKey->userId = CurrentUser::$currentUser->getIdAsInt();
+        $apiKey->userId = CurrentUser::$currentUser->id;
         $apiKey->validSince = (new DateTime())->add(new DateInterval('PT5M'));
         $apiKey->setApiKey();
         $apiKey->remoteAddress = '127.0.0.1';
@@ -36,44 +41,97 @@ class AuthenticationCheckerTest extends DatabaseAwareTestCase
 
     public function testCheckRequestForUserSuccessfulLoginRoleReaderCascades(): void
     {
-        $request = new ServerRequest('POST', '', ['JinyaApiKey' => $this->createApiKey()->apiKey]);
-        $artist = AuthenticationChecker::checkRequestForUser($request, AuthenticationChecker::ROLE_READER);
+        $request = new ServerRequest('POST', '', ['Authorization' => 'Bearer ' . $this->createApiKey()->apiKey]);
+        $artist = AuthenticationChecker::checkRequestForUser($request, ROLE_READER);
+        self::assertEquals(CurrentUser::$currentUser->email, $artist->email);
+
+        $request = new ServerRequest('POST', '');
+        $artist = AuthenticationChecker::checkRequestForUser(
+            $request->withCookieParams(['JinyaApiKey' => $this->createApiKey()->apiKey]),
+            ROLE_READER
+        );
         self::assertEquals(CurrentUser::$currentUser->email, $artist->email);
     }
 
-    public function testCheckRequestForUserInvalidApiKey(): void
+    public function testCheckRequestForUserInvalidApiKeyAuthorization(): void
     {
-        $this->expectException(HttpForbiddenException::class);
-        $request = new ServerRequest('POST', '', ['JinyaApiKey' => 'Invalid API key']);
-        AuthenticationChecker::checkRequestForUser($request, AuthenticationChecker::ROLE_WRITER);
+        $this->expectException(ApiKeyInvalidException::class);
+        $request = new ServerRequest('POST', '', ['Authorization' => 'Invalid API key']);
+        AuthenticationChecker::checkRequestForUser($request, ROLE_WRITER);
     }
 
-    public function testCheckRequestForUserApiKeyExpired(): void
+    public function testCheckRequestForUserInvalidApiKeyCookie(): void
     {
-        $this->expectException(HttpForbiddenException::class);
+        $this->expectException(ApiKeyInvalidException::class);
+        $request = new ServerRequest('POST', '');
+        AuthenticationChecker::checkRequestForUser(
+            $request->withCookieParams(['JinyaApiKey' => 'Invalid API key']),
+            ROLE_READER
+        );
+    }
+
+    public function testCheckRequestForUserApiKeyExpiredAuthorization(): void
+    {
+        $this->expectException(ApiKeyInvalidException::class);
         $apiKey = $this->createApiKey();
         $apiKey->validSince = new DateTime('19700101');
         $apiKey->update();
 
-        $request = new ServerRequest('POST', '', ['JinyaApiKey' => $apiKey->apiKey]);
-        AuthenticationChecker::checkRequestForUser($request, AuthenticationChecker::ROLE_WRITER);
+        $request = new ServerRequest('POST', '', ['Authorization' => 'Bearer ' . $apiKey->apiKey]);
+        AuthenticationChecker::checkRequestForUser($request, ROLE_WRITER);
     }
 
-    public function testCheckRequestForUserUserDisabled(): void
+    public function testCheckRequestForUserApiKeyExpiredCookie(): void
     {
-        $this->expectException(HttpForbiddenException::class);
+        $this->expectException(ApiKeyInvalidException::class);
+        $apiKey = $this->createApiKey();
+        $apiKey->validSince = new DateTime('19700101');
+        $apiKey->update();
+
+        $request = new ServerRequest('POST', '');
+        AuthenticationChecker::checkRequestForUser(
+            $request->withCookieParams(['JinyaApiKey' => $apiKey->apiKey]),
+            ROLE_WRITER
+        );
+    }
+
+    public function testCheckRequestForUserUserDisabledAuthorization(): void
+    {
+        $this->expectException(ApiKeyInvalidException::class);
         CurrentUser::$currentUser->enabled = false;
         CurrentUser::$currentUser->update();
         $apiKey = $this->createApiKey();
-        $request = new ServerRequest('POST', '', ['JinyaApiKey' => $apiKey->apiKey]);
-        $artist = AuthenticationChecker::checkRequestForUser($request, AuthenticationChecker::ROLE_WRITER);
-        self::assertEquals(CurrentUser::$currentUser->email, $artist->email);
+        $request = new ServerRequest('POST', '', ['Authorization' => 'Bearer ' . $apiKey->apiKey]);
+        AuthenticationChecker::checkRequestForUser($request, ROLE_WRITER);
     }
 
-    public function testCheckRequestForUserMissingRole(): void
+    public function testCheckRequestForUserUserDisabledCookie(): void
     {
-        $this->expectException(HttpForbiddenException::class);
-        $request = new ServerRequest('POST', '', ['JinyaApiKey' => $this->createApiKey()->apiKey]);
-        AuthenticationChecker::checkRequestForUser($request, AuthenticationChecker::ROLE_ADMIN);
+        $this->expectException(ApiKeyInvalidException::class);
+        CurrentUser::$currentUser->enabled = false;
+        CurrentUser::$currentUser->update();
+        $apiKey = $this->createApiKey();
+        $request = new ServerRequest('POST', '');
+        AuthenticationChecker::checkRequestForUser(
+            $request->withCookieParams(['JinyaApiKey' => $apiKey->apiKey]),
+            ROLE_WRITER
+        );
+    }
+
+    public function testCheckRequestForUserMissingRoleAuthorization(): void
+    {
+        $this->expectException(MissingPermissionsException::class);
+        $request = new ServerRequest('POST', '', ['Authorization' => 'Bearer ' . $this->createApiKey()->apiKey]);
+        AuthenticationChecker::checkRequestForUser($request, ROLE_ADMIN);
+    }
+
+    public function testCheckRequestForUserMissingRoleCookie(): void
+    {
+        $this->expectException(MissingPermissionsException::class);
+        $request = new ServerRequest('POST', '');
+        AuthenticationChecker::checkRequestForUser(
+            $request->withCookieParams(['JinyaApiKey' => $this->createApiKey()->apiKey]),
+            ROLE_ADMIN
+        );
     }
 }

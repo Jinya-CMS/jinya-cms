@@ -1,15 +1,15 @@
-"use strict";
+'use strict';
 
 (function () {
   document.addEventListener('DOMContentLoaded', function () {
-    var scrollItem = document.querySelector('.is--horizontal');
+    const scrollItem = document.querySelector('.is--horizontal');
 
     function scrollHandler(e) {
       if (!e.deltaX) {
         e.preventDefault();
         scrollItem.scrollBy({
           behavior: 'auto',
-          left: e.deltaY > 0 ? 100 : -100
+          left: e.deltaY > 0 ? 100 : -100,
         });
       }
     }

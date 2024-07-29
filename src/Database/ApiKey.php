@@ -1,25 +1,35 @@
 <?php
 
-namespace App\Database;
+namespace Jinya\Cms\Database;
 
 use DateTime;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
-use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
-use RuntimeException;
+use Jinya\Database\Attributes\Column;
+use Jinya\Database\Attributes\Table;
+use Jinya\Database\Creatable;
+use Jinya\Database\Deletable;
+use Jinya\Database\EntityTrait;
+use Jinya\Database\Updatable;
 
 /**
  * This class contains an api key, used to log in to Jinya CMS api
  */
-class ApiKey extends Utils\LoadableEntity
+#[Table('api_key')]
+class ApiKey implements Creatable, Deletable, Updatable
 {
+    use EntityTrait;
+
+    #[Column(sqlName: 'api_key', unique: true)]
     public string $apiKey;
+    #[Column(sqlName: 'user_id')]
     public int $userId;
+    #[Column(sqlName: 'valid_since')]
     public DateTime $validSince;
+    #[Column(sqlName: 'user_agent')]
     public string $userAgent;
+    #[Column(sqlName: 'remote_address')]
     public string $remoteAddress;
 
     /**
@@ -27,37 +37,31 @@ class ApiKey extends Utils\LoadableEntity
      *
      * @param string $apiKey The api key to search for
      * @return ApiKey|null
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     * @throws NoResultException
      */
     public static function findByApiKey(string $apiKey): ?ApiKey
     {
-        $sql = 'SELECT api_key, user_id, valid_since, user_agent, remote_address FROM api_key WHERE api_key = :apiKey';
+        $query = self::getQueryBuilder()
+            ->newSelect()
+            ->cols([
+                'api_key',
+                'user_id',
+                'valid_since',
+                'user_agent',
+                'remote_address',
+            ])
+            ->from(self::getTableName())
+            ->where(
+                'api_key = :apiKey',
+                ['apiKey' => $apiKey]
+            );
 
-        try {
-            return self::getPdo()->fetchObject($sql, new self(), ['apiKey' => $apiKey], ['validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT)]);
-        } catch (InvalidQueryException $exception) {
-            throw self::convertInvalidQueryExceptionToException($exception);
+        /** @var array<array<array-key, mixed>> $data */
+        $data = self::executeQuery($query);
+        if (empty($data)) {
+            return null;
         }
-    }
 
-    /**
-     * Not implemented
-     */
-    public static function findByKeyword(string $keyword): Iterator
-    {
-        throw new RuntimeException('Not implemented');
-    }
-
-    /**
-     * Not implemented
-     */
-    public static function findAll(): Iterator
-    {
-        throw new RuntimeException('Not implemented');
+        return self::fromArray($data[0]);
     }
 
     /**
@@ -65,18 +69,28 @@ class ApiKey extends Utils\LoadableEntity
      *
      * @param int $artistId The ID of the artist
      * @return Iterator<ApiKey>
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
      */
     public static function findByArtist(int $artistId): Iterator
     {
-        $sql = 'SELECT * FROM api_key WHERE user_id = :artistId';
+        $query = self::getQueryBuilder()
+            ->newSelect()
+            ->cols([
+                'api_key',
+                'user_id',
+                'valid_since',
+                'user_agent',
+                'remote_address',
+            ])
+            ->from(self::getTableName())
+            ->where(
+                'user_id = :artistId',
+                ['artistId' => $artistId]
+            );
 
-        try {
-            return self::getPdo()->fetchIterator($sql, new self(), ['artistId' => $artistId], ['validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT)]);
-        } catch (InvalidQueryException $exception) {
-            throw self::convertInvalidQueryExceptionToException($exception);
+        /** @var array<array<array-key, mixed>> $data */
+        $data = self::executeQuery($query);
+        foreach ($data as $item) {
+            yield self::fromArray($item);
         }
     }
 
@@ -94,75 +108,26 @@ class ApiKey extends Utils\LoadableEntity
      * Gets the artist belonging to the api key
      *
      * @return Artist|null
-     *
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     public function getArtist(): ?Artist
     {
         return Artist::findById($this->userId);
     }
 
-    /**
-     * Not implemented
-     */
-    public static function findById(int $id): ?object
-    {
-        throw new RuntimeException('Not implemented');
-    }
-
-    /**
-     * Creates the current api key
-     *
-     * @return void
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     */
     public function create(): void
     {
-        $this->internalCreate(
-            'api_key',
-            [
-                'validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ],
-            ['id']
-        );
-    }
+        $query = self::getQueryBuilder()
+            ->newInsert()
+            ->into(self::getTableName())
+            ->addRow([
+                'api_key' => $this->apiKey,
+                'user_id' => $this->userId,
+                'valid_since' => $this->validSince->format(MYSQL_DATE_FORMAT),
+                'user_agent' => $this->userAgent,
+                'remote_address' => $this->remoteAddress,
+            ]);
 
-    /**
-     * Deletes the current api key
-     *
-     * @return void
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     */
-    public function delete(): void
-    {
-        $sql = 'DELETE FROM api_key WHERE api_key = :apiKey';
-        self::executeStatement($sql, ['apiKey' => $this->apiKey]);
-    }
-
-    /**
-     * Updates the current api key
-     *
-     * @return void
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
-     */
-    public function update(): void
-    {
-        $sql = 'UPDATE api_key SET valid_since = :validSince WHERE api_key = :apiKey';
-        $converter = new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT);
-
-        self::executeStatement(
-            $sql,
-            ['apiKey' => $this->apiKey, 'validSince' => $converter->extract($this->validSince)]
-        );
+        self::executeQuery($query);
     }
 
     /**
@@ -172,7 +137,7 @@ class ApiKey extends Utils\LoadableEntity
      */
     #[ArrayShape([
         'remoteAddress' => 'string',
-        'validSince' => DateTime::class,
+        'validSince' => 'string',
         'userAgent' => 'string',
         'key' => 'string'
     ])] public function format(): array
@@ -183,5 +148,34 @@ class ApiKey extends Utils\LoadableEntity
             'userAgent' => $this->userAgent,
             'key' => $this->apiKey,
         ];
+    }
+
+    public function delete(): void
+    {
+        $query = self::getQueryBuilder()
+            ->newDelete()
+            ->from(self::getTableName())
+            ->where(
+                'api_key = :apiKey',
+                ['apiKey' => $this->apiKey]
+            );
+
+        self::executeQuery($query);
+    }
+
+    public function update(): void
+    {
+        $query = self::getQueryBuilder()
+            ->newUpdate()
+            ->table(self::getTableName())
+            ->cols([
+                'valid_since',
+            ])
+            ->bindValues([
+                'valid_since' => $this->validSince->format(MYSQL_DATE_FORMAT),
+            ])
+            ->where('api_key = :apiKey', ['apiKey' => $this->apiKey]);
+
+        self::executeQuery($query);
     }
 }

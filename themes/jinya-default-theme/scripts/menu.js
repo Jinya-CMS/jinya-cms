@@ -34,17 +34,20 @@
     });
   };
 
-  menu.querySelectorAll('.has--children').forEach((item) => {
-    item.addEventListener('click', (event) => {
-      if (event.target.classList.contains('has--children')) {
-        event.preventDefault();
-        hideAllExceptCurrent(event.target.parentElement);
-      }
+  menu.querySelectorAll('.has--children')
+    .forEach((item) => {
+      item.addEventListener('click', (event) => {
+        if (event.target.classList.contains('has--children')) {
+          event.preventDefault();
+          hideAllExceptCurrent(event.target.parentElement);
+        }
+      });
     });
-  });
 
   backArrow.addEventListener('click', () => {
-    document.querySelector('.is--current').classList.remove('is--current');
+    document.querySelector('.is--current')
+      .classList
+      .remove('is--current');
     allMenuItems.forEach((item) => {
       item.classList.remove('is--hidden');
     });

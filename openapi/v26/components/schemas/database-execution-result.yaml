@@ -1,0 +1,16 @@
+title: The result of a database query
+type: array
+description: Contains the result of a database query request
+items:
+  type: object
+  properties:
+    statement:
+      type: string
+    result:
+      oneOf:
+        - type: array
+          items:
+            type: object
+            additionalProperties: true
+        - type: string
+        - type: integer

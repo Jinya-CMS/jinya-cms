@@ -1,0 +1,163 @@
+.jinya-designer__content.is--blog-posts {
+    --tiles-width: 1fr;
+    --editor-width: 0;
+    --separator-width: 0;
+
+    max-height: calc(var(--page-height) - 2.75rem - 1.25rem - 2rem - 2rem - 0.25rem);
+    align-items: start;
+    justify-content: space-between;
+    display: grid;
+    grid-template-columns: [tiles] var(--tiles-width) [separator] var(--separator-width) [editor] var(--editor-width);
+    grid-template-rows: [content] calc(var(--page-height) - 2.75rem - 1.25rem - 2rem - 2rem - 0.25rem);
+    height: calc(var(--page-height) - 2.75rem - 1.25rem - 2rem - 2rem - 0.25rem);
+    gap: 1rem;
+    grid-row: content;
+
+    &.has--selection {
+        --tiles-width: 25rem;
+        --editor-width: 1fr;
+        --separator-width: 0.625rem;
+
+        @media screen and (width <= 1920px) {
+            --tiles-width: 16rem;
+        }
+    }
+}
+
+.jinya-blog-tile__container {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1.5rem;
+    height: 100%;
+    overflow-y: auto;
+    align-content: start;
+    width: 100%;
+    grid-column: tiles;
+    grid-row: content;
+}
+
+.jinya-blog-tile__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: var(--gray-light);
+    grid-row: img;
+    max-height: 13rem;
+
+    @media screen and (width <= 1920px) {
+        height: 8rem;
+    }
+
+    &:hover {
+        object-fit: scale-down;
+    }
+}
+
+.jinya-blog-tile {
+    width: 23rem;
+    height: 15rem;
+    display: grid;
+    position: relative;
+    grid-template-rows: [title] auto [img] 1fr;
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+    background: var(--gray-light);
+    cursor: pointer;
+
+    @media screen and (width <= 1920px) {
+        width: 15rem;
+        height: 10rem;
+    }
+
+    &.is--selected {
+        border: 0.25rem solid var(--primary-color);
+        position: relative;
+        box-sizing: border-box;
+
+        &::after {
+            content: '';
+            border: 0.75rem solid transparent;
+            border-left-color: var(--primary-color);
+            border-top-color: var(--primary-color);
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .jinya-blog-tile__img {
+            max-height: 12.5rem;
+
+            @media screen and (width <= 1920px) {
+                height: 7.5rem;
+            }
+        }
+    }
+
+    overflow: hidden;
+}
+
+.jinya-blog-tile__title {
+    grid-row: title;
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-light);
+    font-family: var(--font-family-heading);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    align-items: center;
+
+    @media screen and (width <= 1920px) {
+        font-size: 1.25rem;
+        height: 2rem;
+    }
+
+    .jinya-icon {
+        flex: 0 0;
+    }
+
+    span {
+        width: 100%;
+        word-break: keep-all;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+.jinya-blog__separator {
+    grid-column: separator;
+    grid-row: content;
+    height: 100%;
+    width: 0.0625rem;
+    background: var(--control-border-color);
+}
+
+.jinya-blog__editor {
+    grid-template-rows: [message] auto;
+    grid-column: editor;
+    grid-row: content;
+    display: grid;
+    max-height: 100%;
+    grid-template-columns: [button] 2rem [content] 1fr 4rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+    place-content: baseline flex-start;
+    grid-auto-rows: auto;
+    padding-top: 2rem;
+    gap: 1rem;
+    height: 100%;
+}
+
+.cosmo-message.is--blog {
+    grid-row: message;
+    grid-column: 2/4;
+    margin-left: 3rem;
+    width: calc(100% - 3rem);
+}
+
+.cosmo-button.is--blog.is--close {
+    grid-column: editor;
+    grid-row: content;
+    place-self: start end;
+}

@@ -1,14 +1,11 @@
 <?php
 
-namespace Jinya\Tests\Storage;
+namespace Jinya\Cms\Storage;
 
-use App\Database\Exceptions\EmptyResultException;
-use App\Database\File;
-use App\Database\UploadingFile;
-use App\Storage\FileUploadService;
-use App\Storage\StorageBaseService;
-use App\Tests\DatabaseAwareTestCase;
-use Jinya\PDOx\Exceptions\NoResultException;
+use Jinya\Cms\Database\Exceptions\EmptyResultException;
+use Jinya\Cms\Database\File;
+use Jinya\Cms\Database\UploadingFile;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use RuntimeException;
 
 class FileUploadServiceTest extends DatabaseAwareTestCase
@@ -19,16 +16,17 @@ class FileUploadServiceTest extends DatabaseAwareTestCase
 
     public function testSaveChunk(): void
     {
-        $this->service->saveChunk($this->file->getIdAsInt(), 0, 'Test\n');
-        $this->service->saveChunk($this->file->getIdAsInt(), 2, 'Bar');
-        $this->service->saveChunk($this->file->getIdAsInt(), 1, 'Foo\n');
+        $this->service->saveChunk($this->file->id, 0, 'Test\n');
+        $this->service->saveChunk($this->file->id, 2, 'Bar');
+        $this->service->saveChunk($this->file->id, 1, 'Foo\n');
 
         self::assertCount(3, iterator_to_array($this->uploadingFile->getChunks()));
 
         /** @var File $file */
-        $file = $this->service->finishUpload($this->file->getIdAsInt());
+        $file = $this->service->finishUpload($this->file->id);
         $content = file_get_contents(StorageBaseService::BASE_PATH . '/public/' . $file->path);
         self::assertEquals('Test\nFoo\nBar', $content);
+
         @unlink(StorageBaseService::BASE_PATH . '/public/' . $file->path);
     }
 
@@ -46,7 +44,7 @@ class FileUploadServiceTest extends DatabaseAwareTestCase
 
     public function testFinishUploadFileNotFound(): void
     {
-        $this->expectException(NoResultException::class);
+        $this->expectException(EmptyResultException::class);
         $this->service->finishUpload(-1);
     }
 
@@ -61,7 +59,7 @@ class FileUploadServiceTest extends DatabaseAwareTestCase
         $file->create();
         $this->file = $file;
         $uploadingFile = new UploadingFile();
-        $uploadingFile->fileId = $file->getIdAsInt();
+        $uploadingFile->fileId = $file->id;
         $uploadingFile->create();
         $this->uploadingFile = $uploadingFile;
     }

@@ -1,21 +1,18 @@
 <?php
 
-namespace Jinya\Tests\Web\Middleware;
+namespace Jinya\Cms\Web\Middleware;
 
-use App\Authentication\CurrentUser;
-use App\Database\ApiKey;
-use App\Tests\DatabaseAwareTestCase;
-use App\Tests\TestRequestHandler;
-use App\Web\Middleware\AuthorizationMiddleware;
 use DateInterval;
 use DateTime;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Database\ApiKey;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Tests\TestRequestHandler;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use Slim\Exception\HttpForbiddenException;
 
 class AuthorizationMiddlewareTest extends DatabaseAwareTestCase
 {
-
     public function testProcess(): void
     {
         $request = new ServerRequest('POST', '', ['JinyaApiKey' => $this->createApiKey()->apiKey]);
@@ -25,13 +22,13 @@ class AuthorizationMiddlewareTest extends DatabaseAwareTestCase
         $handler = new TestRequestHandler($response);
         $middleware->process($request, $handler);
 
-        self::assertEquals($handler->request->getAttribute(AuthorizationMiddleware::LOGGED_IN_ARTIST)->getIdAsInt(), CurrentUser::$currentUser->getIdAsInt());
+        self::assertEquals(200, $response->getStatusCode());
     }
 
     private function createApiKey(): ApiKey
     {
         $apiKey = new ApiKey();
-        $apiKey->userId = CurrentUser::$currentUser->getIdAsInt();
+        $apiKey->userId = CurrentUser::$currentUser->id;
         $apiKey->validSince = (new DateTime())->add(new DateInterval('PT5M'));
         $apiKey->setApiKey();
         $apiKey->remoteAddress = '127.0.0.1';
@@ -43,13 +40,49 @@ class AuthorizationMiddlewareTest extends DatabaseAwareTestCase
 
     public function testProcessNotEnoughPermission(): void
     {
-        $this->expectException(HttpForbiddenException::class);
-
-        $request = new ServerRequest('POST', '', ['JinyaApiKey' => $this->createApiKey()->apiKey]);
+        $request = new ServerRequest('POST', '', ['Authorization' => 'Bearer ' . $this->createApiKey()->apiKey]);
         $middleware = new AuthorizationMiddleware('ROLE_ADMIN');
 
         $response = new Response();
         $handler = new TestRequestHandler($response);
-        $middleware->process($request, $handler);
+        $response = $middleware->process($request, $handler);
+
+        $response->getBody()->rewind();
+        $body = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+
+        self::assertEquals(403, $response->getStatusCode());
+        self::assertEquals([
+            'success' => false,
+            'error' => [
+                'message' => 'You do not have enough permissions, please request the role ROLE_ADMIN',
+                'type' => 'missing-permissions'
+            ]
+        ], $body);
+    }
+
+    public function testProcessApiKeyInvalid(): void
+    {
+        $apiKey = $this->createApiKey();
+        $apiKey->validSince = DateTime::createFromFormat('Y-m-d\TH:i:s', '1970-01-01T00:00:00');
+        $apiKey->update();
+
+        $request = new ServerRequest('POST', '', ['Authentication' => $apiKey->apiKey]);
+        $middleware = new AuthorizationMiddleware('ROLE_ADMIN');
+
+        $response = new Response();
+        $handler = new TestRequestHandler($response);
+        $response = $middleware->process($request, $handler);
+
+        $response->getBody()->rewind();
+        $body = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+
+        self::assertEquals(401, $response->getStatusCode());
+        self::assertEquals([
+            'success' => false,
+            'error' => [
+                'message' => 'API key is invalid',
+                'type' => 'invalid-api-key'
+            ]
+        ], $body);
     }
 }

@@ -1,13 +1,18 @@
 <?php
 
-namespace App\Console;
+namespace Jinya\Cms\Console;
 
-use App\Database\Theme;
+use Jinya\Cms\Database\Theme;
+use Exception;
 
 /** @codeCoverageIgnore */
 #[JinyaCommand('theme-compile')]
 class ThemeCompileCommand extends AbstractCommand
 {
+    /**
+     * @return void
+     * @throws Exception
+     */
     public function run(): void
     {
         $this->climate->arguments->add([
@@ -28,7 +33,7 @@ class ThemeCompileCommand extends AbstractCommand
 
             foreach ($allThemes as $dbTheme) {
                 $progress->advance(1, $dbTheme->displayName);
-                $themingTheme = new \App\Theming\Theme($dbTheme);
+                $themingTheme = new \Jinya\Cms\Theming\Theme($dbTheme);
                 $themingTheme->compileAssetCache();
                 $themingTheme->compileScriptCache();
                 $themingTheme->compileStyleCache();
@@ -42,7 +47,7 @@ class ThemeCompileCommand extends AbstractCommand
                 return;
             }
             $this->climate->info("Compiling theme $dbTheme->displayName");
-            $themingTheme = new \App\Theming\Theme($dbTheme);
+            $themingTheme = new \Jinya\Cms\Theming\Theme($dbTheme);
             $this->climate->info('Compiling asset cache');
             $themingTheme->compileAssetCache();
             $this->climate->info('Compiling script cache');
@@ -62,7 +67,7 @@ class ThemeCompileCommand extends AbstractCommand
             foreach ($response as $name) {
                 $dbTheme = Theme::findByName($name);
                 $progress->advance(1, $dbTheme->displayName);
-                $themingTheme = new \App\Theming\Theme($dbTheme);
+                $themingTheme = new \Jinya\Cms\Theming\Theme($dbTheme);
                 $themingTheme->compileAssetCache();
                 $themingTheme->compileScriptCache();
                 $themingTheme->compileStyleCache();

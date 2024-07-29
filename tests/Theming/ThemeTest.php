@@ -1,11 +1,10 @@
 <?php
 
-namespace Jinya\Tests\Theming;
+namespace Jinya\Cms\Theming;
 
-use App\Database;
-use App\Tests\DatabaseAwareTestCase;
-use App\Theming;
-use App\Theming\ThemeSyncer;
+use Jinya\Cms\Database;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Theming;
 use Faker\Provider\Uuid;
 use RuntimeException;
 use Symfony\Component\Filesystem\Filesystem;
@@ -91,7 +90,7 @@ class ThemeTest extends DatabaseAwareTestCase
     {
         $engine = Theming\Engine::getPlatesEngine();
         $this->theme->register($engine);
-        self::assertTrue($engine->getFolders()->exists('theme'));
+        self::assertArrayHasKey('theme', $engine->getFolders());
     }
 
     public function test__construct(): void
@@ -147,7 +146,7 @@ class ThemeTest extends DatabaseAwareTestCase
                 ],
             ],
             'links' => [
-                'segment_pages' => [
+                'section_pages' => [
                     'segmentPage1' => 'Segment Page 1',
                     'segmentPage2' => 'Segment Page 2',
                     'segmentPage3' => 'Segment Page 3',

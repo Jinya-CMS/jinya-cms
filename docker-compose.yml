@@ -1,11 +1,18 @@
-version: '3.9'
-
 volumes:
   logs:
     driver: local
 
 services:
   jinya-mysql-database:
+    image: library/mysql:8
+    environment:
+      MYSQL_DATABASE: jinya
+      MYSQL_PASSWORD: jinya
+      MYSQL_ROOT_PASSWORD: jinya
+      MYSQL_USER: jinya
+    ports:
+      - 4336:3306
+  jinya-mariadb-database:
     image: library/mariadb:11
     environment:
       MYSQL_DATABASE: jinya
@@ -14,7 +21,7 @@ services:
       MYSQL_USER: jinya
     ports:
       - 3336:3306
-  jinya-mysql-additional-database:
+  jinya-mariadb-additional-database:
     image: library/mariadb:11
     environment:
       MYSQL_DATABASE: jinya
@@ -23,7 +30,7 @@ services:
       MYSQL_USER: jinya
     ports:
       - 3356:3306
-  jinya-mysql-test-database:
+  jinya-mariadb-test-database:
     image: library/mariadb:11
     environment:
       MYSQL_DATABASE: jinya
@@ -35,15 +42,15 @@ services:
   jinya-mailer:
     image: axllent/mailpit:latest
     environment:
-      MP_SMTP_AUTH_ACCEPT_ANY: "true"
-      MP_SMTP_AUTH_ALLOW_INSECURE: "true"
+      MP_SMTP_AUTH_ACCEPT_ANY: 'true'
+      MP_SMTP_AUTH_ALLOW_INSECURE: 'true'
     ports:
       - 8525:8025
       - 1525:1025
   jinya-backend:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: docker/dev.dockerfile
     ports:
       - 8080:80
     volumes:
@@ -51,17 +58,6 @@ services:
     links:
       - jinya-mailer
       - jinya-mysql-database
-      - jinya-mysql-test-database
-      - jinya-tidb
-
-  jinya-tidb:
-    image: pingcap/tidb:v7.3.0
-    ports:
-      - "4000:4000"
-      - "10080:10080"
-    command:
-      - --store=unistore
-      - --path=""
-      - --log-file=/logs/tidb.log
-      - --advertise-address=jinya-tidb
-    restart: on-failure
+      - jinya-mariadb-database
+      - jinya-mariadb-test-database
+      - jinya-mariadb-additional-database

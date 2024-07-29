@@ -1,25 +1,26 @@
 <?php
 
-namespace App\Mailing\Types;
+namespace Jinya\Cms\Mailing\Types;
 
-use App\Mailing\Factory\MailerFactory;
-use League\Plates\Engine;
+use Jinya\Cms\Mailing\Factory\MailerFactory;
+use Jinya\Cms\Theming\Engine;
+use Jinya\Plates\Engine as PlatesEngine;
 use PHPMailer\PHPMailer\Exception;
 use Throwable;
 
 /**
  * This class is the two-factor mail and should be sent when a two-factor code was requested
  */
-class TwoFactorMail
+readonly class TwoFactorMail
 {
-    private Engine $templateEngine;
+    private PlatesEngine $templateEngine;
 
     /**
      * TwoFactorMail constructor.
      */
     public function __construct()
     {
-        $this->templateEngine = \App\Theming\Engine::getPlatesEngine();
+        $this->templateEngine = Engine::getPlatesEngine();
     }
 
     /**
@@ -49,7 +50,7 @@ class TwoFactorMail
         );
 
         $mailer = MailerFactory::getMailer();
-        $mailer->Subject = 'Your two factor code';
+        $mailer->Subject = 'Your two-factor code';
         $mailer->setFrom(getenv('MAILER_FROM') ?: '');
         $mailer->addAddress($artistEmail);
         $mailer->AltBody = $renderedTextMail;

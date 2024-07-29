@@ -1,143 +1,143 @@
 .jinya-category__title,
 .jinya-post__title {
-  font-family: $heading-font-family;
-  margin-bottom: 2rem;
-  width: 100%;
-  display: block;
-  border-bottom: 1px solid $primary;
+    font-family: $heading-font-family;
+    margin-bottom: 2rem;
+    width: 100%;
+    display: block;
+    border-bottom: 1px solid $primary;
 }
 
 .jinya-post__header {
-  background-repeat: no-repeat;
-  height: 60vh;
-  background-size: cover;
-  display: flex;
-  margin-top: 2rem;
-  justify-content: start;
-  align-items: end;
+    background-repeat: no-repeat;
+    height: 60vh;
+    background-size: cover;
+    display: flex;
+    margin-top: 2rem;
+    justify-content: start;
+    align-items: end;
 }
 
 .jinya-post__title {
-  background: rgba(255, 255, 255, 0.8);
-  padding: 2rem;
-  border: none;
-  text-align: center;
-  font-size: 3rem;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 2rem;
+    border: none;
+    text-align: center;
+    font-size: 3rem;
 }
 
 .jinya-post-list {
-  display: block;
-  margin: 0 auto;
-  width: 60vw;
-  padding-top: 2rem;
+    display: block;
+    margin: 0 auto;
+    width: 60vw;
+    padding-top: 2rem;
 
-  @include jinya-media-query($small: true, $medium: true, $screen: true) {
-    width: 100%;
-  }
+    @include jinya-media-query($small: true, $medium: true, $screen: true) {
+        width: 100%;
+    }
 }
 
 .jinya-post-list__post {
-  display: flex;
-  justify-content: center;
-  border-bottom: 1px solid $primary;
-  padding-bottom: 2rem;
-  margin-bottom: 2rem;
-  flex-flow: column;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid $primary;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    flex-flow: column;
 }
 
 .jinya-post-list__post-title {
-  font-size: 1.5rem;
-  font-family: $heading-font-family;
+    font-size: 1.5rem;
+    font-family: $heading-font-family;
 }
 
 .jinya-post-list__post-header {
-  width: 100%;
-  height: 40rem;
-  overflow-y: hidden;
-  object-fit: cover;
-  object-position: top;
+    width: 100%;
+    height: 40rem;
+    overflow-y: hidden;
+    object-fit: cover;
+    object-position: top;
 }
 
 .jinya-post-list__post-link {
-  color: $primary;
-  text-decoration: none;
+    color: $primary;
+    text-decoration: none;
 }
 
 .jinya-post {
-  @include content-styling;
-  width: 50vw;
-  margin: 0 auto;
-
-  @include jinya-media-query($small: true, $medium: true, $screen: true) {
-    width: 100%;
-  }
-
-  .is--sequence .jinya-horizontal-gallery {
-    margin-left: unset;
+    @include content-styling;
     width: 50vw;
+    margin: 0 auto;
 
     @include jinya-media-query($small: true, $medium: true, $screen: true) {
-      width: 100%;
+        width: 100%;
     }
-  }
 
-  img {
-    max-width: 100%;
-    height: auto;
-    width: unset;
-  }
+    .is--sequence .jinya-horizontal-gallery {
+        margin-left: unset;
+        width: 50vw;
+
+        @include jinya-media-query($small: true, $medium: true, $screen: true) {
+            width: 100%;
+        }
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        width: unset;
+    }
 }
 
 .jinya-post__segment {
-  flex: 0 0 100%;
-  padding-bottom: 2rem;
+    flex: 0 0 100%;
+    padding-bottom: 2rem;
 }
 
 .jinya-post__html-segment {
-  @include content-styling;
+    @include content-styling;
 }
 
 .jinya-post__segment--file {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 
-  .jinya-post__artwork {
-    width: auto;
-  }
+    .jinya-post__artwork {
+        width: auto;
+    }
 }
 
 .jinya-gallery--post {
-  .jinya-vertical-gallery__artwork {
-    border: 1px solid $primary-lighter;
-  }
+    .jinya-vertical-gallery__artwork {
+        border: 1px solid $primary-lighter;
+    }
 
-  .jinya-horizontal-gallery__artwork {
-    border: 1px solid $primary-lighter;
-  }
+    .jinya-horizontal-gallery__artwork {
+        border: 1px solid $primary-lighter;
+    }
 }
 
 .jinya-post__img-caption {
-  font-size: 1.25rem;
-  grid-row: data;
-  grid-column: data;
-  align-self: end;
-  background: rgba(255, 255, 255, 0.8);
-  padding: 1rem;
-  opacity: 0;
-  transition: opacity 0.3s;
+    font-size: 1.25rem;
+    grid-row: data;
+    grid-column: data;
+    align-self: end;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
 .jinya-post__img-container {
-  display: grid;
-  grid-template-rows: auto [data];
-  grid-template-columns: auto [data];
+    display: grid;
+    grid-template-rows: auto [data];
+    grid-template-columns: auto [data];
 }
 
 .jinya-post__artwork {
-  grid-row: data;
-  grid-column: data;
+    grid-row: data;
+    grid-column: data;
 }
 
 .jinya-post__img-container:hover .jinya-post__img-caption {
-  opacity: 1;
+    opacity: 1;
 }

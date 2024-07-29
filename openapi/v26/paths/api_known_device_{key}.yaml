@@ -1,0 +1,50 @@
+parameters:
+  - name: key
+    schema:
+      type: string
+    in: path
+    required: true
+head:
+  summary: Check the validity of a known device
+  tags:
+    - known-devices
+  responses:
+    '204':
+      description: Known device is valid
+    '401':
+      description: Known device is invalid
+  operationId: check_known_device
+  description: Check if the known device provided in the url is valid
+  security: []
+delete:
+  summary: Delete known device
+  tags:
+    - known-devices
+  responses:
+    '204':
+      description: Successfully deleted api key
+    '401':
+      description: Api Key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid API Key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Known device was not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: delete_known_device
+  description: >-
+    Deletes the given known device key. Next time this devices, tries to log in
+    a two factor code is required
+  security:
+    - header-auth: []
+    - cookie-auth: []

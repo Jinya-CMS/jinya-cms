@@ -1,0 +1,28 @@
+get:
+  summary: Analyzes the database
+  tags:
+    - mysql
+  responses:
+    '200':
+      description: Successfully returned the full database structure
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/database-analysis.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: analyze_database
+  description: Gets a full structure of the database
+  security:
+    - header-auth: []
+    - cookie-auth: []
