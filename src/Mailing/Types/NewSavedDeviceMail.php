@@ -2,6 +2,7 @@
 
 namespace Jinya\Cms\Mailing\Types;
 
+use Jinya\Cms\Configuration\JinyaConfiguration;
 use Jinya\Cms\Database\KnownDevice;
 use Jinya\Cms\Mailing\Factory\MailerFactory;
 use Jinya\Cms\Theming\Engine;
@@ -71,7 +72,7 @@ readonly class NewSavedDeviceMail
 
         $mailer = MailerFactory::getMailer();
         $mailer->Subject = 'New-saved device for your account';
-        $mailer->setFrom(getenv('MAILER_FROM') ?: '');
+        $mailer->setFrom(JinyaConfiguration::getConfiguration()->get("from", "mailer") ?: '');
         $mailer->addAddress($artistEmail);
         $mailer->AltBody = $renderedTextMail;
         $mailer->Body = $renderedHtmlMail;

@@ -2,6 +2,7 @@
 
 namespace Jinya\Cms\Mailing\Types;
 
+use Jinya\Cms\Configuration\JinyaConfiguration;
 use Jinya\Cms\Database\ApiKey;
 use Jinya\Cms\Mailing\Factory\MailerFactory;
 use Jinya\Cms\Theming\Engine;
@@ -70,7 +71,7 @@ readonly class NewLoginMail
 
         $mailer = MailerFactory::getMailer();
         $mailer->Subject = 'New login for your account';
-        $mailer->setFrom(getenv('MAILER_FROM') ?: '');
+        $mailer->setFrom(JinyaConfiguration::getConfiguration()->get("from", "mailer") ?: '');
         $mailer->addAddress($artistEmail);
         $mailer->AltBody = $renderedTextMail;
         $mailer->Body = $renderedHtmlMail;

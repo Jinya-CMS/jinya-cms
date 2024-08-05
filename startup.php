@@ -34,6 +34,8 @@ function getRouterConfiguration(): array
     ];
 }
 
+JinyaConfiguration::getConfiguration()->reconfigureDatabase();
+
 if (file_exists(__DIR__ . '/.env') || file_exists(__DIR__ . '/.env.dist')) {
     $dotenv = Dotenv::createUnsafeImmutable(__DIR__, ['.env', '.env.dist']);
     $dotenv->load();
