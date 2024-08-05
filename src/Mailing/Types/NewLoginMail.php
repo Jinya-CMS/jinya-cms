@@ -71,7 +71,8 @@ readonly class NewLoginMail
 
         $mailer = MailerFactory::getMailer();
         $mailer->Subject = 'New login for your account';
-        $mailer->setFrom(JinyaConfiguration::getConfiguration()->get("from", "mailer") ?: '');
+        /** @phpstan-ignore-next-line */
+        $mailer->setFrom(JinyaConfiguration::getConfiguration()->get("from", "mailer"));
         $mailer->addAddress($artistEmail);
         $mailer->AltBody = $renderedTextMail;
         $mailer->Body = $renderedHtmlMail;

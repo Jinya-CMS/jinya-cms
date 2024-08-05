@@ -52,7 +52,8 @@ readonly class TwoFactorMail
 
         $mailer = MailerFactory::getMailer();
         $mailer->Subject = 'Your two-factor code';
-        $mailer->setFrom(JinyaConfiguration::getConfiguration()->get("from", "mailer") ?: '');
+        /** @phpstan-ignore-next-line */
+        $mailer->setFrom(JinyaConfiguration::getConfiguration()->get("from", "mailer"));
         $mailer->addAddress($artistEmail);
         $mailer->AltBody = $renderedTextMail;
         $mailer->Body = $renderedHtmlMail;
