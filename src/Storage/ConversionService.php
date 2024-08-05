@@ -51,6 +51,7 @@ readonly class ConversionService
             $image->save(StorageBaseService::BASE_PATH . "/public/{$file->path}-{$width}w.$fileType");
             $this->logger->info("{$file->name}: File cached for $fileType in resolution $width");
         } catch (Throwable $exception) {
+            $fileType = $imageType->string();
             $this->logger->error("{$file->name}: Failed to convert file to $fileType");
         }
     }
