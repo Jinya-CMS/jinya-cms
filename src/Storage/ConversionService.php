@@ -10,6 +10,7 @@ use Jinya\Cms\Logging\Logger;
 use Jinya\Cms\Theming\Extensions\FileExtension;
 use Jinya\Cms\Utils\ImageType;
 use Psr\Log\LoggerInterface;
+use Throwable;
 
 readonly class ConversionService
 {
@@ -37,16 +38,20 @@ readonly class ConversionService
         $imageTypes = ImageType::cases();
         foreach (FileExtension::RESOLUTIONS_FOR_SOURCE as $width) {
             foreach ($imageTypes as $imageType) {
-                $this->cacheFile($image->resize($width), $file, $width, $imageType);
+                $this->cacheFile($image->scaleDown($width), $file, $width, $imageType);
             }
         }
     }
 
     private function cacheFile(ImageInterface $image, File $file, int $width, ImageType $imageType): void
     {
-        $fileType = $imageType->string();
-        $this->logger->info("{$file->name}: Create file cache for $fileType and resolution $width");
-        $image->save(StorageBaseService::BASE_PATH . "/public/{$file->path}-{$width}w.$fileType");
-        $this->logger->info("{$file->name}: File cached for $fileType in resolution $width");
+        try {
+            $fileType = $imageType->string();
+            $this->logger->info("{$file->name}: Create file cache for $fileType and resolution $width");
+            $image->save(StorageBaseService::BASE_PATH . "/public/{$file->path}-{$width}w.$fileType");
+            $this->logger->info("{$file->name}: File cached for $fileType in resolution $width");
+        } catch (Throwable $exception) {
+            $this->logger->error("{$file->name}: Failed to convert file to $fileType");
+        }
     }
 }
