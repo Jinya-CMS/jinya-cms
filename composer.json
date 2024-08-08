@@ -31,7 +31,7 @@
     "nyholm/psr7": "1.8.1",
     "nyholm/psr7-server": "1.1.0",
     "phpmailer/phpmailer": "v6.9.1",
-    "phpmyadmin/sql-parser": " 5.9.0",
+    "phpmyadmin/sql-parser": "5.9.0",
     "scssphp/scssphp": "v1.12.1",
     "spomky-labs/otphp": "11.3.0",
     "symfony/filesystem": "v7.1.2",
@@ -45,7 +45,7 @@
   "require-dev": {
     "roave/security-advisories": "dev-latest",
     "fakerphp/faker": "v1.23.1",
-    "laravel/pint": "v1.17.0"
+    "laravel/pint": "v1.17.2"
   },
   "config": {
     "process-timeout": 0,
