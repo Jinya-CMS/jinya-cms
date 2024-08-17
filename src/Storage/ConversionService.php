@@ -10,6 +10,7 @@ use Jinya\Cms\Logging\Logger;
 use Jinya\Cms\Theming\Extensions\FileExtension;
 use Jinya\Cms\Utils\ImageType;
 use Psr\Log\LoggerInterface;
+use Throwable;
 
 readonly class ConversionService
 {
@@ -33,11 +34,15 @@ readonly class ConversionService
         }
 
         $this->logger->info("Process file $file->name");
-        $image = $this->imageManager->read(StorageBaseService::BASE_PATH . '/public/' . $file->path);
         $imageTypes = ImageType::cases();
         foreach (FileExtension::RESOLUTIONS_FOR_SOURCE as $width) {
             foreach ($imageTypes as $imageType) {
-                $this->cacheFile($image->resize($width), $file, $width, $imageType);
+                try {
+                    $image = $this->imageManager->read(StorageBaseService::BASE_PATH . '/public/' . $file->path);
+                    $this->cacheFile($image->scale($width), $file, $width, $imageType);
+                } catch (Throwable $exception) {
+                    $this->logger->error($exception->getMessage());
+                }
             }
         }
     }

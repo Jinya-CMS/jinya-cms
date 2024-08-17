@@ -41,7 +41,7 @@ if (file_exists($fullpath)) {
 $manager = ImageManager::imagick();
 $image = $manager->read(StorageBaseService::BASE_PATH . '/public/' . $file->path);
 if ($width !== false) {
-    $image->scaleDown(width: $width);
+    $image->scale(width: $width);
 }
 
 $encodedImage = match ($type) {
