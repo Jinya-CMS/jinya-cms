@@ -34,11 +34,15 @@ readonly class ConversionService
         }
 
         $this->logger->info("Process file $file->name");
-        $image = $this->imageManager->read(StorageBaseService::BASE_PATH . '/public/' . $file->path);
         $imageTypes = ImageType::cases();
         foreach (FileExtension::RESOLUTIONS_FOR_SOURCE as $width) {
             foreach ($imageTypes as $imageType) {
-                $this->cacheFile($image->scaleDown($width), $file, $width, $imageType);
+                try {
+                    $image = $this->imageManager->read(StorageBaseService::BASE_PATH . '/public/' . $file->path);
+                    $this->cacheFile($image->scale($width), $file, $width, $imageType);
+                } catch (Throwable $exception) {
+                    $this->logger->error($exception->getMessage());
+                }
             }
         }
     }

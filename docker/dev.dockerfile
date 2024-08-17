@@ -2,11 +2,7 @@ FROM registry.ulbricht.casa/jinya-cms/jinya-cms-php-base-test-image:apache
 
 EXPOSE 80
 
-COPY ./docker/conf/memory-limit.ini /usr/local/etc/php/conf.d/memory-limit.ini
-COPY ./docker/conf/opcache.ini /usr/local/etc/php/conf.d/opcache-recommended.ini
-COPY ./docker/entrypoint.sh /entrypoint.sh
-
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 
 RUN echo "apc.enable_cli=1" >> /usr/local/etc/php/php.ini
 RUN echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/xdebug.ini && echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/xdebug.ini && echo "xdebug.discover_client_host=yes" >> /usr/local/etc/php/conf.d/xdebug.ini && echo "xdebug.log_level=0" >> /usr/local/etc/php/conf.d/xdebug.ini
