@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "25b5a81f04a45458d94fe619e56dd940",
+    "content-hash": "7846c80ea332e51af2d463fb2eb60bf8",
     "packages": [
         {
             "name": "aura/sqlquery",
@@ -129,23 +129,23 @@
         },
         {
             "name": "dasprid/enum",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DASPRiD/Enum.git",
-                "reference": "6faf451159fb8ba4126b925ed2d78acfce0dc016"
+                "reference": "8dfd07c6d2cf31c8da90c53b83c026c7696dda90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DASPRiD/Enum/zipball/6faf451159fb8ba4126b925ed2d78acfce0dc016",
-                "reference": "6faf451159fb8ba4126b925ed2d78acfce0dc016",
+                "url": "https://api.github.com/repos/DASPRiD/Enum/zipball/8dfd07c6d2cf31c8da90c53b83c026c7696dda90",
+                "reference": "8dfd07c6d2cf31c8da90c53b83c026c7696dda90",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1 <9.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^7 | ^8 | ^9",
+                "phpunit/phpunit": "^7 || ^8 || ^9 || ^10 || ^11",
                 "squizlabs/php_codesniffer": "*"
             },
             "type": "library",
@@ -173,9 +173,9 @@
             ],
             "support": {
                 "issues": "https://github.com/DASPRiD/Enum/issues",
-                "source": "https://github.com/DASPRiD/Enum/tree/1.0.5"
+                "source": "https://github.com/DASPRiD/Enum/tree/1.0.6"
             },
-            "time": "2023-08-25T16:18:39+00:00"
+            "time": "2024-08-09T14:30:48+00:00"
         },
         {
             "name": "fig/http-message-util",
@@ -2235,16 +2235,16 @@
         },
         {
             "name": "phpmyadmin/sql-parser",
-            "version": "5.9.0",
+            "version": "5.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpmyadmin/sql-parser.git",
-                "reference": "011fa18a4e55591fac6545a821921dd1d61c6984"
+                "reference": "169a9f11f1957ea36607c9b29eac1b48679f1ecc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpmyadmin/sql-parser/zipball/011fa18a4e55591fac6545a821921dd1d61c6984",
-                "reference": "011fa18a4e55591fac6545a821921dd1d61c6984",
+                "url": "https://api.github.com/repos/phpmyadmin/sql-parser/zipball/169a9f11f1957ea36607c9b29eac1b48679f1ecc",
+                "reference": "169a9f11f1957ea36607c9b29eac1b48679f1ecc",
                 "shasum": ""
             },
             "require": {
@@ -2262,8 +2262,7 @@
                 "phpstan/extension-installer": "^1.1",
                 "phpstan/phpstan": "^1.9.12",
                 "phpstan/phpstan-phpunit": "^1.3.3",
-                "phpunit/php-code-coverage": "*",
-                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5",
+                "phpunit/phpunit": "^8.5 || ^9.6",
                 "psalm/plugin-phpunit": "^0.16.1",
                 "vimeo/psalm": "^4.11",
                 "zumba/json-serializer": "~3.0.2"
@@ -2319,7 +2318,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2024-01-20T20:34:02+00:00"
+            "time": "2024-08-13T19:01:01+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -3696,17 +3695,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "0816697098823477b1a95d07d2b94bf3cfe1a2f8"
+                "reference": "251a4f1fefcc6e6cc90d50514fee6b6e3745cb3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/0816697098823477b1a95d07d2b94bf3cfe1a2f8",
-                "reference": "0816697098823477b1a95d07d2b94bf3cfe1a2f8",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/251a4f1fefcc6e6cc90d50514fee6b6e3745cb3e",
+                "reference": "251a4f1fefcc6e6cc90d50514fee6b6e3745cb3e",
                 "shasum": ""
             },
             "conflict": {
                 "3f/pygmentize": "<1.2",
-                "admidio/admidio": "<4.2.13",
+                "admidio/admidio": "<4.3.10",
                 "adodb/adodb-php": "<=5.20.20|>=5.21,<=5.21.3",
                 "aheinze/cockpit": "<2.2",
                 "aimeos/ai-admin-graphql": ">=2022.04.1,<2022.10.10|>=2023.04.1,<2023.10.6|>=2024.04.1,<2024.04.6",
@@ -3759,7 +3758,7 @@
                 "bcosca/fatfree": "<3.7.2",
                 "bedita/bedita": "<4",
                 "bigfork/silverstripe-form-capture": ">=3,<3.1.1",
-                "billz/raspap-webgui": "<2.9.5",
+                "billz/raspap-webgui": "<=3.1.4",
                 "bk2k/bootstrap-package": ">=7.1,<7.1.2|>=8,<8.0.8|>=9,<9.0.4|>=9.1,<9.1.3|>=10,<10.0.10|>=11,<11.0.3",
                 "blueimp/jquery-file-upload": "==6.4.4",
                 "bmarshall511/wordpress_zero_spam": "<5.2.13",
@@ -3798,7 +3797,7 @@
                 "codeigniter4/shield": "<1.0.0.0-beta8",
                 "codiad/codiad": "<=2.8.4",
                 "composer/composer": "<1.10.27|>=2,<2.2.24|>=2.3,<2.7.7",
-                "concrete5/concrete5": "<9.2.8",
+                "concrete5/concrete5": "<9.3.3",
                 "concrete5/core": "<8.5.8|>=9,<9.1",
                 "contao-components/mediaelement": ">=2.14.2,<2.21.1",
                 "contao/comments-bundle": ">=2,<4.13.40|>=5.0.0.0-RC1-dev,<5.3.4",
@@ -3819,7 +3818,7 @@
                 "datatables/datatables": "<1.10.10",
                 "david-garcia/phpwhois": "<=4.3.1",
                 "dbrisinajumi/d2files": "<1",
-                "dcat/laravel-admin": "<=2.1.3.0-beta",
+                "dcat/laravel-admin": "<=2.1.3",
                 "derhansen/fe_change_pwd": "<2.0.5|>=3,<3.0.3",
                 "derhansen/sf_event_mgt": "<4.3.1|>=5,<5.1.1|>=7,<7.4",
                 "desperado/xml-bundle": "<=0.1.7",
@@ -3862,12 +3861,12 @@
                 "ezsystems/ezdemo-ls-extension": ">=5.4,<5.4.2.1-dev",
                 "ezsystems/ezfind-ls": ">=5.3,<5.3.6.1-dev|>=5.4,<5.4.11.1-dev|>=2017.12,<2017.12.0.1-dev",
                 "ezsystems/ezplatform": "<=1.13.6|>=2,<=2.5.24",
-                "ezsystems/ezplatform-admin-ui": ">=1.3,<1.3.5|>=1.4,<1.4.6|>=1.5,<1.5.29|>=2.3,<2.3.26",
+                "ezsystems/ezplatform-admin-ui": ">=1.3,<1.3.5|>=1.4,<1.4.6|>=1.5,<1.5.29|>=2.3,<2.3.26|>=3.3,<3.3.39",
                 "ezsystems/ezplatform-admin-ui-assets": ">=4,<4.2.1|>=5,<5.0.1|>=5.1,<5.1.1",
                 "ezsystems/ezplatform-graphql": ">=1.0.0.0-RC1-dev,<1.0.13|>=2.0.0.0-beta1,<2.3.12",
                 "ezsystems/ezplatform-kernel": "<1.2.5.1-dev|>=1.3,<1.3.35",
                 "ezsystems/ezplatform-rest": ">=1.2,<=1.2.2|>=1.3,<1.3.8",
-                "ezsystems/ezplatform-richtext": ">=2.3,<2.3.7.1-dev",
+                "ezsystems/ezplatform-richtext": ">=2.3,<2.3.7.1-dev|>=3.3,<3.3.40",
                 "ezsystems/ezplatform-solr-search-engine": ">=1.7,<1.7.12|>=2,<2.0.2|>=3.3,<3.3.15",
                 "ezsystems/ezplatform-user": ">=1,<1.0.1",
                 "ezsystems/ezpublish-kernel": "<6.13.8.2-dev|>=7,<7.5.31",
@@ -3885,6 +3884,7 @@
                 "filp/whoops": "<2.1.13",
                 "fineuploader/php-traditional-server": "<=1.2.2",
                 "firebase/php-jwt": "<6",
+                "fisharebest/webtrees": "<=2.1.18",
                 "fixpunkt/fp-masterquiz": "<2.2.1|>=3,<3.5.2",
                 "fixpunkt/fp-newsletter": "<1.1.1|>=2,<2.1.2|>=2.2,<3.2.6",
                 "flarum/core": "<1.8.5",
@@ -3945,8 +3945,9 @@
                 "hov/jobfair": "<1.0.13|>=2,<2.0.2",
                 "httpsoft/http-message": "<1.0.12",
                 "hyn/multi-tenant": ">=5.6,<5.7.2",
-                "ibexa/admin-ui": ">=4.2,<4.2.3",
+                "ibexa/admin-ui": ">=4.2,<4.2.3|>=4.6.0.0-beta1,<4.6.9",
                 "ibexa/core": ">=4,<4.0.7|>=4.1,<4.1.4|>=4.2,<4.2.3|>=4.5,<4.5.6|>=4.6,<4.6.2",
+                "ibexa/fieldtype-richtext": ">=4.6,<4.6.10",
                 "ibexa/graphql": ">=2.5,<2.5.31|>=3.3,<3.3.28|>=4.2,<4.2.3",
                 "ibexa/post-install": "<=1.0.4",
                 "ibexa/solr": ">=4.5,<4.5.4",
@@ -3968,6 +3969,7 @@
                 "innologi/typo3-appointments": "<2.0.6",
                 "intelliants/subrion": "<4.2.2",
                 "inter-mediator/inter-mediator": "==5.5",
+                "ipl/web": "<0.10.1",
                 "islandora/islandora": ">=2,<2.4.1",
                 "ivankristianto/phpwhois": "<=4.3",
                 "jackalope/jackalope-doctrine-dbal": "<1.7.4",
@@ -4050,7 +4052,7 @@
                 "microsoft/microsoft-graph": ">=1.16,<1.109.1|>=2,<2.0.1",
                 "microsoft/microsoft-graph-beta": "<2.0.1",
                 "microsoft/microsoft-graph-core": "<2.0.2",
-                "microweber/microweber": "<=2.0.4",
+                "microweber/microweber": "<=2.0.16",
                 "mikehaertl/php-shellcommand": "<1.6.1",
                 "miniorange/miniorange-saml": "<1.4.3",
                 "mittwald/typo3_forum": "<1.2.1",
@@ -4103,7 +4105,7 @@
                 "open-web-analytics/open-web-analytics": "<1.7.4",
                 "opencart/opencart": ">=0",
                 "openid/php-openid": "<2.3",
-                "openmage/magento-lts": "<20.5",
+                "openmage/magento-lts": "<20.10.1",
                 "opensolutions/vimbadmin": "<=3.0.15",
                 "opensource-workshop/connect-cms": "<1.7.2|>=2,<2.3.2",
                 "orchid/platform": ">=9,<9.4.4|>=14.0.0.0-alpha4,<14.5",
@@ -4155,7 +4157,7 @@
                 "phpxmlrpc/extras": "<0.6.1",
                 "phpxmlrpc/phpxmlrpc": "<4.9.2",
                 "pi/pi": "<=2.5",
-                "pimcore/admin-ui-classic-bundle": "<=1.4.2",
+                "pimcore/admin-ui-classic-bundle": "<=1.5.1",
                 "pimcore/customer-management-framework-bundle": "<4.0.6",
                 "pimcore/data-hub": "<1.2.4",
                 "pimcore/demo": "<10.3",
@@ -4188,6 +4190,7 @@
                 "pubnub/pubnub": "<6.1",
                 "pusher/pusher-php-server": "<2.2.1",
                 "pwweb/laravel-core": "<=0.3.6.0-beta",
+                "pxlrbt/filament-excel": "<2.3.3",
                 "pyrocms/pyrocms": "<=3.9.1",
                 "qcubed/qcubed": "<=3.1.1",
                 "quickapps/cms": "<=2.0.0.0-beta2",
@@ -4215,8 +4218,8 @@
                 "serluck/phpwhois": "<=4.2.6",
                 "sfroemken/url_redirect": "<=1.2.1",
                 "sheng/yiicms": "<=1.2",
-                "shopware/core": "<6.5.8.8-dev|>=6.6.0.0-RC1-dev,<6.6.1",
-                "shopware/platform": "<6.5.8.8-dev|>=6.6.0.0-RC1-dev,<6.6.1",
+                "shopware/core": "<=6.5.8.12|>=6.6,<=6.6.5",
+                "shopware/platform": "<=6.5.8.12|>=6.6,<=6.6.5",
                 "shopware/production": "<=6.3.5.2",
                 "shopware/shopware": "<=5.7.17",
                 "shopware/storefront": "<=6.4.8.1|>=6.5.8,<6.5.8.7-dev",
@@ -4266,7 +4269,7 @@
                 "ssddanbrown/bookstack": "<24.05.1",
                 "statamic/cms": "<4.46|>=5.3,<5.6.2",
                 "stormpath/sdk": "<9.9.99",
-                "studio-42/elfinder": "<2.1.62",
+                "studio-42/elfinder": "<=2.1.64",
                 "studiomitte/friendlycaptcha": "<0.1.4",
                 "subhh/libconnect": "<7.0.8|>=8,<8.1",
                 "sukohi/surpass": "<1",
@@ -4346,6 +4349,7 @@
                 "tribalsystems/zenario": "<9.5.60602",
                 "truckersmp/phpwhois": "<=4.3.1",
                 "ttskch/pagination-service-provider": "<1",
+                "twbs/bootstrap": "<=3.4.1|>=4,<=4.6.2",
                 "twig/twig": "<1.44.7|>=2,<2.15.3|>=3,<3.4.3",
                 "typo3/cms": "<9.5.29|>=10,<10.4.35|>=11,<11.5.23|>=12,<12.2",
                 "typo3/cms-backend": "<4.1.14|>=4.2,<4.2.15|>=4.3,<4.3.7|>=4.4,<4.4.4|>=7,<=7.6.50|>=8,<=8.7.39|>=9,<=9.5.24|>=10,<=10.4.13|>=11,<=11.1",
@@ -4500,7 +4504,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-26T15:04:59+00:00"
+            "time": "2024-08-14T19:05:08+00:00"
         }
     ],
     "aliases": [],
