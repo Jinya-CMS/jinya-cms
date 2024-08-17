@@ -60,8 +60,8 @@
               <template :key="group.name" x-for="group in selectedThemeData.configurationStructure.groups">
                 <div style="display: contents">
                   <span class="cosmo-input__header" x-text="getValueForCurrentLanguage(group.title)"></span>
-                  <template :key="field.name" x-data="{ id: $id('group') }" x-for="field in group.fields">
-                    <div style="display: contents">
+                  <template :key="field.name"x-for="field in group.fields">
+                    <div style="display: contents" x-data="{ id: $id('group') }">
                       <template x-if="field.type !== 'boolean'">
                         <div style="display: contents">
                           <label :for="id" class="cosmo-label" x-text="getValueForCurrentLanguage(field.label)"></label>
@@ -76,7 +76,7 @@
                       </template>
                       <template x-if="field.type === 'boolean'">
                         <div class="cosmo-input__group is--checkbox">
-                          <input :id="id" class="cosmo-checkbox" type="checkbox" />
+                          <input :id="id" class="cosmo-checkbox" type="checkbox" x-model="selectedThemeData.configuration[group.name][field.name]" />
                           <label :for="id" x-text="getValueForCurrentLanguage(field.label)"></label>
                         </div>
                       </template>
