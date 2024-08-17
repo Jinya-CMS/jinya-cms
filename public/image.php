@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Jinya\Cms\Database\File;
 use Jinya\Cms\Storage\StorageBaseService;
-use Intervention\Image\ImageManager;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7Server\ServerRequestCreator;
 
@@ -38,20 +37,12 @@ if (file_exists($fullpath)) {
     exit(302);
 }
 
-$manager = ImageManager::imagick();
-$image = $manager->read(StorageBaseService::BASE_PATH . '/public/' . $file->path);
-if ($width !== false) {
-    $image->scale(width: $width);
+try {
+    $conversionService = new \Jinya\Cms\Storage\ConversionService();
+    $conversionService->convertFile($id);
+} catch (Throwable $exception) {
+    exit(500);
 }
 
-$encodedImage = match ($type) {
-    'png' => $image->toPng(),
-    'jpg' => $image->toJpeg(),
-    'gif' => $image->toGif(),
-    'bmp' => $image->toBitmap(),
-    default => $image->toWebp(),
-};
-$encodedImage->save($fullpath);
-
-header('Content-Type: ' . $encodedImage->mediaType());
-echo (string)$encodedImage;
+header('Location: ' . $file->path . '-' . $width . 'w.' . $type);
+exit(302);

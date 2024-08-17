@@ -49,9 +49,14 @@ readonly class ConversionService
 
     private function cacheFile(ImageInterface $image, File $file, int $width, ImageType $imageType): void
     {
-        $fileType = $imageType->string();
-        $this->logger->info("{$file->name}: Create file cache for $fileType and resolution $width");
-        $image->save(StorageBaseService::BASE_PATH . "/public/{$file->path}-{$width}w.$fileType");
-        $this->logger->info("{$file->name}: File cached for $fileType in resolution $width");
+        try {
+            $fileType = $imageType->string();
+            $this->logger->info("{$file->name}: Create file cache for $fileType and resolution $width");
+            $image->save(StorageBaseService::BASE_PATH . "/public/{$file->path}-{$width}w.$fileType");
+            $this->logger->info("{$file->name}: File cached for $fileType in resolution $width");
+        } catch (Throwable $exception) {
+            $fileType = $imageType->string();
+            $this->logger->error("{$file->name}: Failed to convert file to $fileType");
+        }
     }
 }

@@ -202,10 +202,6 @@ class FrontendController extends BaseController
             $status = self::HTTP_NOT_FOUND;
         }
 
-        if (Theming\Theme::ERROR_BEHAVIOR_HOMEPAGE === $this->activeTheme->getErrorBehavior()) {
-            return new Response(self::HTTP_FOUND, ['Location' => '/']);
-        }
-
         if ($this->checkForApiRequest()) {
             return $this->sendApiJson($template, $data, $status);
         }
