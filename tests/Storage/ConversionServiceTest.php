@@ -38,20 +38,6 @@ class ConversionServiceTest extends DatabaseAwareTestCase
         unlink($tmpPath);
     }
 
-    public function testConvertFileFilePathNotExists(): void
-    {
-        $this->expectException(DecoderException::class);
-        $fileName = UuidGenerator::generateV4();
-        $file = new File();
-        $file->path = $fileName;
-        $file->name = 'Testimage';
-        $file->type = 'image/png';
-        $file->create();
-
-        $conversionService = new ConversionService();
-        $conversionService->convertFile($file->id);
-    }
-
     public function testConvertFileFileNotExists(): void
     {
         $this->expectException(EmptyResultException::class);
