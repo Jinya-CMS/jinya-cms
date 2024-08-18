@@ -3,13 +3,11 @@
 namespace Jinya\Cms\Storage;
 
 use Faker\Provider\Uuid;
-use Intervention\Image\Exceptions\DecoderException;
 use Jinya\Cms\Database\Exceptions\EmptyResultException;
 use Jinya\Cms\Database\File;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Jinya\Cms\Theming\Extensions\FileExtension;
 use Jinya\Cms\Utils\ImageType;
-use Jinya\Cms\Utils\UuidGenerator;
 
 class ConversionServiceTest extends DatabaseAwareTestCase
 {
