@@ -1,5 +1,45 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 26.0.0
+
+### User Stories
+
+- [TG-136](https://taiga.imanuel.dev/project/jinya-cms/us/136) API documentation
+- [TG-189](https://taiga.imanuel.dev/project/jinya-cms/us/189) Create multiple docker image
+- [TG-191](https://taiga.imanuel.dev/project/jinya-cms/us/191) Add analytics integrated in Jinya
+- [TG-192](https://taiga.imanuel.dev/project/jinya-cms/us/192) Allow configuration via designer and API
+- [TG-195](https://taiga.imanuel.dev/project/jinya-cms/us/195) Two factor via TOTP
+- [TG-198](https://taiga.imanuel.dev/project/jinya-cms/us/198) Option to migrate files to jinya-content
+- [TG-201](https://taiga.imanuel.dev/project/jinya-cms/us/201) Allow to disable login email
+- [TG-202](https://taiga.imanuel.dev/project/jinya-cms/us/202) Folders for files
+- [TG-204](https://taiga.imanuel.dev/project/jinya-cms/us/204) Add pint
+- [TG-205](https://taiga.imanuel.dev/project/jinya-cms/us/205) Rename pages
+- [TG-206](https://taiga.imanuel.dev/project/jinya-cms/us/206) Redesign segment page editor
+- [TG-207](https://taiga.imanuel.dev/project/jinya-cms/us/207) PHP 8.3 compatibility
+- [TG-209](https://taiga.imanuel.dev/project/jinya-cms/us/209) Folder like structure for blog categories
+- [TG-210](https://taiga.imanuel.dev/project/jinya-cms/us/210) Integrate Jinya Database and Jinya Router
+- [TG-211](https://taiga.imanuel.dev/project/jinya-cms/us/211) Update form editor
+- [TG-212](https://taiga.imanuel.dev/project/jinya-cms/us/212) Update menu editor
+- [TG-213](https://taiga.imanuel.dev/project/jinya-cms/us/213) Update Cosmo CSS
+- [TG-214](https://taiga.imanuel.dev/project/jinya-cms/us/214) Replace frontend api with proper api client
+- [TG-215](https://taiga.imanuel.dev/project/jinya-cms/us/215) Files multi select
+- [TG-216](https://taiga.imanuel.dev/project/jinya-cms/us/216) Redesign installer
+- [TG-217](https://taiga.imanuel.dev/project/jinya-cms/us/217) IP address location
+- [TG-218](https://taiga.imanuel.dev/project/jinya-cms/us/218) Redesign login
+- [TG-220](https://taiga.imanuel.dev/project/jinya-cms/us/220) Rename namespace to Jinya
+- [TG-221](https://taiga.imanuel.dev/project/jinya-cms/us/221) Integrate AlpineJS
+- [TG-222](https://taiga.imanuel.dev/project/jinya-cms/us/222) Allow file upload from anywhere
+- [TG-223](https://taiga.imanuel.dev/project/jinya-cms/us/223) Redesign blog area
+- [TG-240](https://taiga.imanuel.dev/project/jinya-cms/us/240) Add cache page
+- [TG-241](https://taiga.imanuel.dev/project/jinya-cms/us/241) Replace tiny with Jodit
+- [TG-242](https://taiga.imanuel.dev/project/jinya-cms/us/242) Pre cache files
+- [TG-243](https://taiga.imanuel.dev/project/jinya-cms/us/243) Central place for dexie
+- [TG-244](https://taiga.imanuel.dev/project/jinya-cms/us/244) Handle external change in local changes
+- [TG-245](https://taiga.imanuel.dev/project/jinya-cms/us/245) Allow auth with Authorization header
+- [TG-246](https://taiga.imanuel.dev/project/jinya-cms/us/246) Convert files after upload
+- [TG-248](https://taiga.imanuel.dev/project/jinya-cms/us/248) New Jinya Releases
+- [TG-249](https://taiga.imanuel.dev/project/jinya-cms/us/249) Set required PHP to 8.3
+
 ## Release notes - Jinya CMS - Version 25.3.0
 
 ### User Stories

@@ -1,5 +1,6 @@
 {
   "name": "jinya/cms",
+  "version": "26.0.0",
   "homepage": "https://jinya.de",
   "license": "MIT",
   "require": {
@@ -14,7 +15,7 @@
     "ext-zip": "*",
     "ext-zlib": "*",
     "bacon/bacon-qr-code": "v3.0.0",
-    "intervention/image": "3.7.2",
+    "intervention/image": "3.8.0",
     "jenssegers/agent": "v2.6.4",
     "jetbrains/phpstorm-attributes": "1.0",
     "jinya/configuration": "0.10.0",
@@ -32,7 +33,7 @@
     "nyholm/psr7-server": "1.1.0",
     "phpmailer/phpmailer": "v6.9.1",
     "phpmyadmin/sql-parser": "5.9.1",
-    "scssphp/scssphp": "v1.12.1",
+    "scssphp/scssphp": "v1.13.0",
     "spomky-labs/otphp": "11.3.0",
     "symfony/filesystem": "v7.1.2",
     "tedivm/jshrink": "v1.7.0",
