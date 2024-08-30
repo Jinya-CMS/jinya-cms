@@ -83,15 +83,23 @@ class AuthenticationDatabase {
   }
 
   markApiKeyValid() {
-    localStorage.setItem('/jinya/api-key/valid', JSON.stringify(true));
+    if (localStorage) {
+      localStorage.setItem('/jinya/api-key/valid', JSON.stringify(true));
+    }
   }
 
   markApiKeyInvalid() {
-    localStorage.removeItem('/jinya/api-key/valid');
+    if (localStorage) {
+      localStorage.removeItem('/jinya/api-key/valid');
+    }
   }
 
   isApiKeyValid() {
-    return localStorage.getItem('/jinya/api-key/valid') === 'true';
+    if (localStorage) {
+      return localStorage.getItem('/jinya/api-key/valid') === 'true';
+    }
+
+    return false;
   }
 }
 
