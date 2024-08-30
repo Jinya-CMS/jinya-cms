@@ -1,16 +1,22 @@
-import html from '../../../lib/jinya-html.js';
-import localize from '../localize.js';
+import localize from '../utils/localize.js';
 
 /**
  * Displays an alert modal dialog
  * @param title {string}
  * @param message {string}
  * @param buttonLabel {string}
+ * @param negative {boolean}
+ * @param positive {boolean}
  * @return {Promise<void>}
  */
-export default async function alert({ title = window.location.href, message, buttonLabel = null }) {
+export default async function alert({
+  title = window.location.href,
+  message,
+  buttonLabel = null,
+  negative = false,
+  positive = false,
+}) {
   if (buttonLabel === null) {
-    // eslint-disable-next-line no-param-reassign
     buttonLabel = localize({ key: 'alert.dismiss' });
   }
   return new Promise((resolve) => {
@@ -18,9 +24,9 @@ export default async function alert({ title = window.location.href, message, but
     document.body.appendChild(container);
     const modalId = crypto.randomUUID();
 
-    container.innerHTML = html` <div class="cosmo-modal__backdrop"></div>
+    container.innerHTML = `
       <div class="cosmo-modal__container">
-        <div class="cosmo-modal">
+        <div class="cosmo-modal ${negative ? 'is--negative' : ''} ${positive ? 'is--positive' : ''}">
           <h1 class="cosmo-modal__title">${title}</h1>
           <p class="cosmo-modal__content">${message}</p>
           <div class="cosmo-modal__button-bar">

@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Tests;
+namespace Jinya\Cms\Tests;
 
-use App\Database\Menu;
-use App\Database\Theme;
-use App\Database\ThemeMenu;
-use App\Database\Utils\LoadableEntity;
-use App\Theming\ThemeSyncer;
+use Jinya\Cms\Database\Menu;
+use Jinya\Cms\Database\Theme;
+use Jinya\Cms\Database\ThemeMenu;
+use Jinya\Cms\Theming\ThemeSyncer;
 use Faker\Provider\Uuid;
+use Jinya\Database\Entity;
+use Jinya\Database\Exception\NotNullViolationException;
 use Symfony\Component\Filesystem\Filesystem;
 
 abstract class FrontTestCase extends DatabaseAwareTestCase
@@ -16,11 +17,15 @@ abstract class FrontTestCase extends DatabaseAwareTestCase
     private static Filesystem $fs;
     protected Menu $menu;
 
+    /**
+     * @return void
+     * @throws NotNullViolationException
+     */
     protected function setUp(): void
     {
         parent::setUp();
-        LoadableEntity::executeSqlString('DELETE FROM configuration');
-        LoadableEntity::executeSqlString('INSERT INTO configuration (current_frontend_theme_id) VALUES (null)');
+        Entity::getPDO()->exec('DELETE FROM configuration');
+        Entity::getPDO()->exec('INSERT INTO configuration (current_frontend_theme_id) VALUES (null)');
         self::$name = Uuid::uuid();
         self::$fs = new Filesystem();
 
@@ -36,8 +41,8 @@ abstract class FrontTestCase extends DatabaseAwareTestCase
 
         $themeMenu = new ThemeMenu();
         $themeMenu->name = 'menu1';
-        $themeMenu->themeId = $theme->getIdAsInt();
-        $themeMenu->menuId = $this->menu->getIdAsInt();
+        $themeMenu->themeId = $theme->id;
+        $themeMenu->menuId = $this->menu->id;
         $themeMenu->create();
     }
 

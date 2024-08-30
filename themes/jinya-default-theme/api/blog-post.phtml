@@ -1,10 +1,12 @@
 <?php
-/** @var \App\Database\BlogPost $post */
 
-use App\Database\BlogPostSegment;
-use App\Database\File;
-use App\Database\Gallery;
-use App\Database\GalleryFilePosition;
+/** @var BlogPost $post */
+
+use Jinya\Cms\Database\BlogPost;
+use Jinya\Cms\Database\BlogPostSection;
+use Jinya\Cms\Database\File;
+use Jinya\Cms\Database\Gallery;
+use Jinya\Cms\Database\GalleryFilePosition;
 
 $headerImage = $post->getHeaderImage();
 $data = [
@@ -14,12 +16,12 @@ $data = [
         'name' => $headerImage->name,
         'path' => $headerImage->path,
     ] : null,
-    'segments' => array_map(static function (BlogPostSegment $segment): array {
+    'segments' => array_map(static function (BlogPostSection $section): array {
         $data = [
-            'position' => $segment->position,
+            'position' => $section->position,
         ];
-        if (isset($segment->galleryId)) {
-            $gallery = Gallery::findById($segment->galleryId);
+        if (isset($section->galleryId)) {
+            $gallery = Gallery::findById($section->galleryId);
             $data['gallery'] = [
                 'name' => $gallery?->name,
                 'description' => $gallery?->description,
@@ -35,20 +37,20 @@ $data = [
                     ];
                 }, iterator_to_array($gallery->getFiles())),
             ];
-        } elseif (isset($segment->fileId)) {
-            $file = File::findById($segment->fileId);
+        } elseif (isset($section->fileId)) {
+            $file = File::findById($section->fileId);
             $data['file'] = [
                 'name' => $file?->name,
                 'type' => $file?->type,
                 'path' => $file?->path,
             ];
-            $data['link'] = $segment->link;
+            $data['link'] = $section->link;
         } else {
-            $data['html'] = $segment->html;
+            $data['html'] = $section->html;
         }
 
         return $data;
-    }, iterator_to_array($post->getSegments())),
+    }, iterator_to_array($post->getSections())),
 ];
 
 echo json_encode($data, JSON_THROW_ON_ERROR);

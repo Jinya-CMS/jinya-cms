@@ -1,0 +1,15 @@
+title: Menu
+type: object
+description: >-
+  Menus are the central navigation entities in Jinya. In the theme config, they
+  can be assigned to a theme
+properties:
+  id:
+    type: integer
+  name:
+    type: string
+  logo:
+    $ref: ./menu-logo.yaml
+required:
+  - id
+  - name

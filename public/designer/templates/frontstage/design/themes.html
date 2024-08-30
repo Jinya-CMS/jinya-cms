@@ -1,0 +1,321 @@
+<div class="cosmo-side-list" x-data="themesData">
+  <nav class="cosmo-side-list__items">
+    <template :key="theme.id" x-for="theme in themes">
+      <a :class="{ 'is--active': selectedTheme?.id === theme.id }"
+         @click="selectTheme(theme)"
+         class="cosmo-side-list__item"
+         x-text="getValueForCurrentLanguage(theme.displayName)"></a>
+    </template>
+    <button @click="openCreateDialog" class="cosmo-button is--full-width"
+            x-localize:design-themes-action-create></button>
+  </nav>
+  <template x-if="themeSelected">
+    <div class="cosmo-side-list__content is--theme">
+      <div class="jinya-designer__title is--theme">
+        <span class="cosmo-title" x-text="title"></span>
+      </div>
+      <div class="jinya-designer__content is--theme">
+        <div class="cosmo-tab is--theme">
+          <div class="cosmo-tab__links">
+            <a :class="{ 'is--active': activeTab === 'details' }" @click="activeTab = 'details'" class="cosmo-tab__link"
+               x-localize:design-themes-tabs-details></a>
+            <a :class="{ 'is--active': activeTab === 'configuration' }" @click="activeTab = 'configuration'"
+               class="cosmo-tab__link" x-localize:design-themes-tabs-configuration></a>
+            <a :class="{ 'is--active': activeTab === 'links' }" @click="activeTab = 'links'" class="cosmo-tab__link"
+               x-localize:design-themes-tabs-links></a>
+            <a :class="{ 'is--active': activeTab === 'variables' }" @click="activeTab = 'variables'"
+               class="cosmo-tab__link" x-localize:design-themes-tabs-variables></a>
+          </div>
+          <div class="cosmo-tab__content is--details is--theme" x-show="activeTab === 'details'">
+            <div class="cosmo-toolbar is--designer is--theme">
+              <div class="cosmo-toolbar__group">
+                <button @click="activate" class="cosmo-button" x-localize:design-themes-action-activate></button>
+                <button @click="compileAssets" class="cosmo-button"
+                        x-localize:design-themes-action-compile_assets></button>
+                <button @click="openEditDialog" class="cosmo-button" x-localize:design-themes-action-update></button>
+              </div>
+            </div>
+            <template x-if="details.message.hasMessage">
+              <div :class="{ 'is--negative': details.message.hasError, 'is--positive': !details.message.hasError }"
+                   class="cosmo-message is--details is--theme">
+                <span class="cosmo-message__header" x-text="details.message.title"></span>
+                <div class="cosmo-message__message" x-text="details.message.content"></div>
+              </div>
+            </template>
+            <img :alt="selectedThemeDisplayName" :src="selectedThemePreviewImage"
+                 class="jinya-theme-details__preview" />
+            <div class="jinya-theme-details__description" x-html="selectedThemeDescription"></div>
+          </div>
+          <form @submit.prevent="saveConfiguration" class="cosmo-tab__content is--theme"
+                x-show="activeTab === 'configuration'">
+            <template x-if="configuration.message.hasMessage">
+              <div
+                :class="{ 'is--negative': configuration.message.hasError, 'is--positive': !configuration.message.hasError }"
+                class="cosmo-message">
+                <span class="cosmo-message__header" x-text="configuration.message.title"></span>
+                <div class="cosmo-message__message" x-text="configuration.message.content"></div>
+              </div>
+            </template>
+            <div class="cosmo-input__group">
+              <template :key="group.name" x-for="group in selectedThemeData.configurationStructure.groups">
+                <div style="display: contents">
+                  <span class="cosmo-input__header" x-text="getValueForCurrentLanguage(group.title)"></span>
+                  <template :key="field.name"x-for="field in group.fields">
+                    <div style="display: contents" x-data="{ id: $id('group') }">
+                      <template x-if="field.type !== 'boolean'">
+                        <div style="display: contents">
+                          <label :for="id" class="cosmo-label" x-text="getValueForCurrentLanguage(field.label)"></label>
+                          <input
+                            :id="id"
+                            :placeholder="selectedThemeData.defaultConfiguration[group.name][field.name]"
+                            class="cosmo-input"
+                            type="text"
+                            x-model="selectedThemeData.configuration[group.name][field.name]"
+                          />
+                        </div>
+                      </template>
+                      <template x-if="field.type === 'boolean'">
+                        <div class="cosmo-input__group is--checkbox">
+                          <input :id="id" class="cosmo-checkbox" type="checkbox" x-model="selectedThemeData.configuration[group.name][field.name]" />
+                          <label :for="id" x-text="getValueForCurrentLanguage(field.label)"></label>
+                        </div>
+                      </template>
+                    </div>
+                  </template>
+                </div>
+              </template>
+            </div>
+            <div class="cosmo-button__container is--sticky-bottom">
+              <button @click="loadThemeConfiguration" class="cosmo-button" type="reset"
+                      x-localize:design-themes-configuration-discard></button>
+              <button class="cosmo-button is--primary" type="submit"
+                      x-localize:design-themes-configuration-save></button>
+            </div>
+          </form>
+          <form @submit.prevent="saveLinks" class="cosmo-tab__content is--theme" x-show="activeTab === 'links'">
+            <template x-if="links.message.hasMessage">
+              <div :class="{ 'is--negative': links.message.hasError, 'is--positive': !links.message.hasError }"
+                   class="cosmo-message">
+                <span class="cosmo-message__header" x-text="links.message.title"></span>
+                <div class="cosmo-message__message" x-text="links.message.content"></div>
+              </div>
+            </template>
+            <div class="cosmo-input__group">
+              <template x-if="selectedThemeData.configurationStructure.links.menus">
+                <div style="display: contents">
+                  <span class="cosmo-input__header" x-localize:design-themes-links-menus></span>
+                  <template
+                    x-for="[menuLink, label] in Object.entries(selectedThemeData.configurationStructure.links.menus)">
+                    <div style="display: contents" x-data="{ id: $id('group') }">
+                      <label :for="id" class="cosmo-label" x-text="getValueForCurrentLanguage(label)"></label>
+                      <select :id="id" class="cosmo-select" x-model.number="selectedThemeData.menus[menuLink]">
+                        <option :value="null" x-localize:design-themes-links-no_menu></option>
+                        <template :key="menu.id" x-for="menu in menus">
+                          <option :selected="selectedThemeData.menus[menuLink] === menu.id" :value="menu.id"
+                                  x-text="menu.name"></option>
+                        </template>
+                      </select>
+                    </div>
+                  </template>
+                </div>
+              </template>
+              <template x-if="selectedThemeData.configurationStructure.links.files">
+                <div style="display: contents">
+                  <span class="cosmo-input__header" x-localize:design-themes-links-files></span>
+                  <template
+                    x-for="[fileLink, label] in Object.entries(selectedThemeData.configurationStructure.links.files)">
+                    <div style="display: contents" x-data="{ id: $id('group') }">
+                      <label :for="id" class="cosmo-label" x-text="getValueForCurrentLanguage(label)"></label>
+                      <button class="cosmo-input is--picker" :id="id" :data-picker="links.picker.label" type="button"
+                              @click="selectFile(fileLink)"
+                              x-text="getSelectedFileName(selectedThemeData.files[fileLink])"></button>
+                      <img :src="getFilePath(selectedThemeData.files[fileLink])" alt="" class="jinya-picker__selected-file" x-show="selectedThemeData.files[fileLink]">
+                    </div>
+                  </template>
+                </div>
+              </template>
+              <template x-if="selectedThemeData.configurationStructure.links.galleries">
+                <div style="display: contents">
+                  <span class="cosmo-input__header" x-localize:design-themes-links-galleries></span>
+                  <template
+                    x-for="[galleryLink, label] in Object.entries(selectedThemeData.configurationStructure.links.galleries)">
+                    <div style="display: contents" x-data="{ id: $id('group') }">
+                      <label :for="id" class="cosmo-label" x-text="getValueForCurrentLanguage(label)"></label>
+                      <select :id="id" class="cosmo-select" x-model.number="selectedThemeData.galleries[galleryLink]">
+                        <option :value="null" x-localize:design-themes-links-no_gallery></option>
+                        <template :key="gallery.id" x-for="gallery in galleries">
+                          <option :selected="selectedThemeData.galleries[galleryLink] === gallery.id"
+                                  :value="gallery.id"
+                                  x-text="gallery.title"></option>
+                        </template>
+                      </select>
+                    </div>
+                  </template>
+                </div>
+              </template>
+              <template x-if="selectedThemeData.configurationStructure.links.classic_pages">
+                <div style="display: contents">
+                  <span class="cosmo-input__header" x-localize:design-themes-links-classic_pages></span>
+                  <template
+                    x-for="[pageLink, label] in Object.entries(selectedThemeData.configurationStructure.links.pages)">
+                    <div style="display: contents" x-data="{ id: $id('group') }">
+                      <label :for="id" class="cosmo-label" x-text="getValueForCurrentLanguage(label)"></label>
+                      <select :id="id" class="cosmo-select" x-model.number="selectedThemeData.classicPages[pageLink]">
+                        <option :value="null" x-localize:design-themes-links-no_classic_page></option>
+                        <template :key="page.id" x-for="page in classicPages">
+                          <option :selected="selectedThemeData.pages[pageLink] === page.id" :value="page.id"
+                                  x-text="page.title"></option>
+                        </template>
+                      </select>
+                    </div>
+                  </template>
+                </div>
+              </template>
+              <template x-if="selectedThemeData.configurationStructure.links.modern_pages">
+                <div style="display: contents">
+                  <span class="cosmo-input__header" x-localize:design-themes-links-modern_pages></span>
+                  <template
+                    x-for="[pageLink, label] in Object.entries(selectedThemeData.configurationStructure.links.modernPages)">
+                    <div style="display: contents" x-data="{ id: $id('group') }">
+                      <label :for="id" class="cosmo-label" x-text="getValueForCurrentLanguage(label)"></label>
+                      <select :id="id" class="cosmo-select" x-model.number="selectedThemeData.modernPages[pageLink]">
+                        <option :value="null" x-localize:design-themes-links-no_modern_page></option>
+                        <template :key="page.id" x-for="page in modernPages">
+                          <option :selected="selectedThemeData.pages[pageLink] === page.id" :value="page.id"
+                                  x-text="page.name"></option>
+                        </template>
+                      </select>
+                    </div>
+                  </template>
+                </div>
+              </template>
+              <template x-if="selectedThemeData.configurationStructure.links.blog_categories">
+                <div style="display: contents">
+                  <span class="cosmo-input__header" x-localize:design-themes-links-blog_categories></span>
+                  <template
+                    x-for="[blogCategoryLink, label] in Object.entries(selectedThemeData.configurationStructure.links.blogCategories)">
+                    <div style="display: contents" x-data="{ id: $id('group') }">
+                      <label :for="id" class="cosmo-label" x-text="getValueForCurrentLanguage(label)"></label>
+                      <select :id="id" class="cosmo-select"
+                              x-model.number="selectedThemeData.blogCategories[blogCategoryLink]">
+                        <option :value="null" x-localize:design-themes-links-no_blog_category></option>
+                        <template :key="blogCategory.id" x-for="blogCategory in blogCategories">
+                          <option :selected="selectedThemeData.blogCategories[blogCategoryLink] === blogCategory.id"
+                                  :value="blogCategory.id"
+                                  x-text="blogCategory.name"></option>
+                        </template>
+                      </select>
+                    </div>
+                  </template>
+                </div>
+              </template>
+              <template x-if="selectedThemeData.configurationStructure.links.forms">
+                <div style="display: contents">
+                  <span class="cosmo-input__header" x-localize:design-themes-links-forms></span>
+                  <template
+                    x-for="[formLink, label] in Object.entries(selectedThemeData.configurationStructure.links.forms)">
+                    <div style="display: contents" x-data="{ id: $id('group') }">
+                      <label :for="id" class="cosmo-label" x-text="getValueForCurrentLanguage(label)"></label>
+                      <select :id="id" class="cosmo-select" x-model.number="selectedThemeData.forms[formLink]">
+                        <option :value="null" x-localize:design-themes-links-no_form></option>
+                        <template :key="form.id" x-for="form in forms">
+                          <option :selected="selectedThemeData.forms[formLink] === form.id" :value="form.id"
+                                  x-text="form.name"></option>
+                        </template>
+                      </select>
+                    </div>
+                  </template>
+                </div>
+              </template>
+            </div>
+            <div class="cosmo-button__container is--sticky-bottom">
+              <button @click="loadLinks" class="cosmo-button" type="reset"
+                      x-localize:design-themes-links-discard></button>
+              <button class="cosmo-button is--primary" type="submit" x-localize:design-themes-links-save></button>
+            </div>
+          </form>
+          <form @submit.prevent="saveVariables" class="cosmo-tab__content is--theme" x-show="activeTab === 'variables'">
+            <template x-if="variables.message.hasMessage">
+              <div :class="{ 'is--negative': variables.message.hasError, 'is--positive': !variables.message.hasError }"
+                   class="cosmo-message">
+                <span class="cosmo-message__header" x-text="variables.message.title"></span>
+                <div class="cosmo-message__message" x-text="variables.message.content"></div>
+              </div>
+            </template>
+            <div class="cosmo-input__group">
+              <template :key="variable" x-for="[variable, value] in Object.entries(selectedThemeData.styleVariables)">
+                <div style="display: contents">
+                  <label :for="variable" x-text="getVariableLabel(variable)"></label>
+                  <input
+                    :id="variable"
+                    :placeholder="value"
+                    class="cosmo-input"
+                    type="text"
+                    x-model="selectedThemeData.scssVariables[variable]"
+                  />
+                  <span class="cosmo-input__message is--information"
+                        x-localize:design-themes-variables-help_text="{ variable }"></span>
+                </div>
+              </template>
+            </div>
+            <div class="cosmo-button__container is--sticky-bottom">
+              <button @click="loadVariables" class="cosmo-button" type="reset"
+                      x-localize:design-themes-variables-discard></button>
+              <button class="cosmo-button is--primary" type="submit" x-localize:design-themes-variables-save></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template x-if="upload.open">
+    <form @submit.prevent="uploadTheme" class="cosmo-modal__container">
+      <div class="cosmo-modal">
+        <h1 class="cosmo-modal__title" x-localize:design-themes-create-title></h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-message is--negative" x-show="upload.error.hasError">
+            <span class="cosmo-message__header" x-text="upload.error.title"></span>
+            <p class="cosmo-message__message" x-text="upload.error.message"></p>
+          </div>
+          <div class="cosmo-input__group">
+            <label class="cosmo-label" for="uploadFile"
+                   x-localize:design-themes-create-file></label>
+            <input @change="upload.selectFile($event.target.files)" accept="application/zip" class="cosmo-input"
+                   id="uploadFile" required
+                   type="file" />
+          </div>
+        </div>
+        <div class="cosmo-modal__button-bar">
+          <button @click="upload.open = false" class="cosmo-button" type="button"
+                  x-localize:design-themes-create-cancel></button>
+          <button class="cosmo-button" type="submit" x-localize:design-themes-create-save></button>
+        </div>
+      </div>
+    </form>
+  </template>
+  <template x-if="edit.open">
+    <form @submit.prevent="updateTheme" class="cosmo-modal__container">
+      <div class="cosmo-modal">
+        <h1 class="cosmo-modal__title" x-localize:design-themes-edit-title></h1>
+        <div class="cosmo-modal__content">
+          <div class="cosmo-message is--negative" x-show="edit.error.hasError">
+            <span class="cosmo-message__header" x-text="edit.error.title"></span>
+            <p class="cosmo-message__message" x-text="edit.error.message"></p>
+          </div>
+          <div class="cosmo-input__group">
+            <label class="cosmo-label" for="editFile"
+                   x-localize:design-themes-edit-file></label>
+            <input @change="edit.selectFile($event.target.files)" accept="application/zip" class="cosmo-input"
+                   id="editFile" required
+                   type="file" />
+          </div>
+        </div>
+        <div class="cosmo-modal__button-bar">
+          <button @click="edit.open = false" class="cosmo-button" type="button"
+                  x-localize:design-themes-edit-cancel></button>
+          <button class="cosmo-button" type="submit" x-localize:design-themes-edit-save></button>
+        </div>
+      </div>
+    </form>
+  </template>
+</div>

@@ -1,0 +1,75 @@
+get:
+  summary: List blog posts
+  responses:
+    '200':
+      description: Successfully returned all blog posts
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/blog-post-list.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_all_blog_posts
+  description: Gets a list of all blog posts in all categories
+  tags:
+    - blog-posts
+  security:
+    - header-auth: []
+    - cookie-auth: []
+post:
+  summary: Create blog post
+  responses:
+    '201':
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/blog-post.yaml
+    '400':
+      description: Missing fields
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '409':
+      description: >-
+        Slug or title is in use. Also the category or header image could not
+        exists, check the exception details
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: create_blog_post
+  description: Creates a new blog post
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/create-blog-post-request.yaml
+  tags:
+    - blog-posts

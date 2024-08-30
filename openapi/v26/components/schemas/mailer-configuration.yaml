@@ -1,0 +1,28 @@
+title: Mailer configuration
+type: object
+description: The configuration of the mailing system
+properties:
+  encryption:
+    type: string
+    enum:
+      -
+      - tls
+      - ssl
+  from:
+    type: string
+  host:
+    type: string
+  password:
+    type: string
+  port:
+    type: integer
+  smtp_auth:
+    type: boolean
+  username:
+    type: string
+required:
+  - from
+  - host
+  - port
+  - smtp_auth
+  - username

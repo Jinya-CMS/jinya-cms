@@ -1,0 +1,20 @@
+title: Modern page
+type: object
+description: >-
+  A modern page displays a page made up of multiple sections. The name derives
+  from the more modern editing experience in the designer
+properties:
+  id:
+    type: integer
+  name:
+    type: string
+  sectionCount:
+    type: integer
+  created:
+    $ref: ./modification.yaml
+  updated:
+    $ref: ./modification.yaml
+required:
+  - id
+  - name
+  - sectionCount

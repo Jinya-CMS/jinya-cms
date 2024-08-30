@@ -1,0 +1,34 @@
+title: A database table index
+type: object
+description: Contains the information about an index
+properties:
+  Table:
+    type: string
+  Non_unique:
+    type: boolean
+  Key_name:
+    type: string
+  Seq_in_index:
+    type: integer
+  Column_name:
+    type: string
+  Collation:
+    type: string
+  Cardinality:
+    type: integer
+  Sub_part:
+    type: string
+  Packed:
+    type: string
+  'null':
+    type: string
+  Index_type:
+    type: string
+  Comment:
+    type: string
+  Index_comment:
+    type: string
+  Visible:
+    type: string
+  Expression:
+    type: string

@@ -1,0 +1,10 @@
+type: object
+description: The version information
+properties:
+  currentVersion:
+    type: string
+  mostRecentVersion:
+    type: string
+required:
+  - currentVersion
+  - mostRecentVersion

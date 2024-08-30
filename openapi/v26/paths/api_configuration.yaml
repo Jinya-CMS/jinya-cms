@@ -1,0 +1,57 @@
+get:
+  summary: Get all configuration values
+  tags:
+    - configuration
+  responses:
+    '200':
+      description: Successfully returned the configuration values
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/configuration.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_configuration
+  description: Gets all configuration values currently used in Jinya CMS
+  security:
+    - header-auth: []
+    - cookie-auth: []
+put:
+  summary: Update all configuration values
+  tags:
+    - configuration
+  responses:
+    '204':
+      description: Successfully updated the configuration values
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: update_configuration
+  description: Updates all configuration values currently used in Jinya CMS
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/configuration.yaml

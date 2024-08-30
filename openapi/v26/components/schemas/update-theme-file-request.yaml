@@ -1,0 +1,7 @@
+type: object
+description: A file assigned to a theme
+properties:
+  file:
+    type: integer
+required:
+  - file

@@ -1,0 +1,99 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+put:
+  summary: Update folder by id
+  tags:
+    - folders
+  responses:
+    '204':
+      description: Successfully updated folder
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Folder not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '409':
+      description: Name is not unique
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: update_folder
+  description: Updates the name of the given folder
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/update-folder-request.yaml
+delete:
+  summary: Delete folder by id
+  tags:
+    - folders
+  responses:
+    '204':
+      description: Folder successfully deleted
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Folder not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: delete_folder
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  description: Deletes the given folder
+get:
+  summary: Get folder by id
+  tags:
+    - folders
+  responses:
+    '200':
+      description: Successfully got the folder
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/folder.yaml
+    '404':
+      description: Folder not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_folder_by_id
+  description: Gets the folder with the specified id
+  security:
+    - header-auth: []
+    - cookie-auth: []

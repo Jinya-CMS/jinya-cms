@@ -1,0 +1,35 @@
+parameters:
+  - name: ip
+    schema:
+      type: string
+      format: ipv4
+    in: path
+    required: true
+get:
+  summary: Locate the given ip
+  tags:
+    - utilities
+  responses:
+    '200':
+      description: Successfully got list the location
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ip-location.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: locate_ip
+  description: Locates the given IPv4 address using ip.jinya.de
+  security:
+    - header-auth: []
+    - cookie-auth: []

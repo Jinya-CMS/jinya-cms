@@ -1,0 +1,151 @@
+:root {
+	--modal-container-backdrop-filter: blur(0.5rem) saturate(90%);
+
+	--modal-backdrop-filter: blur(24px) saturate(90%);
+	--modal-min-width: 18rem;
+	--modal-padding-top: 1.5rem;
+	--modal-padding-bottom: 1.5rem;
+	--modal-padding-left: 2rem;
+	--modal-padding-right: 2rem;
+	--modal-border-width: 0.0625rem;
+	--modal-bar-width: 13rem;
+	--modal-bar-height: 0.5rem;
+
+	--modal-title-font-size: 2.25rem;
+	--modal-title-margin-top: 1rem;
+	--modal-title-margin-right: 0;
+	--modal-title-margin-left: 0;
+	--modal-title-margin-bottom: 1.25rem;
+
+	--modal-button-bar-margin-top: 0.5rem;
+}
+
+.cosmo-modal__container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: var(--modal-backdrop);
+	height: 100vh;
+	width: 100vw;
+	backdrop-filter: var(--modal-container-backdrop-filter);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 9999;
+}
+
+.cosmo-modal {
+	--modal-accent-color: var(--primary-color);
+	--modal-accent-color-light: var(--primary-color-light);
+	--modal-accent-color-lighter: var(--primary-color-lighter);
+
+	border: var(--modal-border-width) solid var(--modal-accent-color);
+	padding: var(--modal-padding-top) var(--modal-padding-right) var(--modal-padding-bottom)
+		var(--modal-padding-left);
+	min-width: var(--modal-min-width);
+	box-sizing: border-box;
+	border-radius: var(--border-radius);
+	backdrop-filter: var(--modal-backdrop-filter);
+	background: var(--modal-background);
+}
+
+.cosmo-modal::before {
+	content: '';
+	position: absolute;
+	width: var(--modal-bar-width);
+	height: var(--modal-bar-height);
+	background: var(--modal-accent-color);
+	border-radius: var(--border-radius);
+}
+
+.cosmo-modal__title {
+	padding: 0;
+	margin: var(--modal-title-margin-top) var(--modal-title-margin-right)
+		var(--modal-title-margin-bottom) var(--modal-title-margin-left);
+	text-transform: uppercase;
+	font-size: var(--modal-title-font-size);
+	line-height: var(--modal-title-font-size);
+	height: var(--modal-title-font-size);
+	vertical-align: text-top;
+	font-weight: var(--font-weight-normal);
+	font-family: var(--font-family-modal-title);
+}
+
+.cosmo-modal__content {
+	font-weight: var(--font-weight-normal);
+	font-family: var(--font-family);
+	padding: 0;
+	margin: 0;
+}
+
+.cosmo-modal__button-bar {
+	display: flex;
+	justify-content: flex-end;
+	width: 100%;
+	margin-top: var(--modal-button-bar-margin-top);
+	gap: var(--button-container-gap);
+}
+
+.cosmo-modal__button-bar > .cosmo-button {
+	border-left-width: var(--button-border-width);
+}
+
+.cosmo-modal__button-bar .cosmo-button:last-of-type {
+	--button-color: var(--white);
+	--button-background: var(--modal-accent-color);
+	--button-border-color: var(--modal-accent-color);
+}
+
+.cosmo-modal__button-bar .cosmo-button:last-of-type:not(:disabled):hover,
+.cosmo-modal__button-bar .cosmo-button:last-of-type:not(:disabled):focus {
+	--button-border-color: var(--modal-accent-color-light);
+	--button-background: var(--modal-accent-color-light);
+}
+
+.cosmo-modal__button-bar .cosmo-button:last-of-type:not(:disabled):active {
+	--button-border-color: var(--modal-accent-color-lighter);
+	--button-background: var(--modal-accent-color-lighter);
+}
+
+@media screen and (prefers-color-scheme: dark) {
+	.cosmo-modal__button-bar .cosmo-button:last-of-type {
+		--button-color: var(--black);
+	}
+
+	.cosmo-modal__button-bar .cosmo-button:last-of-type:not(:disabled):hover,
+	.cosmo-modal__button-bar .cosmo-button:last-of-type:not(:disabled):focus {
+		--button-border-color: var(--primary-color-dark);
+		--button-background: var(--primary-color-dark);
+	}
+
+	.cosmo-modal__button-bar .cosmo-button:last-of-type:not(:disabled):active {
+		--button-border-color: var(--primary-color-darker);
+		--button-background: var(--primary-color-darker);
+	}
+}
+
+.cosmo-modal.is--information {
+	--modal-accent-color: var(--information-color);
+	--modal-accent-color-light: var(--information-color-light);
+	--modal-accent-color-lighter: var(--information-color-lighter);
+}
+
+.cosmo-modal.is--positive {
+	--modal-accent-color: var(--positive-color);
+	--modal-accent-color-light: var(--positive-color-light);
+	--modal-accent-color-lighter: var(--positive-color-lighter);
+}
+
+.cosmo-modal.is--negative {
+	--modal-accent-color: var(--negative-color);
+	--modal-accent-color-light: var(--negative-color-light);
+	--modal-accent-color-lighter: var(--negative-color-lighter);
+}
+
+.cosmo-modal.is--warning {
+	--modal-accent-color: var(--warning-color);
+	--modal-accent-color-light: var(--warning-color-light);
+	--modal-accent-color-lighter: var(--warning-color-lighter);
+}

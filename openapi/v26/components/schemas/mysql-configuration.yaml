@@ -1,0 +1,20 @@
+title: MySql configuration
+type: object
+description: The configuration of mysql
+properties:
+  database:
+    type: string
+  host:
+    type: string
+  password:
+    type: string
+  port:
+    type: integer
+  user:
+    type: string
+required:
+  - database
+  - host
+  - password
+  - port
+  - user

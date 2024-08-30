@@ -1,57 +1,19 @@
-.jinya-page-content--login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.jinya-page-body--app {
-    display: grid;
-    grid-template-columns: 164px [content] 1fr 164px;
-}
-
-.jinya-top-bar__menu-item--logout {
-    margin-left: 16px;
-}
-
-.jinya-profile-view {
-    display: grid;
-    grid-template-rows: [toolbar] 31px 30px [content] 1fr;
-    height: 100%;
-}
-
-.jinya-media-view {
-    display: grid;
-    grid-template-rows: [toolbar] 31px 30px [tags] 30px 30px [content] 1fr;
-    height: 100%;
-}
-
-.jinya-media-view__loader {
-    grid-row: content;
-}
-
-.jinya-designer__content--key-value-list {
-    align-items: start;
-}
-
-.jinya-progress {
-    display: flex;
-    align-items: center;
-    flex-flow: column;
-}
-
-.jinya-page-body--app .cosmo-list .cosmo-button.cosmo-button--full-width {
-    position: sticky;
-    bottom: 0;
-}
-
 :root {
-    --background: url("/designer/background.webp");
+    --background: url('/designer/background.webp');
 }
 
 @media screen and (prefers-color-scheme: dark) {
     :root {
-        --background: url("/designer/background-dark.webp");
+        --background: url('/designer/background-dark.webp');
     }
+}
+
+.is--dark {
+    --background: url('/designer/background-dark.webp');
+}
+
+.is--light {
+    --background: url('/designer/background.webp');
 }
 
 body {
@@ -60,4 +22,17 @@ body {
     background: var(--background);
     background-size: cover;
     background-position-y: bottom;
+}
+
+.jinya-progress {
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+}
+
+.cosmo-bottom-bar__item.is--right.is--buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
+    gap: 1rem;
 }

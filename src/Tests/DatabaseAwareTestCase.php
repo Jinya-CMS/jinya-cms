@@ -1,38 +1,42 @@
 <?php
 
-namespace App\Tests;
+namespace Jinya\Cms\Tests;
 
-use App\Authentication\CurrentUser;
-use App\Database\Artist;
-use App\Database\Utils\LoadableEntity;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Database\Artist;
+use Jinya\Cms\Database\Migrations\Migrator;
 use Error;
+use Jinya\Database\Entity;
+use Jinya\Database\Exception\NotNullViolationException;
 use PHPUnit\Framework\TestCase;
-
-require_once __DIR__ . '/../../defines.php';
 
 class DatabaseAwareTestCase extends TestCase
 {
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-    }
-
-    public static function tearDownAfterClass(): void
-    {
-        parent::tearDownAfterClass();
-    }
-
     public function expectError(): void
     {
         $this->expectException(Error::class);
     }
 
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+        Migrator::migrate();
+    }
+
+    /**
+     * @return void
+     * @throws NotNullViolationException
+     */
     protected function setUp(): void
     {
         parent::setUp();
         $this->createArtist();
     }
 
+    /**
+     * @return void
+     * @throws NotNullViolationException
+     */
     private function createArtist(): void
     {
         $artist = new Artist();
@@ -58,34 +62,47 @@ class DatabaseAwareTestCase extends TestCase
 
     private function cleanDatabase(): void
     {
-        LoadableEntity::executeSqlString('DELETE FROM theme_blog_category');
-        LoadableEntity::executeSqlString('DELETE FROM blog_post_segment');
-        LoadableEntity::executeSqlString('DELETE FROM blog_post');
-        LoadableEntity::executeSqlString('DELETE FROM blog_category');
-        LoadableEntity::executeSqlString('DELETE FROM configuration');
-        LoadableEntity::executeSqlString('DELETE FROM form_item');
-        LoadableEntity::executeSqlString('DELETE FROM gallery_file_position');
-        LoadableEntity::executeSqlString('DELETE FROM known_device');
-        LoadableEntity::executeSqlString('DELETE FROM menu_item');
-        LoadableEntity::executeSqlString('DELETE FROM segment');
-        LoadableEntity::executeSqlString('DELETE FROM theme_asset');
-        LoadableEntity::executeSqlString('DELETE FROM theme_file');
-        LoadableEntity::executeSqlString('DELETE FROM theme_form');
-        LoadableEntity::executeSqlString('DELETE FROM form');
-        LoadableEntity::executeSqlString('DELETE FROM theme_gallery');
-        LoadableEntity::executeSqlString('DELETE FROM gallery');
-        LoadableEntity::executeSqlString('DELETE FROM theme_menu');
-        LoadableEntity::executeSqlString('DELETE FROM menu');
-        LoadableEntity::executeSqlString('DELETE FROM theme_page');
-        LoadableEntity::executeSqlString('DELETE FROM page');
-        LoadableEntity::executeSqlString('DELETE FROM theme_segment_page');
-        LoadableEntity::executeSqlString('DELETE FROM segment_page');
-        LoadableEntity::executeSqlString('DELETE FROM theme');
-        LoadableEntity::executeSqlString('DELETE FROM uploading_file_chunk');
-        LoadableEntity::executeSqlString('DELETE FROM uploading_file');
-        LoadableEntity::executeSqlString('DELETE FROM file_tag_file');
-        LoadableEntity::executeSqlString('DELETE FROM file_tag');
-        LoadableEntity::executeSqlString('DELETE FROM file');
-        LoadableEntity::executeSqlString('DELETE FROM users');
+        Entity::getPDO()->exec('delete from theme_asset');
+        Entity::getPDO()->exec('delete from theme_blog_category');
+        Entity::getPDO()->exec('delete from theme_file');
+        Entity::getPDO()->exec('delete from theme_form');
+        Entity::getPDO()->exec('delete from theme_gallery');
+        Entity::getPDO()->exec('delete from theme_menu');
+        Entity::getPDO()->exec('delete from theme_page');
+        Entity::getPDO()->exec('delete from theme_segment_page');
+        Entity::getPDO()->exec('delete from configuration');
+
+        Entity::getPDO()->exec('delete from form_item');
+        Entity::getPDO()->exec('delete from gallery_file_position');
+
+        Entity::getPDO()->exec('delete from uploading_file_chunk');
+        Entity::getPDO()->exec('delete from uploading_file');
+
+        Entity::getPDO()->exec('delete from file_tag_file');
+        Entity::getPDO()->exec('delete from file_tag');
+        Entity::getPDO()->exec('delete from file');
+
+        Entity::getPDO()->exec('delete from known_device');
+        Entity::getPDO()->exec('delete from api_key');
+
+        Entity::getPDO()->exec('delete from blog_post_segment');
+        Entity::getPDO()->exec('delete from segment');
+        Entity::getPDO()->exec('delete from menu_item');
+
+        Entity::getPDO()->exec('delete from blog_post');
+
+        Entity::getPDO()->exec('delete from blog_category');
+
+        Entity::getPDO()->exec('delete from segment_page');
+        Entity::getPDO()->exec('delete from form');
+        Entity::getPDO()->exec('delete from gallery');
+        Entity::getPDO()->exec('delete from menu');
+        Entity::getPDO()->exec('delete from page');
+        Entity::getPDO()->exec('delete from theme');
+        Entity::getPDO()->exec('delete from users');
+
+        Entity::getPDO()->exec('delete from jinya_configuration');
+        Entity::getPDO()->exec('delete from analytics');
+        Entity::getPDO()->exec('delete from folder');
     }
 }

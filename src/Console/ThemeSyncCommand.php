@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Console;
+namespace Jinya\Cms\Console;
 
-use App\Theming\ThemeSyncer;
+use Jinya\Cms\Theming\ThemeSyncer;
+use Jinya\Database\Exception\NotNullViolationException;
 
 #[JinyaCommand('theme-sync')]
 class ThemeSyncCommand extends AbstractCommand
 {
-
     /**
      * @inheritDoc
+     * @throws NotNullViolationException
      */
     public function run(): void
     {

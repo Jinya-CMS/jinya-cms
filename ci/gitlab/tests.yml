@@ -1,0 +1,66 @@
+phpunit:
+  stage: test
+  extends:
+    - .install-dependencies
+  variables:
+    EXECUTE_IN: 'ci'
+    APP_ENV: 'dev'
+    MYSQL_PASSWORD: 'jinya'
+    MYSQL_USER: 'jinya'
+    MYSQL_PORT: '3306'
+    MYSQL_HOST: 'database'
+    MYSQL_DATABASE: 'jinya'
+    MYSQL_CHARSET: 'utf8mb4'
+    MAILER_HOST: 'mailer'
+    MAILER_PORT: '1025'
+    MAILER_USERNAME: 'test@example.com'
+    MAILER_PASSWORD: 'start1234'
+    MAILER_ENCRYPTION: 'tls'
+    MAILER_SMTP_AUTH: 'true'
+    MAILER_FROM: 'jinya@example.com'
+    JINYA_API_KEY_EXPIRY: '315360000'
+    JINYA_UPDATE_SERVER: 'https://releases.jinya.de/cms'
+    INSTALLED_VERSION: 'phpunit'
+  script:
+    - sleep 30
+    - ./tools/phpunit --no-progress --log-junit report.xml --configuration phpunit.ci.xml --coverage-cobertura=coverage.cobertura.xml
+  artifacts:
+    when: always
+    paths:
+      - report.xml
+      - coverage.cobertura.xml
+    reports:
+      junit:
+        - report.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.cobertura.xml
+  tags:
+    - performance
+  needs:
+    - phpstan
+  services:
+    - name: ${DATABASE_IMAGE}
+      alias: database
+      variables:
+        MYSQL_USER: jinya
+        MYSQL_PASSWORD: jinya
+        MYSQL_DATABASE: jinya
+        MYSQL_RANDOM_ROOT_PASSWORD: 'true'
+        MARIADB_USER: jinya
+        MARIADB_PASSWORD: jinya
+        MARIADB_DATABASE: jinya
+        MARIADB_RANDOM_ROOT_PASSWORD: 'true'
+    - name: axllent/mailpit:latest
+      alias: mailer
+      variables:
+        MP_SMTP_AUTH_ACCEPT_ANY: 'true'
+        MP_SMTP_AUTH_ALLOW_INSECURE: 'true'
+  parallel:
+    matrix:
+      - DATABASE_IMAGE:
+        - library/mysql:8.0
+        - library/mysql:9.0
+        - library/mysql:lts
+        - library/mariadb:10.11
+        - library/mariadb:lts

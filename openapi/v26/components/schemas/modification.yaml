@@ -1,0 +1,12 @@
+title: Modification
+type: object
+description: Contains the model of modifications that are set during update and create
+properties:
+  by:
+    $ref: ./modified-by.yaml
+  at:
+    type: string
+    format: date-time
+required:
+  - by
+  - at

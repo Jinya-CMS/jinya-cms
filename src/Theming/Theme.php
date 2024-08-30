@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Theming;
+namespace Jinya\Cms\Theming;
 
-use App\Database;
+use Jinya\Cms\Database;
 use Exception;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\Plates\Engine;
+use Jinya\Plates\Extension\ExtensionInterface;
 use JShrink\Minifier;
-use League\Plates\Engine;
-use League\Plates\Extension\ExtensionInterface;
 use RuntimeException;
 use ScssPhp\ScssPhp\Compiler;
 use ScssPhp\ScssPhp\Node\Number;
@@ -69,9 +68,6 @@ class Theme implements ExtensionInterface
      *
      * @param array<mixed> $args
      * @return array|mixed|Number
-     * @throws Database\Exceptions\ForeignKeyFailedException
-     * @throws Database\Exceptions\UniqueFailedException
-     * @throws InvalidQueryException
      */
     public function scssJinyaAsset(array $args): mixed
     {
@@ -100,10 +96,11 @@ class Theme implements ExtensionInterface
      */
     public function register(Engine $engine): void
     {
-        if (!$engine->getFolders()->exists('theme')) {
+        $folders = $engine->getFolders();
+        if (!array_key_exists('theme', $folders)) {
             $engine->addFolder('theme', ThemeSyncer::THEME_BASE_PATH . $this->dbTheme->name);
         }
-        if ($this->dbTheme->hasApiTheme && !$engine->getFolders()->exists('api')) {
+        if ($this->dbTheme->hasApiTheme && !array_key_exists('api', $folders)) {
             $engine->addFolder('api', ThemeSyncer::THEME_BASE_PATH . $this->dbTheme->name . '/api');
         }
     }
@@ -145,7 +142,7 @@ class Theme implements ExtensionInterface
     }
 
     /**
-     * Clears the styles cache
+     * Clears the style cache
      *
      * @return void
      */
@@ -166,9 +163,9 @@ class Theme implements ExtensionInterface
     private function getStyleCache(): array
     {
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/styles');
-        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/styles/$item", $files ?: []);
+        $files = array_map(fn ($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/styles/$item", $files ?: []);
 
-        return array_filter($files, static fn($item) => is_file($item)) ?: [];
+        return array_filter($files, static fn ($item) => is_file($item)) ?: [];
     }
 
     /**
@@ -217,9 +214,9 @@ class Theme implements ExtensionInterface
     private function getScriptCache(): array
     {
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts');
-        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/scripts/$item", $files ?: []);
+        $files = array_map(fn ($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/scripts/$item", $files ?: []);
 
-        return array_filter($files, static fn($item) => is_file($item)) ?: [];
+        return array_filter($files, static fn ($item) => is_file($item)) ?: [];
     }
 
     /**
@@ -237,7 +234,7 @@ class Theme implements ExtensionInterface
         $assets = $this->configuration['assets'] ?? [];
 
         foreach ($assets as $key => $asset) {
-            $assetFromDb = Database\ThemeAsset::findByThemeAndName($this->dbTheme->getIdAsInt(), $key);
+            $assetFromDb = Database\ThemeAsset::findByThemeAndName($this->dbTheme->id, $key);
 
             if (!file_exists($asset)) {
                 $assetFromDb?->delete();
@@ -252,11 +249,11 @@ class Theme implements ExtensionInterface
                 $assetFromDb = new Database\ThemeAsset();
                 $assetFromDb->name = $key;
                 $assetFromDb->publicPath = self::BASE_PUBLIC_PATH . $this->dbTheme->name . '/assets/' . $publicPath;
-                $assetFromDb->themeId = $this->dbTheme->getIdAsInt();
+                $assetFromDb->themeId = $this->dbTheme->id;
                 $assetFromDb->create();
             } else {
                 $assetFromDb->publicPath = self::BASE_PUBLIC_PATH . $this->dbTheme->name . '/assets/' . $publicPath;
-                $assetFromDb->themeId = $this->dbTheme->getIdAsInt();
+                $assetFromDb->themeId = $this->dbTheme->id;
                 $assetFromDb->update();
             }
         }
@@ -284,9 +281,9 @@ class Theme implements ExtensionInterface
     private function getAssetCache(): array
     {
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/assets');
-        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/assets/$item", $files ?: []);
+        $files = array_map(fn ($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/assets/$item", $files ?: []);
 
-        return array_filter($files, static fn($item) => is_file($item)) ?: [];
+        return array_filter($files, static fn ($item) => is_file($item)) ?: [];
     }
 
     /**

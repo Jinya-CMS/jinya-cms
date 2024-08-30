@@ -1,47 +1,40 @@
 <?php
 
-namespace App\Messaging;
+namespace Jinya\Cms\Messaging;
 
-use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\UniqueFailedException;
-use App\Database\Form;
-use App\Database\FormItem;
-use App\Mailing\Factory\MailerFactory;
-use App\Web\Exceptions\MissingFieldsException;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use League\Plates\Engine;
+use Jinya\Cms\Database\Form;
+use Jinya\Cms\Database\FormItem;
+use Jinya\Cms\Mailing\Factory\MailerFactory;
+use Jinya\Cms\Theming\Engine;
+use Jinya\Plates\Engine as PlatesEngine;
+use Jinya\Router\Extensions\Database\Exceptions\MissingFieldsException;
 use PHPMailer\PHPMailer\Exception;
 use Psr\Http\Message\ServerRequestInterface;
 use Throwable;
 
 /**
- * The form message handler, handles the data from form posts and send the mail to the configured to address
+ * The form message handler, handles the data from form posts and sends the mail to the configured to address
  */
-class FormMessageHandler
+readonly class FormMessageHandler
 {
-    /** @var Engine The template engine */
-    private Engine $engine;
+    private PlatesEngine $engine;
 
     /**
      * FormMessageHandler constructor.
      */
     public function __construct()
     {
-        $this->engine = \App\Theming\Engine::getPlatesEngine();
+        $this->engine = Engine::getPlatesEngine();
     }
 
     /**
      * Handles the form post and creates
      *
      * @param Form $form
-     * @param array<string, string|bool> $body
+     * @param array<int, string|bool> $body
      * @param ServerRequestInterface $request
      * @throws Exception
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws MissingFieldsException
      * @throws Throwable
-     * @throws UniqueFailedException
      */
     public function handleFormPost(Form $form, array $body, ServerRequestInterface $request): void
     {

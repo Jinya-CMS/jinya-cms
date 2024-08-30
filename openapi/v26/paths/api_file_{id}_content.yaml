@@ -1,0 +1,71 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+put:
+  summary: Start file upload
+  tags:
+    - files
+  responses:
+    '204':
+      description: Successfully started the file upload
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: File not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: start_file_upload
+  description: Starts the file upload
+  security:
+    - header-auth: []
+    - cookie-auth: []
+get:
+  summary: Get file content by id
+  tags:
+    - files
+  responses:
+    '200':
+      description: Successfully got the file
+      content:
+        application/octet-stream:
+          schema:
+            type: string
+            format: binary
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: File not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_file_content
+  description: Gets the files content with the specified id
+  security:
+    - header-auth: []
+    - cookie-auth: []

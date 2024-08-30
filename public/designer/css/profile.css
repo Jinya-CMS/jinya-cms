@@ -1,17 +1,30 @@
-.jinya-profile__container {
-    grid-row: content;
+.jinya-profile-view {
+    height: var(--page-height);
     display: grid;
-    grid-template-columns: [sidebar] 3fr [content] 7fr;
-    gap: 16px;
+    grid-template: "sidebar title" auto "sidebar toolbar" auto "sidebar message" auto "sidebar jodit" 1fr "sidebar buttons" auto / 3fr 7fr;
+    grid-row: content;
+    gap: 1rem;
     box-sizing: border-box;
 }
 
 .jinya-profile__sidebar {
-    grid-column: sidebar;
+    grid-area: sidebar;
 }
 
-.jinya-profile__about-me {
-    grid-column: content;
+.cosmo-title.is--profile {
+    grid-area: title;
+}
+
+.cosmo-toolbar.is--profile {
+    grid-area: toolbar;
+}
+
+.cosmo-button__container.is--profile {
+    grid-area: buttons;
+}
+
+.jinya-editor.is--profile {
+    grid-area: jodit;
 }
 
 .jinya-profile__picture {
@@ -30,6 +43,14 @@
     width: 100%;
 }
 
-.cosmo-button__container--profile {
-    grid-column: span 2;
+.cosmo-message.is--profile {
+    grid-area: message;
+}
+
+.jinya-totp-qr {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }

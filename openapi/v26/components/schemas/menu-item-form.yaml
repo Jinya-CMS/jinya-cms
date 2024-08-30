@@ -1,0 +1,11 @@
+title: Menu item form
+type: object
+description: A form referenced in a menu item
+properties:
+  id:
+    type: integer
+  title:
+    type: string
+required:
+  - id
+  - title

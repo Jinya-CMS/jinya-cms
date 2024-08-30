@@ -1,0 +1,10 @@
+type: object
+description: A classic page assigned to a theme
+properties:
+  name:
+    type: string
+  page:
+    $ref: ./classic-page.yaml
+required:
+  - name
+  - classicPage

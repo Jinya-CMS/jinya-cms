@@ -1,0 +1,18 @@
+title: Update gallery request
+description: A gallery is a way to organize files to display them to end users
+type: object
+properties:
+  name:
+    type: string
+  description:
+    type: string
+  orientation:
+    type: string
+    enum:
+      - horizontal
+      - vertical
+  type:
+    type: string
+    enum:
+      - sequence
+      - masonry

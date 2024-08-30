@@ -1,0 +1,37 @@
+title: Menu item
+type: object
+description: A menu item is an element in the menu navigation tree.
+properties:
+  id:
+    type: integer
+  position:
+    type: integer
+  highlighted:
+    type: boolean
+  title:
+    type: string
+  route:
+    type: string
+  blogHomePage:
+    type: boolean
+  form:
+    $ref: ./menu-item-form.yaml
+  artist:
+    $ref: ./menu-item-artist.yaml
+  classicPage:
+    $ref: ./menu-item-classic-page.yaml
+  modernPage:
+    $ref: ./menu-item-modern-page.yaml
+  gallery:
+    $ref: ./menu-item-gallery.yaml
+  blogCategory:
+    $ref: ./menu-item-blog-category.yaml
+  items:
+    type: array
+    items:
+      $ref: ./menu-item.yaml
+required:
+  - id
+  - position
+  - title
+  - route

@@ -1,0 +1,57 @@
+get:
+  summary: Get about me
+  operationId: get_about_me
+  responses:
+    '200':
+      description: Successfully got all information
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/user.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  description: Get the currently logged-in users details
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  tags:
+    - my-profile
+put:
+  summary: Update about me data
+  tags:
+    - my-profile
+  responses:
+    '204':
+      description: Successfully changed about me data
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: update_my_jinya
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  description: Updates the about me data of the current user
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/update-about-me-request.yaml

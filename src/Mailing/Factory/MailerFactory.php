@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Mailing\Factory;
+namespace Jinya\Cms\Mailing\Factory;
 
-use App\Logging\Logger;
+use Jinya\Cms\Configuration\JinyaConfiguration;
+use Jinya\Cms\Logging\Logger;
 use PHPMailer\PHPMailer\PHPMailer;
 
 /**
  * A simple factory class to create a new PHPMailer instance
- * @see \PHPMailer\PHPMailer\PHPMailer
+ * @see PHPMailer
  */
 abstract class MailerFactory
 {
@@ -18,15 +19,15 @@ abstract class MailerFactory
      */
     public static function getMailer(): PHPMailer
     {
+        $configuration = JinyaConfiguration::getConfiguration();
         $mailer = new PHPMailer();
-        $mailer->Host = getenv('MAILER_HOST') ?: '';
-        $smtpAuth = getenv('MAILER_SMTP_AUTH');
-        $mailer->SMTPAuth = is_string($smtpAuth) && (strtolower($smtpAuth) === 'true' || strtolower($smtpAuth) === '1');
-        $mailer->Username = getenv('MAILER_USERNAME') ?: '';
-        $mailer->Password = getenv('MAILER_PASSWORD') ?: '';
-        $mailer->Port = (int)getenv('MAILER_PORT') ?: 25;
-        $mailer->SMTPSecure = getenv('MAILER_ENCRYPTION') ?: '';
+        $mailer->Host = (string)$configuration->get('host', 'mailer', '');
+        $mailer->Username = (string)$configuration->get('username', 'mailer', '');
+        $mailer->Password = (string)$configuration->get('password', 'mailer', '');
+        $mailer->Port = (int)$configuration->get('port', 'mailer', 25);
+        $mailer->SMTPSecure = (string)$configuration->get('encryption', 'mailer', '');
         $mailer->Debugoutput = Logger::getLogger();
+        $mailer->SMTPAuth = (bool)$configuration->get('smtp_auth', 'mailer', false);
         $mailer->isSMTP();
         PHPMailer::$validator = 'html5';
 

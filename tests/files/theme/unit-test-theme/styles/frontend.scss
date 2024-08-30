@@ -1,13 +1,13 @@
 @import "variables";
 
 @font-face {
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 400;
-  src: jinya-asset('poppins400Regular') format('woff2');
-  font-display: swap;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    src: jinya-asset('poppins400Regular') format('woff2');
+    font-display: swap;
 }
 
 body {
-  font-family: Poppins, sans-serif;
+    font-family: Poppins, sans-serif;
 }

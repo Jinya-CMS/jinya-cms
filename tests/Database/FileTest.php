@@ -1,17 +1,36 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Authentication\CurrentUser;
-use App\Database\Exceptions\UniqueFailedException;
-use App\Database\File;
-use App\Database\FileTag;
-use App\Database\UploadingFile;
-use App\Database\UploadingFileChunk;
-use App\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Utils\UuidGenerator;
+use PDOException;
 
 class FileTest extends DatabaseAwareTestCase
 {
+    public function testGetUploadChunksShouldGetTwo(): void
+    {
+        $file = $this->createFile();
+        $uploadingFile = new UploadingFile();
+        $uploadingFile->fileId = $file->id;
+        $uploadingFile->create();
+        $uploadFileChunk = new UploadingFileChunk();
+        $uploadFileChunk->chunkPath = 'not-existent';
+        $uploadFileChunk->chunkPosition = 0;
+        $uploadFileChunk->uploadingFileId = $uploadingFile->id;
+        $uploadFileChunk->create();
+
+        $uploadFileChunk2 = new UploadingFileChunk();
+        $uploadFileChunk2->chunkPath = 'not-existent';
+        $uploadFileChunk2->chunkPosition = 1;
+        $uploadFileChunk2->uploadingFileId = $uploadingFile->id;
+        $uploadFileChunk2->create();
+
+        $chunks = $file->getUploadChunks();
+        self::assertCount(2, iterator_to_array($chunks));
+    }
+
     private function createFile(bool $execute = true, string $name = 'Testfile'): File
     {
         $file = new File();
@@ -25,71 +44,39 @@ class FileTest extends DatabaseAwareTestCase
         return $file;
     }
 
-    public function testFindByKeyword(): void
-    {
-        $fileToFind = $this->createFile();
-        $this->createFile(name: 'File');
-
-        $files = iterator_to_array(File::findByKeyword('Test'));
-        $this->assertCount(1, $files);
-        $this->assertEquals($fileToFind->name, $files[0]->name);
-    }
-
-    public function testGetUploadChunksShouldGetTwo(): void
-    {
-        $file = $this->createFile();
-        $uploadingFile = new UploadingFile();
-        $uploadingFile->fileId = $file->getIdAsInt();
-        $uploadingFile->create();
-        $uploadFileChunk = new UploadingFileChunk();
-        $uploadFileChunk->chunkPath = 'not-existent';
-        $uploadFileChunk->chunkPosition = 0;
-        $uploadFileChunk->uploadingFileId = $uploadingFile->getIdAsString();
-        $uploadFileChunk->create();
-
-        $uploadFileChunk2 = new UploadingFileChunk();
-        $uploadFileChunk2->chunkPath = 'not-existent';
-        $uploadFileChunk2->chunkPosition = 1;
-        $uploadFileChunk2->uploadingFileId = $uploadingFile->getIdAsString();
-        $uploadFileChunk2->create();
-
-        $chunks = $file->getUploadChunks();
-        $this->assertCount(2, iterator_to_array($chunks));
-    }
-
     public function testGetUploadChunksShouldGetNone(): void
     {
         $file = $this->createFile();
         $uploadingFile = new UploadingFile();
-        $uploadingFile->fileId = $file->getIdAsInt();
+        $uploadingFile->fileId = $file->id;
         $uploadingFile->create();
         $uploadFileChunk = new UploadingFileChunk();
         $uploadFileChunk->chunkPath = 'not-existent';
         $uploadFileChunk->chunkPosition = 0;
-        $uploadFileChunk->uploadingFileId = $uploadingFile->getIdAsString();
+        $uploadFileChunk->uploadingFileId = $uploadingFile->id;
         $uploadFileChunk->create();
 
         $uploadFileChunk2 = new UploadingFileChunk();
         $uploadFileChunk2->chunkPath = 'not-existent';
         $uploadFileChunk2->chunkPosition = 1;
-        $uploadFileChunk2->uploadingFileId = $uploadingFile->getIdAsString();
+        $uploadFileChunk2->uploadingFileId = $uploadingFile->id;
         $uploadFileChunk2->create();
 
         $file2 = $this->createFile(name: 'Test2');
         $chunks = $file2->getUploadChunks();
-        $this->assertCount(0, iterator_to_array($chunks));
+        self::assertCount(0, iterator_to_array($chunks));
     }
 
     public function testFormat(): void
     {
         $file = $this->createFile();
         $formattedFile = $file->format();
-        $this->assertArrayHasKey('id', $formattedFile);
-        $this->assertArrayHasKey('name', $formattedFile);
-        $this->assertArrayHasKey('type', $formattedFile);
-        $this->assertArrayHasKey('path', $formattedFile);
-        $this->assertArrayHasKey('created', $formattedFile);
-        $this->assertArrayHasKey('tags', $formattedFile);
+        self::assertArrayHasKey('id', $formattedFile);
+        self::assertArrayHasKey('name', $formattedFile);
+        self::assertArrayHasKey('type', $formattedFile);
+        self::assertArrayHasKey('path', $formattedFile);
+        self::assertArrayHasKey('created', $formattedFile);
+        self::assertArrayHasKey('tags', $formattedFile);
     }
 
     public function testFormatWithTags(): void
@@ -103,31 +90,31 @@ class FileTest extends DatabaseAwareTestCase
         $file->update();
 
         $formattedFile = $file->format();
-        $this->assertArrayHasKey('id', $formattedFile);
-        $this->assertArrayHasKey('name', $formattedFile);
-        $this->assertArrayHasKey('type', $formattedFile);
-        $this->assertArrayHasKey('path', $formattedFile);
-        $this->assertArrayHasKey('created', $formattedFile);
-        $this->assertArrayHasKey('tags', $formattedFile);
+        self::assertArrayHasKey('id', $formattedFile);
+        self::assertArrayHasKey('name', $formattedFile);
+        self::assertArrayHasKey('type', $formattedFile);
+        self::assertArrayHasKey('path', $formattedFile);
+        self::assertArrayHasKey('created', $formattedFile);
+        self::assertArrayHasKey('tags', $formattedFile);
 
-        $this->assertEquals($tag->format(), $formattedFile['tags'][0]);
+        self::assertEquals($tag->format(), $formattedFile['tags'][0]);
     }
 
     public function testUpdate(): void
     {
         $file = $this->createFile();
-        $this->assertEquals('Testfile', $file->name);
+        self::assertEquals('Testfile', $file->name);
 
         $file->name = 'Updated file';
         $file->update();
 
-        $updatedFile = File::findById($file->getIdAsInt());
-        $this->assertEquals($file->name, $updatedFile->name);
+        $updatedFile = File::findById($file->id);
+        self::assertEquals($file->name, $updatedFile->name);
     }
 
     public function testUpdateUniqueFailed(): void
     {
-        $this->expectException(UniqueFailedException::class);
+        $this->expectException(PDOException::class);
         $this->createFile();
         $file2 = $this->createFile(name: 'Some other file');
 
@@ -138,16 +125,16 @@ class FileTest extends DatabaseAwareTestCase
     public function testFindById(): void
     {
         $file = $this->createFile();
-        $foundFile = File::findById($file->getIdAsInt());
+        $foundFile = File::findById($file->id);
 
-        $this->assertEquals($file->id, $foundFile->id);
-        $this->assertEquals($file->name, $foundFile->name);
+        self::assertEquals($file->id, $foundFile->id);
+        self::assertEquals($file->name, $foundFile->name);
     }
 
     public function testFindByIdNotFound(): void
     {
         $foundFile = File::findById(-1);
-        $this->assertNull($foundFile);
+        self::assertNull($foundFile);
     }
 
     public function testFindAll(): void
@@ -157,13 +144,30 @@ class FileTest extends DatabaseAwareTestCase
         $this->createFile(name: 'Testfile3');
 
         $files = File::findAll();
-        $this->assertCount(3, iterator_to_array($files));
+        self::assertCount(3, iterator_to_array($files));
     }
 
     public function testFindAllNoneFound(): void
     {
         $files = File::findAll();
-        $this->assertCount(0, iterator_to_array($files));
+        self::assertCount(0, iterator_to_array($files));
+    }
+
+    public function testFindRoot(): void
+    {
+        $this->createFile();
+        $this->createFile(name: 'Testfile2');
+        $file = $this->createFile(name: 'Testfile3');
+
+        $folder = new Folder();
+        $folder->name = UuidGenerator::generateV4();
+        $folder->create();
+
+        $file->folderId = $folder->id;
+        $file->update();
+
+        $files = File::findRootFiles();
+        self::assertCount(2, iterator_to_array($files));
     }
 
     public function testGetCreator(): void
@@ -171,8 +175,8 @@ class FileTest extends DatabaseAwareTestCase
         $file = $this->createFile();
         $creator = $file->getCreator();
 
-        $this->assertNotNull($creator);
-        $this->assertEquals(CurrentUser::$currentUser, $creator);
+        self::assertNotNull($creator);
+        self::assertEquals(CurrentUser::$currentUser, $creator);
     }
 
     public function testDelete(): void
@@ -180,17 +184,15 @@ class FileTest extends DatabaseAwareTestCase
         $file = $this->createFile();
         $file->delete();
 
-        $foundFile = File::findById($file->getIdAsInt());
-        $this->assertNull($foundFile);
+        $foundFile = File::findById($file->id);
+        self::assertNull($foundFile);
     }
 
     public function testDeleteNotFound(): void
     {
+        $this->expectError();
         $file = $this->createFile(execute: false);
         $file->delete();
-
-        $foundFile = File::findById($file->getIdAsInt());
-        $this->assertNull($foundFile);
     }
 
     public function testCreate(): void
@@ -198,10 +200,10 @@ class FileTest extends DatabaseAwareTestCase
         $file = $this->createFile(execute: false);
         $file->create();
 
-        $foundFile = File::findById($file->getIdAsInt());
+        $foundFile = File::findById($file->id);
 
-        $this->assertEquals($file->id, $foundFile->id);
-        $this->assertEquals($file->name, $foundFile->name);
+        self::assertEquals($file->id, $foundFile->id);
+        self::assertEquals($file->name, $foundFile->name);
     }
 
     public function testCreateWithTags(): void
@@ -214,20 +216,20 @@ class FileTest extends DatabaseAwareTestCase
         $file->tags = [$tag->name, 'Not existing'];
         $file->create();
 
-        $foundFile = File::findById($file->getIdAsInt());
+        $foundFile = File::findById($file->id);
 
-        $this->assertEquals($file->id, $foundFile->id);
-        $this->assertEquals($file->name, $foundFile->name);
+        self::assertEquals($file->id, $foundFile->id);
+        self::assertEquals($file->name, $foundFile->name);
 
         $tags = iterator_to_array($file->getTags());
-        $this->assertNotEmpty($tags);
-        $this->assertCount(1, $tags);
-        $this->assertEquals($tag->name, $tags[0]->name);
+        self::assertNotEmpty($tags);
+        self::assertCount(1, $tags);
+        self::assertEquals($tag->name, $tags[0]->name);
     }
 
     public function testCreateUniqueFailed(): void
     {
-        $this->expectException(UniqueFailedException::class);
+        $this->expectException(PDOException::class);
         $file = $this->createFile(execute: false);
         $file->create();
         $file = $this->createFile(execute: false);
@@ -239,7 +241,7 @@ class FileTest extends DatabaseAwareTestCase
         $file = $this->createFile();
         $updatedBy = $file->getUpdatedBy();
 
-        $this->assertNotNull($updatedBy);
-        $this->assertEquals(CurrentUser::$currentUser, $updatedBy);
+        self::assertNotNull($updatedBy);
+        self::assertEquals(CurrentUser::$currentUser, $updatedBy);
     }
 }

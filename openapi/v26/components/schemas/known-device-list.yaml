@@ -1,0 +1,18 @@
+title: A list of known devices
+type: object
+properties:
+  offset:
+    type: integer
+  itemsCount:
+    type: integer
+  totalCount:
+    type: integer
+  items:
+    type: array
+    items:
+      $ref: ./known-device.yaml
+required:
+  - offset
+  - itemsCount
+  - totalCount
+  - items

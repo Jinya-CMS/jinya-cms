@@ -1,0 +1,16 @@
+title: Update blog post section
+type: object
+description: A section in a blog post
+properties:
+  position:
+    type: string
+  gallery:
+    type: integer
+  link:
+    type: string
+  html:
+    type: string
+  file:
+    type: integer
+required:
+  - position

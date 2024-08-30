@@ -1,0 +1,233 @@
+<div class="cosmo-side-list" x-data="modernPagesData">
+  <nav class="cosmo-side-list__items">
+    <template x-for="page in pages" :key="page.id">
+      <a class="cosmo-side-list__item" x-text="page.name" :class="{ 'is--active': selectedPage?.id === page.id }"
+         @click="selectPage(page)"></a>
+    </template>
+    <button class="cosmo-button is--full-width" x-localize:pages_and_forms-modern-action-new
+            @click="openCreateDialog"></button>
+  </nav>
+  <template x-if="selectedPage">
+    <div class="cosmo-side-list__content jinya-designer">
+      <div class="jinya-designer__title">
+        <span class="cosmo-title">
+          <span x-text="selectedPage.name"></span>
+        </span>
+      </div>
+      <cms-sparkline class="jinya-designer__sparkline" type="modern-page" :entity-id="selectedPage.id"></cms-sparkline>
+      <div class="cosmo-toolbar is--modern-page">
+        <div class="cosmo-toolbar__group">
+          <button class="cosmo-button" x-localize:pages_and_forms-modern-action-edit @click="openEditDialog"></button>
+          <button class="cosmo-button" x-localize:pages_and_forms-modern-action-delete @click="deletePage"></button>
+        </div>
+        <div class="cosmo-toolbar__group">
+          <button class="cosmo-button is--primary" x-localize:pages_and_forms-modern-action-save
+                  @click="savePage"></button>
+        </div>
+      </div>
+      <div class="jinya-modern-page-designer">
+        <div class="cosmo-message is--modern-page"
+             :class="{ 'is--negative': message.isNegative, 'is--positive': !message.isNegative }"
+             x-show="message.hasMessage">
+          <span class="cosmo-message__header" x-text="message.title"></span>
+          <p class="cosmo-message__message" x-text="message.content"></p>
+        </div>
+        <template x-for="(section, index) in sections" :key="index">
+          <div style="display: contents">
+            <div class="jinya-section-editor__button is--add" x-data="{ addOpen: false }">
+              <button class="cosmo-button is--circle is--primary is--add is--section"
+                      @click="addOpen = !addOpen">
+                <svg class="jinya-icon is--add is--section" viewBox="0 0 24 24">
+                  <path d="M5 12h14" />
+                  <path d="M12 5v14" />
+                </svg>
+              </button>
+              <div class="jinya-section-type-popup" :class="{ 'is--open': addOpen }">
+                <button class="cosmo-button is--circle is--primary is--icon" @click="() => {
+                  addOpen = false;
+                  insertImageSection(index);
+                }">
+                  <svg height="16" width="16" viewBox="0 0 24 24">
+                    <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                    <circle cx="9" cy="9" r="2" />
+                    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                  </svg>
+                </button>
+                <template x-if="galleries.length > 0">
+                  <button class="cosmo-button is--circle is--primary is--icon" @click="() => {
+                    addOpen = false;
+                    insertGallerySection(index);
+                  }">
+                    <svg height="16" width="16" viewBox="0 0 24 24">
+                      <path d="M18 22H4a2 2 0 0 1-2-2V6" />
+                      <path d="m22 13-1.296-1.296a2.41 2.41 0 0 0-3.408 0L11 18" />
+                      <circle cx="12" cy="8" r="2" />
+                      <rect width="16" height="16" x="6" y="2" rx="2" />
+                    </svg>
+                  </button>
+                </template>
+                <button class="cosmo-button is--circle is--primary is--icon" @click="() => {
+                  addOpen = false;
+                  insertHtmlSection(index);
+                }">
+                  <svg height="16" width="16" viewBox="0 0 24 24">
+                    <path
+                      d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" />
+                    <path
+                      d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <section class="jinya-section-editor__entry">
+              <div class="jinya-section-editor__details">
+                <template x-if="section.type === 'file'">
+                  <figure class="jinya-section-editor__content is--file">
+                    <img class="jinya-section-editor__image is--file"
+                         :src="section.file.path" :alt="section.file.name">
+                    <figcaption class="jinya-section-editor__caption is--file"
+                                x-data="{ id: $id('section-file') }">
+                      <span class="jinya-section-editor__caption is--file"
+                            x-text="section.file.name"></span>
+                      <label :for="id" class="cosmo-label is--link"
+                             x-localize:pages_and_forms-modern-designer-link></label>
+                      <input :id="id" type="text" class="cosmo-input is--link" x-model="section.link">
+                    </figcaption>
+                  </figure>
+                </template>
+                <template x-if="section.type === 'gallery'">
+                  <div class="jinya-section-editor__content is--gallery">
+                    <select class="cosmo-select is--gallery" @input="(e) => changeSectionGallery(index, e)">
+                      <template x-for="(gallery, galleryIdx) in galleries" :key="gallery.id">
+                        <option :selected="gallery.id === section.gallery?.id" :value="galleryIdx"
+                                x-text="gallery.name"></option>
+                      </template>
+                    </select>
+                    <div class="jinya-section-editor__gallery">
+                      <template x-for="position in getPositions(section.gallery)" :key="position.id">
+                        <img
+                          class="jinya-section-editor__image jinya-media-tile is--designer"
+                          :src="position.file.path" :alt="position.file.name">
+                      </template>
+                    </div>
+                  </div>
+                </template>
+                <template x-if="section.type === 'html'">
+                  <div class="jinya-section-editor__content is--html">
+                    <cms-inline-editor @change="(e) => updateHtmlSection(index, e.value)"
+                                       :content="section.html"></cms-inline-editor>
+                  </div>
+                </template>
+              </div>
+              <div class="jinya-designer-item__edit is--section">
+                <template x-if="section.file">
+                  <button class="cosmo-button is--icon is--primary" @click="selectFile(section, index)">
+                    <svg viewBox="0 0 24 24">
+                      <rect width="18" height="18" x="3" y="3" rx="2"
+                            ry="2" />
+                      <circle
+                        cx="9" cy="9" r="2" />
+                      <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                    </svg>
+                  </button>
+                </template>
+                <button class="cosmo-button is--icon is--negative" @click="deleteSection(section, index)">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M3 6h18" />
+                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                  </svg>
+                </button>
+              </div>
+            </section>
+          </div>
+        </template>
+        <div class="jinya-section-editor__button is--add is--last" x-data="{ addOpen: false }">
+          <div class="jinya-section-type-popup"
+               :class="{ 'is--open': addOpen, 'is--up': sections.length > 0, 'is--down': sections.length === 0 }">
+            <button class="cosmo-button is--circle is--primary is--icon" @click="() => {
+                  addOpen = false;
+                  insertImageSection(sections.length);
+                }">
+              <svg height="16" width="16" viewBox="0 0 24 24">
+                <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                <circle cx="9" cy="9" r="2" />
+                <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+              </svg>
+            </button>
+            <template x-if="galleries.length > 0">
+              <button class="cosmo-button is--circle is--primary is--icon" @click="() => {
+                    addOpen = false;
+                    insertGallerySection(sections.length);
+                  }">
+                <svg height="16" width="16" viewBox="0 0 24 24">
+                  <path d="M18 22H4a2 2 0 0 1-2-2V6" />
+                  <path d="m22 13-1.296-1.296a2.41 2.41 0 0 0-3.408 0L11 18" />
+                  <circle cx="12" cy="8" r="2" />
+                  <rect width="16" height="16" x="6" y="2" rx="2" />
+                </svg>
+              </button>
+            </template>
+            <button class="cosmo-button is--circle is--primary is--icon" @click="() => {
+                  addOpen = false;
+                  insertHtmlSection(sections.length);
+                }">
+              <svg height="16" width="16" viewBox="0 0 24 24">
+                <path
+                  d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" />
+                <path
+                  d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z" />
+              </svg>
+            </button>
+          </div>
+          <button class="cosmo-button is--circle is--primary is--add is--section" @click="addOpen = !addOpen">
+            <svg class="jinya-icon is--add is--section" viewBox="0 0 24 24">
+              <path d="M5 12h14" />
+              <path d="M12 5v14" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </template>
+  <form class="cosmo-modal__container" @submit.prevent="createPage" x-show="create.open">
+    <div class="cosmo-modal">
+      <h1 class="cosmo-modal__title" x-localize:pages_and_forms-modern-create-title></h1>
+      <div class="cosmo-modal__content">
+        <div class="cosmo-message is--negative" x-show="create.error.hasError">
+          <span class="cosmo-message__header" x-text="create.error.title"></span>
+          <p class="cosmo-message__message" x-text="create.error.message"></p>
+        </div>
+        <div class="cosmo-input__group">
+          <label for="createPageTitle" class="cosmo-label" x-localize:pages_and_forms-modern-create-name></label>
+          <input required type="text" id="createPageTitle" class="cosmo-input" x-model="create.name" />
+        </div>
+      </div>
+      <div class="cosmo-modal__button-bar">
+        <button type="button" class="cosmo-button" x-localize:pages_and_forms-modern-create-cancel
+                @click="create.open = false"></button>
+        <button type="submit" class="cosmo-button" x-localize:pages_and_forms-modern-create-create></button>
+      </div>
+    </div>
+  </form>
+  <form class="cosmo-modal__container" @submit.prevent="updatePage" x-show="edit.open">
+    <div class="cosmo-modal">
+      <h1 class="cosmo-modal__title" x-localize:pages_and_forms-modern-edit-title></h1>
+      <div class="cosmo-modal__content">
+        <div class="cosmo-message is--negative" x-show="edit.error.hasError">
+          <span class="cosmo-message__header" x-text="edit.error.title"></span>
+          <p class="cosmo-message__message" x-text="edit.error.message"></p>
+        </div>
+        <div class="cosmo-input__group">
+          <label for="editPageTitle" class="cosmo-label" x-localize:pages_and_forms-modern-edit-name></label>
+          <input required type="text" id="editPageTitle" class="cosmo-input" x-model="edit.name" />
+        </div>
+      </div>
+      <div class="cosmo-modal__button-bar">
+        <button type="button" class="cosmo-button" x-localize:pages_and_forms-modern-edit-cancel
+                @click="edit.open = false"></button>
+        <button type="submit" class="cosmo-button" x-localize:pages_and_forms-modern-edit-update></button>
+      </div>
+    </div>
+  </form>
+</div>

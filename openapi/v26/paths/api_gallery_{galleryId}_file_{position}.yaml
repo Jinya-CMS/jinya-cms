@@ -1,0 +1,84 @@
+parameters:
+  - name: galleryId
+    schema:
+      type: integer
+    in: path
+    required: true
+  - name: position
+    schema:
+      type: integer
+    in: path
+    required: true
+delete:
+  summary: Delete file from gallery by position
+  tags:
+    - galleries
+  responses:
+    '204':
+      description: Successfully deleted the file
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    '404':
+      description: Gallery or position not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: delete_gallery_file_position
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  description: Deletes the gallery file from the given gallery
+put:
+  summary: Update file by gallery file position
+  tags:
+    - galleries
+  responses:
+    '204':
+      description: Successfully updated the gallery file
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: Gallery or file not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: update_gallery_file_position
+  description: >-
+    Updates the given gallery file. The selected file and the position can be
+    changed
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/update-gallery-file-position-request.yaml

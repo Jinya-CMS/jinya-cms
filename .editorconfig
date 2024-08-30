@@ -9,18 +9,10 @@ insert_final_newline = false
 max_line_length = 120
 tab_width = 4
 
-[*.js]
+[*.{js,json,yaml,yml,html}]
 tab_width = 2
 indent_size = 2
 insert_final_newline = true
 
-[*.json]
-tab_width = 2
-indent_size = 2
-insert_final_newline = true
-
-[*.php]
-insert_final_newline = true
-
-[*.phtml]
+[*.{php,phtml}]
 insert_final_newline = true

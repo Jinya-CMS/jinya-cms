@@ -1,0 +1,73 @@
+get:
+  summary: List file tags
+  tags:
+    - files
+  responses:
+    '200':
+      description: Successfully returned all file tags
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/file-tag-list.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_all_file_tags
+  description: Gets a list of all file tags
+  security:
+    - header-auth: []
+    - cookie-auth: []
+post:
+  summary: Create file tag
+  tags:
+    - files
+  responses:
+    '201':
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/file-tag.yaml
+    '400':
+      description: Missing fields
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '409':
+      description: Name is not unique
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: create_file_tag
+  description: Creates a new file tag
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/create-file-tag-request.yaml

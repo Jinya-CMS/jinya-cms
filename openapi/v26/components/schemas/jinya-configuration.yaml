@@ -1,0 +1,14 @@
+title: Jinya configuration
+type: object
+description: The configuration of Jinya specific settings
+properties:
+  api_key_expiry:
+    type: integer
+  update_server:
+    type: string
+  ip_database_url:
+    type: string
+required:
+  - api_key_expiry
+  - update_server
+  - ip_database_url

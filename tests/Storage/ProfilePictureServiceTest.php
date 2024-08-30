@@ -1,15 +1,12 @@
 <?php
 
-namespace Jinya\Tests\Storage;
+namespace Jinya\Cms\Storage;
 
-use App\Database\Artist;
-use App\Database\Exceptions\EmptyResultException;
-use App\Storage\ProfilePictureService;
-use App\Storage\StorageBaseService;
-use App\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Database\Artist;
+use Jinya\Cms\Database\Exceptions\EmptyResultException;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Faker\Factory;
 use Faker\Provider\Uuid;
-use RuntimeException;
 
 class ProfilePictureServiceTest extends DatabaseAwareTestCase
 {
@@ -19,11 +16,11 @@ class ProfilePictureServiceTest extends DatabaseAwareTestCase
     public function testSaveAndDeleteProfilePictureString(): void
     {
         $profilePictureAsText = 'Test';
-        $this->service->saveProfilePicture($this->artist->getIdAsInt(), $profilePictureAsText);
+        $this->service->saveProfilePicture($this->artist->id, $profilePictureAsText);
         $loadedArtist = Artist::findByEmail($this->artist->email);
         self::assertFileExists(StorageBaseService::BASE_PATH . '/public/' . $loadedArtist->profilePicture);
 
-        $this->service->deleteProfilePicture($loadedArtist->getIdAsInt());
+        $this->service->deleteProfilePicture($loadedArtist->id);
         self::assertFileDoesNotExist(StorageBaseService::BASE_PATH . '/public/' . $loadedArtist->profilePicture);
     }
 
@@ -33,11 +30,11 @@ class ProfilePictureServiceTest extends DatabaseAwareTestCase
         copy('https://picsum.photos/200/300', $path);
 
         /** @phpstan-ignore-next-line */
-        $this->service->saveProfilePicture($this->artist->getIdAsInt(), fopen($path, 'rb+'));
+        $this->service->saveProfilePicture($this->artist->id, file_get_contents($path));
         $loadedArtist = Artist::findByEmail($this->artist->email);
         self::assertFileExists(StorageBaseService::BASE_PATH . '/public/' . $loadedArtist->profilePicture);
 
-        $this->service->deleteProfilePicture($loadedArtist->getIdAsInt());
+        $this->service->deleteProfilePicture($loadedArtist->id);
         self::assertFileDoesNotExist(StorageBaseService::BASE_PATH . '/public/' . $loadedArtist->profilePicture);
 
         @unlink($path);
@@ -47,12 +44,6 @@ class ProfilePictureServiceTest extends DatabaseAwareTestCase
     {
         $this->expectException(EmptyResultException::class);
         $this->service->saveProfilePicture(-1, '');
-    }
-
-    public function testSaveProfilePictureDataNull(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->service->saveProfilePicture($this->artist->getIdAsInt(), null);
     }
 
     public function testDeleteProfilePictureArtistNotFound(): void

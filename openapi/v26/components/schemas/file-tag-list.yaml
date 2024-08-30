@@ -1,0 +1,19 @@
+title: File tag list
+type: object
+description: A tag allows grouping of file tags
+properties:
+  offset:
+    type: integer
+  itemsCount:
+    type: integer
+  totalCount:
+    type: integer
+  items:
+    type: array
+    items:
+      $ref: ./file-tag.yaml
+required:
+  - offset
+  - itemsCount
+  - totalCount
+  - items

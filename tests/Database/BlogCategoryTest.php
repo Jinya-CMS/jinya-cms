@@ -1,25 +1,25 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Authentication\CurrentUser;
-use App\Database\BlogCategory;
-use App\Database\BlogPost;
-use App\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 
 class BlogCategoryTest extends DatabaseAwareTestCase
 {
-
     public function testFindById(): void
     {
         $cat = $this->createBlogCategory();
-        $foundCat = BlogCategory::findById($cat->getIdAsInt());
+        $foundCat = BlogCategory::findById($cat->id);
 
-        $this->assertEquals($cat, $foundCat);
+        self::assertEquals($cat, $foundCat);
     }
 
-    private function createBlogCategory(bool $execute = true, string $name = 'Test category', string $description = 'Test category'): BlogCategory
-    {
+    private function createBlogCategory(
+        bool $execute = true,
+        string $name = 'Test category',
+        string $description = 'Test category'
+    ): BlogCategory {
         $cat = new BlogCategory();
         $cat->description = $description;
         $cat->name = $name;
@@ -34,31 +34,7 @@ class BlogCategoryTest extends DatabaseAwareTestCase
     {
         $foundCat = BlogCategory::findById(-1);
 
-        $this->assertNull($foundCat);
-    }
-
-    public function testFindByKeyword(): void
-    {
-        $this->createBlogCategory(name: 'Test title 1', description: 'Test decription 1');
-        $this->createBlogCategory(name: 'Test title 2', description: 'Test decription 2');
-        $this->createBlogCategory(name: 'Test title 3', description: 'Test decription 3');
-        $this->createBlogCategory(name: 'Test title 4', description: 'Test decription 4');
-
-        $found = BlogCategory::findByKeyword('title');
-        $this->assertCount(4, iterator_to_array($found));
-    }
-
-    public function testFindByKeywordOneResult(): void
-    {
-        $this->createBlogCategory(name: 'Test title 1', description: 'Test decription 1');
-        $this->createBlogCategory(name: 'Test title 2', description: 'Test decription 2');
-        $this->createBlogCategory(name: 'Test title 3', description: 'Test decription 3');
-        $this->createBlogCategory(name: 'Test title 4', description: 'Test decription 4');
-
-        $found = BlogCategory::findByKeyword('title 1');
-        $result = iterator_to_array($found);
-        $this->assertCount(1, $result);
-        $this->assertEquals($result[0]->name, 'Test title 1');
+        self::assertNull($foundCat);
     }
 
     public function testUpdate(): void
@@ -67,25 +43,23 @@ class BlogCategoryTest extends DatabaseAwareTestCase
         $cat->name = 'New category';
         $cat->update();
 
-        $foundCat = BlogCategory::findById($cat->getIdAsInt());
-        $this->assertEquals($cat, $foundCat);
+        $foundCat = BlogCategory::findById($cat->id);
+        self::assertEquals($cat, $foundCat);
     }
 
     public function testUpdateNotExistent(): void
     {
+        $this->expectError();
         $cat = $this->createBlogCategory(false);
         $cat->name = 'New category';
         $cat->update();
-
-        $foundCat = BlogCategory::findById($cat->getIdAsInt());
-        $this->assertNull($foundCat);
     }
 
     public function testFormatWithParent(): void
     {
         $cat = $this->createBlogCategory();
         $catWithParent = $this->createBlogCategory(false, name: 'Cat with parent');
-        $catWithParent->parentId = $cat->getIdAsInt();
+        $catWithParent->parentId = $cat->id;
         $catWithParent->create();
 
         self::assertEquals($catWithParent->format(), [
@@ -121,10 +95,10 @@ class BlogCategoryTest extends DatabaseAwareTestCase
 
     public function testFindAll(): void
     {
-        $this->createBlogCategory(name: 'Test title 1', description: 'Test decription 1');
-        $this->createBlogCategory(name: 'Test title 2', description: 'Test decription 2');
-        $this->createBlogCategory(name: 'Test title 3', description: 'Test decription 3');
-        $this->createBlogCategory(name: 'Test title 4', description: 'Test decription 4');
+        $this->createBlogCategory(name: 'Test title 1', description: 'Test description 1');
+        $this->createBlogCategory(name: 'Test title 2', description: 'Test description 2');
+        $this->createBlogCategory(name: 'Test title 3', description: 'Test description 3');
+        $this->createBlogCategory(name: 'Test title 4', description: 'Test description 4');
 
         $all = BlogCategory::findAll();
         self::assertCount(4, iterator_to_array($all));
@@ -134,17 +108,17 @@ class BlogCategoryTest extends DatabaseAwareTestCase
     {
         $cat = $this->createBlogCategory();
         $catWithParent = $this->createBlogCategory(false, name: 'Cat with parent');
-        $catWithParent->parentId = $cat->getIdAsInt();
+        $catWithParent->parentId = $cat->id;
         $catWithParent->create();
 
-        $this->assertEquals($cat, $catWithParent->getParent());
+        self::assertEquals($cat, $catWithParent->getParent());
     }
 
     public function testGetParentIsNull(): void
     {
         $cat = $this->createBlogCategory();
 
-        $this->assertNull($cat->getParent());
+        self::assertNull($cat->getParent());
     }
 
     public function testCreate(): void
@@ -152,8 +126,8 @@ class BlogCategoryTest extends DatabaseAwareTestCase
         $cat = $this->createBlogCategory(false);
         $cat->create();
 
-        $foundCat = BlogCategory::findById($cat->getIdAsInt());
-        $this->assertEquals($cat, $foundCat);
+        $foundCat = BlogCategory::findById($cat->id);
+        self::assertEquals($cat, $foundCat);
     }
 
     public function testDelete(): void
@@ -161,15 +135,14 @@ class BlogCategoryTest extends DatabaseAwareTestCase
         $cat = $this->createBlogCategory();
         $cat->delete();
 
-        $this->assertNull(BlogCategory::findById($cat->getIdAsInt()));
+        self::assertNull(BlogCategory::findById($cat->id));
     }
 
     public function testDeleteNotExistent(): void
     {
+        $this->expectError();
         $cat = $this->createBlogCategory(false);
         $cat->delete();
-
-        $this->assertNull(BlogCategory::findById($cat->getIdAsInt()));
     }
 
     public function testGetBlogPostsNoPostsIncludeChildren(): void
@@ -182,7 +155,7 @@ class BlogCategoryTest extends DatabaseAwareTestCase
     public function testGetBlogPostsNoPostsDontIncludeChildren(): void
     {
         $cat = $this->createBlogCategory();
-        $posts = $cat->getBlogPosts(false);
+        $posts = $cat->getBlogPosts();
         self::assertCount(0, iterator_to_array($posts));
     }
 
@@ -190,16 +163,16 @@ class BlogCategoryTest extends DatabaseAwareTestCase
     {
         $cat = $this->createBlogCategory();
         $catWithParent = $this->createBlogCategory(false, name: 'Cat with parent');
-        $catWithParent->parentId = $cat->getIdAsInt();
+        $catWithParent->parentId = $cat->id;
         $catWithParent->create();
 
         $catWithParent2 = $this->createBlogCategory(false, name: 'Cat with parent 2');
-        $catWithParent2->parentId = $catWithParent->getIdAsInt();
+        $catWithParent2->parentId = $catWithParent->id;
         $catWithParent2->create();
 
-        $this->createBlogPost('Test 1', 'test-1', $cat->getIdAsInt());
-        $this->createBlogPost('Test 2', 'test-2', $catWithParent->getIdAsInt());
-        $this->createBlogPost('Test 3', 'test-3', $catWithParent2->getIdAsInt());
+        $this->createBlogPost('Test 1', 'test-1', $cat->id);
+        $this->createBlogPost('Test 2', 'test-2', $catWithParent->id);
+        $this->createBlogPost('Test 3', 'test-3', $catWithParent2->id);
 
         $posts = $cat->getBlogPosts(true);
         self::assertCount(3, iterator_to_array($posts));
@@ -210,7 +183,7 @@ class BlogCategoryTest extends DatabaseAwareTestCase
         $blogPost = new BlogPost();
         $blogPost->title = $title;
         $blogPost->slug = $slug;
-        $blogPost->creatorId = CurrentUser::$currentUser->getIdAsInt();
+        $blogPost->creatorId = CurrentUser::$currentUser->id;
         $blogPost->categoryId = $categoryId;
         $blogPost->public = $public;
 
@@ -223,18 +196,18 @@ class BlogCategoryTest extends DatabaseAwareTestCase
     {
         $cat = $this->createBlogCategory();
         $catWithParent = $this->createBlogCategory(false, name: 'Cat with parent');
-        $catWithParent->parentId = $cat->getIdAsInt();
+        $catWithParent->parentId = $cat->id;
         $catWithParent->create();
 
         $catWithParent2 = $this->createBlogCategory(false, name: 'Cat with parent 2');
-        $catWithParent2->parentId = $catWithParent->getIdAsInt();
+        $catWithParent2->parentId = $catWithParent->id;
         $catWithParent2->create();
 
-        $this->createBlogPost('Test 1', 'test-1', $cat->getIdAsInt());
-        $this->createBlogPost('Test 2', 'test-2', $catWithParent->getIdAsInt());
-        $this->createBlogPost('Test 3', 'test-3', $catWithParent2->getIdAsInt());
+        $this->createBlogPost('Test 1', 'test-1', $cat->id);
+        $this->createBlogPost('Test 2', 'test-2', $catWithParent->id);
+        $this->createBlogPost('Test 3', 'test-3', $catWithParent2->id);
 
-        $posts = $cat->getBlogPosts(false);
+        $posts = $cat->getBlogPosts();
         self::assertCount(1, iterator_to_array($posts));
     }
 
@@ -242,9 +215,9 @@ class BlogCategoryTest extends DatabaseAwareTestCase
     {
         $cat = $this->createBlogCategory();
 
-        $this->createBlogPost('Test 1', 'test-1', $cat->getIdAsInt(), false);
-        $this->createBlogPost('Test 2', 'test-2', $cat->getIdAsInt(), true);
-        $this->createBlogPost('Test 3', 'test-3', $cat->getIdAsInt(), true);
+        $this->createBlogPost('Test 1', 'test-1', $cat->id, false);
+        $this->createBlogPost('Test 2', 'test-2', $cat->id);
+        $this->createBlogPost('Test 3', 'test-3', $cat->id);
 
         $posts = $cat->getBlogPosts(false, true);
         self::assertCount(2, iterator_to_array($posts));

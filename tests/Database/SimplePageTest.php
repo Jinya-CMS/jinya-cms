@@ -1,25 +1,23 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Authentication\CurrentUser;
-use App\Database\SimplePage;
-use App\Tests\DatabaseAwareTestCase;
+use Jinya\Cms\Authentication\CurrentUser;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 
 class SimplePageTest extends DatabaseAwareTestCase
 {
-
     public function testGetCreator(): void
     {
         $page = $this->createPage();
         self::assertEquals(CurrentUser::$currentUser->format(), $page->getCreator()->format());
     }
 
-    private function createPage(string $title = 'Test', string $content = 'Test', bool $execute = true): SimplePage
+    private function createPage(string $title = 'Test', bool $execute = true): ClassicPage
     {
-        $page = new SimplePage();
+        $page = new ClassicPage();
         $page->title = $title;
-        $page->content = $content;
+        $page->content = 'Test';
         if ($execute) {
             $page->create();
         }
@@ -30,7 +28,7 @@ class SimplePageTest extends DatabaseAwareTestCase
     public function testFormat(): void
     {
         $page = $this->createPage();
-        $this->assertEquals([
+        self::assertEquals([
             'id' => $page->id,
             'title' => $page->title,
             'created' => [
@@ -67,25 +65,25 @@ class SimplePageTest extends DatabaseAwareTestCase
     public function testDelete(): void
     {
         $page = $this->createPage();
-        $all = SimplePage::findAll();
+        $all = ClassicPage::findAll();
         self::assertNotEmpty(iterator_to_array($all));
 
         $page->delete();
-        $all = SimplePage::findAll();
+        $all = ClassicPage::findAll();
         self::assertCount(0, iterator_to_array($all));
     }
 
     public function testFindById(): void
     {
         $page = $this->createPage();
-        $foundPage = SimplePage::findById($page->getIdAsInt());
+        $foundPage = ClassicPage::findById($page->id);
 
         self::assertEquals($page->format(), $foundPage->format());
     }
 
     public function testFindByIdNonExistent(): void
     {
-        $foundPage = SimplePage::findById(-1);
+        $foundPage = ClassicPage::findById(-1);
         self::assertNull($foundPage);
     }
 
@@ -96,7 +94,7 @@ class SimplePageTest extends DatabaseAwareTestCase
         $this->createPage('Test 3');
         $this->createPage('Test 4');
 
-        $all = SimplePage::findAll();
+        $all = ClassicPage::findAll();
         self::assertCount(4, iterator_to_array($all));
     }
 
@@ -105,25 +103,8 @@ class SimplePageTest extends DatabaseAwareTestCase
         $page = $this->createPage(execute: false);
         $page->create();
 
-        $foundPage = SimplePage::findById($page->getIdAsInt());
+        $foundPage = ClassicPage::findById($page->id);
         self::assertEquals($page->format(), $foundPage->format());
-    }
-
-    public function testFindByKeyword(): void
-    {
-        $this->createPage('Test 1');
-        $this->createPage('Test 2');
-        $this->createPage('Test 3');
-        $this->createPage('Test 4');
-
-        $all = SimplePage::findByKeyword('Test');
-        self::assertCount(4, iterator_to_array($all));
-
-        $all = SimplePage::findByKeyword('Test 1');
-        self::assertCount(1, iterator_to_array($all));
-
-        $all = SimplePage::findByKeyword('Test 15');
-        self::assertCount(0, iterator_to_array($all));
     }
 
     public function testGetUpdatedBy(): void

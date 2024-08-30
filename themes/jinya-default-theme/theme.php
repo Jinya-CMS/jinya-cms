@@ -242,7 +242,7 @@ return [
             ],
         ],
         'links' => [
-            'segment_pages' => [
+            'section_pages' => [
                 'startpage' => [
                     'en' => 'Homepage',
                     'de' => 'Startseite',

@@ -1,0 +1,73 @@
+get:
+  summary: List galleries
+  tags:
+    - galleries
+  responses:
+    '200':
+      description: Successfully got list of galleries
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/gallery-list.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_all_galleries
+  description: Gets all galleries saved in Jinya CMS
+  security:
+    - header-auth: []
+    - cookie-auth: []
+post:
+  summary: Create gallery
+  tags:
+    - galleries
+  responses:
+    '201':
+      description: Successfully created gallery
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/gallery.yaml
+    '400':
+      description: Name is missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '409':
+      description: Name is not unique
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: create_gallery
+  description: Creates a new gallery with the given values
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/create-gallery-request.yaml

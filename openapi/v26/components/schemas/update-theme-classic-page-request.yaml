@@ -1,0 +1,7 @@
+type: object
+description: A classic page assigned to a theme
+properties:
+  classicPage:
+    type: integer
+required:
+  - classicPage

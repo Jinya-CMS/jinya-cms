@@ -1,0 +1,33 @@
+title: Update menu item
+type: object
+description: A menu item is an element in the menu navigation tree.
+properties:
+  highlighted:
+    type: boolean
+  title:
+    type: string
+  route:
+    type: string
+  blogHomePage:
+    type: boolean
+  formId:
+    type: integer
+  artistId:
+    type: integer
+  classicPageId:
+    type: integer
+  modernPageId:
+    type: integer
+  galleryId:
+    type: integer
+  blogCategoryId:
+    type: integer
+  items:
+    type: array
+    items:
+      $ref: ./update-menu-item.yaml
+required:
+  - id
+  - position
+  - title
+  - route

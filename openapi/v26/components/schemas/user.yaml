@@ -1,0 +1,41 @@
+title: Artist
+type: object
+description: Artists are the users of Jinya CMS
+properties:
+  artistName:
+    type: string
+  email:
+    type: string
+    format: email
+  profilePicture:
+    type: string
+  roles:
+    type: array
+    items:
+      type: string
+      enum:
+        - ROLE_WRITER
+        - ROLE_READER
+        - ROLE_ADMIN
+  enabled:
+    type: boolean
+  id:
+    type: integer
+  aboutMe:
+    type: string
+  colorScheme:
+    type: string
+    enum:
+      - dark
+      - light
+      - auto
+  totpMode:
+    type: string
+    enum:
+      - email
+      - app
+required:
+  - artistName
+  - email
+  - enabled
+  - id

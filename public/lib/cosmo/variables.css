@@ -1,0 +1,658 @@
+:root {
+	--primary-hue: 211;
+	--primary-saturation: 50%;
+	--primary-lightness-base: 20%;
+
+	--negative-hue: 2;
+	--negative-saturation: 67%;
+	--negative-lightness-base: 57%;
+
+	--positive-hue: 146;
+	--positive-saturation: 35%;
+	--positive-lightness-base: 46%;
+
+	--information-hue: 205;
+	--information-saturation: 64%;
+	--information-lightness-base: 48%;
+
+	--warning-hue: 42;
+	--warning-saturation: 54%;
+	--warning-lightness-base: 54%;
+
+	--gray-hue: 0;
+	--gray-saturation: 0%;
+	--gray-lightness-base: 80%;
+
+	--light-step: 10%;
+	--lighter-step: 20%;
+
+	--dark-step: -10%;
+	--darker-step: -20%;
+
+	--white-base: 255;
+	--black-base: 51;
+
+	--border-radius: 0.25rem;
+
+	--width-small: 15rem;
+	--width-medium: calc(var(--input-width-small) * 2);
+	--width-large: calc(var(--input-width-small) * 3);
+
+	--font-size: 1rem;
+	--font-weight-bold: bold;
+	--font-weight-normal: normal;
+	--font-weight-light: 300;
+	--font-family: 'Albert Sans', sans-serif;
+
+	--font-family-menu: Urbanist, sans-serif;
+	--font-weight-menu: 200;
+	--font-weight-sub-menu-active: 600;
+	--font-size-main-menu: 2.5rem;
+	--font-size-sub-menu: 1.25rem;
+	--font-size-top-menu: 1rem;
+
+	--font-family-modal-title: Urbanist, sans-serif;
+
+	--font-family-heading: Urbanist, sans-serif;
+	--font-weight-heading: 200;
+
+	--font-family-code: 'Oxygen Mono', monospace;
+
+	--line-height: 1.1875;
+
+	--transition-duration: 0.3s;
+
+	--control-height: 1.875rem;
+
+	--gradient-multiplier: 4;
+
+	--dropdown-background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSI2IiB2aWV3Qm94PSIwIDAgMC4wMDAzMiA2ZS0wNSI+CiAgICA8Zz4KICAgICAgICA8cGF0aCBzdHlsZT0iZmlsbDojMDAwMDAwO3N0cm9rZS13aWR0aDowLjI2NDk5OTtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIKICAgICAgICAgICAgICBkPSJtIDQuODg5MDY2MSw0LjIzNDA1NTQgLTIuNDQ0NTMzLDFlLTcgTCA3Ljg1NTk1NjZlLTgsNC4yMzQwNTU0IDEuMjIyMjY2NSwyLjExNzAyNzcgMi40NDQ1MzMxLDAgMy42NjY3OTk3LDIuMTE3MDI3NiBaIgogICAgICAgICAgICAgIHRyYW5zZm9ybT0ibWF0cml4KDIuNDU0NDU2NWUtNSwwLDAsLTEuNDE3MDgxMWUtNSw5Ljk5OTk5OThlLTUsNi4wMDAwMDAxZS01KSIvPgogICAgPC9nPgo8L3N2Zz4=');
+
+	--primary-color: hsl(var(--primary-hue) var(--primary-saturation) var(--primary-lightness-base));
+	--primary-color-light: hsl(
+		var(--primary-hue) var(--primary-saturation)
+			calc(var(--primary-lightness-base) + var(--light-step))
+	);
+	--primary-color-lighter: hsl(
+		var(--primary-hue) var(--primary-saturation)
+			calc(var(--primary-lightness-base) + var(--lighter-step))
+	);
+	--primary-color-dark: hsl(
+		var(--primary-hue) var(--primary-saturation)
+			calc(var(--primary-lightness-base) + var(--dark-step))
+	);
+	--primary-color-darker: hsl(
+		var(--primary-hue) var(--primary-saturation)
+			calc(var(--primary-lightness-base) + var(--darker-step))
+	);
+	--primary-color-alpha-25: hsl(
+		var(--primary-hue) var(--primary-saturation) var(--primary-lightness-base) / 25%
+	);
+	--primary-color-alpha-50: hsl(
+		var(--primary-hue) var(--primary-saturation) var(--primary-lightness-base) / 50%
+	);
+
+	--negative-color: hsl(
+		var(--negative-hue) var(--negative-saturation) var(--negative-lightness-base)
+	);
+	--negative-color-light: hsl(
+		var(--negative-hue) var(--negative-saturation)
+			calc(var(--negative-lightness-base) + var(--light-step))
+	);
+	--negative-color-lighter: hsl(
+		var(--negative-hue) var(--negative-saturation)
+			calc(var(--negative-lightness-base) + var(--lighter-step))
+	);
+	--negative-color-dark: hsl(
+		var(--negative-hue) var(--negative-saturation)
+			calc(var(--negative-lightness-base) + var(--dark-step))
+	);
+	--negative-color-darker: hsl(
+		var(--negative-hue) var(--negative-saturation)
+			calc(var(--negative-lightness-base) + var(--darker-step))
+	);
+	--negative-color-alpha-25: hsl(
+		var(--negative-hue) var(--negative-saturation) var(--negative-lightness-base) / 25%
+	);
+	--negative-color-alpha-50: hsl(
+		var(--negative-hue) var(--negative-saturation) var(--negative-lightness-base) / 50%
+	);
+
+	--positive-color: hsl(
+		var(--positive-hue) var(--positive-saturation) var(--positive-lightness-base)
+	);
+	--positive-color-light: hsl(
+		var(--positive-hue) var(--positive-saturation)
+			calc(var(--positive-lightness-base) + var(--light-step))
+	);
+	--positive-color-lighter: hsl(
+		var(--positive-hue) var(--positive-saturation)
+			calc(var(--positive-lightness-base) + var(--lighter-step))
+	);
+	--positive-color-dark: hsl(
+		var(--positive-hue) var(--positive-saturation)
+			calc(var(--positive-lightness-base) + var(--dark-step))
+	);
+	--positive-color-darker: hsl(
+		var(--positive-hue) var(--positive-saturation)
+			calc(var(--positive-lightness-base) + var(--darker-step))
+	);
+	--positive-color-alpha-25: hsl(
+		var(--positive-hue) var(--positive-saturation) var(--positive-lightness-base) / 25%
+	);
+	--positive-color-alpha-50: hsl(
+		var(--positive-hue) var(--positive-saturation) var(--positive-lightness-base) / 50%
+	);
+
+	--information-color: hsl(
+		var(--information-hue) var(--information-saturation) var(--information-lightness-base)
+	);
+	--information-color-light: hsl(
+		var(--information-hue) var(--information-saturation)
+			calc(var(--information-lightness-base) + var(--light-step))
+	);
+	--information-color-lighter: hsl(
+		var(--information-hue) var(--information-saturation)
+			calc(var(--information-lightness-base) + var(--lighter-step))
+	);
+	--information-color-dark: hsl(
+		var(--information-hue) var(--information-saturation)
+			calc(var(--information-lightness-base) + var(--dark-step))
+	);
+	--information-color-darker: hsl(
+		var(--information-hue) var(--information-saturation)
+			calc(var(--information-lightness-base) + var(--darker-step))
+	);
+	--information-color-alpha-25: hsl(
+		var(--information-hue) var(--information-saturation) var(--information-lightness-base) / 25%
+	);
+	--information-color-alpha-50: hsl(
+		var(--information-hue) var(--information-saturation) var(--information-lightness-base) / 50%
+	);
+
+	--warning-color: hsl(var(--warning-hue) var(--warning-saturation) var(--warning-lightness-base));
+	--warning-color-light: hsl(
+		var(--warning-hue) var(--warning-saturation)
+			calc(var(--warning-lightness-base) + var(--light-step))
+	);
+	--warning-color-lighter: hsl(
+		var(--warning-hue) var(--warning-saturation)
+			calc(var(--warning-lightness-base) + var(--lighter-step))
+	);
+	--warning-color-dark: hsl(
+		var(--warning-hue) var(--warning-saturation)
+			calc(var(--warning-lightness-base) + var(--dark-step))
+	);
+	--warning-color-darker: hsl(
+		var(--warning-hue) var(--warning-saturation)
+			calc(var(--warning-lightness-base) + var(--darker-step))
+	);
+	--warning-color-alpha-25: hsl(
+		var(--warning-hue) var(--warning-saturation) var(--warning-lightness-base) / 25%
+	);
+	--warning-color-alpha-50: hsl(
+		var(--warning-hue) var(--warning-saturation) var(--warning-lightness-base) / 50%
+	);
+
+	--gray: hsl(var(--gray-hue), var(--gray-saturation), var(--gray-lightness-base));
+	--gray-light: hsl(
+		var(--gray-hue) var(--gray-saturation) calc(var(--gray-lightness-base) + var(--light-step))
+	);
+	--gray-lighter: hsl(
+		var(--gray-hue) var(--gray-saturation) calc(var(--gray-lightness-base) + var(--lighter-step))
+	);
+	--gray-dark: hsl(
+		var(--gray-hue) var(--gray-saturation) calc(var(--gray-lightness-base) + var(--dark-step))
+	);
+	--gray-darker: hsl(
+		var(--gray-hue) var(--gray-saturation) calc(var(--gray-lightness-base) + var(--darker-step))
+	);
+
+	--white: rgb(var(--white-base) var(--white-base) var(--white-base));
+	--black: rgb(var(--black-base) var(--black-base) var(--black-base));
+
+	--menu-text-color: rgba(var(--black-base) var(--black-base) var(--black-base) / 25%);
+	--gradient-top-color: hsl(
+		var(--primary-hue) var(--primary-saturation)
+			calc(var(--primary-lightness-base) * var(--gradient-multiplier))
+	);
+	--modal-backdrop: rgba(var(--white-base) var(--white-base) var(--white-base) / 30%);
+	--modal-background: rgba(var(--white-base) var(--white-base) var(--white-base) / 90%);
+
+	--control-border-color: var(--gray);
+	--control-border-color-dark: var(--gray-dark);
+	--control-border-color-darker: var(--gray-darker);
+	--menu-text-selected-color: var(--black);
+	--disabled-color: var(--gray-darker);
+	--code-color: var(--gray-darker);
+	--gradient-bottom-color: var(--white);
+	--table-stripe-color: var(--gray-light);
+}
+
+@media screen and (prefers-color-scheme: dark) {
+	:root {
+		--primary-hue: 211;
+		--primary-saturation: 51%;
+		--primary-lightness-base: 12%;
+
+		--negative-hue: 2;
+		--negative-saturation: 66%;
+		--negative-lightness-base: 28%;
+
+		--positive-hue: 146;
+		--positive-saturation: 35%;
+		--positive-lightness-base: 28%;
+
+		--information-hue: 205;
+		--information-saturation: 64%;
+		--information-lightness-base: 28%;
+
+		--warning-hue: 42;
+		--warning-saturation: 79%;
+		--warning-lightness-base: 40%;
+
+		--gray-lightness-base: 20%;
+
+		--light-step: -10%;
+		--lighter-step: -20%;
+
+		--dark-step: 10%;
+		--darker-step: 20%;
+
+		--white-base: 0;
+		--black-base: 204;
+
+		--gradient-multiplier: 0.25;
+
+		--dropdown-background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSI2IiB2aWV3Qm94PSIwIDAgMC4wMDAzMiA2ZS0wNSI+CiAgICA8Zz4KICAgICAgICA8cGF0aCBzdHlsZT0iZmlsbDojMWE0Zjc1O3N0cm9rZS13aWR0aDowLjI2NDk5OTtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIKICAgICAgICAgICAgICBkPSJtIDQuODg5MDY2MSw0LjIzNDA1NTQgLTIuNDQ0NTMzLDFlLTcgTCA3Ljg1NTk1NjZlLTgsNC4yMzQwNTU0IDEuMjIyMjY2NSwyLjExNzAyNzcgMi40NDQ1MzMxLDAgMy42NjY3OTk3LDIuMTE3MDI3NiBaIgogICAgICAgICAgICAgIHRyYW5zZm9ybT0ibWF0cml4KDIuNDU0NDU2NWUtNSwwLDAsLTEuNDE3MDgxMWUtNSw5Ljk5OTk5OThlLTUsNi4wMDAwMDAxZS01KSIvPgogICAgPC9nPgo8L3N2Zz4=');
+
+		background: var(--white);
+		color: var(--black);
+	}
+}
+
+.is--light {
+	--primary-hue: 211;
+	--primary-saturation: 50%;
+	--primary-lightness-base: 20%;
+
+	--negative-hue: 2;
+	--negative-saturation: 67%;
+	--negative-lightness-base: 57%;
+
+	--positive-hue: 146;
+	--positive-saturation: 35%;
+	--positive-lightness-base: 46%;
+
+	--information-hue: 205;
+	--information-saturation: 64%;
+	--information-lightness-base: 48%;
+
+	--warning-hue: 42;
+	--warning-saturation: 54%;
+	--warning-lightness-base: 54%;
+
+	--gray-lightness-base: 80%;
+
+	--light-step: 10%;
+	--lighter-step: 20%;
+
+	--dark-step: -10%;
+	--darker-step: -20%;
+
+	--white-base: 255;
+	--black-base: 51;
+
+	--gradient-multiplier: 4;
+
+	--dropdown-background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSI2IiB2aWV3Qm94PSIwIDAgMC4wMDAzMiA2ZS0wNSI+CiAgICA8Zz4KICAgICAgICA8cGF0aCBzdHlsZT0iZmlsbDojMDAwMDAwO3N0cm9rZS13aWR0aDowLjI2NDk5OTtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIKICAgICAgICAgICAgICBkPSJtIDQuODg5MDY2MSw0LjIzNDA1NTQgLTIuNDQ0NTMzLDFlLTcgTCA3Ljg1NTk1NjZlLTgsNC4yMzQwNTU0IDEuMjIyMjY2NSwyLjExNzAyNzcgMi40NDQ1MzMxLDAgMy42NjY3OTk3LDIuMTE3MDI3NiBaIgogICAgICAgICAgICAgIHRyYW5zZm9ybT0ibWF0cml4KDIuNDU0NDU2NWUtNSwwLDAsLTEuNDE3MDgxMWUtNSw5Ljk5OTk5OThlLTUsNi4wMDAwMDAxZS01KSIvPgogICAgPC9nPgo8L3N2Zz4=');
+
+	--primary-color: hsl(var(--primary-hue) var(--primary-saturation) var(--primary-lightness-base));
+	--primary-color-light: hsl(
+		var(--primary-hue) var(--primary-saturation)
+			calc(var(--primary-lightness-base) + var(--light-step))
+	);
+	--primary-color-lighter: hsl(
+		var(--primary-hue) var(--primary-saturation)
+			calc(var(--primary-lightness-base) + var(--lighter-step))
+	);
+	--primary-color-dark: hsl(
+		var(--primary-hue) var(--primary-saturation)
+			calc(var(--primary-lightness-base) + var(--dark-step))
+	);
+	--primary-color-darker: hsl(
+		var(--primary-hue) var(--primary-saturation)
+			calc(var(--primary-lightness-base) + var(--darker-step))
+	);
+	--primary-color-alpha-25: hsl(
+		var(--primary-hue) var(--primary-saturation) var(--primary-lightness-base) / 25%
+	);
+	--primary-color-alpha-50: hsl(
+		var(--primary-hue) var(--primary-saturation) var(--primary-lightness-base) / 50%
+	);
+
+	--negative-color: hsl(
+		var(--negative-hue) var(--negative-saturation) var(--negative-lightness-base)
+	);
+	--negative-color-light: hsl(
+		var(--negative-hue) var(--negative-saturation)
+			calc(var(--negative-lightness-base) + var(--light-step))
+	);
+	--negative-color-lighter: hsl(
+		var(--negative-hue) var(--negative-saturation)
+			calc(var(--negative-lightness-base) + var(--lighter-step))
+	);
+	--negative-color-dark: hsl(
+		var(--negative-hue) var(--negative-saturation)
+			calc(var(--negative-lightness-base) + var(--dark-step))
+	);
+	--negative-color-darker: hsl(
+		var(--negative-hue) var(--negative-saturation)
+			calc(var(--negative-lightness-base) + var(--darker-step))
+	);
+	--negative-color-alpha-25: hsl(
+		var(--negative-hue) var(--negative-saturation) var(--negative-lightness-base) / 25%
+	);
+	--negative-color-alpha-50: hsl(
+		var(--negative-hue) var(--negative-saturation) var(--negative-lightness-base) / 50%
+	);
+
+	--positive-color: hsl(
+		var(--positive-hue) var(--positive-saturation) var(--positive-lightness-base)
+	);
+	--positive-color-light: hsl(
+		var(--positive-hue) var(--positive-saturation)
+			calc(var(--positive-lightness-base) + var(--light-step))
+	);
+	--positive-color-lighter: hsl(
+		var(--positive-hue) var(--positive-saturation)
+			calc(var(--positive-lightness-base) + var(--lighter-step))
+	);
+	--positive-color-dark: hsl(
+		var(--positive-hue) var(--positive-saturation)
+			calc(var(--positive-lightness-base) + var(--dark-step))
+	);
+	--positive-color-darker: hsl(
+		var(--positive-hue) var(--positive-saturation)
+			calc(var(--positive-lightness-base) + var(--darker-step))
+	);
+	--positive-color-alpha-25: hsl(
+		var(--positive-hue) var(--positive-saturation) var(--positive-lightness-base) / 25%
+	);
+	--positive-color-alpha-50: hsl(
+		var(--positive-hue) var(--positive-saturation) var(--positive-lightness-base) / 50%
+	);
+
+	--information-color: hsl(
+		var(--information-hue) var(--information-saturation) var(--information-lightness-base)
+	);
+	--information-color-light: hsl(
+		var(--information-hue) var(--information-saturation)
+			calc(var(--information-lightness-base) + var(--light-step))
+	);
+	--information-color-lighter: hsl(
+		var(--information-hue) var(--information-saturation)
+			calc(var(--information-lightness-base) + var(--lighter-step))
+	);
+	--information-color-dark: hsl(
+		var(--information-hue) var(--information-saturation)
+			calc(var(--information-lightness-base) + var(--dark-step))
+	);
+	--information-color-darker: hsl(
+		var(--information-hue) var(--information-saturation)
+			calc(var(--information-lightness-base) + var(--darker-step))
+	);
+	--information-color-alpha-25: hsl(
+		var(--information-hue) var(--information-saturation) var(--information-lightness-base) / 25%
+	);
+	--information-color-alpha-50: hsl(
+		var(--information-hue) var(--information-saturation) var(--information-lightness-base) / 50%
+	);
+
+	--warning-color: hsl(var(--warning-hue) var(--warning-saturation) var(--warning-lightness-base));
+	--warning-color-light: hsl(
+		var(--warning-hue) var(--warning-saturation)
+			calc(var(--warning-lightness-base) + var(--light-step))
+	);
+	--warning-color-lighter: hsl(
+		var(--warning-hue) var(--warning-saturation)
+			calc(var(--warning-lightness-base) + var(--lighter-step))
+	);
+	--warning-color-dark: hsl(
+		var(--warning-hue) var(--warning-saturation)
+			calc(var(--warning-lightness-base) + var(--dark-step))
+	);
+	--warning-color-darker: hsl(
+		var(--warning-hue) var(--warning-saturation)
+			calc(var(--warning-lightness-base) + var(--darker-step))
+	);
+	--warning-color-alpha-25: hsl(
+		var(--warning-hue) var(--warning-saturation) var(--warning-lightness-base) / 25%
+	);
+	--warning-color-alpha-50: hsl(
+		var(--warning-hue) var(--warning-saturation) var(--warning-lightness-base) / 50%
+	);
+
+	--gray: hsl(var(--gray-hue), var(--gray-saturation), var(--gray-lightness-base));
+	--gray-light: hsl(
+		var(--gray-hue) var(--gray-saturation) calc(var(--gray-lightness-base) + var(--light-step))
+	);
+	--gray-lighter: hsl(
+		var(--gray-hue) var(--gray-saturation) calc(var(--gray-lightness-base) + var(--lighter-step))
+	);
+	--gray-dark: hsl(
+		var(--gray-hue) var(--gray-saturation) calc(var(--gray-lightness-base) + var(--dark-step))
+	);
+	--gray-darker: hsl(
+		var(--gray-hue) var(--gray-saturation) calc(var(--gray-lightness-base) + var(--darker-step))
+	);
+
+	--white: rgb(var(--white-base) var(--white-base) var(--white-base));
+	--black: rgb(var(--black-base) var(--black-base) var(--black-base));
+
+	--menu-text-color: rgba(var(--black-base) var(--black-base) var(--black-base) / 25%);
+	--gradient-top-color: hsl(
+		var(--primary-hue) var(--primary-saturation)
+			calc(var(--primary-lightness-base) * var(--gradient-multiplier))
+	);
+	--modal-backdrop: rgba(var(--white-base) var(--white-base) var(--white-base) / 30%);
+	--modal-background: rgba(var(--white-base) var(--white-base) var(--white-base) / 90%);
+
+	background: var(--white);
+	color: var(--black);
+}
+
+.is--dark {
+	--primary-hue: 211;
+	--primary-saturation: 51%;
+	--primary-lightness-base: 12%;
+
+	--negative-hue: 2;
+	--negative-saturation: 66%;
+	--negative-lightness-base: 28%;
+
+	--positive-hue: 146;
+	--positive-saturation: 35%;
+	--positive-lightness-base: 28%;
+
+	--information-hue: 205;
+	--information-saturation: 64%;
+	--information-lightness-base: 28%;
+
+	--warning-hue: 42;
+	--warning-saturation: 79%;
+	--warning-lightness-base: 40%;
+
+	--gray-lightness-base: 20%;
+
+	--light-step: -10%;
+	--lighter-step: -20%;
+
+	--dark-step: 10%;
+	--darker-step: 20%;
+
+	--white-base: 0;
+	--black-base: 204;
+
+	--gradient-multiplier: 0.25;
+
+	--dropdown-background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSI2IiB2aWV3Qm94PSIwIDAgMC4wMDAzMiA2ZS0wNSI+CiAgICA8Zz4KICAgICAgICA8cGF0aCBzdHlsZT0iZmlsbDojMWE0Zjc1O3N0cm9rZS13aWR0aDowLjI2NDk5OTtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIKICAgICAgICAgICAgICBkPSJtIDQuODg5MDY2MSw0LjIzNDA1NTQgLTIuNDQ0NTMzLDFlLTcgTCA3Ljg1NTk1NjZlLTgsNC4yMzQwNTU0IDEuMjIyMjY2NSwyLjExNzAyNzcgMi40NDQ1MzMxLDAgMy42NjY3OTk3LDIuMTE3MDI3NiBaIgogICAgICAgICAgICAgIHRyYW5zZm9ybT0ibWF0cml4KDIuNDU0NDU2NWUtNSwwLDAsLTEuNDE3MDgxMWUtNSw5Ljk5OTk5OThlLTUsNi4wMDAwMDAxZS01KSIvPgogICAgPC9nPgo8L3N2Zz4=');
+
+	--primary-color: hsl(var(--primary-hue) var(--primary-saturation) var(--primary-lightness-base));
+	--primary-color-light: hsl(
+		var(--primary-hue) var(--primary-saturation)
+			calc(var(--primary-lightness-base) + var(--light-step))
+	);
+	--primary-color-lighter: hsl(
+		var(--primary-hue) var(--primary-saturation)
+			calc(var(--primary-lightness-base) + var(--lighter-step))
+	);
+	--primary-color-dark: hsl(
+		var(--primary-hue) var(--primary-saturation)
+			calc(var(--primary-lightness-base) + var(--dark-step))
+	);
+	--primary-color-darker: hsl(
+		var(--primary-hue) var(--primary-saturation)
+			calc(var(--primary-lightness-base) + var(--darker-step))
+	);
+	--primary-color-alpha-25: hsl(
+		var(--primary-hue) var(--primary-saturation) var(--primary-lightness-base) / 25%
+	);
+	--primary-color-alpha-50: hsl(
+		var(--primary-hue) var(--primary-saturation) var(--primary-lightness-base) / 50%
+	);
+
+	--negative-color: hsl(
+		var(--negative-hue) var(--negative-saturation) var(--negative-lightness-base)
+	);
+	--negative-color-light: hsl(
+		var(--negative-hue) var(--negative-saturation)
+			calc(var(--negative-lightness-base) + var(--light-step))
+	);
+	--negative-color-lighter: hsl(
+		var(--negative-hue) var(--negative-saturation)
+			calc(var(--negative-lightness-base) + var(--lighter-step))
+	);
+	--negative-color-dark: hsl(
+		var(--negative-hue) var(--negative-saturation)
+			calc(var(--negative-lightness-base) + var(--dark-step))
+	);
+	--negative-color-darker: hsl(
+		var(--negative-hue) var(--negative-saturation)
+			calc(var(--negative-lightness-base) + var(--darker-step))
+	);
+	--negative-color-alpha-25: hsl(
+		var(--negative-hue) var(--negative-saturation) var(--negative-lightness-base) / 25%
+	);
+	--negative-color-alpha-50: hsl(
+		var(--negative-hue) var(--negative-saturation) var(--negative-lightness-base) / 50%
+	);
+
+	--positive-color: hsl(
+		var(--positive-hue) var(--positive-saturation) var(--positive-lightness-base)
+	);
+	--positive-color-light: hsl(
+		var(--positive-hue) var(--positive-saturation)
+			calc(var(--positive-lightness-base) + var(--light-step))
+	);
+	--positive-color-lighter: hsl(
+		var(--positive-hue) var(--positive-saturation)
+			calc(var(--positive-lightness-base) + var(--lighter-step))
+	);
+	--positive-color-dark: hsl(
+		var(--positive-hue) var(--positive-saturation)
+			calc(var(--positive-lightness-base) + var(--dark-step))
+	);
+	--positive-color-darker: hsl(
+		var(--positive-hue) var(--positive-saturation)
+			calc(var(--positive-lightness-base) + var(--darker-step))
+	);
+	--positive-color-alpha-25: hsl(
+		var(--positive-hue) var(--positive-saturation) var(--positive-lightness-base) / 25%
+	);
+	--positive-color-alpha-50: hsl(
+		var(--positive-hue) var(--positive-saturation) var(--positive-lightness-base) / 50%
+	);
+
+	--information-color: hsl(
+		var(--information-hue) var(--information-saturation) var(--information-lightness-base)
+	);
+	--information-color-light: hsl(
+		var(--information-hue) var(--information-saturation)
+			calc(var(--information-lightness-base) + var(--light-step))
+	);
+	--information-color-lighter: hsl(
+		var(--information-hue) var(--information-saturation)
+			calc(var(--information-lightness-base) + var(--lighter-step))
+	);
+	--information-color-dark: hsl(
+		var(--information-hue) var(--information-saturation)
+			calc(var(--information-lightness-base) + var(--dark-step))
+	);
+	--information-color-darker: hsl(
+		var(--information-hue) var(--information-saturation)
+			calc(var(--information-lightness-base) + var(--darker-step))
+	);
+	--information-color-alpha-25: hsl(
+		var(--information-hue) var(--information-saturation) var(--information-lightness-base) / 25%
+	);
+	--information-color-alpha-50: hsl(
+		var(--information-hue) var(--information-saturation) var(--information-lightness-base) / 50%
+	);
+
+	--warning-color: hsl(var(--warning-hue) var(--warning-saturation) var(--warning-lightness-base));
+	--warning-color-light: hsl(
+		var(--warning-hue) var(--warning-saturation)
+			calc(var(--warning-lightness-base) + var(--light-step))
+	);
+	--warning-color-lighter: hsl(
+		var(--warning-hue) var(--warning-saturation)
+			calc(var(--warning-lightness-base) + var(--lighter-step))
+	);
+	--warning-color-dark: hsl(
+		var(--warning-hue) var(--warning-saturation)
+			calc(var(--warning-lightness-base) + var(--dark-step))
+	);
+	--warning-color-darker: hsl(
+		var(--warning-hue) var(--warning-saturation)
+			calc(var(--warning-lightness-base) + var(--darker-step))
+	);
+	--warning-color-alpha-25: hsl(
+		var(--warning-hue) var(--warning-saturation) var(--warning-lightness-base) / 25%
+	);
+	--warning-color-alpha-50: hsl(
+		var(--warning-hue) var(--warning-saturation) var(--warning-lightness-base) / 50%
+	);
+
+	--gray: hsl(var(--gray-hue), var(--gray-saturation), var(--gray-lightness-base));
+	--gray-light: hsl(
+		var(--gray-hue) var(--gray-saturation) calc(var(--gray-lightness-base) + var(--light-step))
+	);
+	--gray-lighter: hsl(
+		var(--gray-hue) var(--gray-saturation) calc(var(--gray-lightness-base) + var(--lighter-step))
+	);
+	--gray-dark: hsl(
+		var(--gray-hue) var(--gray-saturation) calc(var(--gray-lightness-base) + var(--dark-step))
+	);
+	--gray-darker: hsl(
+		var(--gray-hue) var(--gray-saturation) calc(var(--gray-lightness-base) + var(--darker-step))
+	);
+
+	--white: rgb(var(--white-base) var(--white-base) var(--white-base));
+	--black: rgb(var(--black-base) var(--black-base) var(--black-base));
+
+	--menu-text-color: rgba(var(--black-base) var(--black-base) var(--black-base) / 25%);
+	--gradient-top-color: hsl(
+		var(--primary-hue) var(--primary-saturation)
+			calc(var(--primary-lightness-base) * var(--gradient-multiplier))
+	);
+	--modal-backdrop: rgba(var(--white-base) var(--white-base) var(--white-base) / 30%);
+	--modal-background: rgba(var(--white-base) var(--white-base) var(--white-base) / 90%);
+
+	background: var(--white);
+	color: var(--black);
+}
+
+body {
+	font-family: var(--font-family);
+}

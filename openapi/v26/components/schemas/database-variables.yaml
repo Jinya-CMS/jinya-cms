@@ -1,0 +1,16 @@
+title: The variables of the database
+type: object
+description: Contains variables of the database
+properties:
+  local:
+    type: object
+    additionalProperties:
+      type: string
+  global:
+    type: object
+    additionalProperties:
+      type: string
+  session:
+    type: object
+    additionalProperties:
+      type: string

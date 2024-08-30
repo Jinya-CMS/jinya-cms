@@ -1,0 +1,29 @@
+put:
+  summary: Update the preferred color scheme
+  tags:
+    - my-profile
+  responses:
+    '204':
+      description: Successfully changed the preferred color scheme
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: update_prefered_colorscheme
+  description: Updates the prefered color scheme
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/update-colorscheme.yaml

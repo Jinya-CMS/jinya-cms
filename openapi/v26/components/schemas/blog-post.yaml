@@ -1,0 +1,24 @@
+title: Blog post
+type: object
+description: A blog post
+properties:
+  id:
+    type: string
+  title:
+    type: string
+  slug:
+    type: string
+  headerImage:
+    $ref: ./blog-post-header-image.yaml
+  category:
+    $ref: ./blog-category.yaml
+  public:
+    type: string
+  created:
+    $ref: ./modification.yaml
+required:
+  - id
+  - title
+  - slug
+  - public
+  - created

@@ -1,0 +1,11 @@
+title: Menu item classic page
+type: object
+description: A classic page referenced in a menu item
+properties:
+  id:
+    type: integer
+  title:
+    type: string
+required:
+  - id
+  - title

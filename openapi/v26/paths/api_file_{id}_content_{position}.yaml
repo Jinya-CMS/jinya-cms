@@ -1,0 +1,43 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+  - name: position
+    schema:
+      type: integer
+    in: path
+    required: true
+put:
+  summary: Upload file chunk
+  tags:
+    - files
+  responses:
+    '204':
+      description: Successfully uploaded the chunk
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: File not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: upload_file_chunk
+  description: >-
+    Uploads the given file chunk for the file with the given id at the given
+    position
+  security:
+    - header-auth: []
+    - cookie-auth: []

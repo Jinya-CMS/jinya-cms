@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests;
+namespace Jinya\Cms\Tests;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -10,7 +10,7 @@ class TestRequestHandler implements RequestHandlerInterface
 {
     public ServerRequestInterface $request;
 
-    public function __construct(private ResponseInterface $response)
+    public function __construct(private readonly ResponseInterface $response)
     {
     }
 

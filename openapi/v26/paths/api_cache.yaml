@@ -1,0 +1,48 @@
+put:
+  summary: Warmup the cache
+  tags:
+    - cache
+  responses:
+    '204':
+      description: Successfully warmed the cache
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: warmup_cache
+  description: Warms the cache for the use
+  security:
+    - header-auth: []
+    - cookie-auth: []
+delete:
+  summary: Clear the cache
+  tags:
+    - cache
+  responses:
+    '204':
+      description: Successfully cleared the cache
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: clear_cache
+  description: Clears the cache
+  security:
+    - header-auth: []
+    - cookie-auth: []

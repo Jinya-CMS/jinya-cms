@@ -1,5 +1,4 @@
 import Emojis from '../../../../lib/emojis.js';
-import html from '../../../../lib/jinya-html.js';
 
 class EmojiPickerElement extends HTMLElement {
   constructor() {
@@ -80,7 +79,7 @@ class EmojiPickerElement extends HTMLElement {
   }
 
   renderButton() {
-    this.root.innerHTML = html`
+    this.root.innerHTML = `
       <style>
         :host {
           height: auto;
@@ -97,54 +96,56 @@ class EmojiPickerElement extends HTMLElement {
         .emoji-picker__popup {
           display: none;
           grid-template-rows: [tab-bar] auto [content] 1fr;
-          height: 150px;
+          height: 9.5rem;
           position: fixed;
           background: var(--white);
           overflow-y: hidden;
-          border: 1px solid var(--primary-color);
+          border: 0.0625rem solid var(--primary-color);
+          backdrop-filter: var(--modal-backdrop-filter);
+          border-radius: var(--border-radius);
         }
 
         .emoji-picker__tab-bar {
           display: flex;
           flex-flow: row nowrap;
-          margin-bottom: 16px;
+          margin-bottom: 1rem;
         }
 
         .emoji-picker__tab-item {
-          flex: 1 1 24px;
+          flex: 1 1 1.5rem;
           cursor: pointer;
           position: relative;
-          font-size: 16px;
+          font-size: 1rem;
           text-align: center;
-          height: 24px;
+          height: 1.5rem;
           color: var(--primary-color);
         }
 
         .emoji-picker__tab-item:hover:after,
-        .emoji-picker__tab-item--active::after {
+        .emoji-picker__tab-item.is--active::after {
           content: '';
           position: absolute;
           bottom: 0;
-          left: 2px;
-          right: 2px;
-          height: 2px;
+          left: 0.125rem;
+          right: 0.125rem;
+          height: 0.125rem;
           background: var(--primary-color);
           color: var(--white);
         }
 
         .emoji-picker__tab-content {
           display: none;
-          grid-template-columns: repeat(10, 20px);
-          grid-auto-rows: 20px;
+          grid-template-columns: repeat(10, 1.25rem);
+          grid-auto-rows: 1.25rem;
           grid-auto-flow: row;
-          gap: 4px;
+          gap: 0.25rem;
           height: 100%;
           overflow-y: auto;
-          padding: 8px;
+          padding: 0.5rem;
           box-sizing: border-box;
         }
 
-        .emoji-picker__tab-content--active {
+        .emoji-picker__tab-content.is--active {
           display: grid;
         }
 
@@ -158,9 +159,9 @@ class EmojiPickerElement extends HTMLElement {
 
         input[type='radio']::before {
           content: attr(value);
-          font-size: 16px;
-          width: 24px;
-          height: 24px;
+          font-size: 1rem;
+          width: 1.5rem;
+          height: 1.5rem;
           color: var(--primary-color);
           text-align: center;
         }
@@ -179,27 +180,27 @@ class EmojiPickerElement extends HTMLElement {
       <div class="emoji-picker__popup" part="popup">
         <div class="emoji-picker__tab-bar">
           ${Emojis.map(
-            (item, idx) => html`
+            (item, idx) => `
               <a
-                class="emoji-picker__tab-item ${idx === 0 ? 'emoji-picker__tab-item--active' : ''}"
+                class="emoji-picker__tab-item ${idx === 0 ? 'is--active' : ''}"
                 title="${item.name}"
                 >${item.emojis[0]}</a
               >
             `,
-          )}
+          ).join('')}
         </div>
         ${Emojis.map(
-          (item, idx) => html`
+          (item, idx) => `
             <div
               data-tab="${item.name}"
-              class="emoji-picker__tab-content ${idx === 0 ? 'emoji-picker__tab-content--active' : ''}"
+              class="emoji-picker__tab-content ${idx === 0 ? 'is--active' : ''}"
             >
-              ${item.emojis.map(
-                (emoji) => html` <input value="${emoji}" type="radio" name="emoji" class="emoji-picker__button" /> `,
-              )}
+              ${item.emojis
+                .map((emoji) => ` <input value="${emoji}" type="radio" name="emoji" class="emoji-picker__button" /> `)
+                .join('')}
             </div>
           `,
-        )}
+        ).join('')}
       </div>
     `;
     this.addEventListener('click', (evt) => {
@@ -217,16 +218,10 @@ class EmojiPickerElement extends HTMLElement {
     this.root.querySelectorAll('.emoji-picker__tab-item').forEach((elem) => {
       elem.addEventListener('click', (evt) => {
         evt.stopPropagation();
-        this.root
-          .querySelectorAll('.emoji-picker__tab-item--active')
-          .forEach((tab) => tab.classList.remove('emoji-picker__tab-item--active'));
-        this.root
-          .querySelectorAll('.emoji-picker__tab-content--active')
-          .forEach((tab) => tab.classList.remove('emoji-picker__tab-content--active'));
-        evt.currentTarget.classList.add('emoji-picker__tab-item--active');
-        this.root
-          .querySelector(`[data-tab="${evt.currentTarget.title}"]`)
-          .classList.add('emoji-picker__tab-content--active');
+        this.root.querySelectorAll('.is--active').forEach((tab) => tab.classList.remove('is--active'));
+        this.root.querySelectorAll('.is--active').forEach((tab) => tab.classList.remove('is--active'));
+        evt.currentTarget.classList.add('is--active');
+        this.root.querySelector(`[data-tab="${evt.currentTarget.title}"]`).classList.add('is--active');
       });
     });
     document.addEventListener('click', this.clickOutside);
@@ -239,4 +234,6 @@ class EmojiPickerElement extends HTMLElement {
   }
 }
 
-customElements.define('cms-emoji-picker', EmojiPickerElement);
+if (!customElements.get('cms-emoji-picker')) {
+  customElements.define('cms-emoji-picker', EmojiPickerElement);
+}

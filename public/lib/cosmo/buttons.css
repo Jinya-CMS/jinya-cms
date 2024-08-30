@@ -1,0 +1,241 @@
+:root {
+	--button-padding-top: 0.25rem;
+	--button-padding-bottom: 0.25rem;
+	--button-padding-left: 1rem;
+	--button-padding-right: 1rem;
+	--button-border-width: 0.0625rem;
+	--button-disabled-filter: contrast(50%);
+	--button-border-color: var(--control-border-color);
+	--button-background: var(--white);
+	--button-color: var(--black);
+
+	--button-circle-border-width: 0.125rem;
+	--button-circle-size-small: 1.5rem;
+	--button-circle-size-regular: 2rem;
+	--button-circle-size-large: 3rem;
+	--button-circle-background: var(--white);
+	--button-circle-padding: 0.25rem;
+
+	--button-container-margin-top: 0.75rem;
+	--button-container-gap: 1rem;
+}
+
+.cosmo-button {
+	cursor: pointer;
+	font-family: var(--font-family);
+	font-size: var(--font-size);
+	padding: var(--button-padding-top) var(--button-padding-right) var(--button-padding-bottom)
+		var(--button-padding-left);
+	box-sizing: border-box;
+	border: var(--button-border-width) solid var(--button-border-color);
+	background: var(--button-background);
+	color: var(--button-color);
+	line-height: var(--line-height);
+	height: var(--control-height);
+	text-decoration: none;
+	font-weight: var(--font-weight-normal);
+	border-radius: var(--border-radius);
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	white-space: nowrap;
+	transition:
+		background-color var(--transition-duration),
+		color var(--transition-duration),
+		border-color var(--transition-duration);
+}
+
+.cosmo-button:disabled {
+	cursor: not-allowed;
+	filter: var(--button-disabled-filter);
+	outline: none;
+	box-shadow: none;
+}
+
+.cosmo-button:not(:disabled):hover,
+.cosmo-button:not(:disabled):focus {
+	--button-background: var(--control-border-color-dark);
+	--button-border-color: var(--control-border-color-dark);
+
+	outline: none;
+	box-shadow: none;
+}
+
+.cosmo-button:not(:disabled):active {
+	--button-border-color: var(--control-border-color-darker);
+	--button-background: var(--control-border-color-darker);
+}
+
+.cosmo-button.is--full-width {
+	width: 100%;
+	text-align: center;
+}
+
+.cosmo-button__container {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: var(--button-container-margin-top);
+	gap: var(--button-container-gap);
+}
+
+.cosmo-button__container > .cosmo-button + .cosmo-button {
+	border-left-width: var(--button-border-width);
+}
+
+.cosmo-button.is--primary,
+.cosmo-button.is--primary:focus,
+.cosmo-button.is--positive,
+.cosmo-button.is--positive:focus,
+.cosmo-button.is--negative,
+.cosmo-button.is--negative:focus,
+.cosmo-button.is--warning,
+.cosmo-button.is--warning:focus,
+.cosmo-button.is--information,
+.cosmo-button.is--information:focus,
+.cosmo-button:not(:disabled):hover,
+.cosmo-button:not(:disabled):focus,
+.cosmo-button:not(:disabled):active {
+	--button-color: var(--white);
+}
+
+.cosmo-button.is--primary {
+	--button-border-color: var(--primary-color);
+	--button-background: var(--primary-color);
+}
+
+.cosmo-button.is--primary:not(:disabled):hover,
+.cosmo-button.is--primary:not(:disabled):focus {
+	--button-border-color: var(--primary-color-light);
+	--button-background: var(--primary-color-light);
+}
+
+.cosmo-button.is--primary:not(:disabled):active {
+	--button-border-color: var(--primary-color-lighter);
+	--button-background: var(--primary-color-lighter);
+}
+
+@media screen and (prefers-color-scheme: dark) {
+	.cosmo-button.is--primary:not(:disabled):hover,
+	.cosmo-button.is--primary:not(:disabled):focus {
+		--button-border-color: var(--primary-color-dark);
+		--button-background: var(--primary-color-dark);
+	}
+
+	.cosmo-button.is--primary:not(:disabled):active {
+		--button-border-color: var(--primary-color-darker);
+		--button-background: var(--primary-color-darker);
+	}
+}
+
+.cosmo-button.is--negative {
+	--button-border-color: var(--negative-color);
+	--button-background: var(--negative-color);
+}
+
+.cosmo-button.is--negative:not(:disabled):hover,
+.cosmo-button.is--negative:not(:disabled):focus {
+	--button-border-color: var(--negative-color-dark);
+	--button-background: var(--negative-color-dark);
+}
+
+.cosmo-button.is--negative:not(:disabled):active {
+	--button-border-color: var(--negative-color-darker);
+	--button-background: var(--negative-color-darker);
+}
+
+.cosmo-button.is--positive {
+	--button-border-color: var(--positive-color);
+	--button-background: var(--positive-color);
+}
+
+.cosmo-button.is--positive:not(:disabled):hover,
+.cosmo-button.is--positive:not(:disabled):focus {
+	--button-border-color: var(--positive-color-dark);
+	--button-background: var(--positive-color-dark);
+}
+
+.cosmo-button.is--positive:not(:disabled):active {
+	--button-border-color: var(--positive-color-darker);
+	--button-background: var(--positive-color-darker);
+}
+
+.cosmo-button.is--information {
+	--button-border-color: var(--information-color);
+	--button-background: var(--information-color);
+}
+
+.cosmo-button.is--information:not(:disabled):hover,
+.cosmo-button.is--information:not(:disabled):focus {
+	--button-border-color: var(--information-color-dark);
+	--button-background: var(--information-color-dark);
+}
+
+.cosmo-button.is--information:not(:disabled):active {
+	--button-border-color: var(--information-color-darker);
+	--button-background: var(--information-color-darker);
+}
+
+.cosmo-button.is--warning {
+	--button-border-color: var(--warning-color);
+	--button-background: var(--warning-color);
+}
+
+.cosmo-button.is--warning:not(:disabled):hover,
+.cosmo-button.is--warning:not(:disabled):focus {
+	--button-border-color: var(--warning-color-dark);
+	--button-background: var(--warning-color-dark);
+}
+
+.cosmo-button.is--warning:not(:disabled):active {
+	--button-border-color: var(--warning-color-darker);
+	--button-background: var(--warning-color-darker);
+}
+
+@media screen and (prefers-color-scheme: dark) {
+	.cosmo-button.is--primary,
+	.cosmo-button.is--negative,
+	.cosmo-button.is--positive,
+	.cosmo-button.is--warning,
+	.cosmo-button.is--information,
+	.cosmo-button:not(:disabled):active,
+	.cosmo-button:not(:disabled):hover,
+	.cosmo-button:not(:disabled):focus {
+		--button-color: var(--black);
+	}
+}
+
+.cosmo-button.is--circle {
+	--border-radius: calc(var(--size) / 2);
+	--size: var(--button-circle-size-regular);
+	--button-border-color: var(--button-color);
+	--button-border-width: var(--button-circle-border-width);
+
+	height: var(--size);
+	min-width: var(--size);
+	padding: var(--button-circle-padding);
+	background: var(--button-circle-background);
+	color: var(--button-border-color);
+}
+
+.cosmo-button.is--circle.is--primary,
+.cosmo-button.is--circle.is--positive,
+.cosmo-button.is--circle.is--negative,
+.cosmo-button.is--circle.is--warning,
+.cosmo-button.is--circle.is--information {
+	--button-border-color: var(--button-background);
+}
+
+.cosmo-button.is--circle.is--small {
+	--size: var(--button-circle-size-small);
+}
+
+.cosmo-button.is--circle.is--large {
+	--size: var(--button-circle-size-large);
+}
+
+.cosmo-button.is--circle:not(:disabled):hover,
+.cosmo-button.is--circle:not(:disabled):focus,
+.cosmo-button.is--circle:not(:disabled):active {
+	background: var(--button-background);
+	color: var(--button-color);
+}

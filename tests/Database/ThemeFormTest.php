@@ -1,10 +1,8 @@
 <?php
 
-namespace Jinya\Tests\Database;
+namespace Jinya\Cms\Database;
 
-use App\Database\Form;
-use App\Database\ThemeForm;
-use App\Tests\ThemeTestCase;
+use Jinya\Cms\Tests\ThemeTestCase;
 use Faker\Provider\Uuid;
 
 class ThemeFormTest extends ThemeTestCase
@@ -13,59 +11,59 @@ class ThemeFormTest extends ThemeTestCase
 
     public function testFindByThemeNoForm(): void
     {
-        $themeForms = ThemeForm::findByTheme($this->theme->getIdAsInt());
+        $themeForms = ThemeForm::findByTheme($this->theme->id);
         self::assertCount(0, iterator_to_array($themeForms));
     }
 
     public function testFindByTheme(): void
     {
         $themeForm = new ThemeForm();
-        $themeForm->formId = $this->form->getIdAsInt();
-        $themeForm->themeId = $this->theme->getIdAsInt();
+        $themeForm->formId = $this->form->id;
+        $themeForm->themeId = $this->theme->id;
         $themeForm->name = 'Test';
         $themeForm->create();
 
-        $themeForms = ThemeForm::findByTheme($this->theme->getIdAsInt());
+        $themeForms = ThemeForm::findByTheme($this->theme->id);
         self::assertCount(1, iterator_to_array($themeForms));
     }
 
     public function testFindByThemeAndNameNotFound(): void
     {
-        $found = ThemeForm::findByThemeAndName($this->theme->getIdAsInt(), 'Test');
+        $found = ThemeForm::findByThemeAndName($this->theme->id, 'Test');
         self::assertNull($found);
     }
 
     public function testFindByThemeAndName(): void
     {
         $themeForm = new ThemeForm();
-        $themeForm->formId = $this->form->getIdAsInt();
-        $themeForm->themeId = $this->theme->getIdAsInt();
+        $themeForm->formId = $this->form->id;
+        $themeForm->themeId = $this->theme->id;
         $themeForm->name = 'Test';
         $themeForm->create();
 
-        $found = ThemeForm::findByThemeAndName($this->theme->getIdAsInt(), 'Test');
+        $found = ThemeForm::findByThemeAndName($this->theme->id, 'Test');
         self::assertEquals($themeForm->format(), $found->format());
     }
 
     public function testDelete(): void
     {
         $themeForm = new ThemeForm();
-        $themeForm->formId = $this->form->getIdAsInt();
-        $themeForm->themeId = $this->theme->getIdAsInt();
+        $themeForm->formId = $this->form->id;
+        $themeForm->themeId = $this->theme->id;
         $themeForm->name = 'Test';
         $themeForm->create();
 
-        self::assertNotNull(ThemeForm::findByThemeAndName($this->theme->getIdAsInt(), 'Test'));
+        self::assertNotNull(ThemeForm::findByThemeAndName($this->theme->id, 'Test'));
 
         $themeForm->delete();
-        self::assertNull(ThemeForm::findByThemeAndName($this->theme->getIdAsInt(), 'Test'));
+        self::assertNull(ThemeForm::findByThemeAndName($this->theme->id, 'Test'));
     }
 
     public function testUpdate(): void
     {
         $themeForm = new ThemeForm();
-        $themeForm->formId = $this->form->getIdAsInt();
-        $themeForm->themeId = $this->theme->getIdAsInt();
+        $themeForm->formId = $this->form->id;
+        $themeForm->themeId = $this->theme->id;
         $themeForm->name = 'Test';
         $themeForm->create();
 
@@ -74,29 +72,29 @@ class ThemeFormTest extends ThemeTestCase
         $form->toAddress = 'example@example.com';
         $form->create();
 
-        $themeForm->formId = $form->getIdAsInt();
+        $themeForm->formId = $form->id;
         $themeForm->update();
-        $found = ThemeForm::findByThemeAndName($this->theme->getIdAsInt(), 'Test');
+        $found = ThemeForm::findByThemeAndName($this->theme->id, 'Test');
         self::assertNotNull($found);
-        self::assertEquals($form->getIdAsInt(), $found->formId);
+        self::assertEquals($form->id, $found->formId);
     }
 
     public function testCreate(): void
     {
         $themeForm = new ThemeForm();
-        $themeForm->formId = $this->form->getIdAsInt();
-        $themeForm->themeId = $this->theme->getIdAsInt();
+        $themeForm->formId = $this->form->id;
+        $themeForm->themeId = $this->theme->id;
         $themeForm->name = 'Test';
         $themeForm->create();
 
-        self::assertNotNull(ThemeForm::findByThemeAndName($this->theme->getIdAsInt(), 'Test'));
+        self::assertNotNull(ThemeForm::findByThemeAndName($this->theme->id, 'Test'));
     }
 
     public function testFormat(): void
     {
         $themeForm = new ThemeForm();
-        $themeForm->formId = $this->form->getIdAsInt();
-        $themeForm->themeId = $this->theme->getIdAsInt();
+        $themeForm->formId = $this->form->id;
+        $themeForm->themeId = $this->theme->id;
         $themeForm->name = 'Test';
         $themeForm->create();
 

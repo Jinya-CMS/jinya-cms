@@ -1,8 +1,17 @@
 <?php
 /** @var string $class */
-/** @var \App\Database\MenuItem $item */
+
+/** @var MenuItem $item */
+
+use Jinya\Cms\Database\MenuItem;
+
 ?>
-<a class="<?= $class ?> <?= $this->isActiveMenuItem($item) ? 'is--current' : '' ?> <?= $item->highlighted ? 'is--current' : '' ?>"
-   href="<?= str_starts_with($item->route, 'http://') || str_starts_with($item->route, 'https://') ? $item->route : "/$item->route" ?>">
+<a class="<?= $class ?> <?= $this->isActiveMenuItem(
+    $item
+) ? 'is--current' : '' ?> <?= $item->highlighted ? 'is--current' : '' ?>"
+   href="<?= str_starts_with($item->route, 'http://') || str_starts_with(
+       $item->route,
+       'https://'
+   ) ? $item->route : "/$item->route" ?>">
     <?= $item->title ?>
 </a>

@@ -1,18 +1,19 @@
-"use strict";
+'use strict';
 
 (function () {
   document.addEventListener('DOMContentLoaded', function () {
-    var items = document.querySelectorAll('[data-action=masonry-click]');
+    const items = document.querySelectorAll('[data-action=masonry-click]');
     items.forEach(function (item) {
-      var openModal = function openModal() {
-        var parent = item.parentElement;
-        var clone = parent.cloneNode(true);
+      const openModal = function openModal() {
+        const parent = item.parentElement;
+        const clone = parent.cloneNode(true);
         clone.classList.add('is--modal');
         document.body.classList.add('is--open');
-        clone.querySelector('img').removeEventListener('click', openModal);
+        clone.querySelector('img')
+          .removeEventListener('click', openModal);
         document.body.appendChild(clone);
 
-        var closeModal = function closeModal() {
+        const closeModal = function closeModal() {
           clone.classList.remove('is--open');
           setTimeout(function () {
             document.body.classList.remove('is--open');

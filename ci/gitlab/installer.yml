@@ -1,0 +1,17 @@
+installer-prettier:
+  extends:
+    - .javascript-lint
+  variables:
+    SCRIPT: installer:prettier
+
+installer-stylelint:
+  extends:
+    - .javascript-lint
+  variables:
+    SCRIPT: installer:stylelint
+
+installer-eslint:
+  extends:
+    - .javascript-lint
+  variables:
+    SCRIPT: installer:eslint

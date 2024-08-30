@@ -1,28 +1,23 @@
 <?php
 
-namespace App\Theming\Extensions;
+namespace Jinya\Cms\Theming\Extensions;
 
-use App\Database\BlogCategory;
-use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\UniqueFailedException;
-use App\Database\File;
-use App\Database\Form;
-use App\Database\Gallery;
-use App\Database\Menu;
-use App\Database\SegmentPage;
-use App\Database\SimplePage;
-use App\Database\Theme;
-use Jinya\PDOx\Exceptions\InvalidQueryException;
-use Jinya\PDOx\Exceptions\NoResultException;
-use League\Plates\Engine;
-use League\Plates\Extension\BaseExtension;
+use Jinya\Cms\Database\BlogCategory;
+use Jinya\Cms\Database\File;
+use Jinya\Cms\Database\Form;
+use Jinya\Cms\Database\Gallery;
+use Jinya\Cms\Database\Menu;
+use Jinya\Cms\Database\ModernPage;
+use Jinya\Cms\Database\ClassicPage;
+use Jinya\Cms\Database\Theme;
+use Jinya\Plates\Engine;
+use Jinya\Plates\Extension\BaseExtension;
 
 /**
  * Provides extensions to the Plates engine, adding helper methods for handling of configuration links
  */
 class LinksExtension extends BaseExtension
 {
-
     /** @var Theme The theme from the database */
     private Theme $dbTheme;
 
@@ -44,23 +39,23 @@ class LinksExtension extends BaseExtension
      */
     public function register(Engine $engine): void
     {
-        $engine->registerFunction('segmentPage', [$this, 'segmentPage']);
-        $engine->registerFunction('page', [$this, 'simplePage']);
-        $engine->registerFunction('simplePage', [$this, 'simplePage']);
-        $engine->registerFunction('file', [$this, 'file']);
-        $engine->registerFunction('menu', [$this, 'menu']);
-        $engine->registerFunction('gallery', [$this, 'gallery']);
-        $engine->registerFunction('form', [$this, 'form']);
-        $engine->registerFunction('blogCategory', [$this, 'blogCategory']);
+        $engine->functions->add('modernPage', [$this, 'modernPage']);
+        $engine->functions->add('page', [$this, 'classicPage']);
+        $engine->functions->add('classicPage', [$this, 'classicPage']);
+        $engine->functions->add('file', [$this, 'file']);
+        $engine->functions->add('menu', [$this, 'menu']);
+        $engine->functions->add('gallery', [$this, 'gallery']);
+        $engine->functions->add('form', [$this, 'form']);
+        $engine->functions->add('blogCategory', [$this, 'blogCategory']);
 
-        $engine->registerFunction('hasSegmentPage', [$this, 'hasSegmentPage']);
-        $engine->registerFunction('hasPage', [$this, 'hasSimplePage']);
-        $engine->registerFunction('hasSimplePage', [$this, 'hasSimplePage']);
-        $engine->registerFunction('hasFile', [$this, 'hasFile']);
-        $engine->registerFunction('hasGallery', [$this, 'hasGallery']);
-        $engine->registerFunction('hasMenu', [$this, 'hasMenu']);
-        $engine->registerFunction('hasForm', [$this, 'hasForm']);
-        $engine->registerFunction('hasBlogCategory', [$this, 'hasBlogCategory']);
+        $engine->functions->add('hasModernPage', [$this, 'hasModernPage']);
+        $engine->functions->add('hasPage', [$this, 'hasClassicPage']);
+        $engine->functions->add('hasClassicPage', [$this, 'hasClassicPage']);
+        $engine->functions->add('hasFile', [$this, 'hasFile']);
+        $engine->functions->add('hasGallery', [$this, 'hasGallery']);
+        $engine->functions->add('hasMenu', [$this, 'hasMenu']);
+        $engine->functions->add('hasForm', [$this, 'hasForm']);
+        $engine->functions->add('hasBlogCategory', [$this, 'hasBlogCategory']);
     }
 
     /**
@@ -68,14 +63,10 @@ class LinksExtension extends BaseExtension
      *
      * @param string $name
      * @return bool
-     * @throws ForeignKeyFailedException
-     * @throws UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
-    public function hasSegmentPage(string $name): bool
+    public function hasModernPage(string $name): bool
     {
-        return isset($this->dbTheme->getSegmentPages()[$name]);
+        return isset($this->dbTheme->getModernPages()[$name]);
     }
 
     /**
@@ -83,14 +74,10 @@ class LinksExtension extends BaseExtension
      *
      * @param string $name
      * @return bool
-     * @throws ForeignKeyFailedException
-     * @throws UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
-    public function hasSimplePage(string $name): bool
+    public function hasClassicPage(string $name): bool
     {
-        return isset($this->dbTheme->getPages()[$name]);
+        return isset($this->dbTheme->getClassicPages()[$name]);
     }
 
     /**
@@ -98,10 +85,6 @@ class LinksExtension extends BaseExtension
      *
      * @param string $name
      * @return bool
-     * @throws ForeignKeyFailedException
-     * @throws UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     public function hasFile(string $name): bool
     {
@@ -113,10 +96,6 @@ class LinksExtension extends BaseExtension
      *
      * @param string $name
      * @return bool
-     * @throws ForeignKeyFailedException
-     * @throws UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     public function hasGallery(string $name): bool
     {
@@ -128,10 +107,6 @@ class LinksExtension extends BaseExtension
      *
      * @param string $name
      * @return bool
-     * @throws ForeignKeyFailedException
-     * @throws UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     public function hasMenu(string $name): bool
     {
@@ -143,10 +118,6 @@ class LinksExtension extends BaseExtension
      *
      * @param string $name
      * @return bool
-     * @throws ForeignKeyFailedException
-     * @throws UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     public function hasForm(string $name): bool
     {
@@ -158,10 +129,6 @@ class LinksExtension extends BaseExtension
      *
      * @param string $name
      * @return bool
-     * @throws ForeignKeyFailedException
-     * @throws UniqueFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
      */
     public function hasBlogCategory(string $name): bool
     {
@@ -172,30 +139,22 @@ class LinksExtension extends BaseExtension
      * Returns the segment page with the given name or null
      *
      * @param string $name
-     * @return SegmentPage|null
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     * @throws UniqueFailedException
+     * @return ModernPage|null
      */
-    public function segmentPage(string $name): ?SegmentPage
+    public function modernPage(string $name): ?ModernPage
     {
-        return $this->dbTheme->getSegmentPages()[$name] ?? null;
+        return $this->dbTheme->getModernPages()[$name] ?? null;
     }
 
     /**
      * Returns the simple page with the given name or null
      *
      * @param string $name
-     * @return SimplePage|null
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     * @throws UniqueFailedException
+     * @return ClassicPage|null
      */
-    public function simplePage(string $name): ?SimplePage
+    public function classicPage(string $name): ?ClassicPage
     {
-        return $this->dbTheme->getPages()[$name] ?? null;
+        return $this->dbTheme->getClassicPages()[$name] ?? null;
     }
 
     /**
@@ -203,10 +162,6 @@ class LinksExtension extends BaseExtension
      *
      * @param string $name
      * @return File|null
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     * @throws UniqueFailedException
      */
     public function file(string $name): ?File
     {
@@ -218,10 +173,6 @@ class LinksExtension extends BaseExtension
      *
      * @param string $name
      * @return Form|null
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     * @throws UniqueFailedException
      */
     public function form(string $name): ?Form
     {
@@ -233,10 +184,6 @@ class LinksExtension extends BaseExtension
      *
      * @param string $name
      * @return Menu|null
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     * @throws UniqueFailedException
      */
     public function menu(string $name): ?Menu
     {
@@ -248,10 +195,6 @@ class LinksExtension extends BaseExtension
      *
      * @param string $name
      * @return BlogCategory|null
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     * @throws UniqueFailedException
      */
     public function blogCategory(string $name): ?BlogCategory
     {
@@ -263,10 +206,6 @@ class LinksExtension extends BaseExtension
      *
      * @param string $name
      * @return Gallery|null
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws NoResultException
-     * @throws UniqueFailedException
      */
     public function gallery(string $name): ?Gallery
     {

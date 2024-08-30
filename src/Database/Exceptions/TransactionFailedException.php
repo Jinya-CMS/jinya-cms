@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Database\Exceptions;
+namespace Jinya\Cms\Database\Exceptions;
 
 use Exception;
 
@@ -9,5 +9,4 @@ use Exception;
  */
 class TransactionFailedException extends Exception
 {
-
 }

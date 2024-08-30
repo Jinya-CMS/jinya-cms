@@ -1,35 +1,12 @@
 version: 2
 updates:
-- package-ecosystem: composer
-  directory: "/"
-  schedule:
-    interval: daily
-    time: "04:00"
-  open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: squizlabs/php_codesniffer
-    versions:
-    - 3.6.0
-  - dependency-name: phpmailer/phpmailer
-    versions:
-    - 6.3.0
-    - 6.4.0
-  - dependency-name: fakerphp/faker
-    versions:
-    - 1.14.0
-    - 1.14.1
-  - dependency-name: php-di/php-di
-    versions:
-    - 6.3.1
-  - dependency-name: guzzlehttp/guzzle
-    versions:
-    - 7.3.0
-  - dependency-name: nyholm/psr7
-    versions:
-    - 1.4.0
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: daily
-    time: "04:00"
-  open-pull-requests-limit: 10
+  - package-ecosystem: composer
+    directory: '/'
+    schedule:
+      interval: daily
+      time: '04:00'
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: daily
+      time: '04:00'

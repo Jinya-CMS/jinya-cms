@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Theming\Extensions;
+namespace Jinya\Cms\Theming\Extensions;
 
-use App\Database\File;
-use App\Storage\StorageBaseService;
-use App\Utils\ImageType;
-use League\Plates\Engine;
-use League\Plates\Extension\BaseExtension;
+use Jinya\Cms\Database\File;
+use Jinya\Cms\Storage\StorageBaseService;
+use Jinya\Cms\Utils\ImageType;
+use Jinya\Plates\Engine;
+use Jinya\Plates\Extension\BaseExtension;
 use RuntimeException;
 
 /**
@@ -27,9 +27,9 @@ class FileExtension extends BaseExtension
      */
     public function register(Engine $engine): void
     {
-        $engine->registerFunction('pictureSources', [$this, 'pictureSources']);
-        $engine->registerFunction('sizes', [$this, 'sizes']);
-        $engine->registerFunction('srcset', [$this, 'srcset']);
+        $engine->functions->add('pictureSources', [$this, 'pictureSources']);
+        $engine->functions->add('sizes', [$this, 'sizes']);
+        $engine->functions->add('srcset', [$this, 'srcset']);
     }
 
     /**
@@ -51,8 +51,6 @@ class FileExtension extends BaseExtension
                     ImageType::Webp => 'webp',
                     ImageType::Png => 'png',
                     ImageType::Jpg => 'jpg',
-                    ImageType::Gif => 'gif',
-                    ImageType::Bmp => 'bmp',
                 };
                 $fullpath = StorageBaseService::BASE_PATH . '/public/' . $file->path . '-' . $width . 'w.' . $type;
                 if (file_exists($fullpath)) {
@@ -95,18 +93,14 @@ class FileExtension extends BaseExtension
                 ImageType::Webp => 'image/webp',
                 ImageType::Png => 'image/png',
                 ImageType::Jpg => 'image/jpg',
-                ImageType::Gif => 'image/gif',
-                ImageType::Bmp => 'image/bmp',
             };
             $typeAsString = match ($item) {
                 ImageType::Webp => 'webp',
                 ImageType::Png => 'png',
                 ImageType::Jpg => 'jpg',
-                ImageType::Gif => 'gif',
-                ImageType::Bmp => 'bmp',
             };
             foreach (self::RESOLUTIONS_FOR_SOURCE as $width) {
-                $sources[] = "<source srcset='image.php?id=$file->id&width=$width&type=$typeAsString' media='(min-width: {$width}px)' type='$type'>";
+                $sources[] = "<source srcset='/image.php?id=$file->id&width=$width&type=$typeAsString' media='(min-width: {$width}px)' type='$type'>";
             }
         }
 

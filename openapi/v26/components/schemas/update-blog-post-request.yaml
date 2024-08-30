@@ -1,0 +1,14 @@
+title: Update blog post request
+type: object
+description: A post for blog posts
+properties:
+  title:
+    type: string
+  slug:
+    type: string
+  headerImageId:
+    type: integer
+  categoryId:
+    type: integer
+  public:
+    type: string

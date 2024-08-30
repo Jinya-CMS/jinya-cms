@@ -1,0 +1,85 @@
+:root {
+	--list-spacing: 1rem;
+
+	--list-items-width: 13.25rem;
+	--list-items-padding-right: 1rem;
+	--list-items-border-width: 0.0625rem;
+
+	--list-item-height: 1.75rem;
+	--list-item-padding-top: 0.25rem;
+	--list-item-padding-bottom: 0.25rem;
+	--list-item-padding-left: 0.5rem;
+	--list-item-padding-right: 0.5rem;
+}
+
+.cosmo-side-list {
+	display: grid;
+	grid-template-columns: [items-list] var(--list-items-width) var(--list-spacing) [content] 1fr;
+	height: var(--page-height);
+}
+
+.cosmo-side-list__items {
+	grid-column: items-list;
+	display: flex;
+	flex-flow: column;
+	padding-right: var(--list-items-padding-right);
+	border-right: var(--list-items-border-width) solid var(--control-border-color);
+	box-sizing: border-box;
+	height: var(--page-height);
+	overflow-y: auto;
+}
+
+.cosmo-side-list__items .cosmo-button.is--full-width {
+	margin-top: auto;
+}
+
+.cosmo-side-list__item {
+	--list-item-color: var(--black);
+
+	color: var(--list-item-color);
+	padding: var(--list-item-padding-top) var(--list-item-padding-right)
+		var(--list-item-padding-bottom) var(--list-item-padding-left);
+	overflow-x: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	width: 100%;
+	box-sizing: border-box;
+	cursor: pointer;
+	min-height: var(--list-item-height);
+	border-radius: var(--border-radius);
+	background: var(--list-item-background);
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+}
+
+.cosmo-side-list__item:hover {
+	--list-item-background: var(--control-border-color);
+}
+
+.cosmo-side-list__item.is--active,
+.cosmo-side-list__item.is--active:hover {
+	--list-item-background: var(--primary-color);
+	--list-item-color: var(--white);
+
+	font-weight: var(--font-weight-bold);
+}
+
+@media screen and (prefers-color-scheme: dark) {
+	.cosmo-side-list__item.is--active,
+	.cosmo-side-list__item.is--active:hover {
+		--list-item-color: var(--black);
+	}
+}
+
+.cosmo-side-list__item.is--active::selection,
+.cosmo-side-list__item.is--active:hover::selection {
+	--list-item-background: var(--white);
+	--list-item-color: var(--primary-color);
+}
+
+.cosmo-side-list__content {
+	grid-column: content;
+	height: 100%;
+	overflow-y: auto;
+}

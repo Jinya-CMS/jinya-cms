@@ -1,18 +1,22 @@
 <?php
+
 declare(strict_types=1);
 
-use App\Database\File;
-use App\Storage\StorageBaseService;
-use App\Utils\AppSettingsInitializer;
-use Intervention\Image\ImageManager;
-use Slim\Factory\ServerRequestCreatorFactory;
+use Jinya\Cms\Database\File;
+use Jinya\Cms\Storage\StorageBaseService;
+use Nyholm\Psr7\Factory\Psr17Factory;
+use Nyholm\Psr7Server\ServerRequestCreator;
 
-require __DIR__ . '/../defines.php';
-require __ROOT__ . '/vendor/autoload.php';
+require __DIR__ . '/../startup.php';
 
-AppSettingsInitializer::loadDotEnv();
-$serverRequestCreator = ServerRequestCreatorFactory::create();
-$request = $serverRequestCreator->createServerRequestFromGlobals();
+$psr17Factory = new Psr17Factory();
+$creator = new ServerRequestCreator(
+    $psr17Factory, // ServerRequestFactory
+    $psr17Factory, // UriFactory
+    $psr17Factory, // UploadedFileFactory
+    $psr17Factory  // StreamFactory
+);
+$request = $creator->fromGlobals();
 
 $queryParams = $request->getQueryParams();
 $id = $queryParams['id'] ?? false;
@@ -21,7 +25,7 @@ if ($id === false) {
 }
 
 $width = $queryParams['width'] ?? false;
-$type = $queryParams['type'] ?? false;
+$type = $queryParams['type'] ?? 'webp';
 $file = File::findById((int)$id);
 if ($file === null) {
     exit(404);
@@ -33,30 +37,12 @@ if (file_exists($fullpath)) {
     exit(302);
 }
 
-$manager = new ImageManager(['driver' => 'imagick']);
-$image = $manager->make(StorageBaseService::BASE_PATH . '/public/' . $file->path);
-if ($width !== false) {
-    $image->widen($width, fn($image) => $image->upsize());
+try {
+    $conversionService = new \Jinya\Cms\Storage\ConversionService();
+    $conversionService->convertFile($id);
+} catch (Throwable $exception) {
+    exit(500);
 }
 
-if ($type !== false) {
-    $contentType = match (strtolower($type)) {
-        'png' => 'image/png',
-        'jpg' => 'image/jpeg',
-        'gif' => 'image/gif',
-        'bmp' => 'image/bmp',
-        default => 'image/webp',
-    };
-    $targetType = match (strtolower($type)) {
-        'png' => 'png',
-        'jpg' => 'jpeg',
-        'gif' => 'gif',
-        'bmp' => 'bmp',
-        default => 'webp',
-    };
-    $image->save($fullpath, format: $targetType);
-    echo $image->response($targetType);
-} else {
-    $image->save($fullpath);
-    echo $image->response();
-}
+header('Location: ' . $file->path . '-' . $width . 'w.' . $type);
+exit(302);

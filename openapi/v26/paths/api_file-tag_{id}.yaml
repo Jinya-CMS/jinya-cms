@@ -1,0 +1,99 @@
+parameters:
+  - name: id
+    schema:
+      type: integer
+    in: path
+    required: true
+put:
+  summary: Update file tag by id
+  tags:
+    - files
+  responses:
+    '204':
+      description: Successfully updated file tag
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: File tag not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '409':
+      description: Name is not unique
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: udpate_file_tag
+  description: Updates the name of the given file tag
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/update-file-tag-request.yaml
+delete:
+  summary: Delete file tag by id
+  tags:
+    - files
+  responses:
+    '204':
+      description: File tag successfully deleted
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '404':
+      description: File tag not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: delete_file_tag
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  description: Deletes the given file tag
+get:
+  summary: Get file tag by id
+  tags:
+    - files
+  responses:
+    '200':
+      description: Successfully got the file tag
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/file-tag.yaml
+    '404':
+      description: File tag not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: get_file_tag_by_id
+  description: Gets the file tag with the specified id
+  security:
+    - header-auth: []
+    - cookie-auth: []

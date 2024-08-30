@@ -1,0 +1,35 @@
+put:
+  summary: Verify OTP app usage
+  tags:
+    - my-profile
+  responses:
+    '204':
+      description: Successfully verified otp app usage
+    '400':
+      description: Code invalid
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '401':
+      description: Api key missing
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+    '403':
+      description: Invalid api key
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/exception.yaml
+  operationId: verify_otp_app_mode
+  description: Verifies the otp app usage
+  security:
+    - header-auth: []
+    - cookie-auth: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/verify-otp-mode-app.yaml

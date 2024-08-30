@@ -1,0 +1,39 @@
+.jinya-modern-item__label {
+    grid-row: content;
+}
+
+.jinya-designer__result.is--modern-page {
+    flex-flow: row wrap;
+    gap: 1rem;
+    align-content: flex-start;
+    grid-row: content;
+}
+
+.jinya-designer__toolbox.is--modern-page {
+    grid-row: content;
+}
+
+.cosmo-toolbar.is--modern-page {
+    grid-row: toolbar;
+}
+
+.cosmo-message.is--modern-page {
+    grid-row: message;
+    grid-column: 2/4;
+    margin-left: 3rem;
+    width: calc(100% - 3rem);
+}
+
+.jinya-modern-page-designer {
+    grid-template-rows: [message] auto;
+    display: grid;
+    grid-row: content;
+    max-height: 100%;
+    grid-template-columns: 10rem [button] 2rem [content] 9fr 12rem 1fr;
+    box-sizing: border-box;
+    overflow-y: auto;
+    place-content: baseline flex-start;
+    grid-auto-rows: auto;
+    padding-top: 2rem;
+    gap: 1rem;
+}
