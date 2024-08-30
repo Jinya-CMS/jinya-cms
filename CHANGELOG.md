@@ -1,5 +1,8 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 26.0.1
+Small hotfix for non working multiple uploads
+
 ## Release notes - Jinya CMS - Version 26.0.0
 
 ### User Stories
