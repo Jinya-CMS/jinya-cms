@@ -18,10 +18,9 @@ function getCookieByName(name) {
 class AuthenticationDatabase {
   constructor() {
     this.#database = new Dexie('authentication');
-    this.#database.version(1)
-      .stores({
-        values: '',
-      });
+    this.#database.version(1).stores({
+      values: '',
+    });
 
     this.#database.on('populate', (tx) => {
       if (localStorage) {
