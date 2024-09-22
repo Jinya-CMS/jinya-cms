@@ -5,10 +5,13 @@ namespace Jinya\Cms\Analytics;
 use DeviceDetector\ClientHints;
 use DeviceDetector\DeviceDetector;
 use DeviceDetector\Parser\Device\AbstractDeviceParser;
+use IPLib\Factory as IPLibFactory;
+use IPLib\Range\Type as RangeType;
 use Jinya\Cms\Authentication\AuthenticationChecker;
 use Jinya\Cms\Database\AnalyticsEntry;
 use Jinya\Cms\Database\BlogPost;
 use Jinya\Cms\Database\MenuItem;
+use Jinya\Cms\Locate\IpToLocationService;
 use Jinya\Cms\Logging\Logger;
 use Jinya\Cms\Web\Controllers\BaseController;
 use League\Uri\Uri;
@@ -23,11 +26,13 @@ class AnalyticsService
     private readonly DeviceDetector $detector;
 
     private readonly ServerRequestInterface $request;
+    private readonly IpToLocationService $ipToLocationService;
 
     public function __construct()
     {
         $this->request = get_request();
         $this->logger = Logger::getLogger();
+        $this->ipToLocationService = new IpToLocationService();
         $this->detector = new DeviceDetector(
             $this->request->getHeaderLine('User-Agent'),
             ClientHints::factory($_SERVER)
@@ -52,9 +57,23 @@ class AnalyticsService
                 return null;
             }
 
+            if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+                $ip = $_SERVER['HTTP_CLIENT_IP'];
+            } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            } else {
+                $ip = $_SERVER['REMOTE_ADDR'];
+            }
+            $ip = IpLibFactory::parseAddressString($ip);
+            if ($ip->getAddressType() !== RangeType::T_PUBLIC) {
+                $this->logger->info('The request is made from a non-public ip, ignore it');
+                return null;
+            }
+
             $this->logger->info("Tracking request for URL {$this->request->getUri()}");
 
             $entry = new AnalyticsEntry();
+
             if ($this->detector->isTablet()) {
                 $entry->deviceType = DeviceType::Tablet;
             } elseif ($this->detector->isMobile()) {
@@ -65,6 +84,9 @@ class AnalyticsService
                 $entry->deviceType = DeviceType::Other;
             }
 
+            $location = $this->ipToLocationService->locateIp($ip->toString(true));
+
+            $entry->country = $location['country'];
             $entry->userAgent = $this->detector->getUserAgent();
             $entry->device = $this->detector->getModel();
             $entry->brand = AbstractDeviceParser::getFullName($this->detector->getBrandName());
