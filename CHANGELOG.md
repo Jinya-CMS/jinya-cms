@@ -1,6 +1,6 @@
 # Changelog
 
-## Release notes - Jinya CMS - Version 26.0.2
+## Release notes - Jinya CMS - Version 26.0.3
 
 ### User Stories
 
