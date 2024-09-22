@@ -1,5 +1,11 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 26.0.2
+
+### User Stories
+
+- [TG-251](https://taiga.imanuel.dev/project/jinya-cms/us/251) Fix bot detection
+
 ## Release notes - Jinya CMS - Version 26.0.1
 Small hotfix for non working multiple uploads
 
