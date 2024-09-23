@@ -5,8 +5,6 @@ namespace Jinya\Cms\Analytics;
 use DeviceDetector\ClientHints;
 use DeviceDetector\DeviceDetector;
 use DeviceDetector\Parser\Device\AbstractDeviceParser;
-use IPLib\Factory as IPLibFactory;
-use IPLib\Range\Type as RangeType;
 use Jinya\Cms\Authentication\AuthenticationChecker;
 use Jinya\Cms\Database\AnalyticsEntry;
 use Jinya\Cms\Database\BlogPost;
@@ -44,7 +42,7 @@ class AnalyticsService
     public function trackRequest(): ?AnalyticsEntry
     {
         try {
-            if ($this->detector->isBot()) {
+            if ($this->detector->isBot() || $this->detector->getUserAgent() === '') {
                 $this->logger->info('The request is made by a robot, ignore it');
                 return null;
             }
@@ -64,11 +62,6 @@ class AnalyticsService
             } else {
                 $ip = $_SERVER['REMOTE_ADDR'];
             }
-            $ip = IpLibFactory::parseAddressString($ip);
-            if ($ip->getAddressType() !== RangeType::T_PUBLIC) {
-                $this->logger->info('The request is made from a non-public ip, ignore it');
-                return null;
-            }
 
             $this->logger->info("Tracking request for URL {$this->request->getUri()}");
 
@@ -84,7 +77,7 @@ class AnalyticsService
                 $entry->deviceType = DeviceType::Other;
             }
 
-            $location = $this->ipToLocationService->locateIp($ip->toString(true));
+            $location = $this->ipToLocationService->locateIp($ip);
 
             $entry->country = $location['country'];
             $entry->userAgent = $this->detector->getUserAgent();

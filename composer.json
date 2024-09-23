@@ -28,7 +28,6 @@
     "laminas/laminas-hydrator": "4.15.0",
     "matomo/device-detector": "6.4.0",
     "melbahja/semver": "v1.0.1",
-    "mlocati/ip-lib": "1.18.0",
     "monolog/monolog": "3.7.0",
     "nyholm/psr7": "1.8.2",
     "nyholm/psr7-server": "1.1.0",
