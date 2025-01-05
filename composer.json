@@ -15,7 +15,7 @@
     "ext-zip": "*",
     "ext-zlib": "*",
     "bacon/bacon-qr-code": "3.0.1",
-    "intervention/image": "3.10.0",
+    "intervention/image": "3.10.2",
     "jenssegers/agent": "v2.6.4",
     "jetbrains/phpstorm-attributes": "1.0",
     "jinya/configuration": "0.10.0",
@@ -45,8 +45,8 @@
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
-    "fakerphp/faker": "v1.23.1",
-    "laravel/pint": "v1.18.3"
+    "fakerphp/faker": "v1.24.1",
+    "laravel/pint": "v1.19.0"
   },
   "config": {
     "process-timeout": 0,
