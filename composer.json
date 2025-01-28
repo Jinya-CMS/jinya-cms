@@ -15,7 +15,7 @@
     "ext-zip": "*",
     "ext-zlib": "*",
     "bacon/bacon-qr-code": "3.0.1",
-    "intervention/image": "3.10.2",
+    "intervention/image": "3.11.0",
     "jenssegers/agent": "v2.6.4",
     "jetbrains/phpstorm-attributes": "1.2",
     "jinya/configuration": "0.10.0",
@@ -32,7 +32,7 @@
     "nyholm/psr7": "1.8.2",
     "nyholm/psr7-server": "1.1.0",
     "phpmailer/phpmailer": "v6.9.3",
-    "phpmyadmin/sql-parser": "5.10.2",
+    "phpmyadmin/sql-parser": "5.10.3",
     "scssphp/scssphp": "v2.0.0",
     "spomky-labs/otphp": "11.3.0",
     "symfony/filesystem": "v7.2.0",
@@ -46,7 +46,7 @@
   "require-dev": {
     "roave/security-advisories": "dev-latest",
     "fakerphp/faker": "v1.24.1",
-    "laravel/pint": "v1.19.0"
+    "laravel/pint": "v1.20.0"
   },
   "config": {
     "process-timeout": 0,
