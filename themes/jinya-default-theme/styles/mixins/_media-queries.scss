@@ -1,28 +1,29 @@
 @mixin jinya-media-query($screen: true, $small: false, $medium: false, $large: false, $extra-large: false) {
     $query: '';
+    $base: '';
     $query-parts: ();
     @if ($screen) {
-        $query: $screen-media-query;
+        $base: $screen-media-query + ' and ';
     }
+
     @if ($small) {
-        $query-parts: append($query-parts, $small-media-query);
+        @media #{$base}#{$small-media-query}  {
+            @content;
+        }
     }
     @if ($medium) {
-        $query-parts: append($query-parts, $medium-media-query);
+        @media #{$base}#{$medium-media-query}  {
+            @content;
+        }
     }
     @if ($large) {
-        $query-parts: append($query-parts, $large-media-query);
+        @media #{$base}#{$large-media-query}  {
+            @content;
+        }
     }
     @if ($extra-large) {
-        $query-parts: append($query-parts, $extra-large-media-query);
-    }
-
-    $query-parts-empty: length($query-parts) > 0;
-    @if ($query-parts-empty > 0) {
-        $query: '#{$screen-media-query} and '
-    }
-
-    @media #{$query}#{join($query-parts, ',')} {
-        @content;
+        @media #{$base}#{$extra-large-media-query}  {
+            @content;
+        }
     }
 }

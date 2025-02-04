@@ -64,3 +64,4 @@ phpunit:
         - library/mysql:lts
         - library/mariadb:10.11
         - library/mariadb:lts
+        - library/percona:8

@@ -41,11 +41,11 @@ $breakpoint-large-max-width: 1919px !default;
 
 $breakpoint-extra-large-min-width: 1920px !default;
 
-$screen-media-query: only screen;
-$small-media-query: (max-width: $breakpoint-small-max-width);
-$medium-media-query: (min-width: $breakpoint-medium-min-width) and (max-width: $breakpoint-medium-max-width);
-$large-media-query: (min-width: $breakpoint-large-min-width) and (max-width: $breakpoint-large-max-width);
-$extra-large-media-query: (min-width: $breakpoint-extra-large-min-width);
+$screen-media-query: "only screen";
+$small-media-query: "(max-width: " + $breakpoint-small-max-width + ")";
+$medium-media-query: "(min-width: " + $breakpoint-medium-min-width + ") and (max-width: " + $breakpoint-medium-max-width + ")";
+$large-media-query: "(min-width: " + $breakpoint-large-min-width + ") and (max-width: " + $breakpoint-large-max-width + ")";
+$extra-large-media-query: "(min-width: " +  $breakpoint-extra-large-min-width + ")";
 
 $menu-font-family: 'Open Sans', 'sans serif' !default;
 $paragraph-font-family: 'Open Sans', 'sans serif' !default;
