@@ -2,8 +2,8 @@
 
 namespace Jinya\Cms\Theming;
 
-use Jinya\Cms\Database;
 use Exception;
+use Jinya\Cms\Database;
 use Jinya\Plates\Engine;
 use Jinya\Plates\Extension\ExtensionInterface;
 use JShrink\Minifier;
@@ -11,6 +11,7 @@ use RuntimeException;
 use ScssPhp\ScssPhp\Compiler;
 use ScssPhp\ScssPhp\Node\Number;
 use ScssPhp\ScssPhp\OutputStyle;
+use ScssPhp\ScssPhp\Value\SassString;
 use ScssPhp\ScssPhp\ValueConverter;
 
 /**
@@ -128,7 +129,9 @@ class Theme implements ExtensionInterface
         }
         $this->clearStyleCache();
         $stylesheets = $this->configuration['styles']['files'] ?? [];
-        $this->scssCompiler->addVariables($this->dbTheme->scssVariables);
+        $this->scssCompiler->addVariables(
+            array_map(static fn ($var) => new SassString($var, false), $this->dbTheme->scssVariables)
+        );
 
         foreach ($stylesheets as $stylesheet) {
             if (!file_exists($stylesheet)) {
