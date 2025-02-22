@@ -6,12 +6,13 @@ use Jinya\Cms\Tests\DatabaseAwareTestCase;
 
 class IpToLocationServiceTest extends DatabaseAwareTestCase
 {
-    public static function setUpBeforeClass(): void
+    protected function setUp(): void
     {
-        parent::setUpBeforeClass();
+        parent::setUp();
         $ipToLocationService = new IpToLocationService();
         $ipToLocationService->populateDatabase();
     }
+
 
     public function testLocateIp8_8_8_8(): void
     {

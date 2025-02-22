@@ -43,12 +43,8 @@ class DatabaseAwareTestCase extends TestCase
         $artist->roles[] = 'ROLE_READER';
         $artist->roles[] = 'ROLE_WRITER';
 
-        try {
-            $artist->create();
-            CurrentUser::$currentUser = $artist;
-        } catch (\Throwable $e) {
-            $i = 2;
-        }
+        $artist->create();
+        CurrentUser::$currentUser = $artist;
     }
 
     protected function tearDown(): void
