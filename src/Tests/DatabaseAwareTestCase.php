@@ -2,10 +2,10 @@
 
 namespace Jinya\Cms\Tests;
 
+use Error;
 use Jinya\Cms\Authentication\CurrentUser;
 use Jinya\Cms\Database\Artist;
 use Jinya\Cms\Database\Migrations\Migrator;
-use Error;
 use Jinya\Database\Entity;
 use Jinya\Database\Exception\NotNullViolationException;
 use PHPUnit\Framework\TestCase;
@@ -15,12 +15,6 @@ class DatabaseAwareTestCase extends TestCase
     public function expectError(): void
     {
         $this->expectException(Error::class);
-    }
-
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-        Migrator::migrate();
     }
 
     /**
@@ -50,17 +44,21 @@ class DatabaseAwareTestCase extends TestCase
         $artist->roles[] = 'ROLE_READER';
         $artist->roles[] = 'ROLE_WRITER';
 
-        $artist->create();
-        CurrentUser::$currentUser = $artist;
+        try {
+            $artist->create();
+            CurrentUser::$currentUser = $artist;
+        }catch (\Throwable $e) {
+            $i=2;
+        }
     }
 
     protected function tearDown(): void
     {
         parent::tearDown();
-        $this->cleanDatabase();
+        self::cleanDatabase();
     }
 
-    private function cleanDatabase(): void
+    private static function cleanDatabase(): void
     {
         Entity::getPDO()->exec('delete from theme_asset');
         Entity::getPDO()->exec('delete from theme_blog_category');

@@ -2,6 +2,7 @@
 
 namespace Jinya\Cms\Tests;
 
+use Jinya\Cms\Database\Migrations\Migrator;
 use Jinya\Database\Entity;
 use PHPUnit\Event\Test\BeforeFirstTestMethodCalledSubscriber;
 use PHPUnit\Event\Test\BeforeFirstTestMethodCalled;
@@ -46,5 +47,6 @@ class CleanDatabaseHandler implements BeforeFirstTestMethodCalledSubscriber
         Entity::getPDO()->exec('drop table if exists migration_state cascade');
         Entity::getPDO()->exec('drop table if exists analytics cascade');
         Entity::getPDO()->exec('drop table if exists folder cascade');
+        Migrator::migrate();
     }
 }
