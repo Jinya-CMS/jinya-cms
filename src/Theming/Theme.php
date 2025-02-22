@@ -148,9 +148,9 @@ class Theme implements ExtensionInterface
 
                 if (preg_match('/[[:xdigit:]]{6}/m', $hex)) {
                     $splitInRgb = mb_str_split($hex, 2);
-                    $r = hexdec($splitInRgb[0]);
-                    $g = hexdec($splitInRgb[1]);
-                    $b = hexdec($splitInRgb[2]);
+                    $r = (int)hexdec($splitInRgb[0]);
+                    $g = (int)hexdec($splitInRgb[1]);
+                    $b = (int)hexdec($splitInRgb[2]);
 
                     return SassColor::rgb($r, $g, $b);
                 }
@@ -159,9 +159,9 @@ class Theme implements ExtensionInterface
             if (str_starts_with($value, 'rgb(') && str_ends_with($value, ')')) {
                 $trimmedRgb = trim(ltrim($value, 'rgb('), ')');
                 $splitInRgb = explode(',', str_replace(' ', '', $trimmedRgb));
-                $r = (float)$splitInRgb[0];
-                $g = (float)$splitInRgb[1];
-                $b = (float)$splitInRgb[2];
+                $r = (int)$splitInRgb[0];
+                $g = (int)$splitInRgb[1];
+                $b = (int)$splitInRgb[2];
 
                 if ($r >= 0 && $g >= 0 && $b >= 0 && $r <= 255 && $g <= 255 && $b <= 255) {
                     return SassColor::rgb($r, $g, $b);
@@ -171,9 +171,9 @@ class Theme implements ExtensionInterface
             if (str_starts_with($value, 'rgba(') && str_ends_with($value, ')')) {
                 $trimmedRgb = trim(ltrim($value, 'rgba('), ')');
                 $splitInRgb = explode(',', str_replace(' ', '', $trimmedRgb));
-                $r = (float)$splitInRgb[0];
-                $g = (float)$splitInRgb[1];
-                $b = (float)$splitInRgb[2];
+                $r = (int)$splitInRgb[0];
+                $g = (int)$splitInRgb[1];
+                $b = (int)$splitInRgb[2];
 
                 if ($r >= 0 && $g >= 0 && $b >= 0 && $r <= 255 && $g <= 255 && $b <= 255) {
                     return SassColor::rgb($r, $g, $b, (float)$splitInRgb[3]);
@@ -240,9 +240,9 @@ class Theme implements ExtensionInterface
     private function getStyleCache(): array
     {
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/styles');
-        $files = array_map(fn ($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/styles/$item", $files ?: []);
+        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/styles/$item", $files ?: []);
 
-        return array_filter($files, static fn ($item) => is_file($item)) ?: [];
+        return array_filter($files, static fn($item) => is_file($item)) ?: [];
     }
 
     /**
@@ -291,9 +291,9 @@ class Theme implements ExtensionInterface
     private function getScriptCache(): array
     {
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts');
-        $files = array_map(fn ($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/scripts/$item", $files ?: []);
+        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/scripts/$item", $files ?: []);
 
-        return array_filter($files, static fn ($item) => is_file($item)) ?: [];
+        return array_filter($files, static fn($item) => is_file($item)) ?: [];
     }
 
     /**
@@ -358,9 +358,9 @@ class Theme implements ExtensionInterface
     private function getAssetCache(): array
     {
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/assets');
-        $files = array_map(fn ($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/assets/$item", $files ?: []);
+        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/assets/$item", $files ?: []);
 
-        return array_filter($files, static fn ($item) => is_file($item)) ?: [];
+        return array_filter($files, static fn($item) => is_file($item)) ?: [];
     }
 
     /**

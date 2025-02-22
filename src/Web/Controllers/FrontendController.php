@@ -52,7 +52,7 @@ class FrontendController extends BaseController
      *
      * @throws Throwable
      */
-    private function executeErrorHandled(callable $handler, callable $onError = null): ResponseInterface
+    private function executeErrorHandled(callable $handler, callable|null $onError = null): ResponseInterface
     {
         try {
             return $handler();

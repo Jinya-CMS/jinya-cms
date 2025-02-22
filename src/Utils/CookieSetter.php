@@ -13,7 +13,7 @@ abstract class CookieSetter
         ResponseInterface $response,
         string $name,
         string $value,
-        DateTime $expires = null,
+        DateTime|null $expires = null,
         bool $httpOnly = true
     ): ResponseInterface {
         $cookie = "$name=$value; Path=/; SameSite=Strict";
