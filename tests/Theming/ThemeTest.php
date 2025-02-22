@@ -2,10 +2,10 @@
 
 namespace Jinya\Cms\Theming;
 
+use Faker\Provider\Uuid;
 use Jinya\Cms\Database;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Jinya\Cms\Theming;
-use Faker\Provider\Uuid;
 use RuntimeException;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -81,6 +81,21 @@ class ThemeTest extends DatabaseAwareTestCase
         self::assertNotEmpty(glob(Theming\Theme::BASE_CACHE_PATH . $this->dbTheme->name . '/styles/*'));
 
         // Compile it twice to test for recreation
+        $this->theme->compileStyleCache();
+        self::assertDirectoryExists(Theming\Theme::BASE_CACHE_PATH . $this->dbTheme->name . '/styles');
+        self::assertNotEmpty(glob(Theming\Theme::BASE_CACHE_PATH . $this->dbTheme->name . '/styles/*'));
+    }
+
+    public function testCompileStyleCacheWithModifiedColors(): void
+    {
+        $this->dbTheme->scssVariables = [
+            '$color' => '#abcdef',
+            '$color-rgb' => 'rgb(123, 123, 123)',
+            '$color-rgba' => 'rgb(123, 123, 123, 0.2)',
+            '$color-hsl' => 'hsl(500, 10%, 5%)',
+            '$color-hsla' => 'hsl(123, 10%, 5%, 0.2)',
+        ];
+        $this->theme->compileAssetCache();
         $this->theme->compileStyleCache();
         self::assertDirectoryExists(Theming\Theme::BASE_CACHE_PATH . $this->dbTheme->name . '/styles');
         self::assertNotEmpty(glob(Theming\Theme::BASE_CACHE_PATH . $this->dbTheme->name . '/styles/*'));

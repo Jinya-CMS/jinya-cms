@@ -8,10 +8,12 @@ use Jinya\Plates\Engine;
 use Jinya\Plates\Extension\ExtensionInterface;
 use JShrink\Minifier;
 use RuntimeException;
+use ScssPhp\ScssPhp\Colors;
 use ScssPhp\ScssPhp\Compiler;
 use ScssPhp\ScssPhp\Exception\SassException;
 use ScssPhp\ScssPhp\Node\Number;
 use ScssPhp\ScssPhp\OutputStyle;
+use ScssPhp\ScssPhp\Value\SassColor;
 use ScssPhp\ScssPhp\ValueConverter;
 
 /**
@@ -130,7 +132,79 @@ class Theme implements ExtensionInterface
         }
         $this->clearStyleCache();
         $stylesheets = $this->configuration['styles']['files'] ?? [];
-        $this->scssCompiler->addVariables(array_map([ValueConverter::class, 'fromPhp'], $this->dbTheme->scssVariables));
+        $this->scssCompiler->addVariables(array_map(static function (string $value) {
+            // Allow internal here, if this breaks with an update, we will see it in the unit tests
+            $result = Colors::colorNameToColor($value);
+            if ($result) {
+                return $result;
+            }
+
+            if (str_starts_with($value, '#') && in_array(strlen($value), [4, 7])) {
+                $hex = substr($value, 1);
+                if (strlen($hex) === 3) {
+                    $splitHex = mb_str_split($hex);
+                    $hex = $splitHex[0] . $splitHex[0] . $splitHex[1] . $splitHex[1] . $splitHex[2] . $splitHex[2];
+                }
+
+                if (preg_match('/[[:xdigit:]]{6}/m', $hex)) {
+                    $splitInRgb = mb_str_split($hex, 2);
+                    $r = hexdec($splitInRgb[0]);
+                    $g = hexdec($splitInRgb[1]);
+                    $b = hexdec($splitInRgb[2]);
+
+                    return SassColor::rgb($r, $g, $b);
+                }
+            }
+
+            if (str_starts_with($value, 'rgb(') && str_ends_with($value, ')')) {
+                $trimmedRgb = trim(ltrim($value, 'rgb('), ')');
+                $splitInRgb = explode(',', str_replace(' ', '', $trimmedRgb));
+                $r = (float)$splitInRgb[0];
+                $g = (float)$splitInRgb[1];
+                $b = (float)$splitInRgb[2];
+
+                if ($r >= 0 && $g >= 0 && $b >= 0 && $r <= 255 && $g <= 255 && $b <= 255) {
+                    return SassColor::rgb($r, $g, $b);
+                }
+            }
+
+            if (str_starts_with($value, 'rgba(') && str_ends_with($value, ')')) {
+                $trimmedRgb = trim(ltrim($value, 'rgba('), ')');
+                $splitInRgb = explode(',', str_replace(' ', '', $trimmedRgb));
+                $r = (float)$splitInRgb[0];
+                $g = (float)$splitInRgb[1];
+                $b = (float)$splitInRgb[2];
+
+                if ($r >= 0 && $g >= 0 && $b >= 0 && $r <= 255 && $g <= 255 && $b <= 255) {
+                    return SassColor::rgb($r, $g, $b, (float)$splitInRgb[3]);
+                }
+            }
+
+            if (str_starts_with($value, 'hsl(') && str_ends_with($value, ')')) {
+                $trimmedHsl = trim(ltrim($value, 'hsl('), ')');
+                $splitInHsl = explode(',', str_replace(' ', '', $trimmedHsl));
+
+                return SassColor::hsl(
+                    (float)$splitInHsl[0],
+                    (float)str_replace('%', '', $splitInHsl[1]),
+                    (float)str_replace('%', '', $splitInHsl[2])
+                );
+            }
+
+            if (str_starts_with($value, 'hsla(') && str_ends_with($value, ')')) {
+                $trimmedHsl = trim(ltrim($value, 'hsla('), ')');
+                $splitInHsl = explode(',', str_replace(' ', '', $trimmedHsl));
+
+                return SassColor::hsl(
+                    (float)$splitInHsl[0],
+                    (float)str_replace('%', '', $splitInHsl[1]),
+                    (float)str_replace('%', '', $splitInHsl[2]),
+                    (float)$splitInHsl[3]
+                );
+            }
+
+            return ValueConverter::fromPhp($value);
+        }, $this->dbTheme->scssVariables));
 
         foreach ($stylesheets as $stylesheet) {
             if (!file_exists($stylesheet)) {
@@ -138,6 +212,7 @@ class Theme implements ExtensionInterface
             }
 
             $this->scssCompiler->setImportPaths(dirname($stylesheet));
+            $this->scssCompiler->setOutputStyle(OutputStyle::COMPRESSED);
             $result = $this->scssCompiler->compileString(file_get_contents($stylesheet) ?: '');
             file_put_contents($styleCachePath . uniqid('style', true) . '.css', $result->getCss());
         }

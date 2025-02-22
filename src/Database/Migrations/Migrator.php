@@ -12,6 +12,7 @@ use Jinya\Cms\Migrations\CategoryWebhook;
 use Jinya\Cms\Migrations\CollationUtf8Mb4;
 use Jinya\Cms\Migrations\FileTags;
 use Jinya\Cms\Migrations\FormItemBoolColumns;
+use Jinya\Cms\Migrations\RemoveOldConfigurationTableColumns;
 use Jinya\Cms\Migrations\TG191Analytics;
 use Jinya\Cms\Migrations\TG192JinyaConfiguration;
 use Jinya\Cms\Migrations\TG195AppTotp;
@@ -54,6 +55,7 @@ abstract class Migrator
             new TG202Folders(),
             new TG202FileUniqueKey(),
             new TG202FolderUniqueKey(),
+            new RemoveOldConfigurationTableColumns(),
         ];
 
         DatabaseMigrator::migrateUp($migrations, 'migration_state');

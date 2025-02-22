@@ -1295,7 +1295,7 @@ export default {
         title: 'Themedateien erzeugen und kopieren',
         message: 'Willst du die Themedateien für das Theme {displayName} erzeugen und kopieren?',
         approve: 'Themedateien erzeugen und kopieren',
-        decline: 'Cancel',
+        decline: 'Abbrechen',
         success: {
           title: 'Themedateien erzeugen und kopieren',
           message: 'Die Themedateien {displayName} wurde erfolgreich erzeugt und kopiert',
