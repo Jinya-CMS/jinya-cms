@@ -6,7 +6,7 @@
     name: registry.ulbricht.casa/jinya-cms/jinya-cms-php-base-test-image:${PHP_TAG}
     pull_policy: always
   before_script:
-    - phive --no-progress install --trust-gpg-keys D615FEE32FD1702834DACC9C8AC0BAA79732DD42,D8406D0D82947747293778314AA394086372C20A,CA7C2C7A30C8E8E1274A847651C67305FFC2E5C0
+    - phive --no-progress install --trust-gpg-keys F33A0AF69AF7A8B15017DB526DA3ACC4991FFAE5,CA7C2C7A30C8E8E1274A847651C67305FFC2E5C0,D8406D0D82947747293778314AA394086372C20A
     - composer install $COMPOSER_FLAGS
   cache:
     key: jinya-cms-vendor-${CI_COMMIT_BRANCH}
