@@ -2,8 +2,11 @@
 
 declare(strict_types=1);
 
+use Jinya\Cms\Configuration\JinyaConfiguration;
 use Jinya\Cms\Database\File;
+use Jinya\Cms\Storage\ConversionService;
 use Jinya\Cms\Storage\StorageBaseService;
+use Jinya\Cms\Utils\ImageType;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7Server\ServerRequestCreator;
 
@@ -24,9 +27,19 @@ if ($id === false) {
     exit(404);
 }
 
-$width = $queryParams['width'] ?? false;
-$type = $queryParams['type'] ?? 'webp';
-$file = File::findById((int)$id);
+$id = (int)$id;
+
+$width = $queryParams['width'] ?? JinyaConfiguration::getConfiguration()->get(
+    'default_width',
+    'image_cache',
+    1920
+);
+$type = $queryParams['type'] ?? JinyaConfiguration::getConfiguration()->get(
+    'default_type',
+    'image_cache',
+    (empty(Imagick::queryFormats('WEBP')) ? ImageType::Jpg : ImageType::Webp)->string()
+);
+$file = File::findById($id);
 if ($file === null) {
     exit(404);
 }
@@ -38,7 +51,7 @@ if (file_exists($fullpath)) {
 }
 
 try {
-    $conversionService = new \Jinya\Cms\Storage\ConversionService();
+    $conversionService = new ConversionService();
     $conversionService->convertFile($id);
 } catch (Throwable $exception) {
     exit(500);

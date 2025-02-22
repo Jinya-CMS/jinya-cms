@@ -24,12 +24,20 @@
     grid-row: content;
     max-height: 100%;
     gap: 1rem;
-    grid-template-columns: 10rem [button] 2rem [content] 1fr 12rem 1fr;
+    grid-template-columns: 10rem [button] 2rem [content] 1fr 1fr;
     box-sizing: border-box;
     overflow-y: auto;
     place-content: baseline flex-start;
     grid-auto-rows: auto;
     padding-top: 2rem;
+
+    @media screen and (width >= 1920px) and (width <= 2560px) {
+        grid-template-columns: 6rem [button] 2rem [content] 5fr 1fr;
+    }
+
+    @media screen and (width >= 1600px) and (width < 1920px) {
+        grid-template-columns: 4rem [button] 2rem [content] 1fr;
+    }
 }
 
 .jinya-designer-item__buttons.is--menu {

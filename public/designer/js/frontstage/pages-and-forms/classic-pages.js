@@ -85,11 +85,13 @@ Alpine.data('classicPagesData', () => ({
       this.messageTitle = localize({ key: 'pages_and_forms.classic.edit.saved.title' });
       this.messageError = false;
       this.messageContent = localize({ key: 'pages_and_forms.classic.edit.saved.content' });
+      setTimeout(() => this.hasMessage = false, 5_000);
     } catch (e) {
       this.hasMessage = true;
       this.messageTitle = localize({ key: 'pages_and_forms.classic.edit.error.title' });
       this.messageError = true;
       this.messageContent = localize({ key: 'pages_and_forms.classic.edit.error.generic' });
+      setTimeout(() => this.hasMessage = false, 15_000);
     }
   },
   async updatePage() {

@@ -1,3 +1,12 @@
+:root {
+    --selection-color: var(--white);
+
+
+    @media screen and (prefers-color-scheme: dark) {
+        --selection-color: var(--black);
+    }
+}
+
 .cosmo-side-list__items .cosmo-button.is--full-width {
     position: sticky;
     bottom: 0;

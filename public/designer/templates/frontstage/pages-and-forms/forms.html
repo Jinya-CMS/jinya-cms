@@ -106,7 +106,7 @@
                 <template x-if="item.type === 'checkbox'">
                   <div style="display: contents" x-data="{ id: $id('preview') }">
                     <div class="cosmo-input__group is--checkbox">
-                      <input :id="id" :required="item.isRequired" :placeholder="item.placeholder">
+                      <input :id="id" :required="item.isRequired" type="checkbox">
                       <label :for="id" class="cosmo-label" x-text="item.label"></label>
                     </div>
                     <span class="cosmo-input__message is--information" x-text="item.helpText"></span>

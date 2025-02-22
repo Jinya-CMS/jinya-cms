@@ -184,12 +184,19 @@
 }
 
 .jodit-toolbar-editor-collection_size_middle.jodit-toolbar-editor-collection_mode_horizontal {
-    background-image: repeating-linear-gradient(transparent 0, transparent 30px, var(--jd-color-border) 31px);
+    background: var(--white);
 }
 
 @media screen and (prefers-color-scheme: dark) {
     .jodit-wysiwyg::selection,
     .jodit-wysiwyg *::selection {
         color: var(--black);
+    }
+
+    .is--light {
+        .jodit-wysiwyg::selection,
+        .jodit-wysiwyg *::selection {
+            color: var(--white);
+        }
     }
 }

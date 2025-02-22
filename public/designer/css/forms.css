@@ -26,7 +26,7 @@
     grid-template-rows: [message] auto [content] 1fr;
     display: grid;
     grid-row: content;
-    grid-template-columns: [content] 2fr [toolbox] 1fr;
+    grid-template-columns: [content] 1fr [toolbox] 32rem;
     max-height: 100%;
 }
 
@@ -43,9 +43,17 @@
     gap: 1rem;
     place-content: baseline flex-start;
     grid-template-rows: auto auto;
-    grid-template-columns: 10rem [button] 2rem [content] 1fr 2rem 10rem;
+    grid-template-columns: 10rem [button] 2rem [content] 1fr 1fr;
     grid-auto-rows: auto;
     padding-top: 2rem;
+
+    @media screen and (width >= 1920px) and (width <= 2560px) {
+        grid-template-columns: 6rem [button] 2rem [content] 1fr 0.5fr;
+    }
+
+    @media screen and (width >= 1600px) and (width < 1920px) {
+        grid-template-columns: 4rem [button] 2rem [content] 1fr;
+    }
 }
 
 .jinya-form-designer__preview {
