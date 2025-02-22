@@ -5,7 +5,6 @@ namespace Jinya\Cms\Tests;
 use Error;
 use Jinya\Cms\Authentication\CurrentUser;
 use Jinya\Cms\Database\Artist;
-use Jinya\Cms\Database\Migrations\Migrator;
 use Jinya\Database\Entity;
 use Jinya\Database\Exception\NotNullViolationException;
 use PHPUnit\Framework\TestCase;
@@ -47,8 +46,8 @@ class DatabaseAwareTestCase extends TestCase
         try {
             $artist->create();
             CurrentUser::$currentUser = $artist;
-        }catch (\Throwable $e) {
-            $i=2;
+        } catch (\Throwable $e) {
+            $i = 2;
         }
     }
 
