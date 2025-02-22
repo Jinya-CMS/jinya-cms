@@ -4,6 +4,7 @@ namespace Jinya\Cms\Migrations;
 
 use Jinya\Database\Migration\AbstractMigration;
 use PDO;
+use PDOException;
 
 class RemoveOldConfigurationTableColumns extends AbstractMigration
 {
@@ -16,14 +17,17 @@ class RemoveOldConfigurationTableColumns extends AbstractMigration
      */
     public function up(PDO $pdo): void
     {
-        $pdo->exec(
-            <<<SQL
+        try {
+            $pdo->exec(
+                <<<SQL
 alter table configuration
-    drop column if exists invalidate_api_key_after;
+    drop column invalidate_api_key_after;
 alter table configuration
-    drop column if exists messaging_center_enabled;
+    drop column messaging_center_enabled;
 SQL
-        );
+            );
+        } catch (PDOException) {
+        }
     }
 
     /**
