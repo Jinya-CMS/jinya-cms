@@ -1,5 +1,8 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 26.0.4
+Dependency update and design fixes
+
 ## Release notes - Jinya CMS - Version 26.0.3
 
 ### User Stories
