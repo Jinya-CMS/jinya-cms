@@ -2,14 +2,13 @@
 
 namespace Jinya\Cms\Tests;
 
-use Jinya\Cms\Database\Migrations\Migrator;
 use Jinya\Database\Entity;
-use PHPUnit\Event\Test\BeforeFirstTestMethodCalledSubscriber;
-use PHPUnit\Event\Test\BeforeFirstTestMethodCalled;
+use PHPUnit\Event\TestSuite\Started;
+use PHPUnit\Event\TestSuite\StartedSubscriber;
 
-class CleanDatabaseHandler implements BeforeFirstTestMethodCalledSubscriber
+class CleanDatabaseHandler implements StartedSubscriber
 {
-    public function notify(BeforeFirstTestMethodCalled $event): void
+    public function notify(Started $event): void
     {
         Entity::getPDO()->exec('drop table if exists theme_asset cascade');
         Entity::getPDO()->exec('drop table if exists theme_blog_category cascade');
@@ -47,6 +46,5 @@ class CleanDatabaseHandler implements BeforeFirstTestMethodCalledSubscriber
         Entity::getPDO()->exec('drop table if exists migration_state cascade');
         Entity::getPDO()->exec('drop table if exists analytics cascade');
         Entity::getPDO()->exec('drop table if exists folder cascade');
-        Migrator::migrate();
     }
 }

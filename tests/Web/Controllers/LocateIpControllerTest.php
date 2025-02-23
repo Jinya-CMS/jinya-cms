@@ -7,9 +7,9 @@ use Jinya\Cms\Tests\DatabaseAwareTestCase;
 
 class LocateIpControllerTest extends DatabaseAwareTestCase
 {
-    protected function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        parent::setUp();
+        parent::setUpBeforeClass();
         $ipToLocationService = new IpToLocationService();
         $ipToLocationService->populateDatabase();
     }
