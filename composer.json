@@ -14,8 +14,8 @@
     "ext-pdo_mysql": "*",
     "ext-zip": "*",
     "ext-zlib": "*",
-    "bacon/bacon-qr-code": "3.0.1",
-    "intervention/image": "3.11.0",
+    "bacon/bacon-qr-code": "v3.0.1",
+    "intervention/image": "3.11.1",
     "jenssegers/agent": "v2.6.4",
     "jetbrains/phpstorm-attributes": "1.2",
     "jinya/configuration": "0.10.0",
@@ -26,14 +26,14 @@
     "league/climate": "3.10.0",
     "league/uri": "7.5.1",
     "laminas/laminas-hydrator": "4.16.0",
-    "matomo/device-detector": "6.4.2",
+    "matomo/device-detector": "6.4.3",
     "melbahja/semver": "v1.0.1",
     "monolog/monolog": "3.8.1",
     "nyholm/psr7": "1.8.2",
     "nyholm/psr7-server": "1.1.0",
     "phpmailer/phpmailer": "v6.9.3",
-    "phpmyadmin/sql-parser": "5.10.3",
-    "scssphp/scssphp": "v2.0.0",
+    "phpmyadmin/sql-parser": "5.11.0",
+    "scssphp/scssphp": "v2.0.1",
     "spomky-labs/otphp": "11.3.0",
     "symfony/filesystem": "v7.2.0",
     "tedivm/jshrink": "v1.7.0",
@@ -46,7 +46,7 @@
   "require-dev": {
     "roave/security-advisories": "dev-latest",
     "fakerphp/faker": "v1.24.1",
-    "laravel/pint": "v1.20.0"
+    "laravel/pint": "v1.21.0"
   },
   "config": {
     "process-timeout": 0,
@@ -62,10 +62,6 @@
     "psr-4": {
       "Jinya\\Cms\\": "tests/"
     }
-  },
-  "scripts": {
-    "start": "php -S 0.0.0.0:8080 -t public",
-    "test": "./vendor/bin/phpunit"
   },
   "description": "Jinya CMS is a modern content management system targeted at artists"
 }
