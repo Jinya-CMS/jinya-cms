@@ -2,6 +2,7 @@
 
 namespace Jinya\Cms\Web\Controllers;
 
+use Jinya\Cms\Configuration\JinyaConfiguration;
 use Jinya\Cms\Database\Migrations\Migrator;
 use Jinya\Cms\Utils\CacheUtils;
 use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
@@ -40,7 +41,13 @@ class UpdateController extends BaseController
     protected function getReleases(): array
     {
         return json_decode(
-            file_get_contents(getenv('JINYA_UPDATE_SERVER') ?: '') ?: '',
+            file_get_contents(
+                (string)JinyaConfiguration::getConfiguration()->get(
+                    'update_server',
+                    'jinya',
+                    'https://releases.jinya.de/cms/stable'
+                )
+            ) ?: '',
             true,
             512,
             JSON_THROW_ON_ERROR

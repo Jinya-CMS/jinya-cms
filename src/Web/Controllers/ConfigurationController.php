@@ -68,7 +68,7 @@ class ConfigurationController extends BaseController
             if (array_key_exists('username', $mailer)) {
                 $databaseAdapter->set('username', $mailer['username'], 'mailer');
             }
-            if (array_key_exists('password', $mailer)) {
+            if (array_key_exists('password', $mailer) && !empty($mailer['password'])) {
                 $databaseAdapter->set('password', $mailer['password'], 'mailer');
             }
             if (array_key_exists('encryption', $mailer)) {
@@ -77,7 +77,7 @@ class ConfigurationController extends BaseController
         }
 
         if (array_key_exists('mysql', $this->body)) {
-            $data = parse_ini_file(__ROOT__.'/jinya-configuration.ini', true, INI_SCANNER_TYPED);
+            $data = parse_ini_file(__ROOT__ . '/jinya-configuration.ini', true, INI_SCANNER_TYPED);
             if (!$data) {
                 $data = [];
             }
@@ -87,7 +87,9 @@ class ConfigurationController extends BaseController
                 $data['mysql'] = $data['mysql'] ?? [];
                 $data['mysql']['database'] = $mysql['database'] ?? $data['mysql']['database'];
                 $data['mysql']['host'] = $mysql['host'] ?? $data['mysql']['host'];
-                $data['mysql']['password'] = $mysql['password'] ?? $data['mysql']['password'];
+                if (array_key_exists('password', $mysql) && !empty($mysql['password'])) {
+                    $data['mysql']['password'] = $mysql['password'];
+                }
                 $data['mysql']['port'] = $mysql['port'] ?? $data['mysql']['port'];
                 $data['mysql']['user'] = $mysql['user'] ?? $data['mysql']['user'];
                 $ini = '';
