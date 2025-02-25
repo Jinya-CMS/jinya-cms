@@ -48,7 +48,7 @@ class JinyaConfiguration extends Configuration
         $host = $configuration->get('host', 'mysql', '127.0.0.1');
         $port = $configuration->get('port', 'mysql', 3306);
 
-        $connectionString = "mysql:host=$host;port=$port;dbname=$database;user=$user;password=$password";
+        $connectionString = "mysql:host=$host;port=$port;dbname=$database;user=$user;password=$password;charset=utf8;";
         $params = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
