@@ -198,7 +198,7 @@
             <template x-if="addItem.type === 'type_gallery'">
               <div style="display: contents">
                 <label for="addItemGallery" class="cosmo-label" x-localize:design-menus-designer-type_gallery></label>
-                <select required class="cosmo-select" id="addItemGallery" x-model="addItem.gallery">
+                <select required class="cosmo-select" id="addItemGallery" x-model.number="addItem.gallery">
                   <template x-for="gallery in galleries" :key="gallery.id">
                     <option x-text="getDropdownLabel(gallery.id, gallery.name)" :value="gallery.id"></option>
                   </template>
@@ -208,7 +208,7 @@
             <template x-if="addItem.type === 'type_form'">
               <div style="display: contents">
                 <label for="addItemForm" class="cosmo-label" x-localize:design-menus-designer-type_form></label>
-                <select required class="cosmo-select" id="addItemForm" x-model="addItem.form">
+                <select required class="cosmo-select" id="addItemForm" x-model.number="addItem.form">
                   <template x-for="form in forms" :key="form.id">
                     <option x-text="getDropdownLabel(form.id, form.title)" :value="form.id"></option>
                   </template>
@@ -219,7 +219,7 @@
               <div style="display: contents">
                 <label for="addItemClassicPage" class="cosmo-label"
                        x-localize:design-menus-designer-type_classic_page></label>
-                <select required class="cosmo-select" id="addItemClassicPage" x-model="addItem.classicPage">
+                <select required class="cosmo-select" id="addItemClassicPage" x-model.number="addItem.classicPage">
                   <template x-for="classicPage in classicPages" :key="classicPage.id">
                     <option x-text="getDropdownLabel(classicPage.id, classicPage.title)"
                             :value="classicPage.id"></option>
@@ -231,7 +231,7 @@
               <div style="display: contents">
                 <label for="addItemModernPage" class="cosmo-label"
                        x-localize:design-menus-designer-type_modern_page></label>
-                <select required class="cosmo-select" id="addItemModernPage" x-model="addItem.modernPage">
+                <select required class="cosmo-select" id="addItemModernPage" x-model.number="addItem.modernPage">
                   <template x-for="modernPage in modernPages" :key="modernPage.id">
                     <option x-text="getDropdownLabel(modernPage.id, modernPage.name)" :value="modernPage.id"></option>
                   </template>
@@ -242,7 +242,7 @@
               <div style="display: contents">
                 <label for="addItemBlogCategory" class="cosmo-label"
                        x-localize:design-menus-designer-type_blog_category></label>
-                <select required class="cosmo-select" id="addItemBlogCategory" x-model="addItem.blogCategory">
+                <select required class="cosmo-select" id="addItemBlogCategory" x-model.number="addItem.blogCategory">
                   <template x-for="blogCategory in blogCategories" :key="blogCategory.id">
                     <option x-text="getDropdownLabel(blogCategory.id, blogCategory.name)"
                             :value="blogCategory.id"></option>
@@ -253,7 +253,7 @@
             <template x-if="addItem.type === 'type_artist'">
               <div style="display: contents">
                 <label for="addItemArtist" class="cosmo-label" x-localize:design-menus-designer-type_artist></label>
-                <select required class="cosmo-select" id="addItemArtist" x-model="addItem.artist">
+                <select required class="cosmo-select" id="addItemArtist" x-model.number="addItem.artist">
                   <template x-for="artist in artists" :key="artist.id">
                     <option x-text="getDropdownLabel(artist.id, artist.artistName)" :value="artist.id"></option>
                   </template>
@@ -292,7 +292,7 @@
             <template x-if="editItem.type === 'type_gallery'">
               <div style="display: contents">
                 <label for="editItemGallery" class="cosmo-label" x-localize:design-menus-designer-type_gallery></label>
-                <select required class="cosmo-select" id="editItemGallery" x-model="editItem.gallery">
+                <select required class="cosmo-select" id="editItemGallery" x-model.number="editItem.gallery">
                   <template x-for="gallery in galleries" :key="gallery.id">
                     <option :selected="gallery.id === editItem.gallery"
                             x-text="getDropdownLabel(gallery.id, gallery.name)" :value="gallery.id"></option>
@@ -303,7 +303,7 @@
             <template x-if="editItem.type === 'type_form'">
               <div style="display: contents">
                 <label for="editItemForm" class="cosmo-label" x-localize:design-menus-designer-type_form></label>
-                <select required class="cosmo-select" id="editItemForm" x-model="editItem.form">
+                <select required class="cosmo-select" id="editItemForm" x-model.number="editItem.form">
                   <template x-for="form in forms" :key="form.id">
                     <option :selected="form.id === editItem.form" x-text="getDropdownLabel(form.id, form.title)"
                             :value="form.id"></option>
@@ -315,7 +315,7 @@
               <div style="display: contents">
                 <label for="editItemClassicPage" class="cosmo-label"
                        x-localize:design-menus-designer-type_classic_page></label>
-                <select required class="cosmo-select" id="editItemClassicPage" x-model="editItem.classicPage">
+                <select required class="cosmo-select" id="editItemClassicPage" x-model.number="editItem.classicPage">
                   <template x-for="classicPage in classicPages" :key="classicPage.id">
                     <option :selected="classicPage.id === editItem.gallery"
                             x-text="getDropdownLabel(classicPage.id, classicPage.title)"
@@ -328,7 +328,7 @@
               <div style="display: contents">
                 <label for="editItemModernPage" class="cosmo-label"
                        x-localize:design-menus-designer-type_modern_page></label>
-                <select required class="cosmo-select" id="editItemModernPage" x-model="editItem.modernPage">
+                <select required class="cosmo-select" id="editItemModernPage" x-model.number="editItem.modernPage">
                   <template x-for="modernPage in modernPages" :key="modernPage.id">
                     <option :selected="modernPage.id === editItem.modernPage"
                             x-text="getDropdownLabel(modernPage.id, modernPage.name)" :value="modernPage.id"></option>
@@ -340,7 +340,7 @@
               <div style="display: contents">
                 <label for="editItemBlogCategory" class="cosmo-label"
                        x-localize:design-menus-designer-type_blog_category></label>
-                <select required class="cosmo-select" id="editItemBlogCategory" x-model="editItem.blogCategory">
+                <select required class="cosmo-select" id="editItemBlogCategory" x-model.number="editItem.blogCategory">
                   <template x-for="blogCategory in blogCategories" :key="blogCategory.id">
                     <option :selected="blogCategory.id === editItem.blogCategory"
                             x-text="getDropdownLabel(blogCategory.id, blogCategory.name)"
@@ -352,7 +352,7 @@
             <template x-if="editItem.type === 'type_artist'">
               <div style="display: contents">
                 <label for="editItemArtist" class="cosmo-label" x-localize:design-menus-designer-type_artist></label>
-                <select required class="cosmo-select" id="editItemArtist" x-model="editItem.artist">
+                <select required class="cosmo-select" id="editItemArtist" x-model.number="editItem.artist">
                   <template x-for="artist in artists" :key="artist.id">
                     <option :selected="artist.id === editItem.artist"
                             x-text="getDropdownLabel(artist.id, artist.artistName)" :value="artist.id"></option>
