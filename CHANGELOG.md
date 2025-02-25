@@ -1,5 +1,8 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 26.0.6
+Hotfix in menu editor
+
 ## Release notes - Jinya CMS - Version 26.0.5
 Hotfix for issue with configuration and database connection.
 
