@@ -6,6 +6,7 @@ use Jinya\Cms\Configuration\JinyaConfiguration;
 use Jinya\Cms\Database\File;
 use Jinya\Cms\Storage\ConversionService;
 use Jinya\Cms\Storage\StorageBaseService;
+use Jinya\Cms\Theming\Extensions\FileExtension;
 use Jinya\Cms\Utils\ImageType;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7Server\ServerRequestCreator;
@@ -32,7 +33,7 @@ $id = (int)$id;
 $width = $queryParams['width'] ?? JinyaConfiguration::getConfiguration()->get(
     'default_width',
     'image_cache',
-    1920
+    FileExtension::RESOLUTIONS_FOR_SOURCE[2]
 );
 $type = $queryParams['type'] ?? JinyaConfiguration::getConfiguration()->get(
     'default_type',
