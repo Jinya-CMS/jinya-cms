@@ -1,12 +1,17 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 26.0.7
+Hotfix for file upload issue
+
+- [JCMS-9](https://plane.jinya.de/jinya-cms/browse/JCMS-9/) Remove leftover localStorage references
+
 ## Release notes - Jinya CMS - Version 26.0.6
 Hotfix in menu editor
 
 ## Release notes - Jinya CMS - Version 26.0.5
 Hotfix for issue with configuration and database connection.
 
-- [JCMS-8](https://plane.jinya.de/jinya-cms/projects/46e8cd07-aa18-441d-83fd-4b7683c4d11b/issues/a87feb50-e2d7-4601-aebb-a45376fac867) Updater uses getenv instead of Configuration
+- [JCMS-8](https://plane.jinya.de/jinya-cms/browse/JCMS-8/) Updater uses getenv instead of Configuration
 
 ## Release notes - Jinya CMS - Version 26.0.4
 Dependency update and design fixes
