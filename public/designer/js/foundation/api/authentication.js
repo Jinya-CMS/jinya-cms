@@ -1,7 +1,18 @@
 import { get, head, httpDelete, post, put } from './request.js';
-import { getAuthenticationDatabase } from '../database/authentication.js';
 
-const authenticationDatabase = getAuthenticationDatabase();
+let apiKeyValid = false;
+
+export function markApiKeyValid() {
+  apiKeyValid = true;
+}
+
+export function clearApiKeyValid() {
+  apiKeyValid = false;
+}
+
+export function isApiKeyValid() {
+  return apiKeyValid;
+}
 
 export async function checkLogin() {
   try {
@@ -24,13 +35,16 @@ export async function checkKnownDevice(device) {
 }
 
 export async function login(email, password, twoFactorCode = null) {
-  const { deviceCode, apiKey } = await post('/api/login', {
+  const {
+    deviceCode,
+    apiKey,
+  } = await post('/api/login', {
     username: email,
     password,
     twoFactorCode,
   });
   if (deviceCode && apiKey) {
-    await authenticationDatabase.setApiKey(apiKey);
+    markApiKeyValid();
   }
 }
 
@@ -63,15 +77,11 @@ export function locateIp(ip) {
 
 export async function logout(fully = false) {
   if (fully) {
-    try {
-      await deleteKnownDevice(await authenticationDatabase.getDeviceCode());
-    } catch {
-      console.log('Failed to forget device, logging out anyway');
-    }
+    await httpDelete('/api/logout?fully=true');
+  } else {
+    await httpDelete('/api/logout');
   }
-
-  await httpDelete('/api/logout');
-  await authenticationDatabase.deleteApiKey();
+  clearApiKeyValid();
 }
 
 export async function changePassword(oldPassword, newPassword) {

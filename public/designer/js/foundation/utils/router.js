@@ -1,10 +1,9 @@
-import { checkLogin } from '../api/authentication.js';
+import { checkLogin, isApiKeyValid } from '../api/authentication.js';
 import { Alpine } from '../../../../lib/alpine.js';
 import { setRedirect } from './storage.js';
-import { getAuthenticationDatabase } from '../database/authentication.js';
 
 export function needsLogin(context) {
-  if (getAuthenticationDatabase().isApiKeyValid()) {
+  if (isApiKeyValid()) {
     return null;
   }
 
@@ -15,7 +14,9 @@ export function needsLogin(context) {
 }
 
 export async function needsAdmin() {
-  if (!((await checkLogin()) && Alpine.store('authentication').roles.includes('ROLE_ADMIN'))) {
+  if (!((await checkLogin()) && Alpine.store('authentication')
+    .roles
+    .includes('ROLE_ADMIN'))) {
     return 'stop';
   }
 
@@ -37,11 +38,12 @@ export async function fetchScript({ route }) {
     const [, , stage, area, page] = route.split('/');
     if (stage && area) {
       await import(`/designer/js/${stage}/${area}/${page ?? 'index'}.js`);
-      Alpine.store('navigation').navigate({
-        stage,
-        area,
-        page: page ?? 'index',
-      });
+      Alpine.store('navigation')
+        .navigate({
+          stage,
+          area,
+          page: page ?? 'index',
+        });
     }
   }
 }
