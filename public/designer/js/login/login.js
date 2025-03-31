@@ -3,11 +3,9 @@ import { checkKnownDevice, login, requestTwoFactor } from '../foundation/api/aut
 import { deleteRedirect, getRedirect } from '../foundation/utils/storage.js';
 import localize from '../foundation/utils/localize.js';
 import { getMyProfile } from '../foundation/api/my-jinya.js';
-import { getAuthenticationDatabase } from '../foundation/database/authentication.js';
 
-const authenticationDatabase = getAuthenticationDatabase();
-
-Alpine.store('authentication').logout();
+Alpine.store('authentication')
+  .logout();
 Alpine.data('loginData', () => ({
   email: '',
   password: '',
@@ -16,7 +14,12 @@ Alpine.data('loginData', () => ({
   twoFactorCodeRequested: false,
   needsTwoFactor: true,
   async init() {
-    const deviceCode = authenticationDatabase.getDeviceCode();
+    const deviceCode = document
+      .cookie
+      .split(';')
+      .filter((cookie) => cookie.startsWith('JinyaDeviceCode='))
+      .map((cookie) => cookie.split('=')[0])
+      .shift();
     if (deviceCode) {
       this.needsTwoFactor = !(await checkKnownDevice(deviceCode));
     } else {
@@ -38,11 +41,13 @@ Alpine.data('loginData', () => ({
       this.errorMessage = null;
       await login(this.email, this.password, this.twoFactorCode);
       const myProfile = await getMyProfile();
-      Alpine.store('authentication').login({
-        loggedIn: true,
-        roles: myProfile.roles,
-      });
-      Alpine.store('artist').setArtist(myProfile);
+      Alpine.store('authentication')
+        .login({
+          loggedIn: true,
+          roles: myProfile.roles,
+        });
+      Alpine.store('artist')
+        .setArtist(myProfile);
       window.PineconeRouter.context.navigate(getRedirect() ?? '/');
       deleteRedirect();
     } catch (e) {

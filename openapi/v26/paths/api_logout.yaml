@@ -2,6 +2,12 @@ delete:
   summary: Logout
   tags:
     - authentication
+  parameters:
+    - name: fully
+      in: query
+      required: false
+      schema:
+        type: boolean
   responses:
     '204':
       description: Successfully logged out

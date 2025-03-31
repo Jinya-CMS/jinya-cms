@@ -1,6 +1,5 @@
 import { Alpine } from '../../../../lib/alpine.js';
 import { deleteApiKey, getApiKeys, locateIp } from '../../foundation/api/authentication.js';
-import { getJinyaApiKey } from '../../foundation/utils/storage.js';
 import UAParser from '../../../lib/uaparser.js';
 import localize from '../../foundation/utils/localize.js';
 
@@ -10,7 +9,6 @@ Alpine.data('sessionsData', () => ({
   async init() {
     const apiKeys = await getApiKeys();
     this.sessions = apiKeys.items;
-    this.currentApiKey = getJinyaApiKey();
   },
   getBrowser(userAgent) {
     const parser = new UAParser(userAgent);

@@ -1,6 +1,4 @@
-import { getAuthenticationDatabase } from '../database/authentication.js';
-
-const authenticationDatabase = getAuthenticationDatabase();
+import { markApiKeyValid } from './authentication.js';
 
 export async function send(
   verb,
@@ -28,9 +26,8 @@ export async function send(
 
   const response = await fetch(url, request);
   if (response.ok) {
+    markApiKeyValid();
     if (response.status !== 204) {
-      authenticationDatabase.markApiKeyValid();
-
       if (plain) {
         return await response.text();
       }
@@ -51,7 +48,8 @@ export async function send(
       if (httpError.type === 'invalid-api-key') {
         if (window.document) {
           const Alpine = await import('../../../../lib/alpine.js');
-          Alpine.store('authentication').logout();
+          Alpine.store('authentication')
+            .logout();
         }
 
         return null;

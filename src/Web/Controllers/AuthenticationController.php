@@ -206,7 +206,6 @@ class AuthenticationController extends BaseController
 
     /**
      * @return ResponseInterface
-     * @codeCoverageIgnore
      */
     #[Route(HttpMethod::HEAD, 'api/login')]
     #[Middlewares(new AuthorizationMiddleware())]
@@ -217,7 +216,6 @@ class AuthenticationController extends BaseController
 
     /**
      * @return ResponseInterface
-     * @codeCoverageIgnore
      */
     #[Route(HttpMethod::DELETE, 'api/logout')]
     public function logout(): ResponseInterface
@@ -226,14 +224,34 @@ class AuthenticationController extends BaseController
         if ($apiKey) {
             try {
                 $apiKey->delete();
-            } catch (Throwable$exception) {
+            } catch (Throwable $exception) {
                 $this->logger->info('Failed to delete api key, proceed with logout anyway');
             }
         }
 
+        $fully = array_key_exists('fully', $this->request->getQueryParams());
+        if ($fully) {
+            $knownDeviceCode = $this->request->getCookieParams()[self::DEVICE_CODE_COOKIE] ?? $this->getHeader(
+                self::DEVICE_CODE_COOKIE
+            );
+            if (!empty($knownDeviceCode)) {
+                $knownDevice = KnownDevice::findByCode($knownDeviceCode);
+                if ($knownDevice !== null) {
+                    try {
+                        $knownDevice->delete();
+                    } catch (Throwable $exception) {
+                        $this->logger->info('Failed to delete device code, proceed with logout anyway');
+                    }
+                }
+            }
+        }
+
         return CookieSetter::unsetCookie(
-            $this->noContent(),
-            AuthenticationChecker::AUTHENTICATION_COOKIE_NAME,
+            CookieSetter::unsetCookie(
+                $this->noContent(),
+                AuthenticationChecker::AUTHENTICATION_COOKIE_NAME,
+            ),
+            self::DEVICE_CODE_COOKIE,
         );
     }
 }
