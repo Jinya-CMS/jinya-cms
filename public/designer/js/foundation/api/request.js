@@ -48,8 +48,7 @@ export async function send(
       if (httpError.type === 'invalid-api-key') {
         if (window.document) {
           const Alpine = await import('../../../../lib/alpine.js');
-          Alpine.store('authentication')
-            .logout();
+          Alpine.store('authentication').logout();
         }
 
         return null;
