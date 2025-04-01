@@ -35,10 +35,7 @@ export async function checkKnownDevice(device) {
 }
 
 export async function login(email, password, twoFactorCode = null) {
-  const {
-    deviceCode,
-    apiKey,
-  } = await post('/api/login', {
+  const { deviceCode, apiKey } = await post('/api/login', {
     username: email,
     password,
     twoFactorCode,

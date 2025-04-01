@@ -4,8 +4,7 @@ import { deleteRedirect, getRedirect } from '../foundation/utils/storage.js';
 import localize from '../foundation/utils/localize.js';
 import { getMyProfile } from '../foundation/api/my-jinya.js';
 
-Alpine.store('authentication')
-  .logout();
+Alpine.store('authentication').logout();
 Alpine.data('loginData', () => ({
   email: '',
   password: '',
@@ -14,8 +13,7 @@ Alpine.data('loginData', () => ({
   twoFactorCodeRequested: false,
   needsTwoFactor: true,
   async init() {
-    const deviceCode = document
-      .cookie
+    const deviceCode = document.cookie
       .split(';')
       .filter((cookie) => cookie.startsWith('JinyaDeviceCode='))
       .map((cookie) => cookie.split('=')[0])
@@ -41,13 +39,11 @@ Alpine.data('loginData', () => ({
       this.errorMessage = null;
       await login(this.email, this.password, this.twoFactorCode);
       const myProfile = await getMyProfile();
-      Alpine.store('authentication')
-        .login({
-          loggedIn: true,
-          roles: myProfile.roles,
-        });
-      Alpine.store('artist')
-        .setArtist(myProfile);
+      Alpine.store('authentication').login({
+        loggedIn: true,
+        roles: myProfile.roles,
+      });
+      Alpine.store('artist').setArtist(myProfile);
       window.PineconeRouter.context.navigate(getRedirect() ?? '/');
       deleteRedirect();
     } catch (e) {
