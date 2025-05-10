@@ -1,5 +1,8 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 26.0.8
+Hotfix for device code check in login
+
 ## Release notes - Jinya CMS - Version 26.0.7
 Hotfix for file upload issue
 

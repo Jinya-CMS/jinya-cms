@@ -15,8 +15,8 @@ Alpine.data('loginData', () => ({
   async init() {
     const deviceCode = document.cookie
       .split(';')
-      .filter((cookie) => cookie.startsWith('JinyaDeviceCode='))
-      .map((cookie) => cookie.split('=')[0])
+      .filter((cookie) => cookie.trim().startsWith('JinyaDeviceCode='))
+      .map((cookie) => cookie.split('=')[1])
       .shift();
     if (deviceCode) {
       this.needsTwoFactor = !(await checkKnownDevice(deviceCode));
