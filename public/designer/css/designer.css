@@ -67,7 +67,7 @@
     min-height: 100%;
     justify-content: center;
     align-items: center;
-    background: hsla(var(--negative-hue) var(--negative-saturation) var(--negative-lightness-base) / 55%);
+    background: hsl(var(--negative-hue) var(--negative-saturation) var(--negative-lightness-base) / 55%);
     backdrop-filter: var(--modal-backdrop-filter);
     grid-row: 1/3;
     grid-column: 1/2;
