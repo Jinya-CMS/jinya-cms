@@ -2,11 +2,11 @@
 
 namespace Jinya\Cms\Mailing\Types;
 
+use Asika\Agent\Agent;
 use Jinya\Cms\Configuration\JinyaConfiguration;
 use Jinya\Cms\Database\ApiKey;
 use Jinya\Cms\Mailing\Factory\MailerFactory;
 use Jinya\Cms\Theming\Engine;
-use Jenssegers\Agent\Agent;
 use Jinya\Plates\Engine as PlatesEngine;
 use JsonException;
 use PHPMailer\PHPMailer\Exception;
