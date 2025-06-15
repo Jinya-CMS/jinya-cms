@@ -229,6 +229,8 @@ class AuthenticationController extends BaseController
             }
         }
 
+        $response = CookieSetter::unsetCookie($this->noContent(), AuthenticationChecker::AUTHENTICATION_COOKIE_NAME);
+
         $fully = array_key_exists('fully', $this->request->getQueryParams());
         if ($fully) {
             $knownDeviceCode = $this->request->getCookieParams()[self::DEVICE_CODE_COOKIE] ?? $this->getHeader(
@@ -243,15 +245,11 @@ class AuthenticationController extends BaseController
                         $this->logger->info('Failed to delete device code, proceed with logout anyway');
                     }
                 }
+
+                CookieSetter::unsetCookie($response, self::DEVICE_CODE_COOKIE);
             }
         }
 
-        return CookieSetter::unsetCookie(
-            CookieSetter::unsetCookie(
-                $this->noContent(),
-                AuthenticationChecker::AUTHENTICATION_COOKIE_NAME,
-            ),
-            self::DEVICE_CODE_COOKIE,
-        );
+        return $response;
     }
 }
