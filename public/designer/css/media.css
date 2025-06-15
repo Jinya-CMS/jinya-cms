@@ -361,7 +361,7 @@
     gap: 1rem;
 
     @media screen and (width < 1920px) {
-        grid-template-columns: [file-list] 1fr 1rem [details] 30%;
+        grid-template-columns: [file-list] 1fr [details] 30%;
     }
 }
 

@@ -21,6 +21,7 @@ body {
     width: 100vw;
     background: var(--background);
     background-size: cover;
+    background-position-x: right;
     background-position-y: bottom;
 }
 
