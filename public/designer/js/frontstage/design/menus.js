@@ -377,7 +377,7 @@ Alpine.data('menusData', () => ({
           galleryId: item.galleryId,
           modernPageId: item.modernPageId,
           route: item.route,
-          blogCategoryId: item.blogCategoryId,
+          categoryId: item.blogCategoryId,
           blogHomePage: item.blogHomePage,
           items: innerItems,
         });
