@@ -2,7 +2,8 @@
 
 ## Release notes - Jinya CMS - Version 26.0.9
 
-- [JCMS-11](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=kanban&peekId=6eb000e0-44dd-46c9-a152-970247b4ce53) File preview design issue
+- [JCMS-10](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=kanban&peekId=6eb000e0-44dd-46c9-a152-970247b4ce53) File preview design issue
+- [JCMS-11](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=kanban&peekId=1e15322c-8e1e-4f38-a46b-bd785f3cb99b) Menu editor doesn't save category ids
 
 ## Release notes - Jinya CMS - Version 26.0.8
 Hotfix for device code check in login
