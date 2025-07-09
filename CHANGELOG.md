@@ -1,5 +1,9 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 26.0.10
+
+- [JCMS-18](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=list&peekId=f8502d48-e82c-47bf-b7af-782900c87c22) Links use wrong naming
+
 ## Release notes - Jinya CMS - Version 26.0.9
 
 - [JCMS-10](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=kanban&peekId=6eb000e0-44dd-46c9-a152-970247b4ce53) File preview design issue
