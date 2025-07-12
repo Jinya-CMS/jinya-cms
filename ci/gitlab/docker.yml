@@ -4,7 +4,7 @@ build-test-image:
   variables:
     PACKAGE_VERSION: $LATEST_ALPHA_MINOR
     TRACK: $ALPHA_TRACK
-    KANIKO_FLAGS: --no-push
+    NO_PUSH: yes
   rules:
     - if: $CI_COMMIT_REF_PROTECTED == 'false'
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"

@@ -47,21 +47,19 @@
     paths:
       - jinya-cms.zip
 
+.base-docker:
+  image: registry.ulbricht.casa/docker-images/buildah:latest
+  before_script:
+    - echo "$CI_REGISTRY_PASSWORD" | buildah login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+    - echo "$DOCKERHUB_PASSWORD" | buildah login -u "$DOCKERHUB_USER" --password-stdin docker.io
+
 .build-image:
   stage: build-docker
-  image:
-    name: gcr.io/kaniko-project/executor:debug
-    pull_policy: always
-    entrypoint: [ '' ]
-  before_script:
-    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"},\"https://index.docker.io/v1/\":{\"auth\":\"$DOCKER_TOKEN\"}}}" > /kaniko/.docker/config.json
+  extends: .base-docker
   script:
     - sed -i "s/%VERSION%/${PACKAGE_VERSION}/g" ./defines.php
-    - /kaniko/executor
-      --context "${CI_PROJECT_DIR}"
-      --dockerfile "${CI_PROJECT_DIR}/docker/${IMAGE_TYPE}.dockerfile"
-      --destination "${IMAGE_TAG}"
-      $KANIKO_FLAGS
+    - buildah build --platform=linux/$ARCH --build-arg TAG=$TAG -f "$CI_PROJECT_DIR/docker/$IMAGE_TYPE.dockerfile" -t $IMAGE_TAG $CI_PROJECT_DIR
+    - "[[ -z '$NO_PUSH' ]] || buildah push $IMAGE_TAG"
   variables:
     REGISTRY_IMAGE: $CI_REGISTRY_IMAGE
     IMAGE_TAG_VERSION: $PACKAGE_VERSION
@@ -86,13 +84,16 @@
         IMAGE_TYPE: cli
         SUFFIX: -cli
   tags:
-    - runner-${ARCH}
+    - runner-$ARCH
 
 .deploy-image:
   stage: deploy-docker
-  image:
-    name: mplatform/manifest-tool:alpine
-    entrypoint: [ "" ]
+  extends: .base-docker
+  script:
+    - buildah manifest create $TAG
+    - buildah manifest add $TAG docker://$TAG-amd64
+    - buildah manifest add $TAG docker://$TAG-arm64
+    - buildah manifest push --all $TAG
   variables:
     TAG: ${REGISTRY_IMAGE}:${IMAGE_TAG_VERSION}${SUFFIX}
     REGISTRY_IMAGE: $CI_REGISTRY_IMAGE
@@ -104,12 +105,3 @@
           - ""
           - -apache
           - -cli
-  script:
-    - >-
-      manifest-tool
-      --username=${REGISTRY_USER}
-      --password=${REGISTRY_PASSWORD}
-      push from-args
-      --platforms linux/amd64,linux/arm64
-      --template ${TAG}-ARCH
-      --target ${TAG}
