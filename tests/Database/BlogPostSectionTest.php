@@ -39,9 +39,9 @@ class BlogPostSectionTest extends DatabaseAwareTestCase
     private function createBlogPostSection(
         int $position,
         int $blogPostId,
-        string $html = null,
-        int $galleryId = null,
-        int $fileId = null
+        string|null $html = null,
+        int|null $galleryId = null,
+        int|null $fileId = null
     ): BlogPostSection {
         $section = new BlogPostSection();
         $section->blogPostId = $blogPostId;

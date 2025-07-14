@@ -57,7 +57,6 @@ class FormMessageHandlerTest extends DatabaseAwareTestCase
                     break;
             }
         }
-        /** @phpstan-ignore-next-line */
         $this->handler->handleFormPost($this->form, $data, $this->request);
         self::assertTrue(true);
     }
@@ -79,7 +78,6 @@ class FormMessageHandlerTest extends DatabaseAwareTestCase
                     break;
             }
         }
-        /** @phpstan-ignore-next-line */
         $this->handler->handleFormPost($this->form, $data, $this->request);
     }
 
@@ -102,7 +100,6 @@ class FormMessageHandlerTest extends DatabaseAwareTestCase
                     break;
             }
         }
-        /** @phpstan-ignore-next-line */
         $this->handler->handleFormPost($this->form, $data, $this->request);
         self::assertTrue(true);
     }
@@ -150,7 +147,7 @@ class FormMessageHandlerTest extends DatabaseAwareTestCase
      * @param bool $isRequired
      * @param bool $isFromAddress
      * @param string[] $spamFilter
-     * @return array
+     * @return array<string, mixed>
      */
     private function createFormItem(
         string $label,
