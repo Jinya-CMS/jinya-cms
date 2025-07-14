@@ -30,9 +30,9 @@ class ModernPageSectionTest extends DatabaseAwareTestCase
     private function createSection(
         int $position,
         int $pageId,
-        string $html = null,
-        int $galleryId = null,
-        int $fileId = null
+        string|null $html = null,
+        int|null $galleryId = null,
+        int|null $fileId = null
     ): ModernPageSection {
         $section = new ModernPageSection();
         $section->id = 0;
@@ -52,7 +52,6 @@ class ModernPageSectionTest extends DatabaseAwareTestCase
         $section = $this->createSection(
             0,
             $page->id,
-            html: $file->id,
             fileId: $file->id
         );
         self::assertEquals([
@@ -85,7 +84,6 @@ class ModernPageSectionTest extends DatabaseAwareTestCase
         $section = $this->createSection(
             0,
             $page->id,
-            html: $file->id,
             fileId: $file->id
         );
         self::assertEquals($file->name, $section->getFile()->name);
@@ -96,7 +94,7 @@ class ModernPageSectionTest extends DatabaseAwareTestCase
     {
         $gallery = $this->createGallery();
         $page = $this->createSectionPage();
-        $section = $this->createSection(0, $page->id, html: $gallery->id, galleryId: $gallery->id);
+        $section = $this->createSection(0, $page->id, galleryId: $gallery->id);
         self::assertEquals([
             'position' => $section->position,
             'id' => $section->id,
@@ -124,7 +122,7 @@ class ModernPageSectionTest extends DatabaseAwareTestCase
     {
         $gallery = $this->createGallery();
         $page = $this->createSectionPage();
-        $section = $this->createSection(0, $page->id, html: $gallery->id, galleryId: $gallery->id);
+        $section = $this->createSection(0, $page->id, galleryId: $gallery->id);
         self::assertEquals($gallery->name, $section->getGallery()->name);
         self::assertNull($section->getFile());
     }

@@ -64,7 +64,7 @@ class GalleryTest extends DatabaseAwareTestCase
 
     public function testCreate(): void
     {
-        $gallery = $this->createGallery(name: false, execute: false);
+        $gallery = $this->createGallery(name: 'Testgallery', execute: false);
         $gallery->create();
 
         $foundGallery = Gallery::findById($gallery->id);
