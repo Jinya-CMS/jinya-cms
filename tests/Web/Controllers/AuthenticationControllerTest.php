@@ -13,7 +13,7 @@ class AuthenticationControllerTest extends DatabaseAwareTestCase
     private function getController(
         mixed $body,
         bool $withUserAgent = false,
-        string $deviceKey = null
+        string|null $deviceKey = null
     ): AuthenticationController {
         $controller = new AuthenticationController();
         $controller->request = (new ServerRequest('', '', serverParams: $_SERVER))

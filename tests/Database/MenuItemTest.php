@@ -44,6 +44,9 @@ class MenuItemTest extends DatabaseAwareTestCase
         return $menu;
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function createMenuItem(): array
     {
         return [

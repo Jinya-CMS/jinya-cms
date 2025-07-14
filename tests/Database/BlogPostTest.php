@@ -27,11 +27,9 @@ class BlogPostTest extends DatabaseAwareTestCase
         $post = new BlogPost();
         $post->title = $title;
         $post->slug = $slug;
+        $post->categoryId = $this->createBlogCategory()->id;
         if ($withHeaderImage) {
             $post->headerImageId = $this->createFile()->id;
-        }
-        if (true) {
-            $post->categoryId = $this->createBlogCategory()->id;
         }
 
         if ($execute) {
@@ -220,20 +218,20 @@ class BlogPostTest extends DatabaseAwareTestCase
 
     public function testFindAll(): void
     {
-        $this->createBlogPost(execute: 'Test 1', title: 'Test 1', slug: 'test-1');
-        $this->createBlogPost(execute: 'Test 2', title: 'Test 2', slug: 'test-2');
-        $this->createBlogPost(execute: 'Test 3', title: 'Test 3', slug: 'test-3');
-        $this->createBlogPost(execute: 'Test 4', title: 'Test 4', slug: 'test-4');
+        $this->createBlogPost(title: 'Test 1', slug: 'test-1');
+        $this->createBlogPost(title: 'Test 2', slug: 'test-2');
+        $this->createBlogPost(title: 'Test 3', slug: 'test-3');
+        $this->createBlogPost(title: 'Test 4', slug: 'test-4');
         $found = BlogPost::findAll();
         self::assertCount(4, iterator_to_array($found));
     }
 
     public function testFindPublic(): void
     {
-        $this->createBlogPost(execute: 'Test 1', title: 'Test 1', slug: 'test-1');
-        $this->createBlogPost(execute: 'Test 2', title: 'Test 2', slug: 'test-2');
-        $this->createBlogPost(execute: 'Test 3', title: 'Test 3', slug: 'test-3');
-        $public = $this->createBlogPost(execute: false, withHeaderImage: 'test-4', title: 'Test 4', slug: 'test-4');
+        $this->createBlogPost(title: 'Test 1', slug: 'test-1');
+        $this->createBlogPost(title: 'Test 2', slug: 'test-2');
+        $this->createBlogPost(title: 'Test 3', slug: 'test-3');
+        $public = $this->createBlogPost(execute: false, title: 'Test 4', slug: 'test-4');
         $public->public = true;
         $public->create();
         $found = BlogPost::findPublicPosts();

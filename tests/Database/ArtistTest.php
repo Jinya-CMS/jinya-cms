@@ -318,7 +318,7 @@ class ArtistTest extends DatabaseAwareTestCase
     public function testDelete(): void
     {
         $this->createArtist(
-            isAdmin: 'test2@example.com',
+            isAdmin: false,
             email: 'test2@example.com'
         );
         $artist = $this->createArtist();
@@ -331,7 +331,7 @@ class ArtistTest extends DatabaseAwareTestCase
     public function testDeleteWithApiKey(): void
     {
         $this->createArtist(
-            isAdmin: 'test2@example.com',
+            isAdmin: false,
             email: 'test2@example.com'
         );
         $artist = $this->createArtist();
@@ -353,7 +353,7 @@ class ArtistTest extends DatabaseAwareTestCase
         $this->expectError();
         $this->createArtist();
         $this->createArtist(
-            isAdmin: 'test2@example.com',
+            isAdmin: false,
             email: 'test2@example.com'
         );
         $artist = $this->createArtist(
@@ -382,7 +382,7 @@ class ArtistTest extends DatabaseAwareTestCase
             email: 'test2@example.com'
         );
         $this->createArtist();
-        self::assertEquals(1, Artist::countAdmins(-1));
+        self::assertEquals(1, Artist::countAdmins());
     }
 
     public function testFindByEmail(): void

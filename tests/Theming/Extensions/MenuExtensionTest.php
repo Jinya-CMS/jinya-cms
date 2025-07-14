@@ -12,6 +12,10 @@ class MenuExtensionTest extends DatabaseAwareTestCase
     private MenuExtension $extension;
     private Menu $menu;
 
+    /**
+     * @param string $route
+     * @return array<string, mixed>
+     */
     private function createMenuItem(string $route): array
     {
         return [
