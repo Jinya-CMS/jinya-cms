@@ -47,6 +47,8 @@ services:
     ports:
       - 8525:8025
       - 1525:1025
+  jinya-imaginary:
+    image: h2non/imaginary:latest
   jinya-backend:
     build:
       context: .

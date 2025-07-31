@@ -19,7 +19,7 @@ class MailerFactoryTest extends TestCase
         }
         self::assertNotNull($mailer);
         self::assertEquals(1025, $mailer->Port);
-        self::assertEquals('test@example.com', $mailer->Username);
+        self::assertEquals('noreply@jinya.de', $mailer->Username);
         self::assertEquals('start1234', $mailer->Password);
         self::assertEquals('tls', $mailer->SMTPSecure);
         self::assertTrue($mailer->SMTPAuth);

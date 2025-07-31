@@ -17,6 +17,7 @@
     "bacon/bacon-qr-code": "v3.0.1",
     "intervention/image": "3.11.3",
     "asika/agent": "2.7.2",
+    "guzzlehttp/guzzle": "7.9.3",
     "jetbrains/phpstorm-attributes": "1.2",
     "jinya/configuration": "0.10.0",
     "jinya/database": "0.18.0",

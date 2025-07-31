@@ -9,8 +9,9 @@ use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Jinya\Cms\Theming\Extensions\FileExtension;
 use Jinya\Cms\Utils\ImageType;
 
-class ConversionServiceTest extends DatabaseAwareTestCase
+class ImaginaryConversionServiceTest extends DatabaseAwareTestCase
 {
+
     public function testConvertFile(): void
     {
         $tmpFileName = Uuid::uuid();
@@ -22,7 +23,7 @@ class ConversionServiceTest extends DatabaseAwareTestCase
         $file->type = (string)mime_content_type($tmpPath);
         $file->create();
 
-        $conversionService = new ConversionService();
+        $conversionService = new ImaginaryConversionService();
         $conversionService->convertFile($file->id);
 
         foreach (FileExtension::RESOLUTIONS_FOR_SOURCE as $width) {
