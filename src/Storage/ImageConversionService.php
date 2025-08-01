@@ -5,7 +5,7 @@ namespace Jinya\Cms\Storage;
 use Jinya\Cms\Database\File;
 use Jinya\Cms\Utils\ImageType;
 
-readonly abstract class ImageConversionService
+abstract readonly class ImageConversionService
 {
     abstract public function convertFile(int $id): void;
 

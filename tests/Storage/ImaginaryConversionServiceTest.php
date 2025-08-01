@@ -11,7 +11,6 @@ use Jinya\Cms\Utils\ImageType;
 
 class ImaginaryConversionServiceTest extends DatabaseAwareTestCase
 {
-
     public function testConvertFile(): void
     {
         $tmpFileName = Uuid::uuid();

@@ -69,7 +69,8 @@ readonly class ImaginaryConversionService extends ImageConversionService
             file_put_contents($this->getImagePath($file, $imageType, $width), $res->getBody()->getContents());
         } catch (GuzzleException $exception) {
             $this->logger->error("{$file->name}: Failed to convert file to " . $imageType->string());
-            $this->logger->error("Imaginary returned: " . $exception->getMessage());;
+            $this->logger->error("Imaginary returned: " . $exception->getMessage());
+            ;
         } catch (Throwable $exception) {
             $this->logger->error("{$file->name}: Failed to convert file to " . $imageType->string());
         }
