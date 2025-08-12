@@ -27,7 +27,7 @@ class ProfilePictureServiceTest extends DatabaseAwareTestCase
     public function testSaveAndDeleteProfilePictureFile(): void
     {
         $path = __ROOT__ . '/tmp/' . Uuid::uuid();
-        copy('https://picsum.photos/200/300', $path);
+        copy('https://jinya.de/img/startpage.webp', $path);
 
         /** @phpstan-ignore-next-line */
         $this->service->saveProfilePicture($this->artist->id, file_get_contents($path));

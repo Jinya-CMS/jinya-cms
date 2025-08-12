@@ -15,7 +15,7 @@
     "ext-zip": "*",
     "ext-zlib": "*",
     "bacon/bacon-qr-code": "v3.0.1",
-    "intervention/image": "3.11.3",
+    "intervention/image": "v3.11.4",
     "asika/agent": "2.7.2",
     "guzzlehttp/guzzle": "7.9.3",
     "jetbrains/phpstorm-attributes": "1.2",
@@ -33,11 +33,11 @@
     "nyholm/psr7": "1.8.2",
     "nyholm/psr7-server": "1.1.0",
     "phpmailer/phpmailer": "v6.10.0",
-    "phpmyadmin/sql-parser": "5.11.0",
+    "phpmyadmin/sql-parser": "5.11.1",
     "scssphp/scssphp": "v2.0.1",
     "spomky-labs/otphp": "11.3.0",
-    "symfony/filesystem": "v7.3.0",
-    "tedivm/jshrink": "v1.7.0",
+    "symfony/filesystem": "7.3.2",
+    "tedivm/jshrink": "v1.8.0",
     "vlucas/phpdotenv": "v5.6.2"
   },
   "suggest": {
@@ -47,7 +47,7 @@
   "require-dev": {
     "roave/security-advisories": "dev-latest",
     "fakerphp/faker": "v1.24.1",
-    "laravel/pint": "v1.23.0"
+    "laravel/pint": "v1.24.0"
   },
   "config": {
     "process-timeout": 0,

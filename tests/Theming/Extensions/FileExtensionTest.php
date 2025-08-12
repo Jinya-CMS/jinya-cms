@@ -25,7 +25,7 @@ class FileExtensionTest extends DatabaseAwareTestCase
 
     public function testSrcsetWithImagePhp(): void
     {
-        copy('https://picsum.photos/200/300', __ROOT__ . '/tmp/file');
+        copy('https://jinya.de/img/startpage.webp', __ROOT__ . '/tmp/file');
         $file = new File();
         $file->name = Uuid::uuid();
         $file->path = __ROOT__ . '/tmp/file';
@@ -51,7 +51,7 @@ class FileExtensionTest extends DatabaseAwareTestCase
     {
         $name = Uuid::uuid();
         $path = StorageBaseService::BASE_PATH . '/public/' . $name;
-        copy('https://picsum.photos/200/300', $path);
+        copy('https://jinya.de/img/startpage.webp', $path);
         chmod($path, 0777);
         $file = new File();
         $file->name = Uuid::uuid();
@@ -71,7 +71,7 @@ class FileExtensionTest extends DatabaseAwareTestCase
 
     public function testPictureSourcesWithImagePhp(): void
     {
-        copy('https://picsum.photos/200/300', __ROOT__ . '/tmp/file');
+        copy('https://jinya.de/img/startpage.webp', __ROOT__ . '/tmp/file');
         $file = new File();
         $file->name = Uuid::uuid();
         $file->path = __ROOT__ . '/tmp/file';
