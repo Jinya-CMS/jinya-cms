@@ -16,7 +16,10 @@ class FileCacheCommandTest extends DatabaseAwareTestCase
     {
         $tmpFileName = Uuid::uuid();
         $tmpPath = StorageBaseService::BASE_PATH . '/public/' . $tmpFileName;
-        copy('https://picsum.photos/4320/2160', $tmpPath);
+        $res = @copy(__DIR__ . '/../files/test-image.webp', $tmpPath);
+        if (!$res) {
+            self::fail('Could not copy file');
+        }
         $file = new File();
         $file->path = $tmpFileName;
         $file->name = 'Testimage';
