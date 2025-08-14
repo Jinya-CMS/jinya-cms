@@ -13,6 +13,10 @@ class ImaginaryConversionServiceTest extends DatabaseAwareTestCase
 {
     public function testConvertFile(): void
     {
+        if (getenv('CI') === 'true') {
+            self::markTestSkipped('Skipping test on CI since imaginary not working properly');
+        }
+
         $tmpFileName = Uuid::uuid();
         $tmpPath = StorageBaseService::BASE_PATH . '/public/' . $tmpFileName;
         $res = @copy(__DIR__ . '/../files/test-image.webp', $tmpPath);
@@ -41,6 +45,10 @@ class ImaginaryConversionServiceTest extends DatabaseAwareTestCase
 
     public function testConvertFileFileNotExists(): void
     {
+        if (getenv('CI') === 'true') {
+            self::markTestSkipped('Skipping test on CI since imaginary not working properly');
+        }
+
         $this->expectException(EmptyResultException::class);
         $conversionService = new ConversionService();
         $conversionService->convertFile(-1);

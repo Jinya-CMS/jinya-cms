@@ -20,8 +20,7 @@ phpunit:
     MAILER_FROM: 'noreply@jinya.de'
     JINYA_API_KEY_EXPIRY: '315360000'
     JINYA_UPDATE_SERVER: 'https://releases.jinya.de/cms'
-    JINYA_IMAGINARY_URL: 'http://imaginary:9000'
-    JINYA_IMAGE_CONVERTER: 'imaginary'
+    JINYA_IMAGE_CONVERTER: 'imagick'
     INSTALLED_VERSION: 'phpunit'
   script:
     - sleep 30
@@ -58,8 +57,6 @@ phpunit:
       variables:
         MP_SMTP_AUTH_ACCEPT_ANY: 'true'
         MP_SMTP_AUTH_ALLOW_INSECURE: 'true'
-    - name: h2non/imaginary:latest
-      alias: imaginary
   parallel:
     matrix:
       - DATABASE_IMAGE:
