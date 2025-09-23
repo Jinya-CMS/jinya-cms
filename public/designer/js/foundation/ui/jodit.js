@@ -218,17 +218,11 @@ export function createJodit(idOrElement, inline = false, height = undefined) {
     showWordsCounter: false,
     showXPathInStatusbar: false,
     minHeight: '11rem',
-    disablePlugins:
-      'about,add-new-line,ai-assistant,class-span,clean-html,clipboard,copyformat,dtd,file,font,hr,iframe,image,image-properties,indent,key-arrow-outside,line-height,mobile,xpath,table-keyboard-navigation,tab,symbols,stat,spellcheck,speech-recognize,search,resize-cells,redo-undo,print,preview,powered-by-jodit,paste-storage,paste-from-word,video,wrap-nodes,limit',
     inline,
     toolbarInline: true,
     toolbarInlineForSelection: true,
     showPlaceholder: false,
     language: getLanguage(),
-    popup: {
-      selection: Jodit.atom(getInlineToolbar()),
-      toolbar: Jodit.atom(getInlineToolbar()),
-    },
     sourceEditorCDNUrlsJS: '',
     beautifyHTMLCDNUrlsJS: '',
   };
@@ -238,6 +232,11 @@ export function createJodit(idOrElement, inline = false, height = undefined) {
   if (!inline) {
     data.buttons = getFullToolbar();
     data.extraButtons = ['fullsize', 'source'];
+  } else {
+    data.popup = {
+      selection: Jodit.atom(getInlineToolbar()),
+      toolbar: Jodit.atom(getInlineToolbar()),
+    };
   }
   const editor = Jodit.make(idOrElement, data);
   setContextMenu(editor);

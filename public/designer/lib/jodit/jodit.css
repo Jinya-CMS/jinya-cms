@@ -1,7 +1,7 @@
 /*!
  * jodit - Jodit is an awesome and useful wysiwyg editor with filebrowser
  * Author: Chupurnov <chupurnov@gmail.com> (https://xdsoft.net/jodit/)
- * Version: v4.2.9
+ * Version: v4.6.12
  * Url: https://xdsoft.net/jodit/
  * License(s): MIT
  */
@@ -9,29 +9,7 @@
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
- */
-.jodit-about {
-  padding: 20px;
-}
-.jodit-about a {
-  color: #459ce7;
-  text-decoration: none;
-}
-.jodit-about a:focus,
-.jodit-about a:hover {
-  color: #23527c;
-  outline: 0;
-  text-decoration: underline;
-}
-.jodit-about div {
-  margin-bottom: calc(var(--jd-padding-default) / 2);
-}
-
-/*!
- * Jodit Editor (https://xdsoft.net/jodit/)
- * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 .jodit-ui-group {
   display: inline-flex;
@@ -59,7 +37,7 @@
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 .jodit-ui-list {
   display: flex;
@@ -103,7 +81,7 @@
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 .jodit-ui-button-icon-text__icon {
   display: none;
@@ -120,6 +98,8 @@
   display: inline-flex;
   flex-grow: 1;
   justify-content: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .jodit-ui-button-icon-text_context_menu .jodit-ui-button-icon-text__text {
   position: relative;
@@ -555,6 +535,8 @@
   display: inline-flex;
   flex-grow: 1;
   justify-content: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .jodit-ui-button_context_menu .jodit-ui-button__text {
   position: relative;
@@ -733,98 +715,6 @@
   outline: 1px dashed #bd2130;
 }
 
-/*!
- * Jodit Editor (https://xdsoft.net/jodit/)
- * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
- */
-:root {
-  --jd-popup-box-shadow: 0 4px 1px -2px rgba(76, 76, 76, 0.2),
-		0 3px 3px 0 rgb(76 76 76 / 15%), 0 1px 4px 0 rgb(76 76 76 / 13%);
-}
-.jodit-popup {
-  position: static;
-  width: auto;
-  max-width: none;
-  height: auto;
-  padding: 0;
-  border: 0;
-  margin: 0;
-  background: 0 0;
-  float: none;
-  outline: 0;
-  position: fixed;
-  z-index: var(--jd-z-index-popup);
-  display: inline-block;
-  box-shadow: var(--jd-popup-box-shadow);
-  transform: translate3d(0, 0, 0);
-}
-.jodit-popup__content {
-  font-family: var(--jd-font-default);
-  font-size: var(--jd-font-size-default);
-  overflow: auto;
-  max-height: 300px;
-  padding: var(--jd-padding-default);
-  background: var(--jd-color-background-default);
-  overflow-scrolling: touch;
-}
-.jodit-popup_padding_false .jodit-popup__content {
-  padding: 0;
-}
-.jodit-popup_max-height_false .jodit-popup__content {
-  max-height: fit-content;
-}
-
-/*!
- * Jodit Editor (https://xdsoft.net/jodit/)
- * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
- */
-.jodit-context-menu {
-  position: static;
-  width: auto;
-  max-width: none;
-  height: auto;
-  padding: 0;
-  border: 0;
-  margin: 0;
-  background: 0 0;
-  float: none;
-  outline: 0;
-  position: fixed;
-  z-index: var(--jd-z-index-popup);
-  display: inline-block;
-  box-shadow: var(--jd-popup-box-shadow);
-  transform: translate3d(0, 0, 0);
-  z-index: var(--jd-z-index-context-menu);
-  font-family: var(--jd-font-default);
-  font-size: var(--jd-font-size-default);
-}
-.jodit-context-menu__content {
-  font-family: var(--jd-font-default);
-  font-size: var(--jd-font-size-default);
-  overflow: auto;
-  max-height: 300px;
-  padding: var(--jd-padding-default);
-  background: var(--jd-color-background-default);
-  overflow-scrolling: touch;
-}
-.jodit-context-menu_padding_false .jodit-context-menu__content {
-  padding: 0;
-}
-.jodit-context-menu_max-height_false .jodit-context-menu__content {
-  max-height: fit-content;
-}
-.jodit-context-menu .jodit-ui-button {
-  display: flex;
-}
-.jodit-context-menu button {
-  width: 100%;
-}
-.jodit-context-menu_theme_dark {
-  background-color: var(--jd-dark-background-color);
-}
-
 .jodit-ui-button-group {
   margin-bottom: var(--jd-padding-default);
 }
@@ -861,7 +751,7 @@
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 :root {
   --jd-tooltip-color: #fff;
@@ -892,6 +782,7 @@
   transition: opacity 0.2s ease 0s;
   user-select: none;
   white-space: normal;
+  pointer-events: none;
 }
 @media (max-width: 768px) {
   .jodit-ui-tooltip {
@@ -1341,7 +1232,49 @@
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ */
+:root {
+  --jd-popup-box-shadow: 0 4px 1px -2px rgba(76, 76, 76, 0.2), 0 3px 3px 0 rgba(76, 76, 76, 0.15), 0 1px 4px 0 rgba(76, 76, 76, 0.13);
+  --jd-popup-max-height: max(50vh, 350px);
+}
+.jodit-popup {
+  position: static;
+  width: auto;
+  max-width: none;
+  height: auto;
+  padding: 0;
+  border: 0;
+  margin: 0;
+  background: 0 0;
+  float: none;
+  outline: 0;
+  position: fixed;
+  z-index: var(--jd-z-index-popup);
+  display: inline-block;
+  box-shadow: var(--jd-popup-box-shadow);
+  transform: translate3d(0, 0, 0);
+}
+.jodit-popup__content {
+  font-family: var(--jd-font-default);
+  font-size: var(--jd-font-size-default);
+  overflow: auto;
+  max-height: var(--jd-popup-max-height, 400px);
+  padding: var(--jd-padding-default);
+  background: var(--jd-color-background-default);
+  overflow-scrolling: touch;
+}
+.jodit-popup_padding_false .jodit-popup__content {
+  padding: 0;
+}
+.jodit-popup_max-height_false .jodit-popup__content {
+  max-height: fit-content;
+}
+
+/*!
+ * Jodit Editor (https://xdsoft.net/jodit/)
+ * Released under MIT see LICENSE.txt in the project root for license information.
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 @keyframes pulse {
   30% {
@@ -1396,7 +1329,7 @@
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 :root {
   --jd-em-color-border: #b6d4fe;
@@ -1466,7 +1399,7 @@
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 .jodit-toolbar-collection,
 .jodit-toolbar-editor-collection {
@@ -1578,7 +1511,7 @@
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 :root {
   --jd-button-trigger-size: 14px;
@@ -1608,6 +1541,8 @@
   display: inline-flex;
   flex-grow: 1;
   justify-content: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .jodit-toolbar-button_context_menu .jodit-toolbar-button__text {
   position: relative;
@@ -1825,7 +1760,7 @@
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 .jodit-toolbar-content {
   position: relative;
@@ -1966,6 +1901,8 @@
   display: inline-flex;
   flex-grow: 1;
   justify-content: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .jodit-toolbar-content_context_menu .jodit-toolbar-content__text {
   position: relative;
@@ -2179,6 +2116,8 @@
   display: inline-flex;
   flex-grow: 1;
   justify-content: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .jodit-toolbar-select_context_menu .jodit-toolbar-select__text {
   position: relative;
@@ -2420,7 +2359,7 @@
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 .jodit-toolbar__box:not(:empty) {
   --jd-color-background-default: var(--jd-color-panel);
@@ -2436,7 +2375,7 @@
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 .jodit-dialog {
   font-family: var(--jd-font-default);
@@ -2708,7 +2647,57 @@
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ */
+.jodit-context-menu {
+  position: static;
+  width: auto;
+  max-width: none;
+  height: auto;
+  padding: 0;
+  border: 0;
+  margin: 0;
+  background: 0 0;
+  float: none;
+  outline: 0;
+  position: fixed;
+  z-index: var(--jd-z-index-popup);
+  display: inline-block;
+  box-shadow: var(--jd-popup-box-shadow);
+  transform: translate3d(0, 0, 0);
+  z-index: var(--jd-z-index-context-menu);
+  font-family: var(--jd-font-default);
+  font-size: var(--jd-font-size-default);
+}
+.jodit-context-menu__content {
+  font-family: var(--jd-font-default);
+  font-size: var(--jd-font-size-default);
+  overflow: auto;
+  max-height: var(--jd-popup-max-height, 400px);
+  padding: var(--jd-padding-default);
+  background: var(--jd-color-background-default);
+  overflow-scrolling: touch;
+}
+.jodit-context-menu_padding_false .jodit-context-menu__content {
+  padding: 0;
+}
+.jodit-context-menu_max-height_false .jodit-context-menu__content {
+  max-height: fit-content;
+}
+.jodit-context-menu .jodit-ui-button {
+  display: flex;
+}
+.jodit-context-menu button {
+  width: 100%;
+}
+.jodit-context-menu_theme_dark {
+  background-color: var(--jd-dark-background-color);
+}
+
+/*!
+ * Jodit Editor (https://xdsoft.net/jodit/)
+ * Released under MIT see LICENSE.txt in the project root for license information.
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 :root {
   --jd-image-editor-resizer-border-color: #05ff00;
@@ -3203,12 +3192,12 @@ a + .jodit-file-browser-tree__source-title {
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 :root {
   --jd-first-column: 31%;
@@ -3238,7 +3227,7 @@ a + .jodit-file-browser-tree__source-title {
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 .jodit-file-browser-preview {
   position: relative;
@@ -3299,7 +3288,7 @@ a + .jodit-file-browser-tree__source-title {
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 .jodit-status-bar {
   display: flex;
@@ -3369,7 +3358,7 @@ a + .jodit-file-browser-tree__source-title {
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 .jodit-drag-and-drop__file-box,
 .jodit_uploadfile_button {
@@ -3406,61 +3395,7 @@ a + .jodit-file-browser-tree__source-title {
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
- */
-:root {
-  --jd-anl-color-new-line: var(--jd-color-border);
-  --jd-anl-handle-size: 20px;
-  --jd-anl-handle-offset: calc(100% - var(--jd-anl-handle-size));
-}
-.jodit-add-new-line {
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  display: block;
-  height: 1px;
-  box-sizing: border-box;
-  outline: none;
-}
-.jodit-add-new-line * {
-  box-sizing: border-box;
-}
-.jodit-add-new-line::after {
-  display: block;
-  width: 100%;
-  height: 1px;
-  background-color: var(--jd-anl-color-new-line);
-  content: '';
-}
-.jodit-add-new-line span {
-  position: absolute;
-  left: var(--jd-anl-handle-offset);
-  top: 0;
-  transform: translateY(-50%);
-  display: flex;
-  width: var(--jd-anl-handle-size);
-  height: var(--jd-anl-handle-size);
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--jd-anl-color-new-line);
-  background: var(--jd-color-background-button-hover-opacity30);
-  cursor: pointer;
-}
-.jodit-add-new-line span:hover {
-  background: var(--jd-color-background-button-hover);
-}
-.jodit-add-new-line svg {
-  width: calc(var(--jd-anl-handle-size) / 2);
-  fill: var(--jd-anl-color-new-line);
-}
-.jodit-source__mode .jodit-add-new-line {
-  display: none !important;
-}
-
-/*!
- * Jodit Editor (https://xdsoft.net/jodit/)
- * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 :root {
   --jd-color-picker-cell-size: 24px;
@@ -3516,17 +3451,42 @@ a + .jodit-file-browser-tree__source-title {
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 .jodit-tabs {
+  --jd-box-shadow-tabs: 0 0 #0000, 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
   font-family: var(--jd-font-default);
   font-size: var(--jd-font-size-default);
 }
 .jodit-tabs .jodit-tabs__buttons {
+  background-color: var(--jd-color-background-light-gray);
   display: flex;
   justify-content: center;
   margin-top: calc(var(--jd-padding-default) / 2);
   margin-bottom: var(--jd-padding-default);
+  padding: calc(var(--jd-padding-default) / 2);
+  border-radius: var(--jd-border-radius-default);
+}
+.jodit-tabs .jodit-tabs__buttons .jodit-ui-button {
+  color: var(--jd-color-placeholder);
+}
+.jodit-tabs .jodit-tabs__buttons .jodit-ui-button svg {
+  fill: var(--jd-color-placeholder);
+}
+.jodit-tabs .jodit-tabs__buttons .jodit-ui-button:active:not([disabled]),
+.jodit-tabs .jodit-tabs__buttons .jodit-ui-button[aria-pressed='true']:not([disabled]) {
+  box-shadow: var(--jd-box-shadow-tabs);
+  color: var(--jd-color-text-icons);
+}
+.jodit-tabs .jodit-tabs__buttons .jodit-ui-button:active:not([disabled]),
+.jodit-tabs .jodit-tabs__buttons .jodit-ui-button[aria-pressed='true']:not([disabled]),
+.jodit-tabs .jodit-tabs__buttons .jodit-ui-button:active:not([disabled]) .jodit-ui-button__text,
+.jodit-tabs .jodit-tabs__buttons .jodit-ui-button[aria-pressed='true']:not([disabled]) .jodit-ui-button__text {
+  background-color: var(--jd-color-background-default);
+}
+.jodit-tabs .jodit-tabs__buttons .jodit-ui-button:active:not([disabled]) svg,
+.jodit-tabs .jodit-tabs__buttons .jodit-ui-button[aria-pressed='true']:not([disabled]) svg {
+  fill: var(--jd-color-text-icons);
 }
 .jodit-tabs .jodit-tabs__buttons > * {
   margin-left: calc(var(--jd-padding-default) / 2);
@@ -3549,6 +3509,12 @@ a + .jodit-file-browser-tree__source-title {
 }
 .jodit-tabs__button {
   min-width: 80px;
+  max-width: 210px;
+}
+.jodit-tabs__button .jodit-ui-button__text {
+  white-space: nowrap;
+  flex: 1;
+  justify-content: space-around;
 }
 .jodit-tabs__button_columns_3 {
   width: calc(100% / 3);
@@ -3566,11 +3532,28 @@ a + .jodit-file-browser-tree__source-title {
   min-width: 220px;
   min-height: 100px;
 }
+.jodit-dialog_theme_dark .jodit-tabs .jodit-tabs__buttons,
+.jodit_theme_dark .jodit-tabs .jodit-tabs__buttons {
+  background-color: var(--jd-dark-background-color);
+  border-radius: var(--jd-border-radius-default);
+}
+.jodit-dialog_theme_dark .jodit-tabs .jodit-tabs__buttons .jodit-ui-button:active:not([disabled]) .jodit-ui-button__text,
+.jodit_theme_dark .jodit-tabs .jodit-tabs__buttons .jodit-ui-button:active:not([disabled]) .jodit-ui-button__text,
+.jodit-dialog_theme_dark .jodit-tabs .jodit-tabs__buttons .jodit-ui-button[aria-pressed='true']:not([disabled]) .jodit-ui-button__text,
+.jodit_theme_dark .jodit-tabs .jodit-tabs__buttons .jodit-ui-button[aria-pressed='true']:not([disabled]) .jodit-ui-button__text {
+  color: var(--jd-dark-toolbar-color);
+}
+.jodit-dialog_theme_dark .jodit-tabs .jodit-tabs__buttons .jodit-ui-button:active:not([disabled]) svg,
+.jodit_theme_dark .jodit-tabs .jodit-tabs__buttons .jodit-ui-button:active:not([disabled]) svg,
+.jodit-dialog_theme_dark .jodit-tabs .jodit-tabs__buttons .jodit-ui-button[aria-pressed='true']:not([disabled]) svg,
+.jodit_theme_dark .jodit-tabs .jodit-tabs__buttons .jodit-ui-button[aria-pressed='true']:not([disabled]) svg {
+  fill: var(--jd-color-text-icons);
+}
 
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 .jodit_fullsize-box_true {
   position: static !important;
@@ -3603,458 +3586,7 @@ html.jodit_fullsize-box_true {
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
- */
-.jodit-ui-image-position-tab__lockMargin > svg,
-.jodit-ui-image-properties-form__lockMargin > svg,
-.jodit-ui-image-position-tab__lockSize > svg,
-.jodit-ui-image-properties-form__lockSize > svg {
-  display: inline-block;
-  overflow: hidden;
-  width: var(--jd-icon-middle-size);
-  height: var(--jd-icon-middle-size);
-  fill: var(--jd-color-dark);
-  line-height: var(--jd-icon-middle-size);
-  transform-origin: 0 0 !important;
-  vertical-align: middle;
-}
-.jodit-ui-image-position-tab__view-box,
-.jodit-ui-image-properties-form__view-box {
-  padding: var(--jd-padding-default);
-}
-.jodit-ui-image-position-tab__imageView,
-.jodit-ui-image-properties-form__imageView {
-  display: flex;
-  height: var(--jd-width-default);
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  margin: 0 0 var(--jd-padding-default);
-  background-color: var(--jd-color-background-light-gray);
-}
-.jodit-ui-image-position-tab__imageView img,
-.jodit-ui-image-properties-form__imageView img {
-  max-width: 100%;
-  max-height: 100%;
-}
-.jodit-ui-image-position-tab__imageSizes.jodit-form__group,
-.jodit-ui-image-properties-form__imageSizes.jodit-form__group {
-  min-width: auto;
-  flex-direction: row;
-  align-items: center;
-  padding: 0;
-  margin: 0;
-}
-.jodit-ui-image-position-tab__imageSizes.jodit-form__group a,
-.jodit-ui-image-properties-form__imageSizes.jodit-form__group a {
-  display: inline-block;
-  cursor: pointer;
-}
-.jodit-ui-image-position-tab .jodit-form__group,
-.jodit-ui-image-properties-form .jodit-form__group {
-  padding: 0;
-}
-.jodit-ui-image-position-tab__tabsBox,
-.jodit-ui-image-properties-form__tabsBox {
-  padding: 0 var(--jd-padding-default);
-}
-.jodit-ui-image-properties-form_lock_true::before {
-  content: '';
-  left: 0;
-  top: 0;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: var(--jd-color-button-background-hover-opacity60);
-  z-index: 3;
-}
-.jodit-ui-image-properties-form_lock_true::after {
-  content: '';
-  display: inline-block;
-  width: var(--jd-icon-loader-size);
-  height: var(--jd-icon-loader-size);
-  animation: rotate 2s ease-out 0s infinite;
-  background: url(data:image/png;base64,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) no-repeat center;
-  background-size: 100% 100%;
-  vertical-align: middle;
-  will-change: transform;
-  left: 50%;
-  top: 50%;
-  margin-left: -10px;
-  margin-top: -10px;
-  position: absolute;
-  background-size: var(--jd-icon-loader-size);
-}
-
-/*!
- * Jodit Editor (https://xdsoft.net/jodit/)
- * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
- */
-.jodit-popup-inline__container {
-  z-index: 1300;
-  min-width: 700px;
-}
-
-/*!
- * Jodit Editor (https://xdsoft.net/jodit/)
- * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
- */
-.jodit-paste-storage {
-  max-width: 600px;
-  padding: var(--jd-padding-default);
-}
-@media (max-width: 768px) {
-  .jodit-paste-storage {
-    max-width: 100%;
-  }
-}
-.jodit-paste-storage > div {
-  max-width: 100%;
-  max-height: 300px;
-  border: 1px solid var(--jd-color-border);
-}
-.jodit-paste-storage > div:first-child {
-  margin-bottom: var(--jd-padding-default);
-}
-.jodit-paste-storage > div:first-child a {
-  display: block;
-  overflow: hidden;
-  max-width: 100%;
-  box-sizing: border-box;
-  padding: calc(var(--jd-padding-default) / 2);
-  border: 1px solid transparent;
-  margin: 0;
-  color: var(--jd-color-default);
-  outline: none;
-  text-decoration: none;
-  text-overflow: ellipsis;
-  white-space: pre;
-}
-.jodit-paste-storage > div:first-child a.jodit_active {
-  background-color: var(--jd-dark-background-color);
-  color: var(--jd-color-white);
-}
-.jodit-paste-storage > div:first-child a:focus {
-  outline: none;
-}
-.jodit-paste-storage > div:last-child {
-  overflow: auto;
-  padding: var(--jd-padding-default);
-}
-.jodit-paste-storage > div:last-child ul,
-.jodit-paste-storage > div:last-child li {
-  margin: 0;
-}
-
-/*!
- * Jodit Editor (https://xdsoft.net/jodit/)
- * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
- */
-.jodit-placeholder {
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  display: block;
-  width: 100%;
-  padding: var(--jd-padding-default);
-  color: var(--jd-color-placeholder);
-  pointer-events: none;
-  user-select: none !important;
-}
-
-.jodit__preview-box table {
-  max-width: 100%;
-  border: none;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  border-collapse: collapse;
-  empty-cells: show;
-}
-.jodit__preview-box table tr {
-  user-select: none;
-}
-.jodit__preview-box table tr th,
-.jodit__preview-box table tr td {
-  min-width: 2em;
-  padding: 0.4em;
-  border: 1px solid var(--jd-color-border);
-  user-select: text;
-  vertical-align: middle;
-  /**
-			// In some circumstances, because of this rule,
-			// the borders of the table are not shown - you need to find out under what
-			&[style*='border'] {
-				border-style: double !important;
-			}
-			*/
-}
-
-.jodit-table-resizer {
-  position: absolute;
-  z-index: 3;
-  padding-right: calc(var(--jd-padding-default) / 2);
-  padding-left: calc(var(--jd-padding-default) / 2);
-  margin-left: calc(var(--jd-padding-default) / -2);
-  cursor: col-resize;
-}
-.jodit-table-resizer::after {
-  display: block;
-  width: 0;
-  height: 100%;
-  border: 0;
-  content: '';
-}
-.jodit-table-resizer_moved {
-  z-index: 2;
-  background-color: var(--jd-color-background-selection);
-}
-.jodit-table-resizer_moved::after {
-  border-right: 1px solid var(--jd-color-border) moved;
-}
-
-/*!
- * Jodit Editor (https://xdsoft.net/jodit/)
- * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
- */
-[data-jodit_iframe_wrapper] {
-  position: relative;
-  display: block;
-  user-select: none;
-}
-[data-jodit_iframe_wrapper] iframe {
-  position: relative;
-}
-[data-jodit_iframe_wrapper]::after {
-  position: absolute;
-  z-index: 1;
-  display: block;
-  background: rgba(0, 0, 0, 0);
-  content: '';
-  cursor: pointer;
-  inset: 0;
-}
-[data-jodit_iframe_wrapper][data-jodit-wrapper_active='true'] iframe {
-  z-index: 2;
-}
-.jodit_lock [data-jodit-wrapper_active='true'] iframe {
-  z-index: 1;
-}
-:root {
-  --jd-viewer-width: 70px;
-  --jd-viewer-height: 24px;
-  --jd-resizer-handle-size: 10px;
-  --jd-resizer-border-color: #98c1f1;
-  --jd-resizer-handle-color: #5ba4f3;
-  --jd-resizer-handle-hover-color: #537ebb;
-}
-.jodit-resizer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100px;
-  height: 100px;
-  box-sizing: border-box;
-  font-size: 0;
-  outline: 3px solid var(--jd-resizer-border-color);
-  pointer-events: none;
-}
-.jodit-resizer * {
-  box-sizing: border-box;
-}
-.jodit-resizer > span {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  display: inline-block;
-  overflow: visible;
-  width: var(--jd-viewer-width);
-  height: var(--jd-viewer-height);
-  margin-top: calc(var(--jd-viewer-height) / -2);
-  margin-left: calc(var(--jd-viewer-width) / -2);
-  background-color: var(--jd-color-placeholder);
-  color: var(--jd-color-white);
-  font-size: 12px;
-  line-height: var(--jd-viewer-height);
-  opacity: 0;
-  text-align: center;
-  transition: opacity 0.2s linear;
-}
-.jodit-resizer > div {
-  position: absolute;
-  z-index: 4;
-  display: inline-block;
-  width: var(--jd-resizer-handle-size);
-  height: var(--jd-resizer-handle-size);
-  background-color: var(--jd-resizer-handle-color);
-  pointer-events: all;
-}
-.jodit-resizer > div:hover {
-  background-color: var(--jd-resizer-handle-hover-color);
-}
-.jodit-resizer > div:nth-child(1) {
-  top: calc(var(--jd-resizer-handle-size) / -2);
-  left: calc(var(--jd-resizer-handle-size) / -2);
-  cursor: nwse-resize;
-}
-.jodit-resizer > div:nth-child(2) {
-  top: calc(var(--jd-resizer-handle-size) / -2);
-  right: calc(var(--jd-resizer-handle-size) / -2);
-  cursor: nesw-resize;
-}
-.jodit-resizer > div:nth-child(3) {
-  right: calc(var(--jd-resizer-handle-size) / -2);
-  bottom: calc(var(--jd-resizer-handle-size) / -2);
-  cursor: nwse-resize;
-}
-.jodit-resizer > div:nth-child(4) {
-  bottom: calc(var(--jd-resizer-handle-size) / -2);
-  left: calc(var(--jd-resizer-handle-size) / -2);
-  cursor: nesw-resize;
-}
-@media (max-width: 768px) {
-  .jodit-resizer > div :root {
-    --jd-resizer-handle-size: calc(var(--jd-resizer-handle-size) * 2);
-  }
-}
-
-/*!
- * Jodit Editor (https://xdsoft.net/jodit/)
- * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
- */
-:root {
-  --jd-height-search: 30px;
-  --jd-width-search: 320px;
-  --jd-width-search-input-box: 60%;
-  --jd-width-search-count-box: 15%;
-  --jd-transform-button-active: 0.95;
-  --jd-timeout-button-active: 0.1s;
-}
-.jodit-ui-search {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 0;
-  height: 0;
-}
-.jodit-ui-search_sticky_true {
-  position: fixed;
-}
-.jodit-ui-search__box {
-  position: absolute;
-  right: 0;
-  display: flex;
-  width: var(--jd-width-search);
-  max-width: 100vw;
-  padding: calc(var(--jd-padding-default) / 2);
-  border: solid var(--jd-color-border);
-  border-width: 0 0 1px 1px;
-  background-color: var(--jd-color-panel);
-}
-.jodit-ui-search__box input {
-  width: 100%;
-  height: 100%;
-  padding: 0 var(--jd-padding-default);
-  border: 0;
-  margin: 0;
-  background-color: transparent;
-  outline: none;
-}
-.jodit-ui-search__box input[data-ref='replace'] {
-  display: none;
-}
-.jodit-ui-search__box input:not(:focus) + input:not(:focus) {
-  border-top: 1px solid var(--jd-color-border);
-}
-.jodit-ui-search__buttons,
-.jodit-ui-search__counts,
-.jodit-ui-search__inputs {
-  height: var(--jd-height-search);
-}
-.jodit-ui-search__inputs {
-  width: var(--jd-width-search-input-box);
-  padding-right: calc(var(--jd-padding-default) / 2);
-}
-.jodit-ui-search__counts {
-  display: flex;
-  width: var(--jd-width-search-count-box);
-  align-items: center;
-  justify-content: center;
-  border-left: 1px solid var(--jd-color-border);
-  color: var(--jd-color-border);
-}
-.jodit-ui-search__buttons {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  padding-left: 0;
-}
-.jodit-ui-search__buttons button {
-  width: 32%;
-  height: 100%;
-  border: 1px solid transparent;
-  margin-right: 1%;
-  background-color: transparent;
-}
-.jodit-ui-search__buttons button[data-ref='replace-btn'] {
-  display: none;
-  width: 100%;
-  border: 1px solid var(--jd-color-border);
-  margin-top: 2px;
-}
-.jodit-ui-search__buttons button:hover {
-  background-color: var(--jd-color-background-button-hover);
-}
-.jodit-ui-search__buttons button:focus {
-  border: 1px solid var(--jd-color-background-selection-opacity50);
-}
-.jodit-ui-search__buttons button:active {
-  border: 1px solid var(--jd-color-background-selection);
-  transform: scale(var(--jd-transform-button-active), var(--jd-transform-button-active));
-}
-.jodit-ui-search_empty-query_true [data-ref='next'],
-.jodit-ui-search_empty-query_true [data-ref='prev'] {
-  opacity: 0.5;
-}
-.jodit-ui-search_replace_true .jodit-ui-search__counts,
-.jodit-ui-search_replace_true .jodit-ui-search__inputs {
-  height: calc(var(--jd-height-search) * 2);
-}
-.jodit-ui-search_replace_true .jodit-ui-search__counts input,
-.jodit-ui-search_replace_true .jodit-ui-search__inputs input {
-  height: 50%;
-  transition: background-color var(--jd-timeout-button-active) linear;
-}
-.jodit-ui-search_replace_true .jodit-ui-search__counts input:focus,
-.jodit-ui-search_replace_true .jodit-ui-search__inputs input:focus {
-  box-shadow: inset 0 0 3px 0 var(--jd-color-border);
-}
-.jodit-ui-search_replace_true .jodit-ui-search__counts input[data-ref='replace'],
-.jodit-ui-search_replace_true .jodit-ui-search__inputs input[data-ref='replace'] {
-  display: block;
-}
-.jodit-ui-search_replace_true .jodit-ui-search__buttons {
-  flex-wrap: wrap;
-}
-.jodit-ui-search_replace_true .jodit-ui-search__buttons button[data-ref='replace-btn'] {
-  display: block;
-}
-::highlight(jodit-search-result),
-[jd-tmp-selection] {
-  background-color: var(--jd-color-background-selection);
-  color: var(--jd-color-text-selection);
-}
-
-/*!
- * Jodit Editor (https://xdsoft.net/jodit/)
- * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 .jodit-container:not(.jodit_inline) {
   min-height: 100px;
@@ -4084,7 +3616,7 @@ html.jodit_fullsize-box_true {
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 .jodit-source {
   position: relative;
@@ -4144,165 +3676,7 @@ html.jodit_fullsize-box_true {
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
- */
-.jodit_sticky-dummy_toolbar {
-  display: none;
-}
-.jodit_sticky > .jodit-toolbar__box {
-  position: fixed;
-  position: sticky;
-  z-index: 3;
-  top: 0;
-  left: auto;
-  border-bottom: 1px solid var(--jd-color-border);
-}
-.jodit_sticky .jodit_sticky-dummy_toolbar {
-  display: block;
-}
-
-/*!
- * Jodit Editor (https://xdsoft.net/jodit/)
- * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
- */
-.jodit-symbols {
-  width: 460px;
-  padding: var(--jd-padding-default);
-}
-.jodit-symbols__container {
-  display: flex;
-}
-.jodit-symbols__container_table {
-  width: 88%;
-}
-.jodit-symbols__container_preview {
-  width: 12%;
-}
-.jodit-symbols__preview {
-  padding: 20px 0;
-  border: 1px solid var(--jd-color-border);
-  font-size: 34px;
-  text-align: center;
-}
-.jodit-symbols__table {
-  border: 0;
-  border-spacing: 0;
-  table-layout: fixed;
-}
-.jodit-symbols__table td {
-  padding: 0;
-}
-.jodit-symbols__table td a {
-  display: inline-block;
-  width: calc(var(--jd-width-element-default) * 1.2);
-  height: calc(var(--jd-height-element-default) * 1.2);
-  box-sizing: border-box;
-  border: 1px solid transparent;
-  color: var(--jd-color-text);
-  cursor: pointer;
-  font-size: 16px;
-  line-height: calc(var(--jd-height-element-default) * 1.2);
-  text-align: center;
-  text-decoration: none;
-  vertical-align: top;
-}
-.jodit-symbols__table td a:hover,
-.jodit-symbols__table td a:focus {
-  outline: 2px solid var(--jd-color-border);
-}
-
-.jodit-ui-ai-assistant {
-  width: 100%;
-  padding: var(--jd-padding-default);
-  min-width: 460px;
-}
-@media (max-width: 768px) {
-  .jodit-ui-ai-assistant {
-    min-width: 100%;
-  }
-}
-.jodit-ui-ai-assistant__body {
-  margin-bottom: 10px;
-}
-.jodit-ui-ai-assistant__prompt-row {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 10px;
-}
-.jodit-ui-ai-assistant__prompt-row-label {
-  margin-right: 10px;
-}
-.jodit-ui-ai-assistant__prompt-row-input {
-  flex: 1;
-  margin-right: 10px;
-}
-.jodit-ui-ai-assistant__prompt-row .jodit-icon_ai_assistant {
-  cursor: pointer;
-  width: 22px;
-  height: 22px;
-}
-.jodit-ui-ai-assistant__prompt-row .jodit-ui-button {
-  margin-right: 10px;
-}
-.jodit-ui-ai-assistant__prompt-row .jodit-ui-button_ai_assistant {
-  margin-top: 20px;
-  margin-right: 0;
-}
-.jodit-ui-ai-assistant__results {
-  padding: var(--jd-padding-default);
-  position: relative;
-  border-color: var(--jd-color-label);
-  border-style: solid;
-  border-width: 1px;
-  min-height: 300px;
-  height: 300px;
-  min-width: 100%;
-  overflow: auto;
-  line-height: 1.5;
-  max-width: 460px;
-}
-.jodit-ui-ai-assistant__results p {
-  margin: 0 0 10px;
-}
-.jodit-ui-ai-assistant__close {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 10px;
-  cursor: pointer;
-}
-.jodit-ui-ai-assistant_hide_true {
-  display: none;
-}
-.jodit-ui-ai-assistant__spinner:before {
-  content: '';
-  box-sizing: border-box;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 30px;
-  height: 30px;
-  margin-top: -15px;
-  margin-left: -15px;
-  border-radius: 50%;
-  border: 1px solid #ccc;
-  border-top-color: #8817c3ff;
-  animation: spinner 0.6s linear infinite;
-}
-.jodit-ui-ai-assistant__error {
-  color: var(--jd-color-error);
-}
-@keyframes spinner {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/*!
- * Jodit Editor (https://xdsoft.net/jodit/)
- * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 .jodit-context table,
 .jodit-wysiwyg table {
@@ -4360,6 +3734,7 @@ html.jodit_fullsize-box_true {
   margin-bottom: 2px;
   margin-left: 2px;
   vertical-align: top;
+  cursor: pointer;
 }
 .jodit-form__inserter .jodit-form__table-creator-box .jodit-form__container > div > span:first-child {
   margin-left: 0;
@@ -4388,35 +3763,12 @@ html.jodit_fullsize-box_true {
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
- */
-.jodit-xpath {
-  display: flex;
-  align-items: center;
-  margin-left: calc(var(--jd-padding-default) / -2);
-}
-.jodit-xpath__item {
-  display: flex;
-  height: var(--jd-font-size-small);
-  line-height: calc(var(--jd-font-size-small) - 1px);
-}
-.jodit-xpath__item a {
-  padding: 0 3px;
-  margin-left: 2px;
-  color: var(--jd-color-default);
-  font-size: var(--jd-font-size-small);
-  outline: 0;
-}
-
-/*!
- * Jodit Editor (https://xdsoft.net/jodit/)
- * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 :root {
   --jd-color-white: #fff;
@@ -4456,8 +3808,7 @@ html.jodit_fullsize-box_true {
   --jd-color-button-background-hover: #dcdcdc;
   --jd-color-button-background-hover-opacity40: rgba(220, 220, 220, 0.4);
   --jd-color-button-background-hover-opacity60: rgba(220, 220, 220, 0.6);
-  --jd-font-default: -apple-system, blinkmacsystemfont, 'Segoe UI', roboto,
-		oxygen-sans, ubuntu, cantarell, 'Helvetica Neue', sans-serif;
+  --jd-font-default: -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, oxygen-sans, ubuntu, cantarell, 'Helvetica Neue', sans-serif;
   --jd-font-size-default: 14px;
   --jd-font-size-small: 11px;
   --jd-color-text-icons: rgba(0, 0, 0, 0.75);
@@ -4504,7 +3855,7 @@ html.jodit_fullsize-box_true {
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 .jodit-wysiwyg {
   outline: 0;
@@ -4541,7 +3892,7 @@ html.jodit_fullsize-box_true {
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 :root {
   --jd-switche-width: 60px;
@@ -4759,7 +4110,7 @@ input:focus + .jodit-switcher__slider {
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 .jodit-button-group {
   display: flex;
@@ -4799,7 +4150,7 @@ input:focus + .jodit-switcher__slider {
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 .jodit_text_icons .jodit_icon {
   width: auto;
@@ -4829,7 +4180,7 @@ input:focus + .jodit-switcher__slider {
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 .jodit-grid {
   display: flex;
@@ -4963,7 +4314,7 @@ input:focus + .jodit-switcher__slider {
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 @keyframes rotate {
   to {
@@ -5003,7 +4354,7 @@ svg.jodit-icon {
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 .jodit,
 .jodit-container,
@@ -5071,7 +4422,7 @@ svg.jodit-icon {
 /*!
  * Jodit Editor (https://xdsoft.net/jodit/)
  * Released under MIT see LICENSE.txt in the project root for license information.
- * Copyright (c) 2013-2024 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
 .jodit-dialog_theme_dark,
 .jodit_theme_dark {
