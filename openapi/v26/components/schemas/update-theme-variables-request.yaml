@@ -1,10 +1,6 @@
 type: object
 properties:
-  configuration:
+  variables:
     type: object
     additionalProperties:
-      type: object
-      additionalProperties:
-        oneOf:
-          - type: string
-          - type: boolean
+      type: string
