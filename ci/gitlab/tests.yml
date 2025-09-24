@@ -64,3 +64,4 @@ phpunit:
   rules:
     - if: $JINYA_SKIP_TESTS
       when: never
+    - when: always
