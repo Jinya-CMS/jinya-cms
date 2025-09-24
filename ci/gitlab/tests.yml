@@ -62,3 +62,6 @@ phpunit:
       - DATABASE_IMAGE:
         - library/mysql:lts
         - library/mariadb:lts
+  rules:
+    - if: '$JINYA_SKIP_TESTS == null || $JINYA_SKIP_TESTS == ""'
+      when: on_success
