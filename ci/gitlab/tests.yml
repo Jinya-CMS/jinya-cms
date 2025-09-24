@@ -62,6 +62,5 @@ phpunit:
         - library/mysql:lts
         - library/mariadb:lts
   rules:
-    - when: never
     - if: '$JINYA_SKIP_TESTS == null || $JINYA_SKIP_TESTS == ""'
       when: on_success
