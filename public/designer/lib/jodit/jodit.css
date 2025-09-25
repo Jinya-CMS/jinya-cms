@@ -3588,6 +3588,393 @@ html.jodit_fullsize-box_true {
  * Released under MIT see LICENSE.txt in the project root for license information.
  * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
+.jodit-ui-image-position-tab__lockMargin > svg,
+.jodit-ui-image-properties-form__lockMargin > svg,
+.jodit-ui-image-position-tab__lockSize > svg,
+.jodit-ui-image-properties-form__lockSize > svg {
+  display: inline-block;
+  overflow: hidden;
+  width: var(--jd-icon-middle-size);
+  height: var(--jd-icon-middle-size);
+  fill: var(--jd-color-dark);
+  line-height: var(--jd-icon-middle-size);
+  transform-origin: 0 0 !important;
+  vertical-align: middle;
+}
+.jodit-ui-image-position-tab__view-box,
+.jodit-ui-image-properties-form__view-box {
+  padding: var(--jd-padding-default);
+}
+.jodit-ui-image-position-tab__imageView,
+.jodit-ui-image-properties-form__imageView {
+  display: flex;
+  height: var(--jd-width-default);
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0 0 var(--jd-padding-default);
+  background-color: var(--jd-color-background-light-gray);
+}
+.jodit-ui-image-position-tab__imageView img,
+.jodit-ui-image-properties-form__imageView img {
+  max-width: 100%;
+  max-height: 100%;
+}
+.jodit-ui-image-position-tab__imageSizes.jodit-form__group,
+.jodit-ui-image-properties-form__imageSizes.jodit-form__group {
+  min-width: auto;
+  flex-direction: row;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+.jodit-ui-image-position-tab__imageSizes.jodit-form__group a,
+.jodit-ui-image-properties-form__imageSizes.jodit-form__group a {
+  display: inline-block;
+  cursor: pointer;
+}
+.jodit-ui-image-position-tab .jodit-form__group,
+.jodit-ui-image-properties-form .jodit-form__group {
+  padding: 0;
+}
+.jodit-ui-image-position-tab__tabsBox,
+.jodit-ui-image-properties-form__tabsBox {
+  padding: 0 var(--jd-padding-default);
+}
+.jodit-dialog_theme_dark .jodit-ui-image-properties-form__imageView,
+.jodit_theme_dark .jodit-ui-image-properties-form__imageView {
+  background-color: var(--jd-dark-background-color);
+}
+.jodit-ui-image-properties-form_lock_true::before {
+  content: '';
+  left: 0;
+  top: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: var(--jd-color-button-background-hover-opacity60);
+  z-index: 3;
+}
+.jodit-ui-image-properties-form_lock_true::after {
+  content: '';
+  display: inline-block;
+  width: var(--jd-icon-loader-size);
+  height: var(--jd-icon-loader-size);
+  animation: rotate 2s ease-out 0s infinite;
+  background: url(data:image/png;base64,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) no-repeat center;
+  background-size: 100% 100%;
+  vertical-align: middle;
+  will-change: transform;
+  left: 50%;
+  top: 50%;
+  margin-left: -10px;
+  margin-top: -10px;
+  position: absolute;
+  background-size: var(--jd-icon-loader-size);
+}
+
+/*!
+ * Jodit Editor (https://xdsoft.net/jodit/)
+ * Released under MIT see LICENSE.txt in the project root for license information.
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ */
+.jodit-popup-inline__container {
+  z-index: 1300;
+  min-width: 700px;
+}
+
+/*!
+ * Jodit Editor (https://xdsoft.net/jodit/)
+ * Released under MIT see LICENSE.txt in the project root for license information.
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ */
+.jodit-paste-storage {
+  max-width: 600px;
+  padding: var(--jd-padding-default);
+}
+@media (max-width: 768px) {
+  .jodit-paste-storage {
+    max-width: 100%;
+  }
+}
+.jodit-paste-storage > div {
+  max-width: 100%;
+  max-height: 300px;
+  border: 1px solid var(--jd-color-border);
+}
+.jodit-paste-storage > div:first-child {
+  margin-bottom: var(--jd-padding-default);
+}
+.jodit-paste-storage > div:first-child a {
+  display: block;
+  overflow: hidden;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: calc(var(--jd-padding-default) / 2);
+  border: 1px solid transparent;
+  margin: 0;
+  color: var(--jd-color-default);
+  outline: none;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: pre;
+}
+.jodit-paste-storage > div:first-child a.jodit_active {
+  background-color: var(--jd-dark-background-color);
+  color: var(--jd-color-white);
+}
+.jodit-paste-storage > div:first-child a:focus {
+  outline: none;
+}
+.jodit-paste-storage > div:last-child {
+  overflow: auto;
+  padding: var(--jd-padding-default);
+}
+.jodit-paste-storage > div:last-child ul,
+.jodit-paste-storage > div:last-child li {
+  margin: 0;
+}
+
+/*!
+ * Jodit Editor (https://xdsoft.net/jodit/)
+ * Released under MIT see LICENSE.txt in the project root for license information.
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ */
+[data-jodit_iframe_wrapper] {
+  position: relative;
+  display: block;
+  user-select: none;
+}
+[data-jodit_iframe_wrapper] iframe {
+  position: relative;
+}
+[data-jodit_iframe_wrapper]::after {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  background: rgba(0, 0, 0, 0);
+  content: '';
+  cursor: pointer;
+  inset: 0;
+}
+[data-jodit_iframe_wrapper][data-jodit-wrapper_active='true'] iframe {
+  z-index: 2;
+}
+.jodit_lock [data-jodit-wrapper_active='true'] iframe {
+  z-index: 1;
+}
+:root {
+  --jd-viewer-width: 70px;
+  --jd-viewer-height: 24px;
+  --jd-resizer-handle-size: 10px;
+  --jd-resizer-border-color: #98c1f1;
+  --jd-resizer-handle-color: #5ba4f3;
+  --jd-resizer-handle-hover-color: #537ebb;
+}
+.jodit-resizer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  box-sizing: border-box;
+  font-size: 0;
+  outline: 3px solid var(--jd-resizer-border-color);
+  pointer-events: none;
+}
+.jodit-resizer * {
+  box-sizing: border-box;
+}
+.jodit-resizer > span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: inline-block;
+  overflow: visible;
+  width: var(--jd-viewer-width);
+  height: var(--jd-viewer-height);
+  margin-top: calc(var(--jd-viewer-height) / -2);
+  margin-left: calc(var(--jd-viewer-width) / -2);
+  background-color: var(--jd-color-placeholder);
+  color: var(--jd-color-white);
+  font-size: 12px;
+  line-height: var(--jd-viewer-height);
+  opacity: 0;
+  text-align: center;
+  transition: opacity 0.2s linear;
+}
+.jodit-resizer > div {
+  position: absolute;
+  z-index: 4;
+  display: inline-block;
+  width: var(--jd-resizer-handle-size);
+  height: var(--jd-resizer-handle-size);
+  background-color: var(--jd-resizer-handle-color);
+  pointer-events: all;
+}
+.jodit-resizer > div:hover {
+  background-color: var(--jd-resizer-handle-hover-color);
+}
+.jodit-resizer > div:nth-child(1) {
+  top: calc(var(--jd-resizer-handle-size) / -2);
+  left: calc(var(--jd-resizer-handle-size) / -2);
+  cursor: nwse-resize;
+}
+.jodit-resizer > div:nth-child(2) {
+  top: calc(var(--jd-resizer-handle-size) / -2);
+  right: calc(var(--jd-resizer-handle-size) / -2);
+  cursor: nesw-resize;
+}
+.jodit-resizer > div:nth-child(3) {
+  right: calc(var(--jd-resizer-handle-size) / -2);
+  bottom: calc(var(--jd-resizer-handle-size) / -2);
+  cursor: nwse-resize;
+}
+.jodit-resizer > div:nth-child(4) {
+  bottom: calc(var(--jd-resizer-handle-size) / -2);
+  left: calc(var(--jd-resizer-handle-size) / -2);
+  cursor: nesw-resize;
+}
+@media (max-width: 768px) {
+  .jodit-resizer > div :root {
+    --jd-resizer-handle-size: calc(var(--jd-resizer-handle-size) * 2);
+  }
+}
+
+/*!
+ * Jodit Editor (https://xdsoft.net/jodit/)
+ * Released under MIT see LICENSE.txt in the project root for license information.
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ */
+:root {
+  --jd-height-search: 30px;
+  --jd-width-search: 320px;
+  --jd-width-search-input-box: 60%;
+  --jd-width-search-count-box: 15%;
+  --jd-transform-button-active: 0.95;
+  --jd-timeout-button-active: 0.1s;
+}
+.jodit-ui-search {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+}
+.jodit-ui-search_sticky_true {
+  position: fixed;
+}
+.jodit-ui-search__box {
+  position: absolute;
+  right: 0;
+  display: flex;
+  width: var(--jd-width-search);
+  max-width: 100vw;
+  padding: calc(var(--jd-padding-default) / 2);
+  border: solid var(--jd-color-border);
+  border-width: 0 0 1px 1px;
+  background-color: var(--jd-color-panel);
+}
+.jodit-ui-search__box input {
+  width: 100%;
+  height: 100%;
+  padding: 0 var(--jd-padding-default);
+  border: 0;
+  margin: 0;
+  background-color: transparent;
+  outline: none;
+}
+.jodit-ui-search__box input[data-ref='replace'] {
+  display: none;
+}
+.jodit-ui-search__box input:not(:focus) + input:not(:focus) {
+  border-top: 1px solid var(--jd-color-border);
+}
+.jodit-ui-search__buttons,
+.jodit-ui-search__counts,
+.jodit-ui-search__inputs {
+  height: var(--jd-height-search);
+}
+.jodit-ui-search__inputs {
+  width: var(--jd-width-search-input-box);
+  padding-right: calc(var(--jd-padding-default) / 2);
+}
+.jodit-ui-search__counts {
+  display: flex;
+  width: var(--jd-width-search-count-box);
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid var(--jd-color-border);
+  color: var(--jd-color-border);
+}
+.jodit-ui-search__buttons {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0;
+}
+.jodit-ui-search__buttons button {
+  width: 32%;
+  height: 100%;
+  border: 1px solid transparent;
+  margin-right: 1%;
+  background-color: transparent;
+}
+.jodit-ui-search__buttons button[data-ref='replace-btn'] {
+  display: none;
+  width: 100%;
+  border: 1px solid var(--jd-color-border);
+  margin-top: 2px;
+}
+.jodit-ui-search__buttons button:hover {
+  background-color: var(--jd-color-background-button-hover);
+}
+.jodit-ui-search__buttons button:focus {
+  border: 1px solid var(--jd-color-background-selection-opacity50);
+}
+.jodit-ui-search__buttons button:active {
+  border: 1px solid var(--jd-color-background-selection);
+  transform: scale(var(--jd-transform-button-active), var(--jd-transform-button-active));
+}
+.jodit-ui-search_empty-query_true [data-ref='next'],
+.jodit-ui-search_empty-query_true [data-ref='prev'] {
+  opacity: 0.5;
+}
+.jodit-ui-search_replace_true .jodit-ui-search__counts,
+.jodit-ui-search_replace_true .jodit-ui-search__inputs {
+  height: calc(var(--jd-height-search) * 2);
+}
+.jodit-ui-search_replace_true .jodit-ui-search__counts input,
+.jodit-ui-search_replace_true .jodit-ui-search__inputs input {
+  height: 50%;
+  transition: background-color var(--jd-timeout-button-active) linear;
+}
+.jodit-ui-search_replace_true .jodit-ui-search__counts input:focus,
+.jodit-ui-search_replace_true .jodit-ui-search__inputs input:focus {
+  box-shadow: inset 0 0 3px 0 var(--jd-color-border);
+}
+.jodit-ui-search_replace_true .jodit-ui-search__counts input[data-ref='replace'],
+.jodit-ui-search_replace_true .jodit-ui-search__inputs input[data-ref='replace'] {
+  display: block;
+}
+.jodit-ui-search_replace_true .jodit-ui-search__buttons {
+  flex-wrap: wrap;
+}
+.jodit-ui-search_replace_true .jodit-ui-search__buttons button[data-ref='replace-btn'] {
+  display: block;
+}
+::highlight(jodit-search-result),
+[jd-tmp-selection] {
+  background-color: var(--jd-color-background-selection);
+  color: var(--jd-color-text-selection);
+}
+
+/*!
+ * Jodit Editor (https://xdsoft.net/jodit/)
+ * Released under MIT see LICENSE.txt in the project root for license information.
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ */
 .jodit-container:not(.jodit_inline) {
   min-height: 100px;
 }
