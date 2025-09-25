@@ -1,5 +1,11 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 26.0.12
+Hotfix for editor image handling
+
+## Release notes - Jinya CMS - Version 26.0.11
+Hotfix for the editor
+
 ## Release notes - Jinya CMS - Version 26.0.10
 
 - [JCMS-18](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=list&peekId=f8502d48-e82c-47bf-b7af-782900c87c22) Links use wrong naming
