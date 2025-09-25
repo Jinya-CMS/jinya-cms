@@ -51,7 +51,7 @@ phpunit:
         MARIADB_PASSWORD: jinya
         MARIADB_DATABASE: jinya
         MARIADB_RANDOM_ROOT_PASSWORD: 'true'
-    - name: axllent/mailpit:latest
+    - name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/axllent/mailpit:latest
       alias: mailer
       variables:
         MP_SMTP_AUTH_ACCEPT_ANY: 'true'
@@ -59,8 +59,8 @@ phpunit:
   parallel:
     matrix:
       - DATABASE_IMAGE:
-        - library/mysql:lts
-        - library/mariadb:lts
+        - ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/library/mysql:lts
+        - ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/library/mariadb:lts
   rules:
     - if: '$JINYA_SKIP_TESTS == null || $JINYA_SKIP_TESTS == ""'
       when: on_success

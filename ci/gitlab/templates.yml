@@ -16,7 +16,7 @@
 
 .javascript-lint:
   image:
-    name: library/node:latest
+    name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/library/node:latest
     pull_policy: always
   stage: lint
   before_script:
