@@ -536,12 +536,6 @@ Alpine.data('filesData', () => ({
         parentId: savedFolder.parentId,
       });
       this.newFolder.open = false;
-      if (this.selectedFolders.size > 1) {
-        this.selectedFolders.add(savedFolder.id);
-      } else {
-        this.selectedFolders.clear();
-        this.selectedFolders.add(savedFolder.id);
-      }
     } catch (err) {
       if (err.status === 409) {
         this.newFolder.error.title = localize({ key: 'media.files.create_folder.error.title' });
