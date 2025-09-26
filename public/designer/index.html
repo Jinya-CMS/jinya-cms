@@ -545,6 +545,9 @@
                        x-localize:media-files-upload_multiple_files-files></label>
                 <input @change="uploadMultipleFiles.selectFiles($event.target.files)" class="cosmo-input"
                        id="uploadMultipleFilesFiles" multiple required type="file" />
+                <label for="uploadMultipleFileFolder" class="cosmo-label" x-localize:media-files-upload_multiple_files-folder></label>
+                <button x-localize:media-files-upload_multiple_files-pick_folder.picker id="uploadMultipleFileFolder" type="button"
+                        class="cosmo-input is--picker" x-text="uploadMultipleFiles.folderName" @click="pickFolder()"></button>
                 <label class="cosmo-label" x-localize:media-files-upload_multiple_files-tags></label>
                 <div class="jinya-tags is--details">
                   <template :key="tag.id" x-for="tag in tags">

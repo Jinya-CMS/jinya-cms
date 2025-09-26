@@ -3397,6 +3397,82 @@ a + .jodit-file-browser-tree__source-title {
  * Released under MIT see LICENSE.txt in the project root for license information.
  * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
+.jodit-about {
+  padding: 20px;
+}
+.jodit-about a {
+  color: #459ce7;
+  text-decoration: none;
+}
+.jodit-about a:focus,
+.jodit-about a:hover {
+  color: #23527c;
+  outline: 0;
+  text-decoration: underline;
+}
+.jodit-about div {
+  margin-bottom: calc(var(--jd-padding-default) / 2);
+}
+
+/*!
+ * Jodit Editor (https://xdsoft.net/jodit/)
+ * Released under MIT see LICENSE.txt in the project root for license information.
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ */
+:root {
+  --jd-anl-color-new-line: var(--jd-color-border);
+  --jd-anl-handle-size: 20px;
+  --jd-anl-handle-offset: calc(100% - var(--jd-anl-handle-size));
+}
+.jodit-add-new-line {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  display: block;
+  height: 1px;
+  box-sizing: border-box;
+  outline: none;
+}
+.jodit-add-new-line * {
+  box-sizing: border-box;
+}
+.jodit-add-new-line::after {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: var(--jd-anl-color-new-line);
+  content: '';
+}
+.jodit-add-new-line span {
+  position: absolute;
+  left: var(--jd-anl-handle-offset);
+  top: 0;
+  transform: translateY(-50%);
+  display: flex;
+  width: var(--jd-anl-handle-size);
+  height: var(--jd-anl-handle-size);
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--jd-anl-color-new-line);
+  background: var(--jd-color-background-button-hover-opacity30);
+  cursor: pointer;
+}
+.jodit-add-new-line span:hover {
+  background: var(--jd-color-background-button-hover);
+}
+.jodit-add-new-line svg {
+  width: calc(var(--jd-anl-handle-size) / 2);
+  fill: var(--jd-anl-color-new-line);
+}
+.jodit-source__mode .jodit-add-new-line {
+  display: none !important;
+}
+
+/*!
+ * Jodit Editor (https://xdsoft.net/jodit/)
+ * Released under MIT see LICENSE.txt in the project root for license information.
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ */
 :root {
   --jd-color-picker-cell-size: 24px;
 }
@@ -3740,6 +3816,74 @@ html.jodit_fullsize-box_true {
  * Released under MIT see LICENSE.txt in the project root for license information.
  * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
+.jodit-placeholder {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  padding: var(--jd-padding-default);
+  color: var(--jd-color-placeholder);
+  pointer-events: none;
+  user-select: none !important;
+}
+
+.jodit__preview-box table {
+  max-width: 100%;
+  border: none;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  border-collapse: collapse;
+  empty-cells: show;
+}
+.jodit__preview-box table tr {
+  user-select: none;
+}
+.jodit__preview-box table tr th,
+.jodit__preview-box table tr td {
+  min-width: 2em;
+  padding: 0.4em;
+  border: 1px solid var(--jd-color-border);
+  user-select: text;
+  vertical-align: middle;
+  /**
+			// In some circumstances, because of this rule,
+			// the borders of the table are not shown - you need to find out under what
+			&[style*='border'] {
+				border-style: double !important;
+			}
+			*/
+}
+
+.jodit-table-resizer {
+  position: absolute;
+  z-index: 3;
+  padding-right: calc(var(--jd-padding-default) / 2);
+  padding-left: calc(var(--jd-padding-default) / 2);
+  margin-left: calc(var(--jd-padding-default) / -2);
+  cursor: col-resize;
+}
+.jodit-table-resizer::after {
+  display: block;
+  width: 0;
+  height: 100%;
+  border: 0;
+  content: '';
+}
+.jodit-table-resizer_moved {
+  z-index: 2;
+  background-color: var(--jd-color-background-selection);
+}
+.jodit-table-resizer_moved::after {
+  border-right: 1px solid var(--jd-color-border) moved;
+}
+
+/*!
+ * Jodit Editor (https://xdsoft.net/jodit/)
+ * Released under MIT see LICENSE.txt in the project root for license information.
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ */
 [data-jodit_iframe_wrapper] {
   position: relative;
   display: block;
@@ -4065,6 +4209,164 @@ html.jodit_fullsize-box_true {
  * Released under MIT see LICENSE.txt in the project root for license information.
  * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
  */
+.jodit_sticky-dummy_toolbar {
+  display: none;
+}
+.jodit_sticky > .jodit-toolbar__box {
+  position: fixed;
+  position: sticky;
+  z-index: 3;
+  top: 0;
+  left: auto;
+  border-bottom: 1px solid var(--jd-color-border);
+}
+.jodit_sticky .jodit_sticky-dummy_toolbar {
+  display: block;
+}
+
+/*!
+ * Jodit Editor (https://xdsoft.net/jodit/)
+ * Released under MIT see LICENSE.txt in the project root for license information.
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ */
+.jodit-symbols {
+  width: 460px;
+  padding: var(--jd-padding-default);
+}
+.jodit-symbols__container {
+  display: flex;
+}
+.jodit-symbols__container_table {
+  width: 88%;
+}
+.jodit-symbols__container_preview {
+  width: 12%;
+}
+.jodit-symbols__preview {
+  padding: 20px 0;
+  border: 1px solid var(--jd-color-border);
+  font-size: 34px;
+  text-align: center;
+}
+.jodit-symbols__table {
+  border: 0;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+.jodit-symbols__table td {
+  padding: 0;
+}
+.jodit-symbols__table td a {
+  display: inline-block;
+  width: calc(var(--jd-width-element-default) * 1.2);
+  height: calc(var(--jd-height-element-default) * 1.2);
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  color: var(--jd-color-text);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: calc(var(--jd-height-element-default) * 1.2);
+  text-align: center;
+  text-decoration: none;
+  vertical-align: top;
+}
+.jodit-symbols__table td a:hover,
+.jodit-symbols__table td a:focus {
+  outline: 2px solid var(--jd-color-border);
+}
+
+.jodit-ui-ai-assistant {
+  width: 100%;
+  padding: var(--jd-padding-default);
+  min-width: 460px;
+}
+@media (max-width: 768px) {
+  .jodit-ui-ai-assistant {
+    min-width: 100%;
+  }
+}
+.jodit-ui-ai-assistant__body {
+  margin-bottom: 10px;
+}
+.jodit-ui-ai-assistant__prompt-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+.jodit-ui-ai-assistant__prompt-row-label {
+  margin-right: 10px;
+}
+.jodit-ui-ai-assistant__prompt-row-input {
+  flex: 1;
+  margin-right: 10px;
+}
+.jodit-ui-ai-assistant__prompt-row .jodit-icon_ai_assistant {
+  cursor: pointer;
+  width: 22px;
+  height: 22px;
+}
+.jodit-ui-ai-assistant__prompt-row .jodit-ui-button {
+  margin-right: 10px;
+}
+.jodit-ui-ai-assistant__prompt-row .jodit-ui-button_ai_assistant {
+  margin-top: 20px;
+  margin-right: 0;
+}
+.jodit-ui-ai-assistant__results {
+  padding: var(--jd-padding-default);
+  position: relative;
+  border-color: var(--jd-color-label);
+  border-style: solid;
+  border-width: 1px;
+  min-height: 300px;
+  height: 300px;
+  min-width: 100%;
+  overflow: auto;
+  line-height: 1.5;
+  max-width: 460px;
+}
+.jodit-ui-ai-assistant__results p {
+  margin: 0 0 10px;
+}
+.jodit-ui-ai-assistant__close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  cursor: pointer;
+}
+.jodit-ui-ai-assistant_hide_true {
+  display: none;
+}
+.jodit-ui-ai-assistant__spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  margin-top: -15px;
+  margin-left: -15px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  border-top-color: #8817c3ff;
+  animation: spinner 0.6s linear infinite;
+}
+.jodit-ui-ai-assistant__error {
+  color: var(--jd-color-error);
+}
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/*!
+ * Jodit Editor (https://xdsoft.net/jodit/)
+ * Released under MIT see LICENSE.txt in the project root for license information.
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ */
 .jodit-context table,
 .jodit-wysiwyg table {
   max-width: 100%;
@@ -4145,6 +4447,29 @@ html.jodit_fullsize-box_true {
   margin: 0;
   font-size: 14px;
   text-align: center;
+}
+
+/*!
+ * Jodit Editor (https://xdsoft.net/jodit/)
+ * Released under MIT see LICENSE.txt in the project root for license information.
+ * Copyright (c) 2013-2025 Valeriy Chupurnov. All rights reserved. https://xdsoft.net
+ */
+.jodit-xpath {
+  display: flex;
+  align-items: center;
+  margin-left: calc(var(--jd-padding-default) / -2);
+}
+.jodit-xpath__item {
+  display: flex;
+  height: var(--jd-font-size-small);
+  line-height: calc(var(--jd-font-size-small) - 1px);
+}
+.jodit-xpath__item a {
+  padding: 0 3px;
+  margin-left: 2px;
+  color: var(--jd-color-default);
+  font-size: var(--jd-font-size-small);
+  outline: 0;
 }
 
 /*!

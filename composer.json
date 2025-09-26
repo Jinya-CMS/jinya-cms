@@ -47,7 +47,7 @@
   "require-dev": {
     "roave/security-advisories": "dev-latest",
     "fakerphp/faker": "v1.24.1",
-    "laravel/pint": "v1.24.0"
+    "laravel/pint": "v1.25.1"
   },
   "config": {
     "process-timeout": 0,

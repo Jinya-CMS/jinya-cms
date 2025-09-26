@@ -1,159 +1,160 @@
 :root {
-    --message-padding-top: 0.5rem;
-    --message-padding-bottom: 0.5rem;
-    --message-padding-left: 1rem;
-    --message-padding-right: 1rem;
+	--message-padding-top: 0.5rem;
+	--message-padding-bottom: 0.5rem;
+	--message-padding-left: 1rem;
+	--message-padding-right: 1rem;
 
-    --message-margin-bottom: 1rem;
+	--message-margin-bottom: 1rem;
 
-    --message-border-top-width: 0.25rem;
+	--message-border-top-width: 0.25rem;
 
-    --message-header-font-size: 1.5rem;
+	--message-header-font-size: 1.5rem;
 }
 
 .cosmo-message {
-    width: 100%;
-    background: var(--message-background);
-    color: var(--black);
-    border-top: var(--message-border-top-width) solid var(--message-border);
-    padding: var(--message-padding-top) var(--message-padding-right) var(--message-padding-bottom) var(--message-padding-left);
-    margin-bottom: var(--message-margin-bottom);
-    box-sizing: border-box;
-    border-radius: var(--border-radius);
+	width: 100%;
+	background: var(--message-background);
+	color: var(--black);
+	border-top: var(--message-border-top-width) solid var(--message-border);
+	padding: var(--message-padding-top) var(--message-padding-right) var(--message-padding-bottom)
+		var(--message-padding-left);
+	margin-bottom: var(--message-margin-bottom);
+	box-sizing: border-box;
+	border-radius: var(--border-radius);
 }
 
 .cosmo-message::selection,
 .cosmo-message__header::selection,
 .cosmo-message__message::selection {
-    background: var(--message-border);
-    color: var(--white);
+	background: var(--message-border);
+	color: var(--white);
 }
 
 .cosmo-message__header {
-    margin: 0;
-    color: var(--black);
-    font-weight: var(--font-weight-light);
-    font-family: var(--font-family-heading);
-    font-size: var(--message-header-font-size);
-    display: block;
+	margin: 0;
+	color: var(--black);
+	font-weight: var(--font-weight-light);
+	font-family: var(--font-family-heading);
+	font-size: var(--message-header-font-size);
+	display: block;
 }
 
 .cosmo-message__message {
-    margin: 0;
+	margin: 0;
 }
 
 .cosmo-message.is--positive {
-    --message-border: var(--positive-color);
-    --message-background: var(--positive-color-alpha-25);
-    --message-accent-color: var(--positive-color);
-    --message-accent-color-light: var(--positive-color-light);
-    --message-accent-color-lighter: var(--positive-color-lighter);
+	--message-border: var(--positive-color);
+	--message-background: var(--positive-color-alpha-25);
+	--message-accent-color: var(--positive-color);
+	--message-accent-color-light: var(--positive-color-light);
+	--message-accent-color-lighter: var(--positive-color-lighter);
 }
 
 .cosmo-message.is--negative {
-    --message-border: var(--negative-color);
-    --message-background: var(--negative-color-alpha-25);
-    --message-accent-color: var(--negative-color);
-    --message-accent-color-light: var(--negative-color-light);
-    --message-accent-color-lighter: var(--negative-color-lighter);
+	--message-border: var(--negative-color);
+	--message-background: var(--negative-color-alpha-25);
+	--message-accent-color: var(--negative-color);
+	--message-accent-color-light: var(--negative-color-light);
+	--message-accent-color-lighter: var(--negative-color-lighter);
 }
 
 .cosmo-message.is--information {
-    --message-border: var(--information-color);
-    --message-background: var(--information-color-alpha-25);
-    --message-accent-color: var(--information-color);
-    --message-accent-color-light: var(--information-color-light);
-    --message-accent-color-lighter: var(--information-color-lighter);
+	--message-border: var(--information-color);
+	--message-background: var(--information-color-alpha-25);
+	--message-accent-color: var(--information-color);
+	--message-accent-color-light: var(--information-color-light);
+	--message-accent-color-lighter: var(--information-color-lighter);
 }
 
 .cosmo-message.is--warning {
-    --message-border: var(--warning-color);
-    --message-background: var(--warning-color-alpha-25);
-    --message-accent-color: var(--warning-color);
-    --message-accent-color-light: var(--warning-color-light);
-    --message-accent-color-lighter: var(--warning-color-lighter);
+	--message-border: var(--warning-color);
+	--message-background: var(--warning-color-alpha-25);
+	--message-accent-color: var(--warning-color);
+	--message-accent-color-light: var(--warning-color-light);
+	--message-accent-color-lighter: var(--warning-color-lighter);
 }
 
 .cosmo-message__actions {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    margin-top: var(--modal-button-bar-margin-top);
-    gap: var(--button-container-gap);
+	display: flex;
+	justify-content: flex-end;
+	width: 100%;
+	margin-top: var(--modal-button-bar-margin-top);
+	gap: var(--button-container-gap);
 
-    &:empty {
-        display: none;
-    }
+	&:empty {
+		display: none;
+	}
 
-    > .cosmo-button {
-        border-left-width: var(--button-border-width);
-    }
+	> .cosmo-button {
+		border-left-width: var(--button-border-width);
+	}
 
-    .cosmo-button:last-of-type {
-        --button-color: var(--white);
-        --button-background: var(--message-accent-color);
-        --button-border-color: var(--message-accent-color);
-    }
+	.cosmo-button:last-of-type {
+		--button-color: var(--white);
+		--button-background: var(--message-accent-color);
+		--button-border-color: var(--message-accent-color);
+	}
 
-    .cosmo-button:last-of-type:not(:disabled):hover,
-    .cosmo-button:last-of-type:not(:disabled):focus {
-        --button-border-color: var(--message-accent-color-light);
-        --button-background: var(--message-accent-color-light);
-    }
+	.cosmo-button:last-of-type:not(:disabled):hover,
+	.cosmo-button:last-of-type:not(:disabled):focus {
+		--button-border-color: var(--message-accent-color-light);
+		--button-background: var(--message-accent-color-light);
+	}
 
-    .cosmo-button:last-of-type:not(:disabled):active {
-        --button-border-color: var(--message-accent-color-lighter);
-        --button-background: var(--message-accent-color-lighter);
-    }
+	.cosmo-button:last-of-type:not(:disabled):active {
+		--button-border-color: var(--message-accent-color-lighter);
+		--button-background: var(--message-accent-color-lighter);
+	}
 
-    .is--dark {
-        .cosmo-button:last-of-type {
-            --button-color: var(--black);
-        }
+	.is--dark {
+		.cosmo-button:last-of-type {
+			--button-color: var(--black);
+		}
 
-        .cosmo-button:last-of-type:not(:disabled):hover,
-        .cosmo-button:last-of-type:not(:disabled):focus {
-            --button-border-color: var(--primary-color-dark);
-            --button-background: var(--primary-color-dark);
-        }
+		.cosmo-button:last-of-type:not(:disabled):hover,
+		.cosmo-button:last-of-type:not(:disabled):focus {
+			--button-border-color: var(--primary-color-dark);
+			--button-background: var(--primary-color-dark);
+		}
 
-        .cosmo-button:last-of-type:not(:disabled):active {
-            --button-border-color: var(--primary-color-darker);
-            --button-background: var(--primary-color-darker);
-        }
-    }
+		.cosmo-button:last-of-type:not(:disabled):active {
+			--button-border-color: var(--primary-color-darker);
+			--button-background: var(--primary-color-darker);
+		}
+	}
 
-    @media screen and (prefers-color-scheme: dark) {
-        .cosmo-button:last-of-type {
-            --button-color: var(--black);
-        }
+	@media screen and (prefers-color-scheme: dark) {
+		.cosmo-button:last-of-type {
+			--button-color: var(--black);
+		}
 
-        .cosmo-button:last-of-type:not(:disabled):hover,
-        .cosmo-button:last-of-type:not(:disabled):focus {
-            --button-border-color: var(--primary-color-dark);
-            --button-background: var(--primary-color-dark);
-        }
+		.cosmo-button:last-of-type:not(:disabled):hover,
+		.cosmo-button:last-of-type:not(:disabled):focus {
+			--button-border-color: var(--primary-color-dark);
+			--button-background: var(--primary-color-dark);
+		}
 
-        .cosmo-button:last-of-type:not(:disabled):active {
-            --button-border-color: var(--primary-color-darker);
-            --button-background: var(--primary-color-darker);
-        }
+		.cosmo-button:last-of-type:not(:disabled):active {
+			--button-border-color: var(--primary-color-darker);
+			--button-background: var(--primary-color-darker);
+		}
 
-        .is--light {
-            .cosmo-button:last-of-type {
-                --button-color: var(--black);
-            }
+		.is--light {
+			.cosmo-button:last-of-type {
+				--button-color: var(--black);
+			}
 
-            .cosmo-button:last-of-type:not(:disabled):hover,
-            .cosmo-button:last-of-type:not(:disabled):focus {
-                --button-border-color: var(--primary-color-dark);
-                --button-background: var(--primary-color-dark);
-            }
+			.cosmo-button:last-of-type:not(:disabled):hover,
+			.cosmo-button:last-of-type:not(:disabled):focus {
+				--button-border-color: var(--primary-color-dark);
+				--button-background: var(--primary-color-dark);
+			}
 
-            .cosmo-button:last-of-type:not(:disabled):active {
-                --button-border-color: var(--primary-color-darker);
-                --button-background: var(--primary-color-darker);
-            }
-        }
-    }
+			.cosmo-button:last-of-type:not(:disabled):active {
+				--button-border-color: var(--primary-color-darker);
+				--button-background: var(--primary-color-darker);
+			}
+		}
+	}
 }
