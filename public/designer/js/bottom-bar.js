@@ -126,11 +126,7 @@ Alpine.data('indexBottomBarData', () => ({
     await fileDatabase.queueFilesForUpload(
       [...Alpine.raw(this.uploadMultipleFiles.files)].map((file) => ({
         data: file,
-        name: file.name.split('.')
-          .reverse()
-          .slice(1)
-          .reverse()
-          .join('.'),
+        name: file.name.split('.').reverse().slice(1).reverse().join('.'),
         tags: [...tags],
         folderId: this.uploadMultipleFiles.selectedFolderId,
       })),
@@ -139,85 +135,74 @@ Alpine.data('indexBottomBarData', () => ({
   },
   async init() {
     this.tags = await mediaDatabase.getAllTags();
-    mediaDatabase.watchTags()
-      .subscribe({ next: (tags) => (this.tags = tags) });
+    mediaDatabase.watchTags().subscribe({ next: (tags) => (this.tags = tags) });
 
-    fileDatabase.watchUploadedFilesCount()
-      .subscribe({
-        next: ({ value: count }) => {
-          this.upload.filesUploaded = count;
-        },
-      });
-    fileDatabase.watchUploadingFilesCount()
-      .subscribe({
-        next: ({ value: count }) => {
-          this.upload.filesToUpload = count;
-        },
-      });
-    fileDatabase.watchUploadError()
-      .subscribe({
-        next: async ({
-                       value: {
-                         error,
-                         name,
-                       },
-                     }) => {
-          if (!error) {
-            return;
-          }
+    fileDatabase.watchUploadedFilesCount().subscribe({
+      next: ({ value: count }) => {
+        this.upload.filesUploaded = count;
+      },
+    });
+    fileDatabase.watchUploadingFilesCount().subscribe({
+      next: ({ value: count }) => {
+        this.upload.filesToUpload = count;
+      },
+    });
+    fileDatabase.watchUploadError().subscribe({
+      next: async ({ value: { error, name } }) => {
+        if (!error) {
+          return;
+        }
 
-          let errorMessage = '';
+        let errorMessage = '';
 
-          if (error.status === 409) {
-            errorMessage = localize({
-              key: 'bottom_bar.error.conflict',
-              values: { name },
-            });
-          } else {
-            console.error(error);
-            errorMessage = localize({
-              key: 'bottom_bar.error.generic',
-              values: { name },
-            });
-          }
-
-          if (Notification.permission === 'granted') {
-            new Notification('Jinya CMS Designer', {
-              icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2RiNTA0YSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjEwIi8+PHBhdGggZD0ibTE1IDktNiA2Ii8+PHBhdGggZD0ibTkgOSA2IDYiLz48L3N2Zz4=',
-              tag: 'jinya-cms-upload',
-              body: errorMessage,
-            });
-          } else {
-            this.upload.errorMessage = errorMessage;
-          }
-        },
-      });
-    fileDatabase.watchCurrentUpload()
-      .subscribe({
-        next: ({ value: name }) => {
-          this.upload.status = localize({
-            key: 'bottom_bar.status',
+        if (error.status === 409) {
+          errorMessage = localize({
+            key: 'bottom_bar.error.conflict',
             values: { name },
           });
-        },
-      });
-    fileDatabase.watchRecentUpload()
-      .subscribe({
-        next: ({ value: name }) => {
-          if (!name) {
-            return;
-          }
-
-          new Notification('Jinya CMS Designer', {
-            icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzRjOWY3MCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik00IDE0Ljg5OUE3IDcgMCAxIDEgMTUuNzEgOGgxLjc5YTQuNSA0LjUgMCAwIDEgMi41IDguMjQyIi8+PHBhdGggZD0iTTEyIDEydjkiLz48cGF0aCBkPSJtMTYgMTYtNC00LTQgNCIvPjwvc3ZnPg==',
-            tag: 'jinya-cms-upload',
-            body: localize({
-              key: 'bottom_bar.upload.success',
-              values: { name },
-            }),
+        } else {
+          console.error(error);
+          errorMessage = localize({
+            key: 'bottom_bar.error.generic',
+            values: { name },
           });
-        },
-      });
+        }
+
+        if (Notification.permission === 'granted') {
+          new Notification('Jinya CMS Designer', {
+            icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2RiNTA0YSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjEwIi8+PHBhdGggZD0ibTE1IDktNiA2Ii8+PHBhdGggZD0ibTkgOSA2IDYiLz48L3N2Zz4=',
+            tag: 'jinya-cms-upload',
+            body: errorMessage,
+          });
+        } else {
+          this.upload.errorMessage = errorMessage;
+        }
+      },
+    });
+    fileDatabase.watchCurrentUpload().subscribe({
+      next: ({ value: name }) => {
+        this.upload.status = localize({
+          key: 'bottom_bar.status',
+          values: { name },
+        });
+      },
+    });
+    fileDatabase.watchRecentUpload().subscribe({
+      next: ({ value: name }) => {
+        if (!name) {
+          return;
+        }
+
+        new Notification('Jinya CMS Designer', {
+          icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzRjOWY3MCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik00IDE0Ljg5OUE3IDcgMCAxIDEgMTUuNzEgOGgxLjc5YTQuNSA0LjUgMCAwIDEgMi41IDguMjQyIi8+PHBhdGggZD0iTTEyIDEydjkiLz48cGF0aCBkPSJtMTYgMTYtNC00LTQgNCIvPjwvc3ZnPg==',
+          tag: 'jinya-cms-upload',
+          body: localize({
+            key: 'bottom_bar.upload.success',
+            values: { name },
+          }),
+        });
+      },
+    });
   },
   tags: [],
   uploadMultipleFiles: {
@@ -226,11 +211,11 @@ Alpine.data('indexBottomBarData', () => ({
     selectedFolderId: null,
     selectedFolderName: null,
     get folderName() {
-      if (this.selectedFolderName){
+      if (this.selectedFolderName) {
         return this.selectedFolderName;
       }
 
-      return localize({key: 'media.files.upload_multiple_files.no_folder_selected'})
+      return localize({ key: 'media.files.upload_multiple_files.no_folder_selected' });
     },
     tags: new Set(),
     tagPopupOpen: false,
