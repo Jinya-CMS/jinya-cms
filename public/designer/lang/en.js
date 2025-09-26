@@ -535,7 +535,10 @@ export default {
       upload_multiple_files: {
         title: 'Upload files',
         files: 'Files',
+        folder: 'Folder',
         tags: 'Tags',
+        pick_folder: 'Choose folder…',
+        no_folder_selected: 'No folder selected',
         upload: 'Upload files',
         cancel: 'Cancel upload',
         n_files_selected: '{length} file(s) selected',
@@ -1745,6 +1748,11 @@ export default {
     },
     cache_cleared: 'The cache was cleared',
     cache_clear_failed: 'The cache could not be cleared',
+    pick_folder: {
+      title: 'Select folder',
+      pick: 'Select folder',
+      cancel: 'Cancel',
+    },
   },
   statistics: {
     menu: {
