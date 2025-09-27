@@ -1569,6 +1569,8 @@ export default {
         api_key_expiry: 'Zeit bis die API Keys ablaufen',
         update_server: 'Server für Updates',
         ip_database_url: 'URL für die IP Datenbank',
+        image_converter: 'Bildconverter',
+        imaginary_url: 'Imaginary Server',
       },
       update: {
         title: 'Konfiguration bearbeiten',

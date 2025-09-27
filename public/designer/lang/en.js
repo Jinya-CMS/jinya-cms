@@ -497,7 +497,7 @@ export default {
         create_folder: 'New folder',
       },
       path: {
-        home: 'Media'
+        home: 'Media',
       },
       delete_files: {
         title: 'Delete files',
@@ -1553,6 +1553,8 @@ export default {
         api_key_expiry: 'Timeout of API keys',
         update_server: 'Server for updates',
         ip_database_url: 'URL for the IP database',
+        image_converter: 'Converter for images',
+        imaginary_url: 'Server running imaginary',
       },
       update: {
         title: 'Update configuration',
