@@ -63,3 +63,4 @@ services:
       - jinya-mariadb-database
       - jinya-mariadb-test-database
       - jinya-mariadb-additional-database
+      - jinya-imaginary
