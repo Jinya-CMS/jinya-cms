@@ -1,5 +1,7 @@
 import { Alpine } from '../../lib/alpine.js';
-import PineconeRouter from '../../lib/pinecone-router.js';
+import PineconeRouter from '../../lib/plugins/pinecone-router.js';
+import Anchor from '../../lib/plugins/anchor.js';
+import Collapse from '../../lib/plugins/collapse.js';
 import { fetchScript, needsAdmin, needsLogin, needsLogout } from './foundation/utils/router.js';
 import localize from './foundation/utils/localize.js';
 import { getMyProfile } from './foundation/api/my-jinya.js';
@@ -18,6 +20,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const fileDatabase = getFileDatabase();
   window.Alpine = Alpine;
 
+  Alpine.plugin(Anchor);
+  Alpine.plugin(Collapse);
   Alpine.plugin(PineconeRouter);
 
   Alpine.directive('localize', (el, { value, expression, modifiers }, { evaluateLater, effect }) => {

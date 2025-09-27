@@ -17,7 +17,7 @@
     "designer:eslint": "eslint -c eslint.config.cjs public/designer/js/ public/designer/lang/",
     "designer:stylelint": "stylelint public/designer/**/*.css",
     "designer:format": "prettier public/designer/js --write",
-    "designer:lint": "bun run designer:prettier && bun run designer:eslint && designer:stylelint",
+    "designer:lint": "bun run designer:prettier && bun run designer:eslint && bun run designer:stylelint",
     "installer:prettier": "prettier public/installer --check",
     "installer:eslint": "eslint -c eslint.config.cjs public/installer/",
     "installer:stylelint": "stylelint public/installer/**/*.css --fix",
@@ -25,12 +25,12 @@
   },
   "homepage": "https://jinya.de",
   "devDependencies": {
-    "@eslint/js": "9",
-    "eslint": "9",
-    "eslint-config-prettier": "10",
-    "globals": "16",
-    "prettier": "3",
-    "stylelint": "16",
-    "stylelint-config-standard": "38"
+    "@eslint/js": "^9.36.0",
+    "eslint": "^9.36.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^16.4.0",
+    "prettier": "^3.6.2",
+    "stylelint": "^16.24.0",
+    "stylelint-config-standard": "^38.0.0"
   }
 }

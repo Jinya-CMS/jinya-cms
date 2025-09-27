@@ -64,4 +64,6 @@ phpunit:
         - ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/library/mariadb:lts
   rules:
     - if: '$JINYA_SKIP_TESTS == null || $JINYA_SKIP_TESTS == ""'
+      changes:
+        - "**/*.php"
       when: on_success
