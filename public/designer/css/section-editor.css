@@ -32,9 +32,15 @@
     opacity: 0.4;
     transform: translateY(-1.5rem) rotate(-45deg);
     border-bottom-right-radius: 0;
+    transition: transform 0.3s;
 
     &:hover {
         opacity: 1;
+    }
+
+    &.is--open {
+        opacity: 1;
+        transform: translateY(-1.5rem) rotate(45deg);
     }
 
     &.is--last {
@@ -101,28 +107,13 @@
 }
 
 .jinya-section-type-popup {
-    opacity: 0;
     background: none;
     position: sticky;
     display: flex;
     gap: 1rem;
     flex-flow: column;
     transition: opacity 0.3s;
-
-    &.is--open {
-        opacity: 1;
-    }
-
-    &.is--up {
-        position: fixed;
-        bottom: 11rem;
-    }
-
-    &.is--down {
-        position: fixed;
-        margin-top: 1.5rem;
-        bottom: unset;
-    }
+    margin-top: 1rem;
 }
 
 figcaption.jinya-section-editor__caption.is--file {
