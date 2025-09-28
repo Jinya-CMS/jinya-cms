@@ -222,8 +222,8 @@ class BlogPost extends Entity implements JsonSerializable
             $body = [
                 'post' => $this->format(),
                 'url' => $url->getScheme() . '://' . $url->getHost() . '/' . $this->createdAt->format(
-                        'Y/m/d'
-                    ) . "/$this->slug",
+                    'Y/m/d'
+                ) . "/$this->slug",
             ];
 
             try {

@@ -2,7 +2,6 @@
 
 namespace Jinya\Cms\Configuration;
 
-use Countable;
 use Jinya\Configuration\Adapter\AdapterInterface;
 use Jinya\Database\Entity;
 use Throwable;

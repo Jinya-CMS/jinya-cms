@@ -3,7 +3,6 @@
 namespace Jinya\Cms\Messaging;
 
 use Jinya\Cms\Database\Form;
-use Jinya\Cms\Database\FormItem;
 use Jinya\Cms\Mailing\Factory\MailerFactory;
 use Jinya\Cms\Theming\Engine;
 use Jinya\Plates\Engine as PlatesEngine;
