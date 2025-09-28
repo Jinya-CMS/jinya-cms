@@ -222,8 +222,8 @@ class BlogPost extends Entity implements JsonSerializable
             $body = [
                 'post' => $this->format(),
                 'url' => $url->getScheme() . '://' . $url->getHost() . '/' . $this->createdAt->format(
-                    'Y/m/d'
-                ) . "/$this->slug",
+                        'Y/m/d'
+                    ) . "/$this->slug",
             ];
 
             try {
@@ -402,9 +402,8 @@ class BlogPost extends Entity implements JsonSerializable
         $this->lastUpdatedAt = new DateTime();
         $this->updatedById = CurrentUser::$currentUser->id;
 
-        /** @var BlogPost $oldState */
         $oldState = self::findById($this->id);
-        $wasPublic = $oldState->public;
+        $wasPublic = $oldState->public ?? false;
         parent::update();
         if ($wasPublic === false && ($this->public ?? false)) {
             $this->executeHook();

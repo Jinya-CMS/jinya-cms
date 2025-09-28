@@ -72,7 +72,7 @@ readonly class NewSavedDeviceMail
 
         $mailer = MailerFactory::getMailer();
         $mailer->Subject = 'New-saved device for your account';
-        /** @phpstan-ignore-next-line */
+        /** @phpstan-ignore argument.type */
         $mailer->setFrom(JinyaConfiguration::getConfiguration()->get("from", "mailer"));
         $mailer->addAddress($artistEmail);
         $mailer->AltBody = $renderedTextMail;

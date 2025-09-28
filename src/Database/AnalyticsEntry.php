@@ -135,7 +135,6 @@ class AnalyticsEntry extends Entity implements JsonSerializable
         ?int $id = null,
         bool $uniqueOnly = false,
     ): array {
-        $groupEscaped = self::getPDO()->quote($group);
         $groupColumns = match ($group) {
             'os' => ['operating_system'],
             'os-version' => ['operating_system', 'operating_system_version'],
@@ -144,13 +143,10 @@ class AnalyticsEntry extends Entity implements JsonSerializable
             'date' => ['timestamp'],
             default => [$group],
         };
-        $groupColumnsImploded = implode(', ', $groupColumns);
         if (array_key_exists(1, $groupColumns)) {
             $groupColumnsForName = "concat_ws(' ', $groupColumns[0], $groupColumns[1])";
-        } elseif (count($groupColumns) === 1) {
-            $groupColumnsForName = $groupColumns[0];
         } else {
-            $groupColumnsForName = '';
+            $groupColumnsForName = $groupColumns[0];
         }
         $select = self::getQueryBuilder()
             ->newSelect()

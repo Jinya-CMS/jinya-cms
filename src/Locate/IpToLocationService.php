@@ -110,7 +110,7 @@ readonly class IpToLocationService
             /** @var array{'city': string, 'country': string}[] $result */
             $result = Entity::executeQuery($query);
 
-            if (is_array($result) && !empty($result)) {
+            if (!empty($result)) {
                 return $result[0];
             }
         }
