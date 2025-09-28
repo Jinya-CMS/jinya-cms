@@ -2,16 +2,15 @@
 
 namespace Jinya\Cms\Configuration;
 
-use Countable;
 use Jinya\Configuration\Adapter\AdapterInterface;
 use Jinya\Database\Entity;
 use Throwable;
 
 class DatabaseConfigurationAdapter implements AdapterInterface
 {
-    private const TYPE_STRING = 0;
-    private const TYPE_INTEGER = 1;
-    private const TYPE_BOOLEAN = 2;
+    private const int TYPE_STRING = 0;
+    private const int TYPE_INTEGER = 1;
+    private const int TYPE_BOOLEAN = 2;
 
     /**
      * @inheritDoc
@@ -84,7 +83,7 @@ class DatabaseConfigurationAdapter implements AdapterInterface
             ->from('jinya_configuration')
             ->where('`key` = ? AND `group` = ?', [$key, $group]);
 
-        /** @var Countable $count */
+        /** @var array{'key': string, 'group': string, 'value': string}[] $count */
         $count = Entity::executeQuery($query);
         $row = ['key' => $key, 'group' => $group, 'value' => (string)$value];
         if (is_int($value)) {

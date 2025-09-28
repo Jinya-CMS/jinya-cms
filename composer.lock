@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fc086e64a9fe8eae14d176a680aea42a",
+    "content-hash": "a00769ea3261507b2df3e3ce9136545c",
     "packages": [
         {
             "name": "asika/agent",
@@ -5284,7 +5284,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.3",
+        "php": ">=8.4",
         "ext-date": "*",
         "ext-fileinfo": "*",
         "ext-imagick": "*",

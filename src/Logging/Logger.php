@@ -20,13 +20,13 @@ abstract class Logger
     public static function getLogger(): LoggerInterface
     {
         $path = isset($_ENV['DOCKER']) ? 'php://stdout' : __JINYA_LOGS . '/app.log';
-        /** @var 100|200|250|300|400|500|550|600|'ALERT'|'alert'|'CRITICAL'|'critical'|'DEBUG'|'debug'|'EMERGENCY'|'emergency'|'ERROR'|'error'|'INFO'|'info'|'NOTICE'|'notice'|'WARNING'|'warning' $level */
         $level = getenv('LOGLEVEL') ?: LogLevel::INFO;
         $logger = new \Monolog\Logger('jinya-cms');
 
         $processor = new UidProcessor();
         $logger->pushProcessor($processor);
 
+        /** @phpstan-ignore argument.type */
         $handler = new StreamHandler($path, $level);
         $logger->pushHandler($handler);
 

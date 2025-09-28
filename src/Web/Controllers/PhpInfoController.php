@@ -68,13 +68,13 @@ class PhpInfoController extends BaseController
             PREG_SET_ORDER
         )) {
             foreach ($matches as $match) {
-                // @phpstan-ignore-next-line This is fine; we know it exists
+                // @phpstan-ignore offsetAccess.notFound (This is fine; we know it exists)
                 if ($match[1] !== '') {
                     $phpinfo[$match[1]] = [];
-                    // @phpstan-ignore-next-line This is fine; we know it exists
+                    // @phpstan-ignore offsetAccess.notFound (This is fine; we know it exists)
                 } elseif (isset($match[3]) && $plainText($match[2]) !== 'Directive') {
                     $keys1 = array_keys($phpinfo);
-                    // @phpstan-ignore-next-line This is fine; we know it exists
+                    // @phpstan-ignore offsetAccess.notFound (This is fine; we know it exists)
                     $phpinfo[end($keys1)][$plainText($match[2])] = $plainText($match[3]);
                 }
             }
@@ -82,10 +82,6 @@ class PhpInfoController extends BaseController
 
         $cleanedInfo = ['extensions' => []];
         foreach ($phpinfo as $groupKey => $group) {
-            if (!is_array($group)) {
-                continue;
-            }
-
             $iniValues = [];
             $configuration = [];
             foreach ($group as $key => $value) {

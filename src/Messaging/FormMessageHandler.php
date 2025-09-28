@@ -3,7 +3,6 @@
 namespace Jinya\Cms\Messaging;
 
 use Jinya\Cms\Database\Form;
-use Jinya\Cms\Database\FormItem;
 use Jinya\Cms\Mailing\Factory\MailerFactory;
 use Jinya\Cms\Theming\Engine;
 use Jinya\Plates\Engine as PlatesEngine;
@@ -44,7 +43,6 @@ readonly class FormMessageHandler
         $isSpam = false;
         $fromAddress = 'Some person';
         foreach ($form->getItems() as $item) {
-            /** @var $item FormItem */
             if ($item->isRequired && !array_key_exists($item->id, $body)) {
                 $missingFields[] = $item->label;
                 continue;
