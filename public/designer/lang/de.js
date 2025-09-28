@@ -531,12 +531,23 @@ export default {
       },
       delete_folders: {
         title: 'Ordner löschen',
-        message: 'Willst du die gewählten {count} Ordner wirklich löschen?<br>Alle Dateien und Ordner in dem Ordner werden auch gelöscht.',
+        message: 'Willst du die gewählten {count} Ordner wirklich löschen?',
         approve: 'Ordner löschen',
         decline: 'Ordner behalten',
         error: {
           title: 'Löschen fehlgeschlagen',
           message: '{count} Ordner konnten nicht gelöscht werden, bitte versuche sie einzeln zu löschen.',
+        },
+        move_files: {
+          title: 'Dateien verschieben',
+          message: 'Du bist dabei {count} Ordner zu löschen?<br>Möchtest du die enthaltenen Dateien verschieben?',
+          approve: 'Dateien verschieben',
+          decline: 'Dateien löschen',
+        },
+        move: {
+          title: 'Dateien und Ordner verschieben',
+          pick: 'Hierhin verschieben',
+          cancel: 'Abbrechen',
         },
       },
       upload_single_file: {

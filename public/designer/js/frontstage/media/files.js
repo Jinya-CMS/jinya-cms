@@ -406,14 +406,46 @@ Alpine.data('filesData', () => ({
     });
 
     if (confirmed) {
+      const moveFiles = await confirm({
+        title: localize({ key: 'media.files.delete_folders.move_files.title' }),
+        message: localize({
+          key: 'media.files.delete_folders.move_files.message',
+          values: { count: folderCount },
+        }),
+        declineLabel: localize({ key: 'media.files.delete_folders.move_files.decline' }),
+        approveLabel: localize({ key: 'media.files.delete_folders.move_files.approve' }),
+      });
+
+      if (moveFiles) {
+        const targetFolder = await folderPicker({
+          title: localize({
+            key: 'media.files.delete_folders.move.title',
+          }),
+          ignoredFolders: [...this.selectedFolders],
+          cancelLabel: localize({ key: 'media.files.delete_folders.move.cancel' }),
+          pickLabel: localize({ key: 'media.files.delete_folders.move.pick' }),
+        });
+
+        if (targetFolder !== null) {
+          const promises = [];
+          for (const folderId of this.selectedFolders) {
+            const folders = await mediaDatabase.getFoldersByFolderId(folderId);
+            const files = await mediaDatabase.getFilesByFolderId(folderId);
+            promises.push(...files.map(async (file) => await moveFile(file.id, targetFolder.id)));
+            promises.push(...folders.map(async (folder) => await moveFolder(folder.id, targetFolder.id)));
+          }
+          await Promise.all(promises);
+        }
+      }
+
       try {
         const promises = [...this.selectedFolders].map(async (folderId) => {
           const folder = this.allFolders.find((f) => f.id === folderId);
           await deleteFolder(folder.id);
-          await mediaDatabase.deleteFolder(folder.id);
         });
-        await Promise.all(promises);
         this.selectedFolders.clear();
+        await Promise.all(promises);
+        await mediaDatabase.cacheMedia();
       } catch (e) {
         await alert({
           title: localize({ key: 'media.files.delete_folders.error.title' }),
