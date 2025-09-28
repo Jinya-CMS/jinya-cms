@@ -2,7 +2,6 @@ import { getFileDatabase } from '../../foundation/database/file.js';
 import { getMediaDatabase } from '../../foundation/database/media.js';
 import { createFile } from '../../foundation/api/files.js';
 
-let subscription;
 let fileDatabase;
 let mediaDatabase;
 
@@ -21,26 +20,32 @@ async function uploadFile({ id, name, tags, folderId, data }) {
   }
 }
 
-function subscribe() {
-  subscription = fileDatabase.watchPendingUploads().subscribe({
-    next: async (files) => {
-      subscription.unsubscribe();
-      for (const file of files) {
-        await uploadFile(file);
-      }
-      subscribe();
-    },
-  });
+async function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-onmessage = (event) => {
+async function worker() {
+  let currentUploadCount = 0;
+
+  while (true) {
+    const nextUpload = await fileDatabase.getNextUpload();
+    if (!nextUpload || currentUploadCount === 10) {
+      await sleep(10);
+      continue;
+    }
+
+    currentUploadCount += 1;
+    uploadFile(nextUpload).then(() => {
+      currentUploadCount -= 1;
+    });
+  }
+}
+
+onmessage = async (event) => {
   if (event.data?.verb === 'subscribe') {
     fileDatabase = getFileDatabase();
     mediaDatabase = getMediaDatabase();
-    if (subscription) {
-      subscription.unsubscribe();
-    }
 
-    subscribe();
+    await worker();
   }
 };
