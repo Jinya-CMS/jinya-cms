@@ -167,6 +167,10 @@ class FolderPickerElement extends HTMLElement {
           min-width: 10rem;
           min-height: 10rem;
         }
+        
+        .cosmo-modal.is--folder-picker {
+          max-width: 80vw;
+        }
       </style>
       <div class="cosmo-modal is--folder-picker">
         <h1 class="cosmo-modal__title">${this.title}</h1>

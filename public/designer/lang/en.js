@@ -511,12 +511,23 @@ export default {
       },
       delete_folders: {
         title: 'Delete folders',
-        message: 'Do you really want to delete the selected {count} folders?<br>All files and folders inside the folder will be deleted too.',
+        message: 'Do you really want to delete the selected {count} folders?',
         approve: 'Delete folders',
         decline: 'Keep folders',
         error: {
           title: 'Delete failed',
           message: '{count} folders could not be deleted, please try deleting them one by one.',
+        },
+        move_files: {
+          title: 'Move files before delete',
+          message: 'You are about to delete {count} folders<br/>Do you want to move the files inside them?',
+          approve: 'Move files',
+          decline: 'Delete files',
+        },
+        move: {
+          title: 'Move files and folders',
+          pick: 'Move here',
+          cancel: 'Cancel',
         },
       },
       upload_single_file: {

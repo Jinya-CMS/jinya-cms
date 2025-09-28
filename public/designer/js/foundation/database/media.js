@@ -4,11 +4,12 @@ import { getRootFolder } from '../api/media.js';
 class MediaDatabase {
   constructor() {
     this.#database = new Dexie('media');
-    this.#database.version(1).stores({
-      files: '++id,name,folderId',
-      folders: '++id,name,parentId',
-      tags: '++id,name',
-    });
+    this.#database.version(1)
+      .stores({
+        files: '++id,name,folderId',
+        folders: '++id,name,parentId',
+        tags: '++id,name',
+      });
 
     this.replaceMedia = this.replaceMedia.bind(this);
   }
@@ -89,7 +90,9 @@ class MediaDatabase {
    */
   watchFolders(parentId = null) {
     if (parentId !== null) {
-      return liveQuery(() => this.#database.folders.where('parentId').equals(parentId).sortBy('name'));
+      return liveQuery(() => this.#database.folders.where('parentId')
+        .equals(parentId)
+        .sortBy('name'));
     }
 
     return liveQuery(() => this.#database.folders.toArray());
@@ -100,14 +103,25 @@ class MediaDatabase {
    * @returns {Observable}
    */
   watchFiles(folderId) {
-    return liveQuery(() => this.#database.files.where('folderId').equals(folderId).sortBy('name'));
+    return liveQuery(() => this.#database.files.where('folderId')
+      .equals(folderId)
+      .sortBy('name'));
   }
 
   /**
    * @returns {Observable}
    */
   watchTags() {
-    return liveQuery(() => this.#database.tags.orderBy('name').toArray());
+    return liveQuery(() => this.#database.tags.orderBy('name')
+      .toArray());
+  }
+
+  async getFilesByFolderId(id) {
+    await this.#openIfClosed();
+
+    return await this.#database.files.where('folderId')
+      .equals(id)
+      .toArray();
   }
 
   async getFileById(id) {
@@ -116,6 +130,13 @@ class MediaDatabase {
     return await this.#database.files.get(id);
   }
 
+  async getFoldersByFolderId(id) {
+    await this.#openIfClosed();
+
+    return await this.#database.folders.where('parentId')
+      .equals(id)
+      .toArray();
+  }
   async getFolderById(id) {
     await this.#openIfClosed();
 
