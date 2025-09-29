@@ -485,6 +485,7 @@ export default {
       action: {
         upload_single_file: 'Upload single file',
         upload_multiple_file: 'Upload multiple files',
+        upload_folder: 'Upload folder',
         delete_multiple_files: 'Delete selected files',
         delete_multiple_folders: 'Delete selected folders',
         delete_file: 'Delete',
@@ -550,6 +551,14 @@ export default {
         tags: 'Tags',
         pick_folder: 'Choose folder…',
         no_folder_selected: 'No folder selected',
+        upload: 'Upload files',
+        cancel: 'Cancel upload',
+        n_files_selected: '{length} file(s) selected',
+      },
+      upload_folder: {
+        title: 'Upload folder',
+        files: 'Files',
+        tags: 'Tags',
         upload: 'Upload files',
         cancel: 'Cancel upload',
         n_files_selected: '{length} file(s) selected',
