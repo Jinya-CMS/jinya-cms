@@ -485,6 +485,7 @@ export default {
       action: {
         upload_single_file: 'Upload single file',
         upload_multiple_file: 'Upload multiple files',
+        upload_folder: 'Upload folder',
         delete_multiple_files: 'Delete selected files',
         delete_multiple_folders: 'Delete selected folders',
         delete_file: 'Delete',
@@ -497,7 +498,7 @@ export default {
         create_folder: 'New folder',
       },
       path: {
-        home: 'Media'
+        home: 'Media',
       },
       delete_files: {
         title: 'Delete files',
@@ -511,12 +512,23 @@ export default {
       },
       delete_folders: {
         title: 'Delete folders',
-        message: 'Do you really want to delete the selected {count} folders?<br>All files and folders inside the folder will be deleted too.',
+        message: 'Do you really want to delete the selected {count} folders?',
         approve: 'Delete folders',
         decline: 'Keep folders',
         error: {
           title: 'Delete failed',
           message: '{count} folders could not be deleted, please try deleting them one by one.',
+        },
+        move_files: {
+          title: 'Move files before delete',
+          message: 'You are about to delete {count} folders<br/>Do you want to move the files inside them?',
+          approve: 'Move files',
+          decline: 'Delete files',
+        },
+        move: {
+          title: 'Move files and folders',
+          pick: 'Move here',
+          cancel: 'Cancel',
         },
       },
       upload_single_file: {
@@ -534,6 +546,17 @@ export default {
       },
       upload_multiple_files: {
         title: 'Upload files',
+        files: 'Files',
+        folder: 'Folder',
+        tags: 'Tags',
+        pick_folder: 'Choose folder…',
+        no_folder_selected: 'No folder selected',
+        upload: 'Upload files',
+        cancel: 'Cancel upload',
+        n_files_selected: '{length} file(s) selected',
+      },
+      upload_folder: {
+        title: 'Upload folder',
         files: 'Files',
         tags: 'Tags',
         upload: 'Upload files',
@@ -1550,6 +1573,8 @@ export default {
         api_key_expiry: 'Timeout of API keys',
         update_server: 'Server for updates',
         ip_database_url: 'URL for the IP database',
+        image_converter: 'Converter for images',
+        imaginary_url: 'Server running imaginary',
       },
       update: {
         title: 'Update configuration',
@@ -1745,6 +1770,11 @@ export default {
     },
     cache_cleared: 'The cache was cleared',
     cache_clear_failed: 'The cache could not be cleared',
+    pick_folder: {
+      title: 'Select folder',
+      pick: 'Select folder',
+      cancel: 'Cancel',
+    },
   },
   statistics: {
     menu: {

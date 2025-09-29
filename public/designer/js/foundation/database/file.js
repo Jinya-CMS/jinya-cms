@@ -46,7 +46,6 @@ class FileDatabase {
     this.watchUploadingFilesCount = this.watchUploadingFilesCount.bind(this);
     this.watchUploadedFilesCount = this.watchUploadedFilesCount.bind(this);
     this.watchCurrentUpload = this.watchCurrentUpload.bind(this);
-    this.watchPendingUploads = this.watchPendingUploads.bind(this);
     this.watchUploadError = this.watchUploadError.bind(this);
   }
 
@@ -110,11 +109,10 @@ class FileDatabase {
     });
   }
 
-  /**
-   * @returns {Observable}
-   */
-  watchPendingUploads() {
-    return liveQuery(() => this.#database.uploadQueue.where({ state: STATE_PENDING }).toArray());
+  async getNextUpload() {
+    await this.#openIfClosed();
+
+    return await this.#database.uploadQueue.where({ state: STATE_PENDING }).limit(1).first();
   }
 
   watchUploadedFilesCount() {

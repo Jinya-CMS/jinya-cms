@@ -8,6 +8,7 @@ import alert from './foundation/ui/alert.js';
 import { clearCache } from './foundation/api/cache.js';
 import { getMediaDatabase } from './foundation/database/media.js';
 import { getFileDatabase } from './foundation/database/file.js';
+import folderPicker from './foundation/ui/folderPicker.js';
 
 const mediaDatabase = getMediaDatabase();
 const fileDatabase = getFileDatabase();
@@ -51,7 +52,18 @@ Alpine.data('indexBottomBarData', () => ({
     this.uploadMultipleFiles.error.reset();
     this.uploadMultipleFiles.open = true;
     this.uploadMultipleFiles.files = [];
+    this.uploadMultipleFiles.selectedFolderId = null;
     this.uploadMultipleFiles.tags = new Set();
+  },
+  async pickFolder() {
+    const folder = await folderPicker({
+      title: localize({ key: 'bottom_bar.pick_folder.title' }),
+      cancelLabel: localize({ key: 'bottom_bar.pick_folder.cancel' }),
+      pickLabel: localize({ key: 'bottom_bar.pick_folder.pick' }),
+      selectedFolderId: this.uploadMultipleFiles.selectedFolderId,
+    });
+    this.uploadMultipleFiles.selectedFolderId = folder?.id;
+    this.uploadMultipleFiles.selectedFolderName = folder?.name;
   },
   async clearCache() {
     const tag = 'jinya';
@@ -116,7 +128,7 @@ Alpine.data('indexBottomBarData', () => ({
         data: file,
         name: file.name.split('.').reverse().slice(1).reverse().join('.'),
         tags: [...tags],
-        folderId: null,
+        folderId: this.uploadMultipleFiles.selectedFolderId,
       })),
     );
     this.uploadMultipleFiles.open = false;
@@ -196,6 +208,15 @@ Alpine.data('indexBottomBarData', () => ({
   uploadMultipleFiles: {
     open: false,
     files: null,
+    selectedFolderId: null,
+    selectedFolderName: null,
+    get folderName() {
+      if (this.selectedFolderName) {
+        return this.selectedFolderName;
+      }
+
+      return localize({ key: 'media.files.upload_multiple_files.no_folder_selected' });
+    },
     tags: new Set(),
     tagPopupOpen: false,
     error: {

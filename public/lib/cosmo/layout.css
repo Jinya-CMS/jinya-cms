@@ -56,11 +56,12 @@ hr {
 .cosmo-page {
 	display: grid;
 	grid-template-rows:
-		[top-menu] var(--top-menu-height)
-        [main-menu] calc(var(--main-menu-height) + var(--menu-gap) + var(--sub-menu-height))
-		[top-spacing] var(--page-top-spacing)
-        [content] var(--page-height)
-        [bottom-spacing] var(--bottom-bar-spacing)
+		[top-menu] var(--top-menu-height) [main-menu] calc(
+			var(--main-menu-height) + var(--menu-gap) + var(--sub-menu-height)
+		)
+		[top-spacing] var(--page-top-spacing) [content] var(--page-height) [bottom-spacing] var(
+			--bottom-bar-spacing
+		)
 		[bottom-bar] var(--bottom-bar-height);
 }
 
@@ -193,7 +194,8 @@ hr {
 	margin-right: calc(var(--font-size-main-menu) / 2);
 }
 
-.cosmo-menu__row.is--main .cosmo-menu__item.is--active {
+.cosmo-menu__row.is--main .cosmo-menu__item.is--active,
+.cosmo-menu__row.is--main .cosmo-menu__item[aria-current] {
 	color: var(--menu-text-selected-color);
 }
 
@@ -206,7 +208,8 @@ hr {
 	color: var(--black);
 }
 
-.cosmo-menu__row.is--sub .cosmo-menu__item.is--active {
+.cosmo-menu__row.is--sub .cosmo-menu__item.is--active,
+.cosmo-menu__row.is--sub .cosmo-menu__item[aria-current] {
 	font-weight: var(--font-weight-sub-menu-active);
 }
 

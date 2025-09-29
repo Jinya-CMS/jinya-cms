@@ -1,10 +1,10 @@
 {
   "name": "jinya/cms",
-  "version": "26.0.12",
+  "version": "26.1.0",
   "homepage": "https://jinya.de",
   "license": "MIT",
   "require": {
-    "php": ">=8.3",
+    "php": ">=8.4",
     "ext-date": "*",
     "ext-fileinfo": "*",
     "ext-imagick": "*",
@@ -47,7 +47,7 @@
   "require-dev": {
     "roave/security-advisories": "dev-latest",
     "fakerphp/faker": "v1.24.1",
-    "laravel/pint": "v1.24.0"
+    "laravel/pint": "v1.25.1"
   },
   "config": {
     "process-timeout": 0,

@@ -37,6 +37,7 @@
 	--width-small: 15rem;
 	--width-medium: calc(var(--input-width-small) * 2);
 	--width-large: calc(var(--input-width-small) * 3);
+	--width-full: 100%;
 
 	--font-size: 1rem;
 	--font-weight-bold: bold;
@@ -225,7 +226,7 @@
 	--menu-text-selected-color: var(--black);
 	--disabled-color: var(--gray-darker);
 	--code-color: var(--gray-darker);
-	--gradient-bottom-color: var(--white);
+	--gradient-bottom-color: transparent;
 	--table-stripe-color: var(--gray-light);
 }
 

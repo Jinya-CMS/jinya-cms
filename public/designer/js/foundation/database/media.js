@@ -110,10 +110,22 @@ class MediaDatabase {
     return liveQuery(() => this.#database.tags.orderBy('name').toArray());
   }
 
+  async getFilesByFolderId(id) {
+    await this.#openIfClosed();
+
+    return await this.#database.files.where('folderId').equals(id).toArray();
+  }
+
   async getFileById(id) {
     await this.#openIfClosed();
 
     return await this.#database.files.get(id);
+  }
+
+  async getFoldersByFolderId(id) {
+    await this.#openIfClosed();
+
+    return await this.#database.folders.where('parentId').equals(id).toArray();
   }
 
   async getFolderById(id) {

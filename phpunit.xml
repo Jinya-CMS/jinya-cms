@@ -50,6 +50,7 @@
         <env name="MAILER_FROM" value="noreply@jinya.de"/>
         <env name="JINYA_API_KEY_EXPIRY" value="315360000"/>
         <env name="JINYA_UPDATE_SERVER" value="https://releases.jinya.de/cms"/>
+        <env name="JINYA_IMAGINARY_URL" value="http://jinya-imaginary:9000"/>
         <env name="INSTALLED_VERSION" value="phpunit"/>
     </php>
 </phpunit>

@@ -2,34 +2,23 @@ build-test-image:
   extends:
     - .build-image
   variables:
-    PACKAGE_VERSION: $LATEST_ALPHA_MINOR
+    PACKAGE_VERSION: $LATEST_ALPHA
     TRACK: $ALPHA_TRACK
     NO_PUSH: yes
   rules:
     - if: $CI_COMMIT_REF_PROTECTED == 'false'
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
-build-next-minor-image:
+build-alpha-image:
   extends:
     - .build-image
   variables:
-    PACKAGE_VERSION: $LATEST_ALPHA_MINOR
+    PACKAGE_VERSION: $LATEST_ALPHA
     TRACK: $ALPHA_TRACK
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
-    - if: $CI_COMMIT_BRANCH == $LATEST_ALPHA_MINOR_BRANCH
-
-build-next-major-image:
-  extends:
-    - .build-image
-  variables:
-    PACKAGE_VERSION: $LATEST_ALPHA_MAJOR
-    TRACK: $ALPHA_TRACK
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_COMMIT_BRANCH == $LATEST_ALPHA_MAJOR_BRANCH
+    - if: $CI_COMMIT_BRANCH == $LATEST_ALPHA_BRANCH
 
 build-beta-image:
   extends:
@@ -90,25 +79,15 @@ build-release-image:
       when: never
     - if: $CI_COMMIT_TAG
 
-deploy-next-minor-image:
+deploy-alpha-image:
   extends:
     - .deploy-image
   variables:
-    IMAGE_TAG_VERSION: $LATEST_ALPHA_MINOR
+    IMAGE_TAG_VERSION: $LATEST_ALPHA
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
-    - if: $CI_COMMIT_BRANCH == $LATEST_ALPHA_MINOR_BRANCH
-
-deploy-next-major-image:
-  extends:
-    - .deploy-image
-  variables:
-    IMAGE_TAG_VERSION: $LATEST_ALPHA_MAJOR
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_COMMIT_BRANCH == $LATEST_ALPHA_MAJOR_BRANCH
+    - if: $CI_COMMIT_BRANCH == $LATEST_ALPHA_BRANCH
 
 deploy-beta-image:
   extends:

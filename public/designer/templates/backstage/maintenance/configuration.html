@@ -48,6 +48,14 @@
     <dd x-text="configuration.jinya.update_server"></dd>
     <dt x-localize:maintenance-configuration-jinya-ip_database_url></dt>
     <dd x-text="configuration.jinya.ip_database_url"></dd>
+    <dt x-localize:maintenance-configuration-jinya-image_converter></dt>
+    <dd x-text="configuration.jinya.image_converter"></dd>
+    <template x-if="configuration.jinya.image_converter === 'imaginary'">
+      <div style="display: contents">
+        <dt x-localize:maintenance-configuration-jinya-imaginary_url></dt>
+        <dd x-text="configuration.jinya.imaginary_url"></dd>
+      </div>
+    </template>
   </dl>
   <template x-if="update.open">
     <form class="cosmo-modal__container" @submit.prevent="updateConfiguration">
@@ -146,6 +154,24 @@
                            x-localize:maintenance-configuration-jinya-ip_database_url></label>
                     <input x-model="update.configuration.jinya.ip_database_url" class="cosmo-input" type="text"
                            id="jinya_ip_database_url" required>
+                    <label class="cosmo-label" for="jinya_image_converter"
+                           x-localize:maintenance-configuration-jinya-image_converter></label>
+                    <select class="cosmo-select" id="jinya_image_converter" x-model="update.configuration.jinya.image_converter">
+                      <option :selected="update.configuration.jinya.image_converter === 'imagick'" value="imagick">
+                        Imagick
+                      </option>
+                      <option :selected="update.configuration.jinya.image_converter === 'imaginary'" value="imaginary">
+                        Imaginary
+                      </option>
+                    </select>
+                    <template x-if="update.configuration.jinya.image_converter === 'imaginary'">
+                      <div style="display: contents">
+                        <label class="cosmo-label" for="jinya_imaginary_url"
+                               x-localize:maintenance-configuration-jinya-imaginary_url></label>
+                        <input x-model="update.configuration.jinya.imaginary_url" class="cosmo-input" type="text"
+                               id="jinya_imaginary_url" required>
+                      </div>
+                    </template>
                   </div>
                 </template>
               </div>

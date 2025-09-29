@@ -1,5 +1,19 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 26.1.0
+
+### Breaking changes
+This release of Jinya CMS bumps the required version of PHP to 8.4
+
+- [JCMS-13](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=list&peekId=a4bceac3-de18-4359-b0db-ea868aed5474) Folders not refreshed after create
+- [JCMS-14](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=list&peekId=618be5d0-a091-4bc5-891a-e7f7f450b98b) Folder selection in global upload
+- [JCMS-16](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=list&peekId=e46b51d7-290c-48b0-958e-df7ca733eda4) Allow moving files on folder delete
+- [JCMS-17](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=list&peekId=58194dac-848f-43e9-906a-48958a9b90e1) Upload entire folder structure
+- [JCMS-20](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=list&peekId=a1b56fa0-8bd2-4668-b38a-b6183bea7b9f) Optional support for imaginary
+- [JCMS-22](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=list&peekId=969d005b-9dc0-4421-9477-0d8aca4c3053) Introduce alpine plugin
+- [JCMS-23](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=list&peekId=156ff26c-4642-4c97-a995-b2d1438f1414) PHP 8.4 update
+- [JCMS-25](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=list&peekId=5514d925-816c-4f9a-abc8-54bcf76a9335) Parallel uploads
+
 ## Release notes - Jinya CMS - Version 26.0.12
 Hotfix for editor image handling
 

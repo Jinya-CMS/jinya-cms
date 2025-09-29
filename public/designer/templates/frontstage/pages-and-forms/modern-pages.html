@@ -34,15 +34,16 @@
         </div>
         <template x-for="(section, index) in sections" :key="index">
           <div style="display: contents">
-            <div class="jinya-section-editor__button is--add" x-data="{ addOpen: false }">
-              <button class="cosmo-button is--circle is--primary is--add is--section"
-                      @click="addOpen = !addOpen">
+            <div class="jinya-section-editor__button is--add" x-data="{ addOpen: false, buttonId: $id('add-section') }">
+              <button class="cosmo-button is--circle is--primary is--add is--section" :class="{ 'is--open': addOpen }"
+                      :id="buttonId" @click="addOpen = !addOpen">
                 <svg class="jinya-icon is--add is--section" viewBox="0 0 24 24">
                   <path d="M5 12h14" />
                   <path d="M12 5v14" />
                 </svg>
               </button>
-              <div class="jinya-section-type-popup" :class="{ 'is--open': addOpen }">
+              <div class="jinya-section-type-popup" x-show="addOpen" x-anchor="document.getElementById(buttonId)"
+                   x-collapse>
                 <button class="cosmo-button is--circle is--primary is--icon" @click="() => {
                   addOpen = false;
                   insertImageSection(index);
@@ -143,8 +144,14 @@
           </div>
         </template>
         <div class="jinya-section-editor__button is--add is--last" x-data="{ addOpen: false }">
-          <div class="jinya-section-type-popup"
-               :class="{ 'is--open': addOpen, 'is--up': sections.length > 0, 'is--down': sections.length === 0 }">
+          <button class="cosmo-button is--circle is--primary is--add is--section" :class="{ 'is--open': addOpen }"
+                  @click="addOpen = !addOpen" x-ref="lastOpenAddButtons">
+            <svg class="jinya-icon is--add is--section" viewBox="0 0 24 24">
+              <path d="M5 12h14" />
+              <path d="M12 5v14" />
+            </svg>
+          </button>
+          <div class="jinya-section-type-popup" x-anchor="$refs.lastOpenAddButtons" x-show="addOpen" x-collapse>
             <button class="cosmo-button is--circle is--primary is--icon" @click="() => {
                   addOpen = false;
                   insertImageSection(sections.length);
@@ -180,12 +187,6 @@
               </svg>
             </button>
           </div>
-          <button class="cosmo-button is--circle is--primary is--add is--section" @click="addOpen = !addOpen">
-            <svg class="jinya-icon is--add is--section" viewBox="0 0 24 24">
-              <path d="M5 12h14" />
-              <path d="M12 5v14" />
-            </svg>
-          </button>
         </div>
       </div>
     </div>

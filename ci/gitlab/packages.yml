@@ -9,27 +9,16 @@ deploy-beta-package:
       when: never
     - if: $CI_COMMIT_BRANCH == $LATEST_BETA_BRANCH
 
-deploy-next-minor-package:
+deploy-alpha-package:
   extends:
     - .deploy-package
   variables:
-    PACKAGE_VERSION: $LATEST_ALPHA_MINOR
+    PACKAGE_VERSION: $LATEST_ALPHA
     TRACK: $ALPHA_TRACK
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
-    - if: $CI_COMMIT_BRANCH == $LATEST_ALPHA_MINOR_BRANCH
-
-deploy-next-major-package:
-  extends:
-    - .deploy-package
-  variables:
-    PACKAGE_VERSION: $LATEST_ALPHA_MAJOR
-    TRACK: $ALPHA_TRACK
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_COMMIT_BRANCH == $LATEST_ALPHA_MAJOR_BRANCH
+    - if: $CI_COMMIT_BRANCH == $LATEST_ALPHA_BRANCH
 
 deploy-release-package:
   extends:
