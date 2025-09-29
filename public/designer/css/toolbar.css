@@ -1,15 +1,11 @@
 /* stylelint-disable declaration-block-no-redundant-longhand-properties  */
 .jinya-dropdown-menu {
-    position: fixed;
     flex-flow: column;
     display: flex;
     box-sizing: border-box;
     border: 0.0625rem solid var(--control-border-color);
     border-radius: var(--border-radius);
-    top: var(--top);
-    right: var(--right);
-    left: var(--left);
-    bottom: var(--bottom);
+    border-top-left-radius: 0;
     background: var(--modal-background);
     backdrop-filter: var(--modal-backdrop-filter);
 }
@@ -19,12 +15,12 @@
 .cosmo-button.is--dropdown-item {
     border: none;
     border-top: 0.0625rem solid var(--control-border-color);
-    justify-content: end;
+    justify-content: start;
     border-radius: 0;
 
     &:first-child {
         border-top: none;
-        border-top-left-radius: var(--border-radius);
+        border-top-left-radius: 0;
         border-top-right-radius: var(--border-radius);
     }
 

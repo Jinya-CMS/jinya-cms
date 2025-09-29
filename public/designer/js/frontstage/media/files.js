@@ -212,6 +212,12 @@ Alpine.data('filesData', () => ({
       this.tags.filter((tag) => this.activeTags.has(tag.id)).map((tag) => tag.name),
     );
   },
+  openUploadFolderDialog() {
+    this.uploadFolder.error.reset();
+    this.uploadFolder.open = true;
+    this.uploadFolder.files = [];
+    this.uploadFolder.tags = new Set(this.tags.filter((tag) => this.activeTags.has(tag.id)).map((tag) => tag.name));
+  },
   openEditDialog() {
     if (this.selectedFiles.size === 1) {
       this.editFile.error.reset();
@@ -497,6 +503,37 @@ Alpine.data('filesData', () => ({
       })),
     );
     this.uploadMultipleFiles.open = false;
+  },
+  async enqueueFilesWithFolders() {
+    const tags = Alpine.raw(this.uploadFolder.tags);
+    let filesToUpload = [];
+    for (const file of Alpine.raw(this.uploadFolder.files)) {
+      const fullPath = file.webkitRelativePath.slice(0, file.webkitRelativePath.length - (file.name.length + 1));
+      const parts = fullPath.split('/');
+      let parentId = this.selectedFolderId;
+      for (let i = 0; i < parts.length; i++) {
+        const part = parts[i];
+        const folder = this.allFolders.find((f) => f.name === part && f.parentId === parentId);
+        if (!folder) {
+          const folder = await createFolder(part, parentId);
+          folder.parentId = parentId;
+          parentId = folder.id;
+          this.allFolders.push(folder);
+        } else {
+          parentId = folder.id;
+        }
+      }
+      filesToUpload.push({
+        data: file,
+        name: file.name.split('.').reverse().slice(1).reverse().join('.'),
+        tags: [...tags],
+        folderId: parentId,
+      });
+    }
+
+    await fileDatabase.queueFilesForUpload(filesToUpload);
+    this.uploadFolder.open = false;
+    await mediaDatabase.cacheMedia();
   },
   async updateFile() {
     try {
@@ -791,6 +828,33 @@ Alpine.data('filesData', () => ({
     },
   },
   uploadMultipleFiles: {
+    open: false,
+    files: null,
+    tags: new Set(),
+    tagPopupOpen: false,
+    error: {
+      title: '',
+      message: '',
+      tagError: '',
+      hasError: false,
+      reset() {
+        this.title = '';
+        this.message = '';
+        this.hasError = false;
+      },
+    },
+    toggleTag(tag) {
+      if (this.tags.has(tag.name)) {
+        this.tags.delete(tag.name);
+      } else {
+        this.tags.add(tag.name);
+      }
+    },
+    selectFiles(files) {
+      this.files = [...files];
+    },
+  },
+  uploadFolder: {
     open: false,
     files: null,
     tags: new Set(),

@@ -485,6 +485,7 @@ export default {
       action: {
         upload_single_file: 'Eine Datei hochladen',
         upload_multiple_file: 'Mehrere Dateien hochladen',
+        upload_folder: 'Ordner hochladen',
         delete_multiple_files: 'Gewählte Dateien löschen',
         delete_multiple_folders: 'Gewählte Ordner löschen',
         edit: 'Bearbeiten',
@@ -571,6 +572,14 @@ export default {
         pick_folder: 'Ordner wählen…',
         no_folder_selected: 'Kein Ordner ausgewählt',
         upload: 'Dateien hochladen',
+        cancel: 'Hochladen abbrechen',
+        n_files_selected: '{length} Datei(en) ausgewählt',
+      },
+      upload_folder: {
+        title: 'Ordner hochladen',
+        files: 'Dateien',
+        tags: 'Tags',
+        upload: 'Ordner hochladen',
         cancel: 'Hochladen abbrechen',
         n_files_selected: '{length} Datei(en) ausgewählt',
       },

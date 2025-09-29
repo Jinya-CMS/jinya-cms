@@ -127,6 +127,7 @@ class MediaDatabase {
 
     return await this.#database.folders.where('parentId').equals(id).toArray();
   }
+
   async getFolderById(id) {
     await this.#openIfClosed();
 
