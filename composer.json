@@ -32,7 +32,7 @@
     "monolog/monolog": "3.9.0",
     "nyholm/psr7": "1.8.2",
     "nyholm/psr7-server": "1.1.0",
-    "phpmailer/phpmailer": "v6.10.0",
+    "phpmailer/phpmailer": "v7.0.0",
     "phpmyadmin/sql-parser": "5.11.1",
     "scssphp/scssphp": "v2.0.1",
     "spomky-labs/otphp": "11.3.0",
