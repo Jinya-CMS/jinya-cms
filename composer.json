@@ -29,16 +29,16 @@
     "league/uri": "7.8.0",
     "matomo/device-detector": "6.5.0",
     "melbahja/semver": "v1.0.1",
-    "monolog/monolog": "3.9.0",
+    "monolog/monolog": "3.10.0",
     "nyholm/psr7": "1.8.2",
     "nyholm/psr7-server": "1.1.0",
-    "phpmailer/phpmailer": "v7.0.1",
+    "phpmailer/phpmailer": "v7.0.2",
     "phpmyadmin/sql-parser": "6.0.0",
     "scssphp/scssphp": "v2.1.0",
-    "spomky-labs/otphp": "11.3.0",
-    "symfony/filesystem": "v7.4.0",
+    "spomky-labs/otphp": "11.4.1",
+    "symfony/filesystem": "v8.0.1",
     "tedivm/jshrink": "v1.8.1",
-    "vlucas/phpdotenv": "v5.6.2"
+    "vlucas/phpdotenv": "v5.6.3"
   },
   "suggest": {
     "ext-zend-opcache": "*",
