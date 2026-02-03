@@ -1,19 +1,20 @@
 <?php
 
+namespace Jinya\Cms\Images;
+
+use Imagick;
 use Jinya\Cms\Configuration\JinyaConfiguration;
 use Jinya\Cms\Database\File;
 use Jinya\Cms\Storage\ConversionService;
 use Jinya\Cms\Storage\StorageBaseService;
 use Jinya\Cms\Theming\Extensions\FileExtension;
 use Jinya\Cms\Utils\ImageType;
-
-require_once __DIR__ . '/startup.php';
+use Throwable;
 
 function handle_images(bool $exit = true): void
 {
-    // Avoid PSR-7 object creation: we only need query params.
     $idRaw = $_GET['id'] ?? null;
-    if ($idRaw === null || $idRaw === '' || !is_numeric($idRaw)) {
+    if ($idRaw === '' || !is_numeric($idRaw)) {
         http_response_code(404);
         if ($exit) {
             exit(404);
@@ -23,7 +24,6 @@ function handle_images(bool $exit = true): void
 
     $id = (int)$idRaw;
 
-    // Cache configuration defaults + WEBP support detection across requests (great in FrankenPHP worker mode).
     static $defaultWidth = null;
     static $defaultType = null;
 
@@ -72,7 +72,6 @@ function handle_images(bool $exit = true): void
         return;
     }
 
-    // Slow path: conversion. Consider offloading/queueing instead of doing it inline.
     try {
         $conversionService = new ConversionService();
         $conversionService->convertFile($id);

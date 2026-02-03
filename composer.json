@@ -58,7 +58,10 @@
     "psr-4": {
       "Jinya\\Cms\\": "src/",
       "Jinya\\Cms\\Migrations\\": "migrations/"
-    }
+    },
+    "files": [
+      "src/images.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
