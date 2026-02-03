@@ -34,7 +34,6 @@
 
     <php>
         <ini name="user_agent" value="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/109.0"/>
-        <ini name="include_path" value=".:/var/www/html:/usr/local/lib/php"/>
         <env name="APP_ENV" value="dev"/>
         <env name="MYSQL_PASSWORD" value="jinya"/>
         <env name="MYSQL_USER" value="jinya"/>
@@ -53,5 +52,7 @@
         <env name="JINYA_UPDATE_SERVER" value="https://releases.jinya.de/cms"/>
         <env name="JINYA_IMAGINARY_URL" value="http://jinya-imaginary:9000"/>
         <env name="INSTALLED_VERSION" value="phpunit"/>
+
+        <includePath>/var/www/html</includePath>
     </php>
 </phpunit>

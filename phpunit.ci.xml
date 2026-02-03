@@ -31,6 +31,7 @@
 
     <php>
         <ini name="user_agent" value="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/109.0"/>
-        <ini name="include_path" value=".:/var/www/html:/usr/local/lib/php"/>
+
+        <includePath>/var/www/html</includePath>
     </php>
 </phpunit>

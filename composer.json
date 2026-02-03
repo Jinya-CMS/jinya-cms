@@ -42,7 +42,8 @@
   },
   "suggest": {
     "ext-zend-opcache": "*",
-    "ext-apcu": "*"
+    "ext-apcu": "*",
+    "ext-frankenphp": "*"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",

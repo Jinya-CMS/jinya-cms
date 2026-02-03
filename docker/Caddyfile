@@ -1,0 +1,40 @@
+{
+    frankenphp {
+                   worker {
+                              file /var/www/html/public/frankenphp-worker.php
+                              watch /var/www/html/themes
+                          }
+               }
+}
+
+:80 {
+    root * /var/www/html/public
+
+    route {
+          # Force this one script through the worker (ignore filesystem)
+              @force_worker path *.php
+              handle @force_worker {
+                                       rewrite * /frankenphp-worker.php
+                                       php_server {
+                                                      worker ./frankenphp-worker.php
+                                                  }
+                                   }
+
+              @static {
+                          path /designer/* /installer/* /jinya-content/* /lib/* /themes/*
+                          file
+                      }
+              handle @static {
+                                 file_server
+                             }
+
+          # Normal behavior for everything else:
+          # serve static if it exists, otherwise worker
+              handle {
+                         rewrite * /frankenphp-worker.php
+                         php_server {
+                                        worker ./frankenphp-worker.php
+                                    }
+                     }
+          }
+}
