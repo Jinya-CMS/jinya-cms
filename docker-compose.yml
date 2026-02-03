@@ -64,3 +64,18 @@ services:
       - jinya-mariadb-test-database
       - jinya-mariadb-additional-database
       - jinya-imaginary
+  jinya-franken:
+    build:
+      context: .
+      dockerfile: docker/frankenphp.dockerfile
+    ports:
+      - 8081:80
+    volumes:
+      - .:/var/www/html
+    links:
+      - jinya-mailer
+      - jinya-mysql-database
+      - jinya-mariadb-database
+      - jinya-mariadb-test-database
+      - jinya-mariadb-additional-database
+      - jinya-imaginary
