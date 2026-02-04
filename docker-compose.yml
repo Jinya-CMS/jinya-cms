@@ -64,3 +64,22 @@ services:
       - jinya-mariadb-test-database
       - jinya-mariadb-additional-database
       - jinya-imaginary
+  jinya-franken:
+    build:
+      context: .
+      dockerfile: docker/frankenphp.dockerfile
+    ports:
+      - 8081:80
+      - 2019:2019
+#    environment:
+#      FRANKENPHP_CONFIG: "worker /var/www/html/frankenphp-worker.php"
+    volumes:
+      - .:/var/www/html
+      - ./docker/Caddyfile:/etc/frankenphp/Caddyfile
+    links:
+      - jinya-mailer
+      - jinya-mysql-database
+      - jinya-mariadb-database
+      - jinya-mariadb-test-database
+      - jinya-mariadb-additional-database
+      - jinya-imaginary

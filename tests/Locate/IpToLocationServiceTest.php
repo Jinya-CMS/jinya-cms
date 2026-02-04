@@ -16,19 +16,19 @@ class IpToLocationServiceTest extends DatabaseAwareTestCase
     public function testLocateIp8_8_8_8(): void
     {
         $ipToLocationService = new IpToLocationService();
-        $result = $ipToLocationService->locateIp('8.8.8.8');
+        $result = $ipToLocationService->locateIp('89.58.33.24');
 
-        self::assertEquals('US', $result['country']);
-        self::assertEquals('Mountain View', $result['city']);
+        self::assertEquals('DE', $result['country']);
+        self::assertEquals('Nuremberg', $result['city']);
     }
 
     public function testLocateIp2001_4860_4860__8888(): void
     {
         $ipToLocationService = new IpToLocationService();
-        $result = $ipToLocationService->locateIp('2001:4860:4860::8888');
+        $result = $ipToLocationService->locateIp('2a03:4000:64:134::1');
 
-        self::assertEquals('US', $result['country']);
-        self::assertEquals('Mountain View', $result['city']);
+        self::assertEquals('DE', $result['country']);
+        self::assertEquals('Karlsruhe (Nordweststadt)', $result['city']);
     }
 
     public function testLocateIp127_0_0_1(): void

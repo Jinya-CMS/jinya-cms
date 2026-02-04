@@ -83,6 +83,12 @@
           - amd64
         IMAGE_TYPE: cli
         SUFFIX: -cli
+      # Frankenphp images suffix
+      - ARCH:
+          - arm64
+          - amd64
+        IMAGE_TYPE: frankenphp
+        SUFFIX: -frankenphp
   tags:
     - runner-$ARCH
 
@@ -105,3 +111,4 @@
           - ""
           - -apache
           - -cli
+          - -frankenphp

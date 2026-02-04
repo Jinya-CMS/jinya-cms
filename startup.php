@@ -8,8 +8,8 @@ use Jinya\Cms\Web\Handlers\ErrorHandler;
 use Jinya\Router\Extensions\JinyaDatabaseExtension;
 use Nyholm\Psr7\Response;
 
-require __DIR__ . '/defines.php';
-require __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/defines.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 if (!is_dir(StorageBaseService::SAVE_PATH) && !mkdir(
     $concurrentDirectory = StorageBaseService::SAVE_PATH,

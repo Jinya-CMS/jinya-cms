@@ -42,7 +42,8 @@
   },
   "suggest": {
     "ext-zend-opcache": "*",
-    "ext-apcu": "*"
+    "ext-apcu": "*",
+    "ext-frankenphp": "*"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
@@ -57,7 +58,10 @@
     "psr-4": {
       "Jinya\\Cms\\": "src/",
       "Jinya\\Cms\\Migrations\\": "migrations/"
-    }
+    },
+    "files": [
+      "src/images.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
