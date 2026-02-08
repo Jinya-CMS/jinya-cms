@@ -1,5 +1,9 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 26.2.0
+
+- JCMS-28 FrankenPHP support
+
 ## Release notes - Jinya CMS - Version 26.1.0
 
 ### Breaking changes
