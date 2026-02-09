@@ -1,5 +1,9 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 26.2.1
+
+- JCMS-29 FrankenPHP image not booting
+
 ## Release notes - Jinya CMS - Version 26.2.0
 
 - JCMS-28 FrankenPHP support
