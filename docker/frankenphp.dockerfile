@@ -1,4 +1,4 @@
-FROM registry.ulbricht.casa/jinya-cms/jinya-cms-php-base-test-image:8.5-frankenphp
+FROM registry.ulbricht.casa/jinya-cms/jinya-cms-php-base-image:8.5-frankenphp
 
 COPY --chown=www-data ./ /var/www/jinya/
 COPY ./docker/Caddyfile /etc/frankenphp/Caddyfile
