@@ -7,3 +7,4 @@ WORKDIR /var/www/jinya
 RUN composer install --no-dev --no-progress --optimize-autoloader --apcu-autoloader --no-interaction
 
 WORKDIR /var/www/html
+CMD ["frankenphp", "run", "--config", "/etc/frankenphp/Caddyfile", "--adapter", "caddyfile"]

@@ -67,12 +67,10 @@ services:
   jinya-franken:
     build:
       context: .
-      dockerfile: docker/frankenphp.dockerfile
+      dockerfile: docker/frankenphp-dev.dockerfile
     ports:
       - 8081:80
       - 2019:2019
-#    environment:
-#      FRANKENPHP_CONFIG: "worker /var/www/html/frankenphp-worker.php"
     volumes:
       - .:/var/www/html
       - ./docker/Caddyfile:/etc/frankenphp/Caddyfile

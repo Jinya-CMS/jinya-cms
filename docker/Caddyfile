@@ -11,6 +11,13 @@
     root * /var/www/html/public
 
     route {
+              @designer path /designer /designer/*
+              handle @designer {
+                                   try_files {path} /designer/index.html
+                                   file_server
+                               }
+
+
           # Force this one script through the worker (ignore filesystem)
               @force_worker path *.php
               handle @force_worker {
@@ -21,7 +28,7 @@
                                    }
 
               @static {
-                          path /designer/* /installer/* /jinya-content/* /lib/* /themes/*
+                          path /designer/* /installer/* /jinya-content/* /lib/* /themes/* /designer-file-cache-service-worker.js
                           file
                       }
               handle @static {
