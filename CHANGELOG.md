@@ -1,5 +1,13 @@
 # Changelog
 
+## Release notes - Jinya CMS - Version 26.2.3
+
+- JCMS-31 Apache not running image.php
+
+## Release notes - Jinya CMS - Version 26.2.2
+
+- JCMS-30 FrankenPHP not routing through image.php
+
 ## Release notes - Jinya CMS - Version 26.2.1
 
 - JCMS-29 FrankenPHP image not booting
