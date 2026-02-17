@@ -81,3 +81,9 @@ services:
       - jinya-mariadb-test-database
       - jinya-mariadb-additional-database
       - jinya-imaginary
+  jinya-webgrind:
+    image: jokkedk/webgrind:latest
+    ports:
+      - 8088:80
+    volumes:
+      - ./profile:/tmp
