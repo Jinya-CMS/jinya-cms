@@ -3,7 +3,6 @@
 namespace Jinya\Cms\Storage;
 
 use Intervention\Image\Drivers\Imagick\Driver;
-use Intervention\Image\Exceptions\InvalidArgumentException;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\ImageManagerInterface;
