@@ -40,7 +40,7 @@ readonly class NewSavedDeviceMail
      */
     public function sendMail(string $artistEmail, string $artistName, KnownDevice $knownDevice): void
     {
-        $userAgent = new Agent(userAgent: $knownDevice->userAgent ?? '');
+        $userAgent = new Agent(userAgent: $knownDevice->userAgent);
         $browser = $userAgent->browser();
         $platform = $userAgent->platform();
         $location = json_decode(

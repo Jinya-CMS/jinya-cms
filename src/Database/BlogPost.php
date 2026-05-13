@@ -403,9 +403,9 @@ class BlogPost extends Entity implements JsonSerializable
         $this->updatedById = CurrentUser::$currentUser->id;
 
         $oldState = self::findById($this->id);
-        $wasPublic = $oldState->public ?? false;
+        $wasPublic = $oldState->public;
         parent::update();
-        if ($wasPublic === false && ($this->public ?? false)) {
+        if ($wasPublic === false && $this->public) {
             $this->executeHook();
         }
     }
