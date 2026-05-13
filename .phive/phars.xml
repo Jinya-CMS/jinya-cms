@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phive xmlns="https://phar.io/phive">
-  <phar name="phpstan" version="^2.1.29" installed="2.1.54" location="./tools/phpstan" copy="true"/>
-  <phar name="phpunit" version="^11.5.9" installed="11.5.55" location="./tools/phpunit" copy="true"/>
-  <phar name="phpdocumentor" version="^3.7.1" installed="3.9.1" location="./tools/phpdocumentor" copy="true"/>
+    <phar name="phpstan" version="^2.1.54" installed="2.1.54" location="./tools/phpstan" copy="true"/>
+    <phar name="phpunit" version="^13.1.9" installed="13.1.9" location="./tools/phpunit" copy="true"/>
+    <phar name="phpdocumentor" version="^3.10.0" installed="3.10.0" location="./tools/phpDocumentor" copy="true"/>
 </phive>
