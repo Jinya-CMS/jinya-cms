@@ -2,8 +2,10 @@
 
 namespace Jinya\Cms\Storage;
 
+use Intervention\Image\Drivers\Imagick\Driver;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Interfaces\ImageInterface;
+use Intervention\Image\Interfaces\ImageManagerInterface;
 use Jinya\Cms\Database\Exceptions\EmptyResultException;
 use Jinya\Cms\Database\File;
 use Jinya\Cms\Logging\Logger;
@@ -15,12 +17,12 @@ use Throwable;
 readonly class ImagickConversionService extends ImageConversionService
 {
     private LoggerInterface $logger;
-    private ImageManager $imageManager;
+    private ImageManagerInterface $imageManager;
 
     public function __construct()
     {
         $this->logger = Logger::getLogger();
-        $this->imageManager = ImageManager::imagick();
+        $this->imageManager = ImageManager::usingDriver(new Driver());
     }
 
     /**
@@ -38,7 +40,7 @@ readonly class ImagickConversionService extends ImageConversionService
         foreach (FileExtension::RESOLUTIONS_FOR_SOURCE as $width) {
             foreach ($imageTypes as $imageType) {
                 try {
-                    $image = $this->imageManager->read(StorageBaseService::BASE_PATH . '/public/' . $file->path);
+                    $image = $this->imageManager->decodePath(StorageBaseService::BASE_PATH . '/public/' . $file->path);
                     $this->cacheFile($image->scale($width), $file, $width, $imageType);
                 } catch (Throwable $exception) {
                     $this->logger->error($exception->getMessage());
