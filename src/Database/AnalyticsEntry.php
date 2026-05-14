@@ -97,6 +97,7 @@ class AnalyticsEntry extends Entity implements JsonSerializable
             ->newSelect()
             ->cols(['count(*) as visits', 'timestamp as group'])
             ->from(self::getTableName())
+            ->where('status <> 404')
             ->groupBy(['timestamp']);
 
         if ($interval !== null) {
@@ -152,6 +153,7 @@ class AnalyticsEntry extends Entity implements JsonSerializable
             ->newSelect()
             ->cols(["count(*) as visits", "$groupColumnsForName as group"])
             ->from(self::getTableName())
+            ->where('status <> 404')
             ->groupBy($groupColumns);
 
         if ($interval !== null) {
@@ -192,6 +194,7 @@ class AnalyticsEntry extends Entity implements JsonSerializable
             ->newSelect()
             ->cols(['COUNT(*) as visits'])
             ->from(self::getTableName())
+            ->where('status <> 404')
             ->where('unique_visit = true');
 
         if ($interval !== null) {
