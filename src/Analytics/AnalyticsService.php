@@ -17,14 +17,14 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
-class AnalyticsService
+readonly class AnalyticsService
 {
-    private readonly LoggerInterface $logger;
+    private LoggerInterface $logger;
 
-    private readonly DeviceDetector $detector;
+    private DeviceDetector $detector;
 
-    private readonly ServerRequestInterface $request;
-    private readonly IpToLocationService $ipToLocationService;
+    private ServerRequestInterface $request;
+    private IpToLocationService $ipToLocationService;
 
     public function __construct()
     {
@@ -86,12 +86,20 @@ class AnalyticsService
 
             /** @var array<string, string> $client */
             $client = $this->detector->getClient();
+            if (!$client) {
+                $this->logger->debug('Not tracking this request, User-Agent not valid');
+                return null;
+            }
 
             $entry->browser = $client['name'];
             $entry->browserVersion = $client['version'];
 
             /** @var array<string, string> $os */
             $os = $this->detector->getOs();
+            if (!$os) {
+                $this->logger->debug('Not tracking this request, User-Agent not valid');
+                return null;
+            }
 
             $entry->operatingSystem = $os['name'];
             $entry->operatingSystemVersion = $os['version'];
