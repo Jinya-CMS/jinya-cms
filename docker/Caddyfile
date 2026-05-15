@@ -1,47 +1,46 @@
 {
-    frankenphp {
-                   worker {
-                              file /var/www/html/public/frankenphp-worker.php
-                              watch /var/www/html/themes
-                          }
-               }
+	frankenphp {
+		worker {
+			file /var/www/html/public/frankenphp-worker.php
+			watch /var/www/html/themes
+		}
+	}
 }
 
 :80 {
-    root * /var/www/html/public
+	root * /var/www/html/public
 
-    route {
-              @designer path /designer /designer/*
-              handle @designer {
-                                   try_files {path} /designer/index.html
-                                   file_server
-                               }
+	route {
+		@designer path /designer /designer/*
+		handle @designer {
+			try_files {path} /designer/index.html
+			file_server
+		}
 
+		# Force this one script through the worker (ignore filesystem)
+		@force_worker path *.php
+		handle @force_worker {
+			rewrite * /frankenphp-worker.php
+			php_server {
+				worker ./frankenphp-worker.php
+			}
+		}
 
-          # Force this one script through the worker (ignore filesystem)
-              @force_worker path *.php
-              handle @force_worker {
-                                       rewrite * /frankenphp-worker.php
-                                       php_server {
-                                                      worker ./frankenphp-worker.php
-                                                  }
-                                   }
+		@static {
+			path /designer/* /installer/* /jinya-content/* /lib/* /themes/* /designer-file-cache-service-worker.js
+			file
+		}
+		handle @static {
+			file_server
+		}
 
-              @static {
-                          path /designer/* /installer/* /jinya-content/* /lib/* /themes/* /designer-file-cache-service-worker.js
-                          file
-                      }
-              handle @static {
-                                 file_server
-                             }
-
-          # Normal behavior for everything else:
-          # serve static if it exists, otherwise worker
-              handle {
-                         rewrite * /frankenphp-worker.php
-                         php_server {
-                                        worker ./frankenphp-worker.php
-                                    }
-                     }
-          }
+		# Normal behavior for everything else:
+		# serve static if it exists, otherwise worker
+		handle {
+			rewrite * /frankenphp-worker.php
+			php_server {
+				worker ./frankenphp-worker.php
+			}
+		}
+	}
 }
