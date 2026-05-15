@@ -1796,6 +1796,9 @@ export default {
       2: 'Tablet',
       3: 'Other',
     },
+    country: {
+      other: 'Other',
+    },
     access: {
       browser: 'Visits by browser',
       browser_version: 'Visits by browser version',

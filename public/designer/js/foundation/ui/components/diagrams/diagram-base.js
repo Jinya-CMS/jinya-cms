@@ -137,8 +137,7 @@ export class DiagramBase extends HTMLElement {
       this.#echarts = echarts.init(this.root.getElementById('diagram'), null, {
         renderer: 'svg',
       });
-      this.root.getElementById('loader')
-        .remove();
+      this.root.getElementById('loader').remove();
     }
     this.root.getElementById('title').textContent = this.name;
     this.#echarts.setOption(options);

@@ -1812,6 +1812,9 @@ export default {
       2: 'Tablet',
       3: 'Andere',
     },
+    country: {
+      other: 'Andere',
+    },
     access: {
       browser: 'Zugriffe nach Browser',
       browser_version: 'Zugriffe nach Browserversion',

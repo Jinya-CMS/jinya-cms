@@ -25,7 +25,9 @@ class JCMS35CleanAnalytics extends AbstractMigration
 delete
 from analytics
 where browser is null
-   or operating_system is null;
+   or operating_system is null
+   or country = 'ZZ'
+   or language = '';
 SQL
         );
     }
