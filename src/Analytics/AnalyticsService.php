@@ -47,10 +47,15 @@ readonly class AnalyticsService
                 return null;
             }
 
+            if ($this->request->getHeaderLine('Accept-Language') === '') {
+                $this->logger->info('The request is made by a browser without language, ignore it');
+                return null;
+            }
+
             if (array_key_exists(
-                AuthenticationChecker::AUTHENTICATION_COOKIE_NAME,
-                $this->request->getCookieParams()
-            ) || array_key_exists(BaseController::DEVICE_CODE_COOKIE, $this->request->getCookieParams())) {
+                    AuthenticationChecker::AUTHENTICATION_COOKIE_NAME,
+                    $this->request->getCookieParams()
+                ) || array_key_exists(BaseController::DEVICE_CODE_COOKIE, $this->request->getCookieParams())) {
                 $this->logger->info('The request is made by an artist, ignore it');
                 return null;
             }
@@ -78,6 +83,10 @@ readonly class AnalyticsService
             }
 
             $location = $this->ipToLocationService->locateIp($ip);
+            if ($location['country'] === 'ZZ') {
+                $this->logger->debug('Not tracking this request, country is ZZ');
+                return null;
+            }
 
             $entry->country = $location['country'];
             $entry->userAgent = $this->detector->getUserAgent();
