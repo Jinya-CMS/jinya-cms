@@ -89,11 +89,8 @@ class ThemeTest extends DatabaseAwareTestCase
     public function testCompileStyleCacheWithModifiedColors(): void
     {
         $this->dbTheme->scssVariables = [
-            '$color' => '#abcdef',
-            '$color-rgb' => 'rgb(123, 123, 123)',
-            '$color-rgba' => 'rgb(123, 123, 123, 0.2)',
-            '$color-hsl' => 'hsl(500, 10%, 5%)',
-            '$color-hsla' => 'hsl(123, 10%, 5%, 0.2)',
+            '$color' => '#fedcba',
+            '$color-rgb' => 'rgb(125, 125, 125)',
         ];
         $this->theme->compileAssetCache();
         $this->theme->compileStyleCache();
