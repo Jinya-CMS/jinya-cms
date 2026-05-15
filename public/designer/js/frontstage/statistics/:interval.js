@@ -1,7 +1,7 @@
-import '../../foundation/ui/components/diagrams/treemap-diagram.js';
-import '../../foundation/ui/components/diagrams/bar-diagram.js';
+import '../../foundation/ui/components/diagrams.bak/treemap-diagram.js';
+import '../../foundation/ui/components/diagrams.bak/bar-diagram.js';
 import '../../foundation/ui/components/diagrams/line-diagram.js';
-import '../../foundation/ui/components/diagrams/pie-diagram.js';
+import '../../foundation/ui/components/diagrams.bak/pie-diagram.js';
 import { Alpine } from '../../../../lib/alpine.js';
 import localize from '../../foundation/utils/localize.js';
 import { getTotalVisitsForInterval } from '../../foundation/api/statistics.js';

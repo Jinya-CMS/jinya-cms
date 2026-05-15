@@ -3,8 +3,8 @@
     <span x-text="title"></span>
     <small x-text="totalVisits"></small>
   </span>
+  <cms-line-diagram name="statistics.access.visits" group="date" :range="range" :interval="$router.params?.interval" class="jinya-statistics__daily"></cms-line-diagram>
   <cms-treemap-diagram group="country" :range="range" class="jinya-statistics__country"></cms-treemap-diagram>
-  <cms-line-diagram group="date" :range="range" :interval="$router.params?.interval" class="jinya-statistics__daily"></cms-line-diagram>
   <cms-bar-diagram group="language" :range="range" class="jinya-statistics__language"></cms-bar-diagram>
   <cms-bar-diagram group="brand" :range="range" class="jinya-statistics__brand"></cms-bar-diagram>
   <cms-pie-diagram group="type" :range="range" class="jinya-statistics__type"></cms-pie-diagram>
