@@ -2,8 +2,10 @@
 
 namespace Jinya\Cms\Configuration;
 
+use Jinya\Cms\Logging\Logger;
 use Jinya\Configuration\Adapter\AdapterInterface;
 use Jinya\Database\Entity;
+use Psr\Log\LoggerInterface;
 use Throwable;
 
 class DatabaseConfigurationAdapter implements AdapterInterface
@@ -12,12 +14,20 @@ class DatabaseConfigurationAdapter implements AdapterInterface
     private const int TYPE_INTEGER = 1;
     private const int TYPE_BOOLEAN = 2;
 
+    private readonly LoggerInterface $logger;
+
+    public function __construct()
+    {
+        $this->logger = Logger::getLogger();
+    }
+
     /**
      * @inheritDoc
      */
     public function get(string $key, ?string $group = null, bool|int|string|null $default = null): string|bool|int|null
     {
         try {
+            $this->logger->debug('Get configuration value from database', ['key' => $key, 'group' => $group]);
             $group = $group ?? '';
             $query = Entity::getQueryBuilder()
                 ->newSelect()
@@ -27,6 +37,7 @@ class DatabaseConfigurationAdapter implements AdapterInterface
             /** @var array<string, mixed>[] $result */
             $result = Entity::executeQuery($query);
             if (empty($result)) {
+                $this->logger->debug('Value not set in database, return default');
                 return $default;
             }
 
@@ -36,6 +47,7 @@ class DatabaseConfigurationAdapter implements AdapterInterface
                 default => (string)$result[0]['value'],
             };
         } catch (Throwable $e) {
+            $this->logger->debug('Failed to get configuration value', ['exception' => $e]);
             return null;
         }
     }
@@ -46,6 +58,7 @@ class DatabaseConfigurationAdapter implements AdapterInterface
     public function getAll(?string $group = null): array
     {
         try {
+            $this->logger->debug('Get configuration values from database', ['group' => $group]);
             $group = $group ?? '';
             $query = Entity::getQueryBuilder()
                 ->newSelect()
@@ -67,6 +80,7 @@ class DatabaseConfigurationAdapter implements AdapterInterface
 
             return array_combine($keys, $values);
         } catch (Throwable $e) {
+            $this->logger->debug('Failed to get configuration value', ['exception' => $e]);
             return [];
         }
     }
@@ -76,6 +90,7 @@ class DatabaseConfigurationAdapter implements AdapterInterface
      */
     public function set(string $key, bool|int|string $value, ?string $group = null): void
     {
+        $this->logger->debug('Set configuration value in database', ['key' => $key, 'group' => $group]);
         $group = $group ?? '';
         $query = Entity::getQueryBuilder()
             ->newSelect()
@@ -117,6 +132,7 @@ class DatabaseConfigurationAdapter implements AdapterInterface
      */
     public function delete(string $key, ?string $group = null): void
     {
+        $this->logger->debug('Delete configuration value from database', ['key' => $key, 'group' => $group]);
         $group = $group ?? '';
         $query = Entity::getQueryBuilder()
             ->newDelete()

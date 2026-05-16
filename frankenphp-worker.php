@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Jinya\Cms\Logging\Logger;
+
 use function Jinya\Cms\Images\handle_images;
 use function Jinya\Router\handle_request;
 
@@ -12,7 +14,7 @@ for ($nbRequests = 0; !$maxRequests || $nbRequests < $maxRequests; ++$nbRequests
     if (function_exists('getRouterConfiguration')) {
         $keepRunning = frankenphp_handle_request(
             static function () {
-                error_log("Worker hit path " . $_SERVER['REQUEST_URI']);
+                Logger::getLogger()->info("Worker hit path " . $_SERVER['REQUEST_URI']);
                 if (str_starts_with($_SERVER['REQUEST_URI'], '/image.php')) {
                     handle_images(false);
                     return;

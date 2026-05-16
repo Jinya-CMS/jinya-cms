@@ -5,11 +5,14 @@ namespace Jinya\Cms\Mailing\Types;
 use Asika\Agent\Agent;
 use Jinya\Cms\Configuration\JinyaConfiguration;
 use Jinya\Cms\Database\ApiKey;
+use Jinya\Cms\Locate\IpToLocationService;
+use Jinya\Cms\Logging\Logger;
 use Jinya\Cms\Mailing\Factory\MailerFactory;
 use Jinya\Cms\Theming\Engine;
 use Jinya\Plates\Engine as PlatesEngine;
 use JsonException;
 use PHPMailer\PHPMailer\Exception;
+use Psr\Log\LoggerInterface;
 use Throwable;
 
 /**
@@ -18,6 +21,7 @@ use Throwable;
 readonly class NewLoginMail
 {
     private PlatesEngine $templateEngine;
+    private LoggerInterface $logger;
 
     /**
      * NewLoginMail constructor.
@@ -25,6 +29,7 @@ readonly class NewLoginMail
     public function __construct()
     {
         $this->templateEngine = Engine::getPlatesEngine();
+        $this->logger = Logger::getLogger();
     }
 
     /**
@@ -39,15 +44,11 @@ readonly class NewLoginMail
      */
     public function sendMail(string $artistEmail, string $artistName, ApiKey $apiKey): void
     {
+        $this->logger->debug('Prepare new login mail');
         $userAgent = new Agent(userAgent: $apiKey->userAgent ?? '');
         $browser = $userAgent->browser();
         $platform = $userAgent->platform();
-        $location = json_decode(
-            file_get_contents("https://ip.jinya.de/?ip=$apiKey->remoteAddress") ?: '{}',
-            true,
-            512,
-            JSON_THROW_ON_ERROR
-        );
+        $location = new IpToLocationService()->locateIp($apiKey->remoteAddress);
         $renderedHtmlMail = $this->templateEngine->render(
             'mailing::NewLoginHtml',
             [
@@ -78,6 +79,7 @@ readonly class NewLoginMail
         $mailer->Body = $renderedHtmlMail;
         $mailer->isHTML();
 
+        $this->logger->debug('Send new login mail');
         $mailer->send();
     }
 }

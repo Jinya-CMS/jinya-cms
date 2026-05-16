@@ -21,10 +21,19 @@ readonly class IpToLocationService
 
     public function populateDatabase(): bool
     {
-        $databaseUrl = (string)JinyaConfiguration::getConfiguration()->get('ip_database_url', 'jinya', 'https://download.db-ip.com/free/dbip-city-lite-{YEAR}-{MONTH}.csv.gz');
+        $this->logger->info('Populating the ip2location database');
+        $databaseUrl = (string)JinyaConfiguration::getConfiguration()->get(
+            'ip_database_url',
+            'jinya',
+            'https://download.db-ip.com/free/dbip-city-lite-{YEAR}-{MONTH}.csv.gz'
+        );
         $yesterday = new DateTime();
         $yesterday->modify('-1 day');
-        $databaseUrl = str_replace(array('{YEAR}', '{MONTH}'), array($yesterday->format('Y'), $yesterday->format('m')), $databaseUrl);
+        $databaseUrl = str_replace(
+            array('{YEAR}', '{MONTH}'),
+            array($yesterday->format('Y'), $yesterday->format('m')),
+            $databaseUrl
+        );
 
         $database = gzopen($databaseUrl, 'rb');
         if ($database) {
@@ -44,6 +53,7 @@ readonly class IpToLocationService
                 $counter = 0;
 
                 while (($line = fgetcsv($database, 1024, ',', '"', "\0")) !== false) {
+                    $this->logger->info("Importing batch $counter");
                     [$ipFrom, $ipTo, , $countryCode, , $city] = $line;
 
                     $type = match (ip2long($ipFrom)) {
@@ -61,6 +71,7 @@ readonly class IpToLocationService
                     $counter++;
 
                     if ($counter % $batchSize === 0) {
+                        $this->logger->info("Commit transaction containing entries");
                         Entity::getPDO()->commit();
                         Entity::getPDO()->beginTransaction();
                     }
@@ -73,7 +84,7 @@ readonly class IpToLocationService
                 return true;
             } catch (Throwable $e) {
                 Entity::getPDO()->rollBack();
-                $this->logger->error($e->getMessage());
+                $this->logger->error('Failed to populate the database', ['exception' => $e]);
             }
         }
 
@@ -90,6 +101,7 @@ readonly class IpToLocationService
     ])]
     public function locateIp(string $ip): array
     {
+        $this->logger->debug('Locate ip');
         $isV6 = ip2long($ip) === false;
         $pton = inet_pton($ip);
         if ($pton !== false) {
@@ -115,6 +127,6 @@ readonly class IpToLocationService
             }
         }
 
-        return ['country' => '-1','city' => '-1'];
+        return ['country' => '-1', 'city' => '-1'];
     }
 }

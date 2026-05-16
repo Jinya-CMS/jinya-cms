@@ -103,10 +103,10 @@ class DatabaseAnalyzer
 
     private static function fetchInt(SelectInterface $query, string $column): int
     {
-        $result = Entity::executeQuery($query);
-        if (is_array($result)) {
+        $queryResult = Entity::executeQuery($query);
+        if (is_array($queryResult)) {
             /** @var int $result */
-            $result = $result[0][$column];
+            $result = $queryResult[0][$column];
         } else {
             $result = 0;
         }
