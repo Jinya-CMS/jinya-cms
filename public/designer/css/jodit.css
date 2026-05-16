@@ -1,202 +1,807 @@
+/* stylelint-disable no-descending-specificity */
 .jodit {
-    --jd-color-white: var(--white);
-    --jd-color-gray: var(--gray);
-    --jd-color-gray-dark: var(--gray-dark);
-    --jd-color-dark: var(--black);
-    --jd-color-blue: var(--information-color);
-    --jd-color-light-blue: var(--information-color-alpha-50);
-    --jd-color-red: var(--negative-color);
-    --jd-color-light-red: var(--negative-color-alpha-50);
-    --jd-color-default: var(--jd-color-dark);
-    --jd-color-text: var(--black);
-    --jd-color-label: var(--jd-color-gray-dark);
-    --jd-color-error: var(--jd-color-red);
-    --jd-color-border: var(--control-border-color);
-    --jd-color-border-dark: var(--control-border-color);
-    --jd-color-border-selected: var(--primary-color);
-    --jd-color-border-active: var(--control-border-color);
-    --jd-color-selection: var(--jd-color-dark);
-    --jd-color-selection-area: #bdbdbd;
-    --jd-color-separator: var(--jd-color-border);
-    --jd-color-placeholder: var(--jd-color-gray-dark);
-    --jd-color-panel: #f9f9f9;
-    --jd-color-resizer: #c8c8c8;
-    --jd-color-background-default: var(--button-background);
-    --jd-color-background-light-gray: var(--gray-lighter);
-    --jd-color-background-gray: var(--gray);
-    --jd-color-background-gray-hover: var(--gray-darker);
-    --jd-color-background-button-hover: var(--control-border-color-dark);
-    --jd-color-background-button-hover-opacity30: rgb(236 235 233 / 30%);
-    --jd-color-background-progress: var(--primary-color);
-    --jd-color-background-active: var(--primary-color);
-    --jd-color-background-selection: var(--primary-color);
-    --jd-color-text-selection: var(--jd-color-white);
-    --jd-color-background-selection-opacity50: var(--primary-color-alpha-50);
-    --jd-color-source-area: var(--black);
-    --jd-color-button-background-hover: var(--jd-color-background-button-hover);
-    --jd-color-button-background-hover-opacity40: rgb(220 220 220 / 40%);
-    --jd-color-button-background-hover-opacity60: rgb(220 220 220 / 60%);
-    --jd-font-default: var(--font-family);
-    --jd-font-size-default: 1rem;
-    --jd-font-size-small: 0.75rem;
-    --jd-color-text-icons: rgb(0 0 0 / 75%);
-    --jd-color-icon: var(--jd-color-dark);
-    --jd-padding-default: 0.5rem;
-    --jd-border-radius-default: var(--border-radius);
-    --jd-icon-tiny-size: 0.5rem;
-    --jd-icon-xsmall-size: 0.75rem;
-    --jd-icon-small-size: 0.75rem;
-    --jd-icon-middle-size: 1rem;
-    --jd-icon-large-size: 1.25rem;
-    --jd-margin-v: 0;
-    --jd-z-index-full-size: 100000;
-    --jd-z-index-popup: 10000001;
-    --jd-z-index-dialog-overlay: 20000003;
-    --jd-z-index-dialog: 20000004;
-    --jd-z-index-context-menu: 30000005;
-    --jd-z-index-tooltip: 30000006;
-    --jd-icon-loader-size: 48px;
-    --jd-width-element-default: 1.25rem;
-    --jd-height-element-default: 1.25rem;
-    --jd-dark-background-color: #575757;
-    --jd-dark-background-ligher: #c0c0c0;
-    --jd-dark-background-darknes: #353535;
-    --jd-dark-border-color: #444;
-    --jd-dark-text-color: #d1cccc;
-    --jd-dark-text-color-opacity80: rgb(209 204 204 / 80%);
-    --jd-dark-text-color-opacity50: rgb(209 204 204 / 50%);
-    --jd-dark-icon-color: #c0c0c0;
-    --jd-dark-toolbar-color: #5f5c5c;
-    --jd-dark-toolbar-seperator-color1: rgb(81 81 81 / 41%);
-    --jd-dark-toolbar-seperator-color2: #686767;
-    --jd-dark-toolbar-seperator-color-opacity80: rgb(104 103 103 / 80%);
-    --jd-dark-toolbar-seperator-color3: rgb(104 103 103 / 75%);
-    --jd-dark-color-border-selected: #152f5f;
-    --jd-width-default: 180px;
-    --jd-width-input-min: var(--jd-width-default);
-    --jd-input-height: var(--control-height);
-    --jd-button-icon-size: 1rem;
-    --jd-button-trigger-size: 16rem;
-    --jd-button-df-size: calc((var(--jd-button-icon-size) - 4px) * 2);
-    --jd-button-size: calc(var(--jd-button-icon-size) + var(--jd-button-df-size) + var(--jd-margin-v) * 2);
-    --jd-focus-input-box-shadow: 0 0 0 0.05rem rgb(0 123 255 / 25%);
-    --jd-image-editor-resizer-border-color: var(--primary-color-lighter);
-    --jd-image-editor-resizer-target-size: padding-default;
-    --jd-image-editor-resizer-target-border-color: #383838;
-    --jd-image-editor-resizer-target-bg-color: #8c7878;
-    --jd-resizer-border-color: var(--primary-color-lighter);
-    --jd-resizer-handle-color: var(--primary-color-light);
-    --jd-resizer-handle-hover-color: var(--primary-color);
-    --jd-info-background: var(--information-color);
-}
-
-.jodit-popup,
-.jodit-context-menu {
-    border-radius: var(--border-radius);
-    box-shadow: none;
-    backdrop-filter: var(--modal-backdrop-filter);
-    background: var(--modal-background);
-    border: var(--modal-border-width) solid var(--primary-color);
-}
-
-.jodit-toolbar-editor-collection {
-    flex-direction: unset;
-    background: none;
-}
-
-.jodit-popup__content,
-.jodit-context-menu__content {
-    border-radius: var(--border-radius);
-    background: none;
-}
-
-.jodit-context-menu__content {
-    padding: 0;
-}
-
-.jodit-ui-button .jodit-icon,
-.jodit-toolbar-button .jodit-icon,
-.jodit-toolbar-button__trigger svg {
-    fill: none;
-    stroke: var(--black);
-    width: 1.25rem;
-    height: 1.25rem;
-    stroke-width: 2px;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-.jodit-ui-button_context_menu .jodit-ui-button__text::before {
-    content: unset;
-}
-
-.jodit-wysiwyg::selection,
-.jodit-wysiwyg *::selection {
-    background: var(--primary-color);
-    color: var(--white);
-}
-
-.jodit-ui-button,
-.jodit-toolbar-button button {
-    min-width: var(--control-height);
-    cursor: pointer;
-    font-family: var(--font-family);
-    font-size: var(--font-size);
-    padding: var(--button-padding-top) var(--button-padding-right) var(--button-padding-bottom) var(--button-padding-left);
-    box-sizing: border-box;
-    border: none;
-    background: none;
-    color: var(--button-color);
-    line-height: var(--line-height);
-    height: var(--control-height);
-    text-decoration: none;
-    font-weight: var(--font-weight-normal);
-    border-radius: var(--border-radius);
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    white-space: nowrap;
-    transition: background-color var(--transition-duration),
-    color var(--transition-duration),
-    border-color var(--transition-duration);
-}
-
-.jodit-toolbar-button {
-    display: flex;
-    overflow: hidden;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--jd-border-radius-default);
-    background: none;
-    border: none;
-    min-width: unset;
-    height: unset;
-}
-
-.jodit-toolbar-collection_mode_horizontal::after,
-.jodit-toolbar-editor-collection_mode_horizontal::after {
-    content: unset;
-}
-
-.jodit-toolbar-collection_size_middle,
-.jodit-toolbar-editor-collection_size_middle {
-    --jd-button-icon-size: 1rem;
-}
-
-.jodit-toolbar-editor-collection_size_middle.jodit-toolbar-editor-collection_mode_horizontal {
-    background: var(--white);
-}
-
-@media screen and (prefers-color-scheme: dark) {
-    .jodit-wysiwyg::selection,
-    .jodit-wysiwyg *::selection {
-        color: var(--black);
+    &.jodit_theme_cosmo,
+    &.jodit-dialog_theme_cosmo {
+        --jd-color-white: var(--white);
+        --jd-color-gray: var(--gray);
+        --jd-color-gray-dark: var(--gray-dark);
+        --jd-color-dark: var(--black);
+        --jd-color-blue: var(--information-color);
+        --jd-color-light-blue: var(--information-color-alpha-50);
+        --jd-color-red: var(--negative-color);
+        --jd-color-light-red: var(--negative-color-alpha-50);
+        --jd-color-default: var(--jd-color-dark);
+        --jd-color-text: var(--black);
+        --jd-color-label: var(--jd-color-gray-dark);
+        --jd-color-error: var(--jd-color-red);
+        --jd-color-border: var(--control-border-color);
+        --jd-color-border-dark: var(--control-border-color);
+        --jd-color-border-selected: var(--primary-color);
+        --jd-color-border-active: var(--control-border-color);
+        --jd-color-selection: var(--jd-color-dark);
+        --jd-color-selection-area: #bdbdbd;
+        --jd-color-separator: var(--jd-color-border);
+        --jd-color-placeholder: var(--jd-color-gray-dark);
+        --jd-color-panel: #f9f9f9;
+        --jd-color-resizer: #c8c8c8;
+        --jd-color-background-default: var(--button-background);
+        --jd-color-background-light-gray: var(--gray-lighter);
+        --jd-color-background-gray: var(--gray);
+        --jd-color-background-gray-hover: var(--gray-darker);
+        --jd-color-background-button-hover: var(--gray-light);
+        --jd-color-background-button-hover-opacity30: var(--primary-color-alpha-25);
+        --jd-color-background-progress: var(--primary-color);
+        --jd-color-background-active: var(--primary-color);
+        --jd-color-background-selection: var(--primary-color);
+        --jd-color-text-selection: var(--jd-color-white);
+        --jd-color-background-selection-opacity50: var(--primary-color-alpha-50);
+        --jd-color-source-area: var(--black);
+        --jd-color-button-background-hover: var(--gray-light);
+        --jd-color-button-background-hover-opacity40: rgb(220 220 220 / 40%);
+        --jd-color-button-background-hover-opacity60: rgb(220 220 220 / 60%);
+        --jd-font-default: var(--font-family);
+        --jd-font-size-default: 1rem;
+        --jd-font-size-small: 0.75rem;
+        --jd-color-text-icons: rgb(0 0 0 / 75%);
+        --jd-color-icon: var(--jd-color-dark);
+        --jd-padding-default: 0.5rem;
+        --jd-border-radius-default: var(--border-radius);
+        --jd-icon-tiny-size: 0.5rem;
+        --jd-icon-xsmall-size: 0.75rem;
+        --jd-icon-small-size: 0.75rem;
+        --jd-icon-middle-size: 1rem;
+        --jd-icon-large-size: 1.25rem;
+        --jd-margin-v: 0;
+        --jd-z-index-full-size: 100000;
+        --jd-z-index-popup: 10000001;
+        --jd-z-index-dialog-overlay: 20000003;
+        --jd-z-index-dialog: 20000004;
+        --jd-z-index-context-menu: 30000005;
+        --jd-z-index-tooltip: 30000006;
+        --jd-icon-loader-size: 48px;
+        --jd-width-element-default: 1.25rem;
+        --jd-height-element-default: 1.25rem;
+        --jd-dark-background-color: #575757;
+        --jd-dark-background-ligher: #c0c0c0;
+        --jd-dark-background-darknes: #353535;
+        --jd-dark-border-color: #444;
+        --jd-dark-text-color: #d1cccc;
+        --jd-dark-text-color-opacity80: rgb(209 204 204 / 80%);
+        --jd-dark-text-color-opacity50: rgb(209 204 204 / 50%);
+        --jd-dark-icon-color: #c0c0c0;
+        --jd-dark-toolbar-color: #5f5c5c;
+        --jd-dark-toolbar-seperator-color1: rgb(81 81 81 / 41%);
+        --jd-dark-toolbar-seperator-color2: #686767;
+        --jd-dark-toolbar-seperator-color-opacity80: rgb(104 103 103 / 80%);
+        --jd-dark-toolbar-seperator-color3: rgb(104 103 103 / 75%);
+        --jd-dark-color-border-selected: #152f5f;
+        --jd-width-default: 180px;
+        --jd-width-input-min: var(--jd-width-default);
+        --jd-input-height: var(--control-height);
+        --jd-button-icon-size: 1rem;
+        --jd-button-trigger-size: 16rem;
+        --jd-button-df-size: calc((var(--jd-button-icon-size) - 4px) * 2);
+        --jd-button-size: calc(var(--jd-button-icon-size) + var(--jd-button-df-size) + var(--jd-margin-v) * 2);
+        --jd-focus-input-box-shadow: 0 0 0 0.05rem rgb(0 123 255 / 25%);
+        --jd-image-editor-resizer-border-color: var(--primary-color-lighter);
+        --jd-image-editor-resizer-target-size: padding-default;
+        --jd-image-editor-resizer-target-border-color: #383838;
+        --jd-image-editor-resizer-target-bg-color: #8c7878;
+        --jd-resizer-border-color: var(--primary-color-lighter);
+        --jd-resizer-handle-color: var(--primary-color-light);
+        --jd-resizer-handle-hover-color: var(--primary-color);
+        --jd-info-background: var(--information-color);
     }
 
-    .is--light {
-        .jodit-wysiwyg::selection,
-        .jodit-wysiwyg *::selection {
-            color: var(--white);
+    .jodit-ui-button {
+        cursor: pointer;
+        font-family: var(--font-family);
+        font-size: var(--font-size);
+        padding: var(--button-padding-top) var(--button-padding-right) var(--button-padding-bottom) var(--button-padding-left);
+        box-sizing: border-box;
+        border: var(--button-border-width) solid var(--button-border-color);
+        background: var(--button-background);
+        color: var(--button-color);
+        line-height: var(--line-height);
+        height: var(--control-height);
+        text-decoration: none;
+        font-weight: var(--font-weight-normal);
+        border-radius: var(--border-radius);
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        white-space: nowrap;
+        min-width: unset;
+        transition:
+            background-color var(--transition-duration),
+            color var(--transition-duration),
+            border-color var(--transition-duration);
+
+        &:focus:not([disabled]) {
+            outline: unset;
+            background: var(--button-background);
+            color: var(--button-color);
+            border-color: var(--button-border-color);
+        }
+
+        &:hover:not([disabled]) {
+            background: var(--button-background);
+            color: var(--button-color);
+            border-color: var(--button-border-color);
+        }
+
+        &:not(:disabled):hover,
+        &:not(:disabled):focus {
+            --button-background: var(--control-border-color-dark);
+            --button-border-color: var(--control-border-color-dark);
+            --button-color: var(--white);
+
+            outline: none;
+            box-shadow: none;
+        }
+
+        &:not(:disabled):active {
+            --button-border-color: var(--control-border-color-darker);
+            --button-background: var(--control-border-color-darker);
+        }
+
+        &.jodit-ui-button_variant_primary {
+            --button-color: var(--white);
+            --button-border-color: var(--primary-color);
+            --button-background: var(--primary-color);
+
+            &:not(:disabled):hover,
+            &:not(:disabled):focus {
+                --button-border-color: var(--primary-color-light);
+                --button-background: var(--primary-color-light);
+            }
+
+            &:not(:disabled):active {
+                --button-border-color: var(--primary-color-lighter);
+                --button-background: var(--primary-color-lighter);
+            }
+
+            @media screen and (prefers-color-scheme: dark) {
+                &:not(:disabled):hover,
+                &:not(:disabled):focus {
+                    --button-border-color: var(--primary-color-dark);
+                    --button-background: var(--primary-color-dark);
+                }
+
+                &:not(:disabled):active {
+                    --button-border-color: var(--primary-color-darker);
+                    --button-background: var(--primary-color-darker);
+                }
+            }
+        }
+    }
+
+    .lucide {
+        fill: none !important;
+        stroke: var(--black);
+        stroke-width: 0.125rem;
+    }
+
+    .jodit-popup,
+    .jodit-context-menu {
+        border-radius: var(--border-radius);
+        box-shadow: none;
+        backdrop-filter: var(--modal-backdrop-filter);
+        background: var(--modal-background);
+        border: var(--modal-border-width) solid var(--primary-color);
+        overflow: clip;
+
+        .jodit-popup__content,
+        .jodit-context-menu__content {
+            border-radius: var(--border-radius);
+            background: none;
+            padding: 0;
+
+            .jodit-toolbar-button {
+                padding: 0;
+                margin: 0;
+            }
+        }
+    }
+
+    .jodit-ui-button .jodit-icon,
+    .jodit-toolbar-button .jodit-icon,
+    .jodit-toolbar-button__trigger svg {
+        fill: none;
+        stroke: var(--black);
+        width: 1.25rem;
+        height: 1.25rem;
+        stroke-width: 2px;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .jodit-wysiwyg::selection,
+    .jodit-wysiwyg *::selection {
+        background: var(--primary-color);
+        color: var(--white);
+    }
+
+    .jodit-toolbar__box:not(:empty) {
+        background-color: var(--white);
+        border-bottom: 0.0625rem solid var(--primary-color);
+    }
+
+    .jodit-toolbar-button_with-trigger_true:hover:not([disabled]) {
+        border: none;
+    }
+
+    .jodit-toolbar-editor-collection.jodit-toolbar-editor-collection_mode_horizontal {
+        display: flex;
+        flex-flow: row nowrap;
+    }
+
+    .jodit-toolbar-collection .jodit-toolbar-content,
+    .jodit-toolbar-editor-collection .jodit-toolbar-content,
+    .jodit-toolbar-collection .jodit-toolbar-select,
+    .jodit-toolbar-editor-collection .jodit-toolbar-select,
+    .jodit-toolbar-collection .jodit-toolbar-button,
+    .jodit-toolbar-editor-collection .jodit-toolbar-button {
+        min-width: var(--control-height);
+        cursor: pointer;
+        font-family: var(--font-family);
+        font-size: var(--font-size);
+        padding: var(--button-padding-top);
+        box-sizing: border-box;
+        border: none;
+        color: var(--button-color);
+        line-height: var(--line-height);
+        height: var(--control-height);
+        text-decoration: none;
+        font-weight: var(--font-weight-normal);
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        white-space: nowrap;
+        border-radius: 0;
+        transition:
+            background-color var(--transition-duration),
+            color var(--transition-duration),
+            border-color var(--transition-duration);
+
+        &:hover:not([disabled]),
+        &:focus:not([disabled]) {
+            border: none;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    }
+
+    .jodit-toolbar-collection .jodit-toolbar-button__trigger,
+    .jodit-toolbar-editor-collection .jodit-toolbar-button__trigger,
+    .jodit-toolbar-collection .jodit-toolbar-button button,
+    .jodit-toolbar-editor-collection .jodit-toolbar-button button {
+        height: var(--control-height);
+    }
+
+    .jodit-ui-form {
+        padding: 0.5rem 0.75rem;
+
+        .jodit-ui-input {
+            display: grid;
+            grid-template-columns: 6rem auto;
+            align-items: center;
+        }
+
+        .jodit-ui-input__label {
+            font-size: unset;
+            font-weight: unset;
+            color: unset;
+        }
+
+        .jodit-ui-input__wrapper {
+            display: unset;
+            min-width: unset;
+            align-items: unset;
+            justify-content: unset;
+            border: unset;
+            background-color: unset;
+            height: 100%;
+
+            .jodit-ui-input__input {
+                --border-indicator-color: var(--control-border-color);
+
+                transition: border-color var(--transition-duration);
+                min-width: var(--input-width-small);
+                height: var(--control-height);
+                box-sizing: border-box;
+                font-family: var(--font-family);
+                font-size: var(--font-size);
+                background: var(--white);
+                color: var(--black);
+                border-radius: var(--border-radius);
+                line-height: var(--line-height);
+                border: var(--input-border-width) solid var(--control-border-color);
+                padding: var(--input-padding-top) var(--input-padding-right) var(--input-padding-bottom) var(--input-padding-left);
+                border-bottom: var(--input-border-bottom-width) solid var(--border-indicator-color);
+
+                &:focus {
+                    --border-indicator-color: var(--primary-color);
+
+                    outline: none;
+                    box-shadow: none;
+                }
+
+                &:invalid {
+                    --border-indicator-color: var(--negative-color);
+
+                    outline: none;
+                    box-shadow: none;
+                }
+            }
+        }
+
+        .jodit-ui-checkbox {
+            margin-left: 6.25rem;
+
+            .jodit-ui-checkbox__input {
+                --border-indicator-color: var(--control-border-color);
+
+                appearance: none;
+                margin: 0;
+                display: flex;
+                position: relative;
+                outline: none;
+                border: none;
+                box-shadow: none;
+
+                &::after,
+                &::before {
+                    transition:
+                        border-color var(--transition-duration),
+                        background-color var(--transition-duration);
+                }
+
+                &::before {
+                    content: '';
+                    display: inline-block;
+                    border: var(--input-border-width) solid var(--border-indicator-color);
+                    height: var(--checkbox-size);
+                    width: var(--checkbox-size);
+                    margin-right: calc(var(--checkbox-size) / 2);
+                    border-radius: var(--border-radius);
+                    background: var(--white);
+                }
+
+                &:checked::after {
+                    content: '';
+                    position: absolute;
+                    display: block;
+                    height: var(--checkbox-mark-shortarm);
+                    width: var(--checkbox-mark-longarm);
+                    border-right: var(--checkbox-mark-stroke-width) solid var(--white);
+                    border-top: var(--checkbox-mark-stroke-width) solid var(--white);
+                    transform: rotate(135deg);
+                    top: calc(var(--checkbox-mark-longarm) - var(--checkbox-mark-shortarm));
+                    left: calc(var(--checkbox-mark-longarm) / 2);
+                    box-sizing: content-box;
+                }
+
+                &:checked::before {
+                    --border-indicator-color: var(--primary-color);
+
+                    background: var(--border-indicator-color);
+                    color: var(--white);
+                }
+
+                &:disabled {
+                    --border-indicator-color: var(--disabled-color);
+                }
+
+                @media screen and (prefers-color-scheme: dark) {
+                    &:checked::before {
+                        --border-indicator-color: var(--primary-color-dark);
+                    }
+                }
+            }
+        }
+
+        .jodit-ui-block {
+            &.jodit-ui-block_align_full {
+                display: flex;
+                justify-content: end;
+                gap: 1rem;
+            }
+        }
+    }
+
+    .jodit-tabs {
+        --jd-box-shadow-tabs: none;
+
+        .jodit-tabs__buttons {
+            .jodit-ui-button {
+                color: unset;
+                border: none;
+                padding: 0;
+                text-align: center;
+
+                &:hover {
+                    --button-background: var(--primary-color-lighter);
+                }
+
+                .lucide {
+                    display: none;
+                }
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 1rem;
+                    right: 1rem;
+                    height: 0.125rem;
+                    background: none;
+                    transition: background 0.3s;
+                }
+
+                &:active:not([disabled]),
+                &[aria-pressed='true']:not([disabled]),
+                &:active:not([disabled]) .jodit-ui-button__text,
+                &[aria-pressed='true']:not([disabled]) .jodit-ui-button__text {
+                    background-color: unset;
+
+                    &::after {
+                        background: var(--primary-color);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.jodit-dialog.jodit-dialog_theme_cosmo {
+    position: fixed;
+    inset: 0;
+    background: var(--modal-backdrop);
+    height: 100vh;
+    width: 100vw;
+    backdrop-filter: var(--modal-container-backdrop-filter);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+
+    .jodit-grid [class*='jodit_col-'] {
+        width: unset;
+    }
+
+    .jodit_elfinder,
+    .jodit_elfinder * {
+        box-sizing: initial;
+    }
+
+    .jodit-dialog__overlay {
+        display: none;
+    }
+
+    &.jodit-dialog_static_true .jodit-dialog__overlay {
+        display: none;
+    }
+
+    &.jodit-dialog_modal_true .jodit-dialog__overlay {
+        display: none;
+    }
+
+    &.jodit-dialog_active_true {
+        display: flex;
+    }
+
+    .jodit-dialog__panel {
+        --modal-accent-color-darker: var(--primary-color-darker);
+        --modal-accent-color-dark: var(--primary-color-dark);
+        --modal-accent-color: var(--primary-color);
+        --modal-accent-color-light: var(--primary-color-light);
+        --modal-accent-color-lighter: var(--primary-color-lighter);
+
+        border: var(--modal-border-width) solid var(--modal-accent-color);
+        padding: var(--modal-padding-top) var(--modal-padding-right) var(--modal-padding-bottom) var(--modal-padding-left);
+        min-width: var(--modal-min-width);
+        box-sizing: border-box;
+        border-radius: var(--border-radius);
+        backdrop-filter: var(--modal-backdrop-filter);
+        background: var(--modal-background);
+        box-shadow: unset;
+        width: unset !important;
+        height: unset !important;
+        left: unset !important;
+        right: unset !important;
+        top: unset !important;
+        bottom: unset !important;
+        display: flex;
+
+        &::before {
+            content: '';
+            position: absolute;
+            width: var(--modal-bar-width);
+            height: var(--modal-bar-height);
+            background: var(--modal-accent-color);
+            border-radius: var(--border-radius);
+        }
+    }
+
+    &.jodit-dialog_static_true {
+        position: relative;
+        z-index: inherit;
+        display: block;
+        width: auto;
+        height: auto;
+        box-sizing: border-box;
+    }
+
+    &.jodit-dialog_static_true .jodit-dialog__panel {
+        position: relative;
+        z-index: inherit;
+        top: unset !important;
+        left: unset !important;
+        width: unset !important;
+        border: unset;
+        box-shadow: none;
+    }
+
+    .jodit-dialog__header {
+        padding: 0;
+        margin: var(--modal-title-margin-top) var(--modal-title-margin-right) var(--modal-title-margin-bottom) var(--modal-title-margin-left);
+        text-transform: uppercase;
+        font-size: var(--modal-title-font-size);
+        line-height: var(--modal-title-font-size);
+        height: var(--modal-title-font-size);
+        vertical-align: text-top;
+        font-weight: var(--font-weight-normal);
+        font-family: var(--font-family-modal-title);
+        border-bottom: none;
+        display: block;
+        min-height: unset;
+        cursor: default;
+        text-align: left;
+        pointer-events: none;
+    }
+
+    .jodit-dialog__header-toolbar {
+        display: none;
+    }
+
+    .jodit-dialog__header-title {
+        display: block;
+        padding: unset;
+        margin: unset;
+        font-size: unset;
+        font-weight: unset;
+        line-height: unset;
+        vertical-align: unset;
+    }
+
+    &.jodit-dialog_slim_true {
+        .jodit-dialog__header {
+            min-height: unset;
+
+            .jodit-dialog__header-toolbar,
+            .jodit-dialog__header-title {
+                padding: unset;
+            }
+        }
+    }
+
+    .jodit-dialog__content {
+        overflow: visible;
+        width: auto;
+        min-height: unset;
+
+        .jodit-form__group {
+            padding: 0 var(--jd-padding-default);
+            margin-bottom: calc(var(--jd-padding-default) * 1.5);
+            display: grid;
+            grid-template-columns: 8rem auto;
+            align-items: center;
+
+            &[class^='jodit-ui-image-properties'],
+            &[class*='jodit-ui-image-properties'] {
+                grid-template-columns: 6rem auto 6rem;
+                gap: 0.5rem;
+                justify-content: center;
+            }
+
+            &:first-child {
+                margin-top: unset;
+            }
+
+            .jodit-input_group {
+                display: contents;
+            }
+
+            .jodit-input,
+            .jodit-select {
+                --border-indicator-color: var(--control-border-color);
+
+                transition: border-color var(--transition-duration);
+                min-width: var(--input-width-small);
+                height: var(--control-height);
+                box-sizing: border-box;
+                font-family: var(--font-family);
+                font-size: var(--font-size);
+                background: var(--white);
+                color: var(--black);
+                border-radius: var(--border-radius);
+                line-height: var(--line-height);
+                border: var(--input-border-width) solid var(--control-border-color);
+                padding: var(--input-padding-top) var(--input-padding-right) var(--input-padding-bottom) var(--input-padding-left);
+                border-bottom: var(--input-border-bottom-width) solid var(--border-indicator-color);
+
+                &:focus {
+                    --border-indicator-color: var(--primary-color);
+
+                    outline: none;
+                    box-shadow: none;
+                }
+
+                &:invalid {
+                    --border-indicator-color: var(--negative-color);
+
+                    outline: none;
+                    box-shadow: none;
+                }
+
+                &[class^='jodit-ui-image-properties'],
+                &[class*='jodit-ui-image-properties'] {
+                    min-width: 4rem;
+                    width: unset;
+                }
+            }
+
+            .jodit-select {
+                appearance: none;
+                position: relative;
+                background-image: var(--dropdown-background);
+                background-repeat: no-repeat;
+                background-position-x: right;
+                background-position-y: center;
+                padding-right: calc(var(--input-padding-right) * 4);
+                border-color: var(--border-indicator-color);
+            }
+
+            .jodit_vertical_middle {
+                grid-column: 2/3;
+            }
+
+            .jodit-checkbox {
+                --border-indicator-color: var(--control-border-color);
+
+                appearance: none;
+                margin: 0;
+                display: flex;
+                position: relative;
+                outline: none;
+                border: none;
+                box-shadow: none;
+                z-index: unset;
+                width: unset;
+                height: unset;
+                padding: unset;
+
+                &::after,
+                &::before {
+                    transition:
+                        border-color var(--transition-duration),
+                        background-color var(--transition-duration);
+                }
+
+                &::before {
+                    content: '';
+                    display: inline-block;
+                    border: var(--input-border-width) solid var(--border-indicator-color);
+                    height: var(--checkbox-size);
+                    width: var(--checkbox-size);
+                    margin-right: calc(var(--checkbox-size) / 2);
+                    border-radius: var(--border-radius);
+                    background: var(--white);
+                }
+
+                &:checked::after {
+                    content: '';
+                    position: absolute;
+                    display: block;
+                    height: var(--checkbox-mark-shortarm);
+                    width: var(--checkbox-mark-longarm);
+                    border-right: var(--checkbox-mark-stroke-width) solid var(--white);
+                    border-top: var(--checkbox-mark-stroke-width) solid var(--white);
+                    transform: rotate(135deg);
+                    top: calc(var(--checkbox-mark-longarm) - var(--checkbox-mark-shortarm));
+                    left: calc(var(--checkbox-mark-longarm) / 2);
+                    box-sizing: content-box;
+                }
+
+                &:checked::before {
+                    --border-indicator-color: var(--primary-color);
+
+                    background: var(--border-indicator-color);
+                    color: var(--white);
+                }
+
+                &:disabled {
+                    --border-indicator-color: var(--disabled-color);
+                }
+
+                @media screen and (prefers-color-scheme: dark) {
+                    &:checked::before {
+                        --border-indicator-color: var(--primary-color-dark);
+                    }
+                }
+            }
+
+            .jodit-input_group-buttons {
+                display: none;
+            }
+        }
+
+        .jodit-dialog_prompt {
+            min-width: unset;
+            max-width: unset;
+            padding: var(--jd-padding-default);
+            word-break: break-all;
+
+            label {
+                display: block;
+                margin-bottom: calc(var(--jd-padding-default) / 2);
+            }
+        }
+
+        &.jodit-dialog_alert {
+            min-width: 200px;
+            max-width: 300px;
+            padding: var(--jd-padding-default);
+            word-break: break-all;
+        }
+
+        &.jodit-dialog_footer_true .jodit-dialog__footer {
+            display: flex;
+        }
+    }
+
+    .jodit-dialog__footer {
+        display: flex;
+        justify-content: end;
+        width: 100%;
+        margin-top: var(--modal-button-bar-margin-top);
+        gap: var(--button-container-gap);
+
+        .jodit-dialog__column {
+            display: contents;
+        }
+
+        button {
+            margin-right: unset;
+
+            .jodit-ui-button__text {
+                margin: 0;
+            }
+
+            .jodit-ui-button__icon {
+                display: none;
+            }
+        }
+    }
+
+    .jodit-dialog__resizer {
+        display: none !important;
+    }
+
+    .jodit-ui-messages {
+        z-index: var(--jd-z-index-dialog);
+    }
+
+    .jodit-ui-image-position-tab__editMargins {
+        .jodit-grid {
+            display: grid;
+            grid-template-columns: 6rem auto 6rem 6rem 6rem;
+            gap: 0.5rem;
+
+            .jodit-input {
+                min-width: unset;
+            }
         }
     }
 }

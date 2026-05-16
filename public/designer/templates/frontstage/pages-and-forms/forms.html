@@ -151,7 +151,8 @@
             <label for="createDescription" class="cosmo-label is--textarea"
                    x-localize:pages_and_forms-form-create-description></label>
             <cms-toolbar-editor class="jinya-editor" :content="create.description"
-                                @change="(e) => create.description = e.value" height="30rem"></cms-toolbar-editor>
+                                type="form"
+                                @change="(e) => create.description = e.target.value" height="30rem"></cms-toolbar-editor>
           </div>
         </div>
         <div class="cosmo-modal__button-bar">
@@ -180,7 +181,8 @@
             <label for="editDescription" class="cosmo-label is--textarea"
                    x-localize:pages_and_forms-form-edit-description></label>
             <cms-toolbar-editor class="jinya-editor" :content="edit.description"
-                                @change="(e) => edit.description = e.value" height="30rem"></cms-toolbar-editor>
+                                type="form"
+                                @change="(e) => edit.description = e.target.value" height="30rem"></cms-toolbar-editor>
           </div>
         </div>
         <div class="cosmo-modal__button-bar">

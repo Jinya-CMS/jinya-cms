@@ -1,21 +1,9 @@
-import { createJodit } from '../jodit.js';
-import { EditorChangeEvent } from './events/EditorChangeEvent.js';
+import { BaseEditorElement } from './base-editor.js';
 
-class InlineEditorElement extends HTMLElement {
-  constructor() {
-    super();
-
-    this.root = this.attachShadow({ mode: 'closed' });
-    this.editor = null;
-  }
-
-  connectedCallback() {
-    this.root.innerHTML = `
+class InlineEditorElement extends BaseEditorElement {
+  getAdditionalStyles() {
+    return `
       <style>
-        @import "/lib/cosmo/typography.css";
-        @import "/designer/lib/jodit/jodit.css";
-        @import "/designer/css/jodit.css";
-        
         :host {
           min-height: 11rem;
           display: block;
@@ -26,53 +14,11 @@ class InlineEditorElement extends HTMLElement {
         .jodit-container.jodit.jodit_inline.jodit-wysiwyg_mode {
           min-height: 11rem;
         }
-      </style>
-      <textarea></textarea>
-    `;
-    this.editor = createJodit(this.root.querySelector('textarea'), true);
-    this.editor.value = this.content;
-    this.editor.events.on('change', (e) => {
-      this.dispatchEvent(new EditorChangeEvent(e));
-    });
+      </style>`;
   }
 
-  disconnectedCallback() {
-    this.editor?.destruct();
-  }
-
-  static get observedAttributes() {
-    return ['content', 'focused'];
-  }
-
-  get content() {
-    return this.getAttribute('content');
-  }
-
-  set content(value) {
-    this.setAttribute('content', value);
-    this.editor.value = value;
-  }
-
-  get focused() {
-    return this.hasAttribute('focused');
-  }
-
-  set focused(value) {
-    if (value) {
-      this.setAttribute('focused', value);
-      this.editor.focus();
-    } else {
-      this.removeAttribute('focused');
-    }
-  }
-
-  attributeChangedCallback(property, oldValue, newValue) {
-    if (oldValue === newValue) {
-      return;
-    }
-
-    const propertyName = property.replace(/-([a-z])/g, (m, w) => w.toUpperCase());
-    this[propertyName] = newValue;
+  getIsInline() {
+    return true;
   }
 }
 

@@ -168,7 +168,8 @@
                         </template>
                         <template x-if="section.type === 'html'">
                           <div class="jinya-section-editor__content is--html">
-                            <cms-inline-editor @change="(e) => updateHtmlSection(index, e.value)"
+                            <cms-inline-editor @change="(e) => updateHtmlSection(index, e.target.value)"
+                                               type="blog-post"
                                                :content="section.html"></cms-inline-editor>
                           </div>
                         </template>
