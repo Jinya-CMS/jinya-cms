@@ -3,11 +3,45 @@
     <span x-text="title"></span>
     <small x-text="totalVisits"></small>
   </span>
-  <cms-line-diagram name="statistics.access.visits" group="date" :range="range" :interval="$router.params?.interval" class="jinya-statistics__daily"></cms-line-diagram>
-  <cms-world-map name="statistics.access.country" group="country" :range="range" class="jinya-statistics__country"></cms-world-map>
-  <cms-pie-diagram prefix="languages" name="statistics.access.language" group="language" :range="range" class="jinya-statistics__language"></cms-pie-diagram>
-  <cms-pie-diagram empty="statistics.referer.direct" name="statistics.access.referer" group="referer" :range="range" class="jinya-statistics__referer"></cms-pie-diagram>
-  <cms-pie-diagram prefix="statistics.device_type" name="statistics.access.type" group="type" :range="range" class="jinya-statistics__type"></cms-pie-diagram>
-  <cms-pie-diagram name="statistics.access.browser" group="browser" :range="range" class="jinya-statistics__browser"></cms-pie-diagram>
+  <cms-line-diagram
+    name="statistics.access.visits"
+    group="date"
+    :range="range"
+    :interval="$router.params?.interval"
+    class="jinya-statistics__daily"
+  ></cms-line-diagram>
+  <cms-world-map
+    name="statistics.access.country"
+    group="country"
+    :range="range"
+    class="jinya-statistics__country"
+  ></cms-world-map>
+  <cms-pie-diagram
+    prefix="languages"
+    name="statistics.access.language"
+    group="language"
+    :range="range"
+    class="jinya-statistics__language"
+  ></cms-pie-diagram>
+  <cms-pie-diagram
+    empty="statistics.referer.direct"
+    name="statistics.access.referer"
+    group="referer"
+    :range="range"
+    class="jinya-statistics__referer"
+  ></cms-pie-diagram>
+  <cms-pie-diagram
+    prefix="statistics.device_type"
+    name="statistics.access.type"
+    group="type"
+    :range="range"
+    class="jinya-statistics__type"
+  ></cms-pie-diagram>
+  <cms-pie-diagram
+    name="statistics.access.browser"
+    group="browser"
+    :range="range"
+    class="jinya-statistics__browser"
+  ></cms-pie-diagram>
   <cms-pie-diagram name="statistics.access.os" group="os" :range="range" class="jinya-statistics__os"></cms-pie-diagram>
 </div>

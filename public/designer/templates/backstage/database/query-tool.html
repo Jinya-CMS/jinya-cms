@@ -9,9 +9,12 @@
     <div class="cosmo-tab is--query-tool">
       <div class="cosmo-tab__links">
         <template x-for="(result, index) in results" :key="index">
-          <a class="cosmo-tab__link" @click="selectedResult = result"
-             :class="{ 'is--active': results.indexOf(selectedResult) === index }"
-             x-text="shortenedStatement(result.statement)"></a>
+          <a
+            class="cosmo-tab__link"
+            @click="selectedResult = result"
+            :class="{ 'is--active': results.indexOf(selectedResult) === index }"
+            x-text="shortenedStatement(result.statement)"
+          ></a>
         </template>
       </div>
       <div class="cosmo-tab__content is--query-tool">
@@ -25,20 +28,20 @@
           <template x-if="selectedResult.result.length > 0">
             <table class="cosmo-table">
               <thead>
-              <tr>
-                <template x-for="(key, index) in Object.keys(selectedResult.result[0])" :key="index">
-                  <th x-text="key"></th>
-                </template>
-              </tr>
-              </thead>
-              <tbody>
-              <template x-for="(row, index) in selectedResult.result" :key="index">
                 <tr>
-                  <template x-for="(key, index) in Object.keys(row)" :key="index">
-                    <td x-text="row[key]"></td>
+                  <template x-for="(key, index) in Object.keys(selectedResult.result[0])" :key="index">
+                    <th x-text="key"></th>
                   </template>
                 </tr>
-              </template>
+              </thead>
+              <tbody>
+                <template x-for="(row, index) in selectedResult.result" :key="index">
+                  <tr>
+                    <template x-for="(key, index) in Object.keys(row)" :key="index">
+                      <td x-text="row[key]"></td>
+                    </template>
+                  </tr>
+                </template>
               </tbody>
             </table>
           </template>

@@ -1,11 +1,19 @@
 <div class="cosmo-side-list is--blog-categories" x-data="postsData">
   <nav class="cosmo-side-list__items is--blog-categories">
-    <a @click="selectCategory(null)" class="cosmo-side-list__item" x-localize:blog-posts-overview-all
-       :class="{ 'is--active': selectedCategory === null }"></a>
+    <a
+      @click="selectCategory(null)"
+      class="cosmo-side-list__item"
+      x-localize:blog-posts-overview-all
+      :class="{ 'is--active': selectedCategory === null }"
+    ></a>
     <template x-for="category in categories" :key="category.id">
-      <a @click="selectCategory(category)" class="cosmo-side-list__item is--tree"
-         :style="{ '--nesting': category.nesting }"
-         :class="{ 'is--active': selectedCategory?.id === category.id }" x-text="category.name"></a>
+      <a
+        @click="selectCategory(category)"
+        class="cosmo-side-list__item is--tree"
+        :style="{ '--nesting': category.nesting }"
+        :class="{ 'is--active': selectedCategory?.id === category.id }"
+        x-text="category.name"
+      ></a>
     </template>
   </nav>
   <div class="cosmo-side-list__content jinya-designer">
@@ -19,8 +27,11 @@
       </div>
       <template x-if="selectedPost">
         <div class="cosmo-toolbar__group">
-          <button class="cosmo-button is--primary" x-localize:blog-posts-overview-action-save
-                  @click="savePost"></button>
+          <button
+            class="cosmo-button is--primary"
+            x-localize:blog-posts-overview-action-save
+            @click="savePost"
+          ></button>
         </div>
       </template>
       <template x-if="!selectedPost">
@@ -29,16 +40,32 @@
         </div>
       </template>
       <div class="cosmo-toolbar__group">
-        <button :disabled="selectedPost?.public" class="cosmo-button" @click="publishPost"
-                x-localize:blog-posts-overview-action-publish></button>
-        <button :disabled="!selectedPost?.public" class="cosmo-button" @click="unpublishPost"
-                x-localize:blog-posts-overview-action-unpublish></button>
+        <button
+          :disabled="selectedPost?.public"
+          class="cosmo-button"
+          @click="publishPost"
+          x-localize:blog-posts-overview-action-publish
+        ></button>
+        <button
+          :disabled="!selectedPost?.public"
+          class="cosmo-button"
+          @click="unpublishPost"
+          x-localize:blog-posts-overview-action-unpublish
+        ></button>
       </div>
       <div class="cosmo-toolbar__group">
-        <button :disabled="!selectedPost" class="cosmo-button" @click="openEditDialog"
-                x-localize:blog-posts-overview-action-edit></button>
-        <button :disabled="!selectedPost" class="cosmo-button" @click="deletePost"
-                x-localize:blog-posts-overview-action-delete></button>
+        <button
+          :disabled="!selectedPost"
+          class="cosmo-button"
+          @click="openEditDialog"
+          x-localize:blog-posts-overview-action-edit
+        ></button>
+        <button
+          :disabled="!selectedPost"
+          class="cosmo-button"
+          @click="deletePost"
+          x-localize:blog-posts-overview-action-delete
+        ></button>
       </div>
     </div>
     <div class="jinya-designer__content is--blog-posts" :class="{ 'has--selection': selectedPost !== null }">
@@ -46,8 +73,11 @@
         <div style="display: contents">
           <div x-ref="tileContainer" class="jinya-blog-tile__container">
             <template x-for="(post, index) in posts" :key="post.id">
-              <div class="jinya-blog-tile" :class="{ 'is--selected': selectedPost?.id === post.id }"
-                   @click="selectPost(index, post)">
+              <div
+                class="jinya-blog-tile"
+                :class="{ 'is--selected': selectedPost?.id === post.id }"
+                @click="selectPost(index, post)"
+              >
                 <span class="jinya-blog-tile__title">
                   <span x-text="getPostTitle(post)" :title="getPostTitle(post)"></span>
                   <template x-if="post.public">
@@ -76,31 +106,44 @@
             <div style="display: contents">
               <div class="jinya-blog__separator"></div>
               <div class="jinya-blog__editor">
-                <div class="cosmo-message is--blog"
-                     :class="{ 'is--negative': message.isNegative, 'is--positive': !message.isNegative }"
-                     x-show="message.hasMessage">
+                <div
+                  class="cosmo-message is--blog"
+                  :class="{ 'is--negative': message.isNegative, 'is--positive': !message.isNegative }"
+                  x-show="message.hasMessage"
+                >
                   <span class="cosmo-message__header" x-text="message.title"></span>
                   <p class="cosmo-message__message" x-text="message.content"></p>
                 </div>
                 <template x-for="(section, index) in sections" :key="index">
                   <div style="display: contents">
-                    <div class="jinya-section-editor__button is--add"
-                         x-data="{ addOpen: false, buttonId: $id('add-section') }">
-                      <button class="cosmo-button is--circle is--primary is--add is--section"
-                              :class="{ 'is--open': addOpen }"
-                              :id="buttonId" @click="addOpen = !addOpen">
+                    <div
+                      class="jinya-section-editor__button is--add"
+                      x-data="{ addOpen: false, buttonId: $id('add-section') }"
+                    >
+                      <button
+                        class="cosmo-button is--circle is--primary is--add is--section"
+                        :class="{ 'is--open': addOpen }"
+                        :id="buttonId"
+                        @click="addOpen = !addOpen"
+                      >
                         <svg class="jinya-icon is--add is--section" viewBox="0 0 24 24">
                           <path d="M5 12h14" />
                           <path d="M12 5v14" />
                         </svg>
                       </button>
-                      <div class="jinya-section-type-popup" x-show="addOpen"
-                           x-anchor="document.getElementById(buttonId)"
-                           x-collapse>
-                        <button class="cosmo-button is--circle is--primary is--icon" @click="() => {
+                      <div
+                        class="jinya-section-type-popup"
+                        x-show="addOpen"
+                        x-anchor="document.getElementById(buttonId)"
+                        x-collapse
+                      >
+                        <button
+                          class="cosmo-button is--circle is--primary is--icon"
+                          @click="() => {
                   addOpen = false;
                   insertImageSection(index);
-                }">
+                }"
+                        >
                           <svg height="16" width="16" viewBox="0 0 24 24">
                             <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
                             <circle cx="9" cy="9" r="2" />
@@ -108,10 +151,13 @@
                           </svg>
                         </button>
                         <template x-if="galleries.length > 0">
-                          <button class="cosmo-button is--circle is--primary is--icon" @click="() => {
+                          <button
+                            class="cosmo-button is--circle is--primary is--icon"
+                            @click="() => {
                     addOpen = false;
                     insertGallerySection(index);
-                  }">
+                  }"
+                          >
                             <svg height="16" width="16" viewBox="0 0 24 24">
                               <path d="M18 22H4a2 2 0 0 1-2-2V6" />
                               <path d="m22 13-1.296-1.296a2.41 2.41 0 0 0-3.408 0L11 18" />
@@ -120,15 +166,20 @@
                             </svg>
                           </button>
                         </template>
-                        <button class="cosmo-button is--circle is--primary is--icon" @click="() => {
+                        <button
+                          class="cosmo-button is--circle is--primary is--icon"
+                          @click="() => {
                   addOpen = false;
                   insertHtmlSection(index);
-                }">
+                }"
+                        >
                           <svg height="16" width="16" viewBox="0 0 24 24">
                             <path
-                              d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" />
+                              d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"
+                            />
                             <path
-                              d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z" />
+                              d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"
+                            />
                           </svg>
                         </button>
                       </div>
@@ -137,15 +188,22 @@
                       <div class="jinya-section-editor__details">
                         <template x-if="section.type === 'file'">
                           <figure class="jinya-section-editor__content is--file">
-                            <img class="jinya-section-editor__image is--file"
-                                 :src="section.file.path" :alt="section.file.name">
-                            <figcaption class="jinya-section-editor__caption is--file"
-                                        x-data="{ id: $id('section-file') }">
-                      <span class="jinya-section-editor__caption is--file"
-                            x-text="section.file.name"></span>
-                              <label :for="id" class="cosmo-label is--link"
-                                     x-localize:pages_and_forms-modern-designer-link></label>
-                              <input :id="id" type="text" class="cosmo-input is--link" x-model="section.link">
+                            <img
+                              class="jinya-section-editor__image is--file"
+                              :src="section.file.path"
+                              :alt="section.file.name"
+                            />
+                            <figcaption
+                              class="jinya-section-editor__caption is--file"
+                              x-data="{ id: $id('section-file') }"
+                            >
+                              <span class="jinya-section-editor__caption is--file" x-text="section.file.name"></span>
+                              <label
+                                :for="id"
+                                class="cosmo-label is--link"
+                                x-localize:pages_and_forms-modern-designer-link
+                              ></label>
+                              <input :id="id" type="text" class="cosmo-input is--link" x-model="section.link" />
                             </figcaption>
                           </figure>
                         </template>
@@ -153,24 +211,31 @@
                           <div class="jinya-section-editor__content is--gallery">
                             <select class="cosmo-select is--gallery" @input="(e) => changeSectionGallery(index, e)">
                               <template x-for="(gallery, galleryIdx) in galleries" :key="gallery.id">
-                                <option :selected="gallery.id === section.gallery?.id" :value="galleryIdx"
-                                        x-text="gallery.name"></option>
+                                <option
+                                  :selected="gallery.id === section.gallery?.id"
+                                  :value="galleryIdx"
+                                  x-text="gallery.name"
+                                ></option>
                               </template>
                             </select>
                             <div class="jinya-section-editor__gallery">
                               <template x-for="position in getPositions(section.gallery)" :key="position.id">
                                 <img
                                   class="jinya-section-editor__image jinya-media-tile is--designer"
-                                  :src="position.file.path" :alt="position.file.name">
+                                  :src="position.file.path"
+                                  :alt="position.file.name"
+                                />
                               </template>
                             </div>
                           </div>
                         </template>
                         <template x-if="section.type === 'html'">
                           <div class="jinya-section-editor__content is--html">
-                            <cms-inline-editor @change="(e) => updateHtmlSection(index, e.target.value)"
-                                               type="blog-post"
-                                               :content="section.html"></cms-inline-editor>
+                            <cms-inline-editor
+                              @change="(e) => updateHtmlSection(index, e.target.value)"
+                              type="blog-post"
+                              :content="section.html"
+                            ></cms-inline-editor>
                           </div>
                         </template>
                       </div>
@@ -179,8 +244,7 @@
                           <button class="cosmo-button is--icon is--primary" @click="selectFile(section, index)">
                             <svg viewBox="0 0 24 24">
                               <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-                              <circle
-                                cx="9" cy="9" r="2" />
+                              <circle cx="9" cy="9" r="2" />
                               <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
                             </svg>
                           </button>
@@ -197,18 +261,25 @@
                   </div>
                 </template>
                 <div class="jinya-section-editor__button is--add is--last" x-data="{ addOpen: false }">
-                  <button class="cosmo-button is--circle is--primary is--add is--section"
-                          :class="{ 'is--open': addOpen }" @click="addOpen = !addOpen" x-ref="lastOpenAddButtons">
+                  <button
+                    class="cosmo-button is--circle is--primary is--add is--section"
+                    :class="{ 'is--open': addOpen }"
+                    @click="addOpen = !addOpen"
+                    x-ref="lastOpenAddButtons"
+                  >
                     <svg class="jinya-icon is--add is--section" viewBox="0 0 24 24">
                       <path d="M5 12h14" />
                       <path d="M12 5v14" />
                     </svg>
                   </button>
                   <div class="jinya-section-type-popup" x-anchor="$refs.lastOpenAddButtons" x-show="addOpen" x-collapse>
-                    <button class="cosmo-button is--circle is--primary is--icon" @click="() => {
+                    <button
+                      class="cosmo-button is--circle is--primary is--icon"
+                      @click="() => {
                   addOpen = false;
                   insertImageSection(sections.length);
-                }">
+                }"
+                    >
                       <svg height="16" width="16" viewBox="0 0 24 24">
                         <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
                         <circle cx="9" cy="9" r="2" />
@@ -216,10 +287,13 @@
                       </svg>
                     </button>
                     <template x-if="galleries.length > 0">
-                      <button class="cosmo-button is--circle is--primary is--icon" @click="() => {
+                      <button
+                        class="cosmo-button is--circle is--primary is--icon"
+                        @click="() => {
                     addOpen = false;
                     insertGallerySection(sections.length);
-                  }">
+                  }"
+                      >
                         <svg height="16" width="16" viewBox="0 0 24 24">
                           <path d="M18 22H4a2 2 0 0 1-2-2V6" />
                           <path d="m22 13-1.296-1.296a2.41 2.41 0 0 0-3.408 0L11 18" />
@@ -228,15 +302,20 @@
                         </svg>
                       </button>
                     </template>
-                    <button class="cosmo-button is--circle is--primary is--icon" @click="() => {
+                    <button
+                      class="cosmo-button is--circle is--primary is--icon"
+                      @click="() => {
                   addOpen = false;
                   insertHtmlSection(sections.length);
-                }">
+                }"
+                    >
                       <svg height="16" width="16" viewBox="0 0 24 24">
                         <path
-                          d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" />
+                          d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"
+                        />
                         <path
-                          d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z" />
+                          d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"
+                        />
                       </svg>
                     </button>
                   </div>
@@ -280,20 +359,32 @@
               <select id="createCategory" class="cosmo-select" x-model="create.categoryId">
                 <option :value="null" x-localize:blog-posts-create-no_category></option>
                 <template x-for="category in categories">
-                  <option :selected="category.id == create.categoryId" :value="category.id"
-                          x-html="getCategoryOptionLabel(category)"></option>
+                  <option
+                    :selected="category.id == create.categoryId"
+                    :value="category.id"
+                    x-html="getCategoryOptionLabel(category)"
+                  ></option>
                 </template>
               </select>
             </div>
             <label for="createHeaderImage" class="cosmo-label" x-localize:blog-posts-create-header_image></label>
-            <button class="cosmo-input is--picker" id="createHeaderImage" :data-picker="create.picker.label"
-                    type="button"
-                    @click="selectCreateHeaderImage" x-text="create.picker.selected"></button>
+            <button
+              class="cosmo-input is--picker"
+              id="createHeaderImage"
+              :data-picker="create.picker.label"
+              type="button"
+              @click="selectCreateHeaderImage"
+              x-text="create.picker.selected"
+            ></button>
           </div>
         </div>
         <div class="cosmo-modal__button-bar">
-          <button type="button" class="cosmo-button" @click="create.open = false"
-                  x-localize:blog-posts-create-cancel></button>
+          <button
+            type="button"
+            class="cosmo-button"
+            @click="create.open = false"
+            x-localize:blog-posts-create-cancel
+          ></button>
           <button type="submit" class="cosmo-button" x-localize:blog-posts-create-create></button>
         </div>
       </div>
@@ -319,19 +410,32 @@
               <select id="editCategory" class="cosmo-select" x-model="edit.categoryId">
                 <option :value="null" x-localize:blog-posts-edit-no_category></option>
                 <template x-for="category in categories">
-                  <option :selected="category.id == edit.categoryId" :value="category.id"
-                          x-html="getCategoryOptionLabel(category)"></option>
+                  <option
+                    :selected="category.id == edit.categoryId"
+                    :value="category.id"
+                    x-html="getCategoryOptionLabel(category)"
+                  ></option>
                 </template>
               </select>
             </div>
             <label for="editHeaderImage" class="cosmo-label" x-localize:blog-posts-edit-header_image></label>
-            <button class="cosmo-input is--picker" id="editHeaderImage" :data-picker="edit.picker.label" type="button"
-                    @click="selectEditHeaderImage" x-text="edit.picker.selected"></button>
+            <button
+              class="cosmo-input is--picker"
+              id="editHeaderImage"
+              :data-picker="edit.picker.label"
+              type="button"
+              @click="selectEditHeaderImage"
+              x-text="edit.picker.selected"
+            ></button>
           </div>
         </div>
         <div class="cosmo-modal__button-bar">
-          <button type="button" class="cosmo-button" @click="edit.open = false"
-                  x-localize:blog-posts-edit-cancel></button>
+          <button
+            type="button"
+            class="cosmo-button"
+            @click="edit.open = false"
+            x-localize:blog-posts-edit-cancel
+          ></button>
           <button type="submit" class="cosmo-button" x-localize:blog-posts-edit-update></button>
         </div>
       </div>
