@@ -6,6 +6,7 @@ use Aura\SqlQuery\Common\SelectInterface;
 use Error;
 use Exception;
 use JetBrains\PhpStorm\ArrayShape;
+use Jinya\Cms\Logging\Logger;
 use Jinya\Database\Entity;
 use LogicException;
 use PDOException;
@@ -23,29 +24,37 @@ class DatabaseAnalyzer
      */
     public static function getTables(): array
     {
-        $tables = self::executeSqlString('SHOW TABLES');
+        $logger = Logger::getLogger();
+
+        $logger->debug('Get all tables');
+        $tables = self::executeSqlString('show tables');
         $result = [];
         if (!is_array($tables)) {
+            $logger->debug('Failed to get all tables');
             throw new LogicException('Query must return an array');
         }
         foreach ($tables as $table) {
             $tableName = $table[array_keys($table)[0]];
-            $result[$tableName]['structure'] = self::executeSqlString("EXPLAIN $tableName");
+            $logger->debug('Get structure for table', ['table' => $table]);
+            $result[$tableName]['structure'] = self::executeSqlString("explain $tableName");
 
+            $logger->debug('Count all entries in the table', ['table' => $table]);
             $query = Entity::getQueryBuilder()
                 ->newSelect()
                 ->from($tableName)
-                ->cols(['COUNT(*) AS count']);
+                ->cols(['count(*) as count']);
             $result[$tableName]['entryCount'] = self::fetchInt($query, 'count');
 
             try {
+                $logger->debug('Get table size', ['table' => $table]);
                 $query = Entity::getQueryBuilder()
                     ->newSelect()
                     ->from('information_schema.TABLES')
-                    ->cols(['ROUND((DATA_LENGTH + INDEX_LENGTH)) AS bytes'])
+                    ->cols(['round((DATA_LENGTH + INDEX_LENGTH)) AS bytes'])
                     ->where('TABLE_NAME = :tableName', ['tableName' => $tableName]);
                 $result[$tableName]['size'] = self::fetchInt($query, 'bytes');
 
+                $logger->debug('Get the tables engine', ['table' => $table]);
                 $query = Entity::getQueryBuilder()
                     ->newSelect()
                     ->from('information_schema.TABLES')
@@ -53,6 +62,7 @@ class DatabaseAnalyzer
                     ->where('TABLE_NAME = :tableName', ['tableName' => $tableName]);
                 $result[$tableName]['engine'] = self::fetchString($query, 'engine');
 
+                $logger->debug('Get all contraints and indexes of the table', ['table' => $table]);
                 $query = Entity::getQueryBuilder()
                     ->newSelect()
                     ->from('information_schema.TABLE_CONSTRAINTS tc')
@@ -83,6 +93,7 @@ class DatabaseAnalyzer
             }
         }
 
+        $logger->debug('Got all inforamtion for all tables', ['tables' => $result]);
         return $result;
     }
 
@@ -159,8 +170,11 @@ class DatabaseAnalyzer
             VariablesType::Session => 'SESSION',
         };
 
+        $logger = Logger::getLogger();
+        $logger->debug('Get all variables', ['variables' => $stringType]);
+
         try {
-            $variables = self::executeSqlString("SHOW $stringType VARIABLES");
+            $variables = self::executeSqlString("show $stringType variables");
             if (!is_array($variables)) {
                 throw new LogicException('Query must return an array');
             }

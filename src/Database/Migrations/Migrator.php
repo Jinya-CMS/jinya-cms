@@ -32,6 +32,7 @@ abstract class Migrator
     /**
      * Migrates the installation of Jinya
      *
+     * @param bool $inCli
      * @return int
      */
     public static function migrate(bool $inCli = false): int

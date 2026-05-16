@@ -26,6 +26,6 @@ class QueryAnalyzer
      */
     public function getStatements(string $query): array
     {
-        return (new Parser($query))->statements;
+        return new Parser($query)->statements;
     }
 }
