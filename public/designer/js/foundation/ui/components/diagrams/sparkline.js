@@ -1,23 +1,34 @@
-import Apex from '../../../../../lib/apex/apexcharts.esm.js';
 import { getStatisticsByEntityAndId } from '../../../api/statistics.js';
-import { BaseDiagram } from './base-diagram.js';
+import * as echarts from '../../../../../lib/echarts.js';
+import localize from '../../../utils/localize.js';
 
 class SparklineElement extends HTMLElement {
+  #echarts = null;
+
   constructor() {
     super();
+
     this.root = this.attachShadow({ mode: 'closed' });
   }
-
-  #apex = null;
 
   connectedCallback() {
     this.root.innerHTML = `
       <style>
-          @import "/designer/lib/apex/apexcharts.css";
           @import "/designer/css/statistics.css";
+          
+          #diagram {
+            width: 250px;
+            height: 35px;
+          }
       </style>
       <div id="diagram"></div>`;
     this.renderDiagram();
+  }
+
+  disconnectedCallback() {
+    if (this.#echarts && this.#echarts.dispose) {
+      this.#echarts.dispose();
+    }
   }
 
   static get observedAttributes() {
@@ -77,6 +88,50 @@ class SparklineElement extends HTMLElement {
     this.renderDiagram();
   }
 
+  getOptions(stats) {
+    return {
+      title: {
+        show: false,
+      },
+      tooltip: {
+        show: false,
+        trigger: 'none',
+      },
+      color: ['#1d3461', '#2a4b8c', '#3661b6', '#577ecd', '#819ed9'],
+      grid: {
+        width: 250,
+        height: 35,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        top: 0,
+      },
+      xAxis: [
+        {
+          show: false,
+          type: 'category',
+          boundaryGap: false,
+          data: stats.map((s) => new Date(Date.parse(s.group)).toLocaleDateString()),
+        },
+      ],
+      yAxis: [
+        {
+          show: false,
+          type: 'value',
+        },
+      ],
+      series: [
+        {
+          showSymbol: false,
+          type: 'line',
+          smooth: true,
+          data: stats.map((s) => s.visits),
+          name: localize({ key: `statistics.access.visits` }),
+        },
+      ],
+    };
+  }
+
   async renderDiagram() {
     if (isNaN(this.entityId)) {
       return;
@@ -87,39 +142,13 @@ class SparklineElement extends HTMLElement {
     }
 
     const stats = await getStatisticsByEntityAndId(this.type, this.entityId, this.range);
-    const options = {
-      series: [
-        {
-          data: stats.map((item) => ({
-            y: item.visits.toLocaleString(),
-            x: item.group,
-          })),
-        },
-      ],
-      chart: {
-        type: 'line',
-        width: 250,
-        height: 35,
-        sparkline: {
-          enabled: true,
-        },
-      },
-      stroke: {
-        curve: 'smooth',
-      },
-      theme: {
-        monochrome: BaseDiagram.theme,
-      },
-      tooltip: {
-        enabled: false,
-      },
-    };
-    if (!this.#apex) {
-      this.#apex = new Apex(this.root.getElementById('diagram'), options);
-      this.#apex.render();
-    } else {
-      this.#apex.updateOptions(options);
+    const options = this.getOptions(stats);
+    if (!this.#echarts) {
+      this.#echarts = echarts.init(this.root.getElementById('diagram'), null, {
+        renderer: 'svg',
+      });
     }
+    this.#echarts.setOption(options);
   }
 }
 
