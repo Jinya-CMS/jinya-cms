@@ -13,10 +13,10 @@
   },
   "type": "module",
   "scripts": {
-    "designer:prettier": "prettier public/designer/js --check",
+    "designer:prettier": "prettier public/designer/js public/designer/templates --check",
     "designer:eslint": "eslint -c eslint.config.cjs public/designer/js/ public/designer/lang/",
     "designer:stylelint": "stylelint public/designer/**/*.css",
-    "designer:format": "prettier public/designer/js --write",
+    "designer:format": "prettier public/designer/js public/designer/templates --write",
     "designer:lint": "bun run designer:prettier && bun run designer:eslint && bun run designer:stylelint",
     "installer:prettier": "prettier public/installer --check",
     "installer:eslint": "eslint -c eslint.config.cjs public/installer/",

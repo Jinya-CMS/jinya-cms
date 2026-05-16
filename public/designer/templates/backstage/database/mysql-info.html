@@ -1,13 +1,29 @@
 <div class="cosmo-side-list" x-data="mysqlInfoData">
   <nav class="cosmo-side-list__items">
-    <a :class="{ 'is--active': selectedItem === 'server'}" class="cosmo-side-list__item"
-       x-localize:database-mysql-system_and_server @click="selectedItem = 'server'"></a>
-    <a :class="{ 'is--active': selectedItem === 'global'}" class="cosmo-side-list__item"
-       x-localize:database-mysql-global_variables @click="selectedItem = 'global'"></a>
-    <a :class="{ 'is--active': selectedItem === 'local'}" class="cosmo-side-list__item"
-       x-localize:database-mysql-local_variables @click="selectedItem = 'local'"></a>
-    <a :class="{ 'is--active': selectedItem === 'session'}" class="cosmo-side-list__item"
-       x-localize:database-mysql-session_variables @click="selectedItem = 'session'"></a>
+    <a
+      :class="{ 'is--active': selectedItem === 'server'}"
+      class="cosmo-side-list__item"
+      x-localize:database-mysql-system_and_server
+      @click="selectedItem = 'server'"
+    ></a>
+    <a
+      :class="{ 'is--active': selectedItem === 'global'}"
+      class="cosmo-side-list__item"
+      x-localize:database-mysql-global_variables
+      @click="selectedItem = 'global'"
+    ></a>
+    <a
+      :class="{ 'is--active': selectedItem === 'local'}"
+      class="cosmo-side-list__item"
+      x-localize:database-mysql-local_variables
+      @click="selectedItem = 'local'"
+    ></a>
+    <a
+      :class="{ 'is--active': selectedItem === 'session'}"
+      class="cosmo-side-list__item"
+      x-localize:database-mysql-session_variables
+      @click="selectedItem = 'session'"
+    ></a>
   </nav>
   <div class="cosmo-side-list__content">
     <template x-if="selectedItem === 'server'">
@@ -25,18 +41,18 @@
     <template x-if="selectedItem !== 'server'">
       <table class="cosmo-table">
         <thead>
-        <tr>
-          <th x-localize:database-mysql-name></th>
-          <th x-localize:database-mysql-value></th>
-        </tr>
+          <tr>
+            <th x-localize:database-mysql-name></th>
+            <th x-localize:database-mysql-value></th>
+          </tr>
         </thead>
         <tbody>
-        <template x-for="[key, value] in Object.entries(databaseInfo.variables[selectedItem])">
-          <tr>
-            <td x-text="key"></td>
-            <td x-text="value"></td>
-          </tr>
-        </template>
+          <template x-for="[key, value] in Object.entries(databaseInfo.variables[selectedItem])">
+            <tr>
+              <td x-text="key"></td>
+              <td x-text="value"></td>
+            </tr>
+          </template>
         </tbody>
       </table>
     </template>
