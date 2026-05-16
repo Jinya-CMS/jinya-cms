@@ -1796,18 +1796,18 @@ export default {
       2: 'Tablet',
       3: 'Other',
     },
-    country: {
-      other: 'Other',
+    referer: {
+      direct: 'Direct entry',
     },
+    other: 'Other',
     access: {
       browser: 'Visits by browser',
-      browser_version: 'Visits by browser version',
       country: 'Visits by country',
       brand: 'Visits by device brand',
       type: 'Visits by device type',
       language: 'Visits by language',
       os: 'Visits by operating system',
-      os_version: 'Visits by operating system version',
+      referer: 'Visits by origin website',
       total_visits: '{visits} visits',
       date: {
         month: 'Distributed over the past month',
@@ -1815,9 +1815,6 @@ export default {
         'half-year': 'Distributed over the past six months',
         year: 'Distributed over the past year',
       },
-      os_unknown: 'Unknown operating system',
-      brand_unknown: 'Unknown brand',
-      browser_unknown: 'Unknown browser',
       visits: 'visits',
     },
   },

@@ -1,53 +1,80 @@
 import localize from '../../../utils/localize.js';
-import { BaseDiagram } from './base-diagram.js';
+import { DiagramBase } from './diagram-base.js';
 
-class PieDiagramElement extends BaseDiagram {
-  constructor() {
-    super('pie', {
-      enabled: true,
-    });
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-  }
-
+class PieDiagramElement extends DiagramBase {
   static get observedAttributes() {
-    return BaseDiagram.observedAttributes;
+    return super.observedAttributes;
   }
 
-  attributeChangedCallback(property, oldValue, newValue) {
-    return super.attributeChangedCallback(property, oldValue, newValue);
-  }
+  getOptions(stats) {
+    const statsSorted = stats.toSorted((a, b) => b.visits - a.visits);
+    const top10 = statsSorted.slice(0, 5);
+    const rest = statsSorted.slice(5, statsSorted.length).reduce((acc, c) => acc + c.visits, 0);
+    const prefix = this.getAttribute('prefix');
 
-  getSeries(stats) {
-    return stats.map((item) => item.visits);
-  }
+    const series = top10.map((item) => {
+      let name = item.group;
+      if (prefix) {
+        name = localize({ key: `${prefix}.${item.group}` });
+      } else if (!name) {
+        name = localize({ key: this.getAttribute('empty') });
+      }
 
-  getLabels(stats) {
-    return stats.map((item) => this.getLabel(item));
-  }
-
-  getShadeIntensity() {
-    return 0.8;
-  }
-
-  getLegend() {
-    return {
-      show: true,
-      fontFamily: 'var(--font-family)',
-      fontWeight: 'var(--font-weight-regular)',
-      position: 'bottom',
-      horizontalAlign: 'left',
-    };
-  }
-
-  getLabel(item) {
-    if (this.group === 'type') {
-      return localize({ key: `statistics.device_type.${item.group}` });
+      return {
+        value: item.visits,
+        name,
+      };
+    });
+    if (rest > 0) {
+      series.push({
+        value: rest,
+        name: localize({ key: `statistics.other` }),
+      });
     }
 
-    return super.getLabel(item);
+    return {
+      textStyle: {
+        fontFamily: 'var(--font-family)',
+        color: 'var(--black)',
+      },
+      tooltip: {
+        trigger: 'item',
+      },
+      visualMap: {
+        show: false,
+        min: 0,
+        max: Math.max(...stats.map((d) => d.visits), rest),
+        inRange: {
+          color: ['#eef2fd', '#1d3461'],
+        },
+      },
+      series: [
+        {
+          type: 'pie',
+          radius: '80%',
+          avoidLabelOverlap: false,
+          label: {
+            show: true,
+            color: 'var(--black)',
+          },
+          labelLine: {
+            lineStyle: {
+              color: 'var(--black)',
+            },
+            smooth: 0.2,
+            length: 10,
+            length2: 20,
+          },
+          roseType: 'radius',
+          emphasis: {
+            label: {
+              show: true,
+            },
+          },
+          data: series,
+        },
+      ],
+    };
   }
 }
 

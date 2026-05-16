@@ -20,7 +20,7 @@ class StatisticsController extends BaseController
      * @throws NotFoundException
      * @throws JsonException
      */
-    #[Route(HttpMethod::GET, 'api/statistics/{group:country|os|browser|os-version|browser-version|brand|type|language|date}/{interval:[1-9]\d*}/{type:month|year}')]
+    #[Route(HttpMethod::GET, 'api/statistics/{group:country|os|browser|os-version|browser-version|referer|brand|type|language|date}/{interval:[1-9]\d*}/{type:month|year}')]
     #[Middlewares(new AuthorizationMiddleware(ROLE_READER))]
     public function getStatisticsGrouped(
         string $group,

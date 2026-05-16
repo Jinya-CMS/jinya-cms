@@ -4,9 +4,8 @@
         "title title title title title title" auto
         "daily daily daily daily daily daily" auto
         "country country country country country country" auto
-        "language language brand brand type type" auto
-        "os os os os-version os-version os-version" auto
-        "browser browser browser browser-version browser-version browser-version" auto
+        "language language referer referer type type" auto
+        "os os os browser browser browser" auto
         / 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 1rem;
     height: 100%;
@@ -28,8 +27,8 @@
     grid-area: language;
 }
 
-.jinya-statistics__brand {
-    grid-area: brand;
+.jinya-statistics__referer {
+    grid-area: referer;
 }
 
 .jinya-statistics__type {
@@ -40,14 +39,6 @@
     grid-area: browser;
 }
 
-.jinya-statistics__browser-version {
-    grid-area: browser-version;
-}
-
 .jinya-statistics__os {
     grid-area: os;
-}
-
-.jinya-statistics__os-version {
-    grid-area: os-version;
 }

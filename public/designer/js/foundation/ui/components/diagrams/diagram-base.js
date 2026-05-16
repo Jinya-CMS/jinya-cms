@@ -5,14 +5,11 @@ import { getStatisticsByGroup } from '../../../api/statistics.js';
 export class DiagramBase extends HTMLElement {
   #echarts = null;
 
-  constructor(type) {
+  constructor() {
     super();
 
     this.root = this.attachShadow({ mode: 'closed' });
-    this.#type = type;
   }
-
-  #type;
 
   connectedCallback() {
     this.root.innerHTML = `
