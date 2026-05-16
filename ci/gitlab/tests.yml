@@ -37,7 +37,7 @@ phpunit:
         coverage_format: cobertura
         path: coverage.cobertura.xml
   tags:
-    - online
+    - performance
   needs:
     - phpstan
   services:
