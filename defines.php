@@ -18,6 +18,9 @@ const __JINYA_CACHE = __DIR__ . '/var/cache';
 const __JINYA_ENTITY = __DIR__ . '/src/Database';
 const __JINYA_CONTROLLERS = __DIR__ . '/src/Web/Controllers';
 
+global $__RUNNING_IN_DOCKER;
+$__RUNNING_IN_DOCKER = is_file('/.dockerenv');
+
 if (!is_dir(__JINYA_TEMP) && !mkdir($concurrentDirectory = __JINYA_TEMP, 0775, true) && !is_dir($concurrentDirectory)) {
     throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
 }
