@@ -33,8 +33,9 @@ class JinyaHandler extends AbstractHandler
                 Level::Emergency => FRANKENPHP_LOG_LEVEL_ERROR + 1 + 1 + 1,
             };
             frankenphp_log($record->message, $frankenlevel, $record->context);
-        } else {
-            $this->streamHandler->handle($record);
+            return true;
         }
+
+        return $this->streamHandler->handle($record);
     }
 }
