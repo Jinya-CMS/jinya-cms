@@ -26,7 +26,7 @@ class FileController extends BaseController
 {
     private readonly LoggerInterface $logger;
 
-    public function __construct(private readonly FileUploadService $fileUploadService = new FileUploadService(), )
+    public function __construct(private readonly FileUploadService $fileUploadService = new FileUploadService())
     {
         $this->logger = Logger::getLogger();
     }

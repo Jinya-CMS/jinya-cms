@@ -2,7 +2,6 @@
 
 namespace Jinya\Cms\Web\Controllers;
 
-use Jinya\Cms\Locate\IpToLocationService;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 
 class LocateIpControllerTest extends DatabaseAwareTestCase

@@ -5,7 +5,6 @@ namespace Jinya\Cms\Mailing\Types;
 use Jinya\Cms\Database\KnownDevice;
 use Faker;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
-use PHPUnit\Framework\TestCase;
 
 class NewSavedDeviceMailTest extends DatabaseAwareTestCase
 {

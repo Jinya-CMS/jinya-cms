@@ -7,7 +7,6 @@ use Jinya\Cms\Database;
 use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Jinya\Cms\Theming;
 use RuntimeException;
-use ScssPhp\ScssPhp\Value\SassString;
 use Symfony\Component\Filesystem\Filesystem;
 
 class ThemeTest extends DatabaseAwareTestCase
