@@ -15,7 +15,7 @@
     "ext-zip": "*",
     "ext-zlib": "*",
     "bacon/bacon-qr-code": "v3.1.1",
-    "intervention/image": "v4.0.4",
+    "intervention/image": "v4.1.0",
     "asika/agent": "2.7.3",
     "guzzlehttp/guzzle": "7.10.0",
     "jetbrains/phpstorm-attributes": "1.2",
