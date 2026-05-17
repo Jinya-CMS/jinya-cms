@@ -2,7 +2,6 @@
 
 namespace Jinya\Cms\Images;
 
-use Imagick;
 use Jinya\Cms\Configuration\JinyaConfiguration;
 use Jinya\Cms\Database\File;
 use Jinya\Cms\Storage\ConversionService;
@@ -36,16 +35,10 @@ function handle_images(bool $exit = true): void
     }
 
     if ($defaultType === null) {
-        $webpSupported = false;
-        if (class_exists(Imagick::class, false)) {
-            // queryFormats() is expensive; do it once.
-            $webpSupported = !empty(Imagick::queryFormats('WEBP'));
-        }
-
         $defaultType = JinyaConfiguration::getConfiguration()->get(
             'default_type',
             'image_cache',
-            ($webpSupported ? ImageType::Webp : ImageType::Jpg)->string()
+            ImageType::Webp->string()
         );
     }
 

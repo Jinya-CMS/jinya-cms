@@ -14,7 +14,7 @@ use Jinya\Cms\Utils\ImageType;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
-readonly class ImaginaryConversionService extends ImageConversionService
+class ImaginaryConversionService extends ImageConversionService
 {
     private LoggerInterface $logger;
 
