@@ -19,6 +19,67 @@ readonly class IpToLocationService
         $this->logger = Logger::getLogger();
     }
 
+    /**
+     * @return bool
+     * @internal
+     */
+    public function populateUnitTestDb(): bool
+    {
+        $this->logger->info('Populating the ip2location database');
+        $query = Entity::getQueryBuilder()
+            ->newDelete()
+            ->from('ip_address');
+
+        Entity::executeQuery($query);
+
+        $statement = Entity::getPDO()->prepare(
+            'insert into ip_address (address_type, ip_start, ip_end, country, city) values (:type, :ipFrom, :ipTo, :countryCode, :city)'
+        );
+        $statement->bindValue(':type', 'ipv4');
+        $statement->bindValue(':ipFrom', inet_pton('8.8.8.8'));
+        $statement->bindValue(':ipTo', inet_pton('8.8.8.8'));
+        $statement->bindValue(':countryCode', 'DE');
+        $statement->bindValue(':city', 'Nuremberg');
+        $statement->execute();
+
+        $statement->bindValue(':type', 'ipv4');
+        $statement->bindValue(':ipFrom', inet_pton('127.0.0.1'));
+        $statement->bindValue(':ipTo', inet_pton('127.0.0.1'));
+        $statement->bindValue(':countryCode', 'ZZ');
+        $statement->bindValue(':city', '');
+        $statement->execute();
+
+        $statement->bindValue(':type', 'ipv4');
+        $statement->bindValue(':ipFrom', inet_pton('192.168.178.1'));
+        $statement->bindValue(':ipTo', inet_pton('192.168.178.1'));
+        $statement->bindValue(':countryCode', 'ZZ');
+        $statement->bindValue(':city', '');
+        $statement->execute();
+
+        $statement->bindValue(':type', 'ipv6');
+        $statement->bindValue(':ipFrom', inet_pton('2a03:4000:64:134::1'));
+        $statement->bindValue(':ipTo', inet_pton('2a03:4000:64:134::1'));
+        $statement->bindValue(':countryCode', 'DE');
+        $statement->bindValue(':city', 'Nuremberg');
+        $statement->execute();
+
+        $statement->bindValue(':type', 'ipv6');
+        $statement->bindValue(':ipFrom', inet_pton('::1'));
+        $statement->bindValue(':ipTo', inet_pton('::1'));
+        $statement->bindValue(':countryCode', 'ZZ');
+        $statement->bindValue(':city', '');
+        $statement->execute();
+
+        $statement->bindValue(':type', 'ipv6');
+        $statement->bindValue(':ipFrom', inet_pton('2001:db8:ffff:ffff:ffff:ffff:ffff:ffff'));
+        $statement->bindValue(':ipTo', inet_pton('2001:db8:ffff:ffff:ffff:ffff:ffff:ffff'));
+        $statement->bindValue(':countryCode', 'ZZ');
+        $statement->bindValue(':city', '');
+        $statement->execute();
+
+        return true;
+    }
+
     public function populateDatabase(): bool
     {
         $this->logger->info('Populating the ip2location database');
@@ -47,7 +108,7 @@ readonly class IpToLocationService
                 Entity::executeQuery($query);
 
                 $statement = Entity::getPDO()->prepare(
-                    'INSERT INTO ip_address (address_type, ip_start, ip_end, country, city) VALUES (:type, :ipFrom, :ipTo, :countryCode, :city)'
+                    'insert into ip_address (address_type, ip_start, ip_end, country, city) values (:type, :ipFrom, :ipTo, :countryCode, :city)'
                 );
                 $batchSize = 1000;
                 $counter = 0;

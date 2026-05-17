@@ -8,7 +8,7 @@ use PDO;
 
 class TG217IpDatabase extends AbstractMigration
 {
-    public function __construct(private readonly bool $inCli)
+    public function __construct()
     {
     }
 
@@ -17,6 +17,7 @@ class TG217IpDatabase extends AbstractMigration
      */
     public function up(PDO $pdo): void
     {
+        global $__UNIT_TEST;
         $pdo->exec(
             <<<SQL
 create table ip_address (
@@ -33,9 +34,13 @@ insert into jinya_configuration (`key`, `group`, value, type) values ('ip_databa
 SQL
         );
 
-        if ($this->inCli) {
+        if (PHP_SAPI === 'cli') {
             $ipToLocationService = new IpToLocationService();
-            $ipToLocationService->populateDatabase();
+            if ($__UNIT_TEST) {
+                $ipToLocationService->populateUnitTestDb();
+            } else {
+                $ipToLocationService->populateDatabase();
+            }
         }
     }
 
