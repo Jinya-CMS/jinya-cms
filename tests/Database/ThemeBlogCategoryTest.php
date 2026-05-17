@@ -37,7 +37,7 @@ class ThemeBlogCategoryTest extends ThemeTestCase
         $themeCat = $this->createThemeBlogCategory();
         $cat = $themeCat->getBlogCategory();
 
-        self::assertEquals($this->category, $cat);
+        self::assertArraysAreEqual($this->category->format(), $cat->format());
     }
 
     public function testCreate(): void

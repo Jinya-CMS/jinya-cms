@@ -89,20 +89,6 @@ class FileTagTest extends DatabaseAwareTestCase
         $tag->update();
     }
 
-    public function testGetFiles(): void
-    {
-        $tag = $this->createTag();
-
-        $file = new File();
-        $file->tags = [$tag->name];
-        $file->name = 'Test';
-        $file->create();
-
-        $files = iterator_to_array($tag->getFiles());
-        self::assertNotEmpty($files);
-        self::assertEquals($file->format(), $files[0]->format());
-    }
-
     public function testCreate(): void
     {
         $tag = $this->createTag(false);

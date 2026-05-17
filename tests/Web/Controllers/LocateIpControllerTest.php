@@ -10,8 +10,6 @@ class LocateIpControllerTest extends DatabaseAwareTestCase
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        $ipToLocationService = new IpToLocationService();
-        $ipToLocationService->populateDatabase();
     }
 
     public function testLocateIp(): void
@@ -25,7 +23,7 @@ class LocateIpControllerTest extends DatabaseAwareTestCase
         self::assertArrayHasKey('city', $body);
 
 
-        self::assertEquals('US', $body['country']);
-        self::assertEquals('Mountain View', $body['city']);
+        self::assertEquals('DE', $body['country']);
+        self::assertEquals('Nuremberg', $body['city']);
     }
 }

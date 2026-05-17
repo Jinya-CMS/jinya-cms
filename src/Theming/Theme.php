@@ -13,6 +13,7 @@ use RuntimeException;
 use ScssPhp\ScssPhp\Compiler;
 use ScssPhp\ScssPhp\Exception\SassException;
 use ScssPhp\ScssPhp\OutputStyle;
+use ScssPhp\ScssPhp\Value\SassString;
 use ScssPhp\ScssPhp\Value\Value;
 use ScssPhp\ScssPhp\ValueConverter;
 
@@ -81,7 +82,12 @@ class Theme implements ExtensionInterface
     public function scssJinyaAsset(array $args): Value
     {
         $assets = $this->dbTheme->getAssets();
-        $assetName = $this->scssCompiler->getStringText($args[0]);
+        if ($args[0] instanceof SassString) {
+            $assetName = $args[0]->getText();
+        } else {
+            $this->scssCompiler->assertString($args[0]);
+            $assetName = $this->scssCompiler->getStringText($args[0]);
+        }
         if (array_key_exists($assetName, $assets)) {
             return ValueConverter::parseValue('url("' . $assets[$assetName]->publicPath . '")');
         }
@@ -206,9 +212,9 @@ class Theme implements ExtensionInterface
     private function getStyleCache(): array
     {
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/styles');
-        $files = array_map(fn ($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/styles/$item", $files ?: []);
+        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/styles/$item", $files ?: []);
 
-        return array_filter($files, static fn ($item) => is_file($item)) ?: [];
+        return array_filter($files, static fn($item) => is_file($item)) ?: [];
     }
 
     /**
@@ -264,9 +270,9 @@ class Theme implements ExtensionInterface
     private function getScriptCache(): array
     {
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts');
-        $files = array_map(fn ($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/scripts/$item", $files ?: []);
+        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/scripts/$item", $files ?: []);
 
-        return array_filter($files, static fn ($item) => is_file($item)) ?: [];
+        return array_filter($files, static fn($item) => is_file($item)) ?: [];
     }
 
     /**
@@ -338,9 +344,9 @@ class Theme implements ExtensionInterface
     private function getAssetCache(): array
     {
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/assets');
-        $files = array_map(fn ($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/assets/$item", $files ?: []);
+        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/assets/$item", $files ?: []);
 
-        return array_filter($files, static fn ($item) => is_file($item)) ?: [];
+        return array_filter($files, static fn($item) => is_file($item)) ?: [];
     }
 
     /**

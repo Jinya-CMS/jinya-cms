@@ -133,7 +133,7 @@ class BlogPostTest extends DatabaseAwareTestCase
     {
         $post = $this->createBlogPost();
         self::assertNotNull($post->getHeaderImage());
-        self::assertEquals(File::findById($post->headerImageId), $post->getHeaderImage());
+        self::assertArraysAreEqual(File::findById($post->headerImageId)->format(), $post->getHeaderImage()->format());
     }
 
     public function testGetHeaderImageEmpty(): void
@@ -213,7 +213,7 @@ class BlogPostTest extends DatabaseAwareTestCase
     {
         $post = $this->createBlogPost();
         $category = BlogCategory::findById($post->categoryId);
-        self::assertEquals($category, $post->getCategory());
+        self::assertArraysAreEqual($category->format(), $post->getCategory()->format());
     }
 
     public function testFindAll(): void
@@ -282,7 +282,7 @@ class BlogPostTest extends DatabaseAwareTestCase
     {
         $post = $this->createBlogPost();
         $creator = $post->getCreator();
-        self::assertEquals(CurrentUser::$currentUser, $creator);
+        self::assertArraysAreEqual(CurrentUser::$currentUser->format(), $creator->format());
     }
 
     public function testReplaceSectionsEmptyArray(): void

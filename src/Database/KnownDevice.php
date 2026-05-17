@@ -4,6 +4,7 @@ namespace Jinya\Cms\Database;
 
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
+use Jinya\Cms\Logging\Logger;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
@@ -60,6 +61,8 @@ class KnownDevice implements Creatable, Deletable
      */
     public static function findByArtist(int $artistId): Iterator
     {
+        $logger = Logger::getLogger();
+        $logger->debug('Find known devices by artist', ['artistId' => $artistId]);
         $query = self::getQueryBuilder()
             ->newSelect()
             ->from(self::getTableName())
@@ -86,8 +89,10 @@ class KnownDevice implements Creatable, Deletable
      * @param string $knownDeviceCode
      * @return KnownDevice|null
      */
-    public static function findByCode(string $knownDeviceCode): ?KnownDevice
+    public static function findByCode(string $knownDeviceCode): ?self
     {
+        $logger = Logger::getLogger();
+        $logger->debug('Find known device by code');
         $query = self::getQueryBuilder()
             ->newSelect()
             ->from(self::getTableName())

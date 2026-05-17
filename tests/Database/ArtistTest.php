@@ -69,7 +69,7 @@ class ArtistTest extends DatabaseAwareTestCase
         $artist->create();
 
         $savedArtist = Artist::findById($artist->id);
-        self::assertEquals($artist, $savedArtist);
+        self::assertArraysAreEqual($artist->format(), $savedArtist->format());
     }
 
     public function testFormatPrefersColorSchemeDark(): void
@@ -280,7 +280,7 @@ class ArtistTest extends DatabaseAwareTestCase
         $artist->update();
 
         $savedArtist = Artist::findById($artist->id);
-        self::assertEquals($artist, $savedArtist);
+        self::assertArraysAreEqual($artist->format(), $savedArtist->format());
     }
 
     public function testUpdateUnsaved(): void
@@ -305,7 +305,7 @@ class ArtistTest extends DatabaseAwareTestCase
         $artist = $this->createArtist();
         $foundArtist = Artist::findById($artist->id);
 
-        self::assertEquals($artist, $foundArtist);
+        self::assertArraysAreEqual($artist->format(), $foundArtist->format());
     }
 
     public function testFindByIdNotExist(): void
@@ -393,7 +393,7 @@ class ArtistTest extends DatabaseAwareTestCase
             email: 'test2@example.com'
         );
         $foundArtist = Artist::findByEmail('test2@example.com');
-        self::assertEquals($artist, $foundArtist);
+        self::assertArraysAreEqual($artist->format(), $foundArtist->format());
     }
 
     public function testFindByEmailNotExist(): void

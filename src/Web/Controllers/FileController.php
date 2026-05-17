@@ -34,7 +34,7 @@ class FileController extends BaseController
     public function getFileContent(int $id): ResponseInterface
     {
         $file = File::findById($id);
-        if ($file === null) {
+        if ($file === null || !is_file(StorageBaseService::PUBLIC_PATH . $file->path)) {
             return $this->entityNotFound('File not found');
         }
 

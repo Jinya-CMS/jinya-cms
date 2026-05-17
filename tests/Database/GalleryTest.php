@@ -59,7 +59,7 @@ class GalleryTest extends DatabaseAwareTestCase
     public function testGetCreator(): void
     {
         $gallery = $this->createGallery();
-        self::assertEquals(CurrentUser::$currentUser, $gallery->getCreator());
+        self::assertArraysAreEqual(CurrentUser::$currentUser->format(), $gallery->getCreator()->format());
     }
 
     public function testCreate(): void
@@ -126,7 +126,7 @@ class GalleryTest extends DatabaseAwareTestCase
     public function testGetUpdatedBy(): void
     {
         $gallery = $this->createGallery();
-        self::assertEquals(CurrentUser::$currentUser, $gallery->getUpdatedBy());
+        self::assertArraysAreEqual(CurrentUser::$currentUser->format(), $gallery->getUpdatedBy()->format());
     }
 
     public function testDelete(): void

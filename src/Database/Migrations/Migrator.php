@@ -32,10 +32,9 @@ abstract class Migrator
     /**
      * Migrates the installation of Jinya
      *
-     * @param bool $inCli
      * @return int
      */
-    public static function migrate(bool $inCli = false): int
+    public static function migrate(): int
     {
         $migrations = [
             new InitialMigration(),
@@ -52,7 +51,7 @@ abstract class Migrator
             new TG195AppTotp(),
             new TG201EmailPreferences(),
             new TG192JinyaConfiguration(),
-            new TG217IpDatabase($inCli),
+            new TG217IpDatabase(),
             new TG191Analytics(),
             new TG202Folders(),
             new TG202FileUniqueKey(),

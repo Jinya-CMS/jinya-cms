@@ -61,7 +61,7 @@ readonly class ImaginaryConversionService extends ImageConversionService
             'post',
             "$imaginaryServer/resize?width=$width&type=" . $type,
             ['Content-Type' => 'image/' . $type],
-            fopen(StorageBaseService::BASE_PATH . '/public/' . $file->path, 'rb+') ?: throw new EmptyResultException(
+            @fopen(StorageBaseService::BASE_PATH . '/public/' . $file->path, 'rb+') ?: throw new EmptyResultException(
                 'The file was not found'
             )
         );

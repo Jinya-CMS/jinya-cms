@@ -3,6 +3,7 @@
 namespace Jinya\Cms\Database;
 
 use Iterator;
+use Jinya\Cms\Logging\Logger;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Table;
 use Jinya\Database\Creatable;
@@ -39,8 +40,11 @@ class ThemeAsset implements Creatable, Updatable, Deletable
      * @param string $name
      * @return ThemeAsset|null
      */
-    public static function findByThemeAndName(int $themeId, string $name): ?ThemeAsset
+    public static function findByThemeAndName(int $themeId, string $name): ?self
     {
+        $logger = Logger::getLogger();
+        $logger->debug('Find asset by theme and name', ['themeId' => $themeId, 'name' => $name]);
+
         $query = self::getQueryBuilder()
             ->newSelect()
             ->from(self::getTableName())
@@ -68,6 +72,9 @@ class ThemeAsset implements Creatable, Updatable, Deletable
      */
     public static function findByTheme(int $themeId): Iterator
     {
+        $logger = Logger::getLogger();
+        $logger->debug('Get all assets in theme', ['themeId' => $themeId]);
+
         $query = self::getQueryBuilder()
             ->newSelect()
             ->from(self::getTableName())

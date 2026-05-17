@@ -50,6 +50,6 @@ class ProfilePictureService extends StorageBaseService
             throw new EmptyResultException('Artist not found');
         }
         $this->logger->debug('Delete artists profile picture from filesystem', ['artistId' => $artistId]);
-        unlink(self::BASE_PATH . '/public/' . $artist->profilePicture);
+        @unlink(self::BASE_PATH . '/public/' . $artist->profilePicture);
     }
 }

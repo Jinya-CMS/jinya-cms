@@ -6,6 +6,7 @@ use Jinya\Cms\Database\Converter\BooleanConverter;
 use Jinya\Cms\Database\Converter\JsonConverter;
 use Iterator;
 use JetBrains\PhpStorm\Pure;
+use Jinya\Cms\Logging\Logger;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
@@ -80,6 +81,9 @@ class FormItem
      */
     public static function findByForm(int $id): Iterator
     {
+        $logger = Logger::getLogger();
+
+        $logger->debug('Find form items by form id', ['formId' => $id]);
         $query = self::getQueryBuilder()
             ->newSelect()
             ->from(self::getTableName())

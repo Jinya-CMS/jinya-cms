@@ -122,7 +122,7 @@ class GalleryFilePositionTest extends DatabaseAwareTestCase
         $galleryFilePosition = $this->createGalleryFilePosition(3);
 
         $foundItem = GalleryFilePosition::findByPosition($this->gallery->id, 3);
-        self::assertEquals($galleryFilePosition, $foundItem);
+        self::assertArraysAreEqual($galleryFilePosition->format(), $foundItem->format());
     }
 
     public function testFindByPositionNotExisting(): void

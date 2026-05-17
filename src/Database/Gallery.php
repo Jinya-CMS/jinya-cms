@@ -10,13 +10,11 @@ use JetBrains\PhpStorm\ArrayShape;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
-use Jinya\Database\Entity;
 use Jinya\Database\Exception\NotNullViolationException;
 use Jinya\Router\Extensions\Database\Attributes\Create;
 use Jinya\Router\Extensions\Database\Attributes\Delete;
 use Jinya\Router\Extensions\Database\Attributes\Find;
 use Jinya\Router\Extensions\Database\Attributes\Update;
-use JsonSerializable;
 
 /**
  * This class contains a gallery, galleries are used to arrange files in a list or masonry layout and horizontal or vertical orientation. They can be embedded into segment pages and blog posts
@@ -26,7 +24,7 @@ use JsonSerializable;
 #[Create('/api/gallery', new AuthorizationMiddleware(ROLE_WRITER))]
 #[Update('/api/gallery', new AuthorizationMiddleware(ROLE_WRITER))]
 #[Delete('/api/gallery', new AuthorizationMiddleware(ROLE_WRITER))]
-class Gallery extends Entity implements JsonSerializable
+class Gallery extends LoggingEntity
 {
     /** @var string Used to mark a gallery for list or sequential layout */
     public const TYPE_SEQUENCE = 'sequence';
@@ -87,7 +85,8 @@ class Gallery extends Entity implements JsonSerializable
         'orientation' => 'string',
         'created' => 'array',
         'updated' => 'array'
-    ])] public function format(): array
+    ])]
+    public function format(): array
     {
         $creator = $this->getCreator();
         $updatedBy = $this->getUpdatedBy();
@@ -175,6 +174,7 @@ class Gallery extends Entity implements JsonSerializable
      */
     public function getFiles(): Iterator
     {
+        $this->logger->debug('Get all files in gallery', ['galleryId' => $this->id]);
         $query = self::getQueryBuilder()
             ->newSelect()
             ->from(GalleryFilePosition::getTableName())
@@ -184,7 +184,7 @@ class Gallery extends Entity implements JsonSerializable
                 'file_id',
                 'gallery_id'
             ])
-            ->where('gallery_id = :parentId', ['parentId' => $this->id])
+            ->where('gallery_id = :galleryId', ['galleryId' => $this->id])
             ->orderBy(['position']);
 
         /** @var array<string, mixed>[] $data */
@@ -192,10 +192,5 @@ class Gallery extends Entity implements JsonSerializable
         foreach ($data as $item) {
             yield GalleryFilePosition::fromArray($item);
         }
-    }
-
-    public function jsonSerialize(): mixed
-    {
-        return $this->format();
     }
 }
