@@ -176,7 +176,7 @@ class FileTest extends DatabaseAwareTestCase
         $creator = $file->getCreator();
 
         self::assertNotNull($creator);
-        self::assertEquals(CurrentUser::$currentUser, $creator);
+        self::assertArraysAreEqual(CurrentUser::$currentUser->format(), $creator->format());
     }
 
     public function testDelete(): void
@@ -242,6 +242,6 @@ class FileTest extends DatabaseAwareTestCase
         $updatedBy = $file->getUpdatedBy();
 
         self::assertNotNull($updatedBy);
-        self::assertEquals(CurrentUser::$currentUser, $updatedBy);
+        self::assertArraysAreEqual(CurrentUser::$currentUser->format(), $updatedBy->format());
     }
 }

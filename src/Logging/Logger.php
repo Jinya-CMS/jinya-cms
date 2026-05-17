@@ -2,7 +2,6 @@
 
 namespace Jinya\Cms\Logging;
 
-use Monolog\Handler\StreamHandler;
 use Monolog\Processor\UidProcessor;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
@@ -19,7 +18,6 @@ abstract class Logger
      */
     public static function getLogger(): LoggerInterface
     {
-        $path = isset($_ENV['DOCKER']) ? 'php://stdout' : __JINYA_LOGS . '/app.log';
         $level = getenv('LOGLEVEL') ?: LogLevel::INFO;
         $logger = new \Monolog\Logger('jinya-cms');
 
@@ -27,7 +25,7 @@ abstract class Logger
         $logger->pushProcessor($processor);
 
         /** @phpstan-ignore argument.type */
-        $handler = new StreamHandler($path, $level);
+        $handler = new JinyaHandler($level);
         $logger->pushHandler($handler);
 
         return $logger;

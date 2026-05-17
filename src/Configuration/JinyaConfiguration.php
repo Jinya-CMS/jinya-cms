@@ -2,17 +2,23 @@
 
 namespace Jinya\Cms\Configuration;
 
+use Jinya\Cms\Logging\Logger;
 use Jinya\Configuration\Adapter\EnvironmentAdapter;
 use Jinya\Configuration\Adapter\IniAdapter;
 use Jinya\Configuration\Configuration;
 use PDO;
+use Psr\Log\LoggerInterface;
 
 use function Jinya\Database\configure_jinya_database;
 
 class JinyaConfiguration extends Configuration
 {
+    private readonly LoggerInterface $logger;
+
     private function __construct(bool $withDatabase = true)
     {
+        $this->logger = Logger::getLogger();
+
         if ($withDatabase) {
             $adapter = [
                 new DatabaseConfigurationAdapter(),
@@ -41,9 +47,10 @@ class JinyaConfiguration extends Configuration
 
     public function reconfigureDatabase(): void
     {
+        $this->logger->info('Reconfigure the database connection');
         $configuration = new self(false);
-        $database = $configuration->get('database', 'mysql', );
-        $user = $configuration->get('user', 'mysql', ) ?: '';
+        $database = $configuration->get('database', 'mysql');
+        $user = $configuration->get('user', 'mysql') ?: '';
         $password = $configuration->get('password', 'mysql', '');
         $host = $configuration->get('host', 'mysql', '127.0.0.1');
         $port = $configuration->get('port', 'mysql', 3306);

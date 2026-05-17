@@ -3,10 +3,12 @@
 namespace Jinya\Cms\Mailing\Types;
 
 use Jinya\Cms\Configuration\JinyaConfiguration;
+use Jinya\Cms\Logging\Logger;
 use Jinya\Cms\Mailing\Factory\MailerFactory;
 use Jinya\Cms\Theming\Engine;
 use Jinya\Plates\Engine as PlatesEngine;
 use PHPMailer\PHPMailer\Exception;
+use Psr\Log\LoggerInterface;
 use Throwable;
 
 /**
@@ -15,13 +17,15 @@ use Throwable;
 readonly class TwoFactorMail
 {
     private PlatesEngine $templateEngine;
+    private LoggerInterface $logger;
 
     /**
-     * TwoFactorMail constructor.
+     * NewLoginMail constructor.
      */
     public function __construct()
     {
         $this->templateEngine = Engine::getPlatesEngine();
+        $this->logger = Logger::getLogger();
     }
 
     /**
@@ -35,6 +39,7 @@ readonly class TwoFactorMail
      */
     public function sendMail(string $artistEmail, string $artistName, string $twoFactorCode): void
     {
+        $this->logger->debug('Prepare two factor mail');
         $renderedHtmlMail = $this->templateEngine->render(
             'mailing::TwoFactorCodeHtml',
             [
@@ -59,6 +64,7 @@ readonly class TwoFactorMail
         $mailer->Body = $renderedHtmlMail;
         $mailer->isHTML();
 
+        $this->logger->debug('Send new two factor mail');
         $mailer->send();
     }
 }

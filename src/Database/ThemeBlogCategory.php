@@ -2,7 +2,6 @@
 
 namespace Jinya\Cms\Database;
 
-use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Table;
@@ -10,10 +9,7 @@ use Jinya\Database\Creatable;
 use Jinya\Database\Deletable;
 use Jinya\Database\DeletableEntityTrait;
 use Jinya\Database\EntityTrait;
-use Jinya\Database\Exception\ForeignKeyFailedException;
-use Jinya\Database\Exception\UniqueFailedException;
 use Jinya\Database\Updatable;
-use PDOException;
 
 /**
  * This class contains a blog category connected to a theme
@@ -23,6 +19,7 @@ class ThemeBlogCategory implements Creatable, Updatable, Deletable
 {
     use EntityTrait;
     use DeletableEntityTrait;
+    use ThemeLinkTrait;
 
     /** @var string The theme name */
     #[Column]
@@ -36,118 +33,14 @@ class ThemeBlogCategory implements Creatable, Updatable, Deletable
     #[Column(sqlName: 'blog_category_id')]
     public int $blogCategoryId = -1;
 
-    /**
-     * Finds a blog category by name and theme
-     *
-     * @param int $themeId
-     * @param string $name
-     * @return ThemeBlogCategory|null
-     */
-    public static function findByThemeAndName(int $themeId, string $name): ThemeBlogCategory|null
+    private static function getLinkIdProperty(): string
     {
-        $query = self::getQueryBuilder()
-            ->newSelect()
-            ->from(self::getTableName())
-            ->cols([
-                'theme_id',
-                'name',
-                'blog_category_id',
-            ])
-            ->where('theme_id = :themeId AND name = :name', ['themeId' => $themeId, 'name' => $name]);
-
-        /** @var array<string, mixed>[] $data */
-        $data = self::executeQuery($query);
-        if (empty($data)) {
-            return null;
-        }
-
-        return self::fromArray($data[0]);
+        return 'blogCategoryId';
     }
 
-    /**
-     * Finds all theme blog categories in the theme with the given ID
-     *
-     * @param int $themeId
-     * @return Iterator<ThemeBlogCategory>
-     */
-    public static function findByTheme(int $themeId): Iterator
+    private static function getLinkIdColumn(): string
     {
-        $query = self::getQueryBuilder()
-            ->newSelect()
-            ->from(self::getTableName())
-            ->cols([
-                'theme_id',
-                'name',
-                'blog_category_id',
-            ])
-            ->where('theme_id = :themeId', ['themeId' => $themeId]);
-
-        /** @var array<string, mixed>[] $data */
-        $data = self::executeQuery($query);
-        foreach ($data as $item) {
-            yield self::fromArray($item);
-        }
-    }
-
-    /**
-     * Creates the current theme blog category
-     *
-     * @return void
-     */
-    public function create(): void
-    {
-        $query = self::getQueryBuilder()
-            ->newInsert()
-            ->into(self::getTableName())
-            ->addRow([
-                'theme_id' => $this->themeId,
-                'name' => $this->name,
-                'blog_category_id' => $this->blogCategoryId,
-            ]);
-
-        try {
-            self::executeQuery($query);
-        } catch (PDOException $exception) {
-            $errorInfo = $exception->errorInfo ?? ['', ''];
-            if ($errorInfo[1] === 1062) {
-                throw new UniqueFailedException($exception, self::getPDO());
-            }
-
-            if ($errorInfo[1] === 1452) {
-                throw new ForeignKeyFailedException($exception, self::getPDO());
-            }
-
-            throw $exception;
-        }
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function update(): void
-    {
-        $query = self::getQueryBuilder()
-            ->newUpdate()
-            ->table(self::getTableName())
-            /** @phpstan-ignore argument.type */
-            ->set('blog_category_id', $this->blogCategoryId)
-            ->where('theme_id = :themeId AND name = :name', ['themeId' => $this->themeId, 'name' => $this->name]);
-
-
-        try {
-            self::executeQuery($query);
-        } catch (PDOException $exception) {
-            $errorInfo = $exception->errorInfo ?? ['', ''];
-            if ($errorInfo[1] === 1062) {
-                throw new UniqueFailedException($exception, self::getPDO());
-            }
-
-            if ($errorInfo[1] === 1452) {
-                throw new ForeignKeyFailedException($exception, self::getPDO());
-            }
-
-            throw $exception;
-        }
+        return 'blog_category_id';
     }
 
     /**

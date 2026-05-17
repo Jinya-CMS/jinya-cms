@@ -2,6 +2,7 @@
 
 use Dotenv\Dotenv;
 use Jinya\Cms\Configuration\JinyaConfiguration;
+use Jinya\Cms\Logging\Logger;
 use Jinya\Cms\Storage\StorageBaseService;
 use Jinya\Cms\Utils\CacheUtils;
 use Jinya\Cms\Web\Handlers\ErrorHandler;
@@ -18,6 +19,8 @@ if (!is_dir(StorageBaseService::SAVE_PATH) && !mkdir(
 ) && !is_dir($concurrentDirectory)) {
     throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
 }
+
+\Monolog\ErrorHandler::register(Logger::getLogger());
 
 function getRouterConfiguration(): array
 {

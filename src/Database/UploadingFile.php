@@ -2,6 +2,7 @@
 
 namespace Jinya\Cms\Database;
 
+use Jinya\Cms\Logging\Logger;
 use Jinya\Cms\Utils\UuidGenerator;
 use Exception;
 use Iterator;
@@ -13,6 +14,7 @@ use Jinya\Database\EntityTrait;
 use Jinya\Database\Exception\ForeignKeyFailedException;
 use Jinya\Database\Exception\UniqueFailedException;
 use PDOException;
+use Psr\Log\LoggerInterface;
 
 /**
  * This class contains an uploading file.
@@ -26,6 +28,8 @@ class UploadingFile implements Creatable, Deletable
     #[Column]
     public string $id;
 
+    private readonly LoggerInterface $logger;
+
     /** @var int The ID of the file the uploading file belongs to */
     #[Column(sqlName: 'file_id')]
     public int $fileId;
@@ -36,6 +40,7 @@ class UploadingFile implements Creatable, Deletable
     public function __construct()
     {
         $this->id = UuidGenerator::generateV4();
+        $this->logger = Logger::getLogger();
     }
 
     /**
@@ -55,8 +60,10 @@ class UploadingFile implements Creatable, Deletable
      * @param int $fileId
      * @return UploadingFile|null
      */
-    public static function findByFile(int $fileId): ?UploadingFile
+    public static function findByFile(int $fileId): ?self
     {
+        $logger = Logger::getLogger();
+        $logger->debug('Find upload file by file', ['fileId' => $fileId]);
         $query = self::getQueryBuilder()
             ->newSelect()
             ->from(self::getTableName())
@@ -87,6 +94,7 @@ class UploadingFile implements Creatable, Deletable
 
     public function create(): void
     {
+        $this->logger->debug('Create new uploading file', ['fileId' => $this->fileId, 'id' => $this->id]);
         $insert = self::getQueryBuilder()
             ->newInsert()
             ->into(self::getTableName())
@@ -98,6 +106,14 @@ class UploadingFile implements Creatable, Deletable
         try {
             self::executeQuery($insert);
         } catch (PDOException $exception) {
+            $this->logger->error(
+                'Failed to create uploading file',
+                [
+                    'fileId' => $this->fileId,
+                    'id' => $this->id,
+                    'exception' => $exception
+                ]
+            );
             $errorInfo = $exception->errorInfo ?? ['', ''];
             if ($errorInfo[1] === 1062) {
                 throw new UniqueFailedException($exception, self::getPDO());
@@ -113,6 +129,7 @@ class UploadingFile implements Creatable, Deletable
 
     public function delete(): void
     {
+        $this->logger->debug('Delete uploading file', ['fileId' => $this->fileId, 'id' => $this->id]);
         $delete = self::getQueryBuilder()
             ->newDelete()
             ->from(self::getTableName())

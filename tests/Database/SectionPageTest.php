@@ -132,7 +132,7 @@ class SectionPageTest extends DatabaseAwareTestCase
     {
         $page = $this->createSectionPage();
         $creator = $page->getCreator();
-        self::assertEquals(CurrentUser::$currentUser, $creator);
+        self::assertArraysAreEqual(CurrentUser::$currentUser->format(), $creator->format());
     }
 
     public function testReplaceSectionsEmptyArray(): void

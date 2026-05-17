@@ -4,9 +4,9 @@ namespace Jinya\Cms\Mailing\Types;
 
 use Jinya\Cms\Database\ApiKey;
 use Faker;
-use PHPUnit\Framework\TestCase;
+use Jinya\Cms\Tests\DatabaseAwareTestCase;
 
-class NewLoginMailTest extends TestCase
+class NewLoginMailTest extends DatabaseAwareTestCase
 {
     public function testSendMail(): void
     {

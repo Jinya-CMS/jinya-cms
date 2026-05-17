@@ -16,7 +16,7 @@ class MenuTest extends DatabaseAwareTestCase
         $menu->update();
 
         $found = Menu::findById($menu->id);
-        self::assertEquals($menu, $found);
+        self::assertArraysAreEqual($menu->format(), $found->format());
     }
 
     private function createMenu(string $name = 'Testmenu', bool $execute = true): Menu
@@ -38,7 +38,7 @@ class MenuTest extends DatabaseAwareTestCase
         $menu->create();
 
         $found = Menu::findById($menu->id);
-        self::assertEquals($menu, $found);
+        self::assertArraysAreEqual($menu->format(), $found->format());
     }
 
     public function testFormat(): void
@@ -46,13 +46,13 @@ class MenuTest extends DatabaseAwareTestCase
         $menu = $this->createMenu(execute: false);
         $menu->logo = null;
         $menu->create();
-        self::assertEquals(['name' => $menu->name, 'id' => $menu->id], $menu->format());
+        self::assertArraysAreEqual(['name' => $menu->name, 'id' => $menu->id], $menu->format());
     }
 
     public function testFormatWithLogo(): void
     {
         $menu = $this->createMenu();
-        self::assertEquals(
+        self::assertArraysAreEqual(
             [
                 'name' => $menu->name,
                 'id' => $menu->id,
@@ -127,7 +127,7 @@ class MenuTest extends DatabaseAwareTestCase
         $menu = $this->createMenu();
         $found = Menu::findById($menu->id);
 
-        self::assertEqualsIgnoringCase($menu, $found);
+        self::assertArraysAreEqual($menu->format(), $found->format());
     }
 
     public function testFindByIdNotExistent(): void

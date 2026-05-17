@@ -2,6 +2,9 @@
 
 namespace Jinya\Cms\Storage;
 
+use Jinya\Cms\Logging\Logger;
+use Psr\Log\LoggerInterface;
+
 /**
  * Provides helpers for storage services. It contains several constants and a helper method for hashing files
  */
@@ -15,6 +18,13 @@ abstract class StorageBaseService
     public const SAVE_PATH = self::BASE_PATH . '/public/' . self::WEB_PATH;
     public const PUBLIC_PATH = self::BASE_PATH . '/public/';
 
+    protected LoggerInterface $logger;
+
+    public function __construct()
+    {
+        $this->logger = Logger::getLogger();
+    }
+
     /**
      * Hashes the given resources content
      *
@@ -23,6 +33,7 @@ abstract class StorageBaseService
      */
     protected function getFileHash($fileContent): string
     {
+        $this->logger->debug('Generating file hash from given resource');
         rewind($fileContent);
         $hashCtx = hash_init('sha256');
         hash_update_stream($hashCtx, $fileContent);

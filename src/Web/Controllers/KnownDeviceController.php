@@ -48,7 +48,7 @@ class KnownDeviceController extends BaseController
 
         $device->delete();
 
-        $cookie = $this->request->getCookieParams()[self::DEVICE_CODE_COOKIE];
+        $cookie = $this->request->getCookieParams()[self::DEVICE_CODE_COOKIE] ?? null;
         if ($cookie === $key) {
             return CookieSetter::unsetCookie($this->noContent(), self::DEVICE_CODE_COOKIE, false);
         }

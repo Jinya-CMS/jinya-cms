@@ -18,7 +18,7 @@ class MenuItemTest extends DatabaseAwareTestCase
 
         /** @var MenuItem $found */
         $found = $menu->getItems()->current();
-        self::assertEquals(CurrentUser::$currentUser, $found->getArtist());
+        self::assertArraysAreEqual(CurrentUser::$currentUser->format(), $found->getArtist()->format());
 
         $format = $found->format();
 
@@ -79,8 +79,6 @@ class MenuItemTest extends DatabaseAwareTestCase
 
         /** @var MenuItem $found */
         $found = $menu->getItems()->current();
-        self::assertEquals($form, $found->getForm());
-
         $format = $found->format();
 
         self::assertEquals($form->format(), $found->getForm()->format());
@@ -117,7 +115,6 @@ class MenuItemTest extends DatabaseAwareTestCase
 
         /** @var MenuItem $found */
         $found = $menu->getItems()->current();
-        self::assertEquals($page, $found->getClassicPage());
 
         $format = $found->format();
 
@@ -153,7 +150,6 @@ class MenuItemTest extends DatabaseAwareTestCase
 
         /** @var MenuItem $found */
         $found = $menu->getItems()->current();
-        self::assertEquals($page, $found->getModernPage());
 
         $format = $found->format();
 
@@ -188,7 +184,6 @@ class MenuItemTest extends DatabaseAwareTestCase
 
         /** @var MenuItem $found */
         $found = $menu->getItems()->current();
-        self::assertEquals($gallery, $found->getGallery());
 
         $format = $found->format();
 
@@ -223,7 +218,6 @@ class MenuItemTest extends DatabaseAwareTestCase
 
         /** @var MenuItem $found */
         $found = $menu->getItems()->current();
-        self::assertEquals($category, $found->getBlogCategory());
 
         $format = $found->format();
 
@@ -370,7 +364,7 @@ class MenuItemTest extends DatabaseAwareTestCase
         $menu->replaceItems([$menuItem]);
         $item = $menu->getItems()->current();
 
-        self::assertEquals($menu, $item->getMenu());
+        self::assertArraysAreEqual($menu->format(), $item->getMenu()->format());
     }
 
     public function testGetMenuNoMenu(): void

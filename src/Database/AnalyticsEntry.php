@@ -8,16 +8,15 @@ use Jinya\Cms\Analytics\EntityType;
 use Jinya\Cms\Database\Converter\BooleanConverter;
 use Jinya\Cms\Database\Converter\DeviceTypeConverter;
 use Jinya\Cms\Database\Converter\EntityTypeConverter;
+use Jinya\Cms\Logging\Logger;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
 use Jinya\Database\Converters\DateConverter;
-use Jinya\Database\Entity;
 use Jinya\Database\EntityTrait;
-use JsonSerializable;
 
 #[Table('analytics')]
-class AnalyticsEntry extends Entity implements JsonSerializable
+class AnalyticsEntry extends LoggingEntity
 {
     use EntityTrait;
 
@@ -93,6 +92,17 @@ class AnalyticsEntry extends Entity implements JsonSerializable
         ?int $id = null,
         bool $uniqueOnly = false
     ): array {
+        $logger = Logger::getLogger();
+
+        $logger->debug(
+            'Get analytics entries in past interval',
+            [
+                'interval' => $interval,
+                'entityType' => $entityType,
+                'id' => $id,
+                'uniqueOnly' => $uniqueOnly
+            ]
+        );
         $select = self::getQueryBuilder()
             ->newSelect()
             ->cols(['count(*) as visits', 'timestamp as group'])
@@ -110,7 +120,7 @@ class AnalyticsEntry extends Entity implements JsonSerializable
 
         if ($entityType !== null && $id !== null) {
             $select = $select->where(
-                'entity_type = :type AND entity_id = :id',
+                'entity_type = :type and entity_id = :id',
                 ['type' => $entityType->int(), 'id' => $id]
             );
         }
@@ -136,6 +146,18 @@ class AnalyticsEntry extends Entity implements JsonSerializable
         ?int $id = null,
         bool $uniqueOnly = false,
     ): array {
+        $logger = Logger::getLogger();
+
+        $logger->debug(
+            'Get grouped analytics entries in past interval',
+            [
+                'group' => $group,
+                'interval' => $interval,
+                'entityType' => $entityType,
+                'id' => $id,
+                'uniqueOnly' => $uniqueOnly
+            ]
+        );
         $groupColumns = match ($group) {
             'os' => ['operating_system'],
             'os-version' => ['operating_system', 'operating_system_version'],
@@ -166,7 +188,7 @@ class AnalyticsEntry extends Entity implements JsonSerializable
 
         if ($entityType !== null && $id !== null) {
             $select = $select->where(
-                'entity_type = :type AND entity_id = :id',
+                'entity_type = :type and entity_id = :id',
                 ['type' => $entityType->int(), 'id' => $id]
             );
         }
@@ -190,9 +212,17 @@ class AnalyticsEntry extends Entity implements JsonSerializable
 
     public static function getTotalPastInterval(?string $interval): int
     {
+        $logger = Logger::getLogger();
+
+        $logger->debug(
+            'Get total unique vists in past interval',
+            [
+                'interval' => $interval,
+            ]
+        );
         $select = self::getQueryBuilder()
             ->newSelect()
-            ->cols(['COUNT(*) as visits'])
+            ->cols(['count(*) as visits'])
             ->from(self::getTableName())
             ->where('status <> 404')
             ->where('unique_visit = true');
@@ -205,14 +235,6 @@ class AnalyticsEntry extends Entity implements JsonSerializable
         $result = self::executeQuery($select);
 
         return $result[0]['visits'];
-    }
-
-    /**
-     * @return array<string, string|int|bool|null>
-     */
-    public function jsonSerialize(): array
-    {
-        return $this->format();
     }
 
     /**
@@ -238,23 +260,6 @@ class AnalyticsEntry extends Entity implements JsonSerializable
             'country' => $this->country,
             'userAgent' => $this->userAgent,
         ];
-    }
-
-    /**
-     * @return BlogPost|BlogCategory|Form|Gallery|ModernPage|ClassicPage|Artist|null
-     */
-    public function getRelatedEntity(): BlogPost|BlogCategory|Form|Gallery|ModernPage|ClassicPage|Artist|null
-    {
-        return match ($this->entityType) {
-            EntityType::BlogPost => BlogPost::findById($this->entityId ?? -1),
-            EntityType::BlogCategory => BlogCategory::findById($this->entityId ?? -1),
-            EntityType::Form => Form::findById($this->entityId ?? -1),
-            EntityType::Gallery => Gallery::findById($this->entityId ?? -1),
-            EntityType::ModernPage => ModernPage::findById($this->entityId ?? -1),
-            EntityType::ClassicPage => ClassicPage::findById($this->entityId ?? -1),
-            EntityType::Artist => Artist::findById($this->entityId ?? -1),
-            default => null,
-        };
     }
 
     /**

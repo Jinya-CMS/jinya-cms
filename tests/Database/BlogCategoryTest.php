@@ -12,7 +12,7 @@ class BlogCategoryTest extends DatabaseAwareTestCase
         $cat = $this->createBlogCategory();
         $foundCat = BlogCategory::findById($cat->id);
 
-        self::assertEquals($cat, $foundCat);
+        self::assertArraysAreEqual($cat->format(), $foundCat->format());
     }
 
     private function createBlogCategory(
@@ -44,7 +44,7 @@ class BlogCategoryTest extends DatabaseAwareTestCase
         $cat->update();
 
         $foundCat = BlogCategory::findById($cat->id);
-        self::assertEquals($cat, $foundCat);
+        self::assertArraysAreEqual($cat->format(), $foundCat->format());
     }
 
     public function testUpdateNotExistent(): void
@@ -111,7 +111,7 @@ class BlogCategoryTest extends DatabaseAwareTestCase
         $catWithParent->parentId = $cat->id;
         $catWithParent->create();
 
-        self::assertEquals($cat, $catWithParent->getParent());
+        self::assertArraysAreEqual($cat->format(), $catWithParent->getParent()->format());
     }
 
     public function testGetParentIsNull(): void
@@ -127,7 +127,7 @@ class BlogCategoryTest extends DatabaseAwareTestCase
         $cat->create();
 
         $foundCat = BlogCategory::findById($cat->id);
-        self::assertEquals($cat, $foundCat);
+        self::assertArraysAreEqual($cat->format(), $foundCat->format());
     }
 
     public function testDelete(): void

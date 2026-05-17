@@ -19,12 +19,82 @@ readonly class IpToLocationService
         $this->logger = Logger::getLogger();
     }
 
+    /**
+     * @return bool
+     * @internal
+     */
+    public function populateUnitTestDb(): bool
+    {
+        $this->logger->info('Populating the ip2location database');
+        $query = Entity::getQueryBuilder()
+            ->newDelete()
+            ->from('ip_address');
+
+        Entity::executeQuery($query);
+
+        $statement = Entity::getPDO()->prepare(
+            'insert into ip_address (address_type, ip_start, ip_end, country, city) values (:type, :ipFrom, :ipTo, :countryCode, :city)'
+        );
+        $statement->bindValue(':type', 'ipv4');
+        $statement->bindValue(':ipFrom', inet_pton('8.8.8.8'));
+        $statement->bindValue(':ipTo', inet_pton('8.8.8.8'));
+        $statement->bindValue(':countryCode', 'DE');
+        $statement->bindValue(':city', 'Nuremberg');
+        $statement->execute();
+
+        $statement->bindValue(':type', 'ipv4');
+        $statement->bindValue(':ipFrom', inet_pton('127.0.0.1'));
+        $statement->bindValue(':ipTo', inet_pton('127.0.0.1'));
+        $statement->bindValue(':countryCode', 'ZZ');
+        $statement->bindValue(':city', '');
+        $statement->execute();
+
+        $statement->bindValue(':type', 'ipv4');
+        $statement->bindValue(':ipFrom', inet_pton('192.168.178.1'));
+        $statement->bindValue(':ipTo', inet_pton('192.168.178.1'));
+        $statement->bindValue(':countryCode', 'ZZ');
+        $statement->bindValue(':city', '');
+        $statement->execute();
+
+        $statement->bindValue(':type', 'ipv6');
+        $statement->bindValue(':ipFrom', inet_pton('2a03:4000:64:134::1'));
+        $statement->bindValue(':ipTo', inet_pton('2a03:4000:64:134::1'));
+        $statement->bindValue(':countryCode', 'DE');
+        $statement->bindValue(':city', 'Nuremberg');
+        $statement->execute();
+
+        $statement->bindValue(':type', 'ipv6');
+        $statement->bindValue(':ipFrom', inet_pton('::1'));
+        $statement->bindValue(':ipTo', inet_pton('::1'));
+        $statement->bindValue(':countryCode', 'ZZ');
+        $statement->bindValue(':city', '');
+        $statement->execute();
+
+        $statement->bindValue(':type', 'ipv6');
+        $statement->bindValue(':ipFrom', inet_pton('2001:db8:ffff:ffff:ffff:ffff:ffff:ffff'));
+        $statement->bindValue(':ipTo', inet_pton('2001:db8:ffff:ffff:ffff:ffff:ffff:ffff'));
+        $statement->bindValue(':countryCode', 'ZZ');
+        $statement->bindValue(':city', '');
+        $statement->execute();
+
+        return true;
+    }
+
     public function populateDatabase(): bool
     {
-        $databaseUrl = (string)JinyaConfiguration::getConfiguration()->get('ip_database_url', 'jinya', 'https://download.db-ip.com/free/dbip-city-lite-{YEAR}-{MONTH}.csv.gz');
+        $this->logger->info('Populating the ip2location database');
+        $databaseUrl = (string)JinyaConfiguration::getConfiguration()->get(
+            'ip_database_url',
+            'jinya',
+            'https://download.db-ip.com/free/dbip-city-lite-{YEAR}-{MONTH}.csv.gz'
+        );
         $yesterday = new DateTime();
         $yesterday->modify('-1 day');
-        $databaseUrl = str_replace(array('{YEAR}', '{MONTH}'), array($yesterday->format('Y'), $yesterday->format('m')), $databaseUrl);
+        $databaseUrl = str_replace(
+            array('{YEAR}', '{MONTH}'),
+            array($yesterday->format('Y'), $yesterday->format('m')),
+            $databaseUrl
+        );
 
         $database = gzopen($databaseUrl, 'rb');
         if ($database) {
@@ -38,12 +108,13 @@ readonly class IpToLocationService
                 Entity::executeQuery($query);
 
                 $statement = Entity::getPDO()->prepare(
-                    'INSERT INTO ip_address (address_type, ip_start, ip_end, country, city) VALUES (:type, :ipFrom, :ipTo, :countryCode, :city)'
+                    'insert into ip_address (address_type, ip_start, ip_end, country, city) values (:type, :ipFrom, :ipTo, :countryCode, :city)'
                 );
                 $batchSize = 1000;
                 $counter = 0;
 
                 while (($line = fgetcsv($database, 1024, ',', '"', "\0")) !== false) {
+                    $this->logger->info("Importing batch $counter");
                     [$ipFrom, $ipTo, , $countryCode, , $city] = $line;
 
                     $type = match (ip2long($ipFrom)) {
@@ -61,6 +132,7 @@ readonly class IpToLocationService
                     $counter++;
 
                     if ($counter % $batchSize === 0) {
+                        $this->logger->info("Commit transaction containing entries");
                         Entity::getPDO()->commit();
                         Entity::getPDO()->beginTransaction();
                     }
@@ -73,7 +145,7 @@ readonly class IpToLocationService
                 return true;
             } catch (Throwable $e) {
                 Entity::getPDO()->rollBack();
-                $this->logger->error($e->getMessage());
+                $this->logger->error('Failed to populate the database', ['exception' => $e]);
             }
         }
 
@@ -90,6 +162,7 @@ readonly class IpToLocationService
     ])]
     public function locateIp(string $ip): array
     {
+        $this->logger->debug('Locate ip');
         $isV6 = ip2long($ip) === false;
         $pton = inet_pton($ip);
         if ($pton !== false) {
@@ -115,6 +188,6 @@ readonly class IpToLocationService
             }
         }
 
-        return ['country' => '-1','city' => '-1'];
+        return ['country' => '-1', 'city' => '-1'];
     }
 }
