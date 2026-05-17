@@ -5,6 +5,7 @@ namespace Jinya\Cms\Web\Controllers;
 use Jinya\Cms\Database\Exceptions\EmptyResultException;
 use Jinya\Cms\Database\File;
 use Jinya\Cms\Database\UploadingFile;
+use Jinya\Cms\Logging\Logger;
 use Jinya\Cms\Storage\FileUploadService;
 use Jinya\Cms\Storage\StorageBaseService;
 use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
@@ -18,12 +19,16 @@ use Jinya\Router\Attributes\Route;
 use JsonException;
 use PDOException;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
 #[Controller]
 class FileController extends BaseController
 {
-    public function __construct(private readonly FileUploadService $fileUploadService = new FileUploadService())
+    private readonly LoggerInterface $logger;
+
+    public function __construct(private readonly FileUploadService $fileUploadService = new FileUploadService(), )
     {
+        $this->logger = Logger::getLogger();
     }
 
     /**
@@ -97,6 +102,7 @@ class FileController extends BaseController
         } catch (ForeignKeyFailedException) {
             return $this->entityNotFound('File not found');
         } catch (PDOException $exception) {
+            $this->logger->error('Failed to create uploading file', ['exception' => $exception]);
             return $this->json([
                 'success' => false,
                 'error' => [

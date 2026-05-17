@@ -4,17 +4,26 @@ namespace Jinya\Cms\Web\Controllers;
 
 use Jinya\Cms\Configuration\DatabaseConfigurationAdapter;
 use Jinya\Cms\Configuration\JinyaConfiguration;
+use Jinya\Cms\Logging\Logger;
 use Jinya\Cms\Web\Middleware\AuthorizationMiddleware;
 use Jinya\Router\Attributes\Controller;
 use Jinya\Router\Attributes\HttpMethod;
 use Jinya\Router\Attributes\Middlewares;
 use Jinya\Router\Attributes\Route;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 use Throwable;
 
 #[Controller('api/configuration')]
 class ConfigurationController extends BaseController
 {
+    private readonly LoggerInterface $logger;
+
+    public function __construct()
+    {
+        $this->logger = Logger::getLogger();
+    }
+
     #[Route(HttpMethod::GET)]
     #[Middlewares(new AuthorizationMiddleware(ROLE_ADMIN))]
     public function getConfiguration(): ResponseInterface
@@ -108,7 +117,8 @@ class ConfigurationController extends BaseController
                 }
 
                 file_put_contents(__ROOT__ . '/jinya-configuration.ini', $ini);
-            } catch (Throwable) {
+            } catch (Throwable $exception) {
+                $this->logger->error('Failed to save jinya-configuration.ini', ['exception' => $exception]);
                 return $this->json([
                     'success' => false,
                     'error' => [

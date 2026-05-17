@@ -118,10 +118,11 @@ class AuthenticationController extends BaseController
                     try {
                         $this->newSavedDeviceMail->sendMail($artist->email, $artist->artistName, $knownDevice);
                     } catch (Throwable $exception) {
-                        $this->logger->warning($exception->getMessage());
+                        $this->logger->warning($exception->getMessage(), ['exception' => $exception]);
                     }
                 }
             } else {
+                $this->logger->warning('Invalid two-factor code login');
                 return $this->badCredentialsResponse;
             }
 
@@ -146,7 +147,7 @@ class AuthenticationController extends BaseController
                 try {
                     $this->newLoginMail->sendMail($artist->email, $artist->artistName, $apiKey);
                 } catch (Throwable $exception) {
-                    $this->logger->warning($exception->getMessage());
+                    $this->logger->warning($exception->getMessage(), ['exception' => $exception]);
                 }
             }
 
@@ -163,7 +164,7 @@ class AuthenticationController extends BaseController
                     $response,
                     self::DEVICE_CODE_COOKIE,
                     $knownDevice->deviceKey,
-                    (new DateTime())->add(new DateInterval('P100Y')),
+                    new DateTime()->add(new DateInterval('P100Y')),
                     httpOnly: false
                 ),
                 AuthenticationChecker::AUTHENTICATION_COOKIE_NAME,
@@ -201,6 +202,7 @@ class AuthenticationController extends BaseController
             $artist->update();
         }
 
+        $this->logger->warning('Invalid login');
         return $this->badCredentialsResponse;
     }
 
@@ -225,7 +227,10 @@ class AuthenticationController extends BaseController
             try {
                 $apiKey->delete();
             } catch (Throwable $exception) {
-                $this->logger->info('Failed to delete api key, proceed with logout anyway');
+                $this->logger->info(
+                    'Failed to delete api key, proceed with logout anyway',
+                    ['exception' => $exception]
+                );
             }
         }
 
@@ -242,7 +247,10 @@ class AuthenticationController extends BaseController
                     try {
                         $knownDevice->delete();
                     } catch (Throwable $exception) {
-                        $this->logger->info('Failed to delete device code, proceed with logout anyway');
+                        $this->logger->info(
+                            'Failed to delete device code, proceed with logout anyway',
+                            ['exception' => $exception]
+                        );
                     }
                 }
 

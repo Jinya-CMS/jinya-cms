@@ -67,10 +67,12 @@ class ThemeController extends BaseController
             $openRes = $zipArchive->open($tmpFile);
             if ($openRes !== true) {
                 $this->logger->error(
-                    'The zip could not be opened. Check the docs here, https://www.php.net/manual/en/ziparchive.open.php'
+                    'The zip could not be opened. Check the docs here, https://www.php.net/manual/en/ziparchive.open.php',
+                    [
+                        'errorMessage' => $zipArchive->getStatusString(),
+                        'errorCode' => $openRes
+                    ]
                 );
-                $this->logger->error('Error message: ' . $zipArchive->getStatusString());
-                $this->logger->error("Errorcode: $openRes");
 
                 return $this->json([
                     'success' => false,
@@ -81,8 +83,9 @@ class ThemeController extends BaseController
                 ], self::HTTP_INTERNAL_SERVER_ERROR);
             }
             if (!$zipArchive->extractTo(ThemeSyncer::THEME_BASE_PATH . $themeName)) {
-                $this->logger->error('The zip could not be extracted');
-                $this->logger->error('Error message: ' . $zipArchive->getStatusString());
+                $this->logger->error('The zip could not be extracted', [
+                    'errorMessage' => $zipArchive->getStatusString(),
+                ]);
 
                 return $this->json([
                     'success' => false,
@@ -124,10 +127,12 @@ class ThemeController extends BaseController
             $openRes = $zipArchive->open($tmpFile);
             if ($openRes !== true) {
                 $this->logger->error(
-                    'The zip could not be opened. Check the docs here, https://www.php.net/manual/en/ziparchive.open.php'
+                    'The zip could not be opened. Check the docs here, https://www.php.net/manual/en/ziparchive.open.php',
+                    [
+                        'errorMessage' => $zipArchive->getStatusString(),
+                        'errorCode' => $openRes
+                    ]
                 );
-                $this->logger->error('Error message: ' . $zipArchive->getStatusString());
-                $this->logger->error("Errorcode: $openRes");
 
                 return $this->json([
                     'success' => false,
@@ -138,8 +143,9 @@ class ThemeController extends BaseController
                 ], self::HTTP_INTERNAL_SERVER_ERROR);
             }
             if (!$zipArchive->extractTo(ThemeSyncer::THEME_BASE_PATH . $theme->name)) {
-                $this->logger->error('The zip could not be extracted');
-                $this->logger->error('Error message: ' . $zipArchive->getStatusString());
+                $this->logger->error('The zip could not be extracted', [
+                    'errorMessage' => $zipArchive->getStatusString(),
+                ]);
 
                 return $this->json([
                     'success' => false,
@@ -353,11 +359,9 @@ class ThemeController extends BaseController
      */
     private function formatThemeLinks(array $links): ResponseInterface
     {
-        $result = [];
-
-        foreach ($links as $key => $link) {
-            $result[$key] = $link->format();
-        }
+        $result = array_map(function ($link) {
+            return $link->format();
+        }, $links);
 
         if (empty($result)) {
             $result = new stdClass();

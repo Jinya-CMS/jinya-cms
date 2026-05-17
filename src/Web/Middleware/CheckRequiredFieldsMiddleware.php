@@ -39,7 +39,7 @@ readonly class CheckRequiredFieldsMiddleware implements MiddlewareInterface
             return $handler->handle($request);
         } catch (MissingFieldsException $exception) {
             /** @var ResponseInterface $response */
-            $response = (new ErrorHandler())->handleMissingFieldsError($request, $exception);
+            $response = new ErrorHandler()->handleMissingFieldsError($request, $exception);
 
             return $response;
         }
