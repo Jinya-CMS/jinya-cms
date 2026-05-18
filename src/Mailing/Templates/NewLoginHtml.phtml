@@ -6,40 +6,29 @@
  * @var $location array
  * @var $browser string
  * @var $platform string
+ * @var $subject string
  */
 
 use Jinya\Plates\Template\Template;
 
 ?>
-<html lang="en">
-<body>
+<?php
+$this->layout('mailing::layout', ['subject' => $subject, 'hasIp' => true]);
+$this->start('maincontent') ?>
 <p>
-    Hello <?= $this->e($artistName) ?><br /><br />
-    There was a new successful login for your account.
+    <?= $this->e($this->translate('greeting', $artistName)) ?><br /><br />
+    <?= $this->e($this->translate('new_login_greeting_line')) ?>
 </p>
 <p>
-    The login was from the IP address <?= $this->e($remoteAddress) ?>.
-    <?php
-    if (array_key_exists('city', $location) && !empty($location['city'])): ?>
-        Which is located at, <?= $this->e($location['city']) ?> in <?= $this->e(
-            $location['country']
-        ) ?>.
-    <?php
-    endif ?>
+    <?= $this->e($this->translate('new_login_ip_line', $remoteAddress)) ?>
+    <?= $this->e($this->translate('new_login_location_line', $location['city'], $location['country'])) ?>
 </p>
 <?php
 if (!empty($browser)): ?>
     <p>
-        The browser used was <?= $this->e($browser) ?> on <?= $this->e($platform) ?>
+        <?= $this->e($this->translate('new_login_browser_line', $browser)) ?>
     </p>
 <?php
 endif ?>
-<p>
-    Greetings,<br />
-    Your Jinya Team
-</p>
-<p>
-    The IP address was located with <a href="https://db-ip.com">db-ip.com</a>
-</p>
-</body>
-</html>
+<?php
+$this->stop(); ?>

@@ -6,32 +6,16 @@ use Asika\Agent\Agent;
 use Jinya\Cms\Configuration\JinyaConfiguration;
 use Jinya\Cms\Database\KnownDevice;
 use Jinya\Cms\Locate\IpToLocationService;
-use Jinya\Cms\Logging\Logger;
 use Jinya\Cms\Mailing\Factory\MailerFactory;
-use Jinya\Cms\Theming\Engine;
-use Jinya\Plates\Engine as PlatesEngine;
 use JsonException;
 use PHPMailer\PHPMailer\Exception;
-use Psr\Log\LoggerInterface;
 use Throwable;
 
 /**
  * This class is the new saved device mail and should be sent when a new saved device was registered
  */
-readonly class NewSavedDeviceMail
+readonly class NewSavedDeviceMail extends BaseMail
 {
-    private PlatesEngine $templateEngine;
-    private LoggerInterface $logger;
-
-    /**
-     * NewSavedDeviceMail constructor.
-     */
-    public function __construct()
-    {
-        $this->templateEngine = Engine::getPlatesEngine();
-        $this->logger = Logger::getLogger();
-    }
-
     /**
      * Sends the new saved device email
      *
@@ -50,6 +34,7 @@ readonly class NewSavedDeviceMail
         $browser = $userAgent->browser();
         $platform = $userAgent->platform();
         $location = new IpToLocationService()->locateIp($knownDevice->remoteAddress);
+        $subject = $this->translate('new_device_subject');
         $renderedHtmlMail = $this->templateEngine->render(
             'mailing::NewSavedDeviceHtml',
             [
@@ -58,6 +43,7 @@ readonly class NewSavedDeviceMail
                 'remoteAddress' => $knownDevice->remoteAddress,
                 'platform' => $platform,
                 'browser' => $browser,
+                'subject' => $subject,
             ],
         );
         $renderedTextMail = $this->templateEngine->render(
@@ -72,7 +58,7 @@ readonly class NewSavedDeviceMail
         );
 
         $mailer = MailerFactory::getMailer();
-        $mailer->Subject = 'New-saved device for your account';
+        $mailer->Subject = $subject;
         /** @phpstan-ignore argument.type */
         $mailer->setFrom(JinyaConfiguration::getConfiguration()->get("from", "mailer"));
         $mailer->addAddress($artistEmail);

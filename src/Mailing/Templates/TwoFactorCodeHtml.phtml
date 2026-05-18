@@ -3,23 +3,21 @@
  * @var $this Template
  * @var $artistName string
  * @var $twoFactorCode string
+ * @var $subject string
  */
 
 use Jinya\Plates\Template\Template;
 
 ?>
-<html lang="en">
-<body>
+<?php
+$this->layout('mailing::layout', ['subject' => $subject, 'hasIp' => false]);
+$this->start('maincontent') ?>
 <p>
-  Hello <?= $this->e($artistName) ?><br /><br />
-  You tried to log in from a new device, please verify with this code that this was actually you.
+    <?= $this->e($this->translate('greeting', $artistName)) ?><br /><br />
+    <?= $this->e($this->translate('two_factor_code_text_line')) ?>
 </p>
-<p>
-  <code><?= $this->e($twoFactorCode) ?></code>
-</p>
-<p>
-  Greetings,<br />
-  Your Jinya Team
-</p>
-</body>
-</html>
+<center>
+    <code><?= $this->e($twoFactorCode) ?></code>
+</center>
+<?php
+$this->stop(); ?>
