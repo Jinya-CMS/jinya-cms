@@ -21,7 +21,11 @@ $this->start('maincontent') ?>
 </p>
 <p>
     <?= $this->e($this->translate('new_device_ip_line', $remoteAddress)) ?>
+    <?php
+    if ($location['city']): ?>
     <?= $this->e($this->translate('new_device_location_line', $location['city'], $location['country'])) ?>
+    <?php
+    endif ?>
 </p>
 <?php
 if (!empty($browser)): ?>
