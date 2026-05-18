@@ -24,7 +24,7 @@ class KnownDeviceControllerTest extends DatabaseAwareTestCase
         $device->create();
 
         $controller = $this->getController();
-        $result = $controller->validateKnownDevice($device->deviceKey);
+        $result = $controller->validateKnownDevice($device->plainDeviceKey);
 
         self::assertEquals(204, $result->getStatusCode());
     }

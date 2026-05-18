@@ -49,6 +49,18 @@ class AuthenticationChecker
     }
 
     /**
+     * Retrieves the plain api key from the request based on all available authorization methods
+     *
+     * @param Request $request
+     * @return string
+     */
+    public static function getPlainApiKeyFromRequest(Request $request): string
+    {
+        $authorizationHeader = substr($request->getHeaderLine('Authorization'), strlen('Bearer '));
+        return $request->getCookieParams()[self::AUTHENTICATION_COOKIE_NAME] ?? $authorizationHeader;
+    }
+
+    /**
      * This method checks if the requested role is valid for the user currently logged in.
      * If the artist is logged in and has the given role, it is returned, otherwise an exception is thrown.
      *

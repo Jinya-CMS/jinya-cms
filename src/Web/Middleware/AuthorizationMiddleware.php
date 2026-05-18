@@ -67,7 +67,7 @@ readonly class AuthorizationMiddleware implements MiddlewareInterface
         return CookieSetter::setCookie(
             $response,
             AuthenticationChecker::AUTHENTICATION_COOKIE_NAME,
-            $apiKey?->apiKey,
+            AuthenticationChecker::getPlainApiKeyFromRequest($request),
             $apiKey?->validSince->add(new DateInterval("PT{$apiKeyExpires}S"))
         );
     }

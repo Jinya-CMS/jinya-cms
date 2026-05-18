@@ -20,8 +20,6 @@ if (!is_dir(StorageBaseService::SAVE_PATH) && !mkdir(
     throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
 }
 
-\Monolog\ErrorHandler::register(Logger::getLogger());
-
 function getRouterConfiguration(): array
 {
     return [
@@ -39,6 +37,7 @@ function getRouterConfiguration(): array
 
 JinyaConfiguration::getConfiguration()->reconfigureDatabase();
 
+\Monolog\ErrorHandler::register(Logger::getLogger());
 if (file_exists(__DIR__ . '/.env') || file_exists(__DIR__ . '/.env.dist')) {
     $dotenv = Dotenv::createUnsafeImmutable(__DIR__, ['.env', '.env.dist']);
     $dotenv->load();
