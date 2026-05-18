@@ -9,14 +9,10 @@ use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Jinya\Cms\Theming\Extensions\FileExtension;
 use Jinya\Cms\Utils\ImageType;
 
-class ImaginaryConversionServiceTest extends DatabaseAwareTestCase
+class InterventionConversionServiceTest extends DatabaseAwareTestCase
 {
     public function testConvertFile(): void
     {
-        if (getenv('CI') === 'true') {
-            self::markTestSkipped('Skipping test on CI since imaginary not working properly');
-        }
-
         $tmpFileName = Uuid::uuid();
         $tmpPath = StorageBaseService::BASE_PATH . '/public/' . $tmpFileName;
         $res = @copy(__DIR__ . '/../files/test-image.webp', $tmpPath);
@@ -29,7 +25,7 @@ class ImaginaryConversionServiceTest extends DatabaseAwareTestCase
         $file->type = (string)mime_content_type($tmpPath);
         $file->create();
 
-        $conversionService = new ImaginaryConversionService();
+        $conversionService = new InterventionConversionService();
         $conversionService->convertFile($file->id);
 
         foreach (FileExtension::RESOLUTIONS_FOR_SOURCE as $width) {
@@ -45,12 +41,8 @@ class ImaginaryConversionServiceTest extends DatabaseAwareTestCase
 
     public function testConvertFileFileNotExists(): void
     {
-        if (getenv('CI') === 'true') {
-            self::markTestSkipped('Skipping test on CI since imaginary not working properly');
-        }
-
         $this->expectException(EmptyResultException::class);
-        $conversionService = new ImaginaryConversionService();
+        $conversionService = new InterventionConversionService();
         $conversionService->convertFile(-1);
     }
 }

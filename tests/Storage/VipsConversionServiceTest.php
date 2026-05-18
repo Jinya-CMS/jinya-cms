@@ -9,7 +9,7 @@ use Jinya\Cms\Tests\DatabaseAwareTestCase;
 use Jinya\Cms\Theming\Extensions\FileExtension;
 use Jinya\Cms\Utils\ImageType;
 
-class ImagickConversionServiceTest extends DatabaseAwareTestCase
+class VipsConversionServiceTest extends DatabaseAwareTestCase
 {
     public function testConvertFile(): void
     {
@@ -25,7 +25,7 @@ class ImagickConversionServiceTest extends DatabaseAwareTestCase
         $file->type = (string)mime_content_type($tmpPath);
         $file->create();
 
-        $conversionService = new ImagickConversionService();
+        $conversionService = new VipsConversionService();
         $conversionService->convertFile($file->id);
 
         foreach (FileExtension::RESOLUTIONS_FOR_SOURCE as $width) {
@@ -42,7 +42,7 @@ class ImagickConversionServiceTest extends DatabaseAwareTestCase
     public function testConvertFileFileNotExists(): void
     {
         $this->expectException(EmptyResultException::class);
-        $conversionService = new ConversionService();
+        $conversionService = new VipsConversionService();
         $conversionService->convertFile(-1);
     }
 }

@@ -66,4 +66,6 @@ phpunit:
     - if: '$JINYA_SKIP_TESTS == null || $JINYA_SKIP_TESTS == ""'
       changes:
         - "**/*.php"
+        - 'composer.json'
+        - 'composer.lock'
       when: on_success

@@ -2,6 +2,7 @@
 
 namespace Jinya\Cms\Logging;
 
+use Jinya\Cms\Configuration\JinyaConfiguration;
 use Monolog\Processor\UidProcessor;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
@@ -18,7 +19,9 @@ abstract class Logger
      */
     public static function getLogger(): LoggerInterface
     {
-        $level = getenv('LOGLEVEL') ?: LogLevel::INFO;
+        $appEnv = JinyaConfiguration::getConfiguration()->get('env', 'app', 'prod');
+        $defaultLevel = $appEnv === 'dev' ? LogLevel::DEBUG : LogLevel::INFO;
+        $level = JinyaConfiguration::getConfiguration()->get('log', 'app', 'info') ?: $defaultLevel;
         $logger = new \Monolog\Logger('jinya-cms');
 
         $processor = new UidProcessor();

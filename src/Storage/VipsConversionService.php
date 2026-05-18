@@ -2,10 +2,9 @@
 
 namespace Jinya\Cms\Storage;
 
-use Intervention\Image\Drivers\Imagick\Driver;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Interfaces\ImageManagerInterface;
+use Jcupitt\Vips\FFI;
+use Jcupitt\Vips\Image;
+use Jcupitt\Vips\Kernel;
 use Jinya\Cms\Database\Exceptions\EmptyResultException;
 use Jinya\Cms\Database\File;
 use Jinya\Cms\Logging\Logger;
@@ -14,15 +13,15 @@ use Jinya\Cms\Utils\ImageType;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
-readonly class ImagickConversionService extends ImageConversionService
+class VipsConversionService extends ImageConversionService
 {
-    private LoggerInterface $logger;
-    private ImageManagerInterface $imageManager;
+    private readonly LoggerInterface $logger;
+
 
     public function __construct()
     {
         $this->logger = Logger::getLogger();
-        $this->imageManager = ImageManager::usingDriver(new Driver());
+        FFI::version();
     }
 
     /**
@@ -39,12 +38,17 @@ readonly class ImagickConversionService extends ImageConversionService
 
         $this->logger->info("Process file $file->name");
         $imageTypes = ImageType::cases();
-        foreach (FileExtension::RESOLUTIONS_FOR_SOURCE as $width) {
+        $reversedResolution = array_reverse(FileExtension::RESOLUTIONS_FOR_SOURCE);
+        $this->logger->debug('Call intervention to convert image', ['fileId' => $id]);
+        $image = Image::newFromFile(StorageBaseService::BASE_PATH . '/public/' . $file->path);
+        foreach ($reversedResolution as $width) {
+            $targetScale = min($width / $image->width, 1.0);
+            $scaledImage = $image->resize($targetScale, [
+                'kernel' => Kernel::LANCZOS3,
+            ]);
             foreach ($imageTypes as $imageType) {
                 try {
-                    $this->logger->debug('Call imagick to convert image', ['fileId' => $id]);
-                    $image = $this->imageManager->decodePath(StorageBaseService::BASE_PATH . '/public/' . $file->path);
-                    $this->cacheFile($image->scale($width), $file, $width, $imageType);
+                    $this->cacheFile($scaledImage, $file, $width, $imageType);
                 } catch (Throwable $exception) {
                     $this->logger->error('Failed to convert file', ['fileId' => $id, 'exception' => $exception]);
                 }
@@ -52,12 +56,12 @@ readonly class ImagickConversionService extends ImageConversionService
         }
     }
 
-    private function cacheFile(ImageInterface $image, File $file, int $width, ImageType $imageType): void
+    private function cacheFile(Image $image, File $file, int $width, ImageType $imageType): void
     {
         try {
             $fileType = $imageType->string();
             $this->logger->info('Cache file', ['fileId' => $file->id, 'width' => $width, 'fileType' => $fileType]);
-            $image->save($this->getImagePath($file, $imageType, $width));
+            $image->writeToFile($this->getImagePath($file, $imageType, $width));
             $this->logger->info(
                 'File cache generated successfully',
                 ['fileId' => $file->id, 'width' => $width, 'fileType' => $fileType]

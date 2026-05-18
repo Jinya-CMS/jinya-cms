@@ -15,7 +15,7 @@ use RuntimeException;
 class FileExtension extends BaseExtension
 {
     /** @var int[] The default resolutions supported by Jinya CMS */
-    public const array RESOLUTIONS_FOR_SOURCE = [960, 1280, 1920, 3840, 7680];
+    public const array RESOLUTIONS_FOR_SOURCE = [960, 1280, 1920, 3840];
     /** @var string The default sizes property supported by Jinya CMS */
     private string $sizesAsString = '100vw';
 
