@@ -15,7 +15,7 @@ class AuthorizationMiddlewareTest extends DatabaseAwareTestCase
 {
     public function testProcess(): void
     {
-        $request = new ServerRequest('POST', '', ['JinyaApiKey' => $this->createApiKey()->apiKey]);
+        $request = new ServerRequest('POST', '', ['JinyaApiKey' => $this->createApiKey()->plainApiKey]);
         $middleware = new AuthorizationMiddleware('ROLE_WRITER');
 
         $response = new Response();
@@ -29,7 +29,7 @@ class AuthorizationMiddlewareTest extends DatabaseAwareTestCase
     {
         $apiKey = new ApiKey();
         $apiKey->userId = CurrentUser::$currentUser->id;
-        $apiKey->validSince = (new DateTime())->add(new DateInterval('PT5M'));
+        $apiKey->validSince = new DateTime()->add(new DateInterval('PT5M'));
         $apiKey->setApiKey();
         $apiKey->remoteAddress = '127.0.0.1';
         $apiKey->userAgent = 'PHPUnit';
@@ -40,7 +40,7 @@ class AuthorizationMiddlewareTest extends DatabaseAwareTestCase
 
     public function testProcessNotEnoughPermission(): void
     {
-        $request = new ServerRequest('POST', '', ['Authorization' => 'Bearer ' . $this->createApiKey()->apiKey]);
+        $request = new ServerRequest('POST', '', ['Authorization' => 'Bearer ' . $this->createApiKey()->plainApiKey]);
         $middleware = new AuthorizationMiddleware('ROLE_ADMIN');
 
         $response = new Response();
@@ -66,7 +66,7 @@ class AuthorizationMiddlewareTest extends DatabaseAwareTestCase
         $apiKey->validSince = DateTime::createFromFormat('Y-m-d\TH:i:s', '1970-01-01T00:00:00');
         $apiKey->update();
 
-        $request = new ServerRequest('POST', '', ['Authentication' => $apiKey->apiKey]);
+        $request = new ServerRequest('POST', '', ['Authentication' => $apiKey->plainApiKey]);
         $middleware = new AuthorizationMiddleware('ROLE_ADMIN');
 
         $response = new Response();

@@ -33,7 +33,7 @@ class ApiKeyController extends BaseController
     #[Route(HttpMethod::DELETE, 'api/api-key/{key}')]
     public function deleteApiKey(string $key): ResponseInterface
     {
-        $apiKey = ApiKey::findByApiKey($key);
+        $apiKey = ApiKey::findByHashedApiKey($key);
         if ($apiKey === null) {
             return $this->entityNotFound('Api key not found');
         }

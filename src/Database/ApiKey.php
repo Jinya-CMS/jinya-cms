@@ -35,6 +35,8 @@ class ApiKey implements Creatable, Deletable, Updatable
     #[Column(sqlName: 'remote_address')]
     public string $remoteAddress;
 
+    public string $plainApiKey;
+
     private readonly LoggerInterface $logger;
 
     public function __construct()
@@ -52,6 +54,41 @@ class ApiKey implements Creatable, Deletable, Updatable
     {
         $logger = Logger::getLogger();
         $logger->debug('Find api key by key');
+
+        $query = self::getQueryBuilder()
+            ->newSelect()
+            ->cols([
+                'api_key',
+                'user_id',
+                'valid_since',
+                'user_agent',
+                'remote_address',
+            ])
+            ->from(self::getTableName())
+            ->where(
+                'api_key = :apiKey',
+                ['apiKey' => hash('sha512', $apiKey)]
+            );
+
+        /** @var array<array<array-key, mixed>> $data */
+        $data = self::executeQuery($query);
+        if (empty($data)) {
+            return null;
+        }
+
+        return self::fromArray($data[0]);
+    }
+
+    /**
+     * Gets the api key object that belongs to the hashed key
+     *
+     * @param string $apiKey The api key to search for
+     * @return ApiKey|null
+     */
+    public static function findByHashedApiKey(string $apiKey): ?ApiKey
+    {
+        $logger = Logger::getLogger();
+        $logger->debug('Find api key by hashed key');
 
         $query = self::getQueryBuilder()
             ->newSelect()
@@ -117,7 +154,8 @@ class ApiKey implements Creatable, Deletable, Updatable
      */
     public function setApiKey(): void
     {
-        $this->apiKey = "jinya-api-token-$this->userId-" . bin2hex(random_bytes(20));
+        $this->plainApiKey = "jinya-api-token-$this->userId-" . bin2hex(random_bytes(20));
+        $this->apiKey = hash('sha512', $this->plainApiKey);
     }
 
     /**

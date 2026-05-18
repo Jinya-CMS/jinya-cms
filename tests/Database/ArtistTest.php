@@ -132,7 +132,7 @@ class ArtistTest extends DatabaseAwareTestCase
 
         $knownDevice->create();
 
-        $valid = $artist->validateDevice($knownDevice->deviceKey);
+        $valid = $artist->validateDevice($knownDevice->plainDeviceKey);
         self::assertTrue($valid);
     }
 

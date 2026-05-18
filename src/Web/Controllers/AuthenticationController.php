@@ -102,9 +102,9 @@ class AuthenticationController extends BaseController
         if ($artist !== null && $artist->validatePassword($password)) {
             $userAgentHeader = $this->getHeader('User-Agent');
             $remoteAddress = $this->getHeader('X-Forwarded-For') ?: $this->request->getServerParams()['REMOTE_ADDR'];
-            if (!empty($knownDeviceCode) && $artist->validateDevice($knownDeviceCode)) {
-                $knownDevice = KnownDevice::findByCode($knownDeviceCode);
-            } elseif ($artist->verifyTotpCode($twoFactorCode)) {
+            if ((!empty($knownDeviceCode) && $artist->validateDevice($knownDeviceCode)) || $artist->verifyTotpCode(
+                $twoFactorCode
+            )) {
                 $knownDevice = new KnownDevice();
                 $knownDevice->userId = $artist->id;
                 $knownDevice->remoteAddress = $remoteAddress;
@@ -113,6 +113,7 @@ class AuthenticationController extends BaseController
                 } else {
                     $knownDevice->userAgent = 'unknown';
                 }
+                $knownDeviceCode = $knownDevice->plainDeviceKey;
                 $knownDevice->create();
                 if ($artist->newDeviceMailEnabled) {
                     try {
@@ -152,8 +153,8 @@ class AuthenticationController extends BaseController
             }
 
             $response = $this->json([
-                'apiKey' => $apiKey->apiKey,
-                'deviceCode' => $knownDevice->deviceKey,
+                'apiKey' => $apiKey->plainApiKey,
+                'deviceCode' => $knownDeviceCode,
                 'roles' => $artist->roles,
             ]);
 
@@ -163,12 +164,12 @@ class AuthenticationController extends BaseController
                 CookieSetter::setCookie(
                     $response,
                     self::DEVICE_CODE_COOKIE,
-                    $knownDevice->deviceKey,
+                    $knownDeviceCode,
                     new DateTime()->add(new DateInterval('P100Y')),
                     httpOnly: false
                 ),
                 AuthenticationChecker::AUTHENTICATION_COOKIE_NAME,
-                $apiKey->apiKey,
+                $apiKey->plainApiKey,
                 $apiKey->validSince->add(new DateInterval("PT{$apiKeyExpires}S"))
             );
         }
@@ -219,22 +220,10 @@ class AuthenticationController extends BaseController
     /**
      * @return ResponseInterface
      */
-    #[Route(HttpMethod::DELETE, 'api/logout')]
-    public function logout(): ResponseInterface
+    #[Route(HttpMethod::DELETE, 'api/logout?fully=true')]
+    public function logoutFully(): ResponseInterface
     {
-        $apiKey = AuthenticationChecker::getApiKeyFromRequest($this->request);
-        if ($apiKey) {
-            try {
-                $apiKey->delete();
-            } catch (Throwable $exception) {
-                $this->logger->info(
-                    'Failed to delete api key, proceed with logout anyway',
-                    ['exception' => $exception]
-                );
-            }
-        }
-
-        $response = CookieSetter::unsetCookie($this->noContent(), AuthenticationChecker::AUTHENTICATION_COOKIE_NAME);
+        $response = $this->logout();
 
         $fully = array_key_exists('fully', $this->request->getQueryParams());
         if ($fully) {
@@ -259,5 +248,26 @@ class AuthenticationController extends BaseController
         }
 
         return $response;
+    }
+
+    /**
+     * @return ResponseInterface
+     */
+    #[Route(HttpMethod::DELETE, 'api/logout')]
+    public function logout(): ResponseInterface
+    {
+        $apiKey = AuthenticationChecker::getApiKeyFromRequest($this->request);
+        if ($apiKey) {
+            try {
+                $apiKey->delete();
+            } catch (Throwable $exception) {
+                $this->logger->info(
+                    'Failed to delete api key, proceed with logout anyway',
+                    ['exception' => $exception]
+                );
+            }
+        }
+
+        return CookieSetter::unsetCookie($this->noContent(), AuthenticationChecker::AUTHENTICATION_COOKIE_NAME);
     }
 }

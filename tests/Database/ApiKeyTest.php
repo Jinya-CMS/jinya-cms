@@ -35,7 +35,7 @@ class ApiKeyTest extends DatabaseAwareTestCase
 
     public function testFindByApiKey(): void
     {
-        $apiKey = ApiKey::findByApiKey($this->testApiKey->apiKey);
+        $apiKey = ApiKey::findByApiKey($this->testApiKey->plainApiKey);
         self::assertEquals($this->testApiKey->apiKey, $apiKey->apiKey);
         self::assertEquals($this->testApiKey->validSince, $apiKey->validSince);
     }
@@ -56,7 +56,7 @@ class ApiKeyTest extends DatabaseAwareTestCase
         $apiKey->remoteAddress = '127.0.0.1';
         $apiKey->create();
 
-        $savedApiKey = ApiKey::findByApiKey($apiKey->apiKey);
+        $savedApiKey = ApiKey::findByApiKey($apiKey->plainApiKey);
         self::assertEquals($apiKey->apiKey, $savedApiKey->apiKey);
     }
 
@@ -111,7 +111,7 @@ class ApiKeyTest extends DatabaseAwareTestCase
         $validSince = new DateTime();
         $this->testApiKey->validSince = $validSince;
         $this->testApiKey->update();
-        $apiKey = ApiKey::findByApiKey($this->testApiKey->apiKey);
+        $apiKey = ApiKey::findByApiKey($this->testApiKey->plainApiKey);
         self::assertEquals(
             $validSince->format(MYSQL_DATE_FORMAT),
             $apiKey->validSince->format(MYSQL_DATE_FORMAT)
@@ -139,7 +139,7 @@ class ApiKeyTest extends DatabaseAwareTestCase
         $apiKey = new ApiKey();
         $apiKey->userId = $this->testArtist->id;
         $apiKey->setApiKey();
-        self::assertStringStartsWith("jinya-api-token-$apiKey->userId", $apiKey->apiKey);
+        self::assertStringStartsWith("jinya-api-token-$apiKey->userId", $apiKey->plainApiKey);
     }
 
     protected function setUp(): void

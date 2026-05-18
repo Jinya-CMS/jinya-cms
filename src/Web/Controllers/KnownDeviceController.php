@@ -41,7 +41,7 @@ class KnownDeviceController extends BaseController
     #[Middlewares(new AuthorizationMiddleware())]
     public function deleteKnownDevice(string $key): ResponseInterface
     {
-        $device = KnownDevice::findByCode($key);
+        $device = KnownDevice::findByHashedCode($key);
         if ($device === null) {
             return $this->entityNotFound('Known device not found');
         }
