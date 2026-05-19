@@ -6,32 +6,16 @@ use Asika\Agent\Agent;
 use Jinya\Cms\Configuration\JinyaConfiguration;
 use Jinya\Cms\Database\ApiKey;
 use Jinya\Cms\Locate\IpToLocationService;
-use Jinya\Cms\Logging\Logger;
 use Jinya\Cms\Mailing\Factory\MailerFactory;
-use Jinya\Cms\Theming\Engine;
-use Jinya\Plates\Engine as PlatesEngine;
 use JsonException;
 use PHPMailer\PHPMailer\Exception;
-use Psr\Log\LoggerInterface;
 use Throwable;
 
 /**
  * This class is the new login mail and should be sent when a new login was registered
  */
-readonly class NewLoginMail
+readonly class NewLoginMail extends BaseMail
 {
-    private PlatesEngine $templateEngine;
-    private LoggerInterface $logger;
-
-    /**
-     * NewLoginMail constructor.
-     */
-    public function __construct()
-    {
-        $this->templateEngine = Engine::getPlatesEngine();
-        $this->logger = Logger::getLogger();
-    }
-
     /**
      * Sends the new login mail
      *
@@ -49,6 +33,7 @@ readonly class NewLoginMail
         $browser = $userAgent->browser();
         $platform = $userAgent->platform();
         $location = new IpToLocationService()->locateIp($apiKey->remoteAddress);
+        $subject = $this->translate('new_login_subject');
         $renderedHtmlMail = $this->templateEngine->render(
             'mailing::NewLoginHtml',
             [
@@ -57,6 +42,7 @@ readonly class NewLoginMail
                 'remoteAddress' => $apiKey->remoteAddress,
                 'platform' => $platform,
                 'browser' => $browser,
+                'subject' => $subject,
             ],
         );
         $renderedTextMail = $this->templateEngine->render(
@@ -71,7 +57,7 @@ readonly class NewLoginMail
         );
 
         $mailer = MailerFactory::getMailer();
-        $mailer->Subject = 'New login for your account';
+        $mailer->Subject = $subject;
         /** @phpstan-ignore argument.type */
         $mailer->setFrom(JinyaConfiguration::getConfiguration()->get("from", "mailer"));
         $mailer->addAddress($artistEmail);

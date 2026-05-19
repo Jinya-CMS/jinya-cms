@@ -8,10 +8,10 @@
 use Jinya\Plates\Template\Template;
 
 ?>
-Hello <?= $this->e($artistName) ?>
+<?= $this->e($this->translate('greeting', $artistName)) ?>
 
-you tried to log in from a new device, please verify with this code that this was actually you.
+<?= $this->e($this->translate('two_factor_code_text_line')) ?>
+
 <?= $this->e($twoFactorCode) ?>
 
-Greetings,
-Your Jinya Team
+-- Jinny - Jinya CMS bot
