@@ -1,5 +1,8 @@
 # Changelog
 
+Check the current changelog [here](https://jinya.plan.jinya.de/public/jinya-cms/JCMS/changelog). Don't miss on out on
+the roadmap [here](https://jinya.plan.jinya.de/public/jinya-cms/JCMS/roadmap).
+
 ## Release notes - Jinya CMS - Version 26.2.3
 
 - JCMS-31 Apache not running image.php
@@ -19,50 +22,58 @@
 ## Release notes - Jinya CMS - Version 26.1.0
 
 ### Breaking changes
+
 This release of Jinya CMS bumps the required version of PHP to 8.4
 
-- [JCMS-13](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=list&peekId=a4bceac3-de18-4359-b0db-ea868aed5474) Folders not refreshed after create
-- [JCMS-14](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=list&peekId=618be5d0-a091-4bc5-891a-e7f7f450b98b) Folder selection in global upload
-- [JCMS-16](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=list&peekId=e46b51d7-290c-48b0-958e-df7ca733eda4) Allow moving files on folder delete
-- [JCMS-17](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=list&peekId=58194dac-848f-43e9-906a-48958a9b90e1) Upload entire folder structure
-- [JCMS-20](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=list&peekId=a1b56fa0-8bd2-4668-b38a-b6183bea7b9f) Optional support for imaginary
-- [JCMS-22](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=list&peekId=969d005b-9dc0-4421-9477-0d8aca4c3053) Introduce alpine plugin
-- [JCMS-23](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=list&peekId=156ff26c-4642-4c97-a995-b2d1438f1414) PHP 8.4 update
-- [JCMS-25](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=list&peekId=5514d925-816c-4f9a-abc8-54bcf76a9335) Parallel uploads
+- JCMS-13 Folders not refreshed after create
+- JCMS-14 Folder selection in global upload
+- JCMS-16 Allow moving files on folder delete
+- JCMS-17 Upload entire folder structure
+- JCMS-20 Optional support for imaginary
+- JCMS-22 Introduce alpine plugin
+- JCMS-23 PHP 8.4 update
+- JCMS-25 Parallel uploads
 
 ## Release notes - Jinya CMS - Version 26.0.12
+
 Hotfix for editor image handling
 
 ## Release notes - Jinya CMS - Version 26.0.11
+
 Hotfix for the editor
 
 ## Release notes - Jinya CMS - Version 26.0.10
 
-- [JCMS-18](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=list&peekId=f8502d48-e82c-47bf-b7af-782900c87c22) Links use wrong naming
+- JCMS-18 Links use wrong naming
 
 ## Release notes - Jinya CMS - Version 26.0.9
 
-- [JCMS-10](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=kanban&peekId=6eb000e0-44dd-46c9-a152-970247b4ce53) File preview design issue
-- [JCMS-11](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=kanban&peekId=1e15322c-8e1e-4f38-a46b-bd785f3cb99b) Menu editor doesn't save category ids
-- [JCMS-12](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=kanban&peekId=fd863d15-bfd5-40cf-93fc-b6ce95a979ba) Known device not working
+- JCMS-10 File preview design issue
+- JCMS-11 Menu editor doesn't save category ids
+- JCMS-12 Known device not working
 
 ## Release notes - Jinya CMS - Version 26.0.8
+
 Hotfix for device code check in login
 
 ## Release notes - Jinya CMS - Version 26.0.7
+
 Hotfix for file upload issue
 
-- [JCMS-9](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=kanban&peekId=97ebf3f9-d5fd-4099-a329-77ae765ec67d) Remove leftover localStorage references
+- JCMS-9 Remove leftover localStorage references
 
 ## Release notes - Jinya CMS - Version 26.0.6
+
 Hotfix in menu editor
 
 ## Release notes - Jinya CMS - Version 26.0.5
+
 Hotfix for issue with configuration and database connection.
 
-- [JCMS-8](https://plane.jinya.de/spaces/issues/4f3e78e249a04ae892fe0da784b90c48/?board=kanban&peekId=a87feb50-e2d7-4601-aebb-a45376fac867) Updater uses getenv instead of Configuration
+- JCMS-8 Updater uses getenv instead of Configuration
 
 ## Release notes - Jinya CMS - Version 26.0.4
+
 Dependency update and design fixes
 
 ## Release notes - Jinya CMS - Version 26.0.3
@@ -72,6 +83,7 @@ Dependency update and design fixes
 - [TG-251](https://taiga.imanuel.dev/project/jinya-cms/us/251) Fix bot detection
 
 ## Release notes - Jinya CMS - Version 26.0.1
+
 Small hotfix for non working multiple uploads
 
 ## Release notes - Jinya CMS - Version 26.0.0
@@ -636,7 +648,8 @@ Minor fix in Dockerfile
 
 ### New features
 
-- **[Trello 16](https://trello.com/c/ARW2WXCY)** Implemented the option to embed videos (e.g. YouTube) in the page via QuillJS editor
+- **[Trello 16](https://trello.com/c/ARW2WXCY)** Implemented the option to embed videos (e.g. YouTube) in the page via
+  QuillJS editor
 - **[Trello 17](https://trello.com/c/2AgYaDaM)** Implemented the option to embed images in the page via QuillJS editor
 
 ### Bugs fixed
@@ -644,7 +657,8 @@ Minor fix in Dockerfile
 - **[Trello 5](https://trello.com/c/nH73xvuZ)** The designer was partially not usable in Firefox
 - **[Trello 12](https://trello.com/c/Ak4gPDiM)** Vertical galleries were not working properly in the designer
 - **[Trello 13](https://trello.com/c/HNKWxzhd)** In the default frontend theme vertical galleries were missing styling
-- **[Trello 15](https://trello.com/c/JbROoTs3)** In the default frontend theme the styling of horizontal galleries had issues with different heights of artworks
+- **[Trello 15](https://trello.com/c/JbROoTs3)** In the default frontend theme the styling of horizontal galleries had
+  issues with different heights of artworks
 
 ### Overall improvements
 
