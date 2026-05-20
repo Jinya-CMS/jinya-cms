@@ -37,7 +37,9 @@ pages:
   script:
     - rm -rf public/
     - bunx @redocly/cli bundle openapi/v26/openapi.yaml > docs/apidocs.yml
+    - cd docs
     - bun docusaurus gen-api-docs all
+    - cd ..
     - mv docs/ public/
   artifacts:
     paths:
