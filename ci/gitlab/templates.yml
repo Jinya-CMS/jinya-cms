@@ -16,13 +16,13 @@
 
 .javascript-lint:
   image:
-    name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/library/node:latest
+    name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/oven/bun:latest
     pull_policy: always
   stage: lint
   before_script:
-    - npm install
+    - bun install
   script:
-    - npm run $SCRIPT
+    - bun run $SCRIPT
   cache:
     key: jinya-cms-node_modules-${CI_COMMIT_BRANCH}
     paths:
