@@ -1,0 +1,174 @@
+---
+title: FrankenPHP
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Installation with FrankenPHP
+
+FrankenPHP is a modern PHP app server, built on top of the Caddy web server. You can run Jinya CMS in FrankenPHP's worker mode for the best performance, or in standard mode for a more traditional setup.
+
+## Prerequisites
+
+Before you begin, ensure your server meets the following requirements:
+
+- **PHP**: Version 8.4 or higher
+- **FrankenPHP**: Installed and running
+- **PHP Extensions**:
+  - `ext-date`
+  - `ext-fileinfo`
+  - `ext-intl`
+  - `ext-json`
+  - `ext-pdo`
+  - `ext-pdo_mysql`
+  - `ext-zip`
+  - `ext-zlib`
+- **Database**: MySQL or MariaDB
+
+## Installation Steps
+
+### Download Jinya CMS
+
+Download the latest stable release of Jinya CMS from our release server:
+
+<a className="button button--primary" href="https://releases.jinya.de/cms/stable">Download Jinya CMS Stable</a>
+
+### Extract the Archive
+
+Extract the downloaded ZIP file into your desired directory.
+
+```bash
+unzip jinya-cms-stable.zip -d /var/www/jinya-cms
+```
+
+### Set Permissions
+
+Ensure that the user running FrankenPHP has write access to the following directories:
+
+- `var/`
+- `public/` (for media uploads)
+
+```bash
+chown -R frankenphp:frankenphp /var/www/jinya-cms
+chmod -R 775 /var/www/jinya-cms/var
+chmod -R 775 /var/www/jinya-cms/public
+```
+
+### Configure FrankenPHP (Caddyfile)
+
+Create or update your `Caddyfile` to use FrankenPHP. Choose between worker mode and standard mode.
+
+<Tabs>
+  <TabItem value="worker" label="Worker Mode" default>
+    Running Jinya CMS in FrankenPHP's worker mode provides the best performance. Jinya CMS includes a `frankenphp-worker.php` script in the root directory.
+
+    Example `Caddyfile` configuration for worker mode:
+
+    ```caddy
+    {
+        frankenphp {
+            worker {
+                file /var/www/jinya-cms/frankenphp-worker.php
+                num 4
+            }
+        }
+    }
+
+    yourdomain.com {
+        root * /var/www/jinya-cms/public
+        encode zstd gzip
+
+        route {
+            # Serve designer assets
+            @designer path /designer /designer/*
+            handle @designer {
+                try_files {path} /designer/index.html
+                file_server
+            }
+
+            # Static assets
+            @static {
+                path /installer/* /jinya-content/* /lib/* /themes/* /designer-file-cache-service-worker.js
+                file
+            }
+            handle @static {
+                file_server
+            }
+
+            # PHP files (excluding worker script itself if needed)
+            @php path *.php
+            handle @php {
+                php_server
+            }
+
+            # Fallback to worker for all other requests
+            handle {
+                rewrite * /frankenphp-worker.php
+                php_server {
+                    worker ./frankenphp-worker.php
+                }
+            }
+        }
+    }
+    ```
+  </TabItem>
+  <TabItem value="standard" label="Standard Mode">
+    Standard mode is easier to set up but doesn't offer the same performance benefits as worker mode.
+
+    Example `Caddyfile` configuration for standard mode:
+
+    ```caddy
+    yourdomain.com {
+        root * /var/www/jinya-cms/public
+        encode zstd gzip
+
+        route {
+            # Serve designer assets
+            @designer path /designer /designer/*
+            handle @designer {
+                try_files {path} /designer/index.html
+                file_server
+            }
+
+            # Static assets
+            @static {
+                path /installer/* /jinya-content/* /lib/* /themes/* /designer-file-cache-service-worker.js
+                file
+            }
+            handle @static {
+                file_server
+            }
+
+            # PHP files
+            @php path *.php
+            handle @php {
+                php_server
+            }
+
+            # Fallback to index.php for all other requests
+            handle {
+                try_files {path} /index.php
+                php_server
+            }
+        }
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+### Run the Installer
+
+Once FrankenPHP is running with your configuration, navigate to your domain in your web browser. Jinya CMS includes a web-based installer that will guide you through the remaining steps:
+
+- Database configuration
+- Administrative user creation
+- Initial site setup
+
+Follow the on-screen instructions to complete your installation.
+
+## Troubleshooting
+
+- **Worker Errors**: Check your FrankenPHP/Caddy logs if the worker fails to start.
+- **Permissions**: Ensure the `var/` directory is writable, as it's used for caching and logs.
+- **Extensions**: Verify that all required PHP extensions are installed in your FrankenPHP environment.

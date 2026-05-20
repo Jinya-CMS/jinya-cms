@@ -147,22 +147,22 @@ const config: Config = {
         [
             'docusaurus-plugin-openapi-docs',
             {
-                id: "api", // plugin id
-                docsPluginId: "classic", // configured for preset-classic
+                id: 'api', // plugin id
+                docsPluginId: 'classic', // configured for preset-classic
                 config: {
                     petstore: {
-                        specPath: "apidocs.yml",
-                        outputDir: "docs/api",
+                        specPath: 'apidocs.yml',
+                        outputDir: 'docs/api',
                         maskCredentials: false, // Disable credential masking in code snippets
                         sidebarOptions: {
-                            groupPathsBy: "tag",
+                            groupPathsBy: 'tag',
                         },
                     } satisfies OpenApiPlugin.Options,
-                }
+                },
             },
-        ]
+        ],
     ],
-    themes: ["docusaurus-theme-openapi-docs"],
+    themes: ['docusaurus-theme-openapi-docs'],
 };
 
 export default config;
