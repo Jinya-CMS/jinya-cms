@@ -40,8 +40,8 @@ pages:
     - cd docs
     - bun install
     - bun docusaurus gen-api-docs all
-    - cd ..
-    - mv docs public
+    - bun run build
+    - mv build ../public
   artifacts:
     paths:
       - public
