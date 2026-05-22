@@ -104,7 +104,7 @@ const config: Config = {
                         },
                         {
                             label: 'API Documentation',
-                            to: '/docs/api-docs',
+                            to: '/docs/api/jinya-cms-api',
                         },
                     ],
                 },
