@@ -34,6 +34,9 @@ deploy-release-package:
 pages:
   image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/oven/bun:latest
   stage: deploy-pages
+  before_script:
+    - apt update
+    - apt install -y npm
   script:
     - rm -rf public/
     - bunx @redocly/cli bundle openapi/v26/openapi.yaml > docs/apidocs.yml
