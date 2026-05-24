@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3eb85b8f19a45711fa87619f2a19a65a",
+    "content-hash": "342ad5aed32df5713c23398f3f5e4ec3",
     "packages": [
         {
             "name": "asika/agent",
@@ -769,16 +769,16 @@
         },
         {
             "name": "intervention/image",
-            "version": "4.1.0",
+            "version": "4.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intervention/image.git",
-                "reference": "fb795553f76afbe55c80d32b6bfe2090a6b1a0af"
+                "reference": "ba4a7cc8042882d479a78b0835f3f0e991e40a71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/fb795553f76afbe55c80d32b6bfe2090a6b1a0af",
-                "reference": "fb795553f76afbe55c80d32b6bfe2090a6b1a0af",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/ba4a7cc8042882d479a78b0835f3f0e991e40a71",
+                "reference": "ba4a7cc8042882d479a78b0835f3f0e991e40a71",
                 "shasum": ""
             },
             "require": {
@@ -825,7 +825,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Intervention/image/issues",
-                "source": "https://github.com/Intervention/image/tree/4.1.0"
+                "source": "https://github.com/Intervention/image/tree/4.1.2"
             },
             "funding": [
                 {
@@ -841,7 +841,7 @@
                     "type": "ko_fi"
                 }
             ],
-            "time": "2026-05-15T06:52:36+00:00"
+            "time": "2026-05-23T06:51:28+00:00"
         },
         {
             "name": "jaybizzle/crawler-detect",

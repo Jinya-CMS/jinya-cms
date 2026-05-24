@@ -16,7 +16,7 @@
     "asika/agent": "2.7.3",
     "bacon/bacon-qr-code": "v3.1.1",
     "guzzlehttp/guzzle": "7.10.4",
-    "intervention/image": "v4.1.0",
+    "intervention/image": "v4.1.2",
     "jcupitt/vips": "v2.6.1",
     "jetbrains/phpstorm-attributes": "1.2",
     "jinya/configuration": "0.10.0",
