@@ -3,6 +3,21 @@
 Check the current changelog [here](https://jinya.plan.jinya.de/public/jinya-cms/JCMS/changelog). Don't miss on out on
 the roadmap [here](https://jinya.plan.jinya.de/public/jinya-cms/JCMS/roadmap).
 
+## Release notes - Jinya CMS - Version 26.3.0
+
+- JCMS-1 Prettify mails
+- JCMS-3 More logging
+- JCMS-5 Proper developer docs
+- JCMS-7 Sass color parsing
+- JCMS-24 Editor cleanup
+- JCMS-32 Update intervention/image
+- JCMS-33 Replace apexcharts with eCharts
+- JCMS-34 Proper frankenphp support
+- JCMS-35 Analytics fails with incomplete User Agent header
+- JCMS-36 Hash known devices and api keys
+- JCMS-37 Add libvips support
+- JCMS-38 Changelog cleanup
+
 ## Release notes - Jinya CMS - Version 26.2.3
 
 - JCMS-31 Apache not running image.php
