@@ -1,0 +1,49 @@
+<mjml>
+    <mj-head>
+        <mj-title><?= $this->e($subject) ?></mj-title>
+        <mj-font name="AlbertSans" href="https://jinya.de/fonts/albert-sans.css"></mj-font>
+        <mj-font name="Urbanist" href="https://jinya.de/fonts/urbanist.css"></mj-font>
+        <mj-attributes>
+            <mj-all font-family="AlbertSans, Helvetica, sans-serif"></mj-all>
+            <mj-text font-weight="300" font-size="16px" color="#121212" line-height="24px"></mj-text>
+            <mj-section padding="0px"></mj-section>
+        </mj-attributes>
+    </mj-head>
+    <mj-body>
+        <mj-section background-url="https://jinya.de/img/startpage.webp" background-position-x="right" background-size="cover" padding="40px">
+            <mj-column width="75%">
+                <mj-text align="center" font-weight="500" padding="0px" font-size="18px"
+                         font-family="Urbanist, sans-serif" color="#ffffff">
+                    <?= $this->e($subject) ?>
+                </mj-text>
+                <mj-divider border-width="2px" border-color="#ffffff"></mj-divider>
+                <mj-divider border-width="2px" border-color="#ffffff" width="45%"></mj-divider>
+            </mj-column>
+        </mj-section>
+        <mj-section padding-top="30px">
+            <mj-column width="100%">
+                <mj-text>
+                  <?= $this->section('maincontent') ?>
+                </mj-text>
+            </mj-column>
+        </mj-section>
+        <mj-section>
+            <mj-column width="11%">
+                <mj-image padding-right="0px" padding-left="25px" align="left" width="70px" src="https://jinya.de/icons/favicon-light.png"></mj-image>
+            </mj-column>
+            <mj-column width="89%">
+                <mj-text padding="0 25px">
+                    <p style="color:#888; line-height: 9px">Jinny - Jinya CMS bot</p>
+                    <p style="font-style: italic; color:#999; line-height: 9px">Manage your Portfolio with ease</p>
+                </mj-text>
+            </mj-column>
+            <mj-column width="100%">
+                <mj-text>
+                  <p>
+                    <?= $this->translate('ip_db') ?>
+                  </p>
+                </mj-text>
+            </mj-column>
+        </mj-section>
+    </mj-body>
+</mjml>

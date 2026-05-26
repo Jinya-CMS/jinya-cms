@@ -75,6 +75,9 @@ Alpine.data('classicPagesData', () => ({
   deleteSavedPage(id) {
     return classicPageDatabase.deleteChangedPage(id);
   },
+  updateContent(event) {
+    this.content = event.target.value;
+  },
   async savePageContent() {
     await classicPageDatabase.saveChangedPage(Alpine.raw(this.selectedPage.id), Alpine.raw(this.content));
   },

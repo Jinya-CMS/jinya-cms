@@ -21,9 +21,6 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
  */
 readonly class AuthorizationMiddleware implements MiddlewareInterface
 {
-    /** @var string Constant for the currently logged-in user */
-    public const LOGGED_IN_ARTIST = 'logged_in_artist';
-
     /**
      * Creates a new authorization middleware and initializes it with the needed role
      *
@@ -70,7 +67,7 @@ readonly class AuthorizationMiddleware implements MiddlewareInterface
         return CookieSetter::setCookie(
             $response,
             AuthenticationChecker::AUTHENTICATION_COOKIE_NAME,
-            $apiKey?->apiKey,
+            AuthenticationChecker::getPlainApiKeyFromRequest($request),
             $apiKey?->validSince->add(new DateInterval("PT{$apiKeyExpires}S"))
         );
     }

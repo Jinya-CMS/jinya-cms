@@ -3,6 +3,7 @@
 namespace Jinya\Cms\Database;
 
 use JetBrains\PhpStorm\ArrayShape;
+use Jinya\Cms\Logging\Logger;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
@@ -14,6 +15,8 @@ use Jinya\Database\EntityTrait;
 use Jinya\Database\Exception\NotNullViolationException;
 use Jinya\Database\Updatable;
 use Jinya\Database\UpdatableEntityTrait;
+use Psr\Log\LoggerInterface;
+use Throwable;
 
 /**
  * This class is a mapper class to combine galleries and files, while maintaining a position the file is placed at in the gallery
@@ -28,6 +31,13 @@ class GalleryFilePosition implements Creatable, Updatable, Deletable
     }
     use DeletableEntityTrait {
         DeletableEntityTrait::delete as internalDelete;
+    }
+
+    private readonly LoggerInterface $logger;
+
+    public function __construct()
+    {
+        $this->logger = Logger::getLogger();
     }
 
     #[Id]
@@ -54,6 +64,9 @@ class GalleryFilePosition implements Creatable, Updatable, Deletable
      */
     public static function findByPosition(int $id, int $position): ?GalleryFilePosition
     {
+        $logger = Logger::getLogger();
+
+        $logger->debug('Find gallery file position by position', ['galleryId' => $id, 'position' => $position]);
         $query = self::getQueryBuilder()
             ->newSelect()
             ->from(self::getTableName())
@@ -63,7 +76,7 @@ class GalleryFilePosition implements Creatable, Updatable, Deletable
                 'file_id',
                 'gallery_id'
             ])
-            ->where('gallery_id = :parentId AND position = :position', ['parentId' => $id, 'position' => $position])
+            ->where('gallery_id = :parentId and position = :position', ['parentId' => $id, 'position' => $position])
             ->orderBy(['position']);
 
         /** @var array<string, mixed>[] $data */
@@ -83,9 +96,24 @@ class GalleryFilePosition implements Creatable, Updatable, Deletable
      */
     public function create(): void
     {
-        $this->internalRearrange($this->galleryId, $this->position);
-        $this->internalCreate();
-        $this->resetOrder($this->galleryId);
+        $this->logger->debug('Create new gallery file position', [
+            'galleryId' => $this->galleryId,
+            'position' => $this->position,
+            'fileId' => $this->fileId,
+        ]);
+        try {
+            $this->internalRearrange($this->galleryId, $this->position);
+            $this->internalCreate();
+            $this->resetOrder($this->galleryId);
+        } catch (Throwable $exception) {
+            $this->logger->error('Failed to create gallery file position', [
+                'galleryId' => $this->galleryId,
+                'position' => $this->position,
+                'fileId' => $this->fileId,
+                'exception' => $exception
+            ]);
+            throw $exception;
+        }
     }
 
     /**
@@ -96,6 +124,15 @@ class GalleryFilePosition implements Creatable, Updatable, Deletable
      */
     protected function internalRearrange(int $parentId, int $newPosition): void
     {
+        $this->logger->debug(
+            'Rearrange gallery file positions for gallery',
+            [
+                'galleryId' => $this->galleryId,
+                'position' => $this->position,
+                'newPosition' => $newPosition,
+                'fileId' => $this->fileId,
+            ]
+        );
         $target = $newPosition;
         if ($newPosition > $this->position) {
             ++$target;
@@ -136,6 +173,7 @@ class GalleryFilePosition implements Creatable, Updatable, Deletable
      */
     protected function resetOrder(int $parentId): void
     {
+        $this->logger->debug('Reset order of gallery file positions for gallery', ['parentId' => $parentId]);
         $query = self::getQueryBuilder()
             ->newSelect()
             ->from(self::getTableName())
@@ -165,9 +203,27 @@ class GalleryFilePosition implements Creatable, Updatable, Deletable
      */
     public function delete(): void
     {
-        $this->internalDelete();
-        $this->internalRearrange($this->galleryId, -1);
-        $this->resetOrder($this->galleryId);
+        try {
+            $this->logger->debug(
+                'Delete gallery file position',
+                [
+                    'galleryId' => $this->galleryId,
+                    'position' => $this->position,
+                    'fileId' => $this->fileId
+                ]
+            );
+            $this->internalDelete();
+            $this->internalRearrange($this->galleryId, -1);
+            $this->resetOrder($this->galleryId);
+        } catch (Throwable $exception) {
+            $this->logger->error('Failed to delete gallery file position', [
+                'galleryId' => $this->galleryId,
+                'position' => $this->position,
+                'fileId' => $this->fileId,
+                'exception' => $exception
+            ]);
+            throw $exception;
+        }
     }
 
     /**
@@ -180,7 +236,8 @@ class GalleryFilePosition implements Creatable, Updatable, Deletable
         'file' => 'array',
         'id' => 'int',
         'position' => 'int'
-    ])] public function format(): array
+    ])]
+    public function format(): array
     {
         $gallery = $this->getGallery();
         $file = $this->getFile();
@@ -232,9 +289,26 @@ class GalleryFilePosition implements Creatable, Updatable, Deletable
     public function move(int $newPosition): void
     {
         if ($newPosition !== $this->position) {
-            $this->internalRearrange($this->galleryId, $newPosition);
-            $this->update();
-            $this->resetOrder($this->galleryId);
+            $this->logger->debug('Move gallery file position to new position', [
+                'galleryId' => $this->galleryId,
+                'position' => $this->position,
+                'fileId' => $this->fileId,
+                'newPosition' => $newPosition,
+            ]);
+            try {
+                $this->internalRearrange($this->galleryId, $newPosition);
+                $this->update();
+                $this->resetOrder($this->galleryId);
+            } catch (Throwable $exception) {
+                $this->logger->error('Failed to move gallery file position', [
+                    'galleryId' => $this->galleryId,
+                    'position' => $this->position,
+                    'fileId' => $this->fileId,
+                    'newPosition' => $newPosition,
+                    'exception' => $exception
+                ]);
+                throw $exception;
+            }
         }
     }
 }

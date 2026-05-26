@@ -64,3 +64,26 @@ services:
       - jinya-mariadb-test-database
       - jinya-mariadb-additional-database
       - jinya-imaginary
+  jinya-franken:
+    build:
+      context: .
+      dockerfile: docker/frankenphp-dev.dockerfile
+    ports:
+      - 8081:80
+      - 2019:2019
+    volumes:
+      - .:/var/www/html
+      - ./docker/Caddyfile:/etc/frankenphp/Caddyfile
+    links:
+      - jinya-mailer
+      - jinya-mysql-database
+      - jinya-mariadb-database
+      - jinya-mariadb-test-database
+      - jinya-mariadb-additional-database
+      - jinya-imaginary
+  jinya-webgrind:
+    image: jokkedk/webgrind:latest
+    ports:
+      - 8088:80
+    volumes:
+      - ./profile:/tmp

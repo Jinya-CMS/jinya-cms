@@ -5,9 +5,8 @@ namespace Jinya\Cms\Mailing\Types;
 use Asika\Agent\Agent;
 use Jinya\Cms\Configuration\JinyaConfiguration;
 use Jinya\Cms\Database\ApiKey;
+use Jinya\Cms\Locate\IpToLocationService;
 use Jinya\Cms\Mailing\Factory\MailerFactory;
-use Jinya\Cms\Theming\Engine;
-use Jinya\Plates\Engine as PlatesEngine;
 use JsonException;
 use PHPMailer\PHPMailer\Exception;
 use Throwable;
@@ -15,18 +14,8 @@ use Throwable;
 /**
  * This class is the new login mail and should be sent when a new login was registered
  */
-readonly class NewLoginMail
+readonly class NewLoginMail extends BaseMail
 {
-    private PlatesEngine $templateEngine;
-
-    /**
-     * NewLoginMail constructor.
-     */
-    public function __construct()
-    {
-        $this->templateEngine = Engine::getPlatesEngine();
-    }
-
     /**
      * Sends the new login mail
      *
@@ -39,15 +28,12 @@ readonly class NewLoginMail
      */
     public function sendMail(string $artistEmail, string $artistName, ApiKey $apiKey): void
     {
+        $this->logger->debug('Prepare new login mail');
         $userAgent = new Agent(userAgent: $apiKey->userAgent ?? '');
         $browser = $userAgent->browser();
         $platform = $userAgent->platform();
-        $location = json_decode(
-            file_get_contents("https://ip.jinya.de/?ip=$apiKey->remoteAddress") ?: '{}',
-            true,
-            512,
-            JSON_THROW_ON_ERROR
-        );
+        $location = new IpToLocationService()->locateIp($apiKey->remoteAddress);
+        $subject = $this->translate('new_login_subject');
         $renderedHtmlMail = $this->templateEngine->render(
             'mailing::NewLoginHtml',
             [
@@ -56,6 +42,7 @@ readonly class NewLoginMail
                 'remoteAddress' => $apiKey->remoteAddress,
                 'platform' => $platform,
                 'browser' => $browser,
+                'subject' => $subject,
             ],
         );
         $renderedTextMail = $this->templateEngine->render(
@@ -70,7 +57,7 @@ readonly class NewLoginMail
         );
 
         $mailer = MailerFactory::getMailer();
-        $mailer->Subject = 'New login for your account';
+        $mailer->Subject = $subject;
         /** @phpstan-ignore argument.type */
         $mailer->setFrom(JinyaConfiguration::getConfiguration()->get("from", "mailer"));
         $mailer->addAddress($artistEmail);
@@ -78,6 +65,7 @@ readonly class NewLoginMail
         $mailer->Body = $renderedHtmlMail;
         $mailer->isHTML();
 
+        $this->logger->debug('Send new login mail');
         $mailer->send();
     }
 }

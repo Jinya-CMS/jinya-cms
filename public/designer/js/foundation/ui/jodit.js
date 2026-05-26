@@ -222,9 +222,11 @@ export function createJodit(idOrElement, inline = false, height = undefined) {
     toolbarInline: inline,
     toolbarInlineForSelection: inline,
     showPlaceholder: false,
+    useNativeTooltip: true,
     language: getLanguage(),
     sourceEditorCDNUrlsJS: '',
     beautifyHTMLCDNUrlsJS: '',
+    theme: 'cosmo',
     popup: {
       selection: Jodit.atom(getInlineToolbar()),
       toolbar: Jodit.atom(getInlineToolbar()),

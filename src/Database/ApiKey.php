@@ -6,12 +6,15 @@ use DateTime;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
+use Jinya\Cms\Logging\Logger;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Table;
 use Jinya\Database\Creatable;
 use Jinya\Database\Deletable;
 use Jinya\Database\EntityTrait;
 use Jinya\Database\Updatable;
+use Psr\Log\LoggerInterface;
+use Throwable;
 
 /**
  * This class contains an api key, used to log in to Jinya CMS api
@@ -32,6 +35,15 @@ class ApiKey implements Creatable, Deletable, Updatable
     #[Column(sqlName: 'remote_address')]
     public string $remoteAddress;
 
+    public string $plainApiKey;
+
+    private readonly LoggerInterface $logger;
+
+    public function __construct()
+    {
+        $this->logger = Logger::getLogger();
+    }
+
     /**
      * Gets the api key object that belongs to the key
      *
@@ -40,6 +52,44 @@ class ApiKey implements Creatable, Deletable, Updatable
      */
     public static function findByApiKey(string $apiKey): ?ApiKey
     {
+        $logger = Logger::getLogger();
+        $logger->debug('Find api key by key');
+
+        $query = self::getQueryBuilder()
+            ->newSelect()
+            ->cols([
+                'api_key',
+                'user_id',
+                'valid_since',
+                'user_agent',
+                'remote_address',
+            ])
+            ->from(self::getTableName())
+            ->where(
+                'api_key = :apiKey',
+                ['apiKey' => hash('sha512', $apiKey)]
+            );
+
+        /** @var array<array<array-key, mixed>> $data */
+        $data = self::executeQuery($query);
+        if (empty($data)) {
+            return null;
+        }
+
+        return self::fromArray($data[0]);
+    }
+
+    /**
+     * Gets the api key object that belongs to the hashed key
+     *
+     * @param string $apiKey The api key to search for
+     * @return ApiKey|null
+     */
+    public static function findByHashedApiKey(string $apiKey): ?ApiKey
+    {
+        $logger = Logger::getLogger();
+        $logger->debug('Find api key by hashed key');
+
         $query = self::getQueryBuilder()
             ->newSelect()
             ->cols([
@@ -72,6 +122,9 @@ class ApiKey implements Creatable, Deletable, Updatable
      */
     public static function findByArtist(int $artistId): Iterator
     {
+        $logger = Logger::getLogger();
+        $logger->debug('Find api keys by artist', ['artistId' => $artistId]);
+
         $query = self::getQueryBuilder()
             ->newSelect()
             ->cols([
@@ -101,7 +154,8 @@ class ApiKey implements Creatable, Deletable, Updatable
      */
     public function setApiKey(): void
     {
-        $this->apiKey = "jinya-api-token-$this->userId-" . bin2hex(random_bytes(20));
+        $this->plainApiKey = "jinya-api-token-$this->userId-" . bin2hex(random_bytes(20));
+        $this->apiKey = hash('sha512', $this->plainApiKey);
     }
 
     /**
@@ -116,18 +170,24 @@ class ApiKey implements Creatable, Deletable, Updatable
 
     public function create(): void
     {
-        $query = self::getQueryBuilder()
-            ->newInsert()
-            ->into(self::getTableName())
-            ->addRow([
-                'api_key' => $this->apiKey,
-                'user_id' => $this->userId,
-                'valid_since' => $this->validSince->format(MYSQL_DATE_FORMAT),
-                'user_agent' => $this->userAgent,
-                'remote_address' => $this->remoteAddress,
-            ]);
+        $this->logger->debug('Create api key');
+        try {
+            $query = self::getQueryBuilder()
+                ->newInsert()
+                ->into(self::getTableName())
+                ->addRow([
+                    'api_key' => $this->apiKey,
+                    'user_id' => $this->userId,
+                    'valid_since' => $this->validSince->format(MYSQL_DATE_FORMAT),
+                    'user_agent' => $this->userAgent,
+                    'remote_address' => $this->remoteAddress,
+                ]);
 
-        self::executeQuery($query);
+            self::executeQuery($query);
+        } catch (Throwable $exception) {
+            $this->logger->error('Failed to create api key', ['exception' => $exception]);
+            throw $exception;
+        }
     }
 
     /**
@@ -140,7 +200,8 @@ class ApiKey implements Creatable, Deletable, Updatable
         'validSince' => 'string',
         'userAgent' => 'string',
         'key' => 'string'
-    ])] public function format(): array
+    ])]
+    public function format(): array
     {
         return [
             'remoteAddress' => $this->remoteAddress,
@@ -152,30 +213,42 @@ class ApiKey implements Creatable, Deletable, Updatable
 
     public function delete(): void
     {
-        $query = self::getQueryBuilder()
-            ->newDelete()
-            ->from(self::getTableName())
-            ->where(
-                'api_key = :apiKey',
-                ['apiKey' => $this->apiKey]
-            );
+        $this->logger->debug('Delete api key');
+        try {
+            $query = self::getQueryBuilder()
+                ->newDelete()
+                ->from(self::getTableName())
+                ->where(
+                    'api_key = :apiKey',
+                    ['apiKey' => $this->apiKey]
+                );
 
-        self::executeQuery($query);
+            self::executeQuery($query);
+        } catch (Throwable $exception) {
+            $this->logger->error('Failed to delete api key', ['exception' => $exception]);
+            throw $exception;
+        }
     }
 
     public function update(): void
     {
-        $query = self::getQueryBuilder()
-            ->newUpdate()
-            ->table(self::getTableName())
-            ->cols([
-                'valid_since',
-            ])
-            ->bindValues([
-                'valid_since' => $this->validSince->format(MYSQL_DATE_FORMAT),
-            ])
-            ->where('api_key = :apiKey', ['apiKey' => $this->apiKey]);
+        $this->logger->debug('Update api key');
+        try {
+            $query = self::getQueryBuilder()
+                ->newUpdate()
+                ->table(self::getTableName())
+                ->cols([
+                    'valid_since',
+                ])
+                ->bindValues([
+                    'valid_since' => $this->validSince->format(MYSQL_DATE_FORMAT),
+                ])
+                ->where('api_key = :apiKey', ['apiKey' => $this->apiKey]);
 
-        self::executeQuery($query);
+            self::executeQuery($query);
+        } catch (Throwable $exception) {
+            $this->logger->error('Failed to update api key', ['exception' => $exception]);
+            throw $exception;
+        }
     }
 }

@@ -206,7 +206,7 @@ class AuthenticationControllerTest extends DatabaseAwareTestCase
         $controller = $this->getController(
             ['password' => 'start1234', 'username' => CurrentUser::$currentUser->email],
             true,
-            $knownDevice->deviceKey
+            $knownDevice->plainDeviceKey
         );
         $result = $controller->login();
 

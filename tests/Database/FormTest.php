@@ -56,7 +56,7 @@ class FormTest extends DatabaseAwareTestCase
     {
         $form = $this->createForm();
         $updatedBy = $form->getUpdatedBy();
-        self::assertEquals(CurrentUser::$currentUser, $updatedBy);
+        self::assertArraysAreEqual(CurrentUser::$currentUser->format(), $updatedBy->format());
     }
 
     public function testDelete(): void
@@ -95,7 +95,7 @@ class FormTest extends DatabaseAwareTestCase
     {
         $form = $this->createForm();
         $creator = $form->getCreator();
-        self::assertEquals(CurrentUser::$currentUser, $creator);
+        self::assertArraysAreEqual(CurrentUser::$currentUser->format(), $creator->format());
     }
 
     public function testFormat(): void

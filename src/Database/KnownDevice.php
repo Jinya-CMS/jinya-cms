@@ -4,6 +4,7 @@ namespace Jinya\Cms\Database;
 
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
+use Jinya\Cms\Logging\Logger;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
@@ -36,6 +37,8 @@ class KnownDevice implements Creatable, Deletable
     #[Column(sqlName: 'device_key')]
     public string $deviceKey;
 
+    public string $plainDeviceKey;
+
     /** @var string The user agent of the browser or API client this known device was issued for */
     #[Column(sqlName: 'user_agent')]
     public string $userAgent = '';
@@ -49,7 +52,8 @@ class KnownDevice implements Creatable, Deletable
      */
     public function __construct()
     {
-        $this->deviceKey = bin2hex(random_bytes(20));
+        $this->plainDeviceKey = bin2hex(random_bytes(20));
+        $this->deviceKey = hash('sha512', $this->plainDeviceKey);
     }
 
     /**
@@ -60,6 +64,8 @@ class KnownDevice implements Creatable, Deletable
      */
     public static function findByArtist(int $artistId): Iterator
     {
+        $logger = Logger::getLogger();
+        $logger->debug('Find known devices by artist', ['artistId' => $artistId]);
         $query = self::getQueryBuilder()
             ->newSelect()
             ->from(self::getTableName())
@@ -86,8 +92,41 @@ class KnownDevice implements Creatable, Deletable
      * @param string $knownDeviceCode
      * @return KnownDevice|null
      */
-    public static function findByCode(string $knownDeviceCode): ?KnownDevice
+    public static function findByCode(string $knownDeviceCode): ?self
     {
+        $logger = Logger::getLogger();
+        $logger->debug('Find known device by code');
+        $query = self::getQueryBuilder()
+            ->newSelect()
+            ->from(self::getTableName())
+            ->cols([
+                'id',
+                'user_id',
+                'device_key',
+                'user_agent',
+                'remote_address'
+            ])
+            ->where('device_key = :knownDeviceCode', ['knownDeviceCode' => hash('sha512', $knownDeviceCode)]);
+
+        /** @var array<string, mixed>[] $data */
+        $data = self::executeQuery($query);
+        if (empty($data)) {
+            return null;
+        }
+
+        return self::fromArray($data[0]);
+    }
+
+    /**
+     * Gets a known device by hashed code
+     *
+     * @param string $knownDeviceCode
+     * @return KnownDevice|null
+     */
+    public static function findByHashedCode(string $knownDeviceCode): ?self
+    {
+        $logger = Logger::getLogger();
+        $logger->debug('Find known device by hashed code');
         $query = self::getQueryBuilder()
             ->newSelect()
             ->from(self::getTableName())

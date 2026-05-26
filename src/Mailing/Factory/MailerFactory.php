@@ -21,6 +21,8 @@ abstract class MailerFactory
     {
         $configuration = JinyaConfiguration::getConfiguration();
         $mailer = new PHPMailer();
+        $mailer->CharSet = PHPMailer::CHARSET_UTF8;
+        $mailer->Encoding = PHPMailer::ENCODING_BASE64;
         $mailer->Host = (string)$configuration->get('host', 'mailer', '');
         $mailer->Username = (string)$configuration->get('username', 'mailer', '');
         $mailer->Password = (string)$configuration->get('password', 'mailer', '');

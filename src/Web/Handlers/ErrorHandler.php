@@ -37,7 +37,7 @@ readonly class ErrorHandler implements RouterErrorHandler
         ServerRequestInterface $request,
         NotFoundException $notFoundException
     ): ResponseInterface|false {
-        $this->logger->info($notFoundException->getMessage());
+        $this->logger->info($notFoundException->getMessage(), ['exception' => $notFoundException]);
         $data = [
             'success' => false,
             'error' => [
@@ -59,8 +59,7 @@ readonly class ErrorHandler implements RouterErrorHandler
         ServerRequestInterface $request,
         Throwable $throwable
     ): ResponseInterface|false {
-        $this->logger->error($throwable->getMessage());
-        $this->logger->error($throwable->getTraceAsString());
+        $this->logger->error($throwable->getMessage(), ['exception' => $throwable]);
         $data = [
             'success' => false,
             'error' => [
@@ -82,7 +81,7 @@ readonly class ErrorHandler implements RouterErrorHandler
         ServerRequestInterface $request,
         DeleteReferencedException $deleteReferencedException
     ): ResponseInterface|false {
-        $this->logger->info($deleteReferencedException->getMessage());
+        $this->logger->info($deleteReferencedException->getMessage(), ['exception' => $deleteReferencedException]);
         $data = [
             'success' => false,
             'error' => [
@@ -127,7 +126,10 @@ readonly class ErrorHandler implements RouterErrorHandler
         ServerRequestInterface $request,
         CreateReferenceFailedException $createReferenceFailedException
     ): ResponseInterface|false {
-        $this->logger->info($createReferenceFailedException->getMessage());
+        $this->logger->info(
+            $createReferenceFailedException->getMessage(),
+            ['exception' => $createReferenceFailedException]
+        );
         $data = [
             'success' => false,
             'error' => [
@@ -149,7 +151,7 @@ readonly class ErrorHandler implements RouterErrorHandler
         ServerRequestInterface $request,
         CreateColumnIsNullException $createColumnIsNullException
     ): ResponseInterface|false {
-        $this->logger->info($createColumnIsNullException->getMessage());
+        $this->logger->info($createColumnIsNullException->getMessage(), ['exception' => $createColumnIsNullException]);
         $data = [
             'success' => false,
             'error' => [
@@ -193,7 +195,10 @@ readonly class ErrorHandler implements RouterErrorHandler
         ServerRequestInterface $request,
         UpdateReferenceFailedException $updateReferenceFailedException
     ): ResponseInterface|false {
-        $this->logger->info($updateReferenceFailedException->getMessage());
+        $this->logger->info(
+            $updateReferenceFailedException->getMessage(),
+            ['exception' => $updateReferenceFailedException]
+        );
         $data = [
             'success' => false,
             'error' => [
@@ -215,7 +220,7 @@ readonly class ErrorHandler implements RouterErrorHandler
         ServerRequestInterface $request,
         UpdateColumnIsNullException $updateColumnIsNullException
     ): ResponseInterface|false {
-        $this->logger->info($updateColumnIsNullException->getMessage());
+        $this->logger->info($updateColumnIsNullException->getMessage(), ['exception' => $updateColumnIsNullException]);
         $data = [
             'success' => false,
             'error' => [
@@ -237,7 +242,7 @@ readonly class ErrorHandler implements RouterErrorHandler
         ServerRequestInterface $request,
         UpdateUniqueFailedException $updateUniqueFailedException
     ): ResponseInterface|false {
-        $this->logger->info($updateUniqueFailedException->getMessage());
+        $this->logger->info($updateUniqueFailedException->getMessage(), ['exception' => $updateUniqueFailedException]);
         $data = [
             'success' => false,
             'error' => [
@@ -259,7 +264,7 @@ readonly class ErrorHandler implements RouterErrorHandler
         ServerRequestInterface $request,
         InvalidDateFormatException $invalidDateFormatException
     ): ResponseInterface|false {
-        $this->logger->info($invalidDateFormatException->getMessage());
+        $this->logger->info($invalidDateFormatException->getMessage(), ['exception' => $invalidDateFormatException]);
         $data = [
             'success' => false,
             'error' => [

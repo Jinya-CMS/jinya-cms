@@ -86,8 +86,8 @@ class KnownDeviceTest extends DatabaseAwareTestCase
         $this->createKnownDevice();
         $this->createKnownDevice();
 
-        $foundDevice = KnownDevice::findByCode($knownDevice->deviceKey);
-        self::assertEquals($knownDevice, $foundDevice);
+        $foundDevice = KnownDevice::findByCode($knownDevice->plainDeviceKey);
+        self::assertArraysAreEqual($knownDevice->format(), $foundDevice->format());
     }
 
     public function testFindByCodeNotFound(): void

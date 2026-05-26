@@ -5,9 +5,8 @@ namespace Jinya\Cms\Mailing\Types;
 use Asika\Agent\Agent;
 use Jinya\Cms\Configuration\JinyaConfiguration;
 use Jinya\Cms\Database\KnownDevice;
+use Jinya\Cms\Locate\IpToLocationService;
 use Jinya\Cms\Mailing\Factory\MailerFactory;
-use Jinya\Cms\Theming\Engine;
-use Jinya\Plates\Engine as PlatesEngine;
 use JsonException;
 use PHPMailer\PHPMailer\Exception;
 use Throwable;
@@ -15,18 +14,8 @@ use Throwable;
 /**
  * This class is the new saved device mail and should be sent when a new saved device was registered
  */
-readonly class NewSavedDeviceMail
+readonly class NewSavedDeviceMail extends BaseMail
 {
-    private PlatesEngine $templateEngine;
-
-    /**
-     * NewSavedDeviceMail constructor.
-     */
-    public function __construct()
-    {
-        $this->templateEngine = Engine::getPlatesEngine();
-    }
-
     /**
      * Sends the new saved device email
      *
@@ -40,15 +29,12 @@ readonly class NewSavedDeviceMail
      */
     public function sendMail(string $artistEmail, string $artistName, KnownDevice $knownDevice): void
     {
-        $userAgent = new Agent(userAgent: $knownDevice->userAgent ?? '');
+        $this->logger->debug('Prepare new saved device mail');
+        $userAgent = new Agent(userAgent: $knownDevice->userAgent);
         $browser = $userAgent->browser();
         $platform = $userAgent->platform();
-        $location = json_decode(
-            file_get_contents("https://ip.jinya.de/?ip=$knownDevice->remoteAddress") ?: '{}',
-            true,
-            512,
-            JSON_THROW_ON_ERROR
-        );
+        $location = new IpToLocationService()->locateIp($knownDevice->remoteAddress);
+        $subject = $this->translate('new_device_subject');
         $renderedHtmlMail = $this->templateEngine->render(
             'mailing::NewSavedDeviceHtml',
             [
@@ -57,6 +43,7 @@ readonly class NewSavedDeviceMail
                 'remoteAddress' => $knownDevice->remoteAddress,
                 'platform' => $platform,
                 'browser' => $browser,
+                'subject' => $subject,
             ],
         );
         $renderedTextMail = $this->templateEngine->render(
@@ -71,7 +58,7 @@ readonly class NewSavedDeviceMail
         );
 
         $mailer = MailerFactory::getMailer();
-        $mailer->Subject = 'New-saved device for your account';
+        $mailer->Subject = $subject;
         /** @phpstan-ignore argument.type */
         $mailer->setFrom(JinyaConfiguration::getConfiguration()->get("from", "mailer"));
         $mailer->addAddress($artistEmail);
@@ -79,6 +66,7 @@ readonly class NewSavedDeviceMail
         $mailer->Body = $renderedHtmlMail;
         $mailer->isHTML();
 
+        $this->logger->debug('Send new known device mail');
         $mailer->send();
     }
 }

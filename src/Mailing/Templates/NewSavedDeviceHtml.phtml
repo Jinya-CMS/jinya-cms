@@ -6,42 +6,33 @@
  * @var $location array
  * @var $browser string
  * @var $platform string
+ * @var $subject string
  */
 
 use Jinya\Plates\Template\Template;
 
 ?>
-<html lang="en">
-<body>
+<?php
+$this->layout('mailing::layout', ['subject' => $subject]);
+$this->start('maincontent') ?>
 <p>
-    Hello <?= $this->e($artistName) ?><br /><br />
-    There was a new saved device added to your account.
+    <?= $this->e($this->translate('greeting', $artistName)) ?><br /><br />
+    <?= $this->e($this->translate('new_device_greeting_line')) ?>
 </p>
 <p>
-    The IP address is <?= $this->e($remoteAddress) ?>.
+    <?= $this->e($this->translate('new_device_ip_line', $remoteAddress)) ?>
     <?php
-    if (array_key_exists('city', $location) && !empty($location['city'])): ?>
-        Which is located at, <?= $this->e($location['city']) ?><?php
-        if (!empty($location['region'])): ?>, <?= $this->e($location['region']) ?><?php
-        endif ?><?php
-        if (!empty($location['country'])): ?> in <?= $this->e($location['country']) ?><?php
-        endif ?>.
+    if ($location['city']): ?>
+    <?= $this->e($this->translate('new_device_location_line', $location['city'], $location['country'])) ?>
     <?php
     endif ?>
 </p>
 <?php
 if (!empty($browser)): ?>
     <p>
-        The browser used was <?= $this->e($browser) ?> on <?= $this->e($platform) ?>
+        <?= $this->e($this->translate('new_device_browser_line', $browser)) ?>
     </p>
 <?php
 endif ?>
-<p>
-    Greetings,<br />
-    Your Jinya Team
-</p>
-<p>
-    The IP address was located with <a href="https://db-ip.com">db-ip.com</a>
-</p>
-</body>
-</html>
+<?php
+$this->stop(); ?>

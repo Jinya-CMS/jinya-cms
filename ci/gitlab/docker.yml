@@ -71,6 +71,18 @@ build-release-image:
         REGISTRY_IMAGE:
           - jinyacms/jinya-cms
           - $CI_REGISTRY_IMAGE
+      # Frankenphp images suffix
+      - ARCH:
+          - arm64
+          - amd64
+        IMAGE_TYPE: frankenphp
+        SUFFIX: -frankenphp
+        IMAGE_TAG_VERSION:
+          - latest
+          - $PACKAGE_VERSION
+        REGISTRY_IMAGE:
+          - jinyacms/jinya-cms
+          - $CI_REGISTRY_IMAGE
   variables:
     PACKAGE_VERSION: $LATEST
     TRACK: $RELEASE_TRACK
@@ -112,6 +124,7 @@ deploy-release-image:
           - ""
           - -apache
           - -cli
+          - -frankenphp
       - IMAGE_TAG_VERSION:
           - $LATEST
           - latest
@@ -119,6 +132,7 @@ deploy-release-image:
           - ""
           - -apache
           - -cli
+          - -frankenphp
         REGISTRY_IMAGE: jinyacms/jinya-cms
         REGISTRY_USER: $DOCKERHUB_USERNAME
         REGISTRY_PASSWORD: $DOCKERHUB_PASSWORD

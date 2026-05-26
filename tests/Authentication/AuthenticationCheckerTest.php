@@ -14,13 +14,13 @@ class AuthenticationCheckerTest extends DatabaseAwareTestCase
 {
     public function testCheckRequestForUserSuccessfulLogin(): void
     {
-        $request = new ServerRequest('POST', '', ['Authorization' => 'Bearer ' . $this->createApiKey()->apiKey]);
+        $request = new ServerRequest('POST', '', ['Authorization' => 'Bearer ' . $this->createApiKey()->plainApiKey]);
         $artist = AuthenticationChecker::checkRequestForUser($request, ROLE_WRITER);
         self::assertEquals(CurrentUser::$currentUser->email, $artist->email);
 
         $request = new ServerRequest('POST', '');
         $artist = AuthenticationChecker::checkRequestForUser(
-            $request->withCookieParams(['JinyaApiKey' => $this->createApiKey()->apiKey]),
+            $request->withCookieParams(['JinyaApiKey' => $this->createApiKey()->plainApiKey]),
             ROLE_WRITER
         );
         self::assertEquals(CurrentUser::$currentUser->email, $artist->email);
@@ -41,13 +41,13 @@ class AuthenticationCheckerTest extends DatabaseAwareTestCase
 
     public function testCheckRequestForUserSuccessfulLoginRoleReaderCascades(): void
     {
-        $request = new ServerRequest('POST', '', ['Authorization' => 'Bearer ' . $this->createApiKey()->apiKey]);
+        $request = new ServerRequest('POST', '', ['Authorization' => 'Bearer ' . $this->createApiKey()->plainApiKey]);
         $artist = AuthenticationChecker::checkRequestForUser($request, ROLE_READER);
         self::assertEquals(CurrentUser::$currentUser->email, $artist->email);
 
         $request = new ServerRequest('POST', '');
         $artist = AuthenticationChecker::checkRequestForUser(
-            $request->withCookieParams(['JinyaApiKey' => $this->createApiKey()->apiKey]),
+            $request->withCookieParams(['JinyaApiKey' => $this->createApiKey()->plainApiKey]),
             ROLE_READER
         );
         self::assertEquals(CurrentUser::$currentUser->email, $artist->email);
@@ -77,7 +77,7 @@ class AuthenticationCheckerTest extends DatabaseAwareTestCase
         $apiKey->validSince = new DateTime('19700101');
         $apiKey->update();
 
-        $request = new ServerRequest('POST', '', ['Authorization' => 'Bearer ' . $apiKey->apiKey]);
+        $request = new ServerRequest('POST', '', ['Authorization' => 'Bearer ' . $apiKey->plainApiKey]);
         AuthenticationChecker::checkRequestForUser($request, ROLE_WRITER);
     }
 
@@ -90,7 +90,7 @@ class AuthenticationCheckerTest extends DatabaseAwareTestCase
 
         $request = new ServerRequest('POST', '');
         AuthenticationChecker::checkRequestForUser(
-            $request->withCookieParams(['JinyaApiKey' => $apiKey->apiKey]),
+            $request->withCookieParams(['JinyaApiKey' => $apiKey->plainApiKey]),
             ROLE_WRITER
         );
     }
@@ -101,7 +101,7 @@ class AuthenticationCheckerTest extends DatabaseAwareTestCase
         CurrentUser::$currentUser->enabled = false;
         CurrentUser::$currentUser->update();
         $apiKey = $this->createApiKey();
-        $request = new ServerRequest('POST', '', ['Authorization' => 'Bearer ' . $apiKey->apiKey]);
+        $request = new ServerRequest('POST', '', ['Authorization' => 'Bearer ' . $apiKey->plainApiKey]);
         AuthenticationChecker::checkRequestForUser($request, ROLE_WRITER);
     }
 
@@ -113,7 +113,7 @@ class AuthenticationCheckerTest extends DatabaseAwareTestCase
         $apiKey = $this->createApiKey();
         $request = new ServerRequest('POST', '');
         AuthenticationChecker::checkRequestForUser(
-            $request->withCookieParams(['JinyaApiKey' => $apiKey->apiKey]),
+            $request->withCookieParams(['JinyaApiKey' => $apiKey->plainApiKey]),
             ROLE_WRITER
         );
     }
@@ -121,7 +121,7 @@ class AuthenticationCheckerTest extends DatabaseAwareTestCase
     public function testCheckRequestForUserMissingRoleAuthorization(): void
     {
         $this->expectException(MissingPermissionsException::class);
-        $request = new ServerRequest('POST', '', ['Authorization' => 'Bearer ' . $this->createApiKey()->apiKey]);
+        $request = new ServerRequest('POST', '', ['Authorization' => 'Bearer ' . $this->createApiKey()->plainApiKey]);
         AuthenticationChecker::checkRequestForUser($request, ROLE_ADMIN);
     }
 
@@ -130,7 +130,7 @@ class AuthenticationCheckerTest extends DatabaseAwareTestCase
         $this->expectException(MissingPermissionsException::class);
         $request = new ServerRequest('POST', '');
         AuthenticationChecker::checkRequestForUser(
-            $request->withCookieParams(['JinyaApiKey' => $this->createApiKey()->apiKey]),
+            $request->withCookieParams(['JinyaApiKey' => $this->createApiKey()->plainApiKey]),
             ROLE_ADMIN
         );
     }

@@ -11,25 +11,24 @@
 use Jinya\Plates\Template\Template;
 
 ?>
-Hello <?= $this->e($artistName) ?>
+<?= $this->e($this->translate('greeting', $artistName)) ?>
 
-There was a new saved device added to your account.
+<?= $this->e($this->translate('new_device_greeting_line')) ?>
 
-The IP address is <?= $this->e($remoteAddress) ?>.
+<?= $this->e($this->translate('new_device_ip_line', $remoteAddress)) ?>
+
 <?php
-if (array_key_exists('city', $location) && !empty($location['city'])): ?>
-    Which is located at, <?= $this->e($location['city']) ?>, <?= $this->e($location['region']) ?> in <?= $this->e(
-        $location['country']
-    ) ?>.
+if ($location['city']): ?>
+<?= $this->e($this->translate('new_device_location_line', $location['city'], $location['country'])) ?>
 <?php
 endif ?>
 <?php
 if (!empty($browser)): ?>
-    The browser used was <?= $this->e($browser) ?> on <?= $this->e($platform) ?>
+
+<?= $this->e($this->translate('new_device_browser_line', $browser)) ?>
 <?php
-endif ?>
+endif; ?>
 
-Greetings,
-Your Jinya Team
+-- Jinny - Jinya CMS bot
 
-The IP address was located with db-ip.com
+<?= $this->translate('ip_db') ?>

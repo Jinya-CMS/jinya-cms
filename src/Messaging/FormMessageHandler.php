@@ -3,12 +3,14 @@
 namespace Jinya\Cms\Messaging;
 
 use Jinya\Cms\Database\Form;
+use Jinya\Cms\Logging\Logger;
 use Jinya\Cms\Mailing\Factory\MailerFactory;
 use Jinya\Cms\Theming\Engine;
 use Jinya\Plates\Engine as PlatesEngine;
 use Jinya\Router\Extensions\Database\Exceptions\MissingFieldsException;
 use PHPMailer\PHPMailer\Exception;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Log\LoggerInterface;
 use Throwable;
 
 /**
@@ -17,6 +19,7 @@ use Throwable;
 readonly class FormMessageHandler
 {
     private PlatesEngine $engine;
+    private LoggerInterface $logger;
 
     /**
      * FormMessageHandler constructor.
@@ -24,6 +27,7 @@ readonly class FormMessageHandler
     public function __construct()
     {
         $this->engine = Engine::getPlatesEngine();
+        $this->logger = Logger::getLogger();
     }
 
     /**
@@ -37,6 +41,7 @@ readonly class FormMessageHandler
      */
     public function handleFormPost(Form $form, array $body, ServerRequestInterface $request): void
     {
+        $this->logger->debug('Handle form post', ['form' => $form->title]);
         $formValues = [];
         $missingFields = [];
         $subject = 'New message for form ' . $form->title;
@@ -75,6 +80,7 @@ readonly class FormMessageHandler
         }
 
         if (!$isSpam) {
+            $this->logger->debug('Send mail to the recipient specified in the form');
             $mailer = MailerFactory::getMailer();
             if ($fromAddress !== 'Some person' && !is_bool($fromAddress)) {
                 $mailer->addReplyTo($fromAddress);
@@ -85,6 +91,8 @@ readonly class FormMessageHandler
             $mailer->Body = $this->renderTemplate($formValues, $mailer->Subject);
             $mailer->isHTML();
             $mailer->send();
+        } else {
+            $this->logger->debug('Form submission is likely spam, ignore it');
         }
     }
 
@@ -102,13 +110,7 @@ readonly class FormMessageHandler
             return false;
         }
 
-        foreach ($values as $spamValue) {
-            if (stripos($value, $spamValue) !== false) {
-                return true;
-            }
-        }
-
-        return false;
+        return array_any($values, static fn ($spamValue) => stripos($value, $spamValue) !== false);
     }
 
     /**

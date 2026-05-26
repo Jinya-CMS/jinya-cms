@@ -1,106 +1,55 @@
+import { DiagramBase } from './diagram-base.js';
 import localize from '../../../utils/localize.js';
-import { BaseDiagram } from './base-diagram.js';
 
-class LineDiagramElement extends BaseDiagram {
+class LineDiagramElement extends DiagramBase {
   constructor() {
-    super('line', null);
+    super();
+  }
+
+  static get observedAttributes() {
+    return DiagramBase.observedAttributes;
   }
 
   connectedCallback() {
     super.connectedCallback();
   }
 
-  static get observedAttributes() {
-    return BaseDiagram.observedAttributes;
-  }
-
   attributeChangedCallback(property, oldValue, newValue) {
     return super.attributeChangedCallback(property, oldValue, newValue);
   }
 
-  get interval() {
-    return this.getAttribute('interval');
-  }
-
-  set interval(value) {
-    this.setAttribute('interval', value);
-    this.renderDiagram();
-  }
-
-  get name() {
-    return localize({ key: `statistics.access.visits` });
-  }
-
   getOptions(stats) {
     return {
-      series: [
+      ...super.getOptions(stats),
+      xAxis: [
         {
-          name: this.name,
-          data: stats.map((item) => ({
-            y: item.visits.toLocaleString(),
-            x: item.group,
-          })),
+          type: 'category',
+          boundaryGap: false,
+          data: stats.map((s) => new Date(Date.parse(s.group)).toLocaleDateString()),
         },
       ],
-      chart: {
-        type: 'area',
-        stacked: false,
-        height: 360,
-        toolbar: {
-          show: false,
-        },
-        zoom: {
-          enabled: false,
-        },
-        style: BaseDiagram.chartStyle,
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      markers: {
-        size: 0,
-      },
-      title: {
-        text: localize({ key: `statistics.access.${this.group.replace('-', '_')}.${this.interval.replace('-', '_')}` }),
-        align: 'left',
-        style: BaseDiagram.titleStyle,
-      },
-      theme: {
-        monochrome: BaseDiagram.theme,
-      },
-      fill: {
-        type: 'gradient',
-        gradient: {
-          shadeIntensity: 1,
-          inverseColors: false,
-          opacityFrom: 0.5,
-          opacityTo: 0,
-          stops: [0, 90, 100],
+      visualMap: {
+        show: false,
+        min: 0,
+        max: Math.max(...stats.map((d) => d.visits)),
+        inRange: {
+          color: ['#819ed9', '#1d3461'],
         },
       },
-      yaxis: {
-        labels: {
-          formatter(item) {
-            return item.toLocaleString();
-          },
+      yAxis: [
+        {
+          type: 'value',
         },
-        style: BaseDiagram.axisStyle,
-      },
-      xaxis: {
-        type: 'datetime',
-        labels: {
-          style: BaseDiagram.axisStyle,
+      ],
+      series: [
+        {
+          showSymbol: false,
+          type: 'line',
+          smooth: true,
+          data: stats.map((s) => s.visits),
+          name: localize({ key: `statistics.access.visits` }),
         },
-      },
-      tooltip: {
-        shared: false,
-        style: BaseDiagram.tooltipStyle,
-        y: {
-          formatter(item) {
-            return item.toLocaleString();
-          },
-        },
-      },
+      ],
     };
   }
 }

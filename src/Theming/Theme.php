@@ -4,16 +4,17 @@ namespace Jinya\Cms\Theming;
 
 use Exception;
 use Jinya\Cms\Database;
+use Jinya\Cms\Logging\Logger;
 use Jinya\Plates\Engine;
 use Jinya\Plates\Extension\ExtensionInterface;
 use JShrink\Minifier;
+use Psr\Log\LoggerInterface;
 use RuntimeException;
-use ScssPhp\ScssPhp\Colors;
 use ScssPhp\ScssPhp\Compiler;
 use ScssPhp\ScssPhp\Exception\SassException;
-use ScssPhp\ScssPhp\Node\Number;
 use ScssPhp\ScssPhp\OutputStyle;
-use ScssPhp\ScssPhp\Value\SassColor;
+use ScssPhp\ScssPhp\Value\SassString;
+use ScssPhp\ScssPhp\Value\Value;
 use ScssPhp\ScssPhp\ValueConverter;
 
 /**
@@ -37,6 +38,8 @@ class Theme implements ExtensionInterface
     /** @var array<string, mixed> The configuration of the theme */
     private array $configuration;
 
+    private LoggerInterface $logger;
+
     /**
      * Theme constructor.
      */
@@ -47,6 +50,7 @@ class Theme implements ExtensionInterface
         $this->scssCompiler->setSourceMap(Compiler::SOURCE_MAP_NONE);
         $this->scssCompiler->setOutputStyle(OutputStyle::COMPRESSED);
         $this->scssCompiler->registerFunction('jinya-asset', [$this, 'scssJinyaAsset'], ['assetName']);
+        $this->logger = Logger::getLogger();
 
         $this->parseThemePhp();
     }
@@ -58,11 +62,14 @@ class Theme implements ExtensionInterface
      */
     private function parseThemePhp(): void
     {
+        $this->logger->debug('Parse the theme.php file');
         $themePhpFile = ThemeSyncer::THEME_BASE_PATH . $this->dbTheme->name . '/theme.php';
         if (!file_exists($themePhpFile)) {
-            throw new RuntimeException("Theme.php is not found, expecting it here: $themePhpFile");
+            $this->logger->error('Could not find theme.php');
+            throw new RuntimeException("theme.php is not found, expecting it here: $themePhpFile");
         }
 
+        $this->logger->debug('Load theme.php');
         $this->configuration = require $themePhpFile;
     }
 
@@ -70,12 +77,17 @@ class Theme implements ExtensionInterface
      * Includes an asset into SCSS
      *
      * @param array<mixed> $args
-     * @return array|mixed|Number
+     * @return Value
      */
-    public function scssJinyaAsset(array $args): mixed
+    public function scssJinyaAsset(array $args): Value
     {
         $assets = $this->dbTheme->getAssets();
-        $assetName = $this->scssCompiler->getStringText($args[0]);
+        if ($args[0] instanceof SassString) {
+            $assetName = $args[0]->getText();
+        } else {
+            $this->scssCompiler->assertString($args[0]);
+            $assetName = $this->scssCompiler->getStringText($args[0]);
+        }
         if (array_key_exists($assetName, $assets)) {
             return ValueConverter::parseValue('url("' . $assets[$assetName]->publicPath . '")');
         }
@@ -119,6 +131,22 @@ class Theme implements ExtensionInterface
     }
 
     /**
+     * Generates a custom variables scss style for the theme
+     *
+     * @return string
+     */
+    private function getVariablesStylesheet(): string
+    {
+        $stylesheet = '';
+
+        foreach ($this->dbTheme->scssVariables as $key => $value) {
+            $stylesheet .= "$key: $value;\n";
+        }
+
+        return $stylesheet;
+    }
+
+    /**
      * Compiles the style cache of the given theme
      *
      * @return void
@@ -126,94 +154,38 @@ class Theme implements ExtensionInterface
      */
     public function compileStyleCache(): void
     {
+        $this->logger->debug('Compile theme style cache', ['name' => $this->dbTheme->name]);
         $styleCachePath = self::BASE_CACHE_PATH . $this->dbTheme->name . '/styles/';
         if (!@mkdir($styleCachePath, 0777, true) && !is_dir($styleCachePath)) {
+            $this->logger->error(
+                'Could not create style cache directory',
+                ['path' => $styleCachePath, 'name' => $this->dbTheme->name]
+            );
             throw new RuntimeException(sprintf('Directory "%s" was not created', $styleCachePath));
         }
         $this->clearStyleCache();
         $stylesheets = $this->configuration['styles']['files'] ?? [];
-        $this->scssCompiler->addVariables(array_map(static function (string $value) {
-            // Allow internal here, if this breaks with an update, we will see it in the unit tests
-            $result = Colors::colorNameToColor($value);
-            if ($result) {
-                return $result;
-            }
 
-            if (str_starts_with($value, '#') && in_array(strlen($value), [4, 7])) {
-                $hex = substr($value, 1);
-                if (strlen($hex) === 3) {
-                    $splitHex = mb_str_split($hex);
-                    $hex = $splitHex[0] . $splitHex[0] . $splitHex[1] . $splitHex[1] . $splitHex[2] . $splitHex[2];
-                }
+        $variableStylesheet = $this->getVariablesStylesheet();
 
-                if (preg_match('/[[:xdigit:]]{6}/m', $hex)) {
-                    $splitInRgb = mb_str_split($hex, 2);
-                    $r = (int)hexdec($splitInRgb[0]);
-                    $g = (int)hexdec($splitInRgb[1]);
-                    $b = (int)hexdec($splitInRgb[2]);
-
-                    return SassColor::rgb($r, $g, $b);
-                }
-            }
-
-            if (str_starts_with($value, 'rgb(') && str_ends_with($value, ')')) {
-                $trimmedRgb = trim(ltrim($value, 'rgb('), ')');
-                $splitInRgb = explode(',', str_replace(' ', '', $trimmedRgb));
-                $r = (int)$splitInRgb[0];
-                $g = (int)$splitInRgb[1];
-                $b = (int)$splitInRgb[2];
-
-                if ($r >= 0 && $g >= 0 && $b >= 0 && $r <= 255 && $g <= 255 && $b <= 255) {
-                    return SassColor::rgb($r, $g, $b);
-                }
-            }
-
-            if (str_starts_with($value, 'rgba(') && str_ends_with($value, ')')) {
-                $trimmedRgb = trim(ltrim($value, 'rgba('), ')');
-                $splitInRgb = explode(',', str_replace(' ', '', $trimmedRgb));
-                $r = (int)$splitInRgb[0];
-                $g = (int)$splitInRgb[1];
-                $b = (int)$splitInRgb[2];
-
-                if ($r >= 0 && $g >= 0 && $b >= 0 && $r <= 255 && $g <= 255 && $b <= 255) {
-                    return SassColor::rgb($r, $g, $b, (float)$splitInRgb[3]);
-                }
-            }
-
-            if (str_starts_with($value, 'hsl(') && str_ends_with($value, ')')) {
-                $trimmedHsl = trim(ltrim($value, 'hsl('), ')');
-                $splitInHsl = explode(',', str_replace(' ', '', $trimmedHsl));
-
-                return SassColor::hsl(
-                    (float)$splitInHsl[0],
-                    (float)str_replace('%', '', $splitInHsl[1]),
-                    (float)str_replace('%', '', $splitInHsl[2])
-                );
-            }
-
-            if (str_starts_with($value, 'hsla(') && str_ends_with($value, ')')) {
-                $trimmedHsl = trim(ltrim($value, 'hsla('), ')');
-                $splitInHsl = explode(',', str_replace(' ', '', $trimmedHsl));
-
-                return SassColor::hsl(
-                    (float)$splitInHsl[0],
-                    (float)str_replace('%', '', $splitInHsl[1]),
-                    (float)str_replace('%', '', $splitInHsl[2]),
-                    (float)$splitInHsl[3]
-                );
-            }
-
-            return ValueConverter::fromPhp($value);
-        }, $this->dbTheme->scssVariables));
-
+        $this->logger->debug('Compile each stylesheet of the theme', ['name' => $this->dbTheme->name]);
         foreach ($stylesheets as $stylesheet) {
             if (!file_exists($stylesheet)) {
                 continue;
             }
 
+            $stylesheetContents = file_get_contents($stylesheet) ?: '';
+            $stylesheetContents = "$variableStylesheet\n\n$stylesheetContents";
+
             $this->scssCompiler->setImportPaths(dirname($stylesheet));
             $this->scssCompiler->setOutputStyle(OutputStyle::COMPRESSED);
-            $result = $this->scssCompiler->compileString(file_get_contents($stylesheet) ?: '');
+            $this->logger->debug('Compile stylesheet', ['name' => $this->dbTheme->name, 'stylesheet' => $stylesheet]);
+            $result = $this->scssCompiler->compileString($stylesheetContents);
+
+            $this->logger->debug(
+                'Write compiled stylesheet to cache',
+                ['name' => $this->dbTheme->name, 'stylesheet' => $stylesheet]
+            );
             file_put_contents($styleCachePath . uniqid('style', true) . '.css', $result->getCss());
         }
     }
@@ -252,18 +224,25 @@ class Theme implements ExtensionInterface
      */
     public function compileScriptCache(): void
     {
+        $this->logger->debug('Compile theme script cache', ['name' => $this->dbTheme->name]);
         $scriptCachePath = self::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts/';
         if (!@mkdir($scriptCachePath, 0777, true) && !is_dir($scriptCachePath)) {
+            $this->logger->error(
+                'Could not create script cache directory',
+                ['path' => $scriptCachePath, 'name' => $this->dbTheme->name]
+            );
             throw new RuntimeException(sprintf('Directory "%s" was not created', $scriptCachePath));
         }
         $this->clearScriptCache();
         $scripts = $this->configuration['scripts'] ?? [];
 
+        $this->logger->debug('Minify each script of the theme', ['name' => $this->dbTheme->name]);
         foreach ($scripts as $script) {
             if (!file_exists($script)) {
                 continue;
             }
 
+            $this->logger->debug('Minify script', ['name' => $this->dbTheme->name, 'script' => $script]);
             $result = Minifier::minify(file_get_contents($script) ?: '');
             file_put_contents($scriptCachePath . uniqid('script', true) . '.js', $result);
         }
@@ -303,13 +282,19 @@ class Theme implements ExtensionInterface
      */
     public function compileAssetCache(): void
     {
+        $this->logger->debug('Compile theme asset cache', ['name' => $this->dbTheme->name]);
         $assetCachePath = self::BASE_CACHE_PATH . $this->dbTheme->name . '/assets/';
         if (!@mkdir($assetCachePath, 0777, true) && !is_dir($assetCachePath)) {
+            $this->logger->error(
+                'Could not create asset cache directory',
+                ['path' => $assetCachePath, 'name' => $this->dbTheme->name]
+            );
             throw new RuntimeException(sprintf('Directory "%s" was not created', $assetCachePath));
         }
         $this->clearAssetCache();
         $assets = $this->configuration['assets'] ?? [];
 
+        $this->logger->debug('Copy all assets to the database', ['name' => $this->dbTheme->name]);
         foreach ($assets as $key => $asset) {
             $assetFromDb = Database\ThemeAsset::findByThemeAndName($this->dbTheme->id, $key);
 
@@ -322,6 +307,7 @@ class Theme implements ExtensionInterface
             $publicPath = uniqid('asset', true) . '.' . pathinfo($asset, PATHINFO_EXTENSION);
             copy($asset, $assetCachePath . $publicPath);
 
+            $this->logger->debug('Copy asset to cache', ['name' => $this->dbTheme->name, 'asset' => $asset]);
             if ($assetFromDb === null) {
                 $assetFromDb = new Database\ThemeAsset();
                 $assetFromDb->name = $key;

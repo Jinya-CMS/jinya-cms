@@ -60,19 +60,16 @@ class FrontendController extends BaseController
             if ($onError) {
                 try {
                     $onError($exception);
-                } catch (Throwable$throwable) {
-                    $this->logger->error($throwable->getMessage());
+                } catch (Throwable $throwable) {
+                    $this->logger->error($throwable->getMessage(), ['exception' => $throwable]);
                 }
             }
-            if (Theming\Theme::ERROR_BEHAVIOR_HOMEPAGE === $this->activeTheme->getErrorBehavior()) {
-                $this->logger->error($exception->getMessage());
-                $this->logger->error($exception->getTraceAsString());
+            $this->logger->error($exception->getMessage(), ['exception' => $exception]);
 
+            if (Theming\Theme::ERROR_BEHAVIOR_HOMEPAGE === $this->activeTheme->getErrorBehavior()) {
                 return new Response(self::HTTP_FOUND, ['Location' => '/']);
             }
 
-            $this->logger->error($exception->getMessage());
-            $this->logger->error($exception->getTraceAsString());
             $statusCode = self::HTTP_INTERNAL_SERVER_ERROR;
 
             try {

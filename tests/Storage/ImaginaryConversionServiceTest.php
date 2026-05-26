@@ -50,7 +50,7 @@ class ImaginaryConversionServiceTest extends DatabaseAwareTestCase
         }
 
         $this->expectException(EmptyResultException::class);
-        $conversionService = new ConversionService();
+        $conversionService = new ImaginaryConversionService();
         $conversionService->convertFile(-1);
     }
 }

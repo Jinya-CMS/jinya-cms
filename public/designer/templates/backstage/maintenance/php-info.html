@@ -1,10 +1,18 @@
 <div class="cosmo-side-list" x-data="phpInfoData">
   <nav class="cosmo-side-list__items">
-    <a class="cosmo-side-list__item" x-localize:maintenance-php-system_and_server
-       :class="{ 'is--active': selectedExtension === null }" @click="selectedExtension = null"></a>
+    <a
+      class="cosmo-side-list__item"
+      x-localize:maintenance-php-system_and_server
+      :class="{ 'is--active': selectedExtension === null }"
+      @click="selectedExtension = null"
+    ></a>
     <template x-for="extension in Object.keys(phpInfo.extensions)">
-      <a class="cosmo-side-list__item" x-text="extension" :class="{ 'is--active': extension === selectedExtension }"
-         @click="selectedExtension = extension"></a>
+      <a
+        class="cosmo-side-list__item"
+        x-text="extension"
+        :class="{ 'is--active': extension === selectedExtension }"
+        @click="selectedExtension = extension"
+      ></a>
     </template>
   </nav>
   <div class="cosmo-side-list__content">
@@ -26,18 +34,21 @@
             <h2 x-localize:maintenance-php-extension-ini_values></h2>
             <table class="cosmo-table">
               <thead>
-              <tr>
-                <th x-localize:maintenance-php-ini-name></th>
-                <th x-localize:maintenance-php-ini-value></th>
-              </tr>
+                <tr>
+                  <th x-localize:maintenance-php-ini-name></th>
+                  <th x-localize:maintenance-php-ini-value></th>
+                </tr>
               </thead>
               <tbody>
-              <template x-for="[iniKey, iniValue] in Object.entries(phpInfo.extensions[selectedExtension].ini)" :key="iniKey">
-                <tr>
-                  <td x-text="iniKey"></td>
-                  <td x-text="iniValue"></td>
-                </tr>
-              </template>
+                <template
+                  x-for="[iniKey, iniValue] in Object.entries(phpInfo.extensions[selectedExtension].ini)"
+                  :key="iniKey"
+                >
+                  <tr>
+                    <td x-text="iniKey"></td>
+                    <td x-text="iniValue"></td>
+                  </tr>
+                </template>
               </tbody>
             </table>
           </div>

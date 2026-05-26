@@ -2,14 +2,15 @@
 
 use Dotenv\Dotenv;
 use Jinya\Cms\Configuration\JinyaConfiguration;
+use Jinya\Cms\Logging\Logger;
 use Jinya\Cms\Storage\StorageBaseService;
 use Jinya\Cms\Utils\CacheUtils;
 use Jinya\Cms\Web\Handlers\ErrorHandler;
 use Jinya\Router\Extensions\JinyaDatabaseExtension;
 use Nyholm\Psr7\Response;
 
-require __DIR__ . '/defines.php';
-require __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/defines.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 if (!is_dir(StorageBaseService::SAVE_PATH) && !mkdir(
     $concurrentDirectory = StorageBaseService::SAVE_PATH,
@@ -36,6 +37,7 @@ function getRouterConfiguration(): array
 
 JinyaConfiguration::getConfiguration()->reconfigureDatabase();
 
+\Monolog\ErrorHandler::register(Logger::getLogger());
 if (file_exists(__DIR__ . '/.env') || file_exists(__DIR__ . '/.env.dist')) {
     $dotenv = Dotenv::createUnsafeImmutable(__DIR__, ['.env', '.env.dist']);
     $dotenv->load();

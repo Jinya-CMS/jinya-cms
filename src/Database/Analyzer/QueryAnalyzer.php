@@ -16,7 +16,7 @@ class QueryAnalyzer
      */
     public function getQueryType(Statement $statement): string|false
     {
-        return Query::getFlags($statement)['querytype'];
+        return Query::getFlags($statement)->queryType->value;
     }
 
     /**
@@ -26,6 +26,6 @@ class QueryAnalyzer
      */
     public function getStatements(string $query): array
     {
-        return (new Parser($query))->statements;
+        return new Parser($query)->statements;
     }
 }

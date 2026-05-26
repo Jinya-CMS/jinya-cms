@@ -4,6 +4,7 @@ namespace Jinya\Cms\Database;
 
 use Exception;
 use Iterator;
+use Jinya\Cms\Logging\Logger;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
@@ -48,6 +49,8 @@ class UploadingFileChunk implements Creatable, Deletable
      */
     public static function findByFile(int $fileId): Iterator
     {
+        $logger = Logger::getLogger();
+        $logger->debug('Find chunks by file', ['fileId' => $fileId]);
         $query = self::getQueryBuilder()
             ->newSelect()
             ->from(self::getTableName() . ' AS ufc')

@@ -22,7 +22,6 @@ readonly class ThemeSyncMiddleware implements MiddlewareInterface
         $this->themeSyncer = new ThemeSyncer();
     }
 
-
     /**
      * @inheritDoc
      */

@@ -42,8 +42,8 @@ class JinyaConfiguration extends Configuration
     public function reconfigureDatabase(): void
     {
         $configuration = new self(false);
-        $database = $configuration->get('database', 'mysql', );
-        $user = $configuration->get('user', 'mysql', ) ?: '';
+        $database = $configuration->get('database', 'mysql');
+        $user = $configuration->get('user', 'mysql') ?: '';
         $password = $configuration->get('password', 'mysql', '');
         $host = $configuration->get('host', 'mysql', '127.0.0.1');
         $port = $configuration->get('port', 'mysql', 3306);

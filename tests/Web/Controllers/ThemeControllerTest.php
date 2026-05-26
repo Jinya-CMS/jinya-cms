@@ -385,7 +385,7 @@ class ThemeControllerTest extends DatabaseAwareTestCase
     {
         $controller = $this->getController([
             'variables' => [
-                'test' => 'true'
+                '$test' => 'true'
             ]
         ]);
         $result = $controller->updateStyleVariables($this->getDefaultTheme()->id);

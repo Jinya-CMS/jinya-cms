@@ -12,6 +12,9 @@ use Jinya\Cms\Migrations\CategoryWebhook;
 use Jinya\Cms\Migrations\CollationUtf8Mb4;
 use Jinya\Cms\Migrations\FileTags;
 use Jinya\Cms\Migrations\FormItemBoolColumns;
+use Jinya\Cms\Migrations\JCMS35CleanAnalytics;
+use Jinya\Cms\Migrations\JCMS36HashApiKeys;
+use Jinya\Cms\Migrations\JCMS36HashKnownDevices;
 use Jinya\Cms\Migrations\RemoveOldConfigurationTableColumns;
 use Jinya\Cms\Migrations\TG191Analytics;
 use Jinya\Cms\Migrations\TG192JinyaConfiguration;
@@ -33,7 +36,7 @@ abstract class Migrator
      *
      * @return int
      */
-    public static function migrate(bool $inCli = false): int
+    public static function migrate(): int
     {
         $migrations = [
             new InitialMigration(),
@@ -50,12 +53,15 @@ abstract class Migrator
             new TG195AppTotp(),
             new TG201EmailPreferences(),
             new TG192JinyaConfiguration(),
-            new TG217IpDatabase($inCli),
+            new TG217IpDatabase(),
             new TG191Analytics(),
             new TG202Folders(),
             new TG202FileUniqueKey(),
             new TG202FolderUniqueKey(),
             new RemoveOldConfigurationTableColumns(),
+            new JCMS35CleanAnalytics(),
+            new JCMS36HashApiKeys(),
+            new JCMS36HashKnownDevices()
         ];
 
         DatabaseMigrator::migrateUp($migrations, 'migration_state');

@@ -2,6 +2,7 @@
 
 namespace Jinya\Cms\Web\Controllers;
 
+use AllowDynamicProperties;
 use BaconQrCode\Common\ErrorCorrectionLevel;
 use BaconQrCode\Renderer\Color\Rgb;
 use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
@@ -10,7 +11,9 @@ use BaconQrCode\Renderer\Module\DotsModule;
 use BaconQrCode\Renderer\RendererStyle\Fill;
 use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use BaconQrCode\Writer;
-use Endroid\QrCode\Color\Color;
+use Intervention\Image\Alignment;
+use Intervention\Image\Drivers\Imagick\Driver;
+use Intervention\Image\Format;
 use Intervention\Image\ImageManager;
 use Jinya\Cms\Authentication\CurrentUser;
 use Jinya\Cms\Database\Artist;
@@ -26,6 +29,7 @@ use Jinya\Router\Attributes\Route;
 use JsonException;
 use Psr\Http\Message\ResponseInterface;
 
+#[AllowDynamicProperties]
 #[Controller]
 #[Middlewares(new AuthorizationMiddleware())]
 class MyJinyaController extends BaseController
@@ -138,13 +142,13 @@ class MyJinyaController extends BaseController
         $pngRenderer = new ImageRenderer($style, new ImagickImageBackEnd());
         $pngWriter = new Writer($pngRenderer);
 
-        $manager = ImageManager::imagick();
-        $image = $manager->read($pngWriter->writeString($otp->getProvisioningUri(), ecLevel: ErrorCorrectionLevel::H()))
-            ->place(__ROOT__.'/assets/qrlogo.png', 'center');
+        $manager = ImageManager::usingDriver(new Driver());
+        $image = $manager->decode($pngWriter->writeString($otp->getProvisioningUri(), ecLevel: ErrorCorrectionLevel::H()))
+            ->insert(__ROOT__.'/assets/qrlogo.png', alignment: Alignment::CENTER);
 
         return $this->json([
             'secret' => $otp->getSecret(),
-            'qrCode' => $image->toWebp()->toDataUri()
+            'qrCode' => $image->encodeUsingFormat(Format::WEBP)->toDataUri()
         ]);
     }
 

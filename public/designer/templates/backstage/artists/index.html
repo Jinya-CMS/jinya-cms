@@ -1,11 +1,14 @@
 <div class="cosmo-side-list" x-data="artistsData">
   <nav class="cosmo-side-list__items">
     <template :key="artist.id" x-for="artist in artists">
-      <a :class="{ 'is--active': selectedArtist?.id === artist.id }" @click="selectArtist(artist)"
-         class="cosmo-side-list__item" x-text="artist.artistName"></a>
+      <a
+        :class="{ 'is--active': selectedArtist?.id === artist.id }"
+        @click="selectArtist(artist)"
+        class="cosmo-side-list__item"
+        x-text="artist.artistName"
+      ></a>
     </template>
-    <button @click="openCreateDialog" class="cosmo-button is--full-width"
-            x-localize:artists-action-new></button>
+    <button @click="openCreateDialog" class="cosmo-button is--full-width" x-localize:artists-action-new></button>
   </nav>
   <template x-if="selectedArtist">
     <div class="cosmo-side-list__content">
@@ -17,8 +20,17 @@
           <span x-text="selectedArtist.artistName"></span>
           (<span x-text="selectedArtist.email"></span>)
           <template x-if="!selectedArtist.enabled">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                 stroke="var(--negative-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="var(--negative-color)"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
               <path d="M7 11V7a5 5 0 0 1 10 0v4" />
             </svg>
@@ -26,18 +38,38 @@
         </div>
         <div class="cosmo-toolbar is--profile">
           <div class="cosmo-toolbar__group">
-            <button :disabled="isMe" class="cosmo-button" x-localize:artists-action-edit
-                    @click="openEditDialog"></button>
-            <button :disabled="isMe || selectedArtist.enabled" class="cosmo-button"
-                    x-localize:artists-action-enable @click="enableArtist"></button>
-            <button :disabled="isMe || !selectedArtist.enabled" class="cosmo-button"
-                    x-localize:artists-action-disable @click="disableArtist"></button>
-            <button :disabled="isMe || selectedArtist.totpMode === 'email'" class="cosmo-button"
-                    x-localize:artists-action-reset_totp @click="resetTotp"></button>
+            <button
+              :disabled="isMe"
+              class="cosmo-button"
+              x-localize:artists-action-edit
+              @click="openEditDialog"
+            ></button>
+            <button
+              :disabled="isMe || selectedArtist.enabled"
+              class="cosmo-button"
+              x-localize:artists-action-enable
+              @click="enableArtist"
+            ></button>
+            <button
+              :disabled="isMe || !selectedArtist.enabled"
+              class="cosmo-button"
+              x-localize:artists-action-disable
+              @click="disableArtist"
+            ></button>
+            <button
+              :disabled="isMe || selectedArtist.totpMode === 'email'"
+              class="cosmo-button"
+              x-localize:artists-action-reset_totp
+              @click="resetTotp"
+            ></button>
           </div>
           <div class="cosmo-toolbar__group">
-            <button :disabled="isMe" class="cosmo-button" x-localize:artists-action-delete
-                    @click="deleteArtist"></button>
+            <button
+              :disabled="isMe"
+              class="cosmo-button"
+              x-localize:artists-action-delete
+              @click="deleteArtist"
+            ></button>
           </div>
         </div>
         <div x-html="selectedArtist.aboutMe"></div>
@@ -62,15 +94,35 @@
             <input required type="password" id="createArtistPassword" class="cosmo-input" x-model="create.password" />
             <span class="cosmo-label is--checkbox" x-localize:artists-create-roles></span>
             <div class="cosmo-input__group is--checkbox">
-              <input checked type="checkbox" id="createArtistIsReader" class="cosmo-checkbox" value="ROLE_READER" x-model="create.roles" />
+              <input
+                checked
+                type="checkbox"
+                id="createArtistIsReader"
+                class="cosmo-checkbox"
+                value="ROLE_READER"
+                x-model="create.roles"
+              />
               <label for="createArtistIsReader" x-localize:artists-create-is_reader></label>
             </div>
             <div class="cosmo-input__group is--checkbox">
-              <input checked type="checkbox" id="createArtistIsWriter" class="cosmo-checkbox" value="ROLE_WRITER" x-model="create.roles" />
+              <input
+                checked
+                type="checkbox"
+                id="createArtistIsWriter"
+                class="cosmo-checkbox"
+                value="ROLE_WRITER"
+                x-model="create.roles"
+              />
               <label for="createArtistIsWriter" x-localize:artists-create-is_writer></label>
             </div>
             <div class="cosmo-input__group is--checkbox">
-              <input type="checkbox" id="createArtistIsAdmin" class="cosmo-checkbox" value="ROLE_ADMIN" x-model="create.roles" />
+              <input
+                type="checkbox"
+                id="createArtistIsAdmin"
+                class="cosmo-checkbox"
+                value="ROLE_ADMIN"
+                x-model="create.roles"
+              />
               <label for="createArtistIsAdmin" x-localize:artists-create-is_admin></label>
             </div>
           </div>
@@ -100,15 +152,35 @@
             <input type="password" id="editArtistPassword" class="cosmo-input" x-model="edit.password" />
             <span class="cosmo-label is--checkbox" x-localize:artists-edit-roles></span>
             <div class="cosmo-input__group is--checkbox">
-              <input checked type="checkbox" id="editArtistIsReader" class="cosmo-checkbox" value="ROLE_READER" x-model="edit.roles" />
+              <input
+                checked
+                type="checkbox"
+                id="editArtistIsReader"
+                class="cosmo-checkbox"
+                value="ROLE_READER"
+                x-model="edit.roles"
+              />
               <label for="editArtistIsReader" x-localize:artists-edit-is_reader></label>
             </div>
             <div class="cosmo-input__group is--checkbox">
-              <input checked type="checkbox" id="editArtistIsWriter" class="cosmo-checkbox" value="ROLE_WRITER" x-model="edit.roles" />
+              <input
+                checked
+                type="checkbox"
+                id="editArtistIsWriter"
+                class="cosmo-checkbox"
+                value="ROLE_WRITER"
+                x-model="edit.roles"
+              />
               <label for="editArtistIsWriter" x-localize:artists-edit-is_writer></label>
             </div>
             <div class="cosmo-input__group is--checkbox">
-              <input type="checkbox" id="editArtistIsAdmin" class="cosmo-checkbox" value="ROLE_ADMIN" x-model="edit.roles" />
+              <input
+                type="checkbox"
+                id="editArtistIsAdmin"
+                class="cosmo-checkbox"
+                value="ROLE_ADMIN"
+                x-model="edit.roles"
+              />
               <label for="editArtistIsAdmin" x-localize:artists-edit-is_admin></label>
             </div>
           </div>

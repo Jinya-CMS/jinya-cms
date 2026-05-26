@@ -5,6 +5,7 @@ namespace Jinya\Cms\Database;
 use Jinya\Cms\Database\Converter\BooleanConverter;
 use Jinya\Cms\Database\Converter\NullableBooleanConverter;
 use Iterator;
+use Jinya\Cms\Logging\Logger;
 use Jinya\Database\Attributes\Column;
 use Jinya\Database\Attributes\Id;
 use Jinya\Database\Attributes\Table;
@@ -91,8 +92,13 @@ class MenuItem
      * @param int $position
      * @return MenuItem|null
      */
-    public static function findByMenuAndPosition(int $menuId, int $position): ?MenuItem
+    public static function findByMenuAndPosition(int $menuId, int $position): ?self
     {
+        $logger = Logger::getLogger();
+        $logger->debug('Find menu item by position and menu', [
+            'menuId' => $menuId,
+            'position' => $position
+        ]);
         $query = self::getQueryBuilder()
             ->newSelect()
             ->from(self::getTableName())
@@ -112,7 +118,7 @@ class MenuItem
                 'route',
                 'blog_home_page'
             ])
-            ->where('menu_id = :menuId AND position = :position', ['menuId' => $menuId, 'position' => $position]);
+            ->where('menu_id = :menuId and position = :position', ['menuId' => $menuId, 'position' => $position]);
 
         /** @var array<string, mixed>[] $data */
         $data = self::executeQuery($query);
@@ -131,8 +137,13 @@ class MenuItem
      * @param int $position
      * @return MenuItem|null
      */
-    public static function findByMenuItemAndPosition(int $parentId, int $position): ?MenuItem
+    public static function findByMenuItemAndPosition(int $parentId, int $position): ?self
     {
+        $logger = Logger::getLogger();
+        $logger->debug('Find menu item by position and menu item', [
+            'menuItemId' => $parentId,
+            'position' => $position
+        ]);
         $query = self::getQueryBuilder()
             ->newSelect()
             ->from(self::getTableName())
@@ -153,7 +164,7 @@ class MenuItem
                 'blog_home_page'
             ])
             ->where(
-                'parent_id = :parentId AND position = :position',
+                'parent_id = :parentId and position = :position',
                 ['parentId' => $parentId, 'position' => $position]
             );
 
@@ -173,8 +184,12 @@ class MenuItem
      * @param null|string $route
      * @return MenuItem|null
      */
-    public static function findByRoute(?string $route): ?MenuItem
+    public static function findByRoute(?string $route): ?self
     {
+        $logger = Logger::getLogger();
+        $logger->debug('Find menu item by route', [
+            'route' => $route
+        ]);
         $query = self::getQueryBuilder()
             ->newSelect()
             ->from(self::getTableName())
@@ -195,7 +210,7 @@ class MenuItem
                 'blog_home_page'
             ])
             ->where(
-                'route = :route OR route = :routeWithTrailingSlash',
+                'route = :route or route = :routeWithTrailingSlash',
                 ['route' => $route, 'routeWithTrailingSlash' => "/$route"]
             );
 
@@ -217,6 +232,10 @@ class MenuItem
      */
     public static function findByMenu(int $menuId): Iterator
     {
+        $logger = Logger::getLogger();
+        $logger->debug('Find all menu items by menu', [
+            'menuId' => $menuId,
+        ]);
         $query = self::getQueryBuilder()
             ->newSelect()
             ->from(self::getTableName())
@@ -252,7 +271,7 @@ class MenuItem
      *
      * @return MenuItem|null
      */
-    public function getParent(): ?MenuItem
+    public function getParent(): ?self
     {
         if ($this->parentId !== null) {
             return self::findById($this->parentId);
@@ -452,6 +471,10 @@ class MenuItem
      */
     public static function findByParent(int $parentId): Iterator
     {
+        $logger = Logger::getLogger();
+        $logger->debug('Find menu item by parent menu item', [
+            'menuItemId' => $parentId,
+        ]);
         $query = self::getQueryBuilder()
             ->newSelect()
             ->from(self::getTableName())

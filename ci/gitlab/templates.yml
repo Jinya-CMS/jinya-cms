@@ -16,13 +16,13 @@
 
 .javascript-lint:
   image:
-    name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/library/node:latest
+    name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/oven/bun:latest
     pull_policy: always
   stage: lint
   before_script:
-    - npm install
+    - bun install
   script:
-    - npm run $SCRIPT
+    - bun run $SCRIPT
   cache:
     key: jinya-cms-node_modules-${CI_COMMIT_BRANCH}
     paths:
@@ -83,6 +83,12 @@
           - amd64
         IMAGE_TYPE: cli
         SUFFIX: -cli
+      # Frankenphp images suffix
+      - ARCH:
+          - arm64
+          - amd64
+        IMAGE_TYPE: frankenphp
+        SUFFIX: -frankenphp
   tags:
     - runner-$ARCH
 
@@ -105,3 +111,4 @@
           - ""
           - -apache
           - -cli
+          - -frankenphp
