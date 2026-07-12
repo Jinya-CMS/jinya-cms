@@ -282,7 +282,9 @@ paths:
   /api/statistics/{group}/{years}/year:
     $ref: paths/api_statistics_{group}_{years}_year.yaml
   /api/statistics/visits/{months}/month:
-    $ref: paths/api_statistics_{group}_{months}_month.yaml
+    $ref: "paths/api_statistics_visits_{months}_month.yaml"
+  /api/statistics/visits/{years}/year:
+    $ref: "paths/api_statistics_visits_{years}_year.yaml"
   /api/statistics/visits/{months}/month/{entityType}/{entityId}:
     $ref: paths/api_statistics_visits_{interval}_month_{entityType}_{entityId}.yaml
   /api/statistics/visits/{years}/year/{entityType}/{entityId}:
