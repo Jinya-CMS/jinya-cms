@@ -234,6 +234,7 @@ class FrontendController extends BaseController
     {
         /** @var Database\AnalyticsEntry|null $analyticsEntry */
         $analyticsEntry = null;
+        $route = explode('?', $route)[0];
 
         return $this->executeErrorHandled(function () use ($route, $analyticsEntry) {
             if ($route === '' || $route === '/') {
@@ -289,6 +290,7 @@ class FrontendController extends BaseController
     #[Route(HttpMethod::POST, '[{route:(?!api\/)}]')]
     public function postForm(string $route): ResponseInterface
     {
+        $route = explode('?', $route)[0];
         $menuItem = MenuItem::findByRoute($route);
         if ($menuItem !== null) {
             if ($menuItem->formId !== null) {

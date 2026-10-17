@@ -3,6 +3,10 @@
 Check the current changelog [here](https://jinya.plan.jinya.de/public/jinya-cms/JCMS/changelog). Don't miss on out on
 the roadmap [here](https://jinya.plan.jinya.de/public/jinya-cms/JCMS/roadmap).
 
+## Release notes - Jinya CMS - Version 26.3.1
+
+- JCMS-39 Query params break frontend routing
+
 ## Release notes - Jinya CMS - Version 26.3.0
 
 - JCMS-1 Prettify mails
