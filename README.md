@@ -1,3 +1,6 @@
+# DEPRECATED
+As of October 2026 Jinya CMS is deprecated and was fully replaced by [Jinya CMS Goji](https://github.com/Jinya-CMS/jinya-goji/).
+
 # [Jinya CMS](https://jinya.de)
 
 The Jinya CMS is a content management system specifically designed and developed for the needs of artists and designers.
